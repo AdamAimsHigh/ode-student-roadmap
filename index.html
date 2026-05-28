@@ -15,6 +15,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
     
+    <!-- Math.js for robust local mathematical parsing and evaluation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
@@ -899,6 +902,220 @@
         .chapter-quiz-status {
             align-self: center;
         }
+        
+        /* Slope Field Generator Styles */
+        .slope-field-container {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .slope-field-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 992px) {
+            .slope-field-layout {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+        
+        .slope-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .control-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .slope-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slope-input-prefix {
+            position: absolute;
+            left: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #6366f1;
+            pointer-events: none;
+        }
+        
+        .slope-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Outfit', 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        .slope-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+        
+        .presets-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        
+        .preset-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-family: monospace;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .preset-pill:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .slider-control {
+            width: 100%;
+            height: 6px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 3px;
+            outline: none;
+            accent-color: #6366f1;
+        }
+        
+        .slider-value {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            float: right;
+        }
+        
+        .slope-btn-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .slope-btn-primary {
+            flex-grow: 1;
+            background: var(--accent-gradient);
+            border: none;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .slope-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        
+        .slope-btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        
+        .slope-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+        
+        .slope-error-box {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: #f87171;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            display: none;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        .slope-visualizer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .canvas-wrapper {
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            background: #0b0f19;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: crosshair;
+            display: flex;
+        }
+        
+        #slope-canvas {
+            display: block;
+            background: transparent;
+        }
+        
+        .canvas-label-hint {
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 </head>
 <body>
@@ -1004,6 +1221,262 @@
             }
         }
 
+        // ==========================================
+        // SLOPE FIELD GENERATOR MATHEMATICAL LOGIC
+        // ==========================================
+        let particularCurves = [];
+        const xMin = -5, xMax = 5;
+        const yMin = -5, yMax = 5;
+
+        function toPixelX(x, canvas) {
+            return ((x - xMin) / (xMax - xMin)) * canvas.width;
+        }
+
+        function toPixelY(y, canvas) {
+            return canvas.height - (((y - yMin) / (yMax - yMin)) * canvas.height);
+        }
+
+        function toCartesianX(px, canvas) {
+            return xMin + (px / canvas.width) * (xMax - xMin);
+        }
+
+        function toCartesianY(py, canvas) {
+            return yMin + ((canvas.height - py) / canvas.height) * (yMax - yMin);
+        }
+
+        function getMathFunction(exprStr) {
+            if (typeof math !== 'undefined') {
+                try {
+                    const parsed = math.parse(exprStr);
+                    const compiled = parsed.compile();
+                    return (x, y) => {
+                        const val = compiled.evaluate({ x: x, y: y });
+                        if (typeof val === 'object' && val.isComplex) return NaN;
+                        return Number(val);
+                    };
+                } catch (err) {
+                    throw new Error("Invalid equation: " + err.message);
+                }
+            } else {
+                console.warn("Math.js CDN not available, running fallback evaluator.");
+                let jsExpr = exprStr
+                    .replace(/\^/g, '**')
+                    .replace(/sin/g, 'Math.sin')
+                    .replace(/cos/g, 'Math.cos')
+                    .replace(/tan/g, 'Math.tan')
+                    .replace(/exp/g, 'Math.exp')
+                    .replace(/log/g, 'Math.log')
+                    .replace(/pi/g, 'Math.PI')
+                    .replace(/e/g, 'Math.E')
+                    .replace(/abs/g, 'Math.abs')
+                    .replace(/sqrt/g, 'Math.sqrt');
+                    
+                return (x, y) => {
+                    try {
+                        const fn = new Function('x', 'y', `return (${jsExpr});`);
+                        return Number(fn(x, y));
+                    } catch (err) {
+                        throw new Error("Invalid equation or Math.js unavailable: " + err.message);
+                    }
+                };
+            }
+        }
+
+        function integrateRK4(x0, y0, fn, direction, canvas) {
+            const points = [];
+            let x = x0;
+            let y = y0;
+            const h = direction * 0.04;
+            const maxSteps = 150;
+            
+            points.push({ x: x, y: y });
+            
+            for (let step = 0; step < maxSteps; step++) {
+                const k1 = fn(x, y);
+                if (isNaN(k1) || !isFinite(k1)) break;
+                
+                const x_half = x + h / 2;
+                const y_k1 = y + (h * k1) / 2;
+                const k2 = fn(x_half, y_k1);
+                if (isNaN(k2) || !isFinite(k2)) break;
+                
+                const y_k2 = y + (h * k2) / 2;
+                const k3 = fn(x_half, y_k2);
+                if (isNaN(k3) || !isFinite(k3)) break;
+                
+                const x_next = x + h;
+                const y_k3 = y + h * k3;
+                const k4 = fn(x_next, y_k3);
+                if (isNaN(k4) || !isFinite(k4)) break;
+                
+                const slope = (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+                y = y + h * slope;
+                x = x_next;
+                
+                if (x < xMin - 0.5 || x > xMax + 0.5 || y < yMin - 0.5 || y > yMax + 0.5) {
+                    break;
+                }
+                
+                points.push({ x: x, y: y });
+            }
+            return points;
+        }
+
+        function drawSlopeFieldOnCanvas() {
+            const canvas = document.getElementById('slope-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            
+            for (let x = xMin; x <= xMax; x += 1) {
+                const px = toPixelX(x, canvas);
+                ctx.beginPath();
+                ctx.moveTo(px, 0);
+                ctx.lineTo(px, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = yMin; y <= yMax; y += 1) {
+                const py = toPixelY(y, canvas);
+                ctx.beginPath();
+                ctx.moveTo(0, py);
+                ctx.lineTo(canvas.width, py);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '10px Inter, sans-serif';
+            
+            const pY0 = toPixelY(0, canvas);
+            ctx.beginPath();
+            ctx.moveTo(0, pY0);
+            ctx.lineTo(canvas.width, pY0);
+            ctx.stroke();
+            
+            const pX0 = toPixelX(0, canvas);
+            ctx.beginPath();
+            ctx.moveTo(pX0, 0);
+            ctx.lineTo(pX0, canvas.height);
+            ctx.stroke();
+            
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            for (let x = xMin; x <= xMax; x += 1) {
+                if (x !== 0) {
+                    ctx.fillText(x.toString(), toPixelX(x, canvas), pY0 + 5);
+                }
+            }
+            
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            for (let y = yMin; y <= yMax; y += 1) {
+                if (y !== 0) {
+                    ctx.fillText(y.toString(), pX0 - 5, toPixelY(y, canvas));
+                }
+            }
+            
+            const exprInput = document.getElementById('slope-expr');
+            const densityInput = document.getElementById('slope-density');
+            const lengthInput = document.getElementById('slope-length');
+            const errorBox = document.getElementById('slope-error');
+            
+            const exprStr = exprInput ? exprInput.value.trim() : "y - x";
+            const density = densityInput ? parseInt(densityInput.value) : 20;
+            const vectorLength = lengthInput ? parseInt(lengthInput.value) : 7;
+            
+            if (errorBox) errorBox.style.display = 'none';
+            
+            let derivativeFn;
+            try {
+                derivativeFn = getMathFunction(exprStr);
+            } catch (err) {
+                if (errorBox) {
+                    errorBox.innerText = err.message;
+                    errorBox.style.display = 'block';
+                }
+                return;
+            }
+            
+            const dxCartesian = (xMax - xMin) / density;
+            const dyCartesian = (yMax - yMin) / density;
+            
+            for (let i = 0.5; i < density; i++) {
+                const x = xMin + i * dxCartesian;
+                for (let j = 0.5; j < density; j++) {
+                    const y = yMin + j * dyCartesian;
+                    
+                    let slope = derivativeFn(x, y);
+                    if (isNaN(slope) || !isFinite(slope)) continue;
+                    
+                    const px = toPixelX(x, canvas);
+                    const py = toPixelY(y, canvas);
+                    
+                    const angle = Math.atan(slope);
+                    
+                    const dxPixel = Math.cos(angle) * (vectorLength / 2);
+                    const dyPixel = Math.sin(angle) * (vectorLength / 2);
+                    
+                    const hue = Math.round(180 + (angle / (Math.PI / 2)) * 80);
+                    ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.75)`;
+                    ctx.lineWidth = 1.5;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(px - dxPixel, py + dyPixel);
+                    ctx.lineTo(px + dxPixel, py - dyPixel);
+                    ctx.stroke();
+                }
+            }
+            
+            particularCurves.forEach(curve => {
+                if (curve.points.length < 2) return;
+                
+                ctx.strokeStyle = curve.color;
+                ctx.lineWidth = 3;
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+                
+                ctx.shadowColor = curve.color;
+                ctx.shadowBlur = 8;
+                
+                ctx.beginPath();
+                ctx.moveTo(toPixelX(curve.points[0].x, canvas), toPixelY(curve.points[0].y, canvas));
+                for (let idx = 1; idx < curve.points.length; idx++) {
+                    ctx.lineTo(toPixelX(curve.points[idx].x, canvas), toPixelY(curve.points[idx].y, canvas));
+                }
+                ctx.stroke();
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowBlur = 12;
+                ctx.beginPath();
+                ctx.arc(toPixelX(curve.x0, canvas), toPixelY(curve.y0, canvas), 5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.shadowBlur = 0;
+            });
+        }
+
+        window.generateSlopeField = () => {
+            drawSlopeFieldOnCanvas();
+        };
+
+        window.resetSlopeField = () => {
+            particularCurves = [];
+            drawSlopeFieldOnCanvas();
+        };
+
+        window.loadSlopePreset = (expr) => {
+            const exprInput = document.getElementById('slope-expr');
+            if (exprInput) {
+                exprInput.value = expr;
+                generateSlopeField();
+            }
+        };
+
         function buildDashboard() {
             // Clean dynamic components
             // Build the catalog
@@ -1089,6 +1562,91 @@
                 });
 
                 section.appendChild(grid);
+
+                if (chapter.ch_number === 1) {
+                    const generatorDiv = document.createElement('div');
+                    generatorDiv.className = 'glass-panel slope-field-container';
+                    generatorDiv.innerHTML = `
+                        <div class="chapter-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 0.75rem; margin-bottom: 0.5rem;">
+                            <h3 class="chapter-title" style="font-size: 1.3rem; display: flex; align-items: center; gap: 8px;">
+                                🌀 Interactive Slope Field Generator
+                            </h3>
+                            <div class="chapter-desc" style="font-size: 0.85rem;">
+                                Visualize the geometry of first-order ordinary differential equations $\\frac{dy}{dx} = f(x, y)$ in real-time.
+                            </div>
+                        </div>
+                        
+                        <div class="slope-field-layout">
+                            <!-- Left Controls -->
+                            <div class="slope-controls">
+                                <div class="control-group">
+                                    <label class="control-label">Differential Equation</label>
+                                    <div class="slope-input-wrapper">
+                                        <span class="slope-input-prefix">dy/dx =</span>
+                                        <input type="text" class="slope-input" id="slope-expr" value="y - x" placeholder="y - x">
+                                    </div>
+                                    <div class="presets-wrapper">
+                                        <span class="preset-pill" onclick="loadSlopePreset('y - x')">y - x</span>
+                                        <span class="preset-pill" onclick="loadSlopePreset('x * y')">x * y</span>
+                                        <span class="preset-pill" onclick="loadSlopePreset('sin(x)')">sin(x)</span>
+                                        <span class="preset-pill" onclick="loadSlopePreset('y * (1 - y)')">y * (1 - y)</span>
+                                        <span class="preset-pill" onclick="loadSlopePreset('-x / y')">-x / y</span>
+                                        <span class="preset-pill" onclick="loadSlopePreset('x^2 - y')">x^2 - y</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        Grid Density 
+                                        <span class="slider-value" id="density-val">20</span>
+                                    </label>
+                                    <input type="range" class="slider-control" id="slope-density" min="10" max="30" value="20">
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        Vector Length
+                                        <span class="slider-value" id="length-val">7</span>
+                                    </label>
+                                    <input type="range" class="slider-control" id="slope-length" min="3" max="15" value="7" step="1">
+                                </div>
+                                
+                                <div class="slope-error-box" id="slope-error"></div>
+                                
+                                <div class="slope-btn-group">
+                                    <button class="slope-btn-primary" onclick="generateSlopeField()">
+                                        ⚡ Generate Field
+                                    </button>
+                                    <button class="slope-btn-secondary" onclick="resetSlopeField()">
+                                        Clear Curves
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Canvas Visualizer -->
+                            <div class="slope-visualizer">
+                                <div class="canvas-wrapper">
+                                    <canvas id="slope-canvas" width="500" height="500"></canvas>
+                                </div>
+                                <div class="canvas-label-hint">
+                                    💡 Click anywhere on the grid to plot particular solution curves (RK4 integration)
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    section.appendChild(generatorDiv);
+                    
+                    // Render Math inside the newly added generatorDiv
+                    if (typeof renderMathInElement === 'function') {
+                        renderMathInElement(generatorDiv, {
+                            delimiters: [
+                                {left: "$$", right: "$$", display: true},
+                                {left: "$", right: "$", display: false}
+                            ]
+                        });
+                    }
+                }
+
                 contentContainer.appendChild(section);
             });
 
@@ -1134,6 +1692,72 @@
             });
 
             updateProgress();
+
+            // ==========================================
+            // SLOPE FIELD DYNAMIC INITIALIZATION
+            // ==========================================
+            setTimeout(() => {
+                const canvas = document.getElementById('slope-canvas');
+                if (canvas) {
+                    // Canvas click particular solution curve plotting
+                    canvas.addEventListener('click', (e) => {
+                        const rect = canvas.getBoundingClientRect();
+                        const px = e.clientX - rect.left;
+                        const py = e.clientY - rect.top;
+                        
+                        const x0 = toCartesianX(px, canvas);
+                        const y0 = toCartesianY(py, canvas);
+                        
+                        const exprInput = document.getElementById('slope-expr');
+                        const exprStr = exprInput ? exprInput.value.trim() : "y - x";
+                        
+                        try {
+                            const derivativeFn = getMathFunction(exprStr);
+                            
+                            const forwardPoints = integrateRK4(x0, y0, derivativeFn, 1, canvas);
+                            const backwardPoints = integrateRK4(x0, y0, derivativeFn, -1, canvas);
+                            const mergedPoints = [...backwardPoints.reverse(), ...forwardPoints];
+                            
+                            const neonColors = ['#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#3b82f6'];
+                            const randomColor = neonColors[particularCurves.length % neonColors.length];
+                            
+                            particularCurves.push({
+                                x0: x0,
+                                y0: y0,
+                                points: mergedPoints,
+                                color: randomColor
+                            });
+                            
+                            drawSlopeFieldOnCanvas();
+                        } catch (err) {
+                            console.error("Error drawing solution curve: ", err);
+                        }
+                    });
+
+                    // Grid Density range slider change listener
+                    const densitySlider = document.getElementById('slope-density');
+                    const densityVal = document.getElementById('density-val');
+                    if (densitySlider && densityVal) {
+                        densitySlider.addEventListener('input', (e) => {
+                            densityVal.innerText = e.target.value;
+                            generateSlopeField();
+                        });
+                    }
+                    
+                    // Vector Length range slider change listener
+                    const lengthSlider = document.getElementById('slope-length');
+                    const lengthVal = document.getElementById('length-val');
+                    if (lengthSlider && lengthVal) {
+                        lengthSlider.addEventListener('input', (e) => {
+                            lengthVal.innerText = e.target.value;
+                            generateSlopeField();
+                        });
+                    }
+
+                    // Render the initial field with y - x preset
+                    generateSlopeField();
+                }
+            }, 100);
         }
 
         // ==========================================
