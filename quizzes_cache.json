@@ -1,0 +1,145 @@
+{
+  "inline_7Y-frhf-1Zk_definitions": {
+    "quiz_id": "inline_7Y-frhf-1Zk_definitions",
+    "chapter_number": 2,
+    "video_id": "7Y-frhf-1Zk",
+    "title": "Micro-Practice: Separation of Variables",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "Which of the following forms represents a first-order differential equation that is classified as separable?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dy}{dt} = f(t) + g(y)$",
+            "rationale": "This form represents an additive relationship between functions of $t$ and $y$, which is generally not separable. For separation of variables, the functions of $t$ and $y$ must be multiplicative.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{dy}{dt} = f(t)g(y)$",
+            "rationale": "The lecture explicitly states that a first-order differential equation is separable if it can be written as the product of some function entirely in terms of $t$ and some function entirely in terms of $y$, i.e., $y' = f(t)g(y)$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\frac{dy}{dt} = \\frac{f(t)}{g(y)}$",
+            "rationale": "While this form can be rearranged into the separable form $g(y)\\frac{dy}{dt} = f(t)$, the most general and direct definition given in the lecture for a separable ODE is a product of functions $f(t)$ and $g(y)$. The form $y' = f(t)g(y)$ covers this case as well (by defining a new $g(y)$ as $1/g_{old}(y)$).",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{dy}{dt} = \\frac{d^2y}{dt^2} + f(t)$",
+            "rationale": "This equation involves a second derivative, $\\frac{d^2y}{dt^2}$, making it a second-order differential equation, not a first-order one. Separation of variables is typically applied to first-order equations.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the general form discussed after the exponential growth example. It should be a product of a function of $t$ and a function of $y$."
+      },
+      {
+        "questionNumber": 2,
+        "question": "Given a separable differential equation $\\frac{dy}{dt} = f(t)g(y)$, what is the first algebraic manipulation step typically performed to prepare for integration, according to the formal method described in the lecture?",
+        "answerOptions": [
+          {
+            "text": "Integrating both sides with respect to $t$.",
+            "rationale": "Integrating both sides is a subsequent step, not the first algebraic manipulation. The variables must be separated first.",
+            "isCorrect": false
+          },
+          {
+            "text": "Differentiating both sides with respect to $t$.",
+            "rationale": "Differentiating the equation would introduce higher-order derivatives and is not part of the separation of variables method.",
+            "isCorrect": false
+          },
+          {
+            "text": "Rewriting the equation as $\\frac{1}{g(y)} \\frac{dy}{dt} = f(t)$.",
+            "rationale": "The lecture demonstrates that the first step is to rearrange the equation so that all terms involving $y$ (including $\\frac{dy}{dt}$) are on one side and all terms involving $t$ are on the other. This involves dividing by $g(y)$ to achieve $\\frac{1}{g(y)} \\frac{dy}{dt} = f(t)$.",
+            "isCorrect": true
+          },
+          {
+            "text": "Substituting $y(t) = C e^{kt}$ into the equation.",
+            "rationale": "Substituting a potential solution is a method for verifying a solution, not a general step in solving a differential equation using separation of variables. This specific substitution is for the exponential growth model.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Think about the goal of 'separating' the variables: grouping $y$ terms with $dy$ and $t$ terms with $dt$ (or $dt$ terms alone)."
+      },
+      {
+        "questionNumber": 3,
+        "question": "In the formal derivation of the separation of variables method, the differential $dy$ is defined as a change of variables. Which expression correctly defines $dy$ in terms of $t$?",
+        "answerOptions": [
+          {
+            "text": "$dy = \\frac{dy}{dt} + dt$",
+            "rationale": "This expression incorrectly adds a derivative term to a differential term; it does not represent the change of variables as described.",
+            "isCorrect": false
+          },
+          {
+            "text": "$dy = \\frac{dt}{dy} dt$",
+            "rationale": "This expression has the derivative inverted and then multiplied by $dt$, which is not the correct change of variables definition for $dy$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$dy = \\frac{dy}{dt} dt$",
+            "rationale": "The lecture explicitly states that $dy$ is defined as $dy = \\frac{dy}{dt} dt$ for the purpose of the change of variables, allowing the integral on the left side to be entirely in terms of $y$. This is presented as defining something new called $dy$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$dy = \\int \\frac{dy}{dt} dt$",
+            "rationale": "This expression equates a differential $dy$ to an integral, which is dimensionally and conceptually incorrect in this context.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "This is the 'convenient fiction' or change of variables step that allows integrals to be separated by variable. It links the derivative $\\frac{dy}{dt}$ to the differentials $dy$ and $dt$."
+      },
+      {
+        "questionNumber": 4,
+        "question": "After integrating both sides of a separable differential equation, what essential constant must always be included in the solution?",
+        "answerOptions": [
+          {
+            "text": "A constant of proportionality, $k$.",
+            "rationale": "A constant of proportionality, such as $k$ in $y' = ky$, is part of the original differential equation and not a constant introduced during indefinite integration.",
+            "isCorrect": false
+          },
+          {
+            "text": "A multiplicative constant, $C_m$.",
+            "rationale": "While an additive constant of integration can become a multiplicative constant after exponentiation (e.g., $e^{kt+C} = e^{kt}e^C = C_m e^{kt}$), the constant directly resulting from indefinite integration is additive.",
+            "isCorrect": false
+          },
+          {
+            "text": "An additive constant of integration, $C$.",
+            "rationale": "The lecture repeatedly emphasizes, 'then I always have to remember to add the plus $C$ my additive constant of integration.' This constant arises from indefinite integration and represents the family of solutions.",
+            "isCorrect": true
+          },
+          {
+            "text": "A singular constant, $S$.",
+            "rationale": "A 'singular constant' is not a standard term for a constant introduced by integration. Singular solutions are a separate concept.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember what happens when you perform an indefinite integral. There's always an arbitrary constant."
+      },
+      {
+        "questionNumber": 5,
+        "question": "What type of solution might be *missed* by the standard separation of variables methodology and often arises when $g(y) = 0$ in the separable form $\\frac{dy}{dt} = f(t)g(y)$?",
+        "answerOptions": [
+          {
+            "text": "The general solution.",
+            "rationale": "The general solution is precisely what the separation of variables method aims to find (excluding the specific case of missed solutions).",
+            "isCorrect": false
+          },
+          {
+            "text": "An implicit solution.",
+            "rationale": "An implicit solution is a common outcome of the separation of variables method, but it is not a *missed* solution; it's a form of solution found by the method.",
+            "isCorrect": false
+          },
+          {
+            "text": "A homogeneous solution.",
+            "rationale": "Homogeneous solutions are typically associated with linear homogeneous differential equations and are not the specific type of solution that is often missed by separation of variables.",
+            "isCorrect": false
+          },
+          {
+            "text": "A singular solution.",
+            "rationale": "The lecture introduces the concept of a 'singular solution' (e.g., $y=0$ for the example $\\frac{dy}{dx} = xy/(y^2+1)$) which satisfies the differential equation but is not derivable from the general solution obtained through separation of variables, often because the division by $g(y)$ is invalid when $g(y)=0$.",
+            "isCorrect": true
+          }
+        ],
+        "hint": "Recall the discussion about $y=0$ in the second example and the challenges associated with it, particularly when dividing by a function of $y$ that can be zero."
+      }
+    ]
+  }
+}
