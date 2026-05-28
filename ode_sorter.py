@@ -2277,6 +2277,16 @@ def export_to_html(syllabus, output_path):
 
             feedbackBox.style.display = 'block';
 
+            // Render Math in feedback/rationale box dynamically
+            if (typeof renderMathInElement === 'function') {{
+                renderMathInElement(feedbackBox, {{
+                    delimiters: [
+                        {{left: "$$", right: "$$", display: true}},
+                        {{left: "$", right: "$", display: false}}
+                    ]
+                }});
+            }}
+
             const isLastQuestion = currentQuestionIdx === currentQuiz.questions.length - 1;
             if (isLastQuestion) {{
                 submitBtn.innerText = 'View Results 🏆';
