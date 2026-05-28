@@ -164,8 +164,9 @@ PEDAGOGICAL_SECTIONS = [
 # Checkpoint Quizzes Database
 # Dynamically integrated into dashboard chapters
 QUIZZES = {
-    "1": {
+    "ch1_mastery_checkpoint": {
         "quiz_id": "ch1_mastery_checkpoint",
+        "chapter_number": 1,
         "title": "Chapter 1 Mastery: Foundations & Geometry",
         "questions": [
             {
@@ -552,6 +553,128 @@ QUIZZES = {
                     }
                 ],
                 "hint": "Read the equation aloud: 'The derivative of y with respect to t equals a constant k times the quantity y minus twenty.'"
+            }
+        ]
+    },
+    "inline_1_1_definitions": {
+        "quiz_id": "inline_1_1_definitions",
+        "chapter_number": 1,
+        "title": "Micro-Practice: Defining Differential Equations",
+        "questions": [
+            {
+                "questionNumber": 1,
+                "question": "What is the defining characteristic that separates a differential equation from a standard algebraic equation?",
+                "answerOptions": [
+                    {
+                        "text": "A differential equation contains unknown variables.",
+                        "rationale": "Incorrect. Both types of equations contain unknown variables.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "A differential equation seeks an unknown function rather than an unknown static value.",
+                        "rationale": "Correct! Algebraic equations seek a specific number (or numbers), while differential equations seek an entire function (or family of curves) that satisfies a rate of change.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "A differential equation must contain integrals.",
+                        "rationale": "Incorrect. While integration is used to solve them, the equation itself is defined by the presence of derivatives, not integrals.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "A differential equation can only have one solution.",
+                        "rationale": "Incorrect. Differential equations often have infinite families of solutions.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Think about the 'statics to dynamics' shift discussed in the lesson. What are you actually trying to find when you solve $\\frac{dy}{dx} = 2x$?"
+            },
+            {
+                "questionNumber": 2,
+                "question": "In the differential equation modeling radioactive decay, $\\frac{dN}{dt} = -\\lambda N$, identify the independent variable.",
+                "answerOptions": [
+                    {
+                        "text": "$N$ (the amount of substance)",
+                        "rationale": "Incorrect. $N$ is the dependent variable, as its value depends on how much time has passed.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$\\lambda$ (the decay constant)",
+                        "rationale": "Incorrect. $\\lambda$ is a constant parameter, not a variable.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$t$ (time)",
+                        "rationale": "Correct! Time ($t$) drives the system. We are measuring the rate of change of the substance *with respect to* time.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "Both $N$ and $t$",
+                        "rationale": "Incorrect. An ODE has one dependent and one independent variable.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Look at the denominator of the derivative fraction. What is the system changing *with respect to*?"
+            },
+            {
+                "questionNumber": 3,
+                "question": "Which of the following is an example of an Ordinary Differential Equation (ODE)?",
+                "answerOptions": [
+                    {
+                        "text": "$x^2 - 4x + 4 = 0$",
+                        "rationale": "Incorrect. This is a standard algebraic quadratic equation, containing no derivatives.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$\\frac{\\partial u}{\\partial t} = \\alpha \\frac{\\partial^2 u}{\\partial x^2}$",
+                        "rationale": "Incorrect. The presence of partial derivatives ($\\partial$) makes this a Partial Differential Equation (PDE).",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$y = e^{2x} + C$",
+                        "rationale": "Incorrect. This is a solution (a function), not a differential equation itself.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$m\\frac{d^2x}{dt^2} + c\\frac{dx}{dt} + kx = 0$",
+                        "rationale": "Correct! This equation (modeling a damped harmonic oscillator) contains ordinary derivatives of a single dependent variable ($x$) with respect to a single independent variable ($t$).",
+                        "isCorrect": True
+                    }
+                ],
+                "hint": "An ODE must contain standard derivatives (like $\\frac{dy}{dx}$ or $y'$), not partial derivatives."
+            },
+            {
+                "questionNumber": 4,
+                "question": "True or False: The general solution to an ODE represents a single, unique curve in the coordinate plane.",
+                "answerOptions": [
+                    {
+                        "text": "True",
+                        "rationale": "Incorrect. A single unique curve represents a *particular* solution.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "False",
+                        "rationale": "Correct! The general solution contains arbitrary constants (like $+C$), representing an infinite family of possible curves. An initial condition is required to isolate a unique curve.",
+                        "isCorrect": True
+                    }
+                ],
+                "hint": "What does the arbitrary constant '$C$' in an integration result imply geometrically?"
+            },
+            {
+                "questionNumber": 5,
+                "question": "A student encounters the equation $y' = 5y$. They state that $y$ is the independent variable. Is this correct?",
+                "answerOptions": [
+                    {
+                        "text": "Yes, because $y$ is on the right side of the equation.",
+                        "rationale": "Incorrect. The position of a variable in the algebraic arrangement does not determine its dependency.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "No, $y$ is the dependent variable.",
+                        "rationale": "Correct! The notation $y'$ implies a derivative of $y$ with respect to some other variable (usually $x$ or $t$). Therefore, $y$ depends on that other variable.",
+                        "isCorrect": True
+                    }
+                ],
+                "hint": "What does the prime notation ($y'$) fundamentally mean? It is shorthand for the derivative of $y$ with respect to what?"
             }
         ]
     }
@@ -2460,28 +2583,39 @@ def export_to_html(syllabus, output_path):
             // Clean dynamic components
             // Build the catalog
             syllabusData.forEach((chapter, chIdx) => {{
-                // Determine if a quiz exists for this chapter
-                const hasQuiz = quizzesData[chapter.ch_number] ? true : false;
+                // Get all quizzes for this chapter
+                const chapterQuizzes = Object.values(quizzesData).filter(q => q.chapter_number == chapter.ch_number);
                 let quizBtnHtml = '';
-                let sidebarQuizStatus = '';
+                let passedQuizzesCount = 0;
                 
-                if (hasQuiz) {{
-                    const quizId = quizzesData[chapter.ch_number].quiz_id;
+                chapterQuizzes.forEach(quiz => {{
+                    const quizId = quiz.quiz_id;
                     const isPassed = completedQuizzes[quizId] && completedQuizzes[quizId].completed;
                     
                     if (isPassed) {{
-                        quizBtnHtml = `
-                            <div class="quiz-passed-badge" id="passed-badge-${{quizId}}">
-                                <span>✓ Passed Checkpoint</span>
+                        passedQuizzesCount++;
+                        quizBtnHtml += `
+                            <div class="quiz-passed-badge" id="passed-badge-${{quizId}}" style="margin-top: 8px;">
+                                <span>✓ Passed: ${{quiz.title.split(':')[0]}}</span>
                             </div>
                         `;
-                        sidebarQuizStatus = ' <span class="sidebar-passed-dot" title="Quiz Passed" style="color: #34d399; margin-left: 5px;">✓</span>';
                     }} else {{
-                        quizBtnHtml = `
-                            <button class="quiz-badge-btn" id="quiz-btn-${{quizId}}" onclick="openQuiz('${{chapter.ch_number}}')">
-                                📝 Take Checkpoint Quiz
+                        const icon = quizId.includes('mastery') ? '🏆' : '📝';
+                        const label = quizId.includes('mastery') ? 'Chapter Mastery' : 'Micro-Practice';
+                        quizBtnHtml += `
+                            <button class="quiz-badge-btn" id="quiz-btn-${{quizId}}" onclick="openQuiz('${{quizId}}', '${{chapter.ch_number}}')" style="margin-top: 8px; margin-right: 6px;">
+                                ${{icon}} ${{label}}
                             </button>
                         `;
+                    }}
+                }});
+                
+                let sidebarQuizStatus = '';
+                if (chapterQuizzes.length > 0) {{
+                    if (passedQuizzesCount === chapterQuizzes.length) {{
+                        sidebarQuizStatus = ' <span class="sidebar-passed-dot" title="All Quizzes Passed" style="color: #34d399; margin-left: 5px;">✓</span>';
+                    }} else if (passedQuizzesCount > 0) {{
+                        sidebarQuizStatus = ' <span class="sidebar-passed-dot" title="Some Quizzes Passed" style="color: #f59e0b; margin-left: 5px;">•</span>';
                     }}
                 }}
 
@@ -2752,8 +2886,8 @@ def export_to_html(syllabus, output_path):
         const modalOverlay = document.getElementById('quiz-modal-container');
         const quizContentArea = document.getElementById('quiz-content-area');
 
-        function openQuiz(chapterNum) {{
-            currentQuiz = quizzesData[chapterNum];
+        function openQuiz(quizId, chapterNum) {{
+            currentQuiz = quizzesData[quizId];
             currentQuizChapter = chapterNum;
             if (!currentQuiz) return;
 
@@ -2952,7 +3086,7 @@ def export_to_html(syllabus, output_path):
                     <p class="results-sub">${{message}}</p>
 
                     <div class="quiz-actions" style="justify-content: center;">
-                        <button class="quiz-btn-secondary" onclick="openQuiz('${{currentQuizChapter}}')">Retry Quiz 🔄</button>
+                        <button class="quiz-btn-secondary" onclick="openQuiz('${{currentQuiz.quiz_id}}', '${{currentQuizChapter}}')">Retry Quiz 🔄</button>
                         <button class="quiz-btn-primary" onclick="closeQuiz()">Back to Study Guide</button>
                     </div>
                 </div>
