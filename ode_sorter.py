@@ -681,6 +681,16 @@ QUIZZES = {
     }
 }
 
+# Load any dynamically generated micro quizzes from cache
+if os.path.exists("quizzes_cache.json"):
+    try:
+        with open("quizzes_cache.json", "r", encoding="utf-8") as f:
+            dynamic_quizzes = json.load(f)
+            QUIZZES.update(dynamic_quizzes)
+            print(f"[*] Loaded {len(dynamic_quizzes)} dynamic micro quizzes from 'quizzes_cache.json'")
+    except Exception as e:
+        print(f"[!] Warning: Could not load quizzes_cache.json: {e}")
+
 
 def print_banner():
     """Prints a beautiful title banner in the terminal."""
