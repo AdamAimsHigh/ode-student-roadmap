@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODE Playlist Study Dashboard</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --glow-color: rgba(99, 102, 241, 0.4);
+            --card-bg: rgba(30, 41, 59, 0.45);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success-color: #10b981;
+            --sidebar-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, .chapter-title {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+
+        /* Header block */
+        header {
+            position: relative;
+            padding: 3rem 2rem 2.5rem;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid var(--card-border);
+            backdrop-filter: blur(8px);
+        }
+
+        .glow-circle {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            font-weight: 300;
+        }
+
+        /* Progress Dashboard Banner */
+        .progress-banner {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .progress-info {
+            text-align: left;
+        }
+
+        .progress-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-percentage {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .progress-track-bg {
+            flex-grow: 1;
+            height: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Main Grid Layout */
+        .app-container {
+            max-width: 1500px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Sidebar Navigation & Filters */
+        .sidebar {
+            width: var(--sidebar-width);
+            flex-shrink: 0;
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 6rem);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .glass-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reset-btn {
+            font-size: 0.75rem;
+            color: #ef4444;
+            background: none;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        .filter-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 0.25rem;
+        }
+
+        .filter-item {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+        }
+
+        .filter-item.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--text-primary);
+            border-color: rgba(99, 102, 241, 0.3);
+            font-weight: 600;
+        }
+
+        .filter-badge {
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+
+        .filter-item.active .filter-badge {
+            background: var(--accent-gradient);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* Chapter Section */
+        .chapter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            scroll-margin-top: 2rem;
+            transition: opacity 0.3s;
+        }
+
+        .chapter-header {
+            border-bottom: 2px solid rgba(99, 102, 241, 0.25);
+            padding-bottom: 0.75rem;
+        }
+
+        .chapter-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .chapter-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* Video Card Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Video Card */
+        .video-card {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 
+                        0 0 15px 0 rgba(99, 102, 241, 0.1);
+        }
+
+        .video-card.watched {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            overflow: hidden;
+        }
+
+        .thumbnail-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover .thumbnail-img {
+            transform: scale(1.05);
+        }
+
+        /* Checkbox watched layer */
+        .card-checkbox-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1.5px solid var(--card-border);
+            padding: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .card-checkbox-label:hover {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        .card-checkbox {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .card-checkbox:checked {
+            background: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .card-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        .orig-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.85);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(4px);
+            font-weight: 500;
+        }
+
+        .video-details {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .video-title-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.2s;
+        }
+
+        .video-title-link:hover {
+            color: #a855f7;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+        }
+
+        .play-btn {
+            width: 100%;
+            padding: 0.65rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .play-btn:hover {
+            background: var(--accent-gradient);
+            border-color: transparent;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+            transform: scale(1.02);
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            .progress-banner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="glow-circle"></div>
+        <div class="header-container">
+            <h1>Ordinary Differential Equations</h1>
+            <p>A logically ordered, educational study guide of the 57-video learning playlist.</p>
+            
+            <div class="progress-banner">
+                <div class="progress-info">
+                    <div class="progress-title">Your Progress</div>
+                    <div class="progress-percentage" id="progress-text">0% (0 / 57)</div>
+                </div>
+                <div class="progress-track-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation and Topic Filter -->
+        <div class="sidebar">
+            <div class="glass-panel" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+                <div class="sidebar-title">
+                    <span>Syllabus Chapters</span>
+                    <button class="reset-btn" id="reset-progress">Reset Progress</button>
+                </div>
+                <ul class="filter-list" id="chapters-nav">
+                    <li class="filter-item active" data-filter="all">
+                        <span>All Chapters</span>
+                        <span class="filter-badge" id="badge-all">57</span>
+                    </li>
+                    <!-- Categories list dynamically generated -->
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Main Videos List Container -->
+        <div class="content-area" id="content-container">
+            <!-- Chapters and Video grids dynamically generated -->
+        </div>
+        
+    </div>
+
+    <!-- Syllabus Data & Controller Script -->
+    <script>
+        const syllabusData = [{"ch_number": 1, "name": "1. Foundations & Definitions", "description": "Introduction to differential equations, identifying order, degree, and solutions.", "videos": [{"title": "DIFFERENTIAL EQUATIONS explained in 21 Minutes", "id": "R2QtleY5asQ", "url": "https://www.youtube.com/watch?v=R2QtleY5asQ", "orig_index": 47}, {"title": "What is a DIFFERENTIAL EQUATION??   **Intro to my full ODE course**", "id": "B5IjsTONKkw", "url": "https://www.youtube.com/watch?v=B5IjsTONKkw", "orig_index": 34}, {"title": "Differential equations, a tourist's guide | DE1", "id": "p_di4Zn4wz4", "url": "https://www.youtube.com/watch?v=p_di4Zn4wz4", "orig_index": 2}, {"title": "Overview of Differential Equations", "id": "ghjOS7Q82s0", "url": "https://www.youtube.com/watch?v=ghjOS7Q82s0", "orig_index": 23}, {"title": "Introduction to Differential Equations", "id": "QbkWlNf2Xtw", "url": "https://www.youtube.com/watch?v=QbkWlNf2Xtw", "orig_index": 46}, {"title": "🔵01 - Differential Equations, Order, Degree, Ordinary and Partial Differential Equation", "id": "uoOpCGdktQ4", "url": "https://www.youtube.com/watch?v=uoOpCGdktQ4", "orig_index": 5}, {"title": "Differential Equations - Introduction, Order and Degree, Solutions to DE", "id": "hiL356ExeIw", "url": "https://www.youtube.com/watch?v=hiL356ExeIw", "orig_index": 1}, {"title": "The Key Definitions of Differential Equations: ODE, order, solution, initial condition, IVP", "id": "C3WKwB5gBqI", "url": "https://www.youtube.com/watch?v=C3WKwB5gBqI", "orig_index": 35}, {"title": "🔵02 - Order and Degree of a Differential Equation : Exercise", "id": "aXW69HPiPzE", "url": "https://www.youtube.com/watch?v=aXW69HPiPzE", "orig_index": 6}, {"title": "🔵03 - Linear and Non-Linear Differential Equations: Solved Examples", "id": "fDvxPdqWjkQ", "url": "https://www.youtube.com/watch?v=fDvxPdqWjkQ", "orig_index": 7}, {"title": "The Calculus You Need", "id": "f0BxAtprWts", "url": "https://www.youtube.com/watch?v=f0BxAtprWts", "orig_index": 24}, {"title": "🔵04a - Solution to a given Differential Equation - Introduction", "id": "sOKctbWGnSk", "url": "https://www.youtube.com/watch?v=sOKctbWGnSk", "orig_index": 8}, {"title": "🔵04b - Solution to a given Differential Equation - More Examples (NEW)", "id": "s0tG__GIMqU", "url": "https://www.youtube.com/watch?v=s0tG__GIMqU", "orig_index": 9}, {"title": "🔵05a - Differential Equation: Form Differentiation Equation by Eliminating Arbitrary Constants", "id": "qBNYAqQ_Glo", "url": "https://www.youtube.com/watch?v=qBNYAqQ_Glo", "orig_index": 10}, {"title": "🔵05b - Differential Equation: Form Differentiation Equation by Eliminating Arbitrary Constants 2", "id": "4tcvZU4ACho", "url": "https://www.youtube.com/watch?v=4tcvZU4ACho", "orig_index": 11}, {"title": "🔵06a - Initial and Boundary Value Problems: Find the arbitrary constants c1 and c2", "id": "_lp33noEO50", "url": "https://www.youtube.com/watch?v=_lp33noEO50", "orig_index": 12}, {"title": "🔵06b - Initial and Boundary Value Problems: Find the arbitrary constants c1 and c2", "id": "3d5M3G9vDVU", "url": "https://www.youtube.com/watch?v=3d5M3G9vDVU", "orig_index": 13}, {"title": "🔵07 - Particular Solution of a Differential Equation given the Initial / Boundary Conditions", "id": "2urpuhYVc14", "url": "https://www.youtube.com/watch?v=2urpuhYVc14", "orig_index": 14}]}, {"ch_number": 2, "name": "2. First-Order Separable Equations", "description": "Solving separable ODEs and early physical models.", "videos": [{"title": "Separation of Variables //  Differential Equations", "id": "7Y-frhf-1Zk", "url": "https://www.youtube.com/watch?v=7Y-frhf-1Zk", "orig_index": 36}, {"title": "🔵08 - First Order Separable Differential Equations 1 - Methods of Solving Differential Equations", "id": "wU0gYqxZT1g", "url": "https://www.youtube.com/watch?v=wU0gYqxZT1g", "orig_index": 15}, {"title": "🔵09a - First Order Separable Differential Equations 2 - Methods of Solving Differential Equations", "id": "4XgyHnERlWU", "url": "https://www.youtube.com/watch?v=4XgyHnERlWU", "orig_index": 16}, {"title": "🔵09b - First Order Separable Differential Equations 3 - Methods of Solving Differential Equations", "id": "dMl4khm4E-w", "url": "https://www.youtube.com/watch?v=dMl4khm4E-w", "orig_index": 17}, {"title": "Newton's Law of Cooling  // Separable ODE Example", "id": "_bAjWNsNrQA", "url": "https://www.youtube.com/watch?v=_bAjWNsNrQA", "orig_index": 37}]}, {"ch_number": 3, "name": "3. Linear First-Order Equations & Integrating Factors", "description": "Using integrating factors to solve linear first-order differential equations.", "videos": [{"title": "First Order Linear Differential Equations", "id": "gd1FYn86P0c", "url": "https://www.youtube.com/watch?v=gd1FYn86P0c", "orig_index": 3}, {"title": "Linear Differential Equations & the Method of Integrating Factors", "id": "2H6BZHlD_3g", "url": "https://www.youtube.com/watch?v=2H6BZHlD_3g", "orig_index": 40}, {"title": "The Method of Integrating Factors for Linear 1st Order ODEs **full example**", "id": "20x2dNVztlU", "url": "https://www.youtube.com/watch?v=20x2dNVztlU", "orig_index": 41}, {"title": "Integrating Factor for Constant Rate", "id": "MJUjSKew4nQ", "url": "https://www.youtube.com/watch?v=MJUjSKew4nQ", "orig_index": 29}, {"title": "Integrating Factor for a Varying Rate", "id": "qJOQOkJ7rI8", "url": "https://www.youtube.com/watch?v=qJOQOkJ7rI8", "orig_index": 30}]}, {"ch_number": 4, "name": "4. Homogeneous Equations", "description": "Handling homogeneous functions and first-order homogeneous ODEs.", "videos": [{"title": "🔵10 - Homogeneous Functions (Intro to Homogeneous First Order Differential Equations)", "id": "TjmVeZpajz8", "url": "https://www.youtube.com/watch?v=TjmVeZpajz8", "orig_index": 18}, {"title": "🔵11a - Homogeneous First Order Differential Equations (Solved Examples)", "id": "3y37ug3NON8", "url": "https://www.youtube.com/watch?v=3y37ug3NON8", "orig_index": 19}, {"title": "🔵11b - Homogeneous First Order Differential Equations (Solved Examples 4-5)", "id": "Iqzf5gMTP-c", "url": "https://www.youtube.com/watch?v=Iqzf5gMTP-c", "orig_index": 20}]}, {"ch_number": 5, "name": "5. Exact Equations & Substitutions", "description": "Checking for exactness, finding potential functions, and Bernoulli equations.", "videos": [{"title": "Exact Equations [ODE]", "id": "pgJci5CI9n4", "url": "https://www.youtube.com/watch?v=pgJci5CI9n4", "orig_index": 4}, {"title": "🔵12a - Exact Differential Equations (Solving Exact Differential Equations)", "id": "qS2zicoG9yg", "url": "https://www.youtube.com/watch?v=qS2zicoG9yg", "orig_index": 21}, {"title": "🔵12b - Exact Differential Equations (Solving Exact Differential Equations)", "id": "80BuQopXUMM", "url": "https://www.youtube.com/watch?v=80BuQopXUMM", "orig_index": 22}, {"title": "The Bernoulli Equation // Substitutions in Differential Equations", "id": "iCN8nGXE29o", "url": "https://www.youtube.com/watch?v=iCN8nGXE29o", "orig_index": 42}]}, {"ch_number": 6, "name": "6. Qualitative Analysis, Slope Fields & Stability", "description": "Visualizing slope fields, verifying existence/uniqueness, and analyzing steady states.", "videos": [{"title": "The Geometric Meaning of Differential Equations // Slope Fields, Integral Curves & Isoclines", "id": "ccDMpj2UK_M", "url": "https://www.youtube.com/watch?v=ccDMpj2UK_M", "orig_index": 38}, {"title": "The Big Theorem of Differential Equations: Existence & Uniqueness", "id": "_WpncZ3RkTg", "url": "https://www.youtube.com/watch?v=_WpncZ3RkTg", "orig_index": 39}, {"title": "Autonomous Equations, Equilibrium Solutions, and Stability", "id": "pZOmToxx-R8", "url": "https://www.youtube.com/watch?v=pZOmToxx-R8", "orig_index": 43}, {"title": "The Stability and Instability of Steady States", "id": "NmntYoB1uJg", "url": "https://www.youtube.com/watch?v=NmntYoB1uJg", "orig_index": 32}, {"title": "The Logistic Growth Differential Equation", "id": "aP4YXOo-Uko", "url": "https://www.youtube.com/watch?v=aP4YXOo-Uko", "orig_index": 44}, {"title": "The Logistic Equation", "id": "TCkLSYxx21c", "url": "https://www.youtube.com/watch?v=TCkLSYxx21c", "orig_index": 31}]}, {"ch_number": 7, "name": "7. Frequency Response & Exponential Inputs", "description": "Analyzing responses to exponential, oscillating, complex, and general inputs.", "videos": [{"title": "Response to Exponential Input", "id": "CB9I4mwpQ5E", "url": "https://www.youtube.com/watch?v=CB9I4mwpQ5E", "orig_index": 25}, {"title": "Response to Oscillating Input", "id": "xw3ccgYhFis", "url": "https://www.youtube.com/watch?v=xw3ccgYhFis", "orig_index": 26}, {"title": "Response to Complex Exponential", "id": "kIT2uMxYh6M", "url": "https://www.youtube.com/watch?v=kIT2uMxYh6M", "orig_index": 28}, {"title": "Solution for Any Input", "id": "0r2L3wTqkBc", "url": "https://www.youtube.com/watch?v=0r2L3wTqkBc", "orig_index": 27}]}, {"ch_number": 8, "name": "8. Second-Order Linear Equations", "description": "Intro to higher-order systems, superposition, and linear independence.", "videos": [{"title": "Second Order Equations", "id": "xCCeV-glFdM", "url": "https://www.youtube.com/watch?v=xCCeV-glFdM", "orig_index": 33}, {"title": "The Theory of 2nd Order ODEs // Existence & Uniqueness, Superposition, & Linear Independence", "id": "VpZOuOJ_ob4", "url": "https://www.youtube.com/watch?v=VpZOuOJ_ob4", "orig_index": 45}]}, {"ch_number": 9, "name": "9. Second-Order Linear Equations (Non-Homogeneous)", "description": "Solving non-homogeneous equations using undetermined coefficients and variation of parameters.", "videos": [{"title": "Method of Undetermined Coefficients", "id": "P3fc6v191mA", "url": "https://www.youtube.com/watch?v=P3fc6v191mA", "orig_index": 48}, {"title": "Undetermined Coefficients (Conceptual Breakdown)", "id": "AgyeJEO2a-k", "url": "https://www.youtube.com/watch?v=AgyeJEO2a-k", "orig_index": 49}, {"title": "Variation of Parameters (Analytical Method)", "id": "Ik3YW1JGr_A", "url": "https://www.youtube.com/watch?v=Ik3YW1JGr_A", "orig_index": 50}, {"title": "Variation of Parameters (Examples)", "id": "wSMad7QpaqE", "url": "https://www.youtube.com/watch?v=wSMad7QpaqE", "orig_index": 51}]}, {"ch_number": 10, "name": "10. The Laplace Transform", "description": "Using Laplace transforms to solve initial value problems with discontinuous or impulse forcing functions.", "videos": [{"title": "Visualizing the Laplace Transform", "id": "j0wJBEZdwLs", "url": "https://www.youtube.com/watch?v=j0wJBEZdwLs", "orig_index": 52}, {"title": "Introduction to the Laplace Transform (Calculations)", "id": "KqokoYr_h1A", "url": "https://www.youtube.com/watch?v=KqokoYr_h1A", "orig_index": 53}, {"title": "Solving Initial Value Problems with Laplace Transforms", "id": "fuxFrpaMLtw", "url": "https://www.youtube.com/watch?v=fuxFrpaMLtw", "orig_index": 54}]}, {"ch_number": 11, "name": "11. Systems of Linear Differential Equations", "description": "Transforming higher-order equations into first-order systems, using eigenvalues and phase portraits.", "videos": [{"title": "Introduction to Systems of Differential Equations", "id": "-00_YLHlFE0", "url": "https://www.youtube.com/watch?v=-00_YLHlFE0", "orig_index": 55}, {"title": "Solving Systems with Real, Distinct Eigenvalues", "id": "fsnEIYEZc3Y", "url": "https://www.youtube.com/watch?v=fsnEIYEZc3Y", "orig_index": 56}, {"title": "Phase Portraits of Linear Systems", "id": "UO_dgXa5szg", "url": "https://www.youtube.com/watch?v=UO_dgXa5szg", "orig_index": 57}]}];
+
+        // DOM Elements
+        const chaptersNav = document.getElementById('chapters-nav');
+        const contentContainer = document.getElementById('content-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const resetProgressBtn = document.getElementById('reset-progress');
+
+        // Watch state management
+        let watchedVideos = JSON.parse(localStorage.getItem('watched_videos') || '[]');
+
+        function updateProgress() {
+            const totalVideos = 57;
+            const watchedCount = watchedVideos.length;
+            const percentage = totalVideos > 0 ? Math.round((watchedCount / totalVideos) * 100) : 0;
+            
+            progressBar.style.width = percentage + '%';
+            progressText.innerText = percentage + '% (' + watchedCount + ' / ' + totalVideos + ')';
+        }
+
+        function toggleVideoWatch(videoId, isChecked) {
+            if (isChecked) {
+                if (!watchedVideos.includes(videoId)) {
+                    watchedVideos.push(videoId);
+                }
+            } else {
+                watchedVideos = watchedVideos.filter(id => id !== videoId);
+            }
+            localStorage.setItem('watched_videos', JSON.stringify(watchedVideos));
+            updateProgress();
+            
+            // Toggle visual class
+            const card = document.getElementById('card-' + videoId);
+            if (card) {
+                if (isChecked) {
+                    card.classList.add('watched');
+                } else {
+                    card.classList.remove('watched');
+                }
+            }
+        }
+
+        function buildDashboard() {
+            // Clean dynamic components
+            // Build the catalog
+            syllabusData.forEach((chapter, chIdx) => {
+                // 1. Generate Sidebar Nav item
+                const navItem = document.createElement('li');
+                navItem.className = 'filter-item';
+                navItem.setAttribute('data-filter', 'chapter-' + chapter.ch_number);
+                navItem.innerHTML = `
+                    <span>Ch. ${chapter.ch_number} - ${chapter.name.split('.')[1] ? chapter.name.split('.')[1].trim() : chapter.name}</span>
+                    <span class="filter-badge">${chapter.videos.length}</span>
+                `;
+                chaptersNav.appendChild(navItem);
+
+                // 2. Generate Chapter Section block
+                const section = document.createElement('section');
+                section.className = 'chapter-section';
+                section.id = 'chapter-' + chapter.ch_number;
+                
+                section.innerHTML = `
+                    <div class="chapter-header">
+                        <h2 class="chapter-title">${chapter.name}</h2>
+                        <div class="chapter-desc">${chapter.description}</div>
+                    </div>
+                `;
+
+                const grid = document.createElement('div');
+                grid.className = 'video-grid';
+
+                chapter.videos.forEach(video => {
+                    const isWatched = watchedVideos.includes(video.id);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'video-card' + (isWatched ? ' watched' : '');
+                    card.id = 'card-' + video.id;
+                    
+                    card.innerHTML = `
+                        <div class="thumbnail-container">
+                            <label class="card-checkbox-label">
+                                <input type="checkbox" class="card-checkbox" data-id="${video.id}" ${isWatched ? 'checked' : ''}>
+                            </label>
+                            <span class="orig-badge">#${video.orig_index}</span>
+                            <img class="thumbnail-img" src="https://img.youtube.com/vi/${video.id}/mqdefault.jpg" alt="Video Thumbnail" loading="lazy">
+                        </div>
+                        <div class="video-details">
+                            <a href="${video.url}" target="_blank" class="video-title-link" title="${video.title}">${video.title}</a>
+                            <a href="${video.url}" target="_blank" class="play-btn">Play Video</a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                contentContainer.appendChild(section);
+            });
+
+            // Wire up event listeners
+            document.querySelectorAll('.card-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    toggleVideoWatch(e.target.getAttribute('data-id'), e.target.checked);
+                });
+            });
+
+            // Wire up Chapter filters
+            document.querySelectorAll('.filter-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const clickedItem = e.currentTarget;
+                    document.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
+                    clickedItem.classList.add('active');
+                    
+                    const filter = clickedItem.getAttribute('data-filter');
+                    
+                    document.querySelectorAll('.chapter-section').forEach(section => {
+                        if (filter === 'all' || section.id === filter) {
+                            section.style.display = 'flex';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Wire up reset button
+            resetProgressBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset your study progress?')) {
+                    watchedVideos = [];
+                    localStorage.removeItem('watched_videos');
+                    document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
+                    document.querySelectorAll('.video-card').forEach(card => card.classList.remove('watched'));
+                    updateProgress();
+                }
+            });
+
+            updateProgress();
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', buildDashboard);
+    </script>
+</body>
+</html>

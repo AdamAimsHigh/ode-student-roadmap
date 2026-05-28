@@ -1,0 +1,18 @@
+# Sensitive credentials and tokens
+token.json
+client_secrets.json
+.env
+.env.*
+
+# Python cache and systems
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Local workspace backups or temp
+.idea/
+.vscode/
+*.log
