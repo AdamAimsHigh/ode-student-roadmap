@@ -165,39 +165,39 @@ PEDAGOGICAL_SECTIONS = [
 # Dynamically integrated into dashboard chapters
 QUIZZES = {
     "1": {
-        "quiz_id": "module_1_foundations",
-        "title": "Checkpoint Quiz: ODE Foundations & Geometry",
+        "quiz_id": "ch1_mastery_checkpoint",
+        "title": "Chapter 1 Mastery: Foundations & Geometry",
         "questions": [
             {
                 "questionNumber": 1,
-                "question": "Which of the following equations is considered a strictly linear Ordinary Differential Equation?",
+                "question": "Which of the following equations is a strictly linear Ordinary Differential Equation?",
                 "answerOptions": [
                     {
                         "text": "$\\frac{d^2y}{dx^2} + y\\frac{dy}{dx} = 0$",
-                        "rationale": "Incorrect. The product of the dependent variable $y$ and its derivative $\\frac{dy}{dx}$ violates the condition of linearity.",
+                        "rationale": "Incorrect. The product of $y$ and its derivative violates linearity.",
                         "isCorrect": False
                     },
                     {
-                        "text": "$x^2\\frac{d^2y}{dx^2} + x\\frac{dy}{dx} + y = \\sin(x)$",
-                        "rationale": "Correct! The dependent variable $y$ and its derivatives all appear to the first power, and there are no transcendental functions applied to $y$. The variable coefficients ($x^2, x$) depend only on the independent variable.",
+                        "text": "$x^2\\frac{d^2y}{dx^2} + x\\frac{dy}{dx} + y = e^x$",
+                        "rationale": "Correct! The dependent variable $y$ and its derivatives all appear to the first power, with no transcendental functions applied to $y$.",
                         "isCorrect": True
                     },
                     {
-                        "text": "$\\frac{dy}{dx} + \\cos(y) = x$",
-                        "rationale": "Incorrect. The term $\\cos(y)$ applies a transcendental function to the dependent variable, making the equation non-linear.",
+                        "text": "$\\frac{dy}{dx} + \\sin(y) = x$",
+                        "rationale": "Incorrect. The transcendental function $\\sin(y)$ applied to the dependent variable makes it nonlinear.",
                         "isCorrect": False
                     },
                     {
                         "text": "$(\\frac{dy}{dx})^2 + y = 3x$",
-                        "rationale": "Incorrect. The first derivative is raised to the second power, which violates linearity.",
+                        "rationale": "Incorrect. The first derivative is raised to the second power.",
                         "isCorrect": False
                     }
                 ],
-                "hint": "Remember the three rules of linearity: no products of $y$ and its derivatives, no powers of $y$ or its derivatives other than 1, and no transcendental functions applied to $y$."
+                "hint": "Check the power of $y$ and its derivatives. Are there any functions like sine or cosine wrapped around $y$?"
             },
             {
                 "questionNumber": 2,
-                "question": "Determine the order and the degree of the following differential equation: $\\sqrt{1 + (\\frac{dy}{dx})^2} = \\frac{d^2y}{dx^2}$",
+                "question": "Determine the order and degree of the following ODE: $\\sqrt{1 + (\\frac{dy}{dx})^2} = y\\frac{d^2y}{dx^2}$",
                 "answerOptions": [
                     {
                         "text": "Order 2, Degree 1",
@@ -206,102 +206,352 @@ QUIZZES = {
                     },
                     {
                         "text": "Order 1, Degree 2",
-                        "rationale": "Incorrect. The highest derivative present is the second derivative, so the order must be 2.",
+                        "rationale": "Incorrect. The highest derivative is the second derivative.",
                         "isCorrect": False
                     },
                     {
                         "text": "Order 2, Degree 2",
-                        "rationale": "Correct! Squaring both sides to clear the radical yields $1 + (\\frac{dy}{dx})^2 = (\\frac{d^2y}{dx^2})^2$. The highest derivative is the second derivative (Order 2), and it is raised to the second power (Degree 2).",
+                        "rationale": "Correct! Squaring both sides yields $1 + (\\frac{dy}{dx})^2 = y^2(\\frac{d^2y}{dx^2})^2$. The highest derivative is the second derivative (Order 2), raised to the second power (Degree 2).",
                         "isCorrect": True
                     },
                     {
-                        "text": "Order 1, Degree 1",
-                        "rationale": "Incorrect. The highest derivative is the second derivative, and you must rationalize the equation first.",
+                        "text": "Order 2, Degree 3",
+                        "rationale": "Incorrect. After squaring, the second derivative is raised to the second power.",
                         "isCorrect": False
                     }
                 ],
-                "hint": "Before you can determine the degree, you must clear any fractional powers or radicals that involve derivatives."
+                "hint": "You must clear any radicals involving derivatives before checking the algebraic power of the highest derivative."
             },
             {
                 "questionNumber": 3,
-                "question": "A student solves an ODE and obtains the general solution $y(x) = C e^{2x}$. What does the arbitrary constant '$C$' represent geometrically?",
+                "question": "What is the primary difference between an Ordinary Differential Equation (ODE) and a Partial Differential Equation (PDE)?",
                 "answerOptions": [
                     {
-                        "text": "The rate at which the function grows.",
-                        "rationale": "Incorrect. The growth rate is determined by the constant '2' in the exponent.",
+                        "text": "An ODE contains only first derivatives, while a PDE contains higher-order derivatives.",
+                        "rationale": "Incorrect. ODEs can have derivatives of any order.",
                         "isCorrect": False
                     },
                     {
-                        "text": "An infinite family of potential solution curves.",
-                        "rationale": "Correct! The constant $C$ indicates that the single rate law describes an infinite family of valid trajectories. An Initial Value Problem (IVP) is required to collapse this family down to a single, specific curve.",
+                        "text": "An ODE has only one dependent variable, while a PDE has multiple.",
+                        "rationale": "Incorrect. Both can have multiple dependent variables.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "An ODE depends on a single independent variable, while a PDE depends on two or more independent variables.",
+                        "rationale": "Correct! ODEs use standard derivatives $\\frac{dy}{dx}$, while PDEs use partial derivatives $\\frac{\\partial u}{\\partial t}$ because the function changes with respect to multiple inputs.",
                         "isCorrect": True
                     },
                     {
-                        "text": "An equilibrium point where the derivative is zero.",
-                        "rationale": "Incorrect. An equilibrium is a constant solution $y(x) = k$, which is different from the arbitrary constant of integration.",
-                        "isCorrect": False
-                    },
-                    {
-                        "text": "The independent variable of the system.",
-                        "rationale": "Incorrect. The independent variable in this system is $x$.",
+                        "text": "An ODE models physical systems, while a PDE models purely theoretical systems.",
+                        "rationale": "Incorrect. Both model real physical systems (e.g., population growth vs. heat diffusion).",
                         "isCorrect": False
                     }
                 ],
-                "hint": "Does a differential equation without initial conditions point to a single answer, or a collection of possible answers?"
+                "hint": "Look at the word 'Partial'. Why do we take partial derivatives in Calculus 3?"
             },
             {
                 "questionNumber": 4,
-                "question": "When analyzing the slope field for an autonomous differential equation of the form $\\frac{dy}{dx} = f(y)$, which geometric feature will always be present?",
+                "question": "If an ODE is defined as autonomous, such as $\\frac{dy}{dx} = y(1-y)$, what geometric feature will its slope field display?",
                 "answerOptions": [
                     {
-                        "text": "The slopes will be constant along every vertical line.",
-                        "rationale": "Incorrect. That behavior occurs when the ODE depends only on $x$, such as $\\frac{dy}{dx} = f(x)$.",
-                        "isCorrect": False
-                    },
-                    {
-                        "text": "All solution curves will be parabolas.",
-                        "rationale": "Incorrect. Autonomous equations frequently model exponential growth, decay, or logistic curves, not necessarily parabolas.",
-                        "isCorrect": False
-                    },
-                    {
-                        "text": "The slopes will be constant along every horizontal line.",
-                        "rationale": "Correct! Because the rate of change $f(y)$ depends *only* on the $y$-value and not on $x$, every point on a horizontal line $y=k$ will have the exact same slope.",
+                        "text": "Slopes will be constant along any horizontal line.",
+                        "rationale": "Correct! Because the rate of change depends only on $y$, changing the $x$-coordinate (moving left or right) does not change the slope.",
                         "isCorrect": True
                     },
                     {
-                        "text": "The slope will be zero at the origin.",
-                        "rationale": "Incorrect. The slope at the origin is only zero if $f(0) = 0$, which is not guaranteed for all autonomous equations.",
+                        "text": "Slopes will be constant along any vertical line.",
+                        "rationale": "Incorrect. This happens when the ODE depends only on $x$.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "All slopes will point toward the origin.",
+                        "rationale": "Incorrect. That describes a specific radial field, not the general property of an autonomous equation.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The slope field will have no equilibrium solutions.",
+                        "rationale": "Incorrect. Autonomous equations frequently have equilibrium solutions where $f(y) = 0$.",
                         "isCorrect": False
                     }
                 ],
-                "hint": "If the formula for the slope does not contain an '$x$', does moving left or right across the coordinate plane change the slope?"
+                "hint": "If the formula for the derivative does not contain an '$x$', does moving horizontally across the plane change the calculation?"
             },
             {
                 "questionNumber": 5,
-                "question": "Consider the differential equation $\\frac{dy}{dx} = y - 2$. Without solving the equation analytically, what can you deduce about the solution $y(x) = 2$?",
+                "question": "A student finds the general solution to a first-order ODE to be $y(x) = C e^{3x}$. What mathematical mechanism is required to find the particular solution?",
                 "answerOptions": [
                     {
-                        "text": "It is a stable equilibrium solution.",
-                        "rationale": "Incorrect. While it is an equilibrium, if $y > 2$ the slope is positive (moving away), and if $y < 2$ the slope is negative (moving away).",
+                        "text": "Taking the second derivative of the general solution.",
+                        "rationale": "Incorrect. Differentiating again will not isolate $C$.",
                         "isCorrect": False
                     },
                     {
-                        "text": "It is an unstable equilibrium solution.",
-                        "rationale": "Correct! Plugging in $y=2$ yields $\\frac{dy}{dx} = 0$, making it an equilibrium. However, solutions slightly above 2 will have a positive slope and diverge upwards, and solutions below 2 will have a negative slope and diverge downwards. Therefore, it is unstable.",
+                        "text": "Applying an Initial Condition to solve for $C$.",
+                        "rationale": "Correct! An Initial Value Problem (IVP) provides a specific coordinate $(x_0, y_0)$ that locks the infinite family of curves into one specific path.",
                         "isCorrect": True
                     },
                     {
-                        "text": "It is the only valid solution.",
-                        "rationale": "Incorrect. $y=2$ is a particular equilibrium solution, but there is an infinite family of other general solutions.",
+                        "text": "Setting the equation equal to zero and factoring.",
+                        "rationale": "Incorrect. This is an algebraic technique, not a differential one.",
                         "isCorrect": False
                     },
                     {
-                        "text": "It is not a valid solution because the derivative is zero.",
-                        "rationale": "Incorrect. A derivative of zero simply means the function is constant, which is a perfectly valid dynamic state (equilibrium).",
+                        "text": "Adding a second arbitrary constant.",
+                        "rationale": "Incorrect. First-order equations only generate one constant of integration.",
                         "isCorrect": False
                     }
                 ],
-                "hint": "Plug $y=2$ into the derivative formula. What happens to the slope if $y$ is 2.1? What if $y$ is 1.9?"
+                "hint": "The general solution represents an infinite family of curves. How do you pin down exactly one curve?"
+            },
+            {
+                "questionNumber": 6,
+                "question": "Verify whether $y(x) = e^{-2x}$ is a solution to the ODE: $y'' + 4y' + 4y = 0$.",
+                "answerOptions": [
+                    {
+                        "text": "Yes, it is a valid solution.",
+                        "rationale": "Correct! $y' = -2e^{-2x}$ and $y'' = 4e^{-2x}$. Plugging these in: $4e^{-2x} + 4(-2e^{-2x}) + 4(e^{-2x}) = 4e^{-2x} - 8e^{-2x} + 4e^{-2x} = 0$.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "No, it does not equal zero.",
+                        "rationale": "Incorrect. Try taking the first and second derivatives carefully and substituting them back into the ODE.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Yes, but only if $x = 0$.",
+                        "rationale": "Incorrect. A valid solution must satisfy the ODE for all $x$ in the domain.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "No, because the exponent is negative.",
+                        "rationale": "Incorrect. Negative exponential decay functions are very common solutions to linear ODEs.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Calculate the first derivative ($y'$) and the second derivative ($y''$), then plug them into the left side of the equation."
+            },
+            {
+                "questionNumber": 7,
+                "question": "In the differential equation modeling population growth, $\\frac{dP}{dt} = kP$, which variable is the dependent variable?",
+                "answerOptions": [
+                    {
+                        "text": "$k$",
+                        "rationale": "Incorrect. $k$ is the proportionality constant.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$t$",
+                        "rationale": "Incorrect. Time ($t$) is the independent variable that drives the system.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$P$",
+                        "rationale": "Correct! The population $P$ depends on time $t$, making it the dependent variable whose rate of change is being measured.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "Both $P$ and $t$",
+                        "rationale": "Incorrect. There is a distinct cause-and-effect relationship between independent and dependent variables.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Look at the numerator of the differential fraction. Whose rate of change are we tracking?"
+            },
+            {
+                "questionNumber": 8,
+                "question": "Analyze the slope field for $\\frac{dy}{dx} = -\\frac{x}{y}$. What geometric shapes do the solution curves form?",
+                "answerOptions": [
+                    {
+                        "text": "Hyperbolas",
+                        "rationale": "Incorrect. Hyperbolas would arise from a field like $\\frac{dy}{dx} = \\frac{x}{y}$.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Concentric Circles",
+                        "rationale": "Correct! The slope $-\\frac{x}{y}$ is the negative reciprocal of the radial line $\\frac{y}{x}$. Tangents that are perpendicular to the radius form circles.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "Straight Lines",
+                        "rationale": "Incorrect. The slope changes depending on both $x$ and $y$.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Exponential Curves",
+                        "rationale": "Incorrect. Exponential curves come from rate laws proportional to $y$.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Compare the slope at point $(x,y)$ to the slope of a line drawn from the origin to $(x,y)$. They are negative reciprocals."
+            },
+            {
+                "questionNumber": 9,
+                "question": "What is the defining characteristic of an equilibrium solution in an ODE?",
+                "answerOptions": [
+                    {
+                        "text": "The second derivative is zero.",
+                        "rationale": "Incorrect. That indicates an inflection point, not inflection model.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The dependent variable is zero.",
+                        "rationale": "Incorrect. Equilibriums can exist at any constant value, not just zero.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The rate of change $\\frac{dy}{dx}$ is zero for all $x$.",
+                        "rationale": "Correct! An equilibrium solution is a constant state $y(x) = c$, meaning the system is perfectly balanced and its derivative is strictly zero.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "The solution curve is a straight vertical line.",
+                        "rationale": "Incorrect. Vertical lines indicate an undefined slope, whereas an equilibrium is a horizontal line.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "If a system reaches 'equilibrium', it means it has stopped changing."
+            },
+            {
+                "questionNumber": 10,
+                "question": "Consider the ODE $\\frac{dy}{dx} = y^2$. Is this equation linear or nonlinear?",
+                "answerOptions": [
+                    {
+                        "text": "Linear",
+                        "rationale": "Incorrect. Linearity requires the dependent variable to appear only to the first power.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Nonlinear",
+                        "rationale": "Correct! The dependent variable $y$ is raised to the second power, which instantly classifies the equation as nonlinear.",
+                        "isCorrect": True
+                    }
+                ],
+                "hint": "Check the exponent on the dependent variable."
+            },
+            {
+                "questionNumber": 11,
+                "question": "Given the autonomous equation $\\frac{dy}{dx} = y - 3$, what is the stability of the equilibrium solution $y = 3$?",
+                "answerOptions": [
+                    {
+                        "text": "Stable",
+                        "rationale": "Incorrect. Test a value above 3: if $y=4$, the slope is positive (moving away). Test below: if $y=2$, the slope is negative (moving away).",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Unstable",
+                        "rationale": "Correct! Solutions above $y=3$ have positive slopes and accelerate away upwards. Solutions below $y=3$ have negative slopes and accelerate away downwards.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "Semi-stable",
+                        "rationale": "Incorrect. Semi-stable requires the slopes to have the same sign on both sides of the equilibrium.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "It is not an equilibrium solution.",
+                        "rationale": "Incorrect. Plugging $y=3$ into the equation yields $\\frac{dy}{dx} = 0$, so it is an equilibrium.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Evaluate the derivative for $y = 3.1$ and $y = 2.9$. Do the arrows point toward 3 or push away from it?"
+            },
+            {
+                "questionNumber": 12,
+                "question": "Why is the superposition principle fundamental to the study of linear ODEs?",
+                "answerOptions": [
+                    {
+                        "text": "It allows us to cancel out nonlinear terms algebraically.",
+                        "rationale": "Incorrect. You cannot simply cancel out nonlinear terms.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "It guarantees that all linear ODEs have constant coefficients.",
+                        "rationale": "Incorrect. Linear ODEs can have variable coefficients.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "It states that any sum or scalar multiple of valid solutions is also a valid solution.",
+                        "rationale": "Correct! This property is the cornerstone of linear algebra within differential equations, allowing us to build complex general solutions from simpler building blocks.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "It proves that initial value problems always have unique solutions.",
+                        "rationale": "Incorrect. That is the domain of Existence and Uniqueness theorems, not superposition.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Think about what 'superposition' means in physics—waves adding together."
+            },
+            {
+                "questionNumber": 13,
+                "question": "A student looks at the slope field for $\\frac{dy}{dx} = x$. What visual pattern will they observe?",
+                "answerOptions": [
+                    {
+                        "text": "All columns of slopes on a specific vertical line will be identical.",
+                        "rationale": "Correct! Because the slope only depends on $x$, changing the $y$-value (moving straight up or down) does not alter the calculation.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "All rows of slopes on a specific horizontal line will be identical.",
+                        "rationale": "Incorrect. This describes an autonomous equation $\\frac{dy}{dx} = f(y)$.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The slopes will form concentric circles.",
+                        "rationale": "Incorrect. The solution curves for $\\frac{dy}{dx} = x$ are parabolas ($y = \\frac{1}{2}x^2 + C$).",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The slope field will be entirely horizontal.",
+                        "rationale": "Incorrect. The slope will only be horizontal along the $y$-axis where $x=0$.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "If the equation has no '$y$' in it, does climbing up the $y$-axis change the steepness of the slope?"
+            },
+            {
+                "questionNumber": 14,
+                "question": "When verifying that an implicit relation $F(x,y) = C$ is a solution to an ODE, what calculus technique is mandatory?",
+                "answerOptions": [
+                    {
+                        "text": "Integration by Parts",
+                        "rationale": "Incorrect. Verification requires differentiation, not integration.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Partial Fraction Decomposition",
+                        "rationale": "Incorrect. This is an algebraic integration technique.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Implicit Differentiation",
+                        "rationale": "Correct! Because $y$ is not explicitly isolated, you must differentiate both sides with respect to $x$, applying the Chain Rule whenever differentiating a $y$ term.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "The Quadratic Formula",
+                        "rationale": "Incorrect. This solves polynomials, not differential relationships.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "If you cannot easily solve for $y$ to get a standard $y = f(x)$ format, how do you take the derivative of the entire equation at once?"
+            },
+            {
+                "questionNumber": 15,
+                "question": "True or False: The equation $\\frac{dy}{dt} = k(y - 20)$ represents a rate of change that is proportional to the difference between the dependent variable and an ambient value.",
+                "answerOptions": [
+                    {
+                        "text": "True",
+                        "rationale": "Correct! This is the exact mathematical translation of Newton's Law of Cooling, where $y$ is the object's temperature, $20$ is the ambient temperature, and $k$ is the proportionality constant.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "False",
+                        "rationale": "Incorrect. Analyze the right side of the equation: it is a constant $k$ multiplied by the quantity $(y - 20)$.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Read the equation aloud: 'The derivative of y with respect to t equals a constant k times the quantity y minus twenty.'"
             }
         ]
     }
