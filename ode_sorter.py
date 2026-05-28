@@ -559,6 +559,7 @@ QUIZZES = {
     "inline_1_1_definitions": {
         "quiz_id": "inline_1_1_definitions",
         "chapter_number": 1,
+        "video_id": "R2QtleY5asQ",
         "title": "Micro-Practice: Defining Differential Equations",
         "questions": [
             {
@@ -1595,6 +1596,87 @@ def export_to_html(syllabus, output_path):
 
         }}
 
+        /* Inline Quiz Card */
+        .quiz-card-inline {{
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(76, 29, 149, 0.2) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }}
+        
+        .quiz-card-inline:hover {{
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 
+                        0 0 15px 0 rgba(139, 92, 246, 0.2);
+        }}
+        
+        .quiz-card-inline.passed {{
+            border-color: rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(6, 78, 59, 0.2) 100%);
+        }}
+
+        .quiz-card-inline.passed:hover {{
+            border-color: rgba(16, 185, 129, 0.6);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 
+                        0 0 15px 0 rgba(16, 185, 129, 0.2);
+        }}
+
+        .quiz-card-header {{
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* Matches 16:9 Aspect Ratio */
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }}
+
+        .quiz-card-icon-container {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }}
+
+        .quiz-card-icon {{
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+            animation: float 3s ease-in-out infinite;
+        }}
+
+        .quiz-card-inline.passed .quiz-card-icon {{
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
+            animation: none;
+        }}
+
+        .quiz-card-badge {{
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #c084fc;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }}
+
+        .quiz-card-inline.passed .quiz-card-badge {{
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }}
+
+        @keyframes float {{
+            0% {{ transform: translateY(0px); }}
+            50% {{ transform: translateY(-6px); }}
+            100% {{ transform: translateY(0px); }}
+        }}
+
         /* Quiz Styles */
         .quiz-badge-btn {{
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
@@ -2585,26 +2667,32 @@ def export_to_html(syllabus, output_path):
             syllabusData.forEach((chapter, chIdx) => {{
                 // Get all quizzes for this chapter
                 const chapterQuizzes = Object.values(quizzesData).filter(q => q.chapter_number == chapter.ch_number);
+                const chapterMasteryQuizzes = chapterQuizzes.filter(q => q.quiz_id.includes('mastery'));
                 let quizBtnHtml = '';
                 let passedQuizzesCount = 0;
                 
                 chapterQuizzes.forEach(quiz => {{
                     const quizId = quiz.quiz_id;
                     const isPassed = completedQuizzes[quizId] && completedQuizzes[quizId].completed;
-                    
                     if (isPassed) {{
                         passedQuizzesCount++;
+                    }}
+                }});
+
+                chapterMasteryQuizzes.forEach(quiz => {{
+                    const quizId = quiz.quiz_id;
+                    const isPassed = completedQuizzes[quizId] && completedQuizzes[quizId].completed;
+                    
+                    if (isPassed) {{
                         quizBtnHtml += `
                             <div class="quiz-passed-badge" id="passed-badge-${{quizId}}" style="margin-top: 8px;">
                                 <span>✓ Passed: ${{quiz.title.split(':')[0]}}</span>
                             </div>
                         `;
                     }} else {{
-                        const icon = quizId.includes('mastery') ? '🏆' : '📝';
-                        const label = quizId.includes('mastery') ? 'Chapter Mastery' : 'Micro-Practice';
                         quizBtnHtml += `
                             <button class="quiz-badge-btn" id="quiz-btn-${{quizId}}" onclick="openQuiz('${{quizId}}', '${{chapter.ch_number}}')" style="margin-top: 8px; margin-right: 6px;">
-                                ${{icon}} ${{label}}
+                                🏆 Chapter Mastery Checkpoint
                             </button>
                         `;
                     }}
@@ -2672,6 +2760,50 @@ def export_to_html(syllabus, output_path):
                         </div>
                     `;
                     grid.appendChild(card);
+
+                    // Check if this video has a mapped Micro-Practice quiz
+                    const videoQuiz = Object.values(quizzesData).find(q => q.video_id === video.id && !q.quiz_id.includes('mastery'));
+                    if (videoQuiz) {{
+                        const quizId = videoQuiz.quiz_id;
+                        const isPassed = completedQuizzes[quizId] && completedQuizzes[quizId].completed;
+                        
+                        const quizCard = document.createElement('div');
+                        quizCard.className = 'video-card quiz-card-inline' + (isPassed ? ' passed' : '');
+                        quizCard.id = 'quiz-card-' + quizId;
+                        
+                        let cardContent = '';
+                        if (isPassed) {{
+                            cardContent = `
+                                <div class="quiz-card-header">
+                                    <div class="quiz-card-icon-container">
+                                        <span class="quiz-card-icon">✓</span>
+                                        <span class="quiz-card-badge">Passed</span>
+                                    </div>
+                                </div>
+                                <div class="video-details">
+                                    <span class="video-title-link" style="cursor: default;" title="${{videoQuiz.title}}">${{videoQuiz.title}}</span>
+                                    <div class="quiz-passed-badge" style="margin-top: 8px; justify-content: center; width: 100%;">
+                                        <span>Score: ${{completedQuizzes[quizId].score}} / ${{completedQuizzes[quizId].total}}</span>
+                                    </div>
+                                </div>
+                            `;
+                        }} else {{
+                            cardContent = `
+                                <div class="quiz-card-header">
+                                    <div class="quiz-card-icon-container">
+                                        <span class="quiz-card-icon">📝</span>
+                                        <span class="quiz-card-badge">Micro-Practice</span>
+                                    </div>
+                                </div>
+                                <div class="video-details">
+                                    <span class="video-title-link" style="cursor: default;" title="${{videoQuiz.title}}">${{videoQuiz.title}}</span>
+                                    <button class="play-btn" onclick="openQuiz('${{quizId}}', '${{chapter.ch_number}}')">Start Quiz ➜</button>
+                                </div>
+                            `;
+                        }}
+                        quizCard.innerHTML = cardContent;
+                        grid.appendChild(quizCard);
+                    }}
                 }});
 
                 section.appendChild(grid);
