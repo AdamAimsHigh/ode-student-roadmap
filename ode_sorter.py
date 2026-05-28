@@ -161,6 +161,153 @@ PEDAGOGICAL_SECTIONS = [
 ]
 
 
+# Checkpoint Quizzes Database
+# Dynamically integrated into dashboard chapters
+QUIZZES = {
+    "1": {
+        "quiz_id": "module_1_foundations",
+        "title": "Checkpoint Quiz: ODE Foundations & Geometry",
+        "questions": [
+            {
+                "questionNumber": 1,
+                "question": "Which of the following equations is considered a strictly linear Ordinary Differential Equation?",
+                "answerOptions": [
+                    {
+                        "text": "$\\frac{d^2y}{dx^2} + y\\frac{dy}{dx} = 0$",
+                        "rationale": "Incorrect. The product of the dependent variable $y$ and its derivative $\\frac{dy}{dx}$ violates the condition of linearity.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$x^2\\frac{d^2y}{dx^2} + x\\frac{dy}{dx} + y = \\sin(x)$",
+                        "rationale": "Correct! The dependent variable $y$ and its derivatives all appear to the first power, and there are no transcendental functions applied to $y$. The variable coefficients ($x^2, x$) depend only on the independent variable.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "$\\frac{dy}{dx} + \\cos(y) = x$",
+                        "rationale": "Incorrect. The term $\\cos(y)$ applies a transcendental function to the dependent variable, making the equation non-linear.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "$(\\frac{dy}{dx})^2 + y = 3x$",
+                        "rationale": "Incorrect. The first derivative is raised to the second power, which violates linearity.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Remember the three rules of linearity: no products of $y$ and its derivatives, no powers of $y$ or its derivatives other than 1, and no transcendental functions applied to $y$."
+            },
+            {
+                "questionNumber": 2,
+                "question": "Determine the order and the degree of the following differential equation: $\\sqrt{1 + (\\frac{dy}{dx})^2} = \\frac{d^2y}{dx^2}$",
+                "answerOptions": [
+                    {
+                        "text": "Order 2, Degree 1",
+                        "rationale": "Incorrect. You must rationalize the equation by squaring both sides before determining the degree.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Order 1, Degree 2",
+                        "rationale": "Incorrect. The highest derivative present is the second derivative, so the order must be 2.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "Order 2, Degree 2",
+                        "rationale": "Correct! Squaring both sides to clear the radical yields $1 + (\\frac{dy}{dx})^2 = (\\frac{d^2y}{dx^2})^2$. The highest derivative is the second derivative (Order 2), and it is raised to the second power (Degree 2).",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "Order 1, Degree 1",
+                        "rationale": "Incorrect. The highest derivative is the second derivative, and you must rationalize the equation first.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Before you can determine the degree, you must clear any fractional powers or radicals that involve derivatives."
+            },
+            {
+                "questionNumber": 3,
+                "question": "A student solves an ODE and obtains the general solution $y(x) = C e^{2x}$. What does the arbitrary constant '$C$' represent geometrically?",
+                "answerOptions": [
+                    {
+                        "text": "The rate at which the function grows.",
+                        "rationale": "Incorrect. The growth rate is determined by the constant '2' in the exponent.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "An infinite family of potential solution curves.",
+                        "rationale": "Correct! The constant $C$ indicates that the single rate law describes an infinite family of valid trajectories. An Initial Value Problem (IVP) is required to collapse this family down to a single, specific curve.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "An equilibrium point where the derivative is zero.",
+                        "rationale": "Incorrect. An equilibrium is a constant solution $y(x) = k$, which is different from the arbitrary constant of integration.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The independent variable of the system.",
+                        "rationale": "Incorrect. The independent variable in this system is $x$.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Does a differential equation without initial conditions point to a single answer, or a collection of possible answers?"
+            },
+            {
+                "questionNumber": 4,
+                "question": "When analyzing the slope field for an autonomous differential equation of the form $\\frac{dy}{dx} = f(y)$, which geometric feature will always be present?",
+                "answerOptions": [
+                    {
+                        "text": "The slopes will be constant along every vertical line.",
+                        "rationale": "Incorrect. That behavior occurs when the ODE depends only on $x$, such as $\\frac{dy}{dx} = f(x)$.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "All solution curves will be parabolas.",
+                        "rationale": "Incorrect. Autonomous equations frequently model exponential growth, decay, or logistic curves, not necessarily parabolas.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "The slopes will be constant along every horizontal line.",
+                        "rationale": "Correct! Because the rate of change $f(y)$ depends *only* on the $y$-value and not on $x$, every point on a horizontal line $y=k$ will have the exact same slope.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "The slope will be zero at the origin.",
+                        "rationale": "Incorrect. The slope at the origin is only zero if $f(0) = 0$, which is not guaranteed for all autonomous equations.",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "If the formula for the slope does not contain an '$x$', does moving left or right across the coordinate plane change the slope?"
+            },
+            {
+                "questionNumber": 5,
+                "question": "Consider the differential equation $\\frac{dy}{dx} = y - 2$. Without solving the equation analytically, what can you deduce about the solution $y(x) = 2$?",
+                "answerOptions": [
+                    {
+                        "text": "It is a stable equilibrium solution.",
+                        "rationale": "Incorrect. While it is an equilibrium, if $y > 2$ the slope is positive (moving away), and if $y < 2$ the slope is negative (moving away).",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "It is an unstable equilibrium solution.",
+                        "rationale": "Correct! Plugging in $y=2$ yields $\\frac{dy}{dx} = 0$, making it an equilibrium. However, solutions slightly above 2 will have a positive slope and diverge upwards, and solutions below 2 will have a negative slope and diverge downwards. Therefore, it is unstable.",
+                        "isCorrect": True
+                    },
+                    {
+                        "text": "It is the only valid solution.",
+                        "rationale": "Incorrect. $y=2$ is a particular equilibrium solution, but there is an infinite family of other general solutions.",
+                        "isCorrect": False
+                    },
+                    {
+                        "text": "It is not a valid solution because the derivative is zero.",
+                        "rationale": "Incorrect. A derivative of zero simply means the function is constant, which is a perfectly valid dynamic state (equilibrium).",
+                        "isCorrect": False
+                    }
+                ],
+                "hint": "Plug $y=2$ into the derivative formula. What happens to the slope if $y$ is 2.1? What if $y$ is 1.9?"
+            }
+        ]
+    }
+}
+
+
 def print_banner():
     """Prints a beautiful title banner in the terminal."""
     banner = r"""
@@ -577,8 +724,8 @@ def export_to_html(syllabus, output_path):
             'description': chapter['description'],
             'videos': ch_vids
         })
-        
     syllabus_json_str = json.dumps(html_syllabus, ensure_ascii=False)
+    quizzes_json_str = json.dumps(QUIZZES, ensure_ascii=False)
     
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -591,6 +738,11 @@ def export_to_html(syllabus, output_path):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for beautiful LaTeX rendering in Quizzes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
     
     <style>
         :root {{
@@ -1065,27 +1217,415 @@ def export_to_html(syllabus, output_path):
             color: #fff;
         }}
 
-        /* Responsive */
-        @media (max-width: 1024px) {{
-            .app-container {{
-                flex-direction: column;
-            }}
-            .sidebar {{
-                width: 100%;
-                position: relative;
-                top: 0;
-                height: auto;
-            }}
         }}
 
-        @media (max-width: 600px) {{
-            header h1 {{
-                font-size: 2rem;
-            }}
-            .progress-banner {{
-                flex-direction: column;
-                align-items: stretch;
-            }}
+        /* Quiz Styles */
+        .quiz-badge-btn {{
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            font-family: 'Outfit', sans-serif;
+        }}
+
+        .quiz-badge-btn:hover {{
+            background: var(--accent-gradient);
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }}
+
+        .quiz-passed-badge {{
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }}
+
+        /* Modal Background */
+        .modal-overlay {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }}
+
+        .modal-overlay.active {{
+            opacity: 1;
+            pointer-events: auto;
+        }}
+
+        /* Modal Container */
+        .quiz-modal {{
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 650px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
+                        0 0 40px rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }}
+
+        .modal-overlay.active .quiz-modal {{
+            transform: scale(1);
+        }}
+
+        .close-modal-btn {{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }}
+
+        .close-modal-btn:hover {{
+            color: var(--text-primary);
+        }}
+
+        /* Quiz UI Elements */
+        .quiz-header {{
+            margin-bottom: 1.5rem;
+        }}
+
+        .quiz-title {{
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }}
+
+        .quiz-progress-container {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }}
+
+        .quiz-progress-bar-bg {{
+            height: 6px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 3px;
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }}
+
+        .quiz-progress-bar-fill {{
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }}
+
+        .question-text {{
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }}
+
+        .options-list {{
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }}
+
+        .option-card {{
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }}
+
+        .option-card:hover {{
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(99, 102, 241, 0.3);
+            color: var(--text-primary);
+        }}
+
+        .option-card.selected {{
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: var(--text-primary);
+        }}
+
+        .option-card.correct {{
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--success-color);
+            color: var(--text-primary);
+        }}
+
+        .option-card.incorrect {{
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
+            color: var(--text-primary);
+        }}
+
+        .option-radio {{
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            outline: none;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }}
+
+        .option-card.correct .option-radio {{
+            border-color: var(--success-color);
+            background: var(--success-color);
+        }}
+
+        .option-card.correct .option-radio::after {{
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+        }}
+
+        .option-card.incorrect .option-radio {{
+            border-color: #ef4444;
+            background: #ef4444;
+        }}
+
+        .option-card.incorrect .option-radio::after {{
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+        }}
+
+        .option-radio:checked {{
+            border-color: #a855f7;
+        }}
+
+        .option-radio:checked::after {{
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+        }}
+
+        /* Feedback Area */
+        .feedback-container {{
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }}
+
+        .feedback-title {{
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }}
+
+        .feedback-title.correct {{ color: var(--success-color); }}
+        .feedback-title.incorrect {{ color: #ef4444; }}
+
+        .feedback-text {{
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }}
+
+        /* Action Buttons */
+        .quiz-actions {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }}
+
+        .quiz-btn-secondary {{
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }}
+
+        .quiz-btn-secondary:hover {{
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }}
+
+        .quiz-btn-primary {{
+            background: var(--accent-gradient);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: auto;
+        }}
+
+        .quiz-btn-primary:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }}
+
+        /* Hint Box */
+        .hint-box {{
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }}
+
+        /* Results Screen */
+        .results-container {{
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }}
+
+        .results-score-circle {{
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+            border: 4px solid rgba(99, 102, 241, 0.3);
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+        }}
+
+        .results-score-num {{
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }}
+
+        .results-score-label {{
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }}
+
+        .results-heading {{
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+        }}
+
+        .results-sub {{
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }}
+        @keyframes fadeIn {{
+            from {{ opacity: 0; transform: translateY(5px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }}
+        
+        .sidebar-passed-dot {{
+            font-size: 0.85rem;
+            font-weight: 800;
+        }}
+        
+        .chapter-quiz-status {{
+            align-self: center;
         }}
     </style>
 </head>
@@ -1135,9 +1675,20 @@ def export_to_html(syllabus, output_path):
         
     </div>
 
+    <!-- Quiz Modal Overlay -->
+    <div class="modal-overlay" id="quiz-modal-container">
+        <div class="quiz-modal">
+            <button class="close-modal-btn" onclick="closeQuiz()">&times;</button>
+            <div id="quiz-content-area">
+                <!-- Dynamic quiz content -->
+            </div>
+        </div>
+    </div>
+
     <!-- Syllabus Data & Controller Script -->
     <script>
         const syllabusData = {syllabus_json_str};
+        const quizzesData = {quizzes_json_str};
 
         // DOM Elements
         const chaptersNav = document.getElementById('chapters-nav');
@@ -1148,6 +1699,7 @@ def export_to_html(syllabus, output_path):
 
         // Watch state management
         let watchedVideos = JSON.parse(localStorage.getItem('watched_videos') || '[]');
+        let completedQuizzes = JSON.parse(localStorage.getItem('completed_quizzes') || '{{}}');
 
         function updateProgress() {{
             const totalVideos = {total_videos};
@@ -1184,12 +1736,37 @@ def export_to_html(syllabus, output_path):
             // Clean dynamic components
             // Build the catalog
             syllabusData.forEach((chapter, chIdx) => {{
+                // Determine if a quiz exists for this chapter
+                const hasQuiz = quizzesData[chapter.ch_number] ? true : false;
+                let quizBtnHtml = '';
+                let sidebarQuizStatus = '';
+                
+                if (hasQuiz) {{
+                    const quizId = quizzesData[chapter.ch_number].quiz_id;
+                    const isPassed = completedQuizzes[quizId] && completedQuizzes[quizId].completed;
+                    
+                    if (isPassed) {{
+                        quizBtnHtml = `
+                            <div class="quiz-passed-badge" id="passed-badge-${{quizId}}">
+                                <span>✓ Passed Checkpoint</span>
+                            </div>
+                        `;
+                        sidebarQuizStatus = ' <span class="sidebar-passed-dot" title="Quiz Passed" style="color: #34d399; margin-left: 5px;">✓</span>';
+                    }} else {{
+                        quizBtnHtml = `
+                            <button class="quiz-badge-btn" id="quiz-btn-${{quizId}}" onclick="openQuiz('${{chapter.ch_number}}')">
+                                📝 Take Checkpoint Quiz
+                            </button>
+                        `;
+                    }}
+                }}
+
                 // 1. Generate Sidebar Nav item
                 const navItem = document.createElement('li');
                 navItem.className = 'filter-item';
                 navItem.setAttribute('data-filter', 'chapter-' + chapter.ch_number);
                 navItem.innerHTML = `
-                    <span>Ch. ${{chapter.ch_number}} - ${{chapter.name.split('.')[1] ? chapter.name.split('.')[1].trim() : chapter.name}}</span>
+                    <span>Ch. ${{chapter.ch_number}} - ${{chapter.name.split('.')[1] ? chapter.name.split('.')[1].trim() : chapter.name}}${{sidebarQuizStatus}}</span>
                     <span class="filter-badge">${{chapter.videos.length}}</span>
                 `;
                 chaptersNav.appendChild(navItem);
@@ -1201,8 +1778,15 @@ def export_to_html(syllabus, output_path):
                 
                 section.innerHTML = `
                     <div class="chapter-header">
-                        <h2 class="chapter-title">${{chapter.name}}</h2>
-                        <div class="chapter-desc">${{chapter.description}}</div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h2 class="chapter-title">${{chapter.name}}</h2>
+                                <div class="chapter-desc">${{chapter.description}}</div>
+                            </div>
+                            <div class="chapter-quiz-status" id="quiz-status-container-${{chapter.ch_number}}">
+                                ${{quizBtnHtml}}
+                            </div>
+                        </div>
                     </div>
                 `;
 
@@ -1264,16 +1848,253 @@ def export_to_html(syllabus, output_path):
 
             // Wire up reset button
             resetProgressBtn.addEventListener('click', () => {{
-                if (confirm('Are you sure you want to reset your study progress?')) {{
+                if (confirm('Are you sure you want to reset your study and quiz progress?')) {{
                     watchedVideos = [];
+                    completedQuizzes = {{}};
                     localStorage.removeItem('watched_videos');
+                    localStorage.removeItem('completed_quizzes');
                     document.querySelectorAll('.card-checkbox').forEach(cb => cb.checked = false);
                     document.querySelectorAll('.video-card').forEach(card => card.classList.remove('watched'));
-                    updateProgress();
+                    
+                    // Rebuild entire dashboard to reset quiz buttons and badges
+                    location.reload();
                 }}
             }});
 
             updateProgress();
+        }}
+
+        // ==========================================
+        // CHECKPOINT QUIZ ENGINE
+        // ==========================================
+        let currentQuiz = null;
+        let currentQuizChapter = null;
+        let currentQuestionIdx = 0;
+        let selectedOptionIdx = null;
+        let score = 0;
+        let isAnswerSubmitted = false;
+
+        const modalOverlay = document.getElementById('quiz-modal-container');
+        const quizContentArea = document.getElementById('quiz-content-area');
+
+        function openQuiz(chapterNum) {{
+            currentQuiz = quizzesData[chapterNum];
+            currentQuizChapter = chapterNum;
+            if (!currentQuiz) return;
+
+            currentQuestionIdx = 0;
+            score = 0;
+            selectedOptionIdx = null;
+            isAnswerSubmitted = false;
+
+            modalOverlay.classList.add('active');
+            renderQuestion();
+        }}
+
+        function closeQuiz() {{
+            modalOverlay.classList.remove('active');
+        }}
+
+        function renderQuestion() {{
+            selectedOptionIdx = null;
+            isAnswerSubmitted = false;
+
+            const q = currentQuiz.questions[currentQuestionIdx];
+            const totalQuestions = currentQuiz.questions.length;
+            const progressPercent = Math.round(((currentQuestionIdx) / totalQuestions) * 100);
+
+            let optionsHtml = '';
+            q.answerOptions.forEach((option, idx) => {{
+                optionsHtml += `
+                    <li class="option-card" id="option-${{idx}}" onclick="selectOption(${{idx}})">
+                        <span class="option-radio" id="radio-${{idx}}"></span>
+                        <span class="option-text-span">${{option.text}}</span>
+                    </li>
+                `;
+            }});
+
+            quizContentArea.innerHTML = `
+                <div class="quiz-header">
+                    <div class="quiz-title">${{currentQuiz.title}}</div>
+                    <div class="quiz-progress-container">
+                        <span>Question ${{currentQuestionIdx + 1}} of ${{totalQuestions}}</span>
+                        <span>Score: ${{score}} / ${{totalQuestions}}</span>
+                    </div>
+                    <div class="quiz-progress-bar-bg">
+                        <div class="quiz-progress-bar-fill" style="width: ${{progressPercent}}%"></div>
+                    </div>
+                </div>
+
+                <div class="question-text">${{q.question}}</div>
+
+                <div class="hint-box" id="hint-box-el">${{q.hint}}</div>
+
+                <ul class="options-list">
+                    ${{optionsHtml}}
+                </ul>
+
+                <div class="feedback-container" id="feedback-box">
+                    <div class="feedback-title" id="feedback-title"></div>
+                    <div class="feedback-text" id="feedback-text"></div>
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="quiz-btn-secondary" id="hint-btn" onclick="toggleHint()">💡 Show Hint</button>
+                    <button class="quiz-btn-primary" id="submit-btn" onclick="submitAnswer()" disabled>
+                        Submit Answer ➜
+                    </button>
+                </div>
+            `;
+
+            // LaTeX rendering
+            if (typeof renderMathInElement === 'function') {{
+                renderMathInElement(quizContentArea, {{
+                    delimiters: [
+                        {{left: "$$", right: "$$", display: true}},
+                        {{left: "$", right: "$", display: false}}
+                    ]
+                }});
+            }}
+        }}
+
+        function selectOption(optIdx) {{
+            if (isAnswerSubmitted) return;
+
+            selectedOptionIdx = optIdx;
+
+            // Update UI selection classes
+            document.querySelectorAll('.option-card').forEach((card, idx) => {{
+                if (idx === optIdx) {{
+                    card.classList.add('selected');
+                }} else {{
+                    card.classList.remove('selected');
+                }}
+            }});
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.removeAttribute('disabled');
+        }}
+
+        function toggleHint() {{
+            const hintBox = document.getElementById('hint-box-el');
+            const hintBtn = document.getElementById('hint-btn');
+            
+            if (hintBox.style.display === 'block') {{
+                hintBox.style.display = 'none';
+                hintBtn.innerText = '💡 Show Hint';
+            }} else {{
+                hintBox.style.display = 'block';
+                hintBtn.innerText = '💡 Hide Hint';
+            }}
+        }}
+
+        function submitAnswer() {{
+            if (isAnswerSubmitted || selectedOptionIdx === null) return;
+
+            isAnswerSubmitted = true;
+
+            const q = currentQuiz.questions[currentQuestionIdx];
+            const selectedOpt = q.answerOptions[selectedOptionIdx];
+            const isCorrect = selectedOpt.isCorrect;
+
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Apply styling
+            document.querySelectorAll('.option-card').forEach((card, idx) => {{
+                const opt = q.answerOptions[idx];
+                if (opt.isCorrect) {{
+                    card.classList.add('correct');
+                }} else if (idx === selectedOptionIdx) {{
+                    card.classList.add('incorrect');
+                }}
+                card.style.cursor = 'default';
+            }});
+
+            if (isCorrect) {{
+                score++;
+                feedbackTitle.className = 'feedback-title correct';
+                feedbackTitle.innerHTML = '🎉 Correct!';
+                feedbackText.innerHTML = selectedOpt.rationale;
+            }} else {{
+                feedbackTitle.className = 'feedback-title incorrect';
+                feedbackTitle.innerHTML = '❌ Incorrect';
+                feedbackText.innerHTML = selectedOpt.rationale;
+            }}
+
+            feedbackBox.style.display = 'block';
+
+            const isLastQuestion = currentQuestionIdx === currentQuiz.questions.length - 1;
+            if (isLastQuestion) {{
+                submitBtn.innerText = 'View Results 🏆';
+            }} else {{
+                submitBtn.innerText = 'Next Question ➜';
+            }}
+
+            submitBtn.onclick = function() {{
+                if (isLastQuestion) {{
+                    showResults();
+                }} else {{
+                    currentQuestionIdx++;
+                    renderQuestion();
+                }}
+            }};
+        }}
+
+        function showResults() {{
+            const totalQuestions = currentQuiz.questions.length;
+            const passed = score >= Math.ceil(totalQuestions * 0.6); // 60% passing score
+            
+            let message = '';
+            if (score === totalQuestions) {{
+                message = 'Perfect score! You are a master of Ordinary Differential Equations foundations!';
+            }} else if (passed) {{
+                message = 'Great job! You have verified your mathematical foundations and are ready for the next level!';
+            }} else {{
+                message = 'Study the concept explanations, check out the foundational chapters, and try again!';
+            }}
+
+            quizContentArea.innerHTML = `
+                <div class="results-container" style="display: block;">
+                    <div class="results-score-circle">
+                        <span class="results-score-num">${{score}}/${{totalQuestions}}</span>
+                        <span class="results-score-label">Score</span>
+                    </div>
+
+                    <h2 class="results-heading">${{passed ? 'Syllabus Checkpoint Verified! 🎓' : 'Keep Practicing! 📚'}}</h2>
+                    <p class="results-sub">${{message}}</p>
+
+                    <div class="quiz-actions" style="justify-content: center;">
+                        <button class="quiz-btn-secondary" onclick="openQuiz('${{currentQuizChapter}}')">Retry Quiz 🔄</button>
+                        <button class="quiz-btn-primary" onclick="closeQuiz()">Back to Study Guide</button>
+                    </div>
+                </div>
+            `;
+
+            if (passed) {{
+                // Save progress
+                completedQuizzes[currentQuiz.quiz_id] = {{
+                    completed: true,
+                    score: score,
+                    total: totalQuestions
+                }};
+                localStorage.setItem('completed_quizzes', JSON.stringify(completedQuizzes));
+
+                // Update Chapter Header UI
+                const statusContainer = document.getElementById('quiz-status-container-' + currentQuizChapter);
+                if (statusContainer) {{
+                    statusContainer.innerHTML = `
+                        <div class="quiz-passed-badge" id="passed-badge-${{currentQuiz.quiz_id}}">
+                            <span>✓ Passed Checkpoint</span>
+                        </div>
+                    `;
+                }}
+
+                // Reload navigation or badge in sidebar
+                location.reload();
+            }}
         }}
 
         // Initialize on load
@@ -1284,6 +2105,7 @@ def export_to_html(syllabus, output_path):
 """
     # Replace standard helper functions or format glitches
     html_content = html_content.replace("{syllabus_json_str}", syllabus_json_str)
+    html_content = html_content.replace("{quizzes_json_str}", quizzes_json_str)
     
     try:
         with open(output_path, 'w', encoding='utf-8') as f:
