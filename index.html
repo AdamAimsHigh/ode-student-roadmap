@@ -667,8 +667,9 @@
 
         .option-card.selected {
             background: rgba(99, 102, 241, 0.1);
-            border-color: rgba(99, 102, 241, 0.5);
+            border-color: rgba(99, 102, 241, 0.6);
             color: var(--text-primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
         }
 
         .option-card.correct {
@@ -729,11 +730,11 @@
             background: white;
         }
 
-        .option-radio:checked {
+        .option-card.selected .option-radio {
             border-color: #a855f7;
         }
 
-        .option-radio:checked::after {
+        .option-card.selected .option-radio::after {
             content: '';
             position: absolute;
             top: 50%;
