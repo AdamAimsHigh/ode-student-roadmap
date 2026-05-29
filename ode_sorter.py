@@ -1131,6 +1131,9 @@ def export_to_html(syllabus, output_path):
     <!-- Math.js for robust local mathematical parsing and evaluation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
     
+    <!-- Chart.js for interactive numerical visualizer -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         :root {{
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
@@ -2310,6 +2313,22 @@ def export_to_html(syllabus, output_path):
             align-items: center;
             gap: 4px;
         }}
+        
+        /* Euler's Method Visualizer Styles */
+        .euler-visualizer-container {{
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 0.4s ease;
+        }}
+        
+        .euler-chart-wrapper {{
+            position: relative;
+            width: 100%;
+            flex-grow: 1;
+            min-height: 380px;
+        }}
     </style>
 </head>
 <body>
@@ -2900,6 +2919,106 @@ def export_to_html(syllabus, output_path):
                             ]
                         }});
                     }}
+                    
+                    // --- EULER'S METHOD VISUALIZER INJECTION ---
+                    const eulerDiv = document.createElement('div');
+                    eulerDiv.className = 'glass-panel euler-visualizer-container';
+                    eulerDiv.innerHTML = `
+                        <div class="chapter-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 0.75rem; margin-bottom: 0.5rem;">
+                            <h3 class="chapter-title" style="font-size: 1.3rem; display: flex; align-items: center; gap: 8px;">
+                                📈 Interactive Euler's Method Visualizer
+                            </h3>
+                            <div class="chapter-desc" style="font-size: 0.85rem;">
+                                Approximate solutions to first-order differential equations $\\\\frac{{dy}}{{dx}} = f(x, y)$ step-by-step and compare against exact analytical solutions.
+                            </div>
+                        </div>
+                        
+                        <div class="slope-field-layout">
+                            <!-- Left Controls -->
+                            <div class="slope-controls">
+                                <div class="control-group">
+                                    <label class="control-label">Differential Equation</label>
+                                    <div class="slope-input-wrapper">
+                                        <span class="slope-input-prefix">dy/dx =</span>
+                                        <input type="text" class="slope-input" id="euler-expr" value="y" placeholder="y">
+                                    </div>
+                                    <div class="presets-wrapper">
+                                        <span class="preset-pill" onclick="loadEulerPreset('y')">y' = y</span>
+                                        <span class="preset-pill" onclick="loadEulerPreset('x')">y' = x</span>
+                                        <span class="preset-pill" onclick="loadEulerPreset('y - x')">y' = y - x</span>
+                                        <span class="preset-pill" onclick="loadEulerPreset('x * y')">y' = x * y</span>
+                                        <span class="preset-pill" onclick="loadEulerPreset('sin(x)')">y' = sin(x)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="slope-field-layout" style="grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; margin-top: 0px; margin-bottom: 0px;">
+                                    <div class="control-group">
+                                        <label class="control-label">Initial $x_0$</label>
+                                        <input type="number" class="slope-input" style="padding-left: 1rem; font-size: 1rem;" id="euler-x0" value="0" step="0.1">
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Initial $y_0$</label>
+                                        <input type="number" class="slope-input" style="padding-left: 1rem; font-size: 1rem;" id="euler-y0" value="1" step="0.1">
+                                    </div>
+                                </div>
+
+                                <div class="slope-field-layout" style="grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; margin-top: 0px; margin-bottom: 0px;">
+                                    <div class="control-group">
+                                        <label class="control-label">Target $x$</label>
+                                        <input type="number" class="slope-input" style="padding-left: 1rem; font-size: 1rem;" id="euler-target-x" value="3" step="0.1">
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            Step Size ($h$)
+                                            <span class="slider-value" id="euler-h-val">0.50</span>
+                                        </label>
+                                        <input type="range" class="slider-control" id="euler-h" min="0.01" max="1.0" value="0.50" step="0.01" style="margin-top: 0.5rem;">
+                                    </div>
+                                </div>
+                                
+                                <div class="slope-error-box" id="euler-error"></div>
+                                
+                                <!-- Results Card -->
+                                <div id="euler-results-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; animation: fadeIn 0.3s ease;">
+                                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 0.25rem;">
+                                        Numerical Evaluation
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                        <span style="color: var(--text-secondary);">Approx. $y(x_{{target}})$:</span>
+                                        <span id="euler-y-approx" style="font-weight: 700; color: #a855f7;">-</span>
+                                    </div>
+                                    <div id="euler-true-row" style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                        <span style="color: var(--text-secondary);">True $y(x_{{target}})$:</span>
+                                        <span id="euler-y-true" style="font-weight: 700; color: #10b981;">-</span>
+                                    </div>
+                                    <div id="euler-error-row" style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                        <span style="color: var(--text-secondary);">Absolute Error:</span>
+                                        <span id="euler-abs-error" style="font-weight: 700; color: #f59e0b;">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Visualizer Canvas -->
+                            <div class="slope-visualizer" style="padding: 1.5rem; min-height: 420px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div class="euler-chart-wrapper">
+                                    <canvas id="euler-canvas"></canvas>
+                                </div>
+                                <div class="canvas-label-hint">
+                                    💡 Modify inputs or drag the step size slider ($h$) to watch the Euler approximation update in real-time.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    section.appendChild(eulerDiv);
+                    
+                    if (typeof renderMathInElement === 'function') {{
+                        renderMathInElement(eulerDiv, {{
+                            delimiters: [
+                                {{left: "$$", right: "$$", display: true}},
+                                {{left: "$", right: "$", display: false}}
+                            ]
+                        }});
+                    }}
                 }}
 
                 contentContainer.appendChild(section);
@@ -3011,6 +3130,289 @@ def export_to_html(syllabus, output_path):
 
                     // Render the initial field with y - x preset
                     generateSlopeField();
+                    
+                    // ==========================================
+                    // EULER'S METHOD INTERACTIVE VISUALIZER
+                    // ==========================================
+                    let eulerChart = null;
+
+                    function getAnalyticalSolution(expr, x0, y0) {{
+                        const clean = expr.replace(/\s+/g, '').toLowerCase();
+                        if (clean === 'y') {{
+                            return (x) => y0 * Math.exp(x - x0);
+                        }}
+                        if (clean === 'x') {{
+                            return (x) => y0 + (x*x - x0*x0) / 2;
+                        }}
+                        if (clean === 'y-x' || clean === '-x+y') {{
+                            return (x) => x + 1 + (y0 - x0 - 1) * Math.exp(x - x0);
+                        }}
+                        if (clean === 'x*y' || clean === 'y*x' || clean === 'xy' || clean === 'yx') {{
+                            return (x) => y0 * Math.exp((x*x - x0*x0) / 2);
+                        }}
+                        if (clean === 'sin(x)') {{
+                            return (x) => y0 - Math.cos(x) + Math.cos(x0);
+                        }}
+                        return null;
+                    }}
+
+                    window.updateEulerVisualizer = () => {{
+                        const exprInput = document.getElementById('euler-expr');
+                        const x0Input = document.getElementById('euler-x0');
+                        const y0Input = document.getElementById('euler-y0');
+                        const targetInput = document.getElementById('euler-target-x');
+                        const hInput = document.getElementById('euler-h');
+                        const errorBox = document.getElementById('euler-error');
+                        
+                        if (!exprInput || !x0Input || !y0Input || !targetInput || !hInput) return;
+                        
+                        const exprStr = exprInput.value.trim();
+                        const x0 = parseFloat(x0Input.value);
+                        const y0 = parseFloat(y0Input.value);
+                        const targetX = parseFloat(targetInput.value);
+                        const h = parseFloat(hInput.value);
+                        
+                        if (errorBox) errorBox.style.display = 'none';
+                        
+                        if (isNaN(x0) || isNaN(y0) || isNaN(targetX) || isNaN(h)) {{
+                            if (errorBox) {{
+                                errorBox.innerText = "Please enter valid numerical values for x0, y0, target x, and step size.";
+                                errorBox.style.display = 'block';
+                            }}
+                            return;
+                        }}
+                        
+                        if (h <= 0) {{
+                            if (errorBox) {{
+                                errorBox.innerText = "Step size h must be strictly positive.";
+                                errorBox.style.display = 'block';
+                            }}
+                            return;
+                        }}
+                        
+                        if (Math.abs(targetX - x0) > 20) {{
+                            if (errorBox) {{
+                                errorBox.innerText = "The range |target x - x0| should be less than 20 to avoid performance lag.";
+                                errorBox.style.display = 'block';
+                            }}
+                            return;
+                        }}
+
+                        let derivativeFn;
+                        try {{
+                            derivativeFn = getMathFunction(exprStr);
+                        }} catch (err) {{
+                            if (errorBox) {{
+                                errorBox.innerText = err.message;
+                                errorBox.style.display = 'block';
+                            }}
+                            return;
+                        }}
+
+                        // Run Euler's Method
+                        let x = x0;
+                        let y = y0;
+                        const eulerPoints = [{{x: x, y: y}}];
+                        let hStep = h;
+                        if (targetX < x0) hStep = -h;
+                        
+                        const maxSteps = 1000;
+                        let steps = 0;
+                        while (steps < maxSteps) {{
+                            if (hStep > 0 && x >= targetX) break;
+                            if (hStep < 0 && x <= targetX) break;
+                            
+                            let currentH = hStep;
+                            if (hStep > 0 && x + hStep > targetX) {{
+                                currentH = targetX - x;
+                            }} else if (hStep < 0 && x + hStep < targetX) {{
+                                currentH = targetX - x;
+                            }}
+                            
+                            const slope = derivativeFn(x, y);
+                            if (isNaN(slope) || !isFinite(slope)) break;
+                            
+                            y = y + currentH * slope;
+                            x = x + currentH;
+                            eulerPoints.push({{x: x, y: y}});
+                            steps++;
+                            
+                            if (Math.abs(currentH) < 1e-7) break;
+                        }}
+                        
+                        const approxY = y;
+                        document.getElementById('euler-y-approx').innerText = approxY.toFixed(5);
+                        
+                        // Check for true analytical solution
+                        const analyticalPoints = [];
+                        const analyticalFn = getAnalyticalSolution(exprStr, x0, y0);
+                        const trueRow = document.getElementById('euler-true-row');
+                        const errorRow = document.getElementById('euler-error-row');
+                        
+                        if (analyticalFn) {{
+                            const stepsCount = 100;
+                            const stepSize = (targetX - x0) / stepsCount;
+                            for (let i = 0; i <= stepsCount; i++) {{
+                                const xVal = x0 + i * stepSize;
+                                const yVal = analyticalFn(xVal);
+                                if (!isNaN(yVal) && isFinite(yVal)) {{
+                                    analyticalPoints.push({{x: xVal, y: yVal}});
+                                }}
+                            }}
+                            
+                            const trueY = analyticalFn(targetX);
+                            const absError = Math.abs(approxY - trueY);
+                            
+                            document.getElementById('euler-y-true').innerText = trueY.toFixed(5);
+                            document.getElementById('euler-abs-error').innerText = absError.toFixed(5);
+                            
+                            if (trueRow) trueRow.style.display = 'flex';
+                            if (errorRow) errorRow.style.display = 'flex';
+                        }} else {{
+                            if (trueRow) trueRow.style.display = 'none';
+                            if (errorRow) errorRow.style.display = 'none';
+                        }}
+
+                        // Chart rendering
+                        const canvas = document.getElementById('euler-canvas');
+                        if (!canvas) return;
+                        const ctx = canvas.getContext('2d');
+                        
+                        const datasets = [
+                            {{
+                                label: "Euler's Approximation",
+                                data: eulerPoints,
+                                borderColor: '#a855f7',
+                                backgroundColor: 'rgba(168, 85, 247, 0.2)',
+                                borderWidth: 2,
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                showLine: true,
+                                tension: 0
+                            }}
+                        ];
+                        
+                        if (analyticalFn && analyticalPoints.length > 0) {{
+                            datasets.push({{
+                                label: "True Analytical Solution",
+                                data: analyticalPoints,
+                                borderColor: '#10b981',
+                                backgroundColor: 'transparent',
+                                borderWidth: 2.5,
+                                pointRadius: 0,
+                                showLine: true,
+                                tension: 0.1
+                            }});
+                        }}
+                        
+                        if (eulerChart) {{
+                            eulerChart.data.datasets = datasets;
+                            eulerChart.options.scales.x.min = Math.min(x0, targetX) - 0.2;
+                            eulerChart.options.scales.x.max = Math.max(x0, targetX) + 0.2;
+                            eulerChart.update();
+                        }} else {{
+                            eulerChart = new Chart(ctx, {{
+                                type: 'scatter',
+                                data: {{ datasets: datasets }},
+                                options: {{
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {{
+                                        x: {{
+                                            type: 'linear',
+                                            position: 'bottom',
+                                            grid: {{
+                                                color: 'rgba(255, 255, 255, 0.05)',
+                                                borderColor: 'rgba(255, 255, 255, 0.1)'
+                                            }},
+                                            ticks: {{
+                                                color: 'rgba(255, 255, 255, 0.6)',
+                                                font: {{ family: 'Inter' }}
+                                            }},
+                                            min: Math.min(x0, targetX) - 0.2,
+                                            max: Math.max(x0, targetX) + 0.2
+                                        }},
+                                        y: {{
+                                            grid: {{
+                                                color: 'rgba(255, 255, 255, 0.05)',
+                                                borderColor: 'rgba(255, 255, 255, 0.1)'
+                                            }},
+                                            ticks: {{
+                                                color: 'rgba(255, 255, 255, 0.6)',
+                                                font: {{ family: 'Inter' }}
+                                            }}
+                                        }}
+                                    }},
+                                    plugins: {{
+                                        legend: {{
+                                            labels: {{
+                                                color: 'rgba(255, 255, 255, 0.8)',
+                                                font: {{ family: 'Outfit', size: 12, weight: '600' }}
+                                            }}
+                                        }},
+                                        tooltip: {{
+                                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                            titleColor: '#fff',
+                                            bodyColor: '#e2e8f0',
+                                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                                            borderWidth: 1,
+                                            callbacks: {{
+                                                label: function(context) {{
+                                                    return `(x: \${{context.parsed.x.toFixed(4)}}, y: \${{context.parsed.y.toFixed(4)}})`;
+                                                }}
+                                            }}
+                                        }}
+                                    }}
+                                }}
+                            }});
+                        }}
+                    }};
+
+                    window.loadEulerPreset = (expr) => {{
+                        const exprInput = document.getElementById('euler-expr');
+                        if (exprInput) {{
+                            exprInput.value = expr;
+                            const x0Input = document.getElementById('euler-x0');
+                            const y0Input = document.getElementById('euler-y0');
+                            const targetInput = document.getElementById('euler-target-x');
+                            
+                            if (expr === 'y') {{
+                                x0Input.value = 0; y0Input.value = 1; targetInput.value = 3;
+                            }} else if (expr === 'x') {{
+                                x0Input.value = 0; y0Input.value = 0; targetInput.value = 4;
+                            }} else if (expr === 'y - x') {{
+                                x0Input.value = 0; y0Input.value = 2; targetInput.value = 3;
+                            }} else if (expr === 'x * y') {{
+                                x0Input.value = 0; y0Input.value = 1; targetInput.value = 2.5;
+                            }} else if (expr === 'sin(x)') {{
+                                x0Input.value = 0; y0Input.value = 1; targetInput.value = 6.28;
+                            }}
+                            
+                            updateEulerVisualizer();
+                        }}
+                    }};
+
+                    // Wire up real-time event listeners for Euler Visualizer
+                    const eulerExpr = document.getElementById('euler-expr');
+                    const eulerX0 = document.getElementById('euler-x0');
+                    const eulerY0 = document.getElementById('euler-y0');
+                    const eulerTargetX = document.getElementById('euler-target-x');
+                    const eulerH = document.getElementById('euler-h');
+                    const eulerHVal = document.getElementById('euler-h-val');
+                    
+                    if (eulerExpr && eulerX0 && eulerY0 && eulerTargetX && eulerH && eulerHVal) {{
+                        [eulerExpr, eulerX0, eulerY0, eulerTargetX].forEach(input => {{
+                            input.addEventListener('input', () => updateEulerVisualizer());
+                        }});
+                        
+                        eulerH.addEventListener('input', (e) => {{
+                            eulerHVal.innerText = parseFloat(e.target.value).toFixed(2);
+                            updateEulerVisualizer();
+                        }});
+                        
+                        // Initialize Euler method chart with defaults
+                        updateEulerVisualizer();
+                    }}
                 }}
             }}, 100);
         }}
