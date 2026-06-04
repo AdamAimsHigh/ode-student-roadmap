@@ -8154,5 +8154,1292 @@
         "hint": "Consider the geometric multiplicity of the eigenvalue. If we lack enough eigenvectors to span $\\mathbb{R}^2$, the node is 'improper'."
       }
     ]
+  },
+  "inline_BVKyaEu1FWk_definitions": {
+    "quiz_id": "inline_BVKyaEu1FWk_definitions",
+    "chapter_number": 1,
+    "video_id": "BVKyaEu1FWk",
+    "title": "Micro-Practice: Existence and Uniqueness of Solutions",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "According to the lecture, when considering solutions to a differential equation at a specific point $(x_0, y_0)$, which of the following is NOT one of the three discussed cases for the existence and uniqueness of solutions?",
+        "answerOptions": [
+          {
+            "text": "No solution exists through the point.",
+            "rationale": "The lecture identifies 'no solution' as Case 1, where a differential equation might have many solutions generally, but none pass through the particular point of interest. This is a valid case mentioned in the lecture.",
+            "isCorrect": false
+          },
+          {
+            "text": "A general solution exists, but no particular solution can be found.",
+            "rationale": "The lecture explicitly states that solutions are most often considered at points to obtain 'particular solutions' from 'general solutions' (slope fields). The three cases refer to the behavior of particular solutions through a point, not the inability to find one if a general solution exists. This statement misrepresents the lecture's discussion.",
+            "isCorrect": true
+          },
+          {
+            "text": "Infinitely many solutions exist through the point.",
+            "rationale": "The lecture identifies 'infinitely many solutions' as Case 2, sometimes occurring with equilibrium solutions. This is a valid case mentioned in the lecture.",
+            "isCorrect": false
+          },
+          {
+            "text": "Exactly one unique solution exists through the point.",
+            "rationale": "The lecture identifies 'one unique solution' as Case 3, which is the desired outcome for which the existence and uniqueness theorems are applied. This is a valid case mentioned in the lecture.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the three distinct scenarios discussed for particular solutions passing through a given initial point."
+      },
+      {
+        "questionNumber": 2,
+        "question": "The lecture emphasizes that for an ODE solution to be continuous and differentiable at a point $(x_0, y_0)$, it is crucial to consider its behavior in a 'neighborhood' around that point. Which statement best describes why an 'endpoint' of an interval of continuity is problematic for the application of these theorems?",
+        "answerOptions": [
+          {
+            "text": "An endpoint indicates a discontinuity of the function at that specific point, making differentiation impossible.",
+            "rationale": "While an endpoint can sometimes coincide with a discontinuity, the core issue with endpoints in the context of these theorems is not necessarily a discontinuity *at* the point itself, but the lack of an open interval for two-sided evaluation. The function might exist and even be defined at an endpoint.",
+            "isCorrect": false
+          },
+          {
+            "text": "Continuity and differentiability inherently require an open interval where the function exists both before and after the point, which an endpoint by definition lacks.",
+            "rationale": "The lecture repeatedly stresses, 'continuity is an open idea' and 'no endpoints are allowed.' For continuity and differentiability at a point, you need to be able to 'get there and leave there,' meaning the function must be defined and continuous in an open interval surrounding the point, not just at the point or in a one-sided manner. An endpoint prevents this two-sided evaluation.",
+            "isCorrect": true
+          },
+          {
+            "text": "At an endpoint, the slope can be infinitely many values, making the solution non-unique even if it exists.",
+            "rationale": "While this can be true in some scenarios (e.g., sharp corners, vertical tangents), the primary reason endpoints are problematic for the *theorems* discussed is their violation of the 'open interval' requirement for continuity and differentiability, which underpins the conditions for existence and uniqueness.",
+            "isCorrect": false
+          },
+          {
+            "text": "Endpoints only allow for one-sided limits, which are insufficient to define continuity or differentiability for a two-sided solution curve.",
+            "rationale": "This statement is true regarding one-sided limits and their insufficiency for general continuity/differentiability. It's closely related to the correct answer but doesn't fully capture the emphasis the lecture places on the 'open interval' requirement as the fundamental reason endpoints are disallowed for the theorems.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember the lecture's strong emphasis on 'open idea' and the inability to 'get there and leave there' at an endpoint when discussing continuity and differentiability."
+      },
+      {
+        "questionNumber": 3,
+        "question": "Given the Ordinary Differential Equation (ODE) $\\frac{dy}{dx} = f(x,y) = \\sqrt{x-y}$ with the initial condition $y(2)=1$. Based on the lecture's existence theorem, which statement is true regarding the existence of at least one solution through this point?",
+        "answerOptions": [
+          {
+            "text": "No solution is guaranteed because $f(x,y)$ is discontinuous at $y=1$.",
+            "rationale": "The function $f(x,y) = \\sqrt{x-y}$ is not discontinuous at $y=1$ when $x=2$. It's defined and continuous for values where $x-y \\ge 0$.",
+            "isCorrect": false
+          },
+          {
+            "text": "At least one solution is guaranteed because $x > y$ (i.e., $2 > 1$) at the given point, ensuring continuity in an open interval.",
+            "rationale": "For $f(x,y) = \\sqrt{x-y}$ to be continuous in an open interval around $(x,y)$, we need the radicand $x-y$ to be strictly greater than zero. At $(2,1)$, $x-y = 2-1 = 1 > 0$. This condition means the point is not an endpoint of the continuity interval, thus guaranteeing the existence of at least one solution.",
+            "isCorrect": true
+          },
+          {
+            "text": "At least one solution is guaranteed because $x-y \\ge 0$ at the given point, ensuring the function exists.",
+            "rationale": "While $x-y \\ge 0$ ensures the function exists (its domain), the lecture explicitly states that for the existence theorem, continuity must be on an *open interval*, meaning $x-y > 0$. Allowing $x-y = 0$ would mean the point is an endpoint of the continuity interval, which is disallowed.",
+            "isCorrect": false
+          },
+          {
+            "text": "No solution is guaranteed because we need to check the continuity of $\\frac{\\partial f}{\\partial y}$ first for existence.",
+            "rationale": "The continuity of $f(x,y)$ alone determines the guarantee of *existence*. The continuity of $\\frac{\\partial f}{\\partial y}$ is required in addition for *uniqueness*. This statement confuses the conditions for existence and uniqueness.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the condition for existence related to $f(x,y)$ and the crucial 'no endpoints' rule for continuity. For $\\sqrt{A}$ to be continuous in an open interval, $A$ must be strictly positive."
+      },
+      {
+        "questionNumber": 4,
+        "question": "Following the previous question, for the ODE $\\frac{dy}{dx} = f(x,y) = \\sqrt{x-y}$ with the initial condition $y(2)=1$, which statement correctly assesses the uniqueness of the solution based on the lecture's criteria?",
+        "answerOptions": [
+          {
+            "text": "The solution is unique because $f(x,y)$ is continuous at $(2,1)$.",
+            "rationale": "While the continuity of $f(x,y)$ is necessary for uniqueness, it is not sufficient. Uniqueness requires an additional condition: the continuity of the partial derivative of $f$ with respect to $y$.",
+            "isCorrect": false
+          },
+          {
+            "text": "The solution is unique because $\\frac{\\partial f}{\\partial y} = -\\frac{1}{2\\sqrt{x-y}}$, which is continuous at $(2,1)$ as $x > y$.",
+            "rationale": "To check for uniqueness, we compute the partial derivative: $\\frac{\\partial f}{\\partial y} = \\frac{\\partial}{\\partial y} (x-y)^{1/2} = \\frac{1}{2}(x-y)^{-1/2}(-1) = -\\frac{1}{2\\sqrt{x-y}}$. For this partial derivative to be continuous in an open interval around $(2,1)$, we need $x-y > 0$. At $(2,1)$, $2-1=1 > 0$. Thus, both $f(x,y)$ and $\\frac{\\partial f}{\\partial y}$ are continuous in an open interval around the point, guaranteeing a unique solution.",
+            "isCorrect": true
+          },
+          {
+            "text": "The solution is not unique because $\\frac{\\partial f}{\\partial y}$ contains a denominator that could be zero if $x=y$.",
+            "rationale": "While it is true that $\\frac{\\partial f}{\\partial y}$ is undefined when $x=y$, at the specific point $(2,1)$, we have $x=2$ and $y=1$, so $x \\ne y$. The condition is checked *at and around* the given point, not for all possible values. Since $x > y$ at $(2,1)$, the partial derivative is continuous there.",
+            "isCorrect": false
+          },
+          {
+            "text": "The solution is not unique because existence depends on an open interval, and uniqueness depends on a closed interval.",
+            "rationale": "Both the existence and uniqueness theorems require continuity in an *open interval* around the initial condition. The lecture explicitly states 'no endpoints are allowed' for both conditions.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember that uniqueness requires checking the continuity of the partial derivative $\\frac{\\partial f}{\\partial y}$ in an open interval around the point, in addition to $f(x,y)$ itself. Pay attention to denominators and square roots."
+      },
+      {
+        "questionNumber": 5,
+        "question": "Consider the ODE $\\frac{dy}{dx} = f(x,y) = (y)^{1/3}$ with the initial condition $y(0)=0$. Based on the lecture's criteria, what can be concluded about the existence and uniqueness of solutions through this point?",
+        "answerOptions": [
+          {
+            "text": "Both existence and uniqueness are guaranteed because $f(x,y) = y^{1/3}$ is continuous everywhere.",
+            "rationale": "While $f(x,y) = y^{1/3}$ is indeed continuous everywhere (cube roots are defined for all real numbers), this only guarantees existence. Uniqueness requires an additional check.",
+            "isCorrect": false
+          },
+          {
+            "text": "Existence is guaranteed, but uniqueness is not guaranteed because $\\frac{\\partial f}{\\partial y}$ is discontinuous at $y=0$.",
+            "rationale": "First, check for existence: $f(x,y) = y^{1/3}$ is continuous for all $y$ (including $y=0$), so existence of at least one solution is guaranteed. Second, check for uniqueness: $\\frac{\\partial f}{\\partial y} = \\frac{d}{dy}(y^{1/3}) = \\frac{1}{3}y^{-2/3} = \\frac{1}{3y^{2/3}}$. This partial derivative is discontinuous at $y=0$ because it leads to division by zero. Since $\\frac{\\partial f}{\\partial y}$ is not continuous around $y=0$, uniqueness is not guaranteed.",
+            "isCorrect": true
+          },
+          {
+            "text": "Neither existence nor uniqueness is guaranteed because $y=0$ is an endpoint for the domain of $f(x,y)$.",
+            "rationale": "The domain of $y^{1/3}$ is all real numbers, so $y=0$ is not an endpoint. The function $f(x,y)$ is continuous everywhere, so existence is guaranteed.",
+            "isCorrect": false
+          },
+          {
+            "text": "Uniqueness is guaranteed, but existence is not.",
+            "rationale": "This statement incorrectly reverses the conclusions. Existence is guaranteed due to the continuity of $f(x,y)$, but uniqueness is not due to the discontinuity of $\\frac{\\partial f}{\\partial y}$ at the point.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Check the continuity of $f(x,y)$ for existence and the continuity of $\\frac{\\partial f}{\\partial y}$ for uniqueness. Be careful with fractional exponents and denominators."
+      }
+    ]
+  },
+  "inline_kATxKuVSc9I_definitions": {
+    "quiz_id": "inline_kATxKuVSc9I_definitions",
+    "chapter_number": 1,
+    "video_id": "kATxKuVSc9I",
+    "title": "Micro-Practice: Linear First-Order Differential Equations and Integrating Factors",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "Which of the following represents the standard form of a linear first-order ordinary differential equation (ODE), as defined in the lecture?",
+        "answerOptions": [
+          {
+            "text": "$$M(x,y)dx + N(x,y)dy = 0$$",
+            "rationale": "The lecture defines a linear first-order ODE as having the first derivative and a $y$ term (raised to the first power) on one side, and functions of $x$ on the other. This form represents an exact or non-exact differential equation, which is a different classification.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\frac{dy}{dx} = f(x)g(y)$$",
+            "rationale": "This equation is explicitly identified in the lecture as the form for a separable differential equation, which is distinct from a linear one because the $y$ terms can be completely separated from the $x$ terms through multiplication.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\frac{dy}{dx} + P(x)y = Q(x)$$",
+            "rationale": "The lecture clearly establishes this as the standard form for a linear first-order differential equation, emphasizing that $y$ is to the first power and $P(x)$ and $Q(x)$ are functions of $x$ (or constants).",
+            "isCorrect": true
+          },
+          {
+            "text": "$$a_n(x)\\frac{d^ny}{dx^n} + \\dots + a_1(x)\\frac{dy}{dx} + a_0(x)y = f(x)$$",
+            "rationale": "This represents a general linear ODE of $n$-th order. While it is linear, it is not specifically a first-order equation, nor is it the specific standard form discussed for the technique of integrating factors, which focuses on $n=1$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the form that groups the first derivative of $y$ and the $y$ term (to the first power) on one side, with a function of $x$ on the other."
+      },
+      {
+        "questionNumber": 2,
+        "question": "According to the lecture, what is the primary purpose of multiplying a linear first-order differential equation by an integrating factor $\\rho(x)$?",
+        "answerOptions": [
+          {
+            "text": "To make the equation separable, allowing for direct integration of terms.",
+            "rationale": "The lecture explicitly states that linear differential equations are generally 'not separable' and that the technique for solving them is 'a different logic' than separation of variables. The integrating factor does not aim to make them separable.",
+            "isCorrect": false
+          },
+          {
+            "text": "To simplify the right-hand side $Q(x)$ to a constant.",
+            "rationale": "The integrating factor is primarily applied to the left-hand side to transform it. While it also multiplies $Q(x)$ on the right, its main purpose is not to reduce $Q(x)$ to a constant.",
+            "isCorrect": false
+          },
+          {
+            "text": "To transform the left-hand side into the exact derivative of a product of $\\rho(x)$ and $y$.",
+            "rationale": "The lecturer repeatedly emphasizes that the goal of the integrating factor is to 'find a missing piece to create the result of a product rule' on the left-hand side, effectively making it the derivative of the product $\\rho(x)y$.",
+            "isCorrect": true
+          },
+          {
+            "text": "To eliminate the $P(x)y$ term from the equation.",
+            "rationale": "The integrating factor does not eliminate the $P(x)y$ term; rather, it combines it with the $\\frac{dy}{dx}$ term as part of the expanded product rule, integrating it into the structure of $\\frac{d}{dx}[\\rho(x)y]$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Think about the central idea of 'completing the puzzle' or finding a 'missing piece' to a specific calculus rule on the left side of the ODE."
+      },
+      {
+        "questionNumber": 3,
+        "question": "How is the integrating factor $\\rho(x)$ for a linear first-order ODE in the standard form $\\frac{dy}{dx} + P(x)y = Q(x)$ derived, according to the lecture?",
+        "answerOptions": [
+          {
+            "text": "$$\\rho(x) = \\int Q(x) dx$$",
+            "rationale": "This formula relates to integrating the right-hand side of the transformed equation, not to the derivation of the integrating factor itself. The integrating factor depends on $P(x)$, not $Q(x)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\rho(x) = e^{P(x)}$$",
+            "rationale": "While the integrating factor is an exponential function involving $P(x)$, it is specifically the integral of $P(x)$ in the exponent, not $P(x)$ directly. The lecturer explains that $P(x)$ is the derivative of the exponent.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\rho(x) = e^{\\int P(x) dx}$$",
+            "rationale": "The lecture explains that $P(x)$ must be the derivative of the exponent of $\\rho(x)$ so that when $\\rho(x)$'s derivative is taken, the $P(x)$ term emerges correctly to complete the product rule. Therefore, integrating $P(x)$ yields the exponent for $\\rho(x)$. The absence of a '+C' in the exponent is also explicitly discussed as unnecessary.",
+            "isCorrect": true
+          },
+          {
+            "text": "$$\\rho(x) = P(x) + Q(x)$$",
+            "rationale": "This formula is a simple addition and bears no relation to the derived form of the integrating factor, which involves an exponential and an integral.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The lecturer explains that $P(x)$ is the derivative of the exponent of the integrating factor. How do you find a function if you know its derivative?"
+      },
+      {
+        "questionNumber": 4,
+        "question": "After multiplying a linear first-order ODE by its integrating factor $\\rho(x)$, the left-hand side (LHS) can be expressed as which of the following?",
+        "answerOptions": [
+          {
+            "text": "$$\\frac{d}{dx} [P(x)y]$$",
+            "rationale": "This is a product rule involving $P(x)$ and $y$, but it does not account for the integrating factor $\\rho(x)$ that was multiplied through the equation.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$y \\frac{d\\rho}{dx}$$",
+            "rationale": "This is only one term that would appear from the product rule of $\\rho(x)y$, specifically the derivative of the first term times the second. The full transformed LHS encompasses both terms of the original equation combined into a single derivative of a product.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\frac{d}{dx} [\\rho(x)y]$$",
+            "rationale": "The lecture's core explanation and example demonstrate that the purpose of the integrating factor is precisely to transform the LHS, $\\rho(x)\\frac{dy}{dx} + \\rho(x)P(x)y$, into the compact form of the derivative of a product $\\frac{d}{dx}[\\rho(x)y]$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$$\\rho(x)Q(x)$$",
+            "rationale": "This expression represents the right-hand side of the ODE after it has been multiplied by the integrating factor $\\rho(x)$. It is not the transformed left-hand side.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The entire technique is designed to make the LHS of the ODE look like the result of a specific calculus rule: the product rule. What product rule is formed by $\\rho(x)$ and $y$?"
+      },
+      {
+        "questionNumber": 5,
+        "question": "The lecture explains that the integrating factor $\\rho(x)$ must be an exponential function (e.g., $e^{\\text{something}}$) primarily because of what mathematical property?",
+        "answerOptions": [
+          {
+            "text": "Exponential functions are always positive, which simplifies calculations.",
+            "rationale": "While exponential functions are indeed always positive, the lecture does not highlight this as the primary reason for their use. The focus is on their unique derivative property for forming the product rule.",
+            "isCorrect": false
+          },
+          {
+            "text": "The derivative of an exponential function always includes the original exponential function itself.",
+            "rationale": "The lecture extensively explains that $\\rho(x)$ needs to be a function that 'repeats itself' when its derivative is taken, meaning it appears in both terms of the product rule after differentiation. The property that $\\frac{d}{dx} (e^{f(x)}) = e^{f(x)}f'(x)$ ensures $\\rho(x)$ (as $e^{f(x)}$) is present in both $\\rho(x)\\frac{dy}{dx}$ and $\\frac{d\\rho}{dx}y$ terms after the transformation.",
+            "isCorrect": true
+          },
+          {
+            "text": "Exponential functions are easier to integrate than other types of functions.",
+            "rationale": "The ease of integration of exponential functions is not the primary reason cited for choosing them as integrating factors. The fundamental reason relates to their differentiation property in the context of the product rule.",
+            "isCorrect": false
+          },
+          {
+            "text": "All linear differential equations inherently have exponential solutions.",
+            "rationale": "This is an overgeneralization and not the reason $\\rho(x)$ is exponential. While some linear ODEs have exponential solutions, this is not a universal property or the justification for the integrating factor's form.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The lecturer repeatedly emphasizes the idea of a function that 'repeats itself' when differentiated, which is crucial for completing the product rule on the LHS."
+      }
+    ]
+  },
+  "inline__c3iEPReTVQ_definitions": {
+    "quiz_id": "inline__c3iEPReTVQ_definitions",
+    "chapter_number": 1,
+    "video_id": "_c3iEPReTVQ",
+    "title": "Micro-Practice: Introduction to Exact Differential Equations",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "According to the lecture, what is the fundamental concept that exact differential equations primarily deal with?",
+        "answerOptions": [
+          {
+            "text": "Separable functions, where variables can be isolated for integration.",
+            "rationale": "The lecture introduces exact differential equations as distinct from other types of ODEs, focusing on their origin from multivariable functions, not merely separable forms.",
+            "isCorrect": false
+          },
+          {
+            "text": "Level curves of a multivariable 'potential function' $F(x,y) = C$.",
+            "rationale": "The lecture repeatedly emphasizes that exact differential equations represent the total differential of a potential function $F(x,y)$, whose setting equal to a constant $C$ yields 'level curves'. This is the core conceptual starting point.",
+            "isCorrect": true
+          },
+          {
+            "text": "Linear transformations of vector spaces in $\\mathbb{R}^3$.",
+            "rationale": "This concept is not discussed in the lecture and is outside the scope of this topic in Ordinary Differential Equations.",
+            "isCorrect": false
+          },
+          {
+            "text": "Solutions that exhibit chaotic behavior near equilibrium points.",
+            "rationale": "The lecture does not discuss chaotic behavior; it focuses on the direct solvability of exact differential equations for a potential function.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Think about where these equations 'come from' in the context of multivariable calculus, as explained at the beginning of the lecture."
+      },
+      {
+        "questionNumber": 2,
+        "question": "An exact differential equation is typically presented in what specific differential form?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dy}{dx} = f(x)g(y)$",
+            "rationale": "This represents a separable differential equation, not the standard form of an exact differential equation discussed in the lecture.",
+            "isCorrect": false
+          },
+          {
+            "text": "$y' + p(x)y = q(x)$",
+            "rationale": "This is the standard form of a first-order linear differential equation, which is a different classification than an exact differential equation.",
+            "isCorrect": false
+          },
+          {
+            "text": "$M(x,y)dx + N(x,y)dy = 0$",
+            "rationale": "The lecture explicitly defines the exact differential equation in this form, where $M(x,y)$ is the coefficient of $dx$ and $N(x,y)$ is the coefficient of $dy$. This form is identified as the 'total differential'.",
+            "isCorrect": true
+          },
+          {
+            "text": "$y'' + ay' + by = 0$",
+            "rationale": "This represents a second-order homogeneous linear differential equation, which is a different type of ODE not the focus of this lecture.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the notation used for the coefficients of $dx$ and $dy$ in the total differential."
+      },
+      {
+        "questionNumber": 3,
+        "question": "For a differential equation in the form $M(x,y)dx + N(x,y)dy = 0$ to be exact, what condition must the partial derivatives of $M$ and $N$ satisfy?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$",
+            "rationale": "This condition incorrectly equates the partial derivative of $M$ with respect to $x$ and the partial derivative of $N$ with respect to $y$. The exactness condition involves 'mixed partials'.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+            "rationale": "The lecture clearly states that this is the test for exactness. If $M = \\frac{\\partial F}{\\partial x}$ and $N = \\frac{\\partial F}{\\partial y}$, then the equality of mixed partials, $\\frac{\\partial^2 F}{\\partial y \\partial x} = \\frac{\\partial^2 F}{\\partial x \\partial y}$, implies this condition.",
+            "isCorrect": true
+          },
+          {
+            "text": "$M(x,y) = N(x,y)$",
+            "rationale": "This condition is not relevant to determining if a differential equation is exact. It's an arbitrary equality of the functions themselves, not their derivatives.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} + \\frac{\\partial N}{\\partial y} = 0$",
+            "rationale": "This condition is not the test for exactness. It resembles a divergence condition, which is not the criterion discussed for exact ODEs.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The lecture refers to this as checking for 'mixed partials' equality, from Calculus 3."
+      },
+      {
+        "questionNumber": 4,
+        "question": "The lecture explains that the condition for exactness, $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$, is theoretically justified by which principle from multivariable calculus?",
+        "answerOptions": [
+          {
+            "text": "The Fundamental Theorem of Calculus, which relates differentiation and integration.",
+            "rationale": "While the Fundamental Theorem is crucial in calculus, it doesn't directly explain the equality of mixed partial derivatives in this context. The lecture points to a specific multivariable theorem.",
+            "isCorrect": false
+          },
+          {
+            "text": "Clairaut's Theorem (or the equality of mixed partials) for continuously differentiable functions.",
+            "rationale": "The lecture explicitly connects the exactness test to the principle from Calculus 3 that 'mixed partial derivatives are always equal on some sort of region where our function is continuous and differentiable'. This is Clairaut's Theorem.",
+            "isCorrect": true
+          },
+          {
+            "text": "Green's Theorem, relating line integrals to double integrals.",
+            "rationale": "Green's Theorem is a powerful result in vector calculus that is related to exactness in vector fields, but the lecture specifically refers to the equality of mixed partials of a scalar potential function as the direct justification.",
+            "isCorrect": false
+          },
+          {
+            "text": "L'Hôpital's Rule, used for evaluating limits of indeterminate forms.",
+            "rationale": "L'Hôpital's Rule is used for limits, not for the theory behind the equality of mixed partial derivatives for continuously differentiable functions.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the discussion about how the continuity and differentiability of the potential function $F(x,y)$ ensure its mixed partials are equal."
+      },
+      {
+        "questionNumber": 5,
+        "question": "After confirming that $M(x,y)dx + N(x,y)dy = 0$ is an exact differential equation, what is the *first* step in finding the potential function $F(x,y)$?",
+        "answerOptions": [
+          {
+            "text": "Take the partial derivative of $M$ with respect to $y$ and $N$ with respect to $x$ again to double-check.",
+            "rationale": "This step is part of the *test* for exactness, not the *solution process* for finding $F(x,y)$ once exactness has been confirmed.",
+            "isCorrect": false
+          },
+          {
+            "text": "Integrate $M(x,y)$ with respect to $x$ (adding an arbitrary function of $y$, $g(y)$) OR integrate $N(x,y)$ with respect to $y$ (adding an arbitrary function of $x$, $h(x)$).",
+            "rationale": "The lecture clearly outlines this as the initial step in solving for $F(x,y)$. Since $M = \\frac{\\partial F}{\\partial x}$ and $N = \\frac{\\partial F}{\\partial y}$, integrating either $M$ or $N$ with respect to its respective variable allows us to start reconstructing $F(x,y)$, accounting for terms that would have vanished during partial differentiation.",
+            "isCorrect": true
+          },
+          {
+            "text": "Multiply the entire equation by an 'integrating factor' to make it exact.",
+            "rationale": "This technique is used when an equation is *not* exact initially, to transform it into an exact one. It is mentioned as a future topic, not the first step for an already confirmed exact equation.",
+            "isCorrect": false
+          },
+          {
+            "text": "Separate the variables $x$ and $y$ and integrate both sides.",
+            "rationale": "Separation of variables is a method for solving separable ODEs, not the general approach for exact differential equations, even after confirming exactness.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember that $M = \\frac{\\partial F}{\\partial x}$ and $N = \\frac{\\partial F}{\\partial y}$. How do you reverse a partial differentiation?"
+      }
+    ]
+  },
+  "inline_iEpqcdaJNTQ_definitions": {
+    "quiz_id": "inline_iEpqcdaJNTQ_definitions",
+    "chapter_number": 1,
+    "video_id": "iEpqcdaJNTQ",
+    "title": "Micro-Practice: Total Derivative and Chain Rule Foundation for Exact Equations",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "What is the correct expression for the total derivative of a function $\\psi(x,y)$ with respect to $x$, assuming $y$ is itself a function of $x$?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{d\\psi}{dx} = \\frac{\\partial \\psi}{\\partial x}$",
+            "rationale": "This expression only accounts for the direct dependence of $\\psi$ on $x$. It omits the indirect dependence through $y(x)$, which is a crucial component of the total derivative when $y$ is a function of $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{d\\psi}{dx} = \\frac{\\partial \\psi}{\\partial x} + \\frac{\\partial \\psi}{\\partial y} \\frac{dy}{dx}$",
+            "rationale": "This is the correct chain rule formula derived in the lecture for the total derivative of $\\psi(x,y)$ with respect to $x$, where $\\psi$ depends on $x$ directly and indirectly through $y(x)$. It captures both the direct and indirect dependencies.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\frac{d\\psi}{dx} = \\frac{\\partial \\psi}{\\partial y} + \\frac{\\partial \\psi}{\\partial x} \\frac{dx}{dy}$",
+            "rationale": "This expression incorrectly interchanges the roles of $x$ and $y$ in the second term and uses $\\frac{dx}{dy}$ instead of $\\frac{dy}{dx}$, which is not what was derived for a total derivative with respect to $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{d\\psi}{dx} = \\frac{d\\psi}{dx} \\frac{dx}{dx} + \\frac{d\\psi}{dy} \\frac{dy}{dx}$",
+            "rationale": "This option incorrectly uses total derivatives where partial derivatives are required to distinguish between direct and indirect dependencies. The derivation explicitly uses partial derivatives.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the full expression derived by combining terms from implicit differentiation, which accounts for both direct dependence on $x$ and indirect dependence via $y(x)$."
+      },
+      {
+        "questionNumber": 2,
+        "question": "According to the lecture, when computing the partial derivative of $\\psi(x,y)$ with respect to $x$, i.e., $\\frac{\\partial \\psi}{\\partial x}$, how are functions of $y$ typically treated?",
+        "answerOptions": [
+          {
+            "text": "As functions that are implicitly dependent on $x$.",
+            "rationale": "Treating functions of $y$ as implicitly dependent on $x$ is characteristic of total differentiation with respect to $x$, not partial differentiation with respect to $x$. In partial differentiation, other variables are held constant.",
+            "isCorrect": false
+          },
+          {
+            "text": "As constants.",
+            "rationale": "The lecture explicitly states, \"If you were to take just a partial derivative with respect to x... you treat a function of y as a constant.\" This is a fundamental concept of partial derivatives.",
+            "isCorrect": true
+          },
+          {
+            "text": "As variables for which the derivative is taken, then multiplied by $\\frac{dy}{dx}$.",
+            "rationale": "This describes how functions of $y$ are differentiated (using the chain rule) when computing the partial derivative with respect to $y$, or as part of the total derivative $\\frac{d\\psi}{dx}$'s second term, not for $\\frac{\\partial \\psi}{\\partial x}$.",
+            "isCorrect": false
+          },
+          {
+            "text": "They are ignored completely.",
+            "rationale": "Functions of $y$ are not ignored; they are present in the function $\\psi$. However, when taking a partial derivative with respect to $x$, they are treated as constants, meaning their derivative with respect to $x$ is zero if they are not explicitly functions of $x$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider the core definition of a partial derivative with respect to one variable when other variables are present in the function."
+      },
+      {
+        "questionNumber": 3,
+        "question": "If $\\psi(x,y) = f_1(x)g_1(y)$, what is the result of taking the derivative of $\\psi$ with respect to $x$, assuming $y$ is a function of $x$?",
+        "answerOptions": [
+          {
+            "text": "$f_1'(x)g_1(y)$",
+            "rationale": "This expression only represents the derivative of the first part of the product, treating $g_1(y)$ as a constant. It misses the term where $f_1(x)$ is constant and $g_1(y)$ is differentiated with respect to $x$ using the chain rule.",
+            "isCorrect": false
+          },
+          {
+            "text": "$f_1(x)g_1'(y)\\frac{dy}{dx}$",
+            "rationale": "This expression only represents the derivative of the second part of the product, treating $f_1(x)$ as a constant. It misses the term where $f_1(x)$ is differentiated.",
+            "isCorrect": false
+          },
+          {
+            "text": "$f_1'(x)g_1(y) + f_1(x)g_1'(y)\\frac{dy}{dx}$",
+            "rationale": "This is the correct application of the product rule for differentiation with respect to $x$. The first term differentiates $f_1(x)$ and keeps $g_1(y)$ constant. The second term keeps $f_1(x)$ constant and differentiates $g_1(y)$ with respect to $x$ using the chain rule ($g_1'(y)\\frac{dy}{dx}$).",
+            "isCorrect": true
+          },
+          {
+            "text": "$f_1'(x)g_1(y) + f_1(x)g_1'(y)$",
+            "rationale": "This expression is missing the $\\frac{dy}{dx}$ factor in the second term. When differentiating $g_1(y)$ with respect to $x$, and $y$ is a function of $x$, the chain rule dictates that we must multiply by $\\frac{dy}{dx}$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember to apply the product rule for differentiation and the chain rule for terms involving $y(x)$ when differentiating with respect to $x$."
+      },
+      {
+        "questionNumber": 4,
+        "question": "Under what condition does the total derivative of $\\psi(x,y)$ with respect to $x$ simplify to just the partial derivative of $\\psi$ with respect to $x$?",
+        "answerOptions": [
+          {
+            "text": "When $\\psi$ is explicitly a function of $x$ only.",
+            "rationale": "While true that if $\\psi$ were only a function of $x$, its total derivative would be its partial, the problem statement defines $\\psi$ as a function of $x$ and $y$. The simplification discussed is within the context of $\\psi(x,y)$ where $y$ is also a function of $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "When $y$ is independent of $x$.",
+            "rationale": "The lecture states that if $y$ was independent of $x$, then $\\frac{dy}{dx}$ would be $0$. In this case, the second term of the chain rule formula, $\\frac{\\partial \\psi}{\\partial y} \\frac{dy}{dx}$, becomes $0$, leaving $\\frac{d\\psi}{dx} = \\frac{\\partial \\psi}{\\partial x}$.",
+            "isCorrect": true
+          },
+          {
+            "text": "When $\\frac{\\partial \\psi}{\\partial y} = 0$.",
+            "rationale": "If $\\frac{\\partial \\psi}{\\partial y} = 0$, it implies that $\\psi$ does not depend on $y$. While this would also cause the second term to vanish, the condition given in the lecture was about the independence of $y$ from $x$, not the independence of $\\psi$ from $y$.",
+            "isCorrect": false
+          },
+          {
+            "text": "When $\\psi(x,y)$ is a constant.",
+            "rationale": "If $\\psi(x,y)$ were a constant, both its total and partial derivatives would be zero. This is a trivial case, and not the specific condition for the simplification of the chain rule discussed in the video.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider what happens to the $\\frac{dy}{dx}$ term in the chain rule formula if $y$ does not depend on $x$."
+      },
+      {
+        "questionNumber": 5,
+        "question": "The primary purpose of this video's detailed derivation of the chain rule for $\\frac{d\\psi}{dx}$ (when $\\psi$ is a function of $x$ and $y$, and $y$ is a function of $x$) is to:",
+        "answerOptions": [
+          {
+            "text": "Introduce a new method for solving separable differential equations.",
+            "rationale": "The video introduces the context of 'exact equations' and states it's 'another method for solving a certain type of differential equations,' but it explicitly says it hasn't shown 'what an exact equation is' or a solving method yet. Separable equations were not mentioned.",
+            "isCorrect": false
+          },
+          {
+            "text": "Provide the foundational intuition for understanding exact differential equations.",
+            "rationale": "The lecturer clearly states, \"I'm just going to give you a little bit of the building blocks, just so that when I later prove it, or at least give you the intuition behind it [exact equations], it doesn't seem like it's coming out of the blue.\" He concludes by saying, \"We're going to use this property in the next series of videos to understand exact equations a little bit more.\"",
+            "isCorrect": true
+          },
+          {
+            "text": "Demonstrate how to calculate higher-order partial derivatives.",
+            "rationale": "The video focuses exclusively on first-order total and partial derivatives of $\\psi$, not higher-order derivatives.",
+            "isCorrect": false
+          },
+          {
+            "text": "Prove the fundamental theorem of calculus using implicit differentiation.",
+            "rationale": "The content of the video, while using implicit differentiation, is not related to proving the fundamental theorem of calculus. Its focus is on the chain rule for functions of multiple variables in the context of ODEs.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Review the very beginning and end of the video where the lecturer states the overarching goal and connection to future topics."
+      }
+    ]
+  },
+  "inline_a7wYAtMjORQ_definitions": {
+    "quiz_id": "inline_a7wYAtMjORQ_definitions",
+    "chapter_number": 1,
+    "video_id": "a7wYAtMjORQ",
+    "title": "Micro-Practice: Exact Equations Foundations",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "For a function $\\psi(x,y)$ where $y$ is considered an implicit function of $x$, what is the correct expression for the total derivative $\\frac{d\\psi}{dx}$?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial\\psi}{\\partial x}$",
+            "rationale": "This expression only accounts for the direct dependency of $\\psi$ on $x$, ignoring the dependency of $\\psi$ on $y$ which in turn depends on $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial\\psi}{\\partial y} + \\frac{\\partial\\psi}{\\partial x} \\frac{dy}{dx}$",
+            "rationale": "This expression incorrectly swaps the roles of the partial derivatives with respect to $x$ and $y$ within the chain rule formula.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial\\psi}{\\partial x} + \\frac{\\partial\\psi}{\\partial y} \\frac{dy}{dx}$",
+            "rationale": "As discussed in the lecture, this is the correct generalized chain rule for finding the total derivative of $\\psi(x,y)$ with respect to $x$, when $y$ is a function of $x$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\frac{\\partial\\psi}{\\partial x} \\frac{dx}{dx} + \\frac{\\partial\\psi}{\\partial y} \\frac{dy}{dy}$",
+            "rationale": "This option misapplies the chain rule and incorrectly introduces derivatives like $\\frac{dx}{dx}$ and $\\frac{dy}{dy}$ in this context.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall how a function of multiple variables changes when some of those variables are themselves functions of a single independent variable. The lecture covered this rule explicitly."
+      },
+      {
+        "questionNumber": 2,
+        "question": "According to the lecture, under what primary condition are the mixed partial derivatives $\\frac{\\partial^2\\psi}{\\partial y \\partial x}$ and $\\frac{\\partial^2\\psi}{\\partial x \\partial y}$ guaranteed to be equal for a function $\\psi(x,y)$?",
+        "answerOptions": [
+          {
+            "text": "If $\\psi(x,y)$ is a linear function.",
+            "rationale": "While mixed partials would be equal for a linear function, this is a specific case. The lecture provided a more general and fundamental condition.",
+            "isCorrect": false
+          },
+          {
+            "text": "If all first partial derivatives of $\\psi(x,y)$ are continuous over the domain.",
+            "rationale": "The lecture explicitly states that if the first partial derivatives (i.e., $\\frac{\\partial\\psi}{\\partial x}$ and $\\frac{\\partial\\psi}{\\partial y}$) are continuous, then the mixed second partial derivatives are equal. This is often referred to as Clairaut's Theorem or Schwarz's Theorem.",
+            "isCorrect": true
+          },
+          {
+            "text": "If $\\psi(x,y)$ is equal to a constant $C$.",
+            "rationale": "If $\\psi(x,y)=C$, all its derivatives, including mixed partials, would be zero, thus equal. However, this is a very specific trivial case and not the general condition ensuring equality for any $\\psi(x,y)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "If $\\psi(x,y)$ is separable, i.e., $\\psi(x,y) = f(x)g(y)$.",
+            "rationale": "Separability of $\\psi(x,y)$ does not directly guarantee the equality of mixed partial derivatives in all cases; the continuity condition is the fundamental requirement.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The lecture mentioned a specific property of the *first* partial derivatives that ensures the equality of mixed *second* partial derivatives. Think about what makes a function 'well-behaved' for differentiation."
+      },
+      {
+        "questionNumber": 3,
+        "question": "What is the general form of a first-order differential equation that the lecture suggests might be an exact equation?",
+        "answerOptions": [
+          {
+            "text": "$P(x,y)\\,dx + Q(x,y)\\,dy = 0$",
+            "rationale": "While this is an equivalent form for an exact equation, the lecture specifically introduced the form $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$M(x,y) + N(x,y) \\frac{dy}{dx} = 0$",
+            "rationale": "This is the exact form of a first-order differential equation presented in the lecture that should prompt one to check for exactness.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\frac{dy}{dx} = f(x)g(y)$",
+            "rationale": "This is the general form for a separable differential equation, which is a different class of ODEs, though some separable equations can also be exact.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{dy}{dx} + P(x)y = Q(x)$",
+            "rationale": "This is the general form for a first-order linear differential equation, which is a different class of ODEs and not the form typically associated with exact equations.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The lecture explicitly showed how an exact equation looks before delving into the conditions for exactness. It involved two functions, $M$ and $N$, and the term $\\frac{dy}{dx}$."
+      },
+      {
+        "questionNumber": 4,
+        "question": "Given a differential equation in the form $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$, what is the test to determine if it is an exact equation?",
+        "answerOptions": [
+          {
+            "text": "Check if $\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$.",
+            "rationale": "This condition incorrectly relates the partial derivatives. For an exact equation, the partial of $M$ is taken with respect to $y$, and the partial of $N$ with respect to $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "Check if $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$.",
+            "rationale": "The lecture demonstrates that if the equation is exact, there exists a potential function $\\psi$ such that $\\frac{\\partial\\psi}{\\partial x} = M$ and $\\frac{\\partial\\psi}{\\partial y} = N$. By the equality of mixed partials (from question 2), we must have $\\frac{\\partial^2\\psi}{\\partial y \\partial x} = \\frac{\\partial^2\\psi}{\\partial x \\partial y}$, which translates to $\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$.",
+            "isCorrect": true
+          },
+          {
+            "text": "Check if $M(x,y)$ and $N(x,y)$ are both continuous.",
+            "rationale": "While continuity of $M$ and $N$ (and their first partials) is generally assumed for the exactness test to be valid, it is not the *test* for exactness itself.",
+            "isCorrect": false
+          },
+          {
+            "text": "Check if $M(x,y)$ is a function of $x$ only and $N(x,y)$ is a function of $y$ only.",
+            "rationale": "This condition describes a separable differential equation, not the specific test for exactness as derived in the lecture.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "The test for exactness directly follows from the condition for equality of mixed partial derivatives. Remember which function ($M$ or $N$) is hypothesized to be the partial derivative of $\\psi$ with respect to $x$ and which with respect to $y$, and how that relates to the mixed second partials."
+      },
+      {
+        "questionNumber": 5,
+        "question": "If a differential equation of the form $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$ is determined to be exact, what is the immediate implication regarding a potential function $\\psi(x,y)$ and the form of its solution?",
+        "answerOptions": [
+          {
+            "text": "It implies that $\\psi(x,y) = M(x,y)N(x,y)$ is the solution.",
+            "rationale": "This is an incorrect combination of $M$ and $N$ and does not represent the solution of an exact differential equation.",
+            "isCorrect": false
+          },
+          {
+            "text": "It implies that there exists a function $\\psi(x,y)$ such that $\\frac{\\partial\\psi}{\\partial x} = M(x,y)$ and $\\frac{\\partial\\psi}{\\partial y} = N(x,y)$, and the solution is $\\psi(x,y) = C$.",
+            "rationale": "The lecture clearly states that an exact equation means it can be written as the total derivative of some function $\\psi(x,y)$ with respect to $x$, such that $\\frac{d\\psi}{dx}=0$. This implies $\\psi(x,y)$ is a constant, $C$, and that its partial derivatives are $M$ and $N$.",
+            "isCorrect": true
+          },
+          {
+            "text": "It implies that $M(x,y)$ is the integrating factor for the equation.",
+            "rationale": "Integrating factors are used to make a non-exact equation exact. If an equation is already exact, an integrating factor is not needed in the same way.",
+            "isCorrect": false
+          },
+          {
+            "text": "It implies that the equation can be solved by direct integration of $M(x,y)$ and $N(x,y)$ separately.",
+            "rationale": "While integration is part of solving exact equations, it's not a simple direct, separate integration of $M$ and $N$. The process involves reconstructing the potential function $\\psi(x,y)$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall how the generalized chain rule for $\\frac{d\\psi}{dx}$ was used to connect the form of the exact equation to the derivative of a single potential function $\\psi(x,y)$."
+      }
+    ]
+  },
+  "inline_Pb04ntcDJcQ_definitions": {
+    "quiz_id": "inline_Pb04ntcDJcQ_definitions",
+    "chapter_number": 1,
+    "video_id": "Pb04ntcDJcQ",
+    "title": "Micro-Practice: Solving Exact First-Order ODEs",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "Which of the following represents the standard form of a first-order differential equation that might be exact, as discussed in the lecture?",
+        "answerOptions": [
+          {
+            "text": "$$M(x,y)\\,dx + N(x,y)\\,dy = 0$$",
+            "rationale": "While this is an alternative notation for exact equations, the lecture explicitly presents the form involving $y'$ or $\\frac{dy}{dx}$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$M(x,y) + N(x,y) \\frac{dy}{dx} = 0$$",
+            "rationale": "The lecture introduces exact equations in the form \"a function of x and y... and then you have another function of x and y, times y prime, or times dy, d of x,\" which precisely matches $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$$\\frac{dy}{dx} = f(x)g(y)$$",
+            "rationale": "This is the form for separable differential equations, which the lecturer mentions as a different type that may or may not be exact.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$y' + P(x)y = Q(x)$$",
+            "rationale": "This is the standard form for a first-order linear differential equation, which is not the specific form discussed for exact equations.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall how the functions $M$ and $N$ were introduced in relation to $y'$ in the example problem."
+      },
+      {
+        "questionNumber": 2,
+        "question": "For a differential equation in the form $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$ to be exact, what condition must be satisfied?",
+        "answerOptions": [
+          {
+            "text": "$$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$$",
+            "rationale": "This condition incorrectly swaps the variables with respect to which the partial derivatives of $M$ and $N$ are taken.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$$",
+            "rationale": "The lecture explicitly states that \"The test is to see if the partial of this [M], with respect to y, is equal to the partial of this [N], with respect to x.\" This is the defining condition for exactness.",
+            "isCorrect": true
+          },
+          {
+            "text": "$$M(x,y) = N(x,y)$$",
+            "rationale": "This condition compares the functions $M$ and $N$ directly, which is not the test for exactness; the test involves their partial derivatives.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$M_x = N_y$$",
+            "rationale": "While using shorthand for partial derivatives, this option implies $\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$, which is an incorrect condition for exactness as explained in the lecture.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember which function ($M$ or $N$) is differentiated with respect to $x$ and which with respect to $y$ in the exactness test."
+      },
+      {
+        "questionNumber": 3,
+        "question": "If a differential equation $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$ is found to be exact, what is true about the potential function $\\psi(x,y)$?",
+        "answerOptions": [
+          {
+            "text": "$$\\frac{\\partial \\psi}{\\partial x} = N(x,y) \\quad \\text{and} \\quad \\frac{\\partial \\psi}{\\partial y} = M(x,y)$$",
+            "rationale": "This option incorrectly swaps the roles of $M$ and $N$ in relation to the partial derivatives of $\\psi$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\frac{\\partial \\psi}{\\partial x} = M(x,y) \\quad \\text{and} \\quad \\frac{\\partial \\psi}{\\partial y} = N(x,y)$$",
+            "rationale": "The lecture explains that for an exact equation, \"there's some psi, where the partial derivative of psi, with respect to x, is equal to M, and the partial derivative of psi, with respect to y, is equal to N.\"",
+            "isCorrect": true
+          },
+          {
+            "text": "$$\\frac{d\\psi}{dx} = M(x,y) \\quad \\text{and} \\quad \\frac{d\\psi}{dy} = N(x,y)$$",
+            "rationale": "This option incorrectly uses total derivatives instead of partial derivatives. Since $\\psi$ is a function of two independent variables, partial derivatives are appropriate.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\psi(x,y) = M(x,y) + N(x,y)$$",
+            "rationale": "This option represents an incorrect algebraic sum and does not define the potential function $\\psi$ in the context of exact equations.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider the exact differential $d\\psi = M \\,dx + N \\,dy$ and how it relates to partial derivatives."
+      },
+      {
+        "questionNumber": 4,
+        "question": "When solving for the potential function $\\psi(x,y)$ by integrating $M(x,y)$ with respect to $x$, what form does the 'constant of integration' take?",
+        "answerOptions": [
+          {
+            "text": "An arbitrary constant $C$",
+            "rationale": "While an arbitrary constant is standard for indefinite integrals, in the context of partial integration with respect to one variable, the 'constant' can be a function of the other variable.",
+            "isCorrect": false
+          },
+          {
+            "text": "A function of $y$, denoted $f(y)$",
+            "rationale": "The lecture explains, \"since this is a partial, with respect to x, we could have had some function of y here in general, because y, we treat it as a constant.\" This is added as $f(y)$ to the integral of $M(x,y)$.",
+            "isCorrect": true
+          },
+          {
+            "text": "A function of $x$, denoted $f(x)$",
+            "rationale": "A function of $x$ would be the appropriate 'constant of integration' if one were integrating with respect to $y$.",
+            "isCorrect": false
+          },
+          {
+            "text": "Zero",
+            "rationale": "Assuming the constant of integration is zero would lead to a specific solution, not the general form of $\\psi(x,y)$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember that when taking a partial derivative with respect to $x$, any function of $y$ alone is treated as a constant and would differentiate to zero."
+      },
+      {
+        "questionNumber": 5,
+        "question": "Once the potential function $\\psi(x,y)$ is found, how is the general solution to the exact differential equation $M(x,y) + N(x,y) \\frac{dy}{dx} = 0$ expressed?",
+        "answerOptions": [
+          {
+            "text": "$$\\psi(x,y) = 0$$",
+            "rationale": "This would represent a particular solution where the arbitrary constant is zero, not the general solution.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\psi(x,y) = C$$",
+            "rationale": "The lecture explicitly states, \"if you were to integrate both sides of this [$\\frac{d\\psi}{dx}=0$], you would get that psi of xy is equal to c is a solution of that differential equation.\"",
+            "isCorrect": true
+          },
+          {
+            "text": "$$\\frac{d\\psi}{dx} = 0$$",
+            "rationale": "This equation is an intermediate step derived from the chain rule for partial derivatives, but it is not the final expression for the general solution itself.",
+            "isCorrect": false
+          },
+          {
+            "text": "$$\\psi(x,y) = \\int M(x,y)\\,dx + \\int N(x,y)\\,dy$$",
+            "rationale": "This expression does not correctly represent the general solution of an exact differential equation; it's an incorrect combination of integrals.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider the result of integrating $\\frac{d\\psi}{dx} = 0$ with respect to $x$ when $\\psi$ implicitly defines $y(x)$."
+      }
+    ]
+  },
+  "inline_utQi1ZhF__Q_definitions": {
+    "quiz_id": "inline_utQi1ZhF__Q_definitions",
+    "chapter_number": 1,
+    "video_id": "utQi1ZhF__Q",
+    "title": "Micro-Practice: Exact Differential Equations",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "For a first-order differential equation in the form $M(x,y) + N(x,y)y' = 0$, which is equivalent to $M(x,y)dx + N(x,y)dy = 0$, what condition must be satisfied for the equation to be exact?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$",
+            "rationale": "This condition is incorrect for exactness. The condition involves cross-partial derivatives with respect to the opposite variables.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+            "rationale": "As explained in the lecture, an equation $M(x,y) + N(x,y)y' = 0$ is exact if and only if the partial derivative of $M$ with respect to $y$ equals the partial derivative of $N$ with respect to $x$. The video demonstrates this with an example where $M_y = 0$ and $N_x = 0$, confirming exactness.",
+            "isCorrect": true
+          },
+          {
+            "text": "$M(x,y)$ and $N(x,y)$ must be functions of $x$ only.",
+            "rationale": "The exactness condition applies to functions $M$ and $N$ that can depend on both $x$ and $y$. While $M$ might be a function of $x$ only (as in the first example), it is not a general requirement for exactness.",
+            "isCorrect": false
+          },
+          {
+            "text": "$M(x,y)$ and $N(x,y)$ must be functions of $y$ only.",
+            "rationale": "The exactness condition applies to functions $M$ and $N$ that can depend on both $x$ and $y$. This is not a general requirement for exactness.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the cross-partial derivatives required for exactness, specifically relating $M$ and $N$ to the 'opposite' variable for their partial derivatives."
+      },
+      {
+        "questionNumber": 2,
+        "question": "If a differential equation $M(x,y) + N(x,y)y' = 0$ is exact, what does this imply about the existence of a potential function $\\psi(x,y)$?",
+        "answerOptions": [
+          {
+            "text": "There exists a function $\\psi(x,y)$ such that $\\frac{\\partial \\psi}{\\partial y} = M(x,y)$ and $\\frac{\\partial \\psi}{\\partial x} = N(x,y)$.",
+            "rationale": "This statement incorrectly assigns $M$ to $\\psi_y$ and $N$ to $\\psi_x$. The lecture explicitly defines $\\psi_x = M$ and $\\psi_y = N$.",
+            "isCorrect": false
+          },
+          {
+            "text": "There exists a function $\\psi(x,y)$ such that $\\frac{\\partial \\psi}{\\partial x} = M(x,y)$ and $\\frac{\\partial \\psi}{\\partial y} = N(x,y)$.",
+            "rationale": "The lecture states that if an equation is exact, there exists a function $\\psi(x,y)$ such that its partial derivative with respect to $x$ equals $M(x,y)$, and its partial derivative with respect to $y$ equals $N(x,y)$. This is the fundamental definition of the potential function for an exact ODE.",
+            "isCorrect": true
+          },
+          {
+            "text": "The function $\\psi(x,y)$ must be a constant.",
+            "rationale": "The potential function $\\psi(x,y)$ itself is generally not a constant; rather, its derivative with respect to $x$ (when considering $y$ as a function of $x$) is $0$, leading to $\\psi(x,y) = C$ as the solution.",
+            "isCorrect": false
+          },
+          {
+            "text": "The function $\\psi(x,y)$ is always equal to $M(x,y) + N(x,y)$.",
+            "rationale": "The potential function $\\psi(x,y)$ is derived by integrating $M$ and $N$, and it is not simply their sum. Its partial derivatives are $M$ and $N$, not its direct value.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider how the partial derivatives of $\\psi$ are defined in relation to $M$ and $N$ for an exact equation. Recall the chain rule for total derivatives."
+      },
+      {
+        "questionNumber": 3,
+        "question": "Once the potential function $\\psi(x,y)$ for an exact differential equation is found, what is the form of its general solution?",
+        "answerOptions": [
+          {
+            "text": "$\\psi(x,y) = 0$",
+            "rationale": "Setting $\\psi(x,y)$ to zero would provide a specific solution if it passes through the origin, but not the general solution which includes all possible solutions.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\psi(x,y) = C$, where $C$ is an arbitrary constant.",
+            "rationale": "The lecture clearly states that if the derivative of $\\psi$ with respect to $x$ is $0$ (which is how the exact equation is rewritten), then integrating both sides yields $\\psi(x,y) = C$. This form represents the general solution, with $C$ being determined by initial conditions if provided.",
+            "isCorrect": true
+          },
+          {
+            "text": "$x = \\psi(x,y) + C$",
+            "rationale": "This is not the general solution form for an exact equation. The solution directly involves the potential function $\\psi(x,y)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$y = \\psi(x,y) + C$",
+            "rationale": "This is not the general solution form for an exact equation. The solution directly involves the potential function $\\psi(x,y)$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall how the original exact differential equation can be expressed in terms of the total derivative of $\\psi(x,y)$."
+      },
+      {
+        "questionNumber": 4,
+        "question": "To begin finding the potential function $\\psi(x,y)$ for an exact equation, if we know that $\\frac{\\partial \\psi}{\\partial x} = M(x,y)$, what is the first step in constructing $\\psi(x,y)$?",
+        "answerOptions": [
+          {
+            "text": "Differentiate $M(x,y)$ with respect to $y$.",
+            "rationale": "Differentiating $M(x,y)$ with respect to $y$ is part of the exactness test, not the process of finding $\\psi(x,y)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "Integrate $M(x,y)$ with respect to $x$, introducing an arbitrary function of $y$, $h(y)$.",
+            "rationale": "As demonstrated in the video, since $\\frac{\\partial \\psi}{\\partial x} = M(x,y)$, we must integrate $M(x,y)$ with respect to $x$ to find $\\psi(x,y)$. Because this is a partial integration, the 'constant of integration' can be any arbitrary function of $y$, $h(y)$, since its partial derivative with respect to $x$ would be zero.",
+            "isCorrect": true
+          },
+          {
+            "text": "Integrate $M(x,y)$ with respect to $y$, introducing an arbitrary function of $x$.",
+            "rationale": "This step is incorrect. If $\\frac{\\partial \\psi}{\\partial x} = M(x,y)$, one must integrate with respect to $x$, not $y$.",
+            "isCorrect": false
+          },
+          {
+            "text": "Set $M(x,y)$ equal to $N(x,y)$.",
+            "rationale": "Setting $M(x,y)$ equal to $N(x,y)$ is not a general step in finding $\\psi(x,y)$. The condition for exactness relates their partial derivatives, not their values directly.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "You need to reverse the partial differentiation process with respect to $x$ to find $\\psi(x,y)$. Consider how constants behave in partial derivatives."
+      },
+      {
+        "questionNumber": 5,
+        "question": "When integrating $\\frac{\\partial \\psi}{\\partial x} = M(x,y)$ with respect to $x$ to find $\\psi(x,y)$, why is an arbitrary function of $y$, say $h(y)$, added instead of just a constant $C$?",
+        "answerOptions": [
+          {
+            "text": "Because $h(y)$ represents the integrating factor for the equation.",
+            "rationale": "An integrating factor is used to make a non-exact equation exact, which is a different concept. $h(y)$ arises from the partial integration process.",
+            "isCorrect": false
+          },
+          {
+            "text": "Because partial differentiation with respect to $x$ treats any function purely of $y$ as a constant, causing it to disappear.",
+            "rationale": "The lecture explains that when taking a partial derivative with respect to $x$, any term that is a function solely of $y$ (like $h(y)$) is treated as a constant and its derivative with respect to $x$ is $0$. Therefore, when anti-differentiating with respect to $x$, we must account for any such function of $y$ that could have vanished.",
+            "isCorrect": true
+          },
+          {
+            "text": "Because $h(y)$ is a specific solution to the homogeneous part of the differential equation.",
+            "rationale": "The term $h(y)$ does not represent a specific solution to a homogeneous part of the equation. It is a consequence of the partial anti-differentiation process.",
+            "isCorrect": false
+          },
+          {
+            "text": "Because $h(y)$ is required to satisfy the initial conditions.",
+            "rationale": "The function $h(y)$ is found by comparing $\\frac{\\partial \\psi}{\\partial y}$ with $N(x,y)$. Initial conditions are used to determine the constant $C$ in the final solution $\\psi(x,y)=C$, not the form of $h(y)$.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Think about what types of terms vanish when you take a partial derivative with respect to $x$."
+      }
+    ]
+  },
+  "inline_wQ0lwznTSvY_definitions": {
+    "quiz_id": "inline_wQ0lwznTSvY_definitions",
+    "chapter_number": 1,
+    "video_id": "wQ0lwznTSvY",
+    "title": "Micro-Practice: Integrating Factors for Exact Differential Equations",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "What is the primary role of an integrating factor $\\mu(x,y)$ when applied to a first-order differential equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$ that is not exact?",
+        "answerOptions": [
+          {
+            "text": "To simplify the terms of the differential equation so they can be solved by separation of variables.",
+            "rationale": "The lecture explains that an integrating factor transforms a non-exact equation into an exact one, but not necessarily into a separable one. The primary purpose is to enable the use of exact equation solution techniques.",
+            "isCorrect": false
+          },
+          {
+            "text": "To transform the non-exact differential equation into an exact one by multiplying the entire equation by $\\mu(x,y)$, thereby allowing it to be solved using methods for exact equations.",
+            "rationale": "As discussed in the lecture, an integrating factor is a function $\\mu(x,y)$ that, when multiplied throughout the differential equation, makes it exact. This then allows the equation to be solved by finding a potential function, as learned in previous videos.",
+            "isCorrect": true
+          },
+          {
+            "text": "To directly provide the potential function $F(x,y)$ that solves the differential equation without any further integration.",
+            "rationale": "The integrating factor helps in the process of finding the potential function $F(x,y)$ by first making the differential equation exact, but it does not directly provide $F(x,y)$; further integration steps are still required.",
+            "isCorrect": false
+          },
+          {
+            "text": "To determine whether the given differential equation is linear or nonlinear, which is crucial for choosing the correct solution method.",
+            "rationale": "Integrating factors are specifically used to address non-exactness, not to classify differential equations as linear or nonlinear. The concept of exactness is distinct from linearity.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the fundamental problem integrating factors are designed to address for non-exact equations."
+      },
+      {
+        "questionNumber": 2,
+        "question": "For a first-order differential equation written in the form $M(x,y)\\,dx + N(x,y)\\,dy = 0$ to be considered exact, what specific condition involving partial derivatives must be satisfied?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$",
+            "rationale": "The condition for exactness requires the mixed partial derivatives to be equal. This option shows derivatives with respect to the independent variable in the first term ($M$) and the dependent variable in the second term ($N$), which is incorrect.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+            "rationale": "As explained in the lecture and prerequisite videos, a differential equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$ is exact if and only if the partial derivative of $M$ with respect to $y$ is equal to the partial derivative of $N$ with respect to $x$. This is often denoted as $M_y = N_x$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$M(x,y)$ and $N(x,y)$ must both be functions of only $x$ or only $y$, respectively.",
+            "rationale": "While some simplified differential equations might have this form, it is not a general requirement for exactness. Exact differential equations can have $M$ and $N$ as functions of both $x$ and $y$.",
+            "isCorrect": false
+          },
+          {
+            "text": "The differential equation must be homogeneous, meaning $M(x,y)$ and $N(x,y)$ are homogeneous functions of the same degree.",
+            "rationale": "Homogeneity is a different classification for differential equations and is not the defining condition for exactness. An exact differential equation does not necessarily have to be homogeneous.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the condition for a total differential to exist, which defines an exact differential equation."
+      },
+      {
+        "questionNumber": 3,
+        "question": "According to the lecture, if an integrating factor $\\mu(x)$ exists that is a function of $x$ only, what is the correct formula to calculate it for a differential equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$?",
+        "answerOptions": [
+          {
+            "text": "$\\mu(x) = e^{\\int \\frac{N_x - M_y}{M} dx}$",
+            "rationale": "This formula is incorrect for an $x$-only integrating factor. The term in the integral should be $\\frac{M_y - N_x}{N}$, and the integration should be with respect to $x$. This option also incorrectly uses $M$ in the denominator.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(x) = e^{\\int \\frac{M_y - N_x}{N} dx}$",
+            "rationale": "The lecture derives and states that if the expression $\\frac{M_y - N_x}{N}$ is a function of $x$ only, then the integrating factor is given by $\\mu(x) = e^{\\int \\frac{M_y - N_x}{N} dx}$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\mu(x) = \\frac{M_y - N_x}{N}$",
+            "rationale": "This expression represents the term that must be a function of $x$ only, but it is not the integrating factor itself. The integrating factor requires the exponential of the integral of this expression.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(x) = e^{\\int (M_y - N_x) dx}$",
+            "rationale": "This formula is missing the division by $N$ inside the integral. The derivation in the lecture explicitly includes $N$ in the denominator for an $x$-only integrating factor.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember the specific fraction and the variable of integration for an $x$-only integrating factor."
+      },
+      {
+        "questionNumber": 4,
+        "question": "If an integrating factor $\\mu(y)$ exists that is a function of $y$ only, what is the correct formula to calculate it for a differential equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$?",
+        "answerOptions": [
+          {
+            "text": "$\\mu(y) = e^{\\int \\frac{N_x - M_y}{M} dy}$",
+            "rationale": "The lecture provides this formula for an integrating factor that is a function of $y$ only. If the expression $\\frac{N_x - M_y}{M}$ is a function of $y$ only, then $\\mu(y) = e^{\\int \\frac{N_x - M_y}{M} dy}$. The order of subtraction in the numerator and the division by $M$ are crucial for this case.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\mu(y) = e^{\\int \\frac{M_y - N_x}{N} dy}$",
+            "rationale": "This formula is incorrect for a $y$-only integrating factor. The numerator and denominator are incorrect for this case, and while the integration is with respect to $y$, the fraction itself corresponds to the $x$-only factor with an incorrect denominator.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(y) = \\frac{N_x - M_y}{M}$",
+            "rationale": "This expression is what must be a function of $y$ only for $\\mu(y)$ to exist, but it is not the integrating factor itself. The integrating factor is the exponential of the integral of this expression.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(y) = e^{\\int (N_x - M_y) dy}$",
+            "rationale": "This formula is missing the division by $M$ inside the integral. The derivation in the lecture explicitly includes $M$ in the denominator for a $y$-only integrating factor.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Compare the formulas for $\\mu(x)$ and $\\mu(y)$. Notice the reversed subtraction in the numerator and the different denominator ($M$ instead of $N$). Also, the integration is with respect to $y$."
+      },
+      {
+        "questionNumber": 5,
+        "question": "When approaching a differential equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$, what is the correct initial diagnostic step and subsequent action for determining if an integrating factor is needed and how to proceed, according to the lecture?",
+        "answerOptions": [
+          {
+            "text": "Immediately assume an integrating factor of the form $\\mu(x,y)$ is required and begin the complex general derivation to find it.",
+            "rationale": "The lecture advises against immediately attempting the general $\\mu(x,y)$ derivation due to its complexity. The initial step is to check for exactness, and then to try the simpler $\\mu(x)$ or $\\mu(y)$ cases first.",
+            "isCorrect": false
+          },
+          {
+            "text": "First, check if the equation is exact by comparing $\\frac{\\partial M}{\\partial y}$ and $\\frac{\\partial N}{\\partial x}$. If they are not equal, then attempt to find an integrating factor that is a function of $x$ only (using $\\frac{M_y - N_x}{N}$), and if that fails, try for an integrating factor that is a function of $y$ only (using $\\frac{N_x - M_y}{M}$). If one is found, multiply the DE by it and proceed to solve as an exact equation.",
+            "rationale": "This precisely outlines the methodical approach taught in the lecture: 1. Check for exactness. 2. If not exact, test for an $x$-only integrating factor. 3. If that doesn't yield a function of $x$ only, test for a $y$-only integrating factor. 4. If a valid integrating factor is found, multiply the original DE by it. 5. Solve the resulting exact differential equation.",
+            "isCorrect": true
+          },
+          {
+            "text": "Start by integrating $M(x,y)$ with respect to $x$ and $N(x,y)$ with respect to $y$, then combine the results and verify if an integrating factor is implicitly present.",
+            "rationale": "Integrating $M$ with respect to $x$ and $N$ with respect to $y$ is a step in solving an *already* exact differential equation to find the potential function, not a diagnostic step to determine if an integrating factor is needed for a non-exact equation.",
+            "isCorrect": false
+          },
+          {
+            "text": "Always assume the equation is non-exact and immediately try to find an integrating factor of $y$ only, as this is typically the simpler case.",
+            "rationale": "The lecture emphasizes checking for exactness first, as no integrating factor is needed if the equation is already exact. Also, it suggests trying the $x$-only case first, as it's often more intuitive, before moving to the $y$-only case.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the initial check for exactness and the preferred order for testing the simpler integrating factor forms (x-only vs. y-only)."
+      }
+    ]
+  },
+  "inline_u5NGfwNNqHw_definitions": {
+    "quiz_id": "inline_u5NGfwNNqHw_definitions",
+    "chapter_number": 1,
+    "video_id": "u5NGfwNNqHw",
+    "title": "Micro-Practice: Almost Exact ODEs and Integrating Factors",
+    "questions": [
+      {
+        "questionNumber": 1,
+        "question": "For a first-order differential equation of the form $M(x,y)dx + N(x,y)dy = 0$ to be considered exact, which of the following conditions must be satisfied?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$",
+            "rationale": "This is not the correct condition for exactness. The partial derivative of $M$ with respect to $x$ is compared to the partial derivative of $N$ with respect to $y$ in other contexts, but not for exactness.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+            "rationale": "As demonstrated in the lecture, the condition for an equation $M(x,y)dx + N(x,y)dy = 0$ to be exact is that the partial derivative of $M$ with respect to $y$ must equal the partial derivative of $N$ with respect to $x$.",
+            "isCorrect": true
+          },
+          {
+            "text": "$M(x,y) = N(x,y)$",
+            "rationale": "Simply equating $M$ and $N$ is not the condition for an exact differential equation. The condition involves their partial derivatives.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} + \\frac{\\partial N}{\\partial y} = 0$",
+            "rationale": "This condition is related to divergence or other vector calculus concepts, but it is not the criterion for an exact differential equation.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Recall the cross-partial derivative test performed at the beginning of the lecture to check for exactness."
+      },
+      {
+        "questionNumber": 2,
+        "question": "The lecture describes an \"almost exact\" differential equation. According to the professor's narrative, what is the origin of such an equation?",
+        "answerOptions": [
+          {
+            "text": "It is an inherently non-exact equation that can only be solved using advanced numerical methods.",
+            "rationale": "The lecture explicitly states that an almost exact equation 'came from an exact differential equation', implying it's not inherently non-exact in the sense that it can't be transformed.",
+            "isCorrect": false
+          },
+          {
+            "text": "It is an exact equation that was intentionally modified by multiplying it with an expression (integrating factor), making it non-exact.",
+            "rationale": "The professor illustrates this by taking an exact equation and dividing it by $x^3$ (or multiplying by $1/x^3$), resulting in a non-exact equation. He describes this as 'somebody' messing around with a perfect exact equation.",
+            "isCorrect": true
+          },
+          {
+            "text": "It is an equation where the exactness condition $\\left( \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x} \\right)$ is only approximately satisfied.",
+            "rationale": "While the name 'almost exact' might suggest this, the lecture defines it more rigorously as an equation that *was* exact but became non-exact through multiplication by a non-constant factor.",
+            "isCorrect": false
+          },
+          {
+            "text": "It is a linear first-order differential equation that is not in standard form.",
+            "rationale": "The concept of 'almost exact' as presented in the lecture is specifically about equations that can be made exact by an integrating factor, not merely about linear ODEs or their standard form.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Remember the story about 'somebody' taking a blue marker and altering a perfectly exact equation."
+      },
+      {
+        "questionNumber": 3,
+        "question": "During the derivation of the formula for the special integrating factor $\\mu(x)$, when computing the partial derivative of the term $\\mu(x)N(x,y)$ with respect to $x$, which differentiation rule must be applied?",
+        "answerOptions": [
+          {
+            "text": "No special rule, as $\\mu(x)$ is treated as a constant with respect to $x$.",
+            "rationale": "$\\mu(x)$ is a function of $x$, so it is not a constant when differentiating with respect to $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "The chain rule, because $N(x,y)$ is a function of two variables.",
+            "rationale": "While $N(x,y)$ is a function of two variables, the primary rule for differentiating a product of two functions of $x$ ($\\mu(x)$ and $N(x,y)$) with respect to $x$ is the product rule.",
+            "isCorrect": false
+          },
+          {
+            "text": "The product rule, because both $\\mu(x)$ and $N(x,y)$ are considered functions of $x$.",
+            "rationale": "The lecture explicitly states, \"Here we are taking the partial with respect to x of $\\mu(x)$ times $N(x,y)$. Both of these functions contain x. Therefore we have to use the product rule.\"",
+            "isCorrect": true
+          },
+          {
+            "text": "The quotient rule, assuming $N(x,y)$ is in the denominator.",
+            "rationale": "The term is a product $\\mu(x)N(x,y)$, not a quotient. The quotient rule would not apply here.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider the variable dependencies of $\\mu(x)$ and $N(x,y)$ when taking the derivative with respect to $x$."
+      },
+      {
+        "questionNumber": 4,
+        "question": "Based on the derivation in the lecture, what is the correct formula for the special integrating factor $\\mu(x)$ for an equation $M(x,y)dx + N(x,y)dy = 0$?",
+        "answerOptions": [
+          {
+            "text": "$\\mu(x) = e^{\\int \\left( \\frac{\\partial M}{\\partial y} - \\frac{\\partial N}{\\partial x} \\right) dx}$",
+            "rationale": "This formula is missing the crucial division by $N$ (or $M$) in the integrand, which is essential for isolating the terms involving $\\mu'(x)/\\mu(x)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(x) = e^{\\int \\frac{1}{M} \\left( \\frac{\\partial N}{\\partial x} - \\frac{\\partial M}{\\partial y} \\right) dx}$",
+            "rationale": "This formula uses $M$ in the denominator and has the partial derivatives in the incorrect order for $\\mu(x)$ (it would be for $\\mu(y)$ if $M$ was used, and still with sign difference).",
+            "isCorrect": false
+          },
+          {
+            "text": "$\\mu(x) = e^{\\int \\frac{1}{N} \\left( \\frac{\\partial M}{\\partial y} - \\frac{\\partial N}{\\partial x} \\right) dx}$",
+            "rationale": "This is the formula derived and boxed in the lecture for the special integrating factor $\\mu(x)$. It correctly features $N$ in the denominator and the difference $\\left( \\frac{\\partial M}{\\partial y} - \\frac{\\partial N}{\\partial x} \\right)$ in the numerator.",
+            "isCorrect": true
+          },
+          {
+            "text": "$\\mu(x) = e^{\\int \\frac{1}{N} \\left( \\frac{\\partial N}{\\partial x} - \\frac{\\partial M}{\\partial y} \\right) dx}$",
+            "rationale": "This formula has the correct denominator $N$ but the terms in the numerator are subtracted in the opposite order compared to the derivation in the lecture.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Look for the boxed formula in the lecture that defines $\\mu(x)$. Pay close attention to the terms inside the integral, especially the denominator and the order of subtraction."
+      },
+      {
+        "questionNumber": 5,
+        "question": "For the special integrating factor $\\mu(x)$ to be valid and allow finding a solution, what critical condition must the expression $\\frac{1}{N} \\left( \\frac{\\partial M}{\\partial y} - \\frac{\\partial N}{\\partial x} \\right)$ satisfy after computation?",
+        "answerOptions": [
+          {
+            "text": "It must be a function of $y$ only.",
+            "rationale": "If the expression were a function of $y$ only, then integrating with respect to $x$ would not yield a function of $x$ alone for $\\mu(x)$. This condition would be relevant for $\\mu(y)$.",
+            "isCorrect": false
+          },
+          {
+            "text": "It must be a constant value.",
+            "rationale": "While a constant value would satisfy the condition, it is not strictly necessary. It can be any function that depends solely on $x$.",
+            "isCorrect": false
+          },
+          {
+            "text": "It must be a function of $x$ only, with no dependence on $y$.",
+            "rationale": "The lecture emphasizes that for $\\mu(x)$ to be a valid integrating factor of $x$ alone, the entire expression being integrated must be a function of $x$ only. 'Y is not allowed at all'.",
+            "isCorrect": true
+          },
+          {
+            "text": "It can be a function of both $x$ and $y$.",
+            "rationale": "If the expression depended on both $x$ and $y$, then $\\mu(x)$ would also depend on $y$, contradicting the assumption that $\\mu$ is a function of $x$ only.",
+            "isCorrect": false
+          }
+        ],
+        "hint": "Consider the variable that $\\mu(x)$ is defined to depend on. The term inside the integral must be consistent with this dependency."
+      }
+    ]
   }
 }
