@@ -16,3 +16,6 @@ __pycache__/
 .idea/
 .vscode/
 *.log
+
+# Data Caches and Heavy Files (TOKEN PROTECTION)
+*.csv
