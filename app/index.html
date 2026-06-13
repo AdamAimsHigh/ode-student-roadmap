@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staples Education, ODE Study Roadmap</title>
+
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Math.js for local mathematical parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+
+    <!-- Desmos API for interactive checkpoint widgets -->
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="global-header">
+        <div class="header-inner">
+            <div class="brand-block">
+                <span class="brand-name">Staples Education</span>
+                <h1 class="app-title">Ordinary Differential Equations Roadmap</h1>
+                <p class="app-subtitle">A first-principles learning path built on the Math Confidence Reset method</p>
+            </div>
+            <div class="header-controls">
+                <div class="mode-switch" role="group" aria-label="Learning mode selection">
+                    <button id="mode-exploration" class="mode-btn active" type="button">Exploration Mode</button>
+                    <button id="mode-guided" class="mode-btn" type="button">Guided Pathway</button>
+                </div>
+                <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch color theme">Dark Mode</button>
+            </div>
+        </div>
+        <div class="progress-banner">
+            <div class="progress-info">
+                <span class="progress-title">Course Progress</span>
+                <span id="progress-text" class="progress-percentage">0%</span>
+            </div>
+            <div class="progress-track-bg">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+        </div>
+    </header>
+
+    <main id="app-content" class="app-container">
+        <!-- Module sections are generated dynamically by router.js from the curriculum data -->
+        <noscript>
+            <p>This learning environment requires JavaScript. Please enable it to load the course modules.</p>
+        </noscript>
+    </main>
+
+    <footer class="global-footer">
+        <p>Staples Education, built for conceptual understanding and first-principles logic.</p>
+        <p class="footer-note">Your progress is stored locally in your browser.</p>
+    </footer>
+
+    <!-- Modular application scripts, load order matters -->
+    <script src="js/curriculum-data.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/modes.js"></script>
+    <script src="js/checkpoints/checkpoint-registry.js"></script>
+    <script src="js/checkpoints/checkpoint-core.js"></script>
+    <script src="js/checkpoints/widgets-unit0.js"></script>
+    <script src="js/checkpoints/widgets-unit1.js"></script>
+    <script src="js/checkpoints/widgets-unit2.js"></script>
+    <script src="js/checkpoints/widgets-unit3.js"></script>
+    <script src="js/checkpoints/widgets-unit4.js"></script>
+    <script src="js/checkpoints/widgets-unit5.js"></script>
+    <script src="js/checkpoints/widgets-unit6.js"></script>
+    <script src="js/checkpoints/widgets-unit7.js"></script>
+    <script src="js/checkpoints/widgets-unit8.js"></script>
+    <script src="js/checkpoints/widgets-unit9.js"></script>
+    <script src="js/checkpoints/widgets-unit10.js"></script>
+    <script src="js/checkpoints/widgets-unit11.js"></script>
+    <script src="js/checkpoints/widgets-unit12.js"></script>
+    <script src="js/router.js"></script>
+</body>
+</html>

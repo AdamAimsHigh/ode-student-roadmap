@@ -1,8 +1,16 @@
 # Sensitive credentials and tokens
 token.json
 client_secrets.json
+credentials.json
 .env
 .env.*
+
+# Node dependencies (reproducible from package-lock.json)
+node_modules/
+
+# Files exceeding GitHub's 100 MB limit
+*.mp4
+A Course in Differential Equations with Boundary Value Problems, 2nd Ed. [Swift, Randall J_; Szypowski, Ryan; Wirkus, Stephen Allen].pdf
 
 # Python cache and systems
 __pycache__/

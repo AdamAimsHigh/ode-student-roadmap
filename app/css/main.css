@@ -1,0 +1,605 @@
+/* Core layout and component styles for the Staples Education ODE Roadmap. */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Global Header */
+
+.global-header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--panel-border);
+    padding: 1.5rem 2rem;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.brand-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+.app-subtitle {
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Learning mode switch */
+
+.mode-switch {
+    display: flex;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mode-btn {
+    background: var(--panel-bg);
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mode-btn.active {
+    background: var(--accent-color);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Theme toggle, top right of the Global Header per specification */
+
+.theme-toggle-btn {
+    background: var(--panel-bg);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--accent-soft);
+}
+
+/* Progress banner */
+
+.progress-banner {
+    max-width: 1200px;
+    margin: 1.25rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 0.9rem 1.25rem;
+}
+
+.progress-title {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+}
+
+.progress-percentage {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.progress-track-bg {
+    flex-grow: 1;
+    height: 10px;
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent-color);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+/* Main content area */
+
+.app-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Unit sections, rendered by router.js */
+
+.unit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.unit-header {
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.75rem;
+}
+
+.unit-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.unit-desc {
+    color: var(--text-secondary);
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.unit-modules {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Module sections, rendered by router.js */
+
+.module-section {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px var(--shadow-color);
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.module-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.module-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    background: var(--accent-soft);
+    color: var(--accent-color);
+}
+
+.module-section.locked {
+    opacity: 0.55;
+}
+
+.module-section.locked .module-status {
+    background: transparent;
+    border: 1px solid var(--locked-color);
+    color: var(--locked-color);
+}
+
+.video-list {
+    list-style: none;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.video-card {
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.video-card a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.video-card a:hover {
+    text-decoration: underline;
+}
+
+/* Checkpoint container, populated by the checkpoint registry */
+
+.checkpoint-panel {
+    margin-top: 1.25rem;
+    border: 1px dashed var(--panel-border);
+    border-radius: 10px;
+    padding: 1.25rem;
+}
+
+.checkpoint-heading {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.checkpoint-placeholder {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.checkpoint-intro {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    margin-bottom: 0.85rem;
+}
+
+.checkpoint-begin-btn,
+.check-btn {
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.checkpoint-begin-btn:hover,
+.check-btn:hover {
+    opacity: 0.85;
+}
+
+.check-btn {
+    margin-top: 1rem;
+}
+
+.checkpoint-body {
+    margin-top: 0.75rem;
+}
+
+.checkpoint-prompt {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.desmos-frame {
+    width: 100%;
+    height: 340px;
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #ffffff;
+}
+
+.math-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    background: #ffffff;
+}
+
+/* Range slider controls for canvas-based widgets */
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.6rem 0 1rem;
+}
+
+.slider-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-width: 1.5rem;
+}
+
+.slider-row input[type="range"] {
+    flex-grow: 1;
+    accent-color: var(--accent-color);
+}
+
+.slider-readout {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    min-width: 3.5rem;
+    text-align: right;
+}
+
+/* Fixed point iteration widget */
+
+.iteration-display {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+}
+
+.iteration-log {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    min-height: 1rem;
+}
+
+/* Feedback and the guiding question failure state */
+
+.checkpoint-feedback {
+    margin-top: 0.9rem;
+    border-radius: 10px;
+    font-size: 0.92rem;
+}
+
+.checkpoint-feedback.success {
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+}
+
+.checkpoint-feedback.failure {
+    border: 1px solid var(--accent-color);
+    padding: 0.8rem 1rem;
+}
+
+.guiding-question {
+    font-style: italic;
+    margin-top: 0.4rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.feedback-extra {
+    margin-top: 0.4rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+/* Matching game */
+
+.match-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.match-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.match-item {
+    position: relative;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.65rem 0.8rem;
+    font-size: 0.88rem;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.match-item:hover {
+    border-color: var(--accent-color);
+}
+
+.match-item.selected {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+}
+
+.pair-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent-color);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Category sorter */
+
+.sorter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.sorter-text {
+    font-size: 0.9rem;
+}
+
+.sorter-select {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+}
+
+/* Expression tasks */
+
+.expr-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.expr-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.expr-input {
+    flex-grow: 1;
+    min-width: 200px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+    font-family: Consolas, Monaco, monospace;
+}
+
+.expr-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Multiple choice logic gate */
+
+.mcq-question {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.mcq-option {
+    display: block;
+    width: 100%;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.65rem 0.9rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.mcq-option:hover {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+}
+
+/* Passed status badge */
+
+.module-status.passed {
+    background: transparent;
+    border: 1px solid var(--success-color);
+    color: var(--success-color);
+}
+
+@media (max-width: 600px) {
+    .match-board {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Global Footer */
+
+.global-footer {
+    background-color: var(--header-bg);
+    border-top: 1px solid var(--panel-border);
+    text-align: center;
+    padding: 1.5rem 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-note {
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 700px) {
+    .header-inner {
+        flex-direction: column;
+    }
+
+    .progress-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .app-container {
+        padding: 0 1rem;
+    }
+}
