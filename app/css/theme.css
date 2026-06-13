@@ -10,6 +10,7 @@
     --accent-color: #6200ee;
     --accent-soft: rgba(98, 0, 238, 0.10);
     --success-color: #1b7a43;
+    --error-color: #b3261e;
     --locked-color: #9b9ba8;
     --header-bg: #fafafa;
     --shadow-color: rgba(0, 0, 0, 0.08);
@@ -24,6 +25,7 @@
     --accent-color: #bb86fc;
     --accent-soft: rgba(187, 134, 252, 0.12);
     --success-color: #38c172;
+    --error-color: #f2746b;
     --locked-color: #5c5c6a;
     --header-bg: #181818;
     --shadow-color: rgba(0, 0, 0, 0.4);

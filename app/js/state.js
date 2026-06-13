@@ -5,6 +5,7 @@ const ODEState = (function () {
     const KEYS = {
         watchedVideos: "ode_watched_videos",
         passedCheckpoints: "ode_passed_checkpoints",
+        quizProgress: "ode_quiz_progress",
         learningMode: "ode_learning_mode",
         theme: "ode_theme_preference"
     };
@@ -57,6 +58,34 @@ const ODEState = (function () {
             return Boolean(passed[checkpointId]);
         },
 
+        // Quiz progress is stored as a map of quizId to a list of the question
+        // ids that have been answered correctly. The running score for any
+        // quiz is the length of its list.
+        getQuizProgress: function (quizId) {
+            const all = readJSON(KEYS.quizProgress, {});
+            return all[quizId] || [];
+        },
+
+        setQuizAnswerCorrect: function (quizId, questionId) {
+            const all = readJSON(KEYS.quizProgress, {});
+            const list = all[quizId] || [];
+            if (list.indexOf(questionId) === -1) list.push(questionId);
+            all[quizId] = list;
+            writeJSON(KEYS.quizProgress, all);
+            return list;
+        },
+
+        // Clears the solved question ids for one quiz only, leaving every other
+        // quiz's progress untouched. Used by the Retry Quiz action.
+        clearQuizProgress: function (quizId) {
+            const all = readJSON(KEYS.quizProgress, {});
+            if (all.hasOwnProperty(quizId)) {
+                delete all[quizId];
+                writeJSON(KEYS.quizProgress, all);
+            }
+            return all;
+        },
+
         getLearningMode: function () {
             // Exploration is the default per ARCHITECTURE.md Section 4.
             return localStorage.getItem(KEYS.learningMode) || "exploration";
@@ -69,6 +98,7 @@ const ODEState = (function () {
         resetAllProgress: function () {
             localStorage.removeItem(KEYS.watchedVideos);
             localStorage.removeItem(KEYS.passedCheckpoints);
+            localStorage.removeItem(KEYS.quizProgress);
         }
     };
 })();

@@ -38,6 +38,22 @@ function renderCurriculum() {
         });
 
         unitSection.appendChild(moduleList);
+
+        // Unit Mastery quiz, thirty questions, anchored at the bottom of the
+        // unit container after all of its modules.
+        const mastery = QUIZ_DATA.unit_mastery[unitData.unit];
+        if (mastery && mastery.length) {
+            const masteryHost = document.createElement("div");
+            masteryHost.className = "unit-mastery-host";
+            QuizEngine.mount(masteryHost, {
+                id: "mastery::" + unitData.unit,
+                title: "Unit Mastery Quiz",
+                intro: "Thirty questions across the whole unit. Track your score, and let any missed question point you back to its module.",
+                items: mastery
+            });
+            unitSection.appendChild(masteryHost);
+        }
+
         container.appendChild(unitSection);
     });
 
@@ -103,6 +119,22 @@ function buildModuleSection(moduleData, flatIndex, watched) {
 
             item.appendChild(link);
             item.appendChild(watchLabel);
+
+            // Micro Practice for this specific video, rendered directly beneath
+            // it so the flow is watch, then practice, video by video.
+            const microItems = QUIZ_DATA.micro_practice[video.video_id];
+            if (microItems && microItems.length) {
+                const microHost = document.createElement("div");
+                microHost.className = "video-quiz-host";
+                QuizEngine.mount(microHost, {
+                    id: "micro::" + video.video_id,
+                    title: "Micro Practice",
+                    intro: "Five quick checks on this video. A wrong choice gives you a guiding question, not the answer.",
+                    items: microItems
+                });
+                item.appendChild(microHost);
+            }
+
             videoList.appendChild(item);
         });
 

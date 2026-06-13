@@ -1,0 +1,848 @@
+/* Quiz content store, the single source of truth for interactive quizzes.
+   Mirrored for documentation in app/data/quizzes.json.
+
+   Shape:
+     micro_practice  is keyed by video_id. Each video gets its own five item
+                     quiz, rendered behind a launch card directly beneath that
+                     video.
+     unit_mastery    is keyed by the exact unit title from curriculum-data.js.
+                     Each unit gets one thirty item quiz at the bottom of the
+                     unit container.
+
+   Item shape:
+     {
+       id:      stable string, used for per question progress persistence
+       prompt:  question text, may contain KaTeX, $inline$ and $$display$$
+       hint:    the general hint, revealed by the Need a hint toggle
+       answerOptions: array of choices, exactly one with correct set to true.
+                Every choice carries a rationale, rendered inline beneath it.
+                The correct rationale confirms. An incorrect rationale is a
+                guiding question that never states the answer.
+     }
+
+   Copy rule: no em dashes and no ampersands in any user facing string. */
+
+const QUIZ_DATA = {
+
+    micro_practice: {
+
+        /* Unit 0, Module 0.1, video 1
+           "What are Differential Equations and how do they work?" */
+        "Em339AlejIs": [
+            {
+                "id": "mp_Em339AlejIs_1",
+                "prompt": "What makes an equation a differential equation rather than an ordinary algebraic equation?",
+                "hint": "Look at what the unknown is. In algebra you usually solve for a number. Here, ask what kind of object you are solving for, and what operation the equation performs on it.",
+                "answerOptions": [
+                    { "text": "Its unknown is a function and the equation involves one or more of that function's derivatives", "correct": true, "rationale": "Yes. The unknown is a whole function, and the equation ties that function to its own rate of change." },
+                    { "text": "It contains at least one fraction", "rationale": "Plenty of algebraic equations contain fractions. What new kind of object, beyond a number, is the unknown here, and what operation acts on it?" },
+                    { "text": "It can only be solved with a calculator", "rationale": "Solvability by hand is not the defining trait. Look at what the unknown is. Is it a number, or something that changes?" },
+                    { "text": "It always has exactly one solution", "rationale": "Think about how many curves can share the same slope rule. Does a single rule about change usually pin down just one function?" }
+                ]
+            },
+            {
+                "id": "mp_Em339AlejIs_2",
+                "prompt": "In the equation $\\frac{dy}{dx} = 3y$, what is the unknown you are solving for?",
+                "hint": "One symbol stands for a quantity that changes as the input changes, and the rest are either given numbers or the input itself. Which symbol is the changing quantity?",
+                "answerOptions": [
+                    { "text": "The function $y(x)$", "correct": true, "rationale": "Correct. You are looking for the function whose rate of change equals three times its current value." },
+                    { "text": "The number 3", "rationale": "The 3 is given to you. Which symbol in the equation is not yet known and changes as $x$ changes?" },
+                    { "text": "The value of $x$", "rationale": "Is $x$ the thing being constrained, or the input that $y$ depends on? Which quantity does the equation describe the behavior of?" },
+                    { "text": "The derivative $\\frac{dy}{dx}$ alone", "rationale": "The derivative is built from the unknown. If you knew the underlying function, would the derivative still be a mystery?" }
+                ]
+            },
+            {
+                "id": "mp_Em339AlejIs_3",
+                "prompt": "A differential equation most directly describes which feature of its unknown function?",
+                "hint": "A derivative is the central character. Ask what a derivative measures about a function across its whole domain, not at a single spot.",
+                "answerOptions": [
+                    { "text": "How the function changes, that is, its rate of change", "correct": true, "rationale": "Right. The derivative term is what makes the equation a statement about change." },
+                    { "text": "The function's exact output at a single fixed point", "rationale": "A single output is one data point. What does a derivative measure across the whole domain rather than at one spot?" },
+                    { "text": "Whether the function is positive or negative", "rationale": "Sign is just one coarse property. What does the presence of a derivative term tell you the equation is really tracking?" },
+                    { "text": "The number of times the function crosses zero", "rationale": "Zero crossings are a downstream detail. Step back to the derivative itself. What aspect of the function does it encode?" }
+                ]
+            },
+            {
+                "id": "mp_Em339AlejIs_4",
+                "prompt": "Why does a single differential equation usually describe a whole family of solution curves rather than one curve?",
+                "hint": "Imagine two curves that have the same slope everywhere but start at different heights. Ask whether the slope rule alone can tell them apart.",
+                "answerOptions": [
+                    { "text": "Because the equation constrains the slope at each point but not the starting height, so many curves satisfy it", "correct": true, "rationale": "Exactly. The slope rule is shared by infinitely many curves that differ only in where they begin." },
+                    { "text": "Because differential equations are always solved incorrectly", "rationale": "This is about structure, not error. If two curves obey the same slope rule but start at different heights, do they both still satisfy the equation?" },
+                    { "text": "Because every differential equation has infinitely many typos", "rationale": "Set aside mistakes. What piece of information is missing from a bare slope rule that an initial condition would supply?" },
+                    { "text": "Because the derivative changes the function into a constant", "rationale": "Does differentiating a function generally collapse it to a constant? Think about what freedom remains once only the slope is fixed." }
+                ]
+            },
+            {
+                "id": "mp_Em339AlejIs_5",
+                "prompt": "What does an initial condition such as $y(0) = 2$ contribute to a differential equation?",
+                "hint": "The slope rule gives you a family of curves. Ask what naming one exact point on the curve lets you do with that family.",
+                "answerOptions": [
+                    { "text": "It selects one specific curve from the family by fixing a known point", "correct": true, "rationale": "Yes. One known point pins the family down to the single curve that passes through it." },
+                    { "text": "It changes the differential equation into a different equation", "rationale": "The slope rule itself is untouched. What does naming one point on the curve let you do with the family of solutions?" },
+                    { "text": "It guarantees the solution is a straight line", "rationale": "A point says nothing about curvature. What does pinning one location do to a family that already shares a slope rule?" },
+                    { "text": "It removes the need to know any derivatives", "rationale": "The derivative still governs the shape. What gap does a single known point fill that the slope rule left open?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.1, video 2
+           "DIFFERENTIAL EQUATIONS explained in 21 Minutes" */
+        "R2QtleY5asQ": [
+            {
+                "id": "mp_R2QtleY5asQ_1",
+                "prompt": "What does it mean to solve a differential equation?",
+                "hint": "The unknown is not a number. Ask what kind of object, once found, would make the equation true everywhere.",
+                "answerOptions": [
+                    { "text": "Find the function, or family of functions, that satisfies the equation for all inputs", "correct": true, "rationale": "Yes. A solution is a function that makes the equation hold across its whole domain." },
+                    { "text": "Find a single number that makes the equation true", "rationale": "A single number answers an algebra problem. What kind of object is the unknown in a differential equation?" },
+                    { "text": "Differentiate both sides one more time", "rationale": "That changes the equation rather than satisfying it. What would you need to produce so the original equation holds?" },
+                    { "text": "Draw the slope field and stop there", "rationale": "A slope field is a helpful picture, but what specific object are you actually trying to recover?" }
+                ]
+            },
+            {
+                "id": "mp_R2QtleY5asQ_2",
+                "prompt": "How can you check whether a proposed function is a solution of a differential equation?",
+                "hint": "You are testing a claim. Ask what you can plug in and compare so the equation can confirm or reject the candidate.",
+                "answerOptions": [
+                    { "text": "Substitute the function and its derivatives into the equation and confirm both sides agree for all $x$", "correct": true, "rationale": "Correct. If substitution makes the two sides equal everywhere, the function satisfies the equation." },
+                    { "text": "Check that the graph passes through the origin", "rationale": "Passing through one point is neither required nor sufficient. What must hold at every point for a genuine solution?" },
+                    { "text": "Confirm the function is a straight line", "rationale": "Solutions take many shapes. What test works no matter what shape the candidate function has?" },
+                    { "text": "Make sure the function contains no constants", "rationale": "Constants are often allowed and even expected. What operation actually lets the equation judge the candidate?" }
+                ]
+            },
+            {
+                "id": "mp_R2QtleY5asQ_3",
+                "prompt": "The order of a differential equation is determined by what?",
+                "hint": "Scan the equation for derivative symbols. One feature of those derivatives sets the order.",
+                "answerOptions": [
+                    { "text": "The highest derivative that appears in the equation", "correct": true, "rationale": "Right. A second derivative as the highest makes it second order, and so on." },
+                    { "text": "The total number of terms in the equation", "rationale": "Counting terms measures size, not order. Which specific feature of the derivatives matters here?" },
+                    { "text": "The largest numerical coefficient", "rationale": "Coefficients scale terms but do not set order. What about the derivatives themselves defines it?" },
+                    { "text": "The number of solutions it has", "rationale": "Order and solution count are different ideas. Look again at the derivatives that appear." }
+                ]
+            },
+            {
+                "id": "mp_R2QtleY5asQ_4",
+                "prompt": "The general solution of a first order differential equation typically contains what?",
+                "hint": "Recall that one slope rule describes a whole family. Ask what symbol in the solution lets that family flex.",
+                "answerOptions": [
+                    { "text": "One arbitrary constant, which represents the family of curves", "correct": true, "rationale": "Yes. The single constant is what an initial condition later fixes to choose one curve." },
+                    { "text": "No constants at all", "rationale": "If there were no free constant, only one curve could be described. How does a first order equation capture a whole family?" },
+                    { "text": "Exactly two arbitrary constants", "rationale": "Two constants suggest a higher order. How many free constants does a first order slope rule leave open?" },
+                    { "text": "A single fixed numeric answer", "rationale": "A fixed number is not a function. What form must a general solution take so it covers many curves?" }
+                ]
+            },
+            {
+                "id": "mp_R2QtleY5asQ_5",
+                "prompt": "To verify that $y = e^{2x}$ satisfies $\\frac{dy}{dx} = 2y$, which step does the checking?",
+                "hint": "Compute the left side from the candidate, compute the right side from the candidate, then compare.",
+                "answerOptions": [
+                    { "text": "Differentiate to get $\\frac{dy}{dx} = 2e^{2x}$, then compare it with $2y = 2e^{2x}$", "correct": true, "rationale": "Correct. Both sides reduce to the same expression, so the function satisfies the equation." },
+                    { "text": "Evaluate $y$ only at $x = 0$", "rationale": "One point cannot confirm a statement that must hold everywhere. What do you compute from the candidate to compare both sides?" },
+                    { "text": "Confirm that $y$ stays positive", "rationale": "Sign is not the test. Which two quantities must you compute and match?" },
+                    { "text": "Integrate $y$ and check the area", "rationale": "The equation involves a derivative, not an area. Which operation produces the left side for comparison?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.2, video 1
+           "What is a DIFFERENTIAL EQUATION?? Intro to my full ODE course" */
+        "B5IjsTONKkw": [
+            {
+                "id": "mp_B5IjsTONKkw_1",
+                "prompt": "A differential equation is best read as a statement about what?",
+                "hint": "The defining ingredient is a derivative. Ask what two things a derivative ties together.",
+                "answerOptions": [
+                    { "text": "A relationship between a function and its own rates of change", "correct": true, "rationale": "Yes. The equation links the function to how fast it is changing." },
+                    { "text": "A relationship between two fixed numbers", "rationale": "Fixed numbers belong to arithmetic. What changing objects does a derivative actually relate?" },
+                    { "text": "A formula that outputs the area under a curve", "rationale": "Area is the work of an integral. What does the derivative in the equation describe instead?" },
+                    { "text": "A rule for rounding values to whole numbers", "rationale": "Rounding has nothing to do with derivatives. What relationship does the derivative term express?" }
+                ]
+            },
+            {
+                "id": "mp_B5IjsTONKkw_2",
+                "prompt": "When a function is a solution of a differential equation, the equation must hold where?",
+                "hint": "Think about why a solution is a function and not a single value. Where does the slope rule have to be respected?",
+                "answerOptions": [
+                    { "text": "At every point in the function's domain", "correct": true, "rationale": "Correct. A solution satisfies the equation continuously, not at an isolated spot." },
+                    { "text": "At exactly one chosen point", "rationale": "If one point were enough, almost any function would qualify. Over what set must the equation hold?" },
+                    { "text": "Only at the origin", "rationale": "The origin is not special here. Where does a genuine solution have to obey the rule?" },
+                    { "text": "Only where the function equals zero", "rationale": "Zeros are particular points. Does the slope rule pause everywhere else, or hold throughout?" }
+                ]
+            },
+            {
+                "id": "mp_B5IjsTONKkw_3",
+                "prompt": "In $\\frac{dy}{dx} = x + y$, the slope at a given point depends on what?",
+                "hint": "Read the right side literally. Every symbol there feeds the slope.",
+                "answerOptions": [
+                    { "text": "Both the input $x$ and the current value $y$ at that point", "correct": true, "rationale": "Yes. The slope is set jointly by where you are horizontally and how high the curve currently sits." },
+                    { "text": "Only the input $x$", "rationale": "Look at the full right side. Is $x$ the only symbol contributing to the slope?" },
+                    { "text": "A single constant, the same everywhere", "rationale": "A constant slope would make every solution a line. Does the right side stay fixed as $x$ and $y$ change?" },
+                    { "text": "Nothing, the slope is undefined", "rationale": "The right side gives a clear value at each point. Which quantities go into that value?" }
+                ]
+            },
+            {
+                "id": "mp_B5IjsTONKkw_4",
+                "prompt": "Why is a solution of a differential equation a function rather than a number?",
+                "hint": "A number is one value. Ask what a slope rule across a whole domain needs in order to be satisfied.",
+                "answerOptions": [
+                    { "text": "Because the equation constrains how a quantity changes across its whole domain, which a single number cannot capture", "correct": true, "rationale": "Right. Only a function can carry a value and a rate of change at every point." },
+                    { "text": "Because numbers are not allowed in calculus", "rationale": "Numbers appear throughout calculus. What does the equation demand that a lone number cannot provide?" },
+                    { "text": "Because taking a derivative erases all numbers", "rationale": "Derivatives do not erase numbers. Think about what must vary across the domain for the rule to hold." },
+                    { "text": "Because functions are simply easier to graph", "rationale": "Convenience is not the reason. What does a rule about change actually require as its solution?" }
+                ]
+            },
+            {
+                "id": "mp_B5IjsTONKkw_5",
+                "prompt": "A differential equation that gives the slope at every point is, geometrically, most like what?",
+                "hint": "Picture attaching a tiny direction marker at each point of the plane. What do all those markers form?",
+                "answerOptions": [
+                    { "text": "A field of small slope marks that solution curves must follow", "correct": true, "rationale": "Yes. This slope field shows the direction a solution travels through each point." },
+                    { "text": "A single tangent line for the whole plane", "rationale": "One line cannot describe different slopes at different points. What does assigning a slope at every point create?" },
+                    { "text": "A scatter of disconnected, meaningless dots", "rationale": "The slopes are not random. What organized picture do direction marks at every point form?" },
+                    { "text": "One fixed horizontal line", "rationale": "A horizontal line means zero slope everywhere. Does the equation force the same slope at every point?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.2, video 2
+           "Overview of Differential Equations" */
+        "ghjOS7Q82s0": [
+            {
+                "id": "mp_ghjOS7Q82s0_1",
+                "prompt": "An ordinary differential equation differs from a partial differential equation because its unknown function depends on how many independent variables?",
+                "hint": "The word ordinary signals something simple about the inputs. Compare with partial, which hints at several inputs.",
+                "answerOptions": [
+                    { "text": "A single independent variable", "correct": true, "rationale": "Correct. With one independent variable the derivatives are ordinary, not partial." },
+                    { "text": "At least two independent variables", "rationale": "Several independent variables is what brings in partial derivatives. How many inputs marks the ordinary case?" },
+                    { "text": "No variables at all", "rationale": "A function with no input would not change. How many independent variables does the ordinary case keep?" },
+                    { "text": "Only constants, never variables", "rationale": "Constants alone cannot form a function of an input. What is the input count that defines an ordinary equation?" }
+                ]
+            },
+            {
+                "id": "mp_ghjOS7Q82s0_2",
+                "prompt": "Linearity of a differential equation is about whether the unknown function and its derivatives appear how?",
+                "hint": "Linear suggests no powers above one and no products of the unknown with itself or its derivatives.",
+                "answerOptions": [
+                    { "text": "Only to the first power, and never multiplied by each other", "correct": true, "rationale": "Yes. No squares, no products of the unknown and its derivatives, that is the linear structure." },
+                    { "text": "In a way that produces a straight line solution", "rationale": "Linear refers to how terms appear, not to the shape of the solution. What restriction on the terms defines it?" },
+                    { "text": "Without any fractions present", "rationale": "Fractions are unrelated to linearity. What condition on the powers and products of the unknown matters?" },
+                    { "text": "With integer coefficients only", "rationale": "Coefficients can be any functions or numbers. What feature of the unknown and its derivatives sets linearity?" }
+                ]
+            },
+            {
+                "id": "mp_ghjOS7Q82s0_3",
+                "prompt": "Calling a model deterministic means what?",
+                "hint": "Think about whether knowing the present plus the rule leaves any uncertainty about the future.",
+                "answerOptions": [
+                    { "text": "The present state together with the rule fixes the future evolution", "correct": true, "rationale": "Correct. No randomness enters, the same start always leads to the same path." },
+                    { "text": "The outcome is essentially random", "rationale": "Random is the opposite idea. If the rule and the present are known, how much of the future is left to chance?" },
+                    { "text": "The system has no solution", "rationale": "Determinism is about predictability, not solvability. What does a known present and rule guarantee about the future?" },
+                    { "text": "Time has no role in the model", "rationale": "Evolution unfolds in time. What does the present state plus the rule decide about later times?" }
+                ]
+            },
+            {
+                "id": "mp_ghjOS7Q82s0_4",
+                "prompt": "Why can one differential equation model many different physical systems?",
+                "hint": "Look past the labels on the variables. Ask what structural feature the systems might share.",
+                "answerOptions": [
+                    { "text": "Because different systems can share the same underlying rule relating a quantity to its rate of change", "correct": true, "rationale": "Yes. When the rate laws have the same form, one equation captures them all." },
+                    { "text": "Because all physical systems are actually identical", "rationale": "The systems clearly differ in detail. What deeper feature could still be shared across them?" },
+                    { "text": "Because mathematics ignores the physics entirely", "rationale": "The equation encodes the physics rather than ignoring it. What is it about the rate laws that can match?" },
+                    { "text": "Because every system uses the same numbers", "rationale": "The constants usually differ. What can be common even when the numbers are not?" }
+                ]
+            },
+            {
+                "id": "mp_ghjOS7Q82s0_5",
+                "prompt": "A qualitative analysis of a differential equation aims to understand what, even without an exact formula?",
+                "hint": "Qualitative means describing behavior and shape rather than computing precise values.",
+                "answerOptions": [
+                    { "text": "The long term behavior and shape of solutions, such as growth, decay, or equilibrium", "correct": true, "rationale": "Correct. Qualitative methods reveal trends and steady states without a closed form." },
+                    { "text": "The exact value of the solution at one instant only", "rationale": "A single precise value is a quantitative detail. What broader picture does qualitative analysis seek?" },
+                    { "text": "The color used to draw the graph", "rationale": "Appearance is not the goal. What feature of the solution's behavior does qualitative work target?" },
+                    { "text": "The number of typographical errors in the equation", "rationale": "That is unrelated to analysis. What does studying behavior tell you when no formula is available?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.3, video 1
+           "Differential equations, a tourist's guide | DE1" */
+        "p_di4Zn4wz4": [
+            {
+                "id": "mp_p_di4Zn4wz4_1",
+                "prompt": "A central theme of this guide is that differential equations arise whenever it is easier to describe what, rather than the thing itself?",
+                "hint": "The video stresses that nature often tells us how things change before it tells us what they are.",
+                "answerOptions": [
+                    { "text": "How a quantity changes from moment to moment", "correct": true, "rationale": "Yes. Local rules of change are often far easier to state than a full formula for the quantity." },
+                    { "text": "The exact final value of the quantity", "rationale": "The final value is usually what we want to find, not what we start with. What is often easier to describe at the outset?" },
+                    { "text": "The total area swept out by the quantity", "rationale": "Area is a different idea. What local feature does nature usually hand us first?" },
+                    { "text": "The average of all the quantity's values", "rationale": "An average summarizes after the fact. What instantaneous description does the video say comes more naturally?" }
+                ]
+            },
+            {
+                "id": "mp_p_di4Zn4wz4_2",
+                "prompt": "For many real differential equations, exact closed form solutions are which of the following?",
+                "hint": "The video is honest that most interesting equations resist a neat formula. Consider what we do instead.",
+                "answerOptions": [
+                    { "text": "Rare, so we often rely on qualitative or numerical understanding", "correct": true, "rationale": "Correct. Much of the subject is about understanding behavior when no tidy formula exists." },
+                    { "text": "Always available with enough algebra", "rationale": "If they were always available, qualitative and numerical methods would be unnecessary. How common are exact solutions in practice?" },
+                    { "text": "Never needed for any purpose", "rationale": "Exact solutions are valuable when they exist. The question is how often they are reachable, so how rare are they?" },
+                    { "text": "Found instantly by a single substitution", "rationale": "Most real equations resist quick tricks. What approach do we lean on when no closed form appears?" }
+                ]
+            },
+            {
+                "id": "mp_p_di4Zn4wz4_3",
+                "prompt": "In the pendulum example, what makes the governing equation hard to solve exactly?",
+                "hint": "The restoring effect involves a trigonometric function of the angle, which breaks linearity.",
+                "answerOptions": [
+                    { "text": "A nonlinear term, the sine of the angle", "correct": true, "rationale": "Yes. The sine of the angle makes the equation nonlinear and blocks a simple closed form." },
+                    { "text": "It contains no derivatives", "rationale": "A pendulum equation is full of derivatives. What kind of term, involving the angle, causes the difficulty?" },
+                    { "text": "The angle is held constant", "rationale": "A swinging pendulum has a changing angle. What function of that changing angle complicates the equation?" },
+                    { "text": "There is no gravity in the model", "rationale": "Gravity is exactly what drives the motion. What mathematical feature of the restoring term makes it hard?" }
+                ]
+            },
+            {
+                "id": "mp_p_di4Zn4wz4_4",
+                "prompt": "A phase space, or state space, view represents a system's state as what?",
+                "hint": "Think of bundling together every quantity you would need to predict the very next instant into one point.",
+                "answerOptions": [
+                    { "text": "A point whose coordinates are the quantities needed to predict the next instant", "correct": true, "rationale": "Correct. Position and velocity, for example, together form one point in phase space." },
+                    { "text": "A single number marked on a timeline", "rationale": "One number rarely captures a full state. What collection of quantities does a phase space point hold?" },
+                    { "text": "The area under the solution curve", "rationale": "Area is not the state. What does each coordinate of a phase space point represent?" },
+                    { "text": "The slope of one particular line", "rationale": "A slope is one detail. What set of quantities must a state include to predict the future?" }
+                ]
+            },
+            {
+                "id": "mp_p_di4Zn4wz4_5",
+                "prompt": "Why is studying the slope field, or vector field, of a differential equation useful?",
+                "hint": "Even with no formula, you can still read the direction of motion the equation assigns at each state.",
+                "answerOptions": [
+                    { "text": "It shows the direction solutions move at every state, revealing behavior without an explicit formula", "correct": true, "rationale": "Yes. The field lets you trace and predict solution behavior even when no closed form exists." },
+                    { "text": "It hands you the exact solution immediately", "rationale": "A field shows directions, not a finished formula. What kind of understanding does it actually provide?" },
+                    { "text": "It removes the need for derivatives", "rationale": "The field is built from the derivative rule itself. What does visualizing those directions let you see?" },
+                    { "text": "It works only for straight line solutions", "rationale": "Fields describe curved behavior too. What general insight does the direction at each state give?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.3, video 2
+           "Differential Equations and Dynamical Systems: Overview" */
+        "9fQkLQZe3u8": [
+            {
+                "id": "mp_9fQkLQZe3u8_1",
+                "prompt": "A dynamical system is described by a state together with what?",
+                "hint": "A snapshot alone cannot move. Ask what extra ingredient tells the state how to advance.",
+                "answerOptions": [
+                    { "text": "A rule that determines how the state evolves over time", "correct": true, "rationale": "Correct. State plus an evolution rule is the heart of a dynamical system." },
+                    { "text": "A single fixed number that never changes", "rationale": "A fixed number cannot drive change. What must accompany the state for it to evolve?" },
+                    { "text": "A list of unrelated facts", "rationale": "Disconnected facts give no dynamics. What structured ingredient moves the state forward?" },
+                    { "text": "A static picture with no time involved", "rationale": "Dynamics is about change in time. What rule supplies that change?" }
+                ]
+            },
+            {
+                "id": "mp_9fQkLQZe3u8_2",
+                "prompt": "A trajectory of a dynamical system is what?",
+                "hint": "Follow the state as time runs forward. What does the moving state trace?",
+                "answerOptions": [
+                    { "text": "The path the state traces out as time advances", "correct": true, "rationale": "Yes. A trajectory is the record of the state's journey through its space." },
+                    { "text": "The starting point by itself", "rationale": "The start is just one instant. What does the state produce as time keeps going?" },
+                    { "text": "A random scatter of unrelated points", "rationale": "The evolution rule connects the points smoothly. What continuous object results from following the state?" },
+                    { "text": "The coefficients in the equation", "rationale": "Coefficients describe the rule, not the motion. What geometric object does the evolving state sweep out?" }
+                ]
+            },
+            {
+                "id": "mp_9fQkLQZe3u8_3",
+                "prompt": "An equilibrium, or steady state, is a state where what is true?",
+                "hint": "If a state never moves, what must its rate of change be?",
+                "answerOptions": [
+                    { "text": "The rate of change is zero, so the system stays put", "correct": true, "rationale": "Correct. With zero rate of change, the state remains where it is." },
+                    { "text": "The system moves as fast as possible", "rationale": "Maximum speed is the opposite of staying put. What must the rate of change be for a state to hold still?" },
+                    { "text": "The derivative is at its largest", "rationale": "A large derivative means rapid change. What value of the rate of change keeps the state fixed?" },
+                    { "text": "The state becomes undefined", "rationale": "An equilibrium is a perfectly well defined state. What is special about its rate of change?" }
+                ]
+            },
+            {
+                "id": "mp_9fQkLQZe3u8_4",
+                "prompt": "Two trajectories that start from different initial states generally do what?",
+                "hint": "Same rule, different starting points. Ask whether the shared rule forces the paths to match.",
+                "answerOptions": [
+                    { "text": "Follow different paths, each set by the same evolution rule", "correct": true, "rationale": "Yes. One rule governs all trajectories, yet the starting state shapes each path." },
+                    { "text": "Must always end at the same point", "rationale": "Different starts usually lead to different futures. Does the rule erase the effect of the starting state?" },
+                    { "text": "Are guaranteed to be identical", "rationale": "Identical paths would ignore the initial state. What role does the starting point play under a shared rule?" },
+                    { "text": "Cannot be compared in any way", "rationale": "They live in the same space under the same rule, so they are comparable. How do their paths differ?" }
+                ]
+            },
+            {
+                "id": "mp_9fQkLQZe3u8_5",
+                "prompt": "The evolution rule of a continuous dynamical system is usually expressed as what?",
+                "hint": "Continuous change in time, written with a derivative, is exactly the form of one kind of equation.",
+                "answerOptions": [
+                    { "text": "A differential equation relating the state to its rate of change", "correct": true, "rationale": "Correct. The differential equation is the rule that pushes the state forward in time." },
+                    { "text": "A single algebraic number", "rationale": "A number cannot encode evolution over time. What kind of equation relates a state to its rate of change?" },
+                    { "text": "A table of random guesses", "rationale": "Guesses are not a rule. What precise mathematical form expresses continuous evolution?" },
+                    { "text": "A fixed constant and nothing more", "rationale": "A constant alone gives no dynamics. What equation ties the state to how fast it changes?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.4, video 1
+           "This is why you're learning differential equations" */
+        "ifbaAqfqpc4": [
+            {
+                "id": "mp_ifbaAqfqpc4_1",
+                "prompt": "Differential equations are powerful for science mainly because they let us do what?",
+                "hint": "Physical laws are usually stated in terms of rates and forces. Ask what differential equations turn those laws into.",
+                "answerOptions": [
+                    { "text": "Translate a law about rates and forces into an equation we can analyze", "correct": true, "rationale": "Yes. They convert statements about change into equations whose solutions describe the system." },
+                    { "text": "Avoid using any mathematics at all", "rationale": "The whole point is a mathematical model. What do differential equations let us express about physical laws?" },
+                    { "text": "Memorize final answers without understanding", "rationale": "Modeling is about reasoning, not memorizing. What do these equations capture about how systems behave?" },
+                    { "text": "Replace the need for any experiments", "rationale": "Models and experiments work together. What specifically do differential equations let us write down from a law?" }
+                ]
+            },
+            {
+                "id": "mp_ifbaAqfqpc4_2",
+                "prompt": "Newton's second law $F = ma$ becomes a differential equation because acceleration is what?",
+                "hint": "Acceleration measures how velocity changes, and velocity measures how position changes.",
+                "answerOptions": [
+                    { "text": "The second derivative of position with respect to time", "correct": true, "rationale": "Correct. Writing acceleration as a second derivative of position turns the law into a differential equation." },
+                    { "text": "A fixed constant unrelated to motion", "rationale": "Acceleration generally varies as forces change. How is it connected to position through derivatives?" },
+                    { "text": "Completely unrelated to position", "rationale": "Acceleration is tightly linked to position through time derivatives. Which derivative of position is it?" },
+                    { "text": "The area under the velocity curve", "rationale": "Area under velocity gives displacement, not acceleration. Which derivative of position equals acceleration?" }
+                ]
+            },
+            {
+                "id": "mp_ifbaAqfqpc4_3",
+                "prompt": "A simple model for population growth assumes the growth rate is what? See $\\frac{dP}{dt} = kP$.",
+                "hint": "Read the right side of $\\frac{dP}{dt} = kP$. The rate is tied to the current population.",
+                "answerOptions": [
+                    { "text": "Proportional to the current population $P$", "correct": true, "rationale": "Yes. A rate proportional to $P$ produces the familiar exponential growth pattern." },
+                    { "text": "Constant, no matter how large $P$ is", "rationale": "A constant rate would not involve $P$ on the right side. What does $kP$ say the rate depends on?" },
+                    { "text": "Always zero", "rationale": "A zero rate means no growth at all. What does the term $kP$ tell you about the rate?" },
+                    { "text": "Equal to the area under the population curve", "rationale": "The equation uses a derivative, not an area. What quantity does $kP$ make the rate proportional to?" }
+                ]
+            },
+            {
+                "id": "mp_ifbaAqfqpc4_4",
+                "prompt": "Modeling a real phenomenon with a differential equation usually begins by identifying what?",
+                "hint": "Before any formula, you decide which quantity is changing and what governs its change.",
+                "answerOptions": [
+                    { "text": "What quantity changes and what its rate of change depends on", "correct": true, "rationale": "Correct. Naming the changing quantity and its rate law is the foundation of the model." },
+                    { "text": "The final numeric answer, written down first", "rationale": "The answer is the goal, not the starting point. What must you identify before you can set up the equation?" },
+                    { "text": "The color of the eventual graph", "rationale": "Presentation comes much later. What core feature of the phenomenon do you pin down first?" },
+                    { "text": "The number of solutions the equation will have", "rationale": "Solution count emerges later. What do you identify about the changing quantity to build the model?" }
+                ]
+            },
+            {
+                "id": "mp_ifbaAqfqpc4_5",
+                "prompt": "Why is the derivative the natural tool for writing physical laws?",
+                "hint": "Ask what most laws are actually describing, and what a derivative measures.",
+                "answerOptions": [
+                    { "text": "Because most laws describe how quantities change, which is exactly what a derivative measures", "correct": true, "rationale": "Yes. Laws of motion, growth, and decay are statements about change, so derivatives fit naturally." },
+                    { "text": "Because derivatives remove all variables from a problem", "rationale": "Derivatives keep the variables in play. What is it about laws that matches what a derivative measures?" },
+                    { "text": "Because physical laws never involve change", "rationale": "Many laws are precisely about change. What tool measures that change directly?" },
+                    { "text": "Because integrals are forbidden in physics", "rationale": "Integrals appear throughout physics. What makes the derivative a natural match for laws about change?" }
+                ]
+            }
+        ],
+
+        /* Unit 0, Module 0.4, video 2
+           "Real Life Applications of Differential Equations" */
+        "zm_UqjVLViU": [
+            {
+                "id": "mp_zm_UqjVLViU_1",
+                "prompt": "Radioactive decay is modeled by a rate of change that is what? See $\\frac{dN}{dt} = -\\lambda N$.",
+                "hint": "Read $\\frac{dN}{dt} = -\\lambda N$. The minus sign and the factor $N$ each carry meaning.",
+                "answerOptions": [
+                    { "text": "Proportional to the amount currently present, and negative", "correct": true, "rationale": "Yes. More material means faster loss, and the minus sign marks a decrease." },
+                    { "text": "Constant over time, independent of $N$", "rationale": "A constant rate would not include $N$ on the right side. What does the factor $N$ in $-\\lambda N$ tell you?" },
+                    { "text": "Proportional to time squared", "rationale": "There is no time squared term in the model. What quantity is the rate actually proportional to?" },
+                    { "text": "Always exactly zero", "rationale": "A zero rate means nothing decays. What does $-\\lambda N$ say about the rate as $N$ changes?" }
+                ]
+            },
+            {
+                "id": "mp_zm_UqjVLViU_2",
+                "prompt": "Newton's law of cooling says an object's temperature changes at a rate proportional to what?",
+                "hint": "An object cools faster when it is far hotter than its surroundings, and barely changes when it is close.",
+                "answerOptions": [
+                    { "text": "The difference between its temperature and the surrounding temperature", "correct": true, "rationale": "Correct. The gap to the surroundings drives the rate, which shrinks as the gap closes." },
+                    { "text": "Its own temperature alone, ignoring the surroundings", "rationale": "An object near room temperature barely changes even if warm. What comparison actually sets the rate?" },
+                    { "text": "Only the time that has elapsed", "rationale": "Time elapsed does not set the instantaneous rate here. What temperature comparison does?" },
+                    { "text": "Its physical volume", "rationale": "Volume is not what the law uses. What difference involving temperature governs the cooling rate?" }
+                ]
+            },
+            {
+                "id": "mp_zm_UqjVLViU_3",
+                "prompt": "In these applications, the constant of proportionality in the model is usually fixed by what?",
+                "hint": "Constants like a decay rate or a cooling coefficient come from the specific system, not from thin air.",
+                "answerOptions": [
+                    { "text": "A measured property of the system or an initial condition", "correct": true, "rationale": "Yes. Data such as a half life or a starting measurement sets the constant for that system." },
+                    { "text": "Guessing a value at random", "rationale": "Random guessing would not match reality. Where does a meaningful value for the constant come from?" },
+                    { "text": "The color chosen for the graph", "rationale": "Appearance has no bearing on the constant. What real information determines it?" },
+                    { "text": "The number of terms in the equation", "rationale": "Term count does not set physical constants. What measurement or condition fixes the value?" }
+                ]
+            },
+            {
+                "id": "mp_zm_UqjVLViU_4",
+                "prompt": "Unchecked population growth and compound interest share which key feature?",
+                "hint": "In both, the bigger the current amount, the faster it grows. Ask what behavior that produces.",
+                "answerOptions": [
+                    { "text": "The rate of increase grows with the current amount, giving exponential behavior", "correct": true, "rationale": "Correct. A rate proportional to the present amount is the signature of exponential growth." },
+                    { "text": "A constant rate of increase forever", "rationale": "A constant rate gives steady, linear growth. What kind of rate makes growth accelerate as the amount rises?" },
+                    { "text": "A rate that drops to zero right away", "rationale": "These quantities keep growing rather than stalling. How does the rate depend on the current amount?" },
+                    { "text": "No dependence on the current amount", "rationale": "The dependence on the current amount is the whole point. What does that dependence produce over time?" }
+                ]
+            },
+            {
+                "id": "mp_zm_UqjVLViU_5",
+                "prompt": "Why do such different phenomena, including decay, cooling, and growth, use similar equations?",
+                "hint": "Strip away the labels and look at the form of each rate law. What structure keeps reappearing?",
+                "answerOptions": [
+                    { "text": "They share the same structure, a rate proportional to a quantity or to a difference", "correct": true, "rationale": "Yes. The shared rate structure is why one family of equations fits many settings." },
+                    { "text": "They are actually the same physical process", "rationale": "The processes are clearly different. What mathematical feature, not physical identity, do they share?" },
+                    { "text": "Because all their constants happen to be equal", "rationale": "The constants usually differ from case to case. What stays the same across these models?" },
+                    { "text": "Because applications ignore the underlying mathematics", "rationale": "The applications rely on the mathematics. What common structure in the rate laws unites them?" }
+                ]
+            }
+        ]
+
+    },
+
+    unit_mastery: {
+
+        "Unit 0: What are Differential Equations": [
+            {
+                "id": "um_0_1",
+                "prompt": "Which feature most fundamentally identifies an equation as a differential equation?",
+                "hint": "Compare it with an algebra problem. Ask what you are solving for, and what operation appears that algebra does not require.",
+                "answerOptions": [
+                    { "text": "Its unknown is a function, and the equation relates that function to its derivatives", "correct": true, "rationale": "Yes. A function as the unknown, tied to its own derivatives, is the defining trait." },
+                    { "text": "It includes at least one square root", "rationale": "Square roots appear in many ordinary equations. What kind of unknown, and what operation on it, defines a differential equation?" },
+                    { "text": "It is true for only one value of the variable", "rationale": "That describes a typical algebraic equation. What is different about the unknown in a differential equation?" },
+                    { "text": "It contains no constants", "rationale": "Constants are common in differential equations. What about the unknown and its derivatives is the defining feature?" }
+                ]
+            },
+            {
+                "id": "um_0_2",
+                "prompt": "In $\\frac{dy}{dt} = ky$, which symbol represents the unknown you are trying to find?",
+                "hint": "Two of these are given to you and one is the input. Which symbol is the changing quantity you must determine?",
+                "answerOptions": [
+                    { "text": "The function $y(t)$", "correct": true, "rationale": "Correct. You are solving for the function whose rate of change equals $k$ times its current value." },
+                    { "text": "The constant $k$", "rationale": "$k$ is a given rate constant. Which symbol changes with $t$ and is not yet known?" },
+                    { "text": "The variable $t$", "rationale": "$t$ is the independent input. Which quantity does the equation describe the behavior of as $t$ varies?" },
+                    { "text": "The product $ky$", "rationale": "That product is built from known and unknown parts. Which single object, once found, answers the problem?" }
+                ]
+            },
+            {
+                "id": "um_0_3",
+                "prompt": "A differential equation is, at its core, a statement about which property of its unknown function?",
+                "hint": "The defining ingredient is a derivative. Ask what a derivative measures.",
+                "answerOptions": [
+                    { "text": "How the function changes, that is, its rate of change", "correct": true, "rationale": "Right. The derivative term is what makes the equation a statement about change." },
+                    { "text": "Its single output at one fixed input", "rationale": "One output is an isolated value. What does the derivative term track across the whole domain?" },
+                    { "text": "Its maximum value only", "rationale": "A maximum is one feature. What does the presence of a derivative make the equation describe?" },
+                    { "text": "Whether its graph is drawn in color", "rationale": "Appearance is irrelevant. What aspect of the function does a derivative measure?" }
+                ]
+            },
+            {
+                "id": "um_0_4",
+                "prompt": "The order of a differential equation is set by which of the following?",
+                "hint": "Scan for derivative symbols and find a particular one among them.",
+                "answerOptions": [
+                    { "text": "The highest derivative that appears", "correct": true, "rationale": "Yes. A highest derivative of order two makes it second order, and so on." },
+                    { "text": "The number of plus and minus signs", "rationale": "Counting signs measures clutter, not order. Which feature of the derivatives sets it?" },
+                    { "text": "The value of the largest constant", "rationale": "Constants scale terms but do not set order. What about the derivatives matters?" },
+                    { "text": "How many curves solve it", "rationale": "That is a different property. Look again at the derivatives present." }
+                ]
+            },
+            {
+                "id": "um_0_5",
+                "prompt": "What does it mean to solve a differential equation?",
+                "hint": "Recall that the unknown is a function, not a value.",
+                "answerOptions": [
+                    { "text": "To find the function, or family of functions, that satisfies it for all inputs", "correct": true, "rationale": "Correct. A solution is a function that makes the equation hold across its whole domain." },
+                    { "text": "To find one number that satisfies it", "rationale": "A single number solves an algebra problem. What kind of object is the unknown here?" },
+                    { "text": "To take the derivative of each side once more", "rationale": "That alters the equation rather than satisfying it. What object must you produce?" },
+                    { "text": "To list the constants that appear", "rationale": "Listing constants is not solving. What must you recover so the equation holds everywhere?" }
+                ]
+            },
+            {
+                "id": "um_0_6",
+                "prompt": "To confirm a candidate function is a solution, what should you do?",
+                "hint": "You are testing a claim that must hold everywhere. What can you plug in and compare?",
+                "answerOptions": [
+                    { "text": "Substitute the function and its derivatives into the equation and check that both sides match for all inputs", "correct": true, "rationale": "Yes. If substitution makes the two sides equal everywhere, the candidate is a solution." },
+                    { "text": "Confirm the curve passes through the origin", "rationale": "One point is neither necessary nor sufficient. What must hold across the whole domain?" },
+                    { "text": "Check that the function is increasing", "rationale": "Monotonicity is not the test. What operation lets the equation judge the candidate?" },
+                    { "text": "Ensure the function has exactly one term", "rationale": "Term count is irrelevant. How does the equation actually verify a candidate?" }
+                ]
+            },
+            {
+                "id": "um_0_7",
+                "prompt": "The general solution of a first order differential equation usually includes what?",
+                "hint": "One slope rule describes a family. What symbol in the solution lets the family flex?",
+                "answerOptions": [
+                    { "text": "A single arbitrary constant", "correct": true, "rationale": "Correct. That one constant is what an initial condition later fixes." },
+                    { "text": "No arbitrary constants", "rationale": "Without a free constant, only one curve is described. How does it capture a whole family?" },
+                    { "text": "Exactly three arbitrary constants", "rationale": "That many suggests a higher order. How many free constants does first order leave open?" },
+                    { "text": "A fixed decimal value", "rationale": "A fixed number is not a function. What flexible piece lets the solution represent many curves?" }
+                ]
+            },
+            {
+                "id": "um_0_8",
+                "prompt": "Why does a first order differential equation describe a whole family of curves rather than just one?",
+                "hint": "Picture parallel curves with identical slopes but different heights.",
+                "answerOptions": [
+                    { "text": "It fixes the slope at each point but leaves the starting height free", "correct": true, "rationale": "Exactly. Curves with the same slope rule but different starting heights all satisfy it." },
+                    { "text": "Because it is always written incorrectly", "rationale": "This is structural, not an error. What freedom remains when only the slope is prescribed?" },
+                    { "text": "Because derivatives delete all curves but one", "rationale": "Differentiation does not single out one curve. What is left unspecified by a bare slope rule?" },
+                    { "text": "Because each curve uses different variables", "rationale": "The curves share the same variables. What do they not share that lets many coexist?" }
+                ]
+            },
+            {
+                "id": "um_0_9",
+                "prompt": "What is the role of an initial condition such as $y(0) = 5$?",
+                "hint": "The family has one free constant. What does a known point let you determine?",
+                "answerOptions": [
+                    { "text": "It selects one specific curve from the family by fixing a known point", "correct": true, "rationale": "Yes. One known point pins the family down to the single curve through it." },
+                    { "text": "It rewrites the differential equation", "rationale": "The slope rule is unchanged. What does naming one point let you do with the family?" },
+                    { "text": "It forces the solution to be linear", "rationale": "A point says nothing about curvature. What does fixing one location accomplish?" },
+                    { "text": "It eliminates the derivative", "rationale": "The derivative still governs the shape. What gap does one known point fill?" }
+                ]
+            },
+            {
+                "id": "um_0_10",
+                "prompt": "A particular solution differs from the general solution in that it has what?",
+                "hint": "Think about what an initial condition does to the free constant.",
+                "answerOptions": [
+                    { "text": "Its arbitrary constant fixed to a specific value", "correct": true, "rationale": "Correct. Pinning the constant singles out one curve from the family." },
+                    { "text": "More derivatives than the general solution", "rationale": "The derivatives are unchanged. What happens to the free constant in a particular solution?" },
+                    { "text": "A higher order than the general solution", "rationale": "Order does not change. What gets pinned down to single out one curve?" },
+                    { "text": "No relationship to the differential equation", "rationale": "It still satisfies the same equation. What distinguishes it from the general form?" }
+                ]
+            },
+            {
+                "id": "um_0_11",
+                "prompt": "Geometrically, the slope field of a differential equation is best described as what?",
+                "hint": "Imagine attaching a tiny slope marker at every point of the plane.",
+                "answerOptions": [
+                    { "text": "A set of small direction marks showing the slope a solution must have at each point", "correct": true, "rationale": "Yes. The field shows the direction a solution travels through each point." },
+                    { "text": "A single straight line covering the plane", "rationale": "One line cannot show different slopes at different points. What does assigning a slope everywhere produce?" },
+                    { "text": "A random scattering of dots", "rationale": "The marks are organized by the equation. What do direction marks at every point form?" },
+                    { "text": "The exact solution curve already drawn", "rationale": "The field shows directions, not a finished curve. What does it provide at each point?" }
+                ]
+            },
+            {
+                "id": "um_0_12",
+                "prompt": "Two distinct solution curves of the same first order equation do not cross, because at any shared point the equation would force what?",
+                "hint": "At a given point the equation prescribes exactly one slope.",
+                "answerOptions": [
+                    { "text": "The same slope, which would make them the same curve there", "correct": true, "rationale": "Correct. A single prescribed slope at a shared point leaves no room for two different curves." },
+                    { "text": "Two completely different equations", "rationale": "They obey the same equation. What does the equation assign at a shared point that constrains them?" },
+                    { "text": "A disagreement in the second derivative", "rationale": "First order behavior is governed by the slope rule. What single quantity would they share at a crossing?" },
+                    { "text": "A different starting height at that point", "rationale": "At a shared point the height is the same by definition. What else would the equation force them to share there?" }
+                ]
+            },
+            {
+                "id": "um_0_13",
+                "prompt": "An ordinary differential equation is distinguished from a partial differential equation by what?",
+                "hint": "The contrast is partial, which hints at several inputs.",
+                "answerOptions": [
+                    { "text": "Its unknown function depends on a single independent variable", "correct": true, "rationale": "Yes. With one independent variable the derivatives are ordinary, not partial." },
+                    { "text": "It contains only ordinary whole numbers", "rationale": "All these equations use numbers. What about the count of inputs marks the ordinary case?" },
+                    { "text": "Its unknown depends on several independent variables", "rationale": "Several inputs is what brings partial derivatives. How many does the ordinary case use?" },
+                    { "text": "It has no derivatives at all", "rationale": "It is full of derivatives. What feature of the input variables defines ordinary?" }
+                ]
+            },
+            {
+                "id": "um_0_14",
+                "prompt": "A differential equation is linear when the unknown function and its derivatives appear how?",
+                "hint": "Think no squares, and no products of the unknown with itself or its derivatives.",
+                "answerOptions": [
+                    { "text": "Only to the first power and never multiplied together", "correct": true, "rationale": "Correct. First powers and no products of the unknown terms is the linear structure." },
+                    { "text": "As a perfectly straight line when graphed", "rationale": "Linear refers to the algebraic form, not the graph shape. What restriction on the terms defines it?" },
+                    { "text": "With no constants anywhere", "rationale": "Constants are allowed. What condition on powers and products matters?" },
+                    { "text": "Always inside a square root", "rationale": "A square root would break linearity. What simple form must the terms take?" }
+                ]
+            },
+            {
+                "id": "um_0_15",
+                "prompt": "Saying a system is deterministic means what?",
+                "hint": "Ask whether any uncertainty remains once you know the present and the rule.",
+                "answerOptions": [
+                    { "text": "The present state and the rule together fix the entire future", "correct": true, "rationale": "Yes. With no randomness, the same start always leads to the same future." },
+                    { "text": "Its behavior is purely random", "rationale": "Random is the opposite. How much of the future is left to chance once the state and rule are known?" },
+                    { "text": "It has no valid solution", "rationale": "Determinism concerns predictability, not solvability. What do a known state and rule guarantee?" },
+                    { "text": "Time plays no part in it", "rationale": "Evolution happens in time. What do the state and rule decide about later times?" }
+                ]
+            },
+            {
+                "id": "um_0_16",
+                "prompt": "Why can a single differential equation model many unrelated physical systems?",
+                "hint": "Look at the form of the rate law, not the labels on the variables.",
+                "answerOptions": [
+                    { "text": "Different systems can share the same underlying rule relating a quantity to its rate of change", "correct": true, "rationale": "Correct. When the rate laws share a form, one equation captures them all." },
+                    { "text": "All physical systems are secretly the same", "rationale": "They differ in detail. What deeper feature could still match across them?" },
+                    { "text": "Mathematics ignores the physics", "rationale": "The equation encodes the physics. What about the rate laws can align?" },
+                    { "text": "Every system uses identical constants", "rationale": "Constants usually differ. What is shared even when the numbers are not?" }
+                ]
+            },
+            {
+                "id": "um_0_17",
+                "prompt": "A qualitative study of a differential equation seeks to understand what, even without a formula?",
+                "hint": "Qualitative means describing behavior and trends rather than exact numbers.",
+                "answerOptions": [
+                    { "text": "The long term behavior and shape of solutions, such as growth, decay, or equilibrium", "correct": true, "rationale": "Yes. Qualitative methods reveal trends and steady states with no closed form." },
+                    { "text": "The exact value at one instant", "rationale": "A single precise value is quantitative. What broad picture does qualitative work pursue?" },
+                    { "text": "The font used in the textbook", "rationale": "That is irrelevant. What behavior of solutions is the target?" },
+                    { "text": "The number of letters in the equation", "rationale": "Counting symbols is not analysis. What does studying behavior reveal when no formula exists?" }
+                ]
+            },
+            {
+                "id": "um_0_18",
+                "prompt": "For many real differential equations, exact closed form solutions are which of these?",
+                "hint": "Consider why the subject spends so much effort on qualitative and numerical tools.",
+                "answerOptions": [
+                    { "text": "Rare, so qualitative and numerical methods are often used instead", "correct": true, "rationale": "Correct. Much of the subject handles equations with no tidy formula." },
+                    { "text": "Always obtainable with basic algebra", "rationale": "If always available, other methods would be pointless. How common are they really?" },
+                    { "text": "Unnecessary in every case", "rationale": "They are valuable when they exist. The point is how reachable they are, so how rare?" },
+                    { "text": "Produced by one quick substitution every time", "rationale": "Most real equations resist quick tricks. What do we rely on when no formula appears?" }
+                ]
+            },
+            {
+                "id": "um_0_19",
+                "prompt": "Differential equations often arise because it is easier to describe which of the following?",
+                "hint": "Nature often tells us how things change before it tells us what they are.",
+                "answerOptions": [
+                    { "text": "How a quantity changes from moment to moment", "correct": true, "rationale": "Yes. Local rules of change are usually far easier to state than a full formula." },
+                    { "text": "The quantity's final value directly", "rationale": "The final value is usually the goal, not the given. What is easier to state first?" },
+                    { "text": "The total area under the quantity", "rationale": "Area is a different idea. What local description does nature usually hand us?" },
+                    { "text": "The average of all the quantity's values", "rationale": "An average summarizes afterward. What instantaneous description comes more naturally?" }
+                ]
+            },
+            {
+                "id": "um_0_20",
+                "prompt": "In the pendulum example, what makes the governing equation difficult to solve exactly?",
+                "hint": "The restoring effect involves a trigonometric function of the angle.",
+                "answerOptions": [
+                    { "text": "A nonlinear term, the sine of the angle", "correct": true, "rationale": "Correct. The sine of the angle makes the equation nonlinear and blocks a simple formula." },
+                    { "text": "It contains no derivatives", "rationale": "It is full of derivatives. What term involving the angle causes the trouble?" },
+                    { "text": "The angle is fixed and never moves", "rationale": "A swinging pendulum has a changing angle. What function of it complicates the equation?" },
+                    { "text": "Gravity is absent from the model", "rationale": "Gravity drives the motion. What mathematical feature of the restoring term is the issue?" }
+                ]
+            },
+            {
+                "id": "um_0_21",
+                "prompt": "In a phase space, or state space, a system's state is represented as what?",
+                "hint": "Bundle every quantity needed to predict the next moment into one point.",
+                "answerOptions": [
+                    { "text": "A point whose coordinates are the quantities needed to predict the next instant", "correct": true, "rationale": "Yes. Position and velocity together, for example, form one point in phase space." },
+                    { "text": "A single number on a timeline", "rationale": "One number rarely captures a full state. What collection forms a phase space point?" },
+                    { "text": "The area beneath the solution curve", "rationale": "Area is not the state. What does each coordinate represent?" },
+                    { "text": "The slope of one chosen line", "rationale": "A slope is one detail. What set of quantities must the state include?" }
+                ]
+            },
+            {
+                "id": "um_0_22",
+                "prompt": "A dynamical system consists of a state together with what?",
+                "hint": "A snapshot cannot move on its own. What tells it how to advance?",
+                "answerOptions": [
+                    { "text": "A rule that determines how the state evolves over time", "correct": true, "rationale": "Correct. State plus an evolution rule is the heart of a dynamical system." },
+                    { "text": "A single unchanging number", "rationale": "A fixed number cannot drive change. What must accompany the state?" },
+                    { "text": "A list of unrelated facts", "rationale": "Disconnected facts give no dynamics. What structured ingredient moves the state?" },
+                    { "text": "A still image with no time", "rationale": "Dynamics involves change in time. What supplies that change?" }
+                ]
+            },
+            {
+                "id": "um_0_23",
+                "prompt": "A trajectory of a dynamical system is what?",
+                "hint": "Follow the state forward in time and watch what it draws.",
+                "answerOptions": [
+                    { "text": "The path the state traces as time advances", "correct": true, "rationale": "Yes. A trajectory records the state's journey through its space." },
+                    { "text": "The starting point alone", "rationale": "The start is one instant. What does the state produce as time continues?" },
+                    { "text": "A random spray of points", "rationale": "The rule connects the points smoothly. What continuous object results?" },
+                    { "text": "The coefficients of the equation", "rationale": "Coefficients describe the rule, not the motion. What does the moving state sweep out?" }
+                ]
+            },
+            {
+                "id": "um_0_24",
+                "prompt": "At an equilibrium, or steady state, what is true of the rate of change?",
+                "hint": "If a state never moves, what must its rate of change equal?",
+                "answerOptions": [
+                    { "text": "It is zero, so the state stays put", "correct": true, "rationale": "Correct. With zero rate of change, the state remains where it is." },
+                    { "text": "It is as large as possible", "rationale": "That means rapid change, the opposite of staying still. What rate keeps a state fixed?" },
+                    { "text": "It is undefined", "rationale": "An equilibrium is a well defined state. What is special about its rate of change?" },
+                    { "text": "It alternates sign rapidly", "rationale": "Rapid changes would move the state. What single value of the rate holds it in place?" }
+                ]
+            },
+            {
+                "id": "um_0_25",
+                "prompt": "Differential equations are valuable in science because they let us do what?",
+                "hint": "Physical laws are stated in terms of rates and forces.",
+                "answerOptions": [
+                    { "text": "Translate a law about rates and forces into an equation we can analyze", "correct": true, "rationale": "Yes. They convert statements about change into equations whose solutions describe the system." },
+                    { "text": "Avoid mathematics completely", "rationale": "The model is mathematical. What do these equations express about a law?" },
+                    { "text": "Memorize answers without reasoning", "rationale": "Modeling is reasoning, not memorizing. What do they capture about behavior?" },
+                    { "text": "Eliminate the need for experiments", "rationale": "Models and experiments complement each other. What do they let us write from a law?" }
+                ]
+            },
+            {
+                "id": "um_0_26",
+                "prompt": "Newton's second law $F = ma$ turns into a differential equation because acceleration is what?",
+                "hint": "Velocity is the first derivative of position. What is acceleration?",
+                "answerOptions": [
+                    { "text": "The second derivative of position with respect to time", "correct": true, "rationale": "Correct. Writing acceleration as a second derivative of position makes the law a differential equation." },
+                    { "text": "A constant unrelated to motion", "rationale": "Acceleration varies as forces change. How is it linked to position through derivatives?" },
+                    { "text": "The area under the velocity curve", "rationale": "That area gives displacement. Which derivative of position is acceleration?" },
+                    { "text": "Independent of position entirely", "rationale": "It is tied to position by time derivatives. Which derivative is it?" }
+                ]
+            },
+            {
+                "id": "um_0_27",
+                "prompt": "The model $\\frac{dP}{dt} = kP$ assumes the growth rate is what?",
+                "hint": "Read the right side of the equation literally.",
+                "answerOptions": [
+                    { "text": "Proportional to the current population $P$", "correct": true, "rationale": "Yes. A rate proportional to $P$ produces exponential growth." },
+                    { "text": "Constant regardless of $P$", "rationale": "A constant rate would not include $P$. What does $kP$ say the rate depends on?" },
+                    { "text": "Always zero", "rationale": "A zero rate means no growth. What does $kP$ indicate about the rate?" },
+                    { "text": "Equal to the area under the population curve", "rationale": "The equation uses a derivative, not an area. What is the rate proportional to?" }
+                ]
+            },
+            {
+                "id": "um_0_28",
+                "prompt": "Radioactive decay $\\frac{dN}{dt} = -\\lambda N$ has a rate of change that is what?",
+                "hint": "Interpret both the minus sign and the factor $N$.",
+                "answerOptions": [
+                    { "text": "Proportional to the amount present, and negative", "correct": true, "rationale": "Correct. More material means faster loss, and the minus sign marks a decrease." },
+                    { "text": "Constant over time", "rationale": "A constant rate would omit $N$. What does the factor $N$ contribute?" },
+                    { "text": "Positive and growing", "rationale": "Decay reduces the amount. What does the minus sign tell you about the rate?" },
+                    { "text": "Proportional to the square of time", "rationale": "There is no time squared term. What quantity is the rate proportional to?" }
+                ]
+            },
+            {
+                "id": "um_0_29",
+                "prompt": "Newton's law of cooling makes the temperature change at a rate proportional to what?",
+                "hint": "An object cools fast when far from its surroundings and slowly when close.",
+                "answerOptions": [
+                    { "text": "The difference between the object's temperature and its surroundings", "correct": true, "rationale": "Yes. The gap to the surroundings drives the rate, which shrinks as the gap closes." },
+                    { "text": "The object's temperature alone", "rationale": "An object near room temperature barely changes even when warm. What comparison sets the rate?" },
+                    { "text": "Only the elapsed time", "rationale": "Elapsed time does not set the instantaneous rate. What temperature comparison does?" },
+                    { "text": "The object's mass only", "rationale": "Mass is not what the law uses. What difference governs the cooling rate?" }
+                ]
+            },
+            {
+                "id": "um_0_30",
+                "prompt": "Why do decay, cooling, and population growth all use similar differential equations?",
+                "hint": "Strip the labels and compare the form of each rate law.",
+                "answerOptions": [
+                    { "text": "They share the same structure, a rate proportional to a quantity or to a difference", "correct": true, "rationale": "Correct. The shared rate structure is why one family of equations fits many settings." },
+                    { "text": "They are the same physical process", "rationale": "The processes differ. What mathematical feature, not physical identity, do they share?" },
+                    { "text": "All their constants are equal", "rationale": "The constants differ across cases. What stays the same?" },
+                    { "text": "Applications ignore the mathematics", "rationale": "They depend on the mathematics. What common structure in the rate laws unites them?" }
+                ]
+            }
+        ]
+
+    }
+
+};

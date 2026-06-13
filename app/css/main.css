@@ -556,6 +556,331 @@ body {
     background: var(--accent-soft);
 }
 
+/* Quiz, Micro Practice (per video) and Unit Mastery (per unit).
+   The launch card sits in the page, the questions live in a modal overlay. */
+
+.video-quiz-host {
+    margin-top: 0.75rem;
+}
+
+.unit-mastery-host {
+    margin-top: 1.25rem;
+}
+
+/* Launch card */
+
+.quiz-launch-card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+}
+
+.unit-mastery-host .quiz-launch-card {
+    border-color: var(--accent-color);
+}
+
+.quiz-title {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.quiz-intro {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0.4rem 0 0;
+}
+
+.quiz-progress {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    margin: 0.55rem 0 0.7rem;
+}
+
+.quiz-launch-btn {
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.quiz-launch-btn:hover {
+    opacity: 0.9;
+}
+
+/* Modal overlay */
+
+body.quiz-modal-open {
+    overflow: hidden;
+}
+
+.quiz-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+.quiz-modal {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    box-shadow: 0 18px 50px var(--shadow-color);
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.quiz-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.quiz-modal-title {
+    font-size: 1.05rem;
+    margin: 0;
+    flex: 1;
+}
+
+.quiz-score {
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.quiz-modal-close {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.quiz-modal-close:hover {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+.quiz-modal-body {
+    padding: 1.25rem;
+    overflow-y: auto;
+}
+
+.quiz-counter {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    margin: 0 0 0.6rem;
+}
+
+.quiz-prompt {
+    font-size: 1rem;
+    margin: 0 0 0.9rem;
+}
+
+/* General hint toggle */
+
+.quiz-hint-toggle {
+    background: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    margin-bottom: 0.85rem;
+    transition: border-color 0.15s ease;
+}
+
+.quiz-hint-toggle:hover {
+    border-color: var(--accent-color);
+}
+
+.quiz-hint {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    margin: 0 0 0.9rem;
+}
+
+.quiz-hint-text {
+    font-size: 0.88rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* Options and their inline rationales */
+
+.quiz-option-row {
+    margin-bottom: 0.55rem;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.7rem 0.95rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+}
+
+.quiz-option:disabled {
+    cursor: default;
+}
+
+.quiz-option.correct {
+    border-color: var(--success-color);
+    background: var(--accent-soft);
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.quiz-option.incorrect {
+    border-color: var(--error-color);
+    color: var(--error-color);
+    opacity: 0.85;
+}
+
+.quiz-rationale {
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 0.55rem 0.8rem;
+    margin: 0.4rem 0 0.2rem 0.6rem;
+}
+
+.quiz-rationale.incorrect {
+    border-left: 3px solid var(--error-color);
+}
+
+.quiz-rationale.incorrect .quiz-rationale-text {
+    color: var(--error-color);
+}
+
+.quiz-rationale.correct {
+    border-left: 3px solid var(--success-color);
+}
+
+.quiz-rationale.correct .quiz-rationale-text {
+    color: var(--success-color);
+}
+
+.quiz-rationale-text {
+    font-size: 0.88rem;
+    margin: 0;
+}
+
+/* Practice complete summary */
+
+.quiz-summary {
+    text-align: center;
+    padding: 1.25rem 0.5rem 0.5rem;
+}
+
+.quiz-summary-title {
+    font-size: 1.2rem;
+    margin: 0 0 0.6rem;
+}
+
+.quiz-summary-score {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--success-color);
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 0.6rem;
+}
+
+.quiz-summary-message {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.quiz-modal-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--panel-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    min-height: 1rem;
+}
+
+.quiz-retry-btn {
+    background: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.quiz-retry-btn:hover {
+    background: var(--accent-soft);
+}
+
+.quiz-next-btn {
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.quiz-next-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .quiz-modal {
+        max-height: 94vh;
+    }
+}
+
 /* Passed status badge */
 
 .module-status.passed {

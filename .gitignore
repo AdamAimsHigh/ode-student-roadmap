@@ -10,7 +10,7 @@ node_modules/
 
 # Files exceeding GitHub's 100 MB limit
 *.mp4
-A Course in Differential Equations with Boundary Value Problems, 2nd Ed. [Swift, Randall J_; Szypowski, Ryan; Wirkus, Stephen Allen].pdf
+A Course in Differential Equations with Boundary Value Problems*.pdf
 
 # Python cache and systems
 __pycache__/
@@ -24,6 +24,10 @@ __pycache__/
 .idea/
 .vscode/
 *.log
+
+# Browser test (Playwright MCP) artifacts
+.playwright-mcp/
+quiz-modal-verify.png
 
 # Data Caches and Heavy Files (TOKEN PROTECTION)
 *.csv

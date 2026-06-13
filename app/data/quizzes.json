@@ -1,1 +1,19 @@
-{}
+{
+  "_doc": "Documentation mirror of app/js/quiz-data.js (QUIZ_DATA). The app loads the JS global at runtime, not this file, mirroring the curriculum-data.js and curriculum.json split. micro_practice is keyed by video_id (five items per video). unit_mastery is keyed by unit title (thirty items per unit). Item shape: { id, prompt, hint, answerOptions:[{text, correct, rationale}] }. The hint is the general Need a hint string. Exactly one answer option is correct. Every option has a rationale rendered inline beneath it: confirming when correct, a guiding question when incorrect that never states the answer. No em dashes and no ampersands in user facing strings.",
+  "micro_practice": {
+    "Em339AlejIs": [
+      {
+        "id": "demo_Em339AlejIs_1",
+        "prompt": "What makes an equation a differential equation rather than an ordinary algebraic equation?",
+        "hint": "Look at what the unknown is. In algebra you usually solve for a number. Here, ask what kind of object you are solving for, and what operation the equation performs on it.",
+        "answerOptions": [
+          { "text": "Its unknown is a function and the equation involves one or more of that function's derivatives", "correct": true, "rationale": "Yes. The unknown is a whole function, and the equation ties that function to its own rate of change." },
+          { "text": "It contains at least one fraction", "rationale": "Plenty of algebraic equations contain fractions. What new kind of object, beyond a number, is the unknown here, and what operation acts on it?" },
+          { "text": "It can only be solved with a calculator", "rationale": "Solvability by hand is not the defining trait. Look at what the unknown is. Is it a number, or something that changes?" },
+          { "text": "It always has exactly one solution", "rationale": "Think about how many curves can share the same slope rule. Does a single rule about change usually pin down just one function?" }
+        ]
+      }
+    ]
+  },
+  "unit_mastery": {}
+}
