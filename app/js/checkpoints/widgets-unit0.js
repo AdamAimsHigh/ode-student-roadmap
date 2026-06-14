@@ -11,30 +11,48 @@
 
     CheckpointRegistry.register("desmos_general_solution_curve", function (container, moduleData) {
         CheckpointCore.shell(container, moduleData, {
-            description: "The equation dy/dx = y has the general solution y = C e^x, an infinite family of curves. Exactly one member of the family passes through the marked target point. Use the slider to find it.",
+            description: "The equation dy/dx = y has the general solution y = C e^x, an infinite family of curves. Exactly one member of the family passes through the marked target point at (1, 5). Drag the C slider until the curve lands on it.",
             guidingQuestions: [
                 "Every curve in the family has the form y = C e^x. At the target point you know both x and y. What equation does substituting them produce?",
-                "The target sits at x = 1, where e^x equals e, about 2.718. The height of your curve there is C times e. How large must C be for the curve to reach the target?"
+                "The target sits at x = 1, where e^x equals e, about 2.718. The height of your curve there is C times e. How large must C be for the curve to reach a height of 5?"
             ]
         }, function (body, api) {
+            // The target (1, 5) is reached when C times e equals 5, so the
+            // single correct constant is C = 5 divided by e, about 1.84.
+            const TARGET_C = 5 / Math.E;
+            const TOLERANCE = 0.05;
+
+            // Inject the HTML range slider first so it sits directly below the
+            // checkpoint instructions and above the Desmos frame that follows.
+            const cSlider = CheckpointCore.rangeControl(body, {
+                label: "C =",
+                min: 0.1,
+                max: 5.0,
+                step: 0.01,
+                value: 1.0,
+                onChange: function (value) {
+                    // Drive the Desmos calculator in real time. The family curve
+                    // reads C from this definition, so the graph repaints live.
+                    calc.setExpression({ id: "c-parameter", latex: "C=" + value });
+                }
+            });
+
             const calc = CheckpointCore.desmosGraph(body, {});
             if (!calc) return;
 
             calc.setMathBounds({ left: -1.5, right: 3.5, bottom: -1, top: 9 });
             calc.setExpressions([
-                { id: "slider", latex: "C=1", sliderBounds: { min: -3, max: 5, step: 0.01 } },
+                { id: "c-parameter", latex: "C=1", color: "#6042a6" },
                 { id: "family", latex: "y=Ce^{x}", color: "#6042a6" },
-                { id: "target", latex: "(1, 5.4366)", color: "#c74440", label: "Target", showLabel: true, dragMode: "NONE" }
+                { id: "target", latex: "(1, 5)", color: "#c74440", label: "Target", showLabel: true, dragMode: "NONE" }
             ]);
 
-            const cValue = CheckpointCore.observeValue(calc, "C");
-
             body.appendChild(CheckpointCore.checkButton("Check My Curve", function () {
-                if (!isFinite(cValue.value)) {
+                if (!isFinite(cSlider.value)) {
                     api.error("Move the C slider first, then check.");
                     return;
                 }
-                if (Math.abs(cValue.value - 2) <= 0.05) {
+                if (Math.abs(cSlider.value - TARGET_C) <= TOLERANCE) {
                     api.pass("Correct. The single point pinned down the one constant, turning a family into a particular solution.");
                 } else {
                     api.fail();

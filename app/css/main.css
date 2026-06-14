@@ -160,6 +160,119 @@ body {
     gap: 2rem;
 }
 
+/* Table of Contents view, rendered by router.js */
+
+.toc-intro {
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.75rem;
+}
+
+.toc-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.toc-subhead {
+    color: var(--text-secondary);
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.toc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px var(--shadow-color);
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.toc-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-color);
+    box-shadow: 0 6px 18px var(--shadow-color);
+}
+
+.toc-card:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.toc-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.toc-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.toc-card-progress-track {
+    height: 8px;
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.4rem;
+}
+
+.toc-card-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent-color);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+.toc-card-progress-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Unit Detail navigation, rendered by router.js */
+
+.unit-detail-nav {
+    display: flex;
+}
+
+.back-to-toc-btn {
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--accent-color);
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 0.55rem 1rem;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.back-to-toc-btn:hover {
+    border-color: var(--accent-color);
+}
+
+.back-to-toc-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
 /* Unit sections, rendered by router.js */
 
 .unit-section {
@@ -236,8 +349,10 @@ body {
     list-style: none;
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+    /* Single column stack so each video card spans the full module width,
+       giving the embedded players room to grow without full screen mode. */
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
 
 .video-card {
@@ -245,6 +360,9 @@ body {
     border: 1px solid var(--panel-border);
     border-radius: 10px;
     padding: 1rem;
+    /* Allow the card to fill the full width of the stacked column. */
+    width: 100%;
+    max-width: 100%;
 }
 
 .video-card a {
@@ -255,6 +373,47 @@ body {
 
 .video-card a:hover {
     text-decoration: underline;
+}
+
+.video-title {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    line-height: 1.35;
+}
+
+/* Responsive 16:9 frame. The padding-bottom of 56.25 percent is nine
+   divided by sixteen, so the box keeps a true widescreen ratio at any
+   width while the iframe fills it absolutely. */
+.video-embed {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000000;
+}
+
+.video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.video-fallback-link {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.video-watched-toggle {
+    display: block;
+    margin-top: 0.5rem;
 }
 
 /* Checkpoint container, populated by the checkpoint registry */
