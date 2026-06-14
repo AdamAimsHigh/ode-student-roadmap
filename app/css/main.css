@@ -716,14 +716,61 @@ body {
 }
 
 /* Quiz, Micro Practice (per video) and Unit Mastery (per unit).
-   The launch card sits in the page, the questions live in a modal overlay. */
+   Micro Practice renders inline beside the video in a split layout. Unit
+   Mastery keeps a launch card that opens a full screen modal overlay. */
+
+/* Split layout, the video on the left and its Micro Practice on the right, so
+   the student can watch and practice at the same time. The video column takes
+   roughly two thirds of the width, the quiz column the remaining third. */
+.video-lesson-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.video-lesson-main {
+    min-width: 0;
+}
 
 .video-quiz-host {
-    margin-top: 0.75rem;
+    min-width: 0;
 }
 
 .unit-mastery-host {
     margin-top: 1.25rem;
+}
+
+/* Inline Micro Practice panel, the questions live directly in the column. */
+.quiz-inline-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+}
+
+.quiz-inline-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.quiz-inline-title {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.quiz-inline-body {
+    margin-top: 0.85rem;
+}
+
+.quiz-inline-footer {
+    margin-top: 0.85rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    min-height: 1rem;
 }
 
 /* Launch card */
@@ -1071,6 +1118,14 @@ body.quiz-modal-open {
 }
 
 /* Responsive adjustments */
+
+/* On narrower screens the split layout stacks vertically, the video on top and
+   the Micro Practice below, so neither column gets crushed. */
+@media (max-width: 800px) {
+    .video-lesson-split {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 700px) {
     .header-inner {

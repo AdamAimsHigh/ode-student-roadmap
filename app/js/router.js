@@ -275,24 +275,40 @@ function buildModuleSection(moduleData, flatIndex, watched) {
             watchLabel.appendChild(checkbox);
             watchLabel.appendChild(document.createTextNode(" Mark as watched"));
 
-            item.appendChild(title);
-            item.appendChild(playerWrap);
-            item.appendChild(fallback);
-            item.appendChild(watchLabel);
-
-            // Micro Practice for this specific video, rendered directly beneath
-            // it so the flow is watch, then practice, video by video.
+            // Micro Practice for this specific video. When it exists, the video
+            // and its quiz sit in a two column split so the student can watch on
+            // the left and practice on the right at the same time. Without a
+            // quiz, the video content keeps the full card width.
             const microItems = QUIZ_DATA.micro_practice[video.video_id];
             if (microItems && microItems.length) {
+                const split = document.createElement("div");
+                split.className = "video-lesson-split";
+
+                const main = document.createElement("div");
+                main.className = "video-lesson-main";
+                main.appendChild(title);
+                main.appendChild(playerWrap);
+                main.appendChild(fallback);
+                main.appendChild(watchLabel);
+
                 const microHost = document.createElement("div");
                 microHost.className = "video-quiz-host";
                 QuizEngine.mount(microHost, {
                     id: "micro::" + video.video_id,
                     title: "Micro Practice",
                     intro: "Five quick checks on this video. A wrong choice gives you a guiding question, not the answer.",
-                    items: microItems
+                    items: microItems,
+                    inline: true
                 });
-                item.appendChild(microHost);
+
+                split.appendChild(main);
+                split.appendChild(microHost);
+                item.appendChild(split);
+            } else {
+                item.appendChild(title);
+                item.appendChild(playerWrap);
+                item.appendChild(fallback);
+                item.appendChild(watchLabel);
             }
 
             videoList.appendChild(item);

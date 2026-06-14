@@ -2,10 +2,14 @@
    (five items per video) and Unit Mastery (thirty items per unit).
 
    Presentation:
-   - mount() renders a launch card beneath the video. It carries a single
-     button that opens the quiz.
+   - mount() chooses a surface from the config. Unit Mastery renders a launch
+     card whose button opens a full screen modal. Micro Practice sets
+     config.inline, so mount() renders the questions directly inline in the
+     column beside the video, with no overlay covering the player.
    - openModal() opens a centered overlay on top of the page and paces the
      student through one question at a time.
+   - mountInline() renders the same question flow inline within its host column.
+   - runQuiz() drives the question flow for either surface.
    - Each question offers a general hint toggle, renders a per option rationale
      directly beneath the chosen option, and the final Finish leads to a
      Practice Complete summary rather than closing outright.
@@ -53,74 +57,30 @@ const QuizEngine = (function () {
         return item.id || (config.id + "::" + index);
     }
 
-    /* Opens the focused practice overlay.
-       config: { id, title, intro, items }
-       live:   { solved: [questionId, ...] } shared with the launch card so its
-               progress line refreshes on close. Mutated as answers land.
-       refresh: callback to re-render the launch card after the modal closes. */
-    function openModal(config, live, refresh) {
+    /* Drives one quiz from start to summary inside a host surface.
+       config:  { id, title, intro, items }
+       live:    { solved: [questionId, ...] } shared with any launch card so its
+                progress line refreshes later. Mutated as answers land.
+       surface: {
+           body:   element that holds the current question
+           footer: element that holds the Next, Finish, and Retry buttons
+           score:  element that shows the live score line
+           inline: true when running directly in the page rather than a modal.
+                   Inline runs leave out the Close Practice control since there
+                   is no overlay to dismiss.
+           close:  optional callback to dismiss a modal. Unused when inline.
+       } */
+    function runQuiz(config, live, surface) {
         const total = config.items.length;
-
-        const overlay = document.createElement("div");
-        overlay.className = "quiz-modal-overlay";
-        overlay.setAttribute("role", "dialog");
-        overlay.setAttribute("aria-modal", "true");
-        overlay.setAttribute("aria-label", config.title);
-
-        const modal = document.createElement("div");
-        modal.className = "quiz-modal";
-        overlay.appendChild(modal);
-
-        // Header: title, live score, exit.
-        const header = document.createElement("div");
-        header.className = "quiz-modal-header";
-
-        const hTitle = document.createElement("h4");
-        hTitle.className = "quiz-modal-title";
-        hTitle.textContent = config.title;
-        header.appendChild(hTitle);
-
-        const score = document.createElement("span");
-        score.className = "quiz-score";
-        header.appendChild(score);
-
-        const exit = document.createElement("button");
-        exit.type = "button";
-        exit.className = "quiz-modal-close";
-        exit.textContent = "Exit Practice";
-        header.appendChild(exit);
-        modal.appendChild(header);
-
-        const body = document.createElement("div");
-        body.className = "quiz-modal-body";
-        modal.appendChild(body);
-
-        const footer = document.createElement("div");
-        footer.className = "quiz-modal-footer";
-        modal.appendChild(footer);
+        const body = surface.body;
+        const footer = surface.footer;
+        const score = surface.score;
+        const inline = surface.inline === true;
+        const close = surface.close || function () {};
 
         function updateScore() {
             score.textContent = "Score: " + live.solved.length + " of " + total;
         }
-
-        function close() {
-            document.removeEventListener("keydown", onKey);
-            document.body.classList.remove("quiz-modal-open");
-            overlay.remove();
-            if (refresh) refresh();
-        }
-
-        function onKey(e) {
-            if (e.key === "Escape") close();
-        }
-
-        exit.addEventListener("click", close);
-        overlay.addEventListener("click", function (e) {
-            if (e.target === overlay) close();
-        });
-        document.addEventListener("keydown", onKey);
-        document.body.classList.add("quiz-modal-open");
-        document.body.appendChild(overlay);
 
         // Open at the first unsolved question, otherwise at the start for review.
         let index = 0;
@@ -183,13 +143,19 @@ const QuizEngine = (function () {
             retryBtn.addEventListener("click", restart);
             footer.appendChild(retryBtn);
 
-            const closeBtn = document.createElement("button");
-            closeBtn.type = "button";
-            closeBtn.className = "quiz-next-btn";
-            closeBtn.textContent = "Close Practice";
-            closeBtn.addEventListener("click", close);
-            footer.appendChild(closeBtn);
-            closeBtn.focus();
+            // The Close Practice control only belongs to the modal. An inline
+            // run stays in the page, so there is nothing to close.
+            if (!inline) {
+                const closeBtn = document.createElement("button");
+                closeBtn.type = "button";
+                closeBtn.className = "quiz-next-btn";
+                closeBtn.textContent = "Close Practice";
+                closeBtn.addEventListener("click", close);
+                footer.appendChild(closeBtn);
+                closeBtn.focus();
+            } else {
+                retryBtn.focus();
+            }
         }
 
         function renderQuestion() {
@@ -326,6 +292,125 @@ const QuizEngine = (function () {
         renderQuestion();
     }
 
+    /* Builds the shared, mutable record of solved question ids, seeded from
+       persistence. Read by a launch card and grown as answers land. */
+    function buildLive(config) {
+        const saved = ODEState.getQuizProgress(config.id);
+        return {
+            solved: config.items
+                .map(function (item, i) { return questionId(config, item, i); })
+                .filter(function (qid) { return saved.indexOf(qid) !== -1; })
+        };
+    }
+
+    /* Opens the focused practice overlay for the Unit Mastery quiz.
+       config: { id, title, intro, items }
+       live:   solved record shared with the launch card, refreshed on close.
+       refresh: callback to re-render the launch card after the modal closes. */
+    function openModal(config, live, refresh) {
+        const overlay = document.createElement("div");
+        overlay.className = "quiz-modal-overlay";
+        overlay.setAttribute("role", "dialog");
+        overlay.setAttribute("aria-modal", "true");
+        overlay.setAttribute("aria-label", config.title);
+
+        const modal = document.createElement("div");
+        modal.className = "quiz-modal";
+        overlay.appendChild(modal);
+
+        // Header: title, live score, exit.
+        const header = document.createElement("div");
+        header.className = "quiz-modal-header";
+
+        const hTitle = document.createElement("h4");
+        hTitle.className = "quiz-modal-title";
+        hTitle.textContent = config.title;
+        header.appendChild(hTitle);
+
+        const score = document.createElement("span");
+        score.className = "quiz-score";
+        header.appendChild(score);
+
+        const exit = document.createElement("button");
+        exit.type = "button";
+        exit.className = "quiz-modal-close";
+        exit.textContent = "Exit Practice";
+        header.appendChild(exit);
+        modal.appendChild(header);
+
+        const body = document.createElement("div");
+        body.className = "quiz-modal-body";
+        modal.appendChild(body);
+
+        const footer = document.createElement("div");
+        footer.className = "quiz-modal-footer";
+        modal.appendChild(footer);
+
+        function close() {
+            document.removeEventListener("keydown", onKey);
+            document.body.classList.remove("quiz-modal-open");
+            overlay.remove();
+            if (refresh) refresh();
+        }
+
+        function onKey(e) {
+            if (e.key === "Escape") close();
+        }
+
+        exit.addEventListener("click", close);
+        overlay.addEventListener("click", function (e) {
+            if (e.target === overlay) close();
+        });
+        document.addEventListener("keydown", onKey);
+        document.body.classList.add("quiz-modal-open");
+        document.body.appendChild(overlay);
+
+        runQuiz(config, live, { body: body, footer: footer, score: score, inline: false, close: close });
+    }
+
+    /* Renders the Micro Practice quiz directly inline within its column, so the
+       student can watch the video and practice side by side without an overlay
+       covering the player. The questions are visible right away, no launch
+       button stands between the student and the practice. */
+    function mountInline(container, config) {
+        const live = buildLive(config);
+
+        const panel = document.createElement("section");
+        panel.className = "quiz-inline-panel";
+
+        const header = document.createElement("div");
+        header.className = "quiz-inline-header";
+
+        const title = document.createElement("h4");
+        title.className = "quiz-inline-title";
+        title.textContent = config.title;
+        header.appendChild(title);
+
+        const score = document.createElement("span");
+        score.className = "quiz-score";
+        header.appendChild(score);
+        panel.appendChild(header);
+
+        if (config.intro) {
+            const intro = document.createElement("p");
+            intro.className = "quiz-intro";
+            intro.textContent = config.intro;
+            panel.appendChild(intro);
+        }
+
+        const body = document.createElement("div");
+        body.className = "quiz-inline-body";
+        panel.appendChild(body);
+
+        const footer = document.createElement("div");
+        footer.className = "quiz-inline-footer";
+        panel.appendChild(footer);
+
+        container.appendChild(panel);
+
+        runQuiz(config, live, { body: body, footer: footer, score: score, inline: true, close: null });
+    }
+
     /* Public entry point. Renders the launch card.
        container: host element to mount into
        config: {
@@ -344,16 +429,18 @@ const QuizEngine = (function () {
     function mount(container, config) {
         if (!config || !config.items || !config.items.length) return;
 
+        // Micro Practice runs inline in its column. Unit Mastery keeps the
+        // launch card and full screen modal below.
+        if (config.inline) {
+            mountInline(container, config);
+            return;
+        }
+
         const total = config.items.length;
-        const saved = ODEState.getQuizProgress(config.id);
 
         // Shared, mutable record of which question ids are solved. Seeded from
         // persistence, grown by the modal, read by the launch card.
-        const live = {
-            solved: config.items
-                .map(function (item, i) { return questionId(config, item, i); })
-                .filter(function (qid) { return saved.indexOf(qid) !== -1; })
-        };
+        const live = buildLive(config);
 
         const card = document.createElement("section");
         card.className = "quiz-launch-card";
