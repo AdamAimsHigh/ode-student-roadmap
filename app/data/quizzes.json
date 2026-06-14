@@ -3286,6 +3286,728 @@
           }
         ]
       }
+    ],
+    "Unit 1: Foundations and Prerequisites": [
+      {
+        "id": "um_1_1",
+        "prompt": "Using the power rule, what is $\\frac{d}{dx}x^{7}$?",
+        "hint": "Bring the exponent down as a multiplier, then lower the exponent by one.",
+        "answerOptions": [
+          {
+            "text": "$7x^{6}$",
+            "correct": true,
+            "rationale": "Correct. The exponent drops to the front and the power decreases by one."
+          },
+          {
+            "text": "$7x^{7}$",
+            "rationale": "You brought the exponent down, but did you also reduce the power by one?"
+          },
+          {
+            "text": "$6x^{6}$",
+            "rationale": "Check which number the power rule brings to the front, the original exponent or the reduced one?"
+          },
+          {
+            "text": "$x^{6}$",
+            "rationale": "The power decreased correctly. What multiplier does the original exponent leave out front?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_2",
+        "prompt": "What is $\\frac{d}{dx}e^{5x}$?",
+        "hint": "The exponential reproduces itself, then the chain rule multiplies by the derivative of the exponent.",
+        "answerOptions": [
+          {
+            "text": "$5e^{5x}$",
+            "correct": true,
+            "rationale": "Correct. The exponential returns itself, scaled by the inner derivative $5$."
+          },
+          {
+            "text": "$e^{5x}$",
+            "rationale": "You kept the exponential. What factor does the chain rule pull from the exponent $5x$?"
+          },
+          {
+            "text": "$5e^{5}$",
+            "rationale": "Where did the variable $x$ go? Does differentiating remove $x$ from the exponent?"
+          },
+          {
+            "text": "$\\frac{1}{5}e^{5x}$",
+            "rationale": "That factor looks like an integration result. Which operation does the chain rule perform on the inside?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_3",
+        "prompt": "Apply the product rule to find $\\frac{d}{dx}\\left[x^{3}e^{x}\\right]$.",
+        "hint": "Take the derivative of the first factor times the second, plus the first times the derivative of the second.",
+        "answerOptions": [
+          {
+            "text": "$3x^{2}e^{x} + x^{3}e^{x}$",
+            "correct": true,
+            "rationale": "Correct. Each factor takes its turn being differentiated while the other is held fixed."
+          },
+          {
+            "text": "$3x^{2}e^{x}$",
+            "rationale": "You differentiated $x^{3}$, but what about the term where $e^{x}$ is differentiated?"
+          },
+          {
+            "text": "$3x^{2}e^{x} \\cdot e^{x}$",
+            "rationale": "Does the product rule multiply the two derivatives, or add two separate terms?"
+          },
+          {
+            "text": "$x^{3}e^{x}$",
+            "rationale": "You captured one term. Which term appears when $x^{3}$ is the factor differentiated?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_4",
+        "prompt": "Evaluate $\\int 6x^{2}\\,dx$.",
+        "hint": "Raise the power by one and divide by the new power, then add the constant of integration.",
+        "answerOptions": [
+          {
+            "text": "$2x^{3} + C$",
+            "correct": true,
+            "rationale": "Correct. The power rises to three and $6$ divided by $3$ gives $2$, plus the constant."
+          },
+          {
+            "text": "$12x^{3} + C$",
+            "rationale": "Should you multiply by the new power or divide by it? Check that step."
+          },
+          {
+            "text": "$2x^{3}$",
+            "rationale": "The antiderivative is right. What does an indefinite integral always carry that a definite one does not?"
+          },
+          {
+            "text": "$6x^{3} + C$",
+            "rationale": "Raising the power is correct, but what must you do with the new exponent $3$?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_5",
+        "prompt": "At a point, the derivative of a function reports which quantity?",
+        "hint": "Picture the tangent line touching the curve at that point.",
+        "answerOptions": [
+          {
+            "text": "The slope of the tangent there, its instantaneous rate of change",
+            "correct": true,
+            "rationale": "Correct. The derivative reads the slope of the curve at that exact point."
+          },
+          {
+            "text": "The area under the curve up to that point",
+            "rationale": "Area is the work of an integral. What does the tangent's slope measure instead?"
+          },
+          {
+            "text": "The height of the function at that point",
+            "rationale": "The height is just the output. What does the derivative measure about how that height changes?"
+          },
+          {
+            "text": "The average value across the domain",
+            "rationale": "An average smooths over everything. What local quantity does the derivative capture?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_6",
+        "prompt": "What is the defining property of the natural exponential $e^{x}$?",
+        "hint": "Differentiate it and compare the result with the original function.",
+        "answerOptions": [
+          {
+            "text": "Its derivative is equal to itself",
+            "correct": true,
+            "rationale": "Correct. $\\frac{d}{dx}e^{x} = e^{x}$, the hallmark of the natural exponential."
+          },
+          {
+            "text": "It is always larger than any other function",
+            "rationale": "Size is not the point. What happens when you differentiate $e^{x}$?"
+          },
+          {
+            "text": "It equals zero when $x$ is zero",
+            "rationale": "Check the value, $e^{0} = 1$. What special behavior appears under differentiation?"
+          },
+          {
+            "text": "It is only defined for positive $x$",
+            "rationale": "It accepts every real input. What is unique about its derivative?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_7",
+        "prompt": "For a general base, $\\frac{d}{dx}a^{x} = (\\ln a)\\,a^{x}$. The factor in front equals one for which base?",
+        "hint": "You need $\\ln a = 1$. Which number has natural logarithm one?",
+        "answerOptions": [
+          {
+            "text": "$a = e$",
+            "correct": true,
+            "rationale": "Correct. Since $\\ln e = 1$, the front factor collapses to one."
+          },
+          {
+            "text": "$a = 1$",
+            "rationale": "Then $\\ln 1 = 0$ and $a^{x}$ is constant. Which base has logarithm one, not zero?"
+          },
+          {
+            "text": "$a = 2$",
+            "rationale": "Here $\\ln 2 \\approx 0.69$, not one. Which base gives $\\ln a = 1$ exactly?"
+          },
+          {
+            "text": "$a = 10$",
+            "rationale": "Here $\\ln 10 \\approx 2.3$, not one. Which base satisfies $\\ln a = 1$?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_8",
+        "prompt": "Euler's number is the limit of which expression as $n$ grows without bound?",
+        "hint": "It comes from compounding once per period, then more and more often.",
+        "answerOptions": [
+          {
+            "text": "$\\left(1 + \\frac{1}{n}\\right)^{n}$",
+            "correct": true,
+            "rationale": "Correct. Increasing the number of compounding periods drives this toward $e$."
+          },
+          {
+            "text": "$\\left(1 + n\\right)^{n}$",
+            "rationale": "That grows without bound. Where should the $\\frac{1}{n}$ sit, in the base or the exponent?"
+          },
+          {
+            "text": "$\\left(1 - \\frac{1}{n}\\right)^{n}$",
+            "rationale": "Check the sign inside the base. Does the limit toward $e$ add or subtract $\\frac{1}{n}$?"
+          },
+          {
+            "text": "$n^{1/n}$",
+            "rationale": "That limit heads to one. Which form combines a $1 + \\frac{1}{n}$ base with an $n$ power?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_9",
+        "prompt": "Compounding continuously turns $\\left(1 + \\frac{r}{n}\\right)^{nt}$, as $n$ grows without bound, into what?",
+        "hint": "The same limit that builds $e$ keeps the rate and time together in the exponent.",
+        "answerOptions": [
+          {
+            "text": "$e^{rt}$",
+            "correct": true,
+            "rationale": "Correct. The continuous limit collapses the product into a clean exponential."
+          },
+          {
+            "text": "$e^{r}t$",
+            "rationale": "Should $t$ stay in the exponent or break free as a multiplier? Look at where $t$ sits in $nt$."
+          },
+          {
+            "text": "$rt\\,e$",
+            "rationale": "That treats $e$ as a plain factor. Where do the rate and time belong relative to $e$?"
+          },
+          {
+            "text": "$e^{n}$",
+            "rationale": "The variable $n$ is the one disappearing in the limit. What stays in the exponent instead?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_10",
+        "prompt": "The equation $\\frac{dy}{dt} = y$ seeks a function equal to its own derivative. Its general solution is what?",
+        "hint": "Recall which function reproduces itself when differentiated, then allow a flexible multiplier.",
+        "answerOptions": [
+          {
+            "text": "$y = Ce^{t}$",
+            "correct": true,
+            "rationale": "Correct. The exponential matches its own derivative, and $C$ gives the family."
+          },
+          {
+            "text": "$y = t^{2}$",
+            "rationale": "Differentiate it to get $2t$, not $t^{2}$. Which function returns itself?"
+          },
+          {
+            "text": "$y = e^{t} + C$",
+            "rationale": "Test it, the derivative drops the $C$ so the sides differ. Where should the constant sit?"
+          },
+          {
+            "text": "$y = e^{-t}$",
+            "rationale": "Differentiate it to get $-e^{-t}$, the negative of $y$. Which sign makes the derivative equal $y$?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_11",
+        "prompt": "Euler's formula expresses $e^{i\\theta}$ as which combination?",
+        "hint": "It gives the horizontal and vertical coordinates of a point on the unit circle.",
+        "answerOptions": [
+          {
+            "text": "$\\cos\\theta + i\\sin\\theta$",
+            "correct": true,
+            "rationale": "Correct. Cosine is the real part and sine the imaginary part."
+          },
+          {
+            "text": "$\\sin\\theta + i\\cos\\theta$",
+            "rationale": "Which coordinate is real and which is imaginary? Does cosine track the horizontal axis?"
+          },
+          {
+            "text": "$\\cos\\theta - i\\sin\\theta$",
+            "rationale": "That minus sign describes $e^{-i\\theta}$. What sign goes with sine for $e^{+i\\theta}$?"
+          },
+          {
+            "text": "$1 + i\\theta$",
+            "rationale": "That is only a first approximation for small angles. What exact trig combination equals $e^{i\\theta}$?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_12",
+        "prompt": "What is the value of $e^{i\\pi}$?",
+        "hint": "Substitute $\\theta = \\pi$ into $\\cos\\theta + i\\sin\\theta$, or picture a half-turn around the unit circle.",
+        "answerOptions": [
+          {
+            "text": "$-1$",
+            "correct": true,
+            "rationale": "Correct. $\\cos\\pi = -1$ and $\\sin\\pi = 0$, so the value is $-1$."
+          },
+          {
+            "text": "$1$",
+            "rationale": "A full turn returns to $1$. How far around does an angle of $\\pi$ take you?"
+          },
+          {
+            "text": "$i$",
+            "rationale": "That is the quarter-turn value at $\\pi/2$. Where does a half-turn land?"
+          },
+          {
+            "text": "$0$",
+            "rationale": "Points on the unit circle never reach the origin. Which point does $\\pi$ select?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_13",
+        "prompt": "Evaluate $e^{i\\pi/2}$.",
+        "hint": "An angle of $\\pi/2$ is a quarter-turn counterclockwise from the point $1$.",
+        "answerOptions": [
+          {
+            "text": "$i$",
+            "correct": true,
+            "rationale": "Correct. A quarter-turn lands on the positive imaginary axis, at $i$."
+          },
+          {
+            "text": "$-1$",
+            "rationale": "That is the half-turn value at $\\pi$. Where does a quarter-turn land?"
+          },
+          {
+            "text": "$-i$",
+            "rationale": "That sits a quarter-turn clockwise. Which direction does a positive angle rotate?"
+          },
+          {
+            "text": "$1$",
+            "rationale": "You begin at $1$ before rotating. Where do you arrive after a quarter-turn?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_14",
+        "prompt": "For any real $\\theta$, what is the modulus $|e^{i\\theta}|$?",
+        "hint": "Every point $e^{i\\theta}$ lies on the unit circle. How far is each from the origin?",
+        "answerOptions": [
+          {
+            "text": "$1$",
+            "correct": true,
+            "rationale": "Correct. Each point sits on the unit circle, at distance one from the origin."
+          },
+          {
+            "text": "$\\theta$",
+            "rationale": "The angle is $\\theta$, but the question asks for distance. What is that distance?"
+          },
+          {
+            "text": "$0$",
+            "rationale": "A modulus of zero is only the origin, which the circle avoids. What fixed distance applies?"
+          },
+          {
+            "text": "$e^{\\theta}$",
+            "rationale": "That grows without bound, yet these points stay on a circle. What constant length do they keep?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_15",
+        "prompt": "Multiply $4e^{i\\pi/4}$ by $2e^{i\\pi/4}$ in polar form.",
+        "hint": "Multiply the two moduli and add the two angles.",
+        "answerOptions": [
+          {
+            "text": "$8e^{i\\pi/2}$",
+            "correct": true,
+            "rationale": "Correct. The moduli multiply to $8$ and the angles add to $\\pi/2$."
+          },
+          {
+            "text": "$6e^{i\\pi/2}$",
+            "rationale": "Should the moduli $4$ and $2$ be added or multiplied? Check that step."
+          },
+          {
+            "text": "$8e^{i\\pi/16}$",
+            "rationale": "The angles should add, not multiply. What is $\\pi/4 + \\pi/4$?"
+          },
+          {
+            "text": "$8e^{i\\pi/4}$",
+            "rationale": "The modulus is right, but did you add both angles together?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_16",
+        "prompt": "Multiplying a complex number by $i$ produces which geometric effect?",
+        "hint": "Compare the length and the angle before and after multiplying by $i$.",
+        "answerOptions": [
+          {
+            "text": "A rotation by ninety degrees counterclockwise",
+            "correct": true,
+            "rationale": "Correct. Multiplying by $i$ turns the point a quarter-turn without changing its length."
+          },
+          {
+            "text": "A stretch away from the origin",
+            "rationale": "Multiplying by $i$ preserves length. Does the distance change, or the angle?"
+          },
+          {
+            "text": "A reflection across the real axis",
+            "rationale": "Reflection flips the imaginary part's sign. What does $i$ do to the angle?"
+          },
+          {
+            "text": "A shift one unit to the right",
+            "rationale": "Multiplication scales and rotates rather than shifts. What rotation does $i$ give?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_17",
+        "prompt": "What is the order of $\\frac{d^{3}y}{dx^{3}} + 5\\frac{d^{2}y}{dx^{2}} = x$?",
+        "hint": "The order is fixed by the highest derivative that appears.",
+        "answerOptions": [
+          {
+            "text": "Third order",
+            "correct": true,
+            "rationale": "Correct. The highest derivative is the third derivative, so the order is three."
+          },
+          {
+            "text": "Second order",
+            "rationale": "The second derivative appears, but is it the highest one present?"
+          },
+          {
+            "text": "First order",
+            "rationale": "Look for the largest derivative in the equation, not the smallest. Which is it?"
+          },
+          {
+            "text": "Fifth order",
+            "rationale": "The $5$ is a coefficient, not a derivative. Which derivative is the highest?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_18",
+        "prompt": "What is the degree of $\\left(\\frac{d^{2}y}{dx^{2}}\\right)^{2} + \\left(\\frac{dy}{dx}\\right)^{5} = 0$?",
+        "hint": "Once the equation is polynomial in its derivatives, the degree is the power on the highest-order derivative.",
+        "answerOptions": [
+          {
+            "text": "Degree two",
+            "correct": true,
+            "rationale": "Correct. The highest-order derivative is the second derivative, raised to the second power."
+          },
+          {
+            "text": "Degree five",
+            "rationale": "The fifth power sits on the first derivative, not the highest-order one. Which derivative sets the degree?"
+          },
+          {
+            "text": "Degree seven",
+            "rationale": "Degree is not the sum of the exponents. What single power, on the highest derivative, matters?"
+          },
+          {
+            "text": "Degree one",
+            "rationale": "Check the exponent on the second derivative. Is it raised to a power above one?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_19",
+        "prompt": "An ordinary differential equation is set apart from a partial one by what feature?",
+        "hint": "The word ordinary points to the number of independent variables.",
+        "answerOptions": [
+          {
+            "text": "Its unknown depends on a single independent variable",
+            "correct": true,
+            "rationale": "Correct. One independent variable means ordinary derivatives, not partial ones."
+          },
+          {
+            "text": "Its unknown depends on several independent variables",
+            "rationale": "Several inputs is what brings partial derivatives. How many does the ordinary case use?"
+          },
+          {
+            "text": "It contains no constants",
+            "rationale": "Constants are common in both kinds. What about the variables defines ordinary?"
+          },
+          {
+            "text": "It has no derivatives",
+            "rationale": "Every differential equation has derivatives. What feature of the inputs marks ordinary?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_20",
+        "prompt": "Which of the following equations is nonlinear?",
+        "hint": "Linearity requires the unknown and its derivatives to appear only to the first power, with no products among them.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dy}{dx} = y^{2}$",
+            "correct": true,
+            "rationale": "Correct. Squaring the unknown breaks linearity."
+          },
+          {
+            "text": "$\\frac{dy}{dx} + 3y = x$",
+            "rationale": "Here $y$ and its derivative are to the first power. Does this violate linearity?"
+          },
+          {
+            "text": "$\\frac{d^{2}y}{dx^{2}} + y = \\cos x$",
+            "rationale": "The unknown and its derivatives appear to the first power. Is this linear or not?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = x^{3}$",
+            "rationale": "The right side depends only on $x$, and $y'$ is first power. Does that break linearity?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_21",
+        "prompt": "How many initial conditions are generally required to determine a unique solution of a third-order equation?",
+        "hint": "Match the count of conditions to the order, since each integration adds one arbitrary constant.",
+        "answerOptions": [
+          {
+            "text": "Three",
+            "correct": true,
+            "rationale": "Correct. A third-order equation carries three arbitrary constants, so three conditions fix them."
+          },
+          {
+            "text": "One",
+            "rationale": "One condition suits a first-order equation. How many constants does order three leave free?"
+          },
+          {
+            "text": "Two",
+            "rationale": "Two matches a second-order equation. How many constants does order three introduce?"
+          },
+          {
+            "text": "Six",
+            "rationale": "That exceeds what a third-order equation produces. How many arbitrary constants does order three give?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_22",
+        "prompt": "An initial value problem is a differential equation paired with what?",
+        "hint": "It is the extra information that picks one curve out of the family of solutions.",
+        "answerOptions": [
+          {
+            "text": "Conditions giving the solution's values at a starting point",
+            "correct": true,
+            "rationale": "Correct. The equation plus its initial data define an IVP."
+          },
+          {
+            "text": "A second differential equation",
+            "rationale": "An IVP pairs one equation with data, not another equation. What data is added?"
+          },
+          {
+            "text": "A promise that the solution is linear",
+            "rationale": "Linearity is not assumed. What specific information completes an IVP?"
+          },
+          {
+            "text": "A choice of graphing color",
+            "rationale": "Appearance is irrelevant. What numerical information forms an IVP?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_23",
+        "prompt": "For a function to be a solution of a differential equation, the equation must hold where?",
+        "hint": "A solution is a function, not a single value. Where must the rule be obeyed?",
+        "answerOptions": [
+          {
+            "text": "At every point of the function's domain",
+            "correct": true,
+            "rationale": "Correct. A solution satisfies the equation across its whole domain."
+          },
+          {
+            "text": "At exactly one chosen point",
+            "rationale": "One point is far too weak, almost any function passes there. Over what set must it hold?"
+          },
+          {
+            "text": "Only where the function is zero",
+            "rationale": "Zeros are isolated points. Does the rule rest elsewhere, or hold throughout?"
+          },
+          {
+            "text": "Only at the origin",
+            "rationale": "The origin is not special. Where must a genuine solution obey the equation?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_24",
+        "prompt": "Verify whether $y = e^{-3x}$ satisfies $y' + 3y = 0$.",
+        "hint": "Compute $y'$, then add $3y$ and check whether the result is zero.",
+        "answerOptions": [
+          {
+            "text": "Yes, since $y' = -3e^{-3x}$ and $3y = 3e^{-3x}$, so the sum is zero",
+            "correct": true,
+            "rationale": "Correct. The two terms cancel for all $x$, so it is a solution."
+          },
+          {
+            "text": "No, since $y' = 3e^{-3x}$",
+            "rationale": "Differentiating $e^{-3x}$ brings down a factor. What sign does it carry?"
+          },
+          {
+            "text": "Yes, but only at $x = 0$",
+            "rationale": "A solution must hold everywhere, not at one point. Does the sum vanish for all $x$?"
+          },
+          {
+            "text": "No, an exponential cannot solve this equation",
+            "rationale": "Exponentials routinely solve such equations. What do $y'$ and $3y$ add to?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_25",
+        "prompt": "How does a particular solution differ from the general solution?",
+        "hint": "Think about whether the arbitrary constant is still free or has been fixed.",
+        "answerOptions": [
+          {
+            "text": "Its arbitrary constant has been fixed to a specific value",
+            "correct": true,
+            "rationale": "Correct. Applying a condition pins the constant and singles out one curve."
+          },
+          {
+            "text": "It has more derivatives than the general solution",
+            "rationale": "Derivatives are unchanged. What happens to the free constant?"
+          },
+          {
+            "text": "It is always a straight line",
+            "rationale": "Shape varies; that is not the distinction. What changes about the constant?"
+          },
+          {
+            "text": "It no longer satisfies the equation",
+            "rationale": "A particular solution still satisfies the same equation. What is different about its constant?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_26",
+        "prompt": "An implicit solution differs from an explicit one in that it does what?",
+        "hint": "One form isolates $y$ by itself; the other leaves $y$ tied into a relation.",
+        "answerOptions": [
+          {
+            "text": "It states a relation between $x$ and $y$ without solving for $y$ alone",
+            "correct": true,
+            "rationale": "Correct. An implicit solution is a relation, not a formula with $y$ isolated."
+          },
+          {
+            "text": "It contains no arbitrary constants",
+            "rationale": "Constants can appear in either form. What is special about how $y$ is written?"
+          },
+          {
+            "text": "It has a higher order than the equation",
+            "rationale": "Order is unchanged. How is $y$ presented in an implicit solution?"
+          },
+          {
+            "text": "It is never a valid solution",
+            "rationale": "Implicit solutions are perfectly valid. What distinguishes them from explicit ones?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_27",
+        "prompt": "To form a differential equation from a family with two arbitrary constants, how many times do you differentiate?",
+        "hint": "You need enough relations to remove every constant. Match the count to the constants.",
+        "answerOptions": [
+          {
+            "text": "Twice",
+            "correct": true,
+            "rationale": "Correct. Two constants require two differentiations to eliminate them both."
+          },
+          {
+            "text": "Once",
+            "rationale": "One differentiation cannot clear two constants. How many are there to remove?"
+          },
+          {
+            "text": "Three times",
+            "rationale": "That is more than needed for two constants. How many differentiations match two constants?"
+          },
+          {
+            "text": "Not at all",
+            "rationale": "Rearranging alone cannot remove a constant. What operation eliminates it?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_28",
+        "prompt": "Form a differential equation from $y = Cx^{3}$ by eliminating $C$.",
+        "hint": "Differentiate, solve the original for $C$, then substitute to remove it.",
+        "answerOptions": [
+          {
+            "text": "$x\\,\\frac{dy}{dx} = 3y$",
+            "correct": true,
+            "rationale": "Correct. Since $y' = 3Cx^{2}$ and $C = y/x^{3}$, substituting gives $x\\,y' = 3y$."
+          },
+          {
+            "text": "$\\frac{dy}{dx} = 3Cx^{2}$",
+            "rationale": "The constant $C$ still appears. What does $C$ equal in terms of $x$ and $y$?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = 3x^{2}$",
+            "rationale": "Differentiating $Cx^{3}$ keeps the $C$. How do you replace it using the original?"
+          },
+          {
+            "text": "$x\\,\\frac{dy}{dx} = y$",
+            "rationale": "Check the constant from the power rule on $x^{3}$. What multiple of $y$ results?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_29",
+        "prompt": "Eliminate the constants from $y = A\\cos x + B\\sin x$.",
+        "hint": "Differentiate twice; the second derivative of this combination is the negative of the original.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{d^{2}y}{dx^{2}} + y = 0$",
+            "correct": true,
+            "rationale": "Correct. Here $y'' = -y$, so $y'' + y = 0$."
+          },
+          {
+            "text": "$\\frac{d^{2}y}{dx^{2}} - y = 0$",
+            "rationale": "Track the sign through two derivatives of sine and cosine. Is $y''$ equal to $y$ or to $-y$?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} + y = 0$",
+            "rationale": "One derivative leaves $A$ and $B$ behind. How many differentiations remove two constants?"
+          },
+          {
+            "text": "$\\frac{d^{2}y}{dx^{2}} = 0$",
+            "rationale": "These trig terms do not vanish after two derivatives. What does $y''$ equal in terms of $y$?"
+          }
+        ]
+      },
+      {
+        "id": "um_1_30",
+        "prompt": "When a family of curves has $n$ independent arbitrary constants, the differential equation formed by eliminating them has which order?",
+        "hint": "Each independent constant demands one differentiation to remove it.",
+        "answerOptions": [
+          {
+            "text": "Order $n$",
+            "correct": true,
+            "rationale": "Correct. Eliminating $n$ independent constants yields an $n$-th order equation."
+          },
+          {
+            "text": "Order one, always",
+            "rationale": "A fixed order ignores how many constants there are. What does the order track?"
+          },
+          {
+            "text": "Order $2n$",
+            "rationale": "Each constant needs one differentiation, not two. How does order relate to the count?"
+          },
+          {
+            "text": "Order $n - 1$",
+            "rationale": "Removing all $n$ constants takes $n$ differentiations, not fewer. What order results?"
+          }
+        ]
+      }
     ]
   }
 }
