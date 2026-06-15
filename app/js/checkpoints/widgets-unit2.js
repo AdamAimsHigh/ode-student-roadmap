@@ -130,17 +130,32 @@
                 "The equation 3 = C times e^0 leaves no freedom at all. What value is C forced to take?"
             ]
         }, function (body, api) {
-            const calc = CheckpointCore.desmosGraph(body, { expressions: true });
+            const calc = CheckpointCore.desmosGraph(body, { expressions: false });
             if (!calc) return;
 
             calc.setMathBounds({ left: -1.5, right: 5, bottom: -2, top: 6 });
             calc.setExpressions([
-                { id: "sliderC", latex: "C=1", sliderBounds: { min: -5, max: 6, step: 0.05 } },
+                { id: "varC", latex: "C=1" },
                 { id: "family", latex: "y=Ce^{-x}", color: "#2d70b3" },
                 { id: "condition", latex: "(0, 3)", color: "#c74440", label: "y(0) = 3", showLabel: true, dragMode: "NONE" }
             ]);
 
-            const cValue = CheckpointCore.observeValue(calc, "C");
+            // Native HTML control, injected as a panel just below the Desmos frame.
+            // The slider drives C through the Desmos API so the curve updates live.
+            const controls = document.createElement("div");
+            controls.className = "slider-panel";
+            body.appendChild(controls);
+
+            const cValue = CheckpointCore.rangeControl(controls, {
+                label: "C",
+                min: -5,
+                max: 5,
+                step: 0.1,
+                value: 1,
+                onChange: function (v) {
+                    calc.setExpression({ id: "varC", latex: "C=" + v });
+                }
+            });
 
             body.appendChild(CheckpointCore.checkButton("Check My Curve", function () {
                 if (!isFinite(cValue.value)) {
@@ -208,14 +223,14 @@
                 "With the endpoints anchored, only the decay rate is left. Cooling means k is negative. Adjust k until the middle data points sit on the curve."
             ]
         }, function (body, api) {
-            const calc = CheckpointCore.desmosGraph(body, { expressions: true });
+            const calc = CheckpointCore.desmosGraph(body, { expressions: false });
             if (!calc) return;
 
             calc.setMathBounds({ left: -1, right: 12, bottom: 0, top: 105 });
             calc.setExpressions([
-                { id: "sliderA", latex: "A=50", sliderBounds: { min: 0, max: 60, step: 0.5 } },
-                { id: "sliderT0", latex: "T_0=60", sliderBounds: { min: 20, max: 100, step: 0.5 } },
-                { id: "sliderK", latex: "k=-0.05", sliderBounds: { min: -1, max: 0, step: 0.005 } },
+                { id: "varA", latex: "A=10" },
+                { id: "varT0", latex: "T_0=60" },
+                { id: "varK", latex: "k=-0.05" },
                 { id: "model", latex: "y=A+(T_0-A)e^{kx}", color: "#2d70b3" },
                 { id: "d0", latex: "(0, 90)", color: "#c74440", dragMode: "NONE" },
                 { id: "d1", latex: "(2, 58.4)", color: "#c74440", dragMode: "NONE" },
@@ -225,9 +240,43 @@
                 { id: "d5", latex: "(10, 23.5)", color: "#c74440", dragMode: "NONE" }
             ]);
 
-            const aValue = CheckpointCore.observeValue(calc, "A");
-            const t0Value = CheckpointCore.observeValue(calc, "T_0");
-            const kValue = CheckpointCore.observeValue(calc, "k");
+            // Native HTML controls, injected as a panel just below the Desmos frame.
+            // Each slider writes its parameter back through the Desmos API so the
+            // model curve A + (T0 - A) e^(k t) redraws in real time.
+            const controls = document.createElement("div");
+            controls.className = "slider-panel";
+            body.appendChild(controls);
+
+            const aValue = CheckpointCore.rangeControl(controls, {
+                label: "A",
+                min: 0,
+                max: 40,
+                step: 0.5,
+                value: 10,
+                onChange: function (v) {
+                    calc.setExpression({ id: "varA", latex: "A=" + v });
+                }
+            });
+            const t0Value = CheckpointCore.rangeControl(controls, {
+                label: "T0",
+                min: 20,
+                max: 100,
+                step: 0.5,
+                value: 60,
+                onChange: function (v) {
+                    calc.setExpression({ id: "varT0", latex: "T_0=" + v });
+                }
+            });
+            const kValue = CheckpointCore.rangeControl(controls, {
+                label: "k",
+                min: -0.6,
+                max: 0,
+                step: 0.01,
+                value: -0.05,
+                onChange: function (v) {
+                    calc.setExpression({ id: "varK", latex: "k=" + v });
+                }
+            });
 
             body.appendChild(CheckpointCore.checkButton("Check My Fit", function () {
                 if (!isFinite(aValue.value) || !isFinite(t0Value.value) || !isFinite(kValue.value)) {
