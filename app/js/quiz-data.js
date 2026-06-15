@@ -1284,6 +1284,606 @@ const QUIZ_DATA = {
                     { "text": "$\\frac{dy}{dx} = 2x + 2y$", "rationale": "The derivative of the constant $r^{2}$ is zero, and you must still solve for $y'$. What does isolating $y'$ give?" }
                 ]
             }
+        ],
+
+        /* Unit 2, Module 2.1, video 1
+           "Separation of Variables //  Differential Equations" */
+        "7Y-frhf-1Zk": [
+            {
+                "id": "mp_7Y-frhf-1Zk_1",
+                "prompt": "To solve $\\frac{dy}{dx} = xy$ by separation of variables, which rearrangement correctly separates the variables?",
+                "hint": "Gather every $y$ with $dy$ on one side and every $x$ with $dx$ on the other. Division is allowed.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{y}\\,dy = x\\,dx$", "correct": true, "rationale": "Correct. All $y$ terms sit with $dy$ and all $x$ terms with $dx$, ready to integrate." },
+                    { "text": "$dy = xy\\,dx$", "rationale": "The $y$ still rides along on the right with $x$. What must you divide by so each variable lives on its own side?" },
+                    { "text": "$\\frac{1}{x}\\,dy = y\\,dx$", "rationale": "Check which variable you divided by. Did the $y$ end up paired with $dy$, or did it cross to the wrong side?" },
+                    { "text": "$y\\,dy = x\\,dx$", "rationale": "Multiplying by $y$ instead of dividing leaves a $y^{2}$ behind. Which operation isolates $\\frac{1}{y}$ with $dy$?" }
+                ]
+            },
+            {
+                "id": "mp_7Y-frhf-1Zk_2",
+                "prompt": "Integrate both sides of $\\frac{1}{y}\\,dy = x\\,dx$ to find the general solution of $\\frac{dy}{dx} = xy$.",
+                "hint": "The left integral gives a logarithm, the right gives a power. Exponentiate at the end to solve for $y$.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{x^{2}/2}$", "correct": true, "rationale": "Correct. $\\ln|y| = \\frac{x^{2}}{2} + C$, and exponentiating gives $y = Ce^{x^{2}/2}$." },
+                    { "text": "$y = Ce^{x^{2}}$", "rationale": "Check the integral of $x$. Does $\\int x\\,dx$ give $x^{2}$ or $\\frac{x^{2}}{2}$?" },
+                    { "text": "$y = \\frac{x^{2}}{2} + C$", "rationale": "That skips exponentiating. The left side integrated to $\\ln|y|$, so how do you undo the logarithm?" },
+                    { "text": "$y = Cx^{2}$", "rationale": "A power of $x$ would come from a different left side. What function results when $\\ln|y|$ is solved for $y$?" }
+                ]
+            },
+            {
+                "id": "mp_7Y-frhf-1Zk_3",
+                "prompt": "Which of the following equations is separable?",
+                "hint": "Separable means the right side can be written as a function of $x$ times a function of $y$.",
+                "answerOptions": [
+                    { "text": "$\\frac{dy}{dx} = \\frac{x^{2}}{y}$", "correct": true, "rationale": "Yes. This splits cleanly into $y\\,dy = x^{2}\\,dx$." },
+                    { "text": "$\\frac{dy}{dx} = x + y$", "rationale": "Can a sum of $x$ and $y$ be written as one function of $x$ times one function of $y$? Try to factor it." },
+                    { "text": "$\\frac{dy}{dx} = \\sin(x + y)$", "rationale": "Does the sine of a sum factor into a part with only $x$ and a part with only $y$?" },
+                    { "text": "$\\frac{dy}{dx} = x^{2} + y^{2}$", "rationale": "Can a sum of squares be factored into a product of a function of $x$ and a function of $y$?" }
+                ]
+            },
+            {
+                "id": "mp_7Y-frhf-1Zk_4",
+                "prompt": "Solve $\\frac{dy}{dx} = \\frac{x}{y}$ by separation of variables.",
+                "hint": "Cross multiply to get $y\\,dy = x\\,dx$, then integrate each side.",
+                "answerOptions": [
+                    { "text": "$y^{2} - x^{2} = C$", "correct": true, "rationale": "Correct. Integrating $y\\,dy = x\\,dx$ gives $\\frac{y^{2}}{2} = \\frac{x^{2}}{2} + C$, which rearranges to $y^{2} - x^{2} = C$." },
+                    { "text": "$y^{2} + x^{2} = C$", "rationale": "Watch the sign when moving the $x$ term across. Does $x$ stay on the same side as $y^{2}$ with a plus?" },
+                    { "text": "$y = x + C$", "rationale": "That ignores the squares from integrating $y$ and $x$. What power appears when you integrate $y\\,dy$?" },
+                    { "text": "$\\ln|y| = \\ln|x| + C$", "rationale": "Logarithms come from integrating $\\frac{1}{y}$. Did you separate to $y\\,dy = x\\,dx$ or to a reciprocal form?" }
+                ]
+            },
+            {
+                "id": "mp_7Y-frhf-1Zk_5",
+                "prompt": "When you integrate both sides of a separated equation, why is a single constant of integration enough?",
+                "hint": "Each side produces its own constant, but they are both just unknown numbers.",
+                "answerOptions": [
+                    { "text": "The two constants can be combined into one arbitrary constant", "correct": true, "rationale": "Correct. Subtracting one constant from the other still leaves a single arbitrary constant." },
+                    { "text": "Constants of integration are never needed", "rationale": "Dropping the constant loses the whole family of solutions. What do the two constants combine into?" },
+                    { "text": "Only the right side produces a constant", "rationale": "Both indefinite integrals carry a constant. What happens when you gather them on one side?" },
+                    { "text": "The constant must be set to zero", "rationale": "Fixing it to zero discards every curve but one. What single quantity do the two constants merge into?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.1, video 2
+           "08 - First Order Separable Differential Equations 1 - Methods of Solving Differential Equations" */
+        "wU0gYqxZT1g": [
+            {
+                "id": "mp_wU0gYqxZT1g_1",
+                "prompt": "Solve $\\frac{dy}{dx} = \\frac{2x}{y}$ by separation of variables.",
+                "hint": "Move $y$ to the left with $dy$, integrate both sides, and remember the constant.",
+                "answerOptions": [
+                    { "text": "$y^{2} = 2x^{2} + C$", "correct": true, "rationale": "Correct. From $y\\,dy = 2x\\,dx$ you get $\\frac{y^{2}}{2} = x^{2} + C$, so $y^{2} = 2x^{2} + C$." },
+                    { "text": "$y^{2} = 4x^{2} + C$", "rationale": "Check the factor. Integrating $2x$ gives $x^{2}$, so what multiple appears after doubling both sides?" },
+                    { "text": "$y = 2x^{2} + C$", "rationale": "Integrating $y\\,dy$ leaves a square on $y$. Did you account for that power?" },
+                    { "text": "$\\frac{y^{2}}{2} = 2x^{2} + C$", "rationale": "Integrate $2x$ carefully. Does $\\int 2x\\,dx$ equal $x^{2}$ or $2x^{2}$?" }
+                ]
+            },
+            {
+                "id": "mp_wU0gYqxZT1g_2",
+                "prompt": "Solve $\\frac{dy}{dx} = x y^{2}$.",
+                "hint": "Separate to $y^{-2}\\,dy = x\\,dx$. The integral of $y^{-2}$ is $-y^{-1}$.",
+                "answerOptions": [
+                    { "text": "$-\\frac{1}{y} = \\frac{x^{2}}{2} + C$", "correct": true, "rationale": "Correct. $\\int y^{-2}\\,dy = -\\frac{1}{y}$ and $\\int x\\,dx = \\frac{x^{2}}{2}$." },
+                    { "text": "$\\frac{1}{y} = \\frac{x^{2}}{2} + C$", "rationale": "Check the sign of $\\int y^{-2}\\,dy$. Does it give $+\\frac{1}{y}$ or $-\\frac{1}{y}$?" },
+                    { "text": "$\\ln|y| = \\frac{x^{2}}{2} + C$", "rationale": "A logarithm comes from $\\int \\frac{1}{y}\\,dy$, not $\\int \\frac{1}{y^{2}}\\,dy$. Which power did you separate?" },
+                    { "text": "$-\\frac{1}{y} = x^{2} + C$", "rationale": "Check the integral of $x$. Does it give $x^{2}$ or $\\frac{x^{2}}{2}$?" }
+                ]
+            },
+            {
+                "id": "mp_wU0gYqxZT1g_3",
+                "prompt": "Solve $\\frac{dy}{dx} = e^{x - y}$ by first writing $e^{x-y} = e^{x}e^{-y}$.",
+                "hint": "Separate the exponentials, then $\\int e^{y}\\,dy = \\int e^{x}\\,dx$.",
+                "answerOptions": [
+                    { "text": "$e^{y} = e^{x} + C$", "correct": true, "rationale": "Correct. Multiplying by $e^{y}$ gives $e^{y}\\,dy = e^{x}\\,dx$, which integrates to $e^{y} = e^{x} + C$." },
+                    { "text": "$e^{-y} = e^{x} + C$", "rationale": "After splitting, which exponential moves to the left with $dy$, $e^{-y}$ or its reciprocal $e^{y}$?" },
+                    { "text": "$y = e^{x} + C$", "rationale": "The left side integrates $e^{y}$, not $1$. What is $\\int e^{y}\\,dy$?" },
+                    { "text": "$e^{y} = e^{x-y} + C$", "rationale": "Once separated, the right side holds only $x$ terms. Should $y$ still appear there?" }
+                ]
+            },
+            {
+                "id": "mp_wU0gYqxZT1g_4",
+                "prompt": "Solve $\\frac{dy}{dx} = y\\cos x$.",
+                "hint": "Separate to $\\frac{1}{y}\\,dy = \\cos x\\,dx$, integrate, then exponentiate.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{\\sin x}$", "correct": true, "rationale": "Correct. $\\ln|y| = \\sin x + C$, and exponentiating gives $y = Ce^{\\sin x}$." },
+                    { "text": "$y = Ce^{\\cos x}$", "rationale": "Check the antiderivative of $\\cos x$. Is it $\\sin x$ or $\\cos x$?" },
+                    { "text": "$y = \\sin x + C$", "rationale": "The left side integrated to $\\ln|y|$. How do you undo that logarithm to isolate $y$?" },
+                    { "text": "$y = Ce^{-\\sin x}$", "rationale": "Mind the sign of $\\int \\cos x\\,dx$. Does integrating cosine introduce a minus sign?" }
+                ]
+            },
+            {
+                "id": "mp_wU0gYqxZT1g_5",
+                "prompt": "When separating $\\frac{dy}{dx} = y\\cos x$, you divide by $y$. Which solution can this step overlook?",
+                "hint": "Dividing by $y$ assumes $y$ is not zero. Check whether a constant value of $y$ also solves the equation.",
+                "answerOptions": [
+                    { "text": "The constant solution $y = 0$", "correct": true, "rationale": "Correct. $y = 0$ makes both sides zero, yet dividing by $y$ hides it." },
+                    { "text": "The solution $y = \\cos x$", "rationale": "Substitute it back, does its derivative match $y\\cos x$? Which constant value is the one division removes?" },
+                    { "text": "There is no overlooked solution", "rationale": "Dividing by $y$ silently assumes $y$ is nonzero. What value of $y$ does that exclude?" },
+                    { "text": "The solution $x = 0$", "rationale": "The dropped solution is a constant value of $y$, not of $x$. What value of $y$ makes the right side vanish?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.2, video 1
+           "Introduction to Linear Differential Equations and Integrating Factors (Differential Equations 15)" */
+        "kATxKuVSc9I": [
+            {
+                "id": "mp_kATxKuVSc9I_1",
+                "prompt": "What is the standard form of a first order linear differential equation?",
+                "hint": "The unknown and its first derivative each appear to the first power, and the derivative term has coefficient one.",
+                "answerOptions": [
+                    { "text": "$\\frac{dy}{dx} + P(x)y = Q(x)$", "correct": true, "rationale": "Correct. With the derivative isolated and coefficient one, you can read off $P(x)$ and $Q(x)$." },
+                    { "text": "$\\frac{dy}{dx} + P(x)y^{2} = Q(x)$", "rationale": "A squared $y$ breaks linearity. To what power may $y$ appear in a linear equation?" },
+                    { "text": "$\\frac{dy}{dx}\\cdot y = Q(x)$", "rationale": "A product of $y$ with its derivative is nonlinear. How should $y$ and its derivative combine in the linear form?" },
+                    { "text": "$y\\frac{dy}{dx} + P(x) = Q(x)$", "rationale": "Multiplying the derivative by $y$ is not the standard linear shape. What coefficient should the derivative carry?" }
+                ]
+            },
+            {
+                "id": "mp_kATxKuVSc9I_2",
+                "prompt": "Find the integrating factor for $\\frac{dy}{dx} + 2y = e^{x}$.",
+                "hint": "The integrating factor is $e^{\\int P\\,dx}$, and here $P = 2$.",
+                "answerOptions": [
+                    { "text": "$e^{2x}$", "correct": true, "rationale": "Correct. $\\int 2\\,dx = 2x$, so the integrating factor is $e^{2x}$." },
+                    { "text": "$e^{x}$", "rationale": "That is the right side $Q$, not the factor. What is $\\int P\\,dx$ when $P = 2$?" },
+                    { "text": "$2x$", "rationale": "You found $\\int P\\,dx$ but stopped. What do you do with that exponent to build the factor?" },
+                    { "text": "$e^{2}$", "rationale": "Where did the variable $x$ go? What is $\\int 2\\,dx$ in terms of $x$?" }
+                ]
+            },
+            {
+                "id": "mp_kATxKuVSc9I_3",
+                "prompt": "The integrating factor for $\\frac{dy}{dx} + P(x)y = Q(x)$ is defined as which expression?",
+                "hint": "It is the exponential of the integral of the coefficient on $y$.",
+                "answerOptions": [
+                    { "text": "$e^{\\int P(x)\\,dx}$", "correct": true, "rationale": "Correct. This factor is exactly what makes the left side a perfect derivative." },
+                    { "text": "$e^{\\int Q(x)\\,dx}$", "rationale": "The factor is built from the coefficient of $y$, not the right side. Which function is that coefficient?" },
+                    { "text": "$\\int P(x)\\,dx$", "rationale": "The integral alone is only the exponent. What operation wraps around it?" },
+                    { "text": "$e^{P(x)}$", "rationale": "You must integrate $P$ first. What appears in the exponent before exponentiating?" }
+                ]
+            },
+            {
+                "id": "mp_kATxKuVSc9I_4",
+                "prompt": "Find the integrating factor for $\\frac{dy}{dx} + \\frac{1}{x}y = x$.",
+                "hint": "Integrate $P = \\frac{1}{x}$, recall $\\int \\frac{1}{x}\\,dx = \\ln|x|$, then exponentiate.",
+                "answerOptions": [
+                    { "text": "$x$", "correct": true, "rationale": "Correct. $e^{\\int (1/x)\\,dx} = e^{\\ln|x|} = x$." },
+                    { "text": "$e^{x}$", "rationale": "That would come from $\\int 1\\,dx$. What is $\\int \\frac{1}{x}\\,dx$?" },
+                    { "text": "$\\ln|x|$", "rationale": "That is the exponent before exponentiating. What does $e^{\\ln|x|}$ simplify to?" },
+                    { "text": "$\\frac{1}{x}$", "rationale": "That is $P$ itself, not the factor. What does integrating then exponentiating produce?" }
+                ]
+            },
+            {
+                "id": "mp_kATxKuVSc9I_5",
+                "prompt": "After multiplying a first order linear equation by its integrating factor $\\mu$, what does the left side become?",
+                "hint": "The whole point of the factor is to collapse two terms into one derivative by the product rule.",
+                "answerOptions": [
+                    { "text": "The derivative of a product, $\\frac{d}{dx}[\\mu y]$", "correct": true, "rationale": "Correct. The factor is chosen so the left side is exactly $\\frac{d}{dx}[\\mu y]$." },
+                    { "text": "The product $\\mu y$ with no derivative", "rationale": "The left side stays a derivative. Which product does the product rule fold those two terms into?" },
+                    { "text": "Zero", "rationale": "The left side is not annihilated. What single derivative do the two left terms combine into?" },
+                    { "text": "$\\mu Q$", "rationale": "That is the right side after multiplying. What does the left side turn into?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.2, video 2
+           "First Order Linear Differential Equations" */
+        "gd1FYn86P0c": [
+            {
+                "id": "mp_gd1FYn86P0c_1",
+                "prompt": "To put $x\\frac{dy}{dx} + y = x^{2}$ into standard linear form, what do you do first?",
+                "hint": "Standard form needs the derivative coefficient to be one. Divide through by what currently multiplies it.",
+                "answerOptions": [
+                    { "text": "Divide every term by $x$ to get $\\frac{dy}{dx} + \\frac{1}{x}y = x$", "correct": true, "rationale": "Correct. Dividing by $x$ makes the derivative coefficient one and reveals $P = \\frac{1}{x}$." },
+                    { "text": "Multiply every term by $x$", "rationale": "That makes the leading coefficient larger, not one. Which operation reduces the coefficient of the derivative to one?" },
+                    { "text": "Subtract $y$ from both sides", "rationale": "The $y$ term belongs on the left in standard form. What operation makes the derivative coefficient one?" },
+                    { "text": "Differentiate both sides again", "rationale": "That raises the order rather than normalizing the form. How do you make the derivative coefficient one?" }
+                ]
+            },
+            {
+                "id": "mp_gd1FYn86P0c_2",
+                "prompt": "Solve $\\frac{dy}{dx} + 2y = 0$.",
+                "hint": "This is separable as well as linear, $\\frac{1}{y}\\,dy = -2\\,dx$.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{-2x}$", "correct": true, "rationale": "Correct. Integrating gives $\\ln|y| = -2x + C$, so $y = Ce^{-2x}$." },
+                    { "text": "$y = Ce^{2x}$", "rationale": "Check the sign. Moving $2y$ across gives a rate of $-2$, so which sign sits in the exponent?" },
+                    { "text": "$y = -2x + C$", "rationale": "The left side integrates to $\\ln|y|$. How do you undo the logarithm to get $y$?" },
+                    { "text": "$y = 2e^{-2x}$", "rationale": "The leading number is an arbitrary constant set by data, not fixed at $2$. What symbol belongs out front?" }
+                ]
+            },
+            {
+                "id": "mp_gd1FYn86P0c_3",
+                "prompt": "Solve $\\frac{dy}{dx} + 3y = 6$ using the integrating factor $e^{3x}$.",
+                "hint": "Multiply through, recognize the left as $\\frac{d}{dx}[e^{3x}y]$, integrate, then divide by $e^{3x}$.",
+                "answerOptions": [
+                    { "text": "$y = 2 + Ce^{-3x}$", "correct": true, "rationale": "Correct. $e^{3x}y = \\int 6e^{3x}\\,dx = 2e^{3x} + C$, so $y = 2 + Ce^{-3x}$." },
+                    { "text": "$y = 6 + Ce^{-3x}$", "rationale": "Check $\\int 6e^{3x}\\,dx$. Dividing by $3$ changes the $6$ to what value?" },
+                    { "text": "$y = 2 + Ce^{3x}$", "rationale": "After dividing $e^{3x}y$ by $e^{3x}$, what sign does the exponent on the constant term take?" },
+                    { "text": "$y = 2e^{-3x} + C$", "rationale": "Divide every term of $2e^{3x} + C$ by $e^{3x}$. Which term keeps the exponential and which becomes constant?" }
+                ]
+            },
+            {
+                "id": "mp_gd1FYn86P0c_4",
+                "prompt": "After multiplying by $\\mu$ and recognizing the left side as $\\frac{d}{dx}[\\mu y]$, what is the next step?",
+                "hint": "You have a derivative equal to a known function. Undo the derivative.",
+                "answerOptions": [
+                    { "text": "Integrate both sides, giving $\\mu y = \\int \\mu Q\\,dx + C$", "correct": true, "rationale": "Correct. Integrating recovers $\\mu y$, then you divide by $\\mu$ to isolate $y$." },
+                    { "text": "Differentiate both sides again", "rationale": "You already have a derivative set equal to a function. Which inverse operation isolates $\\mu y$?" },
+                    { "text": "Divide both sides by $Q$", "rationale": "Dividing by $Q$ does not undo the derivative. What operation reverses $\\frac{d}{dx}$?" },
+                    { "text": "Set $\\mu y$ equal to zero", "rationale": "That discards the right side entirely. What do you do to a derivative that equals a known function?" }
+                ]
+            },
+            {
+                "id": "mp_gd1FYn86P0c_5",
+                "prompt": "Why must the equation be written in standard form before identifying $P(x)$?",
+                "hint": "$P(x)$ is read as the coefficient of $y$ only when the derivative has coefficient one.",
+                "answerOptions": [
+                    { "text": "Because $P(x)$ is the coefficient of $y$ only when the derivative coefficient is one", "correct": true, "rationale": "Correct. A leading coefficient other than one would distort both $P$ and the integrating factor." },
+                    { "text": "Because standard form removes the need for an integrating factor", "rationale": "The factor is still required. What does standard form guarantee about the coefficient of the derivative?" },
+                    { "text": "Because standard form makes the equation nonlinear", "rationale": "Standard form keeps it linear. What does it fix about the derivative term so $P$ can be read off?" },
+                    { "text": "Because $P(x)$ must always equal one", "rationale": "$P(x)$ can be any function. What coefficient must equal one for $P$ to be read correctly?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.3, video 1
+           "06a - Initial and Boundary Value Problems: Find the arbitrary constants c1 and c2" */
+        "_lp33noEO50": [
+            {
+                "id": "mp__lp33noEO50_1",
+                "prompt": "Given $y = c_{1}e^{x} + c_{2}e^{-x}$ with $y(0) = 2$ and $y'(0) = 0$, find $c_{1}$ and $c_{2}$.",
+                "hint": "Apply both conditions to build two equations, $c_{1} + c_{2} = 2$ and $c_{1} - c_{2} = 0$.",
+                "answerOptions": [
+                    { "text": "$c_{1} = 1,\\; c_{2} = 1$", "correct": true, "rationale": "Correct. The two conditions give $c_{1} + c_{2} = 2$ and $c_{1} - c_{2} = 0$, so both equal $1$." },
+                    { "text": "$c_{1} = 2,\\; c_{2} = 0$", "rationale": "Check the derivative condition. Does $y'(0) = 0$ allow $c_{1}$ and $c_{2}$ to differ?" },
+                    { "text": "$c_{1} = 0,\\; c_{2} = 2$", "rationale": "Substitute into $y'(0) = c_{1} - c_{2}$. Can that equal zero with these values?" },
+                    { "text": "$c_{1} = 1,\\; c_{2} = -1$", "rationale": "Test the first condition, $c_{1} + c_{2}$ should equal $2$. Does this pair satisfy it?" }
+                ]
+            },
+            {
+                "id": "mp__lp33noEO50_2",
+                "prompt": "The general solution of a decay model is $y = Ce^{-2t}$. If $y(0) = 5$, what is $C$?",
+                "hint": "Set $t = 0$ and recall that $e^{0} = 1$.",
+                "answerOptions": [
+                    { "text": "$C = 5$", "correct": true, "rationale": "Correct. At $t = 0$, $y = Ce^{0} = C$, so $C = 5$." },
+                    { "text": "$C = 0$", "rationale": "Evaluate $e^{0}$. Does the exponential vanish or equal one at $t = 0$?" },
+                    { "text": "$C = -10$", "rationale": "There is no factor of $-2$ to apply at $t = 0$. What does $Ce^{0}$ reduce to?" },
+                    { "text": "$C = \\frac{5}{2}$", "rationale": "The $-2$ lives in the exponent, not as a divisor at $t = 0$. What is $Ce^{0}$?" }
+                ]
+            },
+            {
+                "id": "mp__lp33noEO50_3",
+                "prompt": "A second order initial value problem generally requires how many initial conditions to pin down a unique solution?",
+                "hint": "Each arbitrary constant in the general solution needs one condition to fix it.",
+                "answerOptions": [
+                    { "text": "Two", "correct": true, "rationale": "Correct. A second order equation carries two constants, so two conditions are needed." },
+                    { "text": "One", "rationale": "How many arbitrary constants does a second order general solution contain?" },
+                    { "text": "Zero", "rationale": "Without conditions the constants stay free. How many constants must be fixed for a second order equation?" },
+                    { "text": "Three", "rationale": "That exceeds the number of constants present. How many does a second order solution have?" }
+                ]
+            },
+            {
+                "id": "mp__lp33noEO50_4",
+                "prompt": "The solution family is $y = Cx^{2}$. If $y(1) = 3$, find $C$.",
+                "hint": "Substitute $x = 1$ and solve for $C$.",
+                "answerOptions": [
+                    { "text": "$C = 3$", "correct": true, "rationale": "Correct. At $x = 1$, $y = C\\cdot 1 = C$, so $C = 3$." },
+                    { "text": "$C = \\frac{3}{2}$", "rationale": "There is no factor of $2$ at $x = 1$. What does $C\\cdot 1^{2}$ equal?" },
+                    { "text": "$C = 9$", "rationale": "Do you multiply or substitute? Evaluate $C\\cdot 1^{2}$ and set it to $3$." },
+                    { "text": "$C = 1$", "rationale": "Substitute $x = 1$ and $y = 3$ directly. What value of $C$ results?" }
+                ]
+            },
+            {
+                "id": "mp__lp33noEO50_5",
+                "prompt": "Why does applying an initial condition select one curve from the general solution?",
+                "hint": "The general solution is a whole family indexed by a constant. A known point fixes that constant.",
+                "answerOptions": [
+                    { "text": "It fixes the arbitrary constant to the value that makes the curve pass through the given point", "correct": true, "rationale": "Correct. One known point determines the constant and isolates a single curve." },
+                    { "text": "It changes the differential equation itself", "rationale": "The equation is unchanged. What does the condition determine within the general solution?" },
+                    { "text": "It guarantees the solution is a straight line", "rationale": "A point says nothing about shape. What does it pin down in the family?" },
+                    { "text": "It removes the derivative from the problem", "rationale": "The derivative still governs the shape. What single quantity does the condition fix?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.3, video 2
+           "07 - Particular Solution of a Differential Equation given the Initial / Boundary Conditions" */
+        "2urpuhYVc14": [
+            {
+                "id": "mp_2urpuhYVc14_1",
+                "prompt": "Solve the initial value problem $\\frac{dy}{dx} = 2x$ with $y(0) = 1$.",
+                "hint": "Integrate to get the general solution, then use $y(0) = 1$ to fix the constant.",
+                "answerOptions": [
+                    { "text": "$y = x^{2} + 1$", "correct": true, "rationale": "Correct. $\\int 2x\\,dx = x^{2} + C$, and $y(0) = 1$ forces $C = 1$." },
+                    { "text": "$y = x^{2}$", "rationale": "You found the antiderivative but dropped the condition. What must $C$ be so $y(0) = 1$?" },
+                    { "text": "$y = x^{2} + C$", "rationale": "The condition $y(0) = 1$ determines $C$. What specific number does it become?" },
+                    { "text": "$y = 2x^{2} + 1$", "rationale": "Check $\\int 2x\\,dx$. Does it give $x^{2}$ or $2x^{2}$?" }
+                ]
+            },
+            {
+                "id": "mp_2urpuhYVc14_2",
+                "prompt": "Solve $\\frac{dy}{dx} = 3y$ with $y(0) = 4$.",
+                "hint": "The general solution is $y = Ce^{3x}$. Apply $y(0) = 4$.",
+                "answerOptions": [
+                    { "text": "$y = 4e^{3x}$", "correct": true, "rationale": "Correct. $y = Ce^{3x}$ and $y(0) = C = 4$." },
+                    { "text": "$y = 4e^{x}$", "rationale": "The rate constant is $3$, not $1$. What belongs in the exponent of the growth solution?" },
+                    { "text": "$y = e^{3x} + 4$", "rationale": "The constant for this equation is a multiplier, not an addend. Where does the $4$ belong?" },
+                    { "text": "$y = 3e^{4x}$", "rationale": "Which number is the rate and which is the initial value? Check the exponent and the front factor." }
+                ]
+            },
+            {
+                "id": "mp_2urpuhYVc14_3",
+                "prompt": "After integrating, a solution has the form $y = \\frac{x^{3}}{3} + C$. If $y(3) = 10$, find $C$.",
+                "hint": "Substitute $x = 3$, compute $\\frac{27}{3}$, and solve for $C$.",
+                "answerOptions": [
+                    { "text": "$C = 1$", "correct": true, "rationale": "Correct. $\\frac{27}{3} = 9$, and $9 + C = 10$ gives $C = 1$." },
+                    { "text": "$C = 10$", "rationale": "Do not forget the $\\frac{x^{3}}{3}$ term at $x = 3$. What does it contribute before adding $C$?" },
+                    { "text": "$C = -1$", "rationale": "Check the arithmetic, $9 + C = 10$. Is $C$ positive or negative?" },
+                    { "text": "$C = 19$", "rationale": "Should you add or subtract the $9$ from $10$? Solve $9 + C = 10$ for $C$." }
+                ]
+            },
+            {
+                "id": "mp_2urpuhYVc14_4",
+                "prompt": "What distinguishes a particular solution from the general solution?",
+                "hint": "One still contains an arbitrary constant, the other has had it fixed by a condition.",
+                "answerOptions": [
+                    { "text": "A particular solution has its arbitrary constant fixed by an initial condition", "correct": true, "rationale": "Correct. The general solution holds the family, the particular one is a single chosen member." },
+                    { "text": "A particular solution still contains an arbitrary constant", "rationale": "That describes the general solution. What does an initial condition do to that constant?" },
+                    { "text": "A particular solution ignores the differential equation", "rationale": "It must still satisfy the equation. What extra requirement does it also meet?" },
+                    { "text": "A particular solution is always a straight line", "rationale": "Shape is not the distinction. What has been determined that the general solution leaves open?" }
+                ]
+            },
+            {
+                "id": "mp_2urpuhYVc14_5",
+                "prompt": "Solve $\\frac{dy}{dx} = \\cos x$ with $y(0) = 2$.",
+                "hint": "Integrate cosine to get sine, then apply the condition at $x = 0$.",
+                "answerOptions": [
+                    { "text": "$y = \\sin x + 2$", "correct": true, "rationale": "Correct. $\\int \\cos x\\,dx = \\sin x + C$, and $y(0) = 0 + C = 2$." },
+                    { "text": "$y = \\sin x$", "rationale": "You integrated correctly but dropped the condition. What constant makes $y(0) = 2$?" },
+                    { "text": "$y = -\\sin x + 2$", "rationale": "Check the antiderivative of $\\cos x$. Does integrating introduce a minus sign?" },
+                    { "text": "$y = \\cos x + 2$", "rationale": "Integrating $\\cos x$ does not return $\\cos x$. What function is its antiderivative?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.4, video 1
+           "10 - Homogeneous Functions (Intro to Homogeneous First Order Differential Equations)" */
+        "TjmVeZpajz8": [
+            {
+                "id": "mp_TjmVeZpajz8_1",
+                "prompt": "A function $f(x,y)$ is homogeneous of degree $n$ when which condition holds?",
+                "hint": "Scale both inputs by $t$ and see what power of $t$ factors out.",
+                "answerOptions": [
+                    { "text": "$f(tx, ty) = t^{n}f(x,y)$", "correct": true, "rationale": "Correct. Scaling both variables pulls out $t^{n}$, defining degree $n$." },
+                    { "text": "$f(x + t, y + t) = t^{n}f(x,y)$", "rationale": "Homogeneity scales the inputs rather than shifting them. Should you add $t$ or multiply by $t$?" },
+                    { "text": "$f(tx, ty) = nf(x,y)$", "rationale": "The scaling factor is a power of $t$, not the bare degree $n$. What does $t$ become out front?" },
+                    { "text": "$f(tx, ty) = f(x,y)$", "rationale": "That would make the function unchanged by scaling, degree zero only. What power of $t$ should appear in general?" }
+                ]
+            },
+            {
+                "id": "mp_TjmVeZpajz8_2",
+                "prompt": "What is the degree of homogeneity of $f(x,y) = x^{2} + xy$?",
+                "hint": "Replace $x$ with $tx$ and $y$ with $ty$, then factor out the common power of $t$.",
+                "answerOptions": [
+                    { "text": "Degree $2$", "correct": true, "rationale": "Correct. $f(tx,ty) = t^{2}x^{2} + t^{2}xy = t^{2}f(x,y)$." },
+                    { "text": "Degree $1$", "rationale": "Add the exponents in each term, $x^{2}$ and $xy$. What total power do they share?" },
+                    { "text": "Degree $3$", "rationale": "Count the powers in $x^{2}$ and in $xy$. Do they sum to two or three?" },
+                    { "text": "Not homogeneous", "rationale": "Both terms scale by the same power of $t$. What is that common power?" }
+                ]
+            },
+            {
+                "id": "mp_TjmVeZpajz8_3",
+                "prompt": "Which function fails to be homogeneous?",
+                "hint": "A function is homogeneous only if every term shares the same total degree.",
+                "answerOptions": [
+                    { "text": "$f(x,y) = x^{2} + y$", "correct": true, "rationale": "Correct. The term $x^{2}$ has degree two while $y$ has degree one, so no single power of $t$ factors out." },
+                    { "text": "$f(x,y) = x^{2} + y^{2}$", "rationale": "Both terms have degree two. Does a single power of $t$ factor out cleanly?" },
+                    { "text": "$f(x,y) = xy$", "rationale": "This term has total degree two. Is it consistent under scaling?" },
+                    { "text": "$f(x,y) = x^{3} + xy^{2}$", "rationale": "Check the degree of each term, $x^{3}$ and $xy^{2}$. Do they match?" }
+                ]
+            },
+            {
+                "id": "mp_TjmVeZpajz8_4",
+                "prompt": "A first order equation $M(x,y)\\,dx + N(x,y)\\,dy = 0$ is called homogeneous when which is true?",
+                "hint": "Both coefficient functions must scale the same way under $t$.",
+                "answerOptions": [
+                    { "text": "$M$ and $N$ are homogeneous of the same degree", "correct": true, "rationale": "Correct. Equal degrees let the substitution $y = vx$ reduce the equation to a separable one." },
+                    { "text": "$M$ and $N$ are both constants", "rationale": "Constants are a special case, but the general requirement is broader. What must match about the degrees of $M$ and $N$?" },
+                    { "text": "$M$ has degree one greater than $N$", "rationale": "A mismatch in degree breaks the structure. What relationship between their degrees is required?" },
+                    { "text": "$M$ equals $N$", "rationale": "They need not be equal as functions. What feature, their degree, must agree?" }
+                ]
+            },
+            {
+                "id": "mp_TjmVeZpajz8_5",
+                "prompt": "What is the degree of homogeneity of $f(x,y) = x^{3} + y^{3}$?",
+                "hint": "Each term is a cube. Factor $t$ from $f(tx,ty)$.",
+                "answerOptions": [
+                    { "text": "Degree $3$", "correct": true, "rationale": "Correct. $f(tx,ty) = t^{3}x^{3} + t^{3}y^{3} = t^{3}f(x,y)$." },
+                    { "text": "Degree $1$", "rationale": "What is the total power in each cubic term?" },
+                    { "text": "Degree $6$", "rationale": "Do you add the exponents across terms or read the power within one term? What is the degree of $x^{3}$?" },
+                    { "text": "Degree $2$", "rationale": "A cube carries power three, not two. What common power factors out?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.4, video 2
+           "11a - Homogeneous First Order Differential Equations (Solved Examples)" */
+        "3y37ug3NON8": [
+            {
+                "id": "mp_3y37ug3NON8_1",
+                "prompt": "To solve a homogeneous first order equation, which substitution is standard?",
+                "hint": "Introduce a new variable equal to the ratio $\\frac{y}{x}$.",
+                "answerOptions": [
+                    { "text": "$y = vx$, so that $v = \\frac{y}{x}$", "correct": true, "rationale": "Correct. This substitution turns a homogeneous equation into a separable one in $v$ and $x$." },
+                    { "text": "$y = v + x$", "rationale": "Homogeneous equations depend on the ratio $\\frac{y}{x}$. Should the substitution be a sum or a product?" },
+                    { "text": "$x = vy^{2}$", "rationale": "The standard substitution sets $y$ proportional to $x$ through $v$. What simple relation captures $\\frac{y}{x}$?" },
+                    { "text": "$v = xy$", "rationale": "The useful new variable is the ratio, not the product. What does $\\frac{y}{x}$ suggest for $v$?" }
+                ]
+            },
+            {
+                "id": "mp_3y37ug3NON8_2",
+                "prompt": "If $y = vx$ where $v$ is a function of $x$, what is $\\frac{dy}{dx}$?",
+                "hint": "Use the product rule on $vx$, treating $v$ as a function of $x$.",
+                "answerOptions": [
+                    { "text": "$v + x\\frac{dv}{dx}$", "correct": true, "rationale": "Correct. The product rule gives $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$." },
+                    { "text": "$\\frac{dv}{dx}$", "rationale": "The product $vx$ has two factors depending on $x$. Does the product rule leave only one term?" },
+                    { "text": "$x\\frac{dv}{dx}$", "rationale": "You captured one term. What term appears when $x$ is differentiated and $v$ held fixed?" },
+                    { "text": "$v$", "rationale": "That is only part of the product rule. What second term comes from the $x$ factor?" }
+                ]
+            },
+            {
+                "id": "mp_3y37ug3NON8_3",
+                "prompt": "Solve $\\frac{dy}{dx} = \\frac{x + y}{x}$ using $y = vx$.",
+                "hint": "Rewrite the right side as $1 + v$, substitute, and the $v$ terms cancel to leave $x\\frac{dv}{dx} = 1$.",
+                "answerOptions": [
+                    { "text": "$y = x\\ln|x| + Cx$", "correct": true, "rationale": "Correct. $v + x v' = 1 + v$ gives $x v' = 1$, so $v = \\ln|x| + C$ and $y = x\\ln|x| + Cx$." },
+                    { "text": "$y = x + C$", "rationale": "After cancelling $v$, you get $x\\frac{dv}{dx} = 1$. What is $\\int \\frac{1}{x}\\,dx$ that builds $v$?" },
+                    { "text": "$y = Cx$", "rationale": "The constant solution drops the $\\ln|x|$ term. Did $x v' = 1$ integrate to give a logarithm?" },
+                    { "text": "$y = x\\ln|x|$", "rationale": "Integrating $v' = \\frac{1}{x}$ leaves a constant of integration. Where does $Cx$ come from when you multiply by $x$?" }
+                ]
+            },
+            {
+                "id": "mp_3y37ug3NON8_4",
+                "prompt": "After substituting $y = vx$ into a homogeneous equation, the result is always separable in which variables?",
+                "hint": "The new equation relates the introduced variable to the original independent variable.",
+                "answerOptions": [
+                    { "text": "$v$ and $x$", "correct": true, "rationale": "Correct. The substitution removes $y$ in favor of $v$, leaving a separable equation in $v$ and $x$." },
+                    { "text": "$y$ and $x$", "rationale": "The whole point of the substitution was to replace $y$. Which new variable takes its place alongside $x$?" },
+                    { "text": "$v$ and $y$", "rationale": "After substituting, $y$ is gone. Which original variable remains beside $v$?" },
+                    { "text": "$x$ alone", "rationale": "A separable equation needs two variables to separate. Which pair appears after the substitution?" }
+                ]
+            },
+            {
+                "id": "mp_3y37ug3NON8_5",
+                "prompt": "Solve $\\frac{dy}{dx} = \\frac{y}{x}$ using $y = vx$.",
+                "hint": "Substitute to get $v + x v' = v$, so $x v' = 0$, meaning $v$ is constant.",
+                "answerOptions": [
+                    { "text": "$y = Cx$", "correct": true, "rationale": "Correct. $x v' = 0$ forces $v$ constant, so $y = vx = Cx$." },
+                    { "text": "$y = x\\ln|x| + C$", "rationale": "Here the $v$ terms cancel completely, leaving $x v' = 0$, not $x v' = 1$. What does a zero derivative make $v$?" },
+                    { "text": "$y = Ce^{x}$", "rationale": "An exponential would come from a different separation. If $v' = 0$, what kind of function is $v$?" },
+                    { "text": "$y = x + C$", "rationale": "Check the cancellation, $v + x v' = v$ leaves $x v' = 0$. What is $v$ then?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.5, video 1
+           "Newton's Law of Cooling //  Separable ODE Example" */
+        "_bAjWNsNrQA": [
+            {
+                "id": "mp__bAjWNsNrQA_1",
+                "prompt": "Newton's law of cooling models the temperature $T$ of an object by which equation?",
+                "hint": "The rate of change is proportional to the gap between the object and its surroundings $T_{s}$, and it drives the object toward $T_{s}$.",
+                "answerOptions": [
+                    { "text": "$\\frac{dT}{dt} = -k(T - T_{s})$", "correct": true, "rationale": "Correct. The negative sign drives $T$ toward the surrounding temperature $T_{s}$." },
+                    { "text": "$\\frac{dT}{dt} = -kT$", "rationale": "That ignores the surrounding temperature. What difference should the rate depend on?" },
+                    { "text": "$\\frac{dT}{dt} = k(T + T_{s})$", "rationale": "Cooling depends on the gap to the surroundings, a difference. Should you add or subtract $T_{s}$?" },
+                    { "text": "$\\frac{dT}{dt} = -kt$", "rationale": "The rate depends on temperature, not directly on elapsed time. What temperature difference belongs on the right?" }
+                ]
+            },
+            {
+                "id": "mp__bAjWNsNrQA_2",
+                "prompt": "The solution of Newton's law of cooling has which form?",
+                "hint": "Separating and integrating gives an exponential approach to $T_{s}$, offset by the initial gap.",
+                "answerOptions": [
+                    { "text": "$T(t) = T_{s} + (T_{0} - T_{s})e^{-kt}$", "correct": true, "rationale": "Correct. The initial gap $T_{0} - T_{s}$ decays exponentially toward zero." },
+                    { "text": "$T(t) = T_{0}e^{-kt}$", "rationale": "As $t$ grows this heads to zero, not to room temperature. What constant should the temperature approach?" },
+                    { "text": "$T(t) = T_{s} + T_{0}e^{-kt}$", "rationale": "Check the coefficient of the exponential. Should it be $T_{0}$ alone or the initial gap $T_{0} - T_{s}$?" },
+                    { "text": "$T(t) = T_{s} - (T_{0} - T_{s})e^{-kt}$", "rationale": "Test at $t = 0$. Does this give $T_{0}$ or something else for the starting temperature?" }
+                ]
+            },
+            {
+                "id": "mp__bAjWNsNrQA_3",
+                "prompt": "According to the cooling solution, what does $T(t)$ approach as $t \\to \\infty$?",
+                "hint": "The exponential term decays to zero, leaving only the constant part.",
+                "answerOptions": [
+                    { "text": "The surrounding temperature $T_{s}$", "correct": true, "rationale": "Correct. As the exponential vanishes, only $T_{s}$ remains." },
+                    { "text": "Zero", "rationale": "Only the decaying term goes to zero. What constant survives in the solution?" },
+                    { "text": "The initial temperature $T_{0}$", "rationale": "The object leaves its initial temperature as it cools. What value does it settle toward?" },
+                    { "text": "Infinity", "rationale": "A decaying exponential cannot grow without bound. What finite value remains as $t$ grows?" }
+                ]
+            },
+            {
+                "id": "mp__bAjWNsNrQA_4",
+                "prompt": "A $100$ degree object cools in a $20$ degree room, so $T(t) = 20 + Ae^{-kt}$. Using $T(0) = 100$, find $A$.",
+                "hint": "At $t = 0$ the exponential equals one, so $T(0) = 20 + A$.",
+                "answerOptions": [
+                    { "text": "$A = 80$", "correct": true, "rationale": "Correct. $20 + A = 100$ gives $A = 80$, the initial gap to the room." },
+                    { "text": "$A = 100$", "rationale": "Do not forget the $20$ already present at $t = 0$. What is $100 - 20$?" },
+                    { "text": "$A = 20$", "rationale": "The $20$ is the room temperature, not the coefficient. Solve $20 + A = 100$ for $A$." },
+                    { "text": "$A = 120$", "rationale": "Should you add or subtract the room temperature? Solve $20 + A = 100$." }
+                ]
+            },
+            {
+                "id": "mp__bAjWNsNrQA_5",
+                "prompt": "In a cooling problem, the constant $k$ is usually determined by what?",
+                "hint": "A second temperature reading at a known later time gives an equation to solve for $k$.",
+                "answerOptions": [
+                    { "text": "A measured temperature at a later time", "correct": true, "rationale": "Correct. One additional data point lets you solve for $k$." },
+                    { "text": "Guessing any convenient value", "rationale": "A guess would not match the real object. What measured information fixes $k$?" },
+                    { "text": "The room temperature alone", "rationale": "$T_{s}$ sets the limit, not the rate. What time based measurement determines how fast cooling occurs?" },
+                    { "text": "The color of the object", "rationale": "That does not enter the model. What measurement of temperature over time fixes $k$?" }
+                ]
+            }
+        ],
+
+        /* Unit 2, Module 2.5, video 2
+           "Population Growth and Decline (Differential Equations 35)" */
+        "iRfo9hDV5Ss": [
+            {
+                "id": "mp_iRfo9hDV5Ss_1",
+                "prompt": "The exponential population model $\\frac{dP}{dt} = kP$ has which general solution?",
+                "hint": "A rate proportional to the current amount yields an exponential in $t$.",
+                "answerOptions": [
+                    { "text": "$P = P_{0}e^{kt}$", "correct": true, "rationale": "Correct. The function whose rate is proportional to itself is the exponential $P_{0}e^{kt}$." },
+                    { "text": "$P = P_{0} + kt$", "rationale": "A linear form has a constant rate. Does $\\frac{dP}{dt} = kP$ give a constant rate or one that grows with $P$?" },
+                    { "text": "$P = kt^{2}$", "rationale": "A power of $t$ does not satisfy a rate proportional to $P$. Which function reproduces itself under differentiation?" },
+                    { "text": "$P = P_{0}e^{t}$", "rationale": "The rate constant $k$ belongs in the exponent. What should multiply $t$ there?" }
+                ]
+            },
+            {
+                "id": "mp_iRfo9hDV5Ss_2",
+                "prompt": "In $P = P_{0}e^{kt}$, what distinguishes growth from decline?",
+                "hint": "The sign of $k$ controls whether the exponential rises or falls.",
+                "answerOptions": [
+                    { "text": "Growth when $k > 0$ and decline when $k < 0$", "correct": true, "rationale": "Correct. A positive rate constant grows the population, a negative one shrinks it." },
+                    { "text": "Growth when $k < 0$", "rationale": "A negative exponent makes the exponential shrink. Which sign of $k$ produces growth?" },
+                    { "text": "Growth when $P_{0} = 0$", "rationale": "If the initial population is zero, nothing grows. Which parameter sign sets growth versus decline?" },
+                    { "text": "The sign of $t$ decides it", "rationale": "Time runs forward for both cases. Which constant sign separates growth from decline?" }
+                ]
+            },
+            {
+                "id": "mp_iRfo9hDV5Ss_3",
+                "prompt": "For $P = P_{0}e^{kt}$ with $k > 0$, the doubling time is found by solving $e^{kt} = 2$. What is it?",
+                "hint": "Take the natural logarithm of both sides and solve for $t$.",
+                "answerOptions": [
+                    { "text": "$t = \\frac{\\ln 2}{k}$", "correct": true, "rationale": "Correct. Taking logs gives $kt = \\ln 2$, so $t = \\frac{\\ln 2}{k}$." },
+                    { "text": "$t = \\frac{2}{k}$", "rationale": "Undo the exponential with a logarithm, not by dropping it. What does $\\ln(e^{kt})$ become?" },
+                    { "text": "$t = k\\ln 2$", "rationale": "Check where $k$ lands when you solve $kt = \\ln 2$. Does it multiply or divide?" },
+                    { "text": "$t = \\ln(2k)$", "rationale": "Apply the logarithm only to the side with the exponential. What is $\\ln(e^{kt})$?" }
+                ]
+            },
+            {
+                "id": "mp_iRfo9hDV5Ss_4",
+                "prompt": "In $P = P_{0}e^{kt}$, what does $P_{0}$ represent?",
+                "hint": "Evaluate the solution at $t = 0$.",
+                "answerOptions": [
+                    { "text": "The initial population at $t = 0$", "correct": true, "rationale": "Correct. At $t = 0$, $e^{0} = 1$, so $P = P_{0}$." },
+                    { "text": "The growth rate", "rationale": "The rate constant is $k$, not $P_{0}$. What does $P$ equal at $t = 0$?" },
+                    { "text": "The doubling time", "rationale": "Doubling time comes from $k$. What population value does $P_{0}$ give at the start?" },
+                    { "text": "The carrying capacity", "rationale": "Exponential growth has no ceiling. What does $P_{0}$ measure at $t = 0$?" }
+                ]
+            },
+            {
+                "id": "mp_iRfo9hDV5Ss_5",
+                "prompt": "A culture follows $P = 1000e^{0.02t}$. What is the initial population?",
+                "hint": "Set $t = 0$ and evaluate.",
+                "answerOptions": [
+                    { "text": "$1000$", "correct": true, "rationale": "Correct. At $t = 0$, $P = 1000e^{0} = 1000$." },
+                    { "text": "$1020$", "rationale": "The $0.02$ is the rate, not added to the start. What is $1000e^{0}$?" },
+                    { "text": "$20$", "rationale": "The coefficient $1000$ multiplies $e^{0}$. What does that product give at $t = 0$?" },
+                    { "text": "$0$", "rationale": "Evaluate $e^{0}$. Does the exponential vanish or equal one at $t = 0$?" }
+                ]
+            }
         ]
 
     },
@@ -1952,6 +2552,339 @@ const QUIZ_DATA = {
                     { "text": "Order one, always", "rationale": "A fixed order ignores how many constants there are. What does the order track?" },
                     { "text": "Order $2n$", "rationale": "Each constant needs one differentiation, not two. How does order relate to the count?" },
                     { "text": "Order $n - 1$", "rationale": "Removing all $n$ constants takes $n$ differentiations, not fewer. What order results?" }
+                ]
+            }
+        ],
+
+        "Unit 2: First Order Linear Differential Equations": [
+            {
+                "id": "um_2_1",
+                "prompt": "Which of the following first order equations is separable?",
+                "hint": "Separable means the right side factors into a function of $x$ times a function of $y$.",
+                "answerOptions": [
+                    { "text": "$\\frac{dy}{dx} = x^{2}y$", "correct": true, "rationale": "Correct. This factors as $x^{2}$ times $y$, so $\\frac{1}{y}\\,dy = x^{2}\\,dx$." },
+                    { "text": "$\\frac{dy}{dx} = x + y$", "rationale": "Can a sum of $x$ and $y$ be split into one function of $x$ times one of $y$?" },
+                    { "text": "$\\frac{dy}{dx} = \\cos(xy)$", "rationale": "Does the cosine of a product separate into an $x$ part and a $y$ part?" },
+                    { "text": "$\\frac{dy}{dx} = x^{2} + y^{2}$", "rationale": "Can a sum of squares be written as a product of separate functions?" }
+                ]
+            },
+            {
+                "id": "um_2_2",
+                "prompt": "Separate the variables in $\\frac{dy}{dx} = \\frac{x}{y}$.",
+                "hint": "Bring $y$ to the side with $dy$ and $x$ to the side with $dx$.",
+                "answerOptions": [
+                    { "text": "$y\\,dy = x\\,dx$", "correct": true, "rationale": "Correct. Cross multiplying puts $y$ with $dy$ and $x$ with $dx$." },
+                    { "text": "$\\frac{1}{y}\\,dy = x\\,dx$", "rationale": "Check what multiplies $dy$. Does the $y$ go to the numerator or stay in a reciprocal?" },
+                    { "text": "$y\\,dy = \\frac{1}{x}\\,dx$", "rationale": "Where did the $x$ on top go? Should the right side hold $x$ or $\\frac{1}{x}$?" },
+                    { "text": "$x\\,dy = y\\,dx$", "rationale": "Did each variable land on the side with its own differential? Recheck which differential pairs with $y$." }
+                ]
+            },
+            {
+                "id": "um_2_3",
+                "prompt": "Solve $\\frac{dy}{dx} = 2y$.",
+                "hint": "Separate to $\\frac{1}{y}\\,dy = 2\\,dx$, integrate, then exponentiate.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{2x}$", "correct": true, "rationale": "Correct. $\\ln|y| = 2x + C$, so $y = Ce^{2x}$." },
+                    { "text": "$y = Ce^{-2x}$", "rationale": "Check the sign in the exponent. Is the rate $+2$ or $-2$ here?" },
+                    { "text": "$y = 2x + C$", "rationale": "The left side integrates to $\\ln|y|$. How do you undo that logarithm?" },
+                    { "text": "$y = e^{2x} + C$", "rationale": "Should the constant be a multiplier or an addend after exponentiating $\\ln|y|$?" }
+                ]
+            },
+            {
+                "id": "um_2_4",
+                "prompt": "Solve $\\frac{dy}{dx} = xy$.",
+                "hint": "Separate to $\\frac{1}{y}\\,dy = x\\,dx$ and integrate.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{x^{2}/2}$", "correct": true, "rationale": "Correct. $\\ln|y| = \\frac{x^{2}}{2} + C$, so $y = Ce^{x^{2}/2}$." },
+                    { "text": "$y = Ce^{x^{2}}$", "rationale": "Check $\\int x\\,dx$. Does it give $x^{2}$ or $\\frac{x^{2}}{2}$?" },
+                    { "text": "$y = Ce^{x}$", "rationale": "The right side integrates $x$, not $1$. What is $\\int x\\,dx$?" },
+                    { "text": "$y = \\frac{x^{2}}{2} + C$", "rationale": "The left side gave $\\ln|y|$. How do you solve that for $y$?" }
+                ]
+            },
+            {
+                "id": "um_2_5",
+                "prompt": "Solve $\\frac{dy}{dx} = y^{2}$ by separation of variables.",
+                "hint": "Separate to $y^{-2}\\,dy = dx$. Recall $\\int y^{-2}\\,dy = -\\frac{1}{y}$.",
+                "answerOptions": [
+                    { "text": "$-\\frac{1}{y} = x + C$", "correct": true, "rationale": "Correct. $\\int y^{-2}\\,dy = -\\frac{1}{y}$ and $\\int dx = x$." },
+                    { "text": "$\\frac{1}{y} = x + C$", "rationale": "Check the sign of $\\int y^{-2}\\,dy$. Is it $+\\frac{1}{y}$ or $-\\frac{1}{y}$?" },
+                    { "text": "$\\ln|y| = x + C$", "rationale": "A logarithm comes from $\\int \\frac{1}{y}\\,dy$. Which power did you actually separate?" },
+                    { "text": "$y = x + C$", "rationale": "Integrating $y^{-2}$ does not return $y$. What is the antiderivative of $y^{-2}$?" }
+                ]
+            },
+            {
+                "id": "um_2_6",
+                "prompt": "When solving $\\frac{dy}{dx} = y^{2}$ by dividing by $y^{2}$, which solution is lost?",
+                "hint": "Dividing by $y^{2}$ assumes $y$ is not zero. Test whether a constant $y$ solves the equation.",
+                "answerOptions": [
+                    { "text": "The constant solution $y = 0$", "correct": true, "rationale": "Correct. $y = 0$ satisfies the equation but is removed when you divide by $y^{2}$." },
+                    { "text": "The solution $y = x$", "rationale": "Substitute it back, does $1 = x^{2}$ hold for all $x$? Which constant value is the dropped one?" },
+                    { "text": "No solution is lost", "rationale": "Dividing by $y^{2}$ assumes $y \\neq 0$. What value does that exclude?" },
+                    { "text": "The solution $y = x^{2}$", "rationale": "The lost solution is a constant. What constant value of $y$ makes the right side zero?" }
+                ]
+            },
+            {
+                "id": "um_2_7",
+                "prompt": "Solve $\\frac{dy}{dx} = y\\cos x$.",
+                "hint": "Separate to $\\frac{1}{y}\\,dy = \\cos x\\,dx$, integrate, then exponentiate.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{\\sin x}$", "correct": true, "rationale": "Correct. $\\ln|y| = \\sin x + C$, so $y = Ce^{\\sin x}$." },
+                    { "text": "$y = Ce^{\\cos x}$", "rationale": "Check the antiderivative of $\\cos x$. Is it $\\sin x$ or $\\cos x$?" },
+                    { "text": "$y = Ce^{-\\sin x}$", "rationale": "Does integrating $\\cos x$ introduce a minus sign? Check the antiderivative." },
+                    { "text": "$y = \\sin x + C$", "rationale": "The left side gave $\\ln|y|$. How do you isolate $y$ from that?" }
+                ]
+            },
+            {
+                "id": "um_2_8",
+                "prompt": "What is the standard form of a first order linear differential equation?",
+                "hint": "The derivative must have coefficient one, with the $y$ term linear.",
+                "answerOptions": [
+                    { "text": "$\\frac{dy}{dx} + P(x)y = Q(x)$", "correct": true, "rationale": "Correct. This is the form from which $P$, $Q$, and the integrating factor are read." },
+                    { "text": "$\\frac{dy}{dx} + P(x)y^{2} = Q(x)$", "rationale": "A squared $y$ is nonlinear. To what power may $y$ appear?" },
+                    { "text": "$\\frac{dy}{dx} = P(x)Q(y)$", "rationale": "That is the separable form, not the linear one. How do the $y$ term and the right side appear in linear form?" },
+                    { "text": "$P(x)\\frac{dy}{dx} + y = 0$", "rationale": "Standard form needs the derivative coefficient to be one. What must $P(x)$ multiply instead?" }
+                ]
+            },
+            {
+                "id": "um_2_9",
+                "prompt": "Find the integrating factor for $\\frac{dy}{dx} + 3y = x$.",
+                "hint": "The factor is $e^{\\int P\\,dx}$ with $P = 3$.",
+                "answerOptions": [
+                    { "text": "$e^{3x}$", "correct": true, "rationale": "Correct. $\\int 3\\,dx = 3x$, so the factor is $e^{3x}$." },
+                    { "text": "$e^{x}$", "rationale": "That uses the right side, not $P$. What is $\\int 3\\,dx$?" },
+                    { "text": "$3x$", "rationale": "That is the exponent only. What must wrap around it to form the factor?" },
+                    { "text": "$e^{3}$", "rationale": "Where did $x$ go? What is $\\int 3\\,dx$ in terms of $x$?" }
+                ]
+            },
+            {
+                "id": "um_2_10",
+                "prompt": "Find the integrating factor for $\\frac{dy}{dx} + \\frac{2}{x}y = x$.",
+                "hint": "Integrate $P = \\frac{2}{x}$ to get $2\\ln|x|$, then exponentiate using $e^{2\\ln|x|} = x^{2}$.",
+                "answerOptions": [
+                    { "text": "$x^{2}$", "correct": true, "rationale": "Correct. $e^{\\int (2/x)\\,dx} = e^{2\\ln|x|} = x^{2}$." },
+                    { "text": "$2\\ln|x|$", "rationale": "That is the exponent before exponentiating. What does $e^{2\\ln|x|}$ simplify to?" },
+                    { "text": "$e^{2x}$", "rationale": "That comes from $\\int 2\\,dx$, not $\\int \\frac{2}{x}\\,dx$. What is the integral of $\\frac{2}{x}$?" },
+                    { "text": "$x$", "rationale": "You exponentiated $\\ln|x|$ but lost the factor of $2$. What is $e^{2\\ln|x|}$?" }
+                ]
+            },
+            {
+                "id": "um_2_11",
+                "prompt": "The integrating factor for a first order linear equation is which expression?",
+                "hint": "It is the exponential of the integral of the coefficient of $y$.",
+                "answerOptions": [
+                    { "text": "$e^{\\int P(x)\\,dx}$", "correct": true, "rationale": "Correct. This is exactly what makes the left side a perfect derivative." },
+                    { "text": "$e^{\\int Q(x)\\,dx}$", "rationale": "The factor uses the coefficient of $y$, not the right side. Which function is that?" },
+                    { "text": "$\\int P(x)\\,dx$", "rationale": "The integral alone is just the exponent. What operation surrounds it?" },
+                    { "text": "$P(x)Q(x)$", "rationale": "A product of $P$ and $Q$ is not the factor. What exponential form is required?" }
+                ]
+            },
+            {
+                "id": "um_2_12",
+                "prompt": "After multiplying a linear equation by the integrating factor $\\mu$, the left side equals which derivative?",
+                "hint": "The factor is chosen so the product rule collapses two terms into one derivative.",
+                "answerOptions": [
+                    { "text": "$\\frac{d}{dx}[\\mu y]$", "correct": true, "rationale": "Correct. The left side becomes the derivative of the product $\\mu y$." },
+                    { "text": "$\\frac{d}{dx}[\\mu]$", "rationale": "The $y$ is part of the product. What product does the derivative act on?" },
+                    { "text": "$\\mu\\frac{dy}{dx}$", "rationale": "That is only one term of the product rule. What full product derivative appears?" },
+                    { "text": "$\\frac{d}{dx}[y]$", "rationale": "The factor $\\mu$ does not disappear. What product does the left side become a derivative of?" }
+                ]
+            },
+            {
+                "id": "um_2_13",
+                "prompt": "Solve $\\frac{dy}{dx} + y = 0$.",
+                "hint": "This is linear and separable, $\\frac{1}{y}\\,dy = -dx$.",
+                "answerOptions": [
+                    { "text": "$y = Ce^{-x}$", "correct": true, "rationale": "Correct. $\\ln|y| = -x + C$, so $y = Ce^{-x}$." },
+                    { "text": "$y = Ce^{x}$", "rationale": "Check the sign. Moving $y$ across gives a rate of $-1$, so which sign is in the exponent?" },
+                    { "text": "$y = -x + C$", "rationale": "The left side integrates to $\\ln|y|$. How do you undo the logarithm?" },
+                    { "text": "$y = e^{-x} + C$", "rationale": "Where should the arbitrary constant sit, as a multiplier or an addend?" }
+                ]
+            },
+            {
+                "id": "um_2_14",
+                "prompt": "Solve $\\frac{dy}{dx} + 2y = 4$ using the integrating factor $e^{2x}$.",
+                "hint": "Multiply through, integrate $\\frac{d}{dx}[e^{2x}y] = 4e^{2x}$, then divide by $e^{2x}$.",
+                "answerOptions": [
+                    { "text": "$y = 2 + Ce^{-2x}$", "correct": true, "rationale": "Correct. $e^{2x}y = 2e^{2x} + C$, so $y = 2 + Ce^{-2x}$." },
+                    { "text": "$y = 4 + Ce^{-2x}$", "rationale": "Check $\\int 4e^{2x}\\,dx$. Dividing by $2$ turns the $4$ into what?" },
+                    { "text": "$y = 2 + Ce^{2x}$", "rationale": "After dividing by $e^{2x}$, what sign does the exponent on the constant term carry?" },
+                    { "text": "$y = 2e^{-2x} + C$", "rationale": "Divide $2e^{2x} + C$ by $e^{2x}$ term by term. Which term becomes constant?" }
+                ]
+            },
+            {
+                "id": "um_2_15",
+                "prompt": "The general solution is $y = Ce^{-3t}$. If $y(0) = 7$, find $C$.",
+                "hint": "Set $t = 0$ and use $e^{0} = 1$.",
+                "answerOptions": [
+                    { "text": "$C = 7$", "correct": true, "rationale": "Correct. At $t = 0$, $y = Ce^{0} = C = 7$." },
+                    { "text": "$C = 0$", "rationale": "Does $e^{0}$ vanish or equal one? Evaluate at $t = 0$." },
+                    { "text": "$C = -21$", "rationale": "There is no factor of $-3$ at $t = 0$. What is $Ce^{0}$?" },
+                    { "text": "$C = \\frac{7}{3}$", "rationale": "The $-3$ is in the exponent, not a divisor. What does $Ce^{0}$ equal?" }
+                ]
+            },
+            {
+                "id": "um_2_16",
+                "prompt": "Solve the initial value problem $\\frac{dy}{dx} = 4x$ with $y(0) = 2$.",
+                "hint": "Integrate to get the general solution, then apply $y(0) = 2$.",
+                "answerOptions": [
+                    { "text": "$y = 2x^{2} + 2$", "correct": true, "rationale": "Correct. $\\int 4x\\,dx = 2x^{2} + C$, and $y(0) = 2$ gives $C = 2$." },
+                    { "text": "$y = 4x^{2} + 2$", "rationale": "Check $\\int 4x\\,dx$. Does it give $2x^{2}$ or $4x^{2}$?" },
+                    { "text": "$y = 2x^{2}$", "rationale": "You found the antiderivative but dropped the condition. What constant makes $y(0) = 2$?" },
+                    { "text": "$y = 2x^{2} + C$", "rationale": "The condition $y(0) = 2$ fixes $C$. What number does it become?" }
+                ]
+            },
+            {
+                "id": "um_2_17",
+                "prompt": "Solve $\\frac{dy}{dx} = 5y$ with $y(0) = 3$.",
+                "hint": "The general solution is $y = Ce^{5x}$. Apply the condition.",
+                "answerOptions": [
+                    { "text": "$y = 3e^{5x}$", "correct": true, "rationale": "Correct. $y = Ce^{5x}$ and $y(0) = C = 3$." },
+                    { "text": "$y = 3e^{x}$", "rationale": "The rate constant is $5$. What belongs in the exponent?" },
+                    { "text": "$y = 5e^{3x}$", "rationale": "Which number is the rate and which is the initial value? Check both positions." },
+                    { "text": "$y = e^{5x} + 3$", "rationale": "The constant here multiplies the exponential. Where does the $3$ belong?" }
+                ]
+            },
+            {
+                "id": "um_2_18",
+                "prompt": "How many initial conditions does a first order initial value problem need for a unique solution?",
+                "hint": "Count the arbitrary constants in a first order general solution.",
+                "answerOptions": [
+                    { "text": "One", "correct": true, "rationale": "Correct. A first order general solution has one constant, fixed by one condition." },
+                    { "text": "Two", "rationale": "That matches a second order equation. How many constants does first order carry?" },
+                    { "text": "Zero", "rationale": "Without a condition the constant stays free. How many are needed to fix it?" },
+                    { "text": "It depends on $Q(x)$", "rationale": "The count comes from the order, not the right side. How many constants appear in a first order solution?" }
+                ]
+            },
+            {
+                "id": "um_2_19",
+                "prompt": "What is the difference between the general solution and a particular solution?",
+                "hint": "One carries an arbitrary constant, the other has fixed it with a condition.",
+                "answerOptions": [
+                    { "text": "The general solution contains an arbitrary constant, a particular solution has it fixed by a condition", "correct": true, "rationale": "Correct. The particular solution is one chosen member of the general family." },
+                    { "text": "The general solution satisfies the equation, a particular solution does not", "rationale": "Both satisfy the equation. What differs is the status of the constant. Which one is fixed?" },
+                    { "text": "The particular solution contains the arbitrary constant", "rationale": "That is backwards. Which solution still carries the free constant?" },
+                    { "text": "They are the same thing", "rationale": "One is a family, one is a single curve. What determines which member you have?" }
+                ]
+            },
+            {
+                "id": "um_2_20",
+                "prompt": "What is the degree of homogeneity of $f(x,y) = x^{2}y + y^{3}$?",
+                "hint": "Find the total degree of each term after scaling $x$ and $y$ by $t$.",
+                "answerOptions": [
+                    { "text": "Degree $3$", "correct": true, "rationale": "Correct. Both $x^{2}y$ and $y^{3}$ have total degree three, so $f(tx,ty) = t^{3}f(x,y)$." },
+                    { "text": "Degree $2$", "rationale": "Add the exponents in $x^{2}y$. Do they total two or three?" },
+                    { "text": "Degree $5$", "rationale": "Do you add exponents within a term or across terms? What is the degree of $x^{2}y$?" },
+                    { "text": "Not homogeneous", "rationale": "Both terms share the same total degree. What is that degree?" }
+                ]
+            },
+            {
+                "id": "um_2_21",
+                "prompt": "A function $f(x,y)$ is homogeneous of degree $n$ when which holds?",
+                "hint": "Scale both inputs by $t$ and read the power of $t$ that factors out.",
+                "answerOptions": [
+                    { "text": "$f(tx, ty) = t^{n}f(x,y)$", "correct": true, "rationale": "Correct. The factor $t^{n}$ defines the degree of homogeneity." },
+                    { "text": "$f(tx, ty) = nf(x,y)$", "rationale": "The factor is a power of $t$, not the bare $n$. What appears out front?" },
+                    { "text": "$f(x+t, y+t) = t^{n}f(x,y)$", "rationale": "Homogeneity scales rather than shifts the inputs. Multiply or add $t$?" },
+                    { "text": "$f(tx, ty) = t f(x,y)^{n}$", "rationale": "The power belongs on $t$, not on $f$. Where does the exponent $n$ go?" }
+                ]
+            },
+            {
+                "id": "um_2_22",
+                "prompt": "To solve a homogeneous first order equation, which substitution reduces it to a separable one?",
+                "hint": "Introduce a variable equal to $\\frac{y}{x}$.",
+                "answerOptions": [
+                    { "text": "$y = vx$", "correct": true, "rationale": "Correct. With $v = \\frac{y}{x}$, the equation becomes separable in $v$ and $x$." },
+                    { "text": "$y = v + x$", "rationale": "Homogeneous equations depend on the ratio $\\frac{y}{x}$. Product or sum?" },
+                    { "text": "$u = e^{y}$", "rationale": "That substitution suits a different family. What captures the ratio $\\frac{y}{x}$?" },
+                    { "text": "$v = y - x$", "rationale": "A difference does not isolate the ratio. What relation gives $\\frac{y}{x}$?" }
+                ]
+            },
+            {
+                "id": "um_2_23",
+                "prompt": "If $y = vx$ with $v$ a function of $x$, what is $\\frac{dy}{dx}$?",
+                "hint": "Apply the product rule to $vx$.",
+                "answerOptions": [
+                    { "text": "$v + x\\frac{dv}{dx}$", "correct": true, "rationale": "Correct. The product rule gives both terms." },
+                    { "text": "$x\\frac{dv}{dx}$", "rationale": "You have one term. What term comes from differentiating the $x$ factor?" },
+                    { "text": "$v\\frac{dv}{dx}$", "rationale": "The factor $x$, not $v$, multiplies the derivative. Recheck the product rule." },
+                    { "text": "$\\frac{dv}{dx}$", "rationale": "A product of two $x$ dependent factors gives two terms. Which are they?" }
+                ]
+            },
+            {
+                "id": "um_2_24",
+                "prompt": "Solve $\\frac{dy}{dx} = \\frac{x + y}{x}$ using $y = vx$.",
+                "hint": "The right side is $1 + v$; after substitution the $v$ terms cancel to give $x\\frac{dv}{dx} = 1$.",
+                "answerOptions": [
+                    { "text": "$y = x\\ln|x| + Cx$", "correct": true, "rationale": "Correct. $x v' = 1$ gives $v = \\ln|x| + C$, so $y = x\\ln|x| + Cx$." },
+                    { "text": "$y = Cx$", "rationale": "The constant solution drops the logarithm. Did $x v' = 1$ integrate to a log term?" },
+                    { "text": "$y = x + C$", "rationale": "After cancelling $v$ you get $x v' = 1$. What is $\\int \\frac{1}{x}\\,dx$?" },
+                    { "text": "$y = \\ln|x| + C$", "rationale": "Remember to multiply $v$ by $x$ to recover $y$. What does $y = vx$ give?" }
+                ]
+            },
+            {
+                "id": "um_2_25",
+                "prompt": "Newton's law of cooling is written as which differential equation?",
+                "hint": "The rate depends on the gap between the object and its surroundings $T_{s}$.",
+                "answerOptions": [
+                    { "text": "$\\frac{dT}{dt} = -k(T - T_{s})$", "correct": true, "rationale": "Correct. The negative sign drives the temperature toward $T_{s}$." },
+                    { "text": "$\\frac{dT}{dt} = -kT$", "rationale": "That ignores the surroundings. What difference should the rate use?" },
+                    { "text": "$\\frac{dT}{dt} = k(T_{s} - T)^{2}$", "rationale": "The law is linear in the temperature difference, not squared. What power appears?" },
+                    { "text": "$\\frac{dT}{dt} = -kt$", "rationale": "The rate depends on temperature, not on time directly. What difference belongs here?" }
+                ]
+            },
+            {
+                "id": "um_2_26",
+                "prompt": "For Newton's law of cooling, what does $T(t)$ approach as $t \\to \\infty$?",
+                "hint": "The exponential term decays away, leaving the constant.",
+                "answerOptions": [
+                    { "text": "The surrounding temperature $T_{s}$", "correct": true, "rationale": "Correct. The object settles at the temperature of its surroundings." },
+                    { "text": "The initial temperature $T_{0}$", "rationale": "The object leaves $T_{0}$ as it cools. What does it approach instead?" },
+                    { "text": "Zero", "rationale": "Only the decaying term goes to zero. What constant remains?" },
+                    { "text": "Infinity", "rationale": "A cooling object does not heat without bound. What finite value does it reach?" }
+                ]
+            },
+            {
+                "id": "um_2_27",
+                "prompt": "The growth model $\\frac{dP}{dt} = kP$ has which solution?",
+                "hint": "A rate proportional to the amount gives an exponential.",
+                "answerOptions": [
+                    { "text": "$P = P_{0}e^{kt}$", "correct": true, "rationale": "Correct. The exponential is the function whose rate is proportional to itself." },
+                    { "text": "$P = P_{0} + kt$", "rationale": "That is linear growth with constant rate. Does $kP$ give a constant rate?" },
+                    { "text": "$P = P_{0}t^{k}$", "rationale": "A power of $t$ does not match a rate proportional to $P$. Which function reproduces itself?" },
+                    { "text": "$P = kP_{0}e^{t}$", "rationale": "The constant $k$ belongs in the exponent, not out front. Where should it sit?" }
+                ]
+            },
+            {
+                "id": "um_2_28",
+                "prompt": "For $P = P_{0}e^{kt}$ with $k > 0$, the doubling time satisfies $e^{kt} = 2$. What is $t$?",
+                "hint": "Take the natural logarithm of both sides.",
+                "answerOptions": [
+                    { "text": "$t = \\frac{\\ln 2}{k}$", "correct": true, "rationale": "Correct. $kt = \\ln 2$ gives $t = \\frac{\\ln 2}{k}$." },
+                    { "text": "$t = \\frac{2}{k}$", "rationale": "Undo the exponential with a logarithm. What is $\\ln(e^{kt})$?" },
+                    { "text": "$t = k\\ln 2$", "rationale": "When solving $kt = \\ln 2$, does $k$ multiply or divide?" },
+                    { "text": "$t = 2k$", "rationale": "That ignores the logarithm entirely. How do you isolate $t$ from $e^{kt} = 2$?" }
+                ]
+            },
+            {
+                "id": "um_2_29",
+                "prompt": "In the model $P = P_{0}e^{kt}$, a negative value of $k$ describes what?",
+                "hint": "A negative exponent makes the exponential shrink over time.",
+                "answerOptions": [
+                    { "text": "Exponential decline of the population", "correct": true, "rationale": "Correct. With $k < 0$ the population decays toward zero." },
+                    { "text": "Exponential growth", "rationale": "Growth needs a positive exponent. What does a negative $k$ produce?" },
+                    { "text": "A constant population", "rationale": "A constant population would need $k = 0$. What does $k < 0$ give?" },
+                    { "text": "Oscillation", "rationale": "A real exponential does not oscillate. What does a negative rate do to the amount?" }
+                ]
+            },
+            {
+                "id": "um_2_30",
+                "prompt": "A bacterial colony follows $P = 500e^{0.03t}$. What is the initial population?",
+                "hint": "Set $t = 0$ and evaluate $e^{0}$.",
+                "answerOptions": [
+                    { "text": "$500$", "correct": true, "rationale": "Correct. At $t = 0$, $P = 500e^{0} = 500$." },
+                    { "text": "$515$", "rationale": "The $0.03$ is the rate, not added at the start. What is $500e^{0}$?" },
+                    { "text": "$15$", "rationale": "The coefficient $500$ multiplies $e^{0}$. What does that give at $t = 0$?" },
+                    { "text": "$503$", "rationale": "Do not add the rate to the coefficient. What is $500e^{0}$?" }
                 ]
             }
         ]
