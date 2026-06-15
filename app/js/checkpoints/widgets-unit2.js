@@ -130,7 +130,7 @@
                 "The equation 3 = C times e^0 leaves no freedom at all. What value is C forced to take?"
             ]
         }, function (body, api) {
-            const calc = CheckpointCore.desmosGraph(body, {});
+            const calc = CheckpointCore.desmosGraph(body, { expressions: true });
             if (!calc) return;
 
             calc.setMathBounds({ left: -1.5, right: 5, bottom: -2, top: 6 });
@@ -208,7 +208,7 @@
                 "With the endpoints anchored, only the decay rate is left. Cooling means k is negative. Adjust k until the middle data points sit on the curve."
             ]
         }, function (body, api) {
-            const calc = CheckpointCore.desmosGraph(body, {});
+            const calc = CheckpointCore.desmosGraph(body, { expressions: true });
             if (!calc) return;
 
             calc.setMathBounds({ left: -1, right: 12, bottom: 0, top: 105 });
