@@ -13584,6 +13584,1446 @@ const QUIZ_DATA = {
                     { "text": "A source that repels trajectories", "rationale": "Damping attracts rather than repels. What stable behavior results?" }
                 ]
             }
+        ],
+
+        /* Unit 17, Module 17.1, video 1
+           "Initial Value Problem vs Boundary Value Problem" */
+        "Izmkk1Ry3Wc": [
+            {
+                "id": "mp_Izmkk1Ry3Wc_1",
+                "prompt": "What is the defining difference between an initial value problem and a boundary value problem?",
+                "hint": "Think about where along the interval the side conditions are imposed.",
+                "answerOptions": [
+                    { "text": "An IVP gives all conditions at one point; a BVP gives conditions at two different points", "correct": true, "rationale": "Yes. An initial value problem fixes the state at a single point, while a boundary value problem imposes conditions at two endpoints." },
+                    { "text": "An IVP is linear and a BVP is nonlinear", "rationale": "Linearity is unrelated to this distinction; both kinds can be linear. Where are the conditions specified in each?" },
+                    { "text": "An IVP has no solution but a BVP always does", "rationale": "Existence is not the dividing line, and BVPs need not have solutions. What about the location of the conditions?" },
+                    { "text": "An IVP is first order and a BVP is second order", "rationale": "Order does not separate them; both can be second order. What distinguishes where conditions are placed?" }
+                ]
+            },
+            {
+                "id": "mp_Izmkk1Ry3Wc_2",
+                "prompt": "Which side conditions on $y'' + y = 0$ make it a boundary value problem?",
+                "hint": "Look for conditions imposed at two distinct values of the variable.",
+                "answerOptions": [
+                    { "text": "$y(0) = 1$ and $y(\\pi) = 2$", "correct": true, "rationale": "Yes. Conditions at the two separate points $0$ and $\\pi$ make this a boundary value problem." },
+                    { "text": "$y(0) = 1$ and $y'(0) = 2$", "rationale": "Both of these are imposed at the single point $0$. Does that match an IVP or a BVP?" },
+                    { "text": "$y(0) = 1$ only", "rationale": "One condition underdetermines a second-order equation, and it sits at one point. What setup uses two endpoints?" },
+                    { "text": "$y'(0) = 1$ and $y''(0) = 2$", "rationale": "These are both at $0$ and use derivatives at one point. Which option places conditions at two points?" }
+                ]
+            },
+            {
+                "id": "mp_Izmkk1Ry3Wc_3",
+                "prompt": "How many side conditions does a second-order linear equation require to single out a particular solution?",
+                "hint": "The number of conditions matches the order of the equation.",
+                "answerOptions": [
+                    { "text": "Two", "correct": true, "rationale": "Yes. A second-order equation has two arbitrary constants, so two conditions are needed." },
+                    { "text": "One", "rationale": "One condition leaves an arbitrary constant unfixed. How many constants does the general solution carry?" },
+                    { "text": "Three", "rationale": "That exceeds the number of arbitrary constants. How many constants does a second-order general solution have?" },
+                    { "text": "Zero", "rationale": "Without conditions the solution stays general. How many constants must be pinned down?" }
+                ]
+            },
+            {
+                "id": "mp_Izmkk1Ry3Wc_4",
+                "prompt": "Compared with initial value problems, what is true of existence and uniqueness for boundary value problems?",
+                "hint": "Recall the IVP guarantee, then ask whether the two-endpoint setup keeps it.",
+                "answerOptions": [
+                    { "text": "A BVP may have no solution, one solution, or infinitely many", "correct": true, "rationale": "Yes. Unlike the IVP guarantee, a boundary value problem can fail to have a solution or can have many." },
+                    { "text": "A BVP always has exactly one solution", "rationale": "The clean IVP uniqueness does not carry over. What range of outcomes is possible at two endpoints?" },
+                    { "text": "A BVP never has a solution", "rationale": "Many boundary value problems do have solutions. What set of outcomes is actually possible?" },
+                    { "text": "A BVP has the same guarantee as an IVP", "rationale": "The two-endpoint structure breaks the IVP guarantee. What outcomes become possible?" }
+                ]
+            },
+            {
+                "id": "mp_Izmkk1Ry3Wc_5",
+                "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$ and $y'(0) = 1$ is which type?",
+                "hint": "Check whether both conditions sit at the same point.",
+                "answerOptions": [
+                    { "text": "An initial value problem", "correct": true, "rationale": "Yes. Both conditions are given at the single point $0$, so it is an initial value problem." },
+                    { "text": "A boundary value problem", "rationale": "A BVP needs conditions at two different points. Are these at one point or two?" },
+                    { "text": "Neither, since it has two conditions", "rationale": "Two conditions are exactly right for second order. Where are they placed here?" },
+                    { "text": "A partial differential equation", "rationale": "There is one independent variable, so it is an ODE. Where are its conditions located?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.1, video 2
+           "Boundary Conditions Replace Initial Conditions" */
+        "E97SZm2ZrBo": [
+            {
+                "id": "mp_E97SZm2ZrBo_1",
+                "prompt": "On an interval $[a, b]$, a typical pair of boundary conditions specifies what?",
+                "hint": "Boundary conditions live at the ends of the spatial interval.",
+                "answerOptions": [
+                    { "text": "Values (or derivative values) of $y$ at $x = a$ and at $x = b$", "correct": true, "rationale": "Yes. Boundary conditions constrain the solution at the two endpoints of the interval." },
+                    { "text": "The value and first derivative of $y$ at $x = a$ only", "rationale": "That is the initial-value pattern at one end. Where does the other condition belong for a BVP?" },
+                    { "text": "The values of $y$ at infinitely many interior points", "rationale": "Two conditions suffice for second order, placed at the ends. Which points carry them?" },
+                    { "text": "The coefficients of the differential equation", "rationale": "Coefficients define the equation, not the side conditions. What do boundary conditions constrain?" }
+                ]
+            },
+            {
+                "id": "mp_E97SZm2ZrBo_2",
+                "prompt": "A Dirichlet boundary condition specifies which quantity at an endpoint?",
+                "hint": "Dirichlet fixes the function value itself.",
+                "answerOptions": [
+                    { "text": "The value of $y$", "correct": true, "rationale": "Yes. A Dirichlet condition prescribes the value of the unknown function at the endpoint." },
+                    { "text": "The value of $y'$", "rationale": "Prescribing the derivative is a different (Neumann) condition. What does Dirichlet fix directly?" },
+                    { "text": "The value of $y''$", "rationale": "Second derivatives are not what boundary conditions usually set. Which quantity does Dirichlet name?" },
+                    { "text": "The integral of $y$ over the interval", "rationale": "An integral constraint is a different kind of condition. What pointwise value does Dirichlet give?" }
+                ]
+            },
+            {
+                "id": "mp_E97SZm2ZrBo_3",
+                "prompt": "A Neumann boundary condition specifies which quantity at an endpoint?",
+                "hint": "Neumann constrains the slope of the solution.",
+                "answerOptions": [
+                    { "text": "The value of the derivative $y'$", "correct": true, "rationale": "Yes. A Neumann condition prescribes the derivative of the function at the endpoint." },
+                    { "text": "The value of $y$", "rationale": "Fixing the value itself is the Dirichlet condition. What does Neumann fix instead?" },
+                    { "text": "The product $y \\, y'$", "rationale": "No nonlinear product is involved. Which single derivative does Neumann set?" },
+                    { "text": "The second derivative $y''$", "rationale": "Boundary conditions normally use $y$ or $y'$. Which one does Neumann name?" }
+                ]
+            },
+            {
+                "id": "mp_E97SZm2ZrBo_4",
+                "prompt": "A steady temperature distribution in a rod with both ends held at fixed temperatures is modeled by which kind of problem?",
+                "hint": "Conditions are imposed at the two ends of the rod.",
+                "answerOptions": [
+                    { "text": "A boundary value problem", "correct": true, "rationale": "Yes. Fixing the temperature at each end of the rod imposes conditions at two points, a boundary value problem." },
+                    { "text": "An initial value problem", "rationale": "The conditions are at the two ends in space, not at a single starting instant. What type is that?" },
+                    { "text": "A problem with no conditions", "rationale": "Two fixed end temperatures are two conditions. Where in the domain do they sit?" },
+                    { "text": "A purely algebraic equation", "rationale": "The model is a differential equation in position. What kind of side conditions does it carry?" }
+                ]
+            },
+            {
+                "id": "mp_E97SZm2ZrBo_5",
+                "prompt": "In many boundary value problems the independent variable represents what?",
+                "hint": "Boundary conditions are tied to the ends of a physical region.",
+                "answerOptions": [
+                    { "text": "A spatial position", "correct": true, "rationale": "Yes. Boundary value problems typically involve a spatial variable with conditions at the edges of the region." },
+                    { "text": "Always time", "rationale": "Time-based conditions at one instant give initial value problems. What variable do endpoints usually represent?" },
+                    { "text": "A probability", "rationale": "The variable is a physical coordinate, not a probability. What does it usually measure?" },
+                    { "text": "A dimensionless constant", "rationale": "The variable ranges over an interval with two ends. What does that interval usually represent?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.2, video 1
+           "Intro to Boundary Value Problems" */
+        "AnyGw-gOY0U": [
+            {
+                "id": "mp_AnyGw-gOY0U_1",
+                "prompt": "Solve $y'' = 0$ with $y(0) = 0$ and $y(1) = 2$.",
+                "hint": "The general solution of $y'' = 0$ is a straight line; fit the two endpoints.",
+                "answerOptions": [
+                    { "text": "$y = 2x$", "correct": true, "rationale": "Correct. The general solution is $y = c_1 + c_2 x$; $y(0) = 0$ gives $c_1 = 0$ and $y(1) = 2$ gives $c_2 = 2$." },
+                    { "text": "$y = 2$", "rationale": "A constant cannot satisfy both $y(0) = 0$ and $y(1) = 2$. What linear function fits both ends?" },
+                    { "text": "$y = x^2$", "rationale": "The general solution of $y'' = 0$ is linear, not quadratic. What line passes through $(0,0)$ and $(1,2)$?" },
+                    { "text": "$y = x$", "rationale": "This gives $y(1) = 1$, not $2$. What slope makes $y(1) = 2$ with $y(0) = 0$?" }
+                ]
+            },
+            {
+                "id": "mp_AnyGw-gOY0U_2",
+                "prompt": "What is the standard procedure for solving a linear two-point boundary value problem?",
+                "hint": "Find every solution first, then use the endpoints.",
+                "answerOptions": [
+                    { "text": "Find the general solution, then apply both boundary conditions to fix the constants", "correct": true, "rationale": "Yes. You build the general solution and then impose the two endpoint conditions to determine the constants." },
+                    { "text": "Apply the boundary conditions before solving the equation", "rationale": "You need the general solution in hand before the constants can be fixed. What comes first?" },
+                    { "text": "Differentiate the boundary conditions", "rationale": "The conditions are used as given, not differentiated. What do you do with the general solution?" },
+                    { "text": "Guess the answer and check only one endpoint", "rationale": "Both endpoints must be satisfied. What systematic procedure uses the general solution?" }
+                ]
+            },
+            {
+                "id": "mp_AnyGw-gOY0U_3",
+                "prompt": "Solve $y'' + y = 0$ with $y(0) = 0$ and $y(\\pi/2) = 1$.",
+                "hint": "The general solution is $y = A\\cos x + B\\sin x$; apply each condition.",
+                "answerOptions": [
+                    { "text": "$y = \\sin x$", "correct": true, "rationale": "Correct. $y(0) = 0$ forces $A = 0$, and $y(\\pi/2) = B = 1$, so $y = \\sin x$." },
+                    { "text": "$y = \\cos x$", "rationale": "Then $y(0) = 1$, violating $y(0) = 0$. Which trig function vanishes at $0$?" },
+                    { "text": "$y = \\sin x + \\cos x$", "rationale": "The cosine term makes $y(0) = 1 \\neq 0$. Which term must drop out?" },
+                    { "text": "$y = \\cos x - \\sin x$", "rationale": "The cosine piece breaks $y(0) = 0$. What remains after $A = 0$?" }
+                ]
+            },
+            {
+                "id": "mp_AnyGw-gOY0U_4",
+                "prompt": "A homogeneous boundary value problem such as $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ always admits which solution?",
+                "hint": "Ask what happens if the function is identically zero.",
+                "answerOptions": [
+                    { "text": "The trivial solution $y \\equiv 0$", "correct": true, "rationale": "Yes. The zero function satisfies the equation and both homogeneous boundary conditions for every $\\lambda$." },
+                    { "text": "A unique nonzero solution for every $\\lambda$", "rationale": "Nonzero solutions appear only for special $\\lambda$. What solution works for all $\\lambda$?" },
+                    { "text": "No solution at all", "rationale": "At least one solution always exists here. Which simple function always fits?" },
+                    { "text": "A constant nonzero solution", "rationale": "A nonzero constant cannot meet $y(0) = y(L) = 0$. What function does?" }
+                ]
+            },
+            {
+                "id": "mp_AnyGw-gOY0U_5",
+                "prompt": "For the homogeneous problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, nontrivial solutions exist only when what holds?",
+                "hint": "Only special separation values let a nonzero solution meet both ends.",
+                "answerOptions": [
+                    { "text": "$\\lambda$ takes one of certain special (eigenvalue) values", "correct": true, "rationale": "Yes. Nonzero solutions occur only at the discrete eigenvalues of the problem." },
+                    { "text": "$\\lambda$ is any real number", "rationale": "Most values give only the trivial solution. What kind of values allow nonzero solutions?" },
+                    { "text": "$\\lambda$ is negative", "rationale": "Negative $\\lambda$ yields only the trivial solution for these conditions. What special values work?" },
+                    { "text": "$\\lambda$ equals zero", "rationale": "At $\\lambda = 0$ the only solution is trivial here. Which discrete values permit nonzero solutions?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.2, video 2
+           "Two-Point Boundary Value Problems" */
+        "8y0IcYqPIgA": [
+            {
+                "id": "mp_8y0IcYqPIgA_1",
+                "prompt": "How many boundary conditions does a second-order two-point boundary value problem carry?",
+                "hint": "The count matches the order of the differential equation.",
+                "answerOptions": [
+                    { "text": "Two, one at each endpoint", "correct": true, "rationale": "Yes. A second-order equation needs two conditions, here placed one at each end." },
+                    { "text": "One, at the left endpoint", "rationale": "One condition underdetermines second order. How many endpoints carry a condition?" },
+                    { "text": "Three, two at one end and one at the other", "rationale": "That exceeds the number of constants to fix. How many conditions does second order need?" },
+                    { "text": "Four, two at each endpoint", "rationale": "Only two constants exist to determine. How many conditions are required?" }
+                ]
+            },
+            {
+                "id": "mp_8y0IcYqPIgA_2",
+                "prompt": "Solve $y'' = 6x$ with $y(0) = 0$ and $y(1) = 1$.",
+                "hint": "Integrate twice to get $y = x^3 + c_1 x + c_2$, then apply the endpoints.",
+                "answerOptions": [
+                    { "text": "$y = x^3$", "correct": true, "rationale": "Correct. Integrating gives $y = x^3 + c_1 x + c_2$; $y(0) = 0$ gives $c_2 = 0$ and $y(1) = 1 + c_1 = 1$ gives $c_1 = 0$." },
+                    { "text": "$y = x^3 + x$", "rationale": "Then $y(1) = 2$, not $1$. What value of $c_1$ makes $y(1) = 1$?" },
+                    { "text": "$y = 3x^2$", "rationale": "That is $y'$, not the solution of $y'' = 6x$. What do you get after integrating twice?" },
+                    { "text": "$y = x^3 + 1$", "rationale": "This violates $y(0) = 0$. What constant term satisfies the left endpoint?" }
+                ]
+            },
+            {
+                "id": "mp_8y0IcYqPIgA_3",
+                "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$ and $y(\\pi) = 0$ has how many solutions?",
+                "hint": "Apply $y(0) = 0$ to $y = A\\cos x + B\\sin x$, then test the second condition.",
+                "answerOptions": [
+                    { "text": "Infinitely many, $y = B\\sin x$ for any $B$", "correct": true, "rationale": "Yes. $y(0) = 0$ gives $A = 0$, and $y(\\pi) = B\\sin\\pi = 0$ holds for every $B$, so all $B\\sin x$ work." },
+                    { "text": "Exactly one, $y \\equiv 0$", "rationale": "The second condition is satisfied automatically by $\\sin x$. What family of nonzero solutions survives?" },
+                    { "text": "None", "rationale": "At least $y \\equiv 0$ works, and in fact more do. What does $y(\\pi) = B\\sin\\pi = 0$ allow?" },
+                    { "text": "Exactly two", "rationale": "The free constant $B$ is unrestricted here. How many values can $B$ take?" }
+                ]
+            },
+            {
+                "id": "mp_8y0IcYqPIgA_4",
+                "prompt": "When a homogeneous two-point problem yields only $y \\equiv 0$, the boundary value problem is called what?",
+                "hint": "Compare with the eigenvalue case where nonzero solutions appear.",
+                "answerOptions": [
+                    { "text": "It has only the trivial solution (the value is not an eigenvalue)", "correct": true, "rationale": "Yes. If the parameter is not an eigenvalue, the trivial solution is the only one." },
+                    { "text": "It has infinitely many solutions", "rationale": "Infinitely many appear only at eigenvalues. What is true when only zero solves it?" },
+                    { "text": "It is an initial value problem", "rationale": "It is still a boundary value problem. What does getting only $y \\equiv 0$ tell you about the parameter?" },
+                    { "text": "It is unsolvable", "rationale": "The zero function is a valid solution. What name fits when it is the only one?" }
+                ]
+            },
+            {
+                "id": "mp_8y0IcYqPIgA_5",
+                "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(L) = 0$, the parameter values giving nonzero solutions are which?",
+                "hint": "The sine must vanish at $x = L$, forcing $\\sqrt{\\lambda}\\,L$ to be a multiple of $\\pi$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2$ for $n = 1, 2, 3, \\dots$", "correct": true, "rationale": "Correct. With $A = 0$, requiring $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\sqrt{\\lambda}\\,L = n\\pi$, so $\\lambda_n = (n\\pi/L)^2$." },
+                    { "text": "$\\lambda_n = \\frac{n\\pi}{L}$", "rationale": "The condition $\\sin(\\sqrt{\\lambda}\\,L) = 0$ involves the square root of $\\lambda$. What must you square to solve for $\\lambda$?" },
+                    { "text": "$\\lambda_n = n\\pi L$", "rationale": "Solve $\\sqrt{\\lambda}\\,L = n\\pi$ for $\\lambda$, dividing by $L$ first. What expression results?" },
+                    { "text": "$\\lambda_n = n^2$ for any $L$", "rationale": "That only holds when $L = \\pi$. How does the length $L$ enter the formula?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.3, video 1
+           "Introduction to Finding Eigenvalues and Eigenfunctions of Boundary Value Problems" */
+        "vGwyyXWGR3Y": [
+            {
+                "id": "mp_vGwyyXWGR3Y_1",
+                "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(L) = 0$, what are the eigenvalues?",
+                "hint": "Nontrivial sines must vanish at both ends.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2$, $n = 1, 2, 3, \\dots$", "correct": true, "rationale": "Correct. The condition $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\sqrt{\\lambda}\\,L = n\\pi$, hence $\\lambda_n = (n\\pi/L)^2$." },
+                    { "text": "$\\lambda_n = n\\pi/L$", "rationale": "You must square the relation $\\sqrt{\\lambda}\\,L = n\\pi$. What is $\\lambda$ itself?" },
+                    { "text": "$\\lambda_n = -\\left(\\frac{n\\pi}{L}\\right)^2$", "rationale": "Negative values give only the trivial solution here. What sign of $\\lambda$ produces oscillating sines?" },
+                    { "text": "$\\lambda_n = (n\\pi)^2$", "rationale": "The interval length $L$ must appear. How does $L$ enter the eigenvalue?" }
+                ]
+            },
+            {
+                "id": "mp_vGwyyXWGR3Y_2",
+                "prompt": "The eigenfunctions of $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ are which functions?",
+                "hint": "They must vanish at both endpoints.",
+                "answerOptions": [
+                    { "text": "$y_n(x) = \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)$", "correct": true, "rationale": "Correct. These sines vanish at $x = 0$ and $x = L$, matching the boundary conditions." },
+                    { "text": "$y_n(x) = \\cos\\!\\left(\\frac{n\\pi x}{L}\\right)$", "rationale": "Cosine does not vanish at $x = 0$. Which function is zero at both ends?" },
+                    { "text": "$y_n(x) = e^{n x}$", "rationale": "Exponentials do not satisfy these zero boundary conditions. What oscillatory function does?" },
+                    { "text": "$y_n(x) = x^n$", "rationale": "Powers of $x$ do not vanish at $x = L$ in general. What sine fits both endpoints?" }
+                ]
+            },
+            {
+                "id": "mp_vGwyyXWGR3Y_3",
+                "prompt": "For the interval length $L = \\pi$, the eigenvalues of $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$ are which numbers?",
+                "hint": "Set $L = \\pi$ in $\\lambda_n = (n\\pi/L)^2$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = n^2$, $n = 1, 2, 3, \\dots$", "correct": true, "rationale": "Correct. With $L = \\pi$, $(n\\pi/\\pi)^2 = n^2$." },
+                    { "text": "$\\lambda_n = n$", "rationale": "The formula squares the index. What is $(n\\pi/\\pi)^2$?" },
+                    { "text": "$\\lambda_n = \\pi^2 n^2$", "rationale": "The factors of $\\pi$ cancel when $L = \\pi$. What is left after cancelling?" },
+                    { "text": "$\\lambda_n = 2n$", "rationale": "There is no factor of $2$ here. What does $n^2$ give for the eigenvalues?" }
+                ]
+            },
+            {
+                "id": "mp_vGwyyXWGR3Y_4",
+                "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, what do $\\lambda = 0$ and $\\lambda < 0$ produce?",
+                "hint": "Check whether linear or exponential solutions can vanish at both ends.",
+                "answerOptions": [
+                    { "text": "Only the trivial solution $y \\equiv 0$", "correct": true, "rationale": "Yes. For $\\lambda \\le 0$ the solutions are lines or hyperbolic functions, which cannot vanish at both ends except trivially." },
+                    { "text": "New families of nonzero eigenfunctions", "rationale": "Nonzero solutions need oscillation, which requires positive $\\lambda$. What do nonpositive $\\lambda$ give?" },
+                    { "text": "Infinitely many sine modes", "rationale": "Sine modes require $\\lambda > 0$. What is the only solution when $\\lambda \\le 0$?" },
+                    { "text": "Complex eigenfunctions", "rationale": "The solutions here are real. What real solution survives for $\\lambda \\le 0$?" }
+                ]
+            },
+            {
+                "id": "mp_vGwyyXWGR3Y_5",
+                "prompt": "An eigenvalue of a boundary value problem is best defined as what?",
+                "hint": "It is the parameter value that unlocks a nonzero solution.",
+                "answerOptions": [
+                    { "text": "A value of $\\lambda$ for which the problem has a nontrivial solution", "correct": true, "rationale": "Yes. Eigenvalues are exactly the parameter values admitting a nonzero solution." },
+                    { "text": "Any root of the differential equation", "rationale": "The equation has no roots in that sense; the parameter is what matters. What does an eigenvalue unlock?" },
+                    { "text": "The slope of the solution at the origin", "rationale": "A slope is not a parameter value. What property of $\\lambda$ defines an eigenvalue?" },
+                    { "text": "The maximum value of the solution", "rationale": "The peak value is not the definition. What must exist for $\\lambda$ to be an eigenvalue?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.3, video 2
+           "Two-point boundary value problem, introduction and examples" */
+        "Elk0gjSd4c8": [
+            {
+                "id": "mp_Elk0gjSd4c8_1",
+                "prompt": "For $y'' + \\lambda y = 0$ with Neumann conditions $y'(0) = 0$ and $y'(L) = 0$, the eigenfunctions are which functions?",
+                "hint": "The derivative must vanish at both ends.",
+                "answerOptions": [
+                    { "text": "$y_n(x) = \\cos\\!\\left(\\frac{n\\pi x}{L}\\right)$, $n = 0, 1, 2, \\dots$", "correct": true, "rationale": "Correct. Cosines have zero slope at $x = 0$ and $x = L$, and $n = 0$ gives the constant mode." },
+                    { "text": "$y_n(x) = \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)$", "rationale": "Sine has nonzero slope at $x = 0$. Which function has zero derivative there?" },
+                    { "text": "$y_n(x) = e^{-n x}$", "rationale": "Exponentials do not meet zero-slope conditions at both ends. What oscillatory function does?" },
+                    { "text": "$y_n(x) = x\\cos(n x)$", "rationale": "A bare factor of $x$ spoils the slope condition at $0$. What pure cosine works?" }
+                ]
+            },
+            {
+                "id": "mp_Elk0gjSd4c8_2",
+                "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$, what is the smallest eigenvalue and its eigenfunction?",
+                "hint": "Use $n = 1$ with $L = \\pi$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_1 = 1$ with eigenfunction $\\sin x$", "correct": true, "rationale": "Correct. The lowest mode is $n = 1$, giving $\\lambda_1 = 1$ and $\\sin x$." },
+                    { "text": "$\\lambda_1 = 0$ with eigenfunction $1$", "rationale": "The constant function cannot vanish at the ends. What is the lowest sine mode?" },
+                    { "text": "$\\lambda_1 = \\pi$ with eigenfunction $\\sin(\\pi x)$", "rationale": "With $L = \\pi$ the eigenvalues are $n^2$. What does $n = 1$ give?" },
+                    { "text": "$\\lambda_1 = 2$ with eigenfunction $\\sin 2x$", "rationale": "That is the $n$ such that $n^2 = 4$ would not give $2$ either; check $n = 1$. What is $\\lambda_1$?" }
+                ]
+            },
+            {
+                "id": "mp_Elk0gjSd4c8_3",
+                "prompt": "How many eigenvalues does a regular two-point eigenvalue problem have?",
+                "hint": "Think about whether the modes ever stop.",
+                "answerOptions": [
+                    { "text": "Infinitely many, forming an increasing sequence", "correct": true, "rationale": "Yes. The eigenvalues form an infinite sequence increasing without bound." },
+                    { "text": "Exactly two", "rationale": "There is no fixed small count; the modes continue indefinitely. How many are there?" },
+                    { "text": "A single eigenvalue", "rationale": "One mode is far too few; higher harmonics exist. How many eigenvalues appear?" },
+                    { "text": "Finitely many, depending on $L$", "rationale": "The length scales the eigenvalues but does not cap their number. How many are there in total?" }
+                ]
+            },
+            {
+                "id": "mp_Elk0gjSd4c8_4",
+                "prompt": "As the mode number $n$ increases, the eigenvalues $\\lambda_n = (n\\pi/L)^2$ do what?",
+                "hint": "Track the behavior of $n^2$.",
+                "answerOptions": [
+                    { "text": "Increase without bound", "correct": true, "rationale": "Yes. Since $\\lambda_n$ grows like $n^2$, the eigenvalues tend to infinity." },
+                    { "text": "Approach a finite limit", "rationale": "There is no ceiling on $n^2$. What happens to $\\lambda_n$ as $n$ grows?" },
+                    { "text": "Decrease toward zero", "rationale": "Larger $n$ makes $(n\\pi/L)^2$ larger, not smaller. Which direction do they move?" },
+                    { "text": "Oscillate up and down", "rationale": "The sequence is monotonic in $n$. What single trend does $n^2$ follow?" }
+                ]
+            },
+            {
+                "id": "mp_Elk0gjSd4c8_5",
+                "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(2) = 0$, the eigenvalues are which?",
+                "hint": "Set $L = 2$ in $\\lambda_n = (n\\pi/L)^2$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = \\left(\\frac{n\\pi}{2}\\right)^2$", "correct": true, "rationale": "Correct. With $L = 2$, the eigenvalues are $(n\\pi/2)^2$ for $n = 1, 2, 3, \\dots$" },
+                    { "text": "$\\lambda_n = (n\\pi)^2$", "rationale": "The length $L = 2$ divides inside the square. Where does the $2$ go?" },
+                    { "text": "$\\lambda_n = \\frac{n\\pi}{2}$", "rationale": "You must square the quantity $n\\pi/2$. What is its square?" },
+                    { "text": "$\\lambda_n = n^2$", "rationale": "That corresponds to $L = \\pi$, not $L = 2$. How does $L = 2$ change the formula?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.4, video 1
+           "Shooting Method for Boundary Value Problems" */
+        "qIfxydBEdzg": [
+            {
+                "id": "mp_qIfxydBEdzg_1",
+                "prompt": "The core idea of the shooting method is to convert a boundary value problem into what?",
+                "hint": "It replaces a far-end condition with a guess at the start.",
+                "answerOptions": [
+                    { "text": "An initial value problem with a guessed initial slope", "correct": true, "rationale": "Yes. The method guesses the missing initial slope and integrates forward as an IVP." },
+                    { "text": "A system of algebraic equations only", "rationale": "Integration of an IVP is still required. What kind of problem does shooting solve repeatedly?" },
+                    { "text": "A partial differential equation", "rationale": "No new independent variable is introduced. What single-point problem replaces the BVP?" },
+                    { "text": "A purely graphical sketch", "rationale": "The method computes numerically, not by sketching. What initial-value form does it use?" }
+                ]
+            },
+            {
+                "id": "mp_qIfxydBEdzg_2",
+                "prompt": "In the shooting method, what is adjusted until the far boundary condition is met?",
+                "hint": "You vary the quantity you had to guess at the start.",
+                "answerOptions": [
+                    { "text": "The guessed initial slope (or missing initial value)", "correct": true, "rationale": "Yes. You tune the guessed initial slope until the solution hits the target at the far end." },
+                    { "text": "The differential equation itself", "rationale": "The equation stays fixed; only the guess changes. What unknown starting quantity is tuned?" },
+                    { "text": "The length of the interval", "rationale": "The interval is given by the problem. What free starting value do you adjust?" },
+                    { "text": "The order of the equation", "rationale": "The order is fixed. Which guessed initial datum gets varied?" }
+                ]
+            },
+            {
+                "id": "mp_qIfxydBEdzg_3",
+                "prompt": "Finding the correct initial slope amounts to solving which kind of problem?",
+                "hint": "You want the far-end mismatch to be zero.",
+                "answerOptions": [
+                    { "text": "A root-finding problem for the boundary mismatch as a function of the guess", "correct": true, "rationale": "Yes. You seek the guess that makes the endpoint error zero, a root-finding problem." },
+                    { "text": "A maximization problem", "rationale": "You want zero error, not a maximum. What value of the mismatch are you seeking?" },
+                    { "text": "An integration-by-parts problem", "rationale": "No integration by parts is involved. What condition on the mismatch must hold?" },
+                    { "text": "A matrix diagonalization", "rationale": "Diagonalization is not the tool here. What numerical goal does the slope satisfy?" }
+                ]
+            },
+            {
+                "id": "mp_qIfxydBEdzg_4",
+                "prompt": "For a linear boundary value problem, how many shots are needed to find the exact slope by interpolation?",
+                "hint": "Linear dependence on the guess means a straight-line fit.",
+                "answerOptions": [
+                    { "text": "Two shots, then linear interpolation", "correct": true, "rationale": "Yes. The endpoint value depends linearly on the guess, so two shots determine the exact slope by interpolation." },
+                    { "text": "A single shot", "rationale": "One shot gives one data point, not enough to interpolate. How many are needed for a line?" },
+                    { "text": "Infinitely many shots", "rationale": "Linearity makes the process finite. How many points define the needed line?" },
+                    { "text": "Exactly ten shots", "rationale": "There is no fixed count like ten; linearity needs only enough for a line. How many is that?" }
+                ]
+            },
+            {
+                "id": "mp_qIfxydBEdzg_5",
+                "prompt": "Each shot in the shooting method is carried out using what?",
+                "hint": "Forward integration of an initial value problem needs a numerical integrator.",
+                "answerOptions": [
+                    { "text": "A standard initial value problem solver such as Runge-Kutta", "correct": true, "rationale": "Yes. Each shot integrates the IVP numerically, typically with a Runge-Kutta method." },
+                    { "text": "A symbolic factoring routine", "rationale": "The steps are numerical integrations, not symbolic factoring. What solver advances each shot?" },
+                    { "text": "A Fourier series expansion", "rationale": "Fourier methods are not used for a single shot. What numerical integrator is used?" },
+                    { "text": "A determinant calculation", "rationale": "No determinant is computed per shot. What kind of solver integrates the IVP?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.4, video 2
+           "Boundary and Initial Value Problems" */
+        "tMO28AakkZ8": [
+            {
+                "id": "mp_tMO28AakkZ8_1",
+                "prompt": "If $y(b; s)$ is the computed endpoint value for guessed slope $s$ and the target is $\\beta$, what equation does shooting solve?",
+                "hint": "You want the computed endpoint to match the target.",
+                "answerOptions": [
+                    { "text": "$F(s) = y(b; s) - \\beta = 0$", "correct": true, "rationale": "Yes. The mismatch $F(s) = y(b; s) - \\beta$ is driven to zero to satisfy the far boundary condition." },
+                    { "text": "$F(s) = y(b; s) + \\beta = 0$", "rationale": "The condition is a match, so you subtract the target. What sign relates $y(b; s)$ and $\\beta$?" },
+                    { "text": "$F(s) = s - \\beta = 0$", "rationale": "The guess $s$ is a slope, not directly the endpoint value. What computed quantity must equal $\\beta$?" },
+                    { "text": "$F(s) = y(b; s)\\,\\beta = 0$", "rationale": "A product is not the condition. What difference should vanish?" }
+                ]
+            },
+            {
+                "id": "mp_tMO28AakkZ8_2",
+                "prompt": "For a nonlinear boundary value problem, the root $F(s) = 0$ is typically found using what?",
+                "hint": "Nonlinear mismatch functions call for iterative root finders.",
+                "answerOptions": [
+                    { "text": "An iterative method such as Newton's method or bisection", "correct": true, "rationale": "Yes. Nonlinear mismatch functions require iterative root finding like Newton or bisection." },
+                    { "text": "A single linear interpolation", "rationale": "Linear interpolation is exact only for linear problems. What is needed when $F$ is nonlinear?" },
+                    { "text": "Direct substitution with no iteration", "rationale": "A nonlinear root rarely yields to one substitution. What iterative tool is used?" },
+                    { "text": "Separation of variables", "rationale": "That technique applies to certain ODEs, not to root finding. What numerical iteration solves $F(s) = 0$?" }
+                ]
+            },
+            {
+                "id": "mp_tMO28AakkZ8_3",
+                "prompt": "A practical advantage of the shooting method is that it lets you reuse what?",
+                "hint": "It leans on machinery already built for one-point problems.",
+                "answerOptions": [
+                    { "text": "Robust, well-developed initial value problem integrators", "correct": true, "rationale": "Yes. Shooting reduces a BVP to repeated IVPs, reusing mature initial value solvers." },
+                    { "text": "Exact closed-form solution formulas", "rationale": "Closed forms are usually unavailable; the method is numerical. What existing solvers does it reuse?" },
+                    { "text": "A table of Fourier coefficients", "rationale": "No Fourier table is required. What kind of solver does shooting build on?" },
+                    { "text": "Matrix inversion of the boundary data", "rationale": "Direct inversion is a different approach. What IVP machinery does shooting exploit?" }
+                ]
+            },
+            {
+                "id": "mp_tMO28AakkZ8_4",
+                "prompt": "How do boundary value problems differ from initial value problems in where conditions are imposed?",
+                "hint": "Compare a single starting point with two separated points.",
+                "answerOptions": [
+                    { "text": "BVP conditions are split across two endpoints; IVP conditions are all at one point", "correct": true, "rationale": "Yes. That split is exactly what forces the indirect shooting approach." },
+                    { "text": "BVP and IVP conditions are imposed identically", "rationale": "If they were the same, no special method would be needed. How are they placed differently?" },
+                    { "text": "BVP conditions are imposed at infinitely many points", "rationale": "Two endpoints carry the conditions, not infinitely many. How are they distributed?" },
+                    { "text": "IVP conditions are imposed at two endpoints", "rationale": "That describes a BVP. Where are IVP conditions actually placed?" }
+                ]
+            },
+            {
+                "id": "mp_tMO28AakkZ8_5",
+                "prompt": "Why can a single forward integration not directly solve a two-point boundary value problem?",
+                "hint": "One end is missing a needed starting datum.",
+                "answerOptions": [
+                    { "text": "The initial data needed to start the integration is incomplete at one end", "correct": true, "rationale": "Yes. One endpoint lacks the slope (or value) needed to begin, so the missing datum must be guessed." },
+                    { "text": "Forward integration is always unstable", "rationale": "Instability is not the central issue here. What starting information is missing?" },
+                    { "text": "The equation has no solution", "rationale": "The problem can be perfectly solvable. What prevents a direct single integration?" },
+                    { "text": "Boundary value problems are not differential equations", "rationale": "They certainly are differential equations. What initial datum is unavailable at one end?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.5, video 1
+           "Orthogonal Functions" */
+        "J3S4lBADQVw": [
+            {
+                "id": "mp_J3S4lBADQVw_1",
+                "prompt": "The inner product of two functions $f$ and $g$ on $[a, b]$ is defined as which expression?",
+                "hint": "It generalizes the dot product to functions by integrating their product.",
+                "answerOptions": [
+                    { "text": "$\\int_a^b f(x)\\,g(x)\\,dx$", "correct": true, "rationale": "Yes. The function inner product integrates the product of $f$ and $g$ over the interval." },
+                    { "text": "$f(b)\\,g(b) - f(a)\\,g(a)$", "rationale": "That is a boundary difference, not an integral. What operation over $[a,b]$ defines the inner product?" },
+                    { "text": "$\\int_a^b \\big(f(x) + g(x)\\big)\\,dx$", "rationale": "You multiply the functions, not add them. What integrand appears in the inner product?" },
+                    { "text": "$\\frac{f(x)}{g(x)}$ evaluated at $x = a$", "rationale": "A pointwise quotient is not an inner product. What integral of a product is used?" }
+                ]
+            },
+            {
+                "id": "mp_J3S4lBADQVw_2",
+                "prompt": "Two functions are orthogonal on $[a, b]$ when which quantity equals zero?",
+                "hint": "Orthogonality is the function analog of perpendicular vectors.",
+                "answerOptions": [
+                    { "text": "Their inner product $\\int_a^b f g\\,dx$", "correct": true, "rationale": "Yes. Orthogonality means the inner product, the integral of the product, vanishes." },
+                    { "text": "Their sum $f + g$", "rationale": "A zero sum would make them negatives, not orthogonal. What integral must vanish?" },
+                    { "text": "Their difference at the endpoints", "rationale": "Endpoint differences are unrelated to orthogonality. What integral equals zero?" },
+                    { "text": "Their pointwise product at every $x$", "rationale": "The product need not vanish pointwise, only its integral. What integral is zero?" }
+                ]
+            },
+            {
+                "id": "mp_J3S4lBADQVw_3",
+                "prompt": "For integers $m \\neq n$, what is $\\int_{-\\pi}^{\\pi} \\sin(mx)\\sin(nx)\\,dx$?",
+                "hint": "Distinct sine harmonics are mutually orthogonal on this interval.",
+                "answerOptions": [
+                    { "text": "$0$", "correct": true, "rationale": "Correct. Different sine harmonics are orthogonal on $[-\\pi, \\pi]$, so the integral is zero." },
+                    { "text": "$\\pi$", "rationale": "A nonzero value occurs only when $m = n$. What is the integral when $m \\neq n$?" },
+                    { "text": "$2\\pi$", "rationale": "That is closer to a normalization for $m = n$ in a different convention. What does orthogonality give for $m \\neq n$?" },
+                    { "text": "$1$", "rationale": "The integral is not normalized to one here. What value reflects orthogonality?" }
+                ]
+            },
+            {
+                "id": "mp_J3S4lBADQVw_4",
+                "prompt": "What is $\\int_0^L \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)\\sin\\!\\left(\\frac{m\\pi x}{L}\\right)dx$ when $m = n$?",
+                "hint": "The same harmonic against itself gives the squared norm.",
+                "answerOptions": [
+                    { "text": "$\\frac{L}{2}$", "correct": true, "rationale": "Correct. The integral of $\\sin^2(n\\pi x/L)$ over $[0, L]$ equals $L/2$." },
+                    { "text": "$0$", "rationale": "A zero value happens only when $m \\neq n$. What is the self inner product when $m = n$?" },
+                    { "text": "$L$", "rationale": "The average of $\\sin^2$ is $1/2$, so the integral is $L/2$, not $L$. What halves it?" },
+                    { "text": "$\\frac{L}{4}$", "rationale": "The mean value of $\\sin^2$ over a full set of modes is $1/2$. What does that give over length $L$?" }
+                ]
+            },
+            {
+                "id": "mp_J3S4lBADQVw_5",
+                "prompt": "The norm of a function $f$ with respect to the inner product is defined as what?",
+                "hint": "It is the function analog of vector length.",
+                "answerOptions": [
+                    { "text": "$\\sqrt{\\int_a^b f(x)^2\\,dx}$", "correct": true, "rationale": "Yes. The norm is the square root of the inner product of $f$ with itself." },
+                    { "text": "$\\int_a^b f(x)\\,dx$", "rationale": "That is the plain integral, not the norm. What square root of a self inner product is used?" },
+                    { "text": "$\\max_{[a,b]} |f(x)|$", "rationale": "The peak value is a different norm; here we use the integral form. What square root defines it?" },
+                    { "text": "$f(b) - f(a)$", "rationale": "An endpoint difference is unrelated to length. What integral expression gives the norm?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.5, video 2
+           "Linear Algebra: Orthogonal Functions" */
+        "ZYf0tz9oVz8": [
+            {
+                "id": "mp_ZYf0tz9oVz8_1",
+                "prompt": "Why is orthogonality so useful for expanding a function in a series of basis functions?",
+                "hint": "Orthogonality decouples one coefficient from all the others.",
+                "answerOptions": [
+                    { "text": "It lets each coefficient be computed independently by a single inner product", "correct": true, "rationale": "Yes. Orthogonality isolates each coefficient through one inner product, with no coupling between terms." },
+                    { "text": "It makes the basis functions identical", "rationale": "Orthogonal functions are distinct, not identical. What does orthogonality let you compute term by term?" },
+                    { "text": "It removes the need for any integration", "rationale": "Coefficients still come from integrals; orthogonality just decouples them. What does it isolate?" },
+                    { "text": "It guarantees a finite number of terms", "rationale": "Series can still be infinite. What computational simplification does orthogonality provide?" }
+                ]
+            },
+            {
+                "id": "mp_ZYf0tz9oVz8_2",
+                "prompt": "For integers $m \\neq n$, what is $\\int_{-\\pi}^{\\pi} \\cos(mx)\\cos(nx)\\,dx$?",
+                "hint": "Distinct cosine harmonics are orthogonal on this interval.",
+                "answerOptions": [
+                    { "text": "$0$", "correct": true, "rationale": "Correct. Different cosine harmonics are orthogonal on $[-\\pi, \\pi]$." },
+                    { "text": "$\\pi$", "rationale": "A nonzero value arises only for $m = n$. What is the integral when $m \\neq n$?" },
+                    { "text": "$2\\pi$", "rationale": "That would relate to the $m = n = 0$ case. What does orthogonality give for distinct nonzero harmonics?" },
+                    { "text": "$-\\pi$", "rationale": "Orthogonality gives a clean zero, not a negative value. What is the integral for $m \\neq n$?" }
+                ]
+            },
+            {
+                "id": "mp_ZYf0tz9oVz8_3",
+                "prompt": "For all integers $m$ and $n$, what is $\\int_{-\\pi}^{\\pi} \\sin(mx)\\cos(nx)\\,dx$?",
+                "hint": "Sines are odd and cosines are even; consider the parity of the product.",
+                "answerOptions": [
+                    { "text": "$0$", "correct": true, "rationale": "Correct. The product of a sine and a cosine integrates to zero over the symmetric interval, so sines and cosines are mutually orthogonal." },
+                    { "text": "$\\pi$ when $m = n$", "rationale": "Sine against cosine never matches the way sine against sine does. What is the integral for every $m$ and $n$?" },
+                    { "text": "$1$ for all $m, n$", "rationale": "The integral is not normalized to one. What value reflects sine-cosine orthogonality?" },
+                    { "text": "Undefined", "rationale": "The integral is perfectly well defined. What value does the odd integrand give?" }
+                ]
+            },
+            {
+                "id": "mp_ZYf0tz9oVz8_4",
+                "prompt": "The set $\\{1, \\cos x, \\sin x, \\cos 2x, \\sin 2x, \\dots\\}$ has which property on $[-\\pi, \\pi]$?",
+                "hint": "Every distinct pair integrates to zero against each other.",
+                "answerOptions": [
+                    { "text": "It is an orthogonal set", "correct": true, "rationale": "Yes. Every distinct pair from this set is orthogonal on $[-\\pi, \\pi]$, which underlies Fourier series." },
+                    { "text": "It is linearly dependent", "rationale": "These functions are independent. What stronger relation does pairwise zero inner product give?" },
+                    { "text": "Every pair has inner product $1$", "rationale": "Distinct pairs integrate to zero, not one. What name describes that?" },
+                    { "text": "It spans only constant functions", "rationale": "The set reaches far beyond constants. What orthogonality property does it have?" }
+                ]
+            },
+            {
+                "id": "mp_ZYf0tz9oVz8_5",
+                "prompt": "An orthonormal set of functions is an orthogonal set with which extra property?",
+                "hint": "Normalize each function to unit length.",
+                "answerOptions": [
+                    { "text": "Each function has norm equal to one", "correct": true, "rationale": "Yes. Orthonormal means orthogonal plus every function having unit norm." },
+                    { "text": "Each function integrates to zero", "rationale": "Many useful functions do not integrate to zero. What normalization makes a set orthonormal?" },
+                    { "text": "All functions are equal", "rationale": "Orthonormal functions are distinct. What unit property is added to orthogonality?" },
+                    { "text": "The functions are all polynomials", "rationale": "Orthonormality is not about being polynomial. What norm condition is required?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.6, video 1
+           "Sturm Liouville Problem: introduction and meaning" */
+        "Oz_cnaz9zSo": [
+            {
+                "id": "mp_Oz_cnaz9zSo_1",
+                "prompt": "A Sturm-Liouville equation is written in which standard form?",
+                "hint": "It packages the derivative terms into a single divergence-style expression.",
+                "answerOptions": [
+                    { "text": "$\\big(p(x)\\,y'\\big)' + \\big(q(x) + \\lambda\\, w(x)\\big)y = 0$", "correct": true, "rationale": "Yes. The self-adjoint Sturm-Liouville form collects the second-order term as $(p y')'$ with a weight $w$ multiplying $\\lambda$." },
+                    { "text": "$y'' + \\lambda^2 y = 0$ only", "rationale": "That is one special case, not the general form. What general structure with $p$, $q$, and $w$ is used?" },
+                    { "text": "$p(x)\\,y'' + \\lambda y = q(x)$", "rationale": "The leading term must be the derivative of $p y'$, not $p y''$. What self-adjoint form is standard?" },
+                    { "text": "$y' = \\lambda w(x) y$", "rationale": "A first-order form does not capture Sturm-Liouville problems. What second-order self-adjoint form is correct?" }
+                ]
+            },
+            {
+                "id": "mp_Oz_cnaz9zSo_2",
+                "prompt": "A regular Sturm-Liouville problem is posed on a finite interval with which kind of boundary conditions?",
+                "hint": "The conditions act separately at each endpoint.",
+                "answerOptions": [
+                    { "text": "Separated boundary conditions at each endpoint", "correct": true, "rationale": "Yes. A regular problem uses separated conditions, one at each end, with $p$ and $w$ positive on the interval." },
+                    { "text": "No boundary conditions at all", "rationale": "Boundary conditions are essential to the eigenvalue problem. What separated conditions are imposed?" },
+                    { "text": "Conditions only at the left endpoint", "rationale": "Both ends must be constrained. What kind of conditions does a regular problem use?" },
+                    { "text": "Periodic conditions only", "rationale": "Periodic conditions define a different (periodic) Sturm-Liouville problem. What does the regular case use?" }
+                ]
+            },
+            {
+                "id": "mp_Oz_cnaz9zSo_3",
+                "prompt": "For a regular Sturm-Liouville problem, the eigenvalues are guaranteed to be what?",
+                "hint": "A key theorem rules out complex eigenvalues.",
+                "answerOptions": [
+                    { "text": "Real", "correct": true, "rationale": "Yes. The self-adjoint structure guarantees that all eigenvalues are real." },
+                    { "text": "Always complex", "rationale": "The self-adjoint form forbids genuinely complex eigenvalues. What kind must they be?" },
+                    { "text": "Always negative", "rationale": "Eigenvalues are not forced to be negative. What property is actually guaranteed?" },
+                    { "text": "Always equal to one", "rationale": "There is no such normalization. What does the theory guarantee about the eigenvalues?" }
+                ]
+            },
+            {
+                "id": "mp_Oz_cnaz9zSo_4",
+                "prompt": "Eigenfunctions of a Sturm-Liouville problem belonging to distinct eigenvalues are what?",
+                "hint": "They satisfy a weighted orthogonality relation.",
+                "answerOptions": [
+                    { "text": "Orthogonal with respect to the weight $w(x)$", "correct": true, "rationale": "Yes. Distinct-eigenvalue eigenfunctions are orthogonal under the weighted inner product with weight $w$." },
+                    { "text": "Always identical", "rationale": "Distinct eigenvalues give distinct eigenfunctions. What relation holds between them?" },
+                    { "text": "Parallel (scalar multiples)", "rationale": "They are not multiples of one another. What weighted relation do they satisfy?" },
+                    { "text": "Orthogonal only without any weight", "rationale": "The orthogonality uses the weight $w$, not the unweighted inner product. What weight appears?" }
+                ]
+            },
+            {
+                "id": "mp_Oz_cnaz9zSo_5",
+                "prompt": "The eigenvalues of a regular Sturm-Liouville problem form which kind of sequence?",
+                "hint": "They line up in order and never stop increasing.",
+                "answerOptions": [
+                    { "text": "An increasing sequence tending to infinity", "correct": true, "rationale": "Yes. The eigenvalues are real, simple, ordered, and grow without bound." },
+                    { "text": "A finite list", "rationale": "The eigenvalues do not stop after finitely many. How many are there, and how are they ordered?" },
+                    { "text": "A decreasing sequence toward zero", "rationale": "They increase rather than decrease. Which direction does the sequence go?" },
+                    { "text": "A random unordered set", "rationale": "They follow a strict increasing order. What pattern does the sequence have?" }
+                ]
+            }
+        ],
+
+        /* Unit 17, Module 17.6, video 2
+           "What is a Sturm-Liouville problem? (Intro)" */
+        "l9Dc1ab9RaU": [
+            {
+                "id": "mp_l9Dc1ab9RaU_1",
+                "prompt": "Writing $y'' + \\lambda y = 0$ in Sturm-Liouville form $(p y')' + (q + \\lambda w)y = 0$ uses which functions?",
+                "hint": "Match the plain second derivative to $(p y')'$ with no extra factors.",
+                "answerOptions": [
+                    { "text": "$p = 1$, $q = 0$, $w = 1$", "correct": true, "rationale": "Correct. With $p = 1$ the term $(p y')' = y''$, and $q = 0$, $w = 1$ recover $y'' + \\lambda y = 0$." },
+                    { "text": "$p = 0$, $q = 1$, $w = 1$", "rationale": "If $p = 0$ the second-derivative term disappears. What value of $p$ gives $(p y')' = y''$?" },
+                    { "text": "$p = x$, $q = 0$, $w = 1$", "rationale": "A nonconstant $p$ would introduce a $y'$ term. What constant $p$ reproduces $y''$?" },
+                    { "text": "$p = 1$, $q = \\lambda$, $w = 0$", "rationale": "With $w = 0$ the eigenvalue term vanishes. Which function should multiply $\\lambda$?" }
+                ]
+            },
+            {
+                "id": "mp_l9Dc1ab9RaU_2",
+                "prompt": "In a Sturm-Liouville problem, the weight function $w(x)$ does what?",
+                "hint": "It appears inside the inner product that defines orthogonality.",
+                "answerOptions": [
+                    { "text": "Defines the weighted inner product under which eigenfunctions are orthogonal", "correct": true, "rationale": "Yes. The weight $w$ sets the inner product $\\int f g\\, w\\, dx$ that makes the eigenfunctions orthogonal." },
+                    { "text": "Multiplies the highest derivative", "rationale": "That role belongs to $p$, not $w$. Where does the weight $w$ appear?" },
+                    { "text": "Sets the boundary conditions", "rationale": "Boundary conditions are imposed separately. What integral structure does $w$ define?" },
+                    { "text": "Has no effect on the problem", "rationale": "The weight is central to orthogonality. What inner product does it determine?" }
+                ]
+            },
+            {
+                "id": "mp_l9Dc1ab9RaU_3",
+                "prompt": "The orthogonality of Sturm-Liouville eigenfunctions ultimately follows from which structural property?",
+                "hint": "The operator equals its own adjoint.",
+                "answerOptions": [
+                    { "text": "The self-adjoint (symmetric) form of the operator", "correct": true, "rationale": "Yes. Writing the operator in self-adjoint form is exactly what forces real eigenvalues and orthogonal eigenfunctions." },
+                    { "text": "The nonlinearity of the equation", "rationale": "Sturm-Liouville problems are linear. What symmetry of the operator drives orthogonality?" },
+                    { "text": "The absence of boundary conditions", "rationale": "Boundary conditions are required and help establish self-adjointness. What operator property is key?" },
+                    { "text": "The presence of a forcing term", "rationale": "These eigenvalue problems are homogeneous. What structural property guarantees orthogonality?" }
+                ]
+            },
+            {
+                "id": "mp_l9Dc1ab9RaU_4",
+                "prompt": "A central payoff of Sturm-Liouville theory is that the eigenfunctions form what?",
+                "hint": "Any reasonable function can be expanded in them.",
+                "answerOptions": [
+                    { "text": "A complete basis for expanding functions in eigenfunction series", "correct": true, "rationale": "Yes. The eigenfunctions are complete, so general functions can be expanded in eigenfunction (generalized Fourier) series." },
+                    { "text": "A finite set spanning only polynomials", "rationale": "The set is infinite and far richer than polynomials. What expansion property do they provide?" },
+                    { "text": "A basis only for the constant functions", "rationale": "They represent much more than constants. What completeness do they have?" },
+                    { "text": "A set that cannot represent any function", "rationale": "They can represent broad classes of functions. What basis property do they possess?" }
+                ]
+            },
+            {
+                "id": "mp_l9Dc1ab9RaU_5",
+                "prompt": "How does the Dirichlet eigenvalue problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ relate to Sturm-Liouville theory?",
+                "hint": "Recognize it as a particular choice of $p$, $q$, and $w$.",
+                "answerOptions": [
+                    { "text": "It is a special case of a regular Sturm-Liouville problem", "correct": true, "rationale": "Yes. It is the Sturm-Liouville problem with $p = 1$, $q = 0$, $w = 1$ and separated conditions." },
+                    { "text": "It is unrelated to Sturm-Liouville theory", "rationale": "It fits the framework exactly. Which choice of $p$, $q$, $w$ makes it Sturm-Liouville?" },
+                    { "text": "It is a nonlinear exception", "rationale": "The problem is linear and self-adjoint. How does it sit inside the theory?" },
+                    { "text": "It is a first-order example", "rationale": "The equation is second order. What kind of Sturm-Liouville case is it?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.1, video 1
+           "But what is a Fourier series? From heat flow to drawing with circles, DE4" */
+        "r6sGWTCMz2k": [
+            {
+                "id": "mp_r6sGWTCMz2k_1",
+                "prompt": "A Fourier series represents a periodic function as a sum of what?",
+                "hint": "Think about the building-block waves with integer-multiple frequencies.",
+                "answerOptions": [
+                    { "text": "Sines and cosines of integer-multiple frequencies", "correct": true, "rationale": "Yes. A Fourier series builds a periodic function from sines and cosines whose frequencies are integer multiples of a base frequency." },
+                    { "text": "Powers of $x$", "rationale": "Power series use powers of $x$; Fourier series use waves. What oscillating functions are summed?" },
+                    { "text": "Exponentials with random frequencies", "rationale": "The frequencies are integer multiples of a fundamental, not random. What waves are used?" },
+                    { "text": "A single sine wave", "rationale": "One wave cannot capture a general periodic shape. What collection of waves is summed?" }
+                ]
+            },
+            {
+                "id": "mp_r6sGWTCMz2k_2",
+                "prompt": "In a Fourier series, the higher-frequency terms are called what?",
+                "hint": "They are integer multiples of the fundamental frequency.",
+                "answerOptions": [
+                    { "text": "Harmonics", "correct": true, "rationale": "Yes. The higher terms are harmonics, with frequencies that are integer multiples of the fundamental." },
+                    { "text": "Residues", "rationale": "Residues belong to complex analysis, not Fourier harmonics. What are integer-multiple frequency terms called?" },
+                    { "text": "Eigenvectors", "rationale": "Eigenvectors are vectors, not series terms here. What name fits the higher frequency waves?" },
+                    { "text": "Asymptotes", "rationale": "Asymptotes describe limiting lines, not series terms. What are the multiples of the fundamental called?" }
+                ]
+            },
+            {
+                "id": "mp_r6sGWTCMz2k_3",
+                "prompt": "The visual intuition in the video draws a Fourier series as what kind of construction?",
+                "hint": "Picture vectors of fixed lengths turning at steady rates.",
+                "answerOptions": [
+                    { "text": "Rotating vectors (epicycles) adding tip to tail", "correct": true, "rationale": "Yes. Each term is a rotating vector, and summing them tip to tail traces the target curve." },
+                    { "text": "A single straight arrow", "rationale": "One fixed arrow cannot trace a curve. What turning construction is shown?" },
+                    { "text": "A bar chart of values", "rationale": "The picture is of rotating arrows, not bars. What spinning objects are added?" },
+                    { "text": "A static grid of points", "rationale": "The construction is dynamic and rotational. What rotating objects build the curve?" }
+                ]
+            },
+            {
+                "id": "mp_r6sGWTCMz2k_4",
+                "prompt": "Why does representing a square wave by a Fourier series require infinitely many terms?",
+                "hint": "A finite sum of smooth waves stays smooth.",
+                "answerOptions": [
+                    { "text": "Its sharp jumps cannot be matched exactly by any finite sum of smooth sinusoids", "correct": true, "rationale": "Yes. The discontinuities of a square wave need infinitely many harmonics to approach, and finitely many always fall short." },
+                    { "text": "Because sines and cosines are not periodic", "rationale": "Sines and cosines are periodic; that is why they are used. Why are infinitely many needed for a square wave?" },
+                    { "text": "Because the square wave is not periodic", "rationale": "A square wave is periodic. What feature of it demands infinitely many terms?" },
+                    { "text": "Because each term has the same frequency", "rationale": "The terms have distinct harmonic frequencies. What property of the square wave forces an infinite series?" }
+                ]
+            },
+            {
+                "id": "mp_r6sGWTCMz2k_5",
+                "prompt": "Historically, Fourier introduced these series while studying which physical problem?",
+                "hint": "The video opens with this classic application.",
+                "answerOptions": [
+                    { "text": "Heat flow", "correct": true, "rationale": "Yes. Fourier developed his series to analyze the flow of heat in solid bodies." },
+                    { "text": "Planetary orbits", "rationale": "Orbital mechanics is a different lineage. What heat-related problem motivated Fourier?" },
+                    { "text": "Population growth", "rationale": "Population models came from other work. Which physical flow did Fourier study?" },
+                    { "text": "Electrical circuits", "rationale": "Circuit analysis came later. What thermal problem did Fourier originally address?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.1, video 2
+           "But what is the Fourier Transform? A visual introduction." */
+        "spUNpyF58BY": [
+            {
+                "id": "mp_spUNpyF58BY_1",
+                "prompt": "The Fourier transform decomposes a (generally non-periodic) signal into what?",
+                "hint": "It reports how much of each frequency is present, across a continuum.",
+                "answerOptions": [
+                    { "text": "A continuous spectrum of frequencies", "correct": true, "rationale": "Yes. The transform expresses a signal as a continuous distribution over all frequencies." },
+                    { "text": "A finite list of integer harmonics", "rationale": "A discrete harmonic list is the Fourier series picture. What continuum does the transform produce?" },
+                    { "text": "A single dominant frequency only", "rationale": "Even one peak sits within a full spectrum. What continuous object does the transform give?" },
+                    { "text": "A polynomial in time", "rationale": "The output lives in frequency, not as a time polynomial. What spectrum results?" }
+                ]
+            },
+            {
+                "id": "mp_spUNpyF58BY_2",
+                "prompt": "The video's winding intuition detects a frequency by watching what quantity?",
+                "hint": "The wound-up graph has a center of mass that moves.",
+                "answerOptions": [
+                    { "text": "The center of mass of the wound-up signal", "correct": true, "rationale": "Yes. When the winding frequency matches a present frequency, the center of mass swings far from the origin, marking a peak." },
+                    { "text": "The slope of the signal at the origin", "rationale": "The detector is the center of mass, not a slope. What moving quantity signals a match?" },
+                    { "text": "The number of zero crossings", "rationale": "Zero crossings are not the winding detector. What center-of-mass behavior marks a frequency?" },
+                    { "text": "The maximum height of the signal", "rationale": "Peak height alone is not the detector. What quantity of the wound graph is tracked?" }
+                ]
+            },
+            {
+                "id": "mp_spUNpyF58BY_3",
+                "prompt": "The Fourier transform maps a signal between which two domains?",
+                "hint": "It trades a description in one variable for one in frequency.",
+                "answerOptions": [
+                    { "text": "The time domain and the frequency domain", "correct": true, "rationale": "Yes. The transform converts between a time-domain signal and its frequency-domain spectrum." },
+                    { "text": "The position domain and the momentum domain only in physics", "rationale": "While related in physics, the general statement is about time and frequency. Which two domains does it connect?" },
+                    { "text": "The real axis and the complex plane", "rationale": "That is not the transform's domain pairing. What two physical domains does it relate?" },
+                    { "text": "The discrete and continuous integers", "rationale": "Integers are not the domains here. What time and what other domain are linked?" }
+                ]
+            },
+            {
+                "id": "mp_spUNpyF58BY_4",
+                "prompt": "When is a Fourier series used rather than a Fourier transform?",
+                "hint": "Series handle one class of signals, transforms the other.",
+                "answerOptions": [
+                    { "text": "For periodic signals (the transform suits non-periodic signals)", "correct": true, "rationale": "Yes. Fourier series represent periodic signals with discrete harmonics; the transform handles non-periodic signals with a continuous spectrum." },
+                    { "text": "For non-periodic signals only", "rationale": "Non-periodic signals are the transform's domain. Which class does the series serve?" },
+                    { "text": "For signals defined only at integers", "rationale": "That describes a different (discrete) tool. Which periodicity does the series require?" },
+                    { "text": "For constant signals only", "rationale": "Constants are a trivial case, not the general rule. What kind of signals does the series represent?" }
+                ]
+            },
+            {
+                "id": "mp_spUNpyF58BY_5",
+                "prompt": "In the transform's spectrum, a frequency strongly present in the signal shows up as what?",
+                "hint": "A strong match makes the detector respond sharply.",
+                "answerOptions": [
+                    { "text": "A peak (spike) at that frequency", "correct": true, "rationale": "Yes. A frequency that is strongly present produces a pronounced peak in the spectrum." },
+                    { "text": "A zero at that frequency", "rationale": "A present frequency gives a large response, not a zero. What feature marks it?" },
+                    { "text": "A flat region everywhere", "rationale": "A flat spectrum would mean no dominant frequency. What localized feature appears?" },
+                    { "text": "A vertical asymptote in time", "rationale": "The feature lives in the frequency spectrum, not in time. What does a present frequency produce there?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.2, video 1
+           "Intro to FOURIER SERIES: The Big Idea" */
+        "wmCIrpLBFds": [
+            {
+                "id": "mp_wmCIrpLBFds_1",
+                "prompt": "For a function of period $2L$ written as $f(x) = \\tfrac{a_0}{2} + \\sum_{n=1}^\\infty \\big(a_n\\cos\\tfrac{n\\pi x}{L} + b_n\\sin\\tfrac{n\\pi x}{L}\\big)$, the constant $a_0$ is given by which formula?",
+                "hint": "The constant term measures the average; integrate $f$ over a full period.",
+                "answerOptions": [
+                    { "text": "$a_0 = \\frac{1}{L}\\int_{-L}^{L} f(x)\\,dx$", "correct": true, "rationale": "Correct. Integrating $f$ over a full period and dividing by $L$ gives $a_0$, and $a_0/2$ is the average value." },
+                    { "text": "$a_0 = \\int_{-L}^{L} f(x)\\,dx$", "rationale": "You must divide by the interval factor $L$. What normalization belongs in front of the integral?" },
+                    { "text": "$a_0 = \\frac{1}{2L}\\int_{-L}^{L} f(x)\\,dx$", "rationale": "That formula would compute the average directly, but the convention puts $a_0/2$ as the average. What prefactor defines $a_0$ itself?" },
+                    { "text": "$a_0 = \\frac{1}{L}\\int_{-L}^{L} f(x)\\cos x\\,dx$", "rationale": "The constant term carries no cosine factor. What integrand gives $a_0$?" }
+                ]
+            },
+            {
+                "id": "mp_wmCIrpLBFds_2",
+                "prompt": "The cosine coefficients are given by which formula?",
+                "hint": "Project $f$ onto the matching cosine harmonic.",
+                "answerOptions": [
+                    { "text": "$a_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\cos\\!\\frac{n\\pi x}{L}\\,dx$", "correct": true, "rationale": "Correct. Each cosine coefficient is the inner product of $f$ with $\\cos(n\\pi x/L)$, normalized by $L$." },
+                    { "text": "$a_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "That projects onto sine, giving $b_n$. Which trig function pairs with $a_n$?" },
+                    { "text": "$a_n = \\int_{-L}^{L} f(x)\\,dx$", "rationale": "The harmonic factor is missing and so is the normalization. What integrand isolates the cosine coefficient?" },
+                    { "text": "$a_n = \\frac{1}{L}\\,f\\!\\left(\\frac{n\\pi}{L}\\right)$", "rationale": "Coefficients come from integrals, not point evaluations. What integral defines $a_n$?" }
+                ]
+            },
+            {
+                "id": "mp_wmCIrpLBFds_3",
+                "prompt": "The sine coefficients are given by which formula?",
+                "hint": "Project $f$ onto the matching sine harmonic.",
+                "answerOptions": [
+                    { "text": "$b_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "correct": true, "rationale": "Correct. Each sine coefficient is the inner product of $f$ with $\\sin(n\\pi x/L)$, normalized by $L$." },
+                    { "text": "$b_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\cos\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "That projects onto cosine, giving $a_n$. Which trig function pairs with $b_n$?" },
+                    { "text": "$b_n = \\frac{1}{2L}\\int_{-L}^{L} f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "The normalization for the harmonics is $1/L$, not $1/(2L)$. What prefactor is correct?" },
+                    { "text": "$b_n = f'\\!\\left(\\frac{n\\pi}{L}\\right)$", "rationale": "Coefficients are integrals, not derivative values. What integral defines $b_n$?" }
+                ]
+            },
+            {
+                "id": "mp_wmCIrpLBFds_4",
+                "prompt": "If a function has period $2L$, what is its fundamental period in the Fourier series convention above?",
+                "hint": "The basic repeat length is the full interval from $-L$ to $L$.",
+                "answerOptions": [
+                    { "text": "$2L$", "correct": true, "rationale": "Correct. The function repeats over a length of $2L$, matching the harmonics $\\cos(n\\pi x/L)$ and $\\sin(n\\pi x/L)$." },
+                    { "text": "$L$", "rationale": "The half-length $L$ is not the full repeat length. What is the distance over which $f$ repeats?" },
+                    { "text": "$\\pi$", "rationale": "The period need not equal $\\pi$; that is only the special case $L = \\pi/?$. What is the period in terms of $L$?" },
+                    { "text": "$\\frac{1}{2L}$", "rationale": "That is a frequency-like quantity, not a period. What length is the fundamental period?" }
+                ]
+            },
+            {
+                "id": "mp_wmCIrpLBFds_5",
+                "prompt": "The Fourier coefficient formulas follow directly from which property of the sine and cosine basis?",
+                "hint": "Each coefficient is isolated by integrating against one basis function.",
+                "answerOptions": [
+                    { "text": "Orthogonality of the harmonics over a period", "correct": true, "rationale": "Yes. Because distinct harmonics are orthogonal, integrating $f$ against one of them isolates its coefficient." },
+                    { "text": "The harmonics all being equal", "rationale": "The harmonics are distinct, not equal. What relation between them isolates each coefficient?" },
+                    { "text": "The harmonics being polynomials", "rationale": "Sines and cosines are not polynomials. What orthogonality property is used?" },
+                    { "text": "The function being a single sine", "rationale": "The formulas apply to general $f$, not just one sine. What basis property makes them work?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.2, video 2
+           "How to Compute a FOURIER SERIES: Formulas and Full Example" */
+        "ijQaTAT3kOg": [
+            {
+                "id": "mp_ijQaTAT3kOg_1",
+                "prompt": "For an odd function on $[-L, L]$, which Fourier coefficients vanish?",
+                "hint": "Cosine is even, so an odd function has no overlap with it.",
+                "answerOptions": [
+                    { "text": "All the cosine coefficients $a_n$ (including $a_0$)", "correct": true, "rationale": "Correct. An odd function is orthogonal to every cosine, so only sine terms survive." },
+                    { "text": "All the sine coefficients $b_n$", "rationale": "Sine matches an odd function, so the sine terms remain. Which coefficients drop out?" },
+                    { "text": "Only $a_0$, with the other $a_n$ kept", "rationale": "Every cosine coefficient vanishes for an odd function, not just $a_0$. Which whole family disappears?" },
+                    { "text": "None of them vanish", "rationale": "Parity forces half the coefficients to zero. Which family vanishes for an odd function?" }
+                ]
+            },
+            {
+                "id": "mp_ijQaTAT3kOg_2",
+                "prompt": "For an even function on $[-L, L]$, which Fourier coefficients vanish?",
+                "hint": "Sine is odd, so an even function has no overlap with it.",
+                "answerOptions": [
+                    { "text": "All the sine coefficients $b_n$", "correct": true, "rationale": "Correct. An even function is orthogonal to every sine, so only cosine terms survive." },
+                    { "text": "All the cosine coefficients $a_n$", "rationale": "Cosines match an even function, so they remain. Which family vanishes instead?" },
+                    { "text": "Only $b_1$", "rationale": "Every sine coefficient vanishes for an even function, not just the first. Which whole family disappears?" },
+                    { "text": "The constant $a_0$ only", "rationale": "The constant term survives for an even function. Which family drops to zero?" }
+                ]
+            },
+            {
+                "id": "mp_ijQaTAT3kOg_3",
+                "prompt": "The Fourier series of $f(x) = x^2$ on $[-\\pi, \\pi]$ contains which terms?",
+                "hint": "Determine the parity of $x^2$ first.",
+                "answerOptions": [
+                    { "text": "A constant and cosine terms only", "correct": true, "rationale": "Correct. Since $x^2$ is even, its sine coefficients vanish, leaving the constant and cosine terms." },
+                    { "text": "Sine terms only", "rationale": "Sine terms vanish for an even function. What kind of terms survive for $x^2$?" },
+                    { "text": "Both sine and cosine terms equally", "rationale": "The odd sine terms drop out for an even function. Which terms remain?" },
+                    { "text": "No terms at all", "rationale": "A nonzero function has a nonzero series. Which terms does an even function keep?" }
+                ]
+            },
+            {
+                "id": "mp_ijQaTAT3kOg_4",
+                "prompt": "The average value of $f$ over one period equals which part of its Fourier series?",
+                "hint": "The oscillating terms average to zero over a full period.",
+                "answerOptions": [
+                    { "text": "The constant term $a_0/2$", "correct": true, "rationale": "Correct. Every sine and cosine averages to zero over a period, leaving $a_0/2$ as the mean." },
+                    { "text": "The first sine coefficient $b_1$", "rationale": "Sinusoids average to zero, so $b_1$ does not give the mean. What constant remains?" },
+                    { "text": "The largest coefficient", "rationale": "Size of a harmonic does not set the average. What term survives averaging?" },
+                    { "text": "Zero, always", "rationale": "The mean is zero only if $a_0 = 0$. What term equals the average in general?" }
+                ]
+            },
+            {
+                "id": "mp_ijQaTAT3kOg_5",
+                "prompt": "At a jump discontinuity of $f$, the Fourier series converges to what value?",
+                "hint": "It splits the difference between the two one-sided limits.",
+                "answerOptions": [
+                    { "text": "The midpoint (average) of the left-hand and right-hand limits", "correct": true, "rationale": "Correct. At a jump the series converges to the average of the one-sided limits." },
+                    { "text": "The left-hand limit only", "rationale": "It does not favor one side. What combination of the two limits does it pick?" },
+                    { "text": "The larger of the two limits", "rationale": "It is not the maximum. What average value does the series take?" },
+                    { "text": "Zero", "rationale": "The value is generally nonzero. What average of the side limits results?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.3, video 1
+           "Fourier Series" */
+        "JaiSBThC6wM": [
+            {
+                "id": "mp_JaiSBThC6wM_1",
+                "prompt": "The full Fourier series on $[-L, L]$ uses which set of basis functions?",
+                "hint": "Both even and odd harmonics participate.",
+                "answerOptions": [
+                    { "text": "Both cosines and sines, plus a constant", "correct": true, "rationale": "Yes. The full series combines a constant, cosine harmonics, and sine harmonics." },
+                    { "text": "Only cosines", "rationale": "Cosine-only series are the half-range cosine case. What does the full series also include?" },
+                    { "text": "Only sines", "rationale": "Sine-only series are the half-range sine case. What additional terms does the full series carry?" },
+                    { "text": "Only the constant term", "rationale": "A single constant cannot represent a general function. What harmonics are also included?" }
+                ]
+            },
+            {
+                "id": "mp_JaiSBThC6wM_2",
+                "prompt": "To apply a Fourier series to a function defined only on $[-L, L]$, what is assumed about $f$ outside that interval?",
+                "hint": "The series itself is periodic, so it repeats the data.",
+                "answerOptions": [
+                    { "text": "It is extended periodically with period $2L$", "correct": true, "rationale": "Yes. The Fourier series represents the periodic extension of $f$ with period $2L$." },
+                    { "text": "It is set to zero outside the interval", "rationale": "The series repeats the data rather than zeroing it. What extension does the series build?" },
+                    { "text": "It grows linearly outside the interval", "rationale": "Fourier series are bounded and periodic, not linearly growing. What periodic behavior is assumed?" },
+                    { "text": "It is undefined outside the interval", "rationale": "The series is defined for all $x$. How does it continue $f$?" }
+                ]
+            },
+            {
+                "id": "mp_JaiSBThC6wM_3",
+                "prompt": "A Fourier series of a piecewise smooth function is guaranteed to converge under which classical result?",
+                "hint": "Piecewise smoothness is the key hypothesis.",
+                "answerOptions": [
+                    { "text": "It converges to $f$ at points of continuity and to the midpoint at jumps", "correct": true, "rationale": "Yes. The convergence theorem gives $f$ where it is continuous and the average of the side limits at jumps." },
+                    { "text": "It diverges everywhere", "rationale": "Piecewise smooth functions have convergent series. Where does it converge?" },
+                    { "text": "It converges only at the endpoints", "rationale": "Convergence holds throughout, not just at the ends. What does it converge to at interior points?" },
+                    { "text": "It converges only if $f$ is a polynomial", "rationale": "Polynomials are not required. What smoothness hypothesis guarantees convergence?" }
+                ]
+            },
+            {
+                "id": "mp_JaiSBThC6wM_4",
+                "prompt": "The overshoot of a Fourier partial sum near a jump discontinuity is known as what?",
+                "hint": "It is a famous named artifact at discontinuities.",
+                "answerOptions": [
+                    { "text": "The Gibbs phenomenon", "correct": true, "rationale": "Yes. The persistent overshoot near a jump is called the Gibbs phenomenon." },
+                    { "text": "The Runge phenomenon", "rationale": "Runge's phenomenon concerns polynomial interpolation, not Fourier sums. What is the Fourier overshoot called?" },
+                    { "text": "Resonance", "rationale": "Resonance is a forcing effect, not the jump overshoot. What name applies to the Fourier overshoot?" },
+                    { "text": "Aliasing", "rationale": "Aliasing is a sampling effect. What is the named overshoot near a jump?" }
+                ]
+            },
+            {
+                "id": "mp_JaiSBThC6wM_5",
+                "prompt": "Fourier series are useful for solving linear differential equations with which kind of forcing?",
+                "hint": "Periodic forcing can be broken into harmonics.",
+                "answerOptions": [
+                    { "text": "Periodic forcing, by solving for each harmonic and superposing", "correct": true, "rationale": "Yes. A periodic forcing is expanded in harmonics, each handled separately, then superposed." },
+                    { "text": "Only constant forcing", "rationale": "Constant forcing is a trivial single term. What broader periodic forcing do Fourier methods address?" },
+                    { "text": "Only impulsive forcing", "rationale": "Impulses are the Laplace or Green's-function setting. What periodic forcing suits Fourier series?" },
+                    { "text": "No forcing can be handled", "rationale": "Periodic forcing is a prime use case. What forcing does the harmonic approach handle?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.3, video 2
+           "Fourier Cosine and Sine Series" */
+        "jDLCxErtwTs": [
+            {
+                "id": "mp_jDLCxErtwTs_1",
+                "prompt": "A half-range sine series represents a function on $[0, L]$ using which extension?",
+                "hint": "Sines are odd, so the matching extension is odd.",
+                "answerOptions": [
+                    { "text": "The odd periodic extension, giving only sine terms", "correct": true, "rationale": "Yes. Extending $f$ as an odd function produces a pure sine series on $[0, L]$." },
+                    { "text": "The even periodic extension", "rationale": "Even extension yields cosines, not sines. What parity gives a sine series?" },
+                    { "text": "A constant extension", "rationale": "A constant extension does not produce sine harmonics. What odd extension does?" },
+                    { "text": "No extension is needed", "rationale": "The series is built from a specific extension. Which odd extension gives sines?" }
+                ]
+            },
+            {
+                "id": "mp_jDLCxErtwTs_2",
+                "prompt": "A half-range cosine series represents a function on $[0, L]$ using which extension?",
+                "hint": "Cosines are even, so the matching extension is even.",
+                "answerOptions": [
+                    { "text": "The even periodic extension, giving only cosine terms", "correct": true, "rationale": "Yes. Extending $f$ as an even function produces a pure cosine series on $[0, L]$." },
+                    { "text": "The odd periodic extension", "rationale": "Odd extension yields sines, not cosines. What parity gives a cosine series?" },
+                    { "text": "A linear extension", "rationale": "A linear ramp is not how the cosine series is built. What even extension does?" },
+                    { "text": "A random extension", "rationale": "The extension is specifically even. Which extension yields cosine terms?" }
+                ]
+            },
+            {
+                "id": "mp_jDLCxErtwTs_3",
+                "prompt": "A sine series is the natural choice for a heat problem with which boundary conditions?",
+                "hint": "Sine vanishes at both ends.",
+                "answerOptions": [
+                    { "text": "Fixed (zero) temperature at both ends, $u(0) = u(L) = 0$", "correct": true, "rationale": "Yes. Sine harmonics vanish at both ends, matching fixed-temperature (Dirichlet) conditions." },
+                    { "text": "Insulated ends, $u_x(0) = u_x(L) = 0$", "rationale": "Insulated ends suit cosines, whose slope vanishes. What conditions do sines satisfy?" },
+                    { "text": "No boundary conditions", "rationale": "The choice is driven by the boundary conditions. Which conditions do sines match?" },
+                    { "text": "A fixed slope at both ends", "rationale": "Sines match fixed values, not fixed slopes. What boundary values do they satisfy?" }
+                ]
+            },
+            {
+                "id": "mp_jDLCxErtwTs_4",
+                "prompt": "A cosine series is the natural choice for a problem with which boundary conditions?",
+                "hint": "Cosine has zero slope at both ends.",
+                "answerOptions": [
+                    { "text": "Insulated ends, $u_x(0) = u_x(L) = 0$", "correct": true, "rationale": "Yes. Cosine harmonics have vanishing derivative at both ends, matching insulated (Neumann) conditions." },
+                    { "text": "Fixed zero temperature at both ends", "rationale": "Fixed values suit sines, whose value vanishes. What slope condition do cosines satisfy?" },
+                    { "text": "A fixed nonzero value at one end only", "rationale": "Cosine series handle symmetric slope conditions. Which derivative conditions do they match?" },
+                    { "text": "Periodic conditions only", "rationale": "Half-range cosine series target Neumann conditions. Which slope conditions do they satisfy?" }
+                ]
+            },
+            {
+                "id": "mp_jDLCxErtwTs_5",
+                "prompt": "The coefficients of a half-range sine series are given by which formula?",
+                "hint": "Project onto $\\sin(n\\pi x/L)$ over $[0, L]$ with the half-range normalization.",
+                "answerOptions": [
+                    { "text": "$b_n = \\frac{2}{L}\\int_0^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "correct": true, "rationale": "Correct. The half-range sine coefficient integrates over $[0, L]$ with the factor $2/L$." },
+                    { "text": "$b_n = \\frac{1}{L}\\int_0^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "The half-range convention uses $2/L$, not $1/L$. What prefactor is correct?" },
+                    { "text": "$b_n = \\frac{2}{L}\\int_0^L f(x)\\cos\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "Sine coefficients pair with sine, not cosine. Which trig function belongs in the integrand?" },
+                    { "text": "$b_n = \\frac{2}{L}\\int_{-L}^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "The half-range integral runs over $[0, L]$, not $[-L, L]$. What limits are correct?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.4, video 1
+           "Separable Partial Differential Equations" */
+        "dIsxevQhzic": [
+            {
+                "id": "mp_dIsxevQhzic_1",
+                "prompt": "The method of separation of variables seeks a solution of the form what?",
+                "hint": "Split the dependence on each variable into its own factor.",
+                "answerOptions": [
+                    { "text": "$u(x, t) = X(x)\\,T(t)$, a product of single-variable functions", "correct": true, "rationale": "Yes. Separation of variables assumes the solution factors into a function of $x$ times a function of $t$." },
+                    { "text": "$u(x, t) = X(x) + T(t)$, a sum", "rationale": "Separation uses a product, not a sum. How are the single-variable factors combined?" },
+                    { "text": "$u(x, t) = X(x)\\,T(x)$, both in $x$", "rationale": "One factor must depend on $t$. Which variables do the two factors use?" },
+                    { "text": "$u(x, t) = X(t)\\,T(x)$ with swapped variables", "rationale": "Each factor should carry its own variable, $X$ in $x$ and $T$ in $t$. What is the correct product form?" }
+                ]
+            },
+            {
+                "id": "mp_dIsxevQhzic_2",
+                "prompt": "After substituting $u = X(x)T(t)$ and dividing, each side of the equation depends on a single variable. What does this force?",
+                "hint": "If a function of $x$ equals a function of $t$ for all $x$ and $t$, both must be constant.",
+                "answerOptions": [
+                    { "text": "Both sides equal a common constant (the separation constant)", "correct": true, "rationale": "Yes. A function of $x$ alone equal to a function of $t$ alone must be constant, the separation constant." },
+                    { "text": "Both sides equal zero", "rationale": "They equal a shared constant, not necessarily zero. What common value must they take?" },
+                    { "text": "The variables become dependent", "rationale": "The point is that the sides are independent yet equal. What must each side then be?" },
+                    { "text": "The equation has no solution", "rationale": "Separation succeeds precisely here. What common quantity do the two sides share?" }
+                ]
+            },
+            {
+                "id": "mp_dIsxevQhzic_3",
+                "prompt": "Separation of variables turns one partial differential equation into what?",
+                "hint": "Each single-variable factor obeys its own equation.",
+                "answerOptions": [
+                    { "text": "Two ordinary differential equations", "correct": true, "rationale": "Yes. The separation produces an ODE for $X(x)$ and an ODE for $T(t)$." },
+                    { "text": "One larger partial differential equation", "rationale": "Separation reduces, not enlarges, the problem. What simpler equations result?" },
+                    { "text": "A single algebraic equation", "rationale": "Derivatives remain, so the results are differential. How many ODEs appear?" },
+                    { "text": "An integral equation", "rationale": "No integral equation is produced. What kind of equations does separation yield?" }
+                ]
+            },
+            {
+                "id": "mp_dIsxevQhzic_4",
+                "prompt": "In the separated heat equation, the spatial factor $X(x)$ together with the boundary conditions forms what?",
+                "hint": "The constant ties $X$ to an eigenvalue problem.",
+                "answerOptions": [
+                    { "text": "A boundary value eigenvalue problem", "correct": true, "rationale": "Yes. The spatial ODE plus boundary conditions is exactly an eigenvalue problem whose eigenvalues are the allowed separation constants." },
+                    { "text": "An initial value problem", "rationale": "The spatial part carries boundary conditions, not initial data. What kind of problem does $X$ solve?" },
+                    { "text": "A purely algebraic identity", "rationale": "Derivatives in $x$ remain. What boundary-condition problem does $X$ satisfy?" },
+                    { "text": "A nonlinear system", "rationale": "The separated spatial equation is linear. What linear eigenvalue problem results?" }
+                ]
+            },
+            {
+                "id": "mp_dIsxevQhzic_5",
+                "prompt": "The role of the separation constant in the spatial equation is to play the part of what?",
+                "hint": "It is the value that the boundary conditions quantize.",
+                "answerOptions": [
+                    { "text": "An eigenvalue selected by the boundary conditions", "correct": true, "rationale": "Yes. The boundary conditions admit only discrete separation constants, the eigenvalues of the spatial problem." },
+                    { "text": "An arbitrary integration constant", "rationale": "It is constrained, not free; the boundary conditions pin it. What does it become?" },
+                    { "text": "The initial temperature", "rationale": "The constant is not the initial data. What spectral quantity does it represent?" },
+                    { "text": "The wave speed", "rationale": "It is not a speed. What eigenvalue role does the separation constant take?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.4, video 2
+           "Classical PDEs and Boundary-Value Problems" */
+        "17WkgjkENV0": [
+            {
+                "id": "mp_17WkgjkENV0_1",
+                "prompt": "The one-dimensional heat equation is which partial differential equation?",
+                "hint": "It is first order in time and second order in space.",
+                "answerOptions": [
+                    { "text": "$u_t = \\alpha\\,u_{xx}$", "correct": true, "rationale": "Yes. The heat equation relates the first time derivative to the second spatial derivative through the diffusivity $\\alpha$." },
+                    { "text": "$u_{tt} = c^2\\,u_{xx}$", "rationale": "That second time derivative is the wave equation. What single time derivative defines the heat equation?" },
+                    { "text": "$u_{xx} + u_{yy} = 0$", "rationale": "That is Laplace's equation, with no time at all. What time-dependent equation models heat?" },
+                    { "text": "$u_t = \\alpha\\,u_x$", "rationale": "Diffusion involves the second spatial derivative, not the first. Which spatial derivative appears in the heat equation?" }
+                ]
+            },
+            {
+                "id": "mp_17WkgjkENV0_2",
+                "prompt": "The one-dimensional wave equation is which partial differential equation?",
+                "hint": "It is second order in both time and space.",
+                "answerOptions": [
+                    { "text": "$u_{tt} = c^2\\,u_{xx}$", "correct": true, "rationale": "Yes. The wave equation sets the second time derivative equal to $c^2$ times the second spatial derivative." },
+                    { "text": "$u_t = \\alpha\\,u_{xx}$", "rationale": "A single time derivative gives the heat equation. What time derivative does the wave equation use?" },
+                    { "text": "$u_t + u_x = 0$", "rationale": "That first-order transport equation is not the wave equation. What second-order form is correct?" },
+                    { "text": "$u_{xx} + u_{yy} = 0$", "rationale": "That steady-state Laplace equation has no time. What time-dependent equation describes waves?" }
+                ]
+            },
+            {
+                "id": "mp_17WkgjkENV0_3",
+                "prompt": "Laplace's equation in two dimensions is which equation?",
+                "hint": "It is the steady-state equation with no time dependence.",
+                "answerOptions": [
+                    { "text": "$u_{xx} + u_{yy} = 0$", "correct": true, "rationale": "Yes. Laplace's equation sets the sum of the second spatial derivatives to zero, describing steady states." },
+                    { "text": "$u_t = u_{xx} + u_{yy}$", "rationale": "That includes time and is a heat (diffusion) equation. What steady equation drops the time term?" },
+                    { "text": "$u_{xx} - u_{yy} = 0$", "rationale": "The signs should both be positive in Laplace's equation. What is the correct combination?" },
+                    { "text": "$u_{tt} = u_{xx} + u_{yy}$", "rationale": "That is a wave equation in two space dimensions. What time-free equation is Laplace's?" }
+                ]
+            },
+            {
+                "id": "mp_17WkgjkENV0_4",
+                "prompt": "Among heat, wave, and Laplace equations, which describes a steady state with no time dependence?",
+                "hint": "Steady state means nothing changes in time.",
+                "answerOptions": [
+                    { "text": "Laplace's equation", "correct": true, "rationale": "Yes. Laplace's equation has no time variable and models steady-state (equilibrium) configurations." },
+                    { "text": "The heat equation", "rationale": "The heat equation evolves in time toward steady state. Which equation has no time at all?" },
+                    { "text": "The wave equation", "rationale": "The wave equation oscillates in time. Which equation is purely steady?" },
+                    { "text": "None of them", "rationale": "One of the three is time independent. Which one models the steady state?" }
+                ]
+            },
+            {
+                "id": "mp_17WkgjkENV0_5",
+                "prompt": "After finding many separated solutions, how is the initial condition generally satisfied?",
+                "hint": "Linear equations let solutions be added, with coefficients from a Fourier expansion.",
+                "answerOptions": [
+                    { "text": "By superposing the separated modes and choosing coefficients via a Fourier expansion", "correct": true, "rationale": "Yes. Summing the eigenmodes and matching the initial data through a Fourier series fixes the coefficients." },
+                    { "text": "By keeping only the first mode", "rationale": "A single mode rarely matches arbitrary initial data. What combination of modes is used?" },
+                    { "text": "By multiplying all the modes together", "rationale": "Linear superposition adds modes, it does not multiply them. How are they combined?" },
+                    { "text": "By ignoring the initial condition", "rationale": "The initial condition must be met. What expansion determines the coefficients?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.5, video 1
+           "Laplacian intuition" (single video module) */
+        "EW08rD-GFh0": [
+            {
+                "id": "mp_EW08rD-GFh0_1",
+                "prompt": "In two dimensions, the Laplacian of $u$ is which expression?",
+                "hint": "It is the divergence of the gradient, summing the pure second partials.",
+                "answerOptions": [
+                    { "text": "$\\nabla^2 u = u_{xx} + u_{yy}$", "correct": true, "rationale": "Yes. The Laplacian sums the unmixed second partial derivatives." },
+                    { "text": "$\\nabla^2 u = u_x + u_y$", "rationale": "First derivatives form the gradient, not the Laplacian. What second derivatives are summed?" },
+                    { "text": "$\\nabla^2 u = u_{xy}$", "rationale": "The mixed partial is not the Laplacian. Which pure second partials are added?" },
+                    { "text": "$\\nabla^2 u = u_{xx}\\,u_{yy}$", "rationale": "It is a sum, not a product. What combination of second partials defines it?" }
+                ]
+            },
+            {
+                "id": "mp_EW08rD-GFh0_2",
+                "prompt": "Intuitively, the Laplacian at a point measures what?",
+                "hint": "It compares the value at the point with the surrounding average.",
+                "answerOptions": [
+                    { "text": "How the value at a point compares with the average of its neighbors", "correct": true, "rationale": "Yes. The Laplacian captures the difference between a point's value and the average of nearby values." },
+                    { "text": "The slope of $u$ in the $x$ direction", "rationale": "A single slope is a first derivative. What neighborhood comparison does the Laplacian make?" },
+                    { "text": "The maximum value of $u$ nearby", "rationale": "It is a comparison with the average, not the maximum. What average does it use?" },
+                    { "text": "The total integral of $u$", "rationale": "It is a local, not global, quantity. What local comparison does it express?" }
+                ]
+            },
+            {
+                "id": "mp_EW08rD-GFh0_3",
+                "prompt": "If $\\nabla^2 u > 0$ at a point, the value there is generally what relative to its neighbors?",
+                "hint": "A positive Laplacian signals a local dip.",
+                "answerOptions": [
+                    { "text": "Lower than the surrounding average", "correct": true, "rationale": "Yes. A positive Laplacian means the point sits below the average of its neighbors." },
+                    { "text": "Higher than the surrounding average", "rationale": "That corresponds to a negative Laplacian. What does a positive value indicate?" },
+                    { "text": "Exactly equal to the average", "rationale": "Equality corresponds to a zero Laplacian. What does a positive sign indicate?" },
+                    { "text": "Always a maximum", "rationale": "A positive Laplacian suggests a dip, not a peak. How does the point compare with neighbors?" }
+                ]
+            },
+            {
+                "id": "mp_EW08rD-GFh0_4",
+                "prompt": "A function satisfying $\\nabla^2 u = 0$ is called what?",
+                "hint": "This is the steady-state Laplace condition.",
+                "answerOptions": [
+                    { "text": "Harmonic", "correct": true, "rationale": "Yes. Functions with zero Laplacian are called harmonic functions." },
+                    { "text": "Periodic", "rationale": "Zero Laplacian does not mean periodic. What name describes $\\nabla^2 u = 0$?" },
+                    { "text": "Singular", "rationale": "Harmonic functions are typically smooth, not singular. What is the term for zero Laplacian?" },
+                    { "text": "Linear", "rationale": "Harmonic functions need not be linear. What special name applies when the Laplacian vanishes?" }
+                ]
+            },
+            {
+                "id": "mp_EW08rD-GFh0_5",
+                "prompt": "The Laplacian appears as the spatial operator in which of these equations?",
+                "hint": "It is the common spatial term across the classical PDEs.",
+                "answerOptions": [
+                    { "text": "The heat, wave, and Laplace equations", "correct": true, "rationale": "Yes. The Laplacian is the shared spatial operator in the heat, wave, and Laplace equations." },
+                    { "text": "Only the heat equation", "rationale": "It appears in more than just the heat equation. Which family of equations shares it?" },
+                    { "text": "Only first-order transport equations", "rationale": "Those use a first derivative, not the Laplacian. Which second-order equations use it?" },
+                    { "text": "None of the classical PDEs", "rationale": "The Laplacian is central to them. Which classical equations contain it?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.6, video 1
+           "Heat Equation" */
+        "yK-xFXATzyQ": [
+            {
+                "id": "mp_yK-xFXATzyQ_1",
+                "prompt": "The one-dimensional heat equation is which of these?",
+                "hint": "First order in time, second order in space, with a diffusivity constant.",
+                "answerOptions": [
+                    { "text": "$u_t = k\\,u_{xx}$", "correct": true, "rationale": "Yes. The heat equation links the first time derivative to the second spatial derivative through the constant $k$." },
+                    { "text": "$u_{tt} = k\\,u_{xx}$", "rationale": "Two time derivatives give the wave equation. What single time derivative defines heat flow?" },
+                    { "text": "$u_t = k\\,u_x$", "rationale": "Diffusion uses the second spatial derivative. Which spatial derivative belongs in the heat equation?" },
+                    { "text": "$u_x = k\\,u_t$", "rationale": "The roles of time and space are reversed here. What is the standard heat equation?" }
+                ]
+            },
+            {
+                "id": "mp_yK-xFXATzyQ_2",
+                "prompt": "For a rod with ends held at zero temperature, the separated solution of the heat equation is which series?",
+                "hint": "Sine modes in space, decaying exponentials in time.",
+                "answerOptions": [
+                    { "text": "$u(x,t) = \\sum_n b_n \\sin\\!\\frac{n\\pi x}{L}\\, e^{-k(n\\pi/L)^2 t}$", "correct": true, "rationale": "Yes. Each sine mode decays in time with rate $k(n\\pi/L)^2$, summed against the initial data." },
+                    { "text": "$u(x,t) = \\sum_n b_n \\sin\\!\\frac{n\\pi x}{L}\\, e^{+k(n\\pi/L)^2 t}$", "rationale": "A growing exponential is unphysical for cooling. What sign should the time exponent have?" },
+                    { "text": "$u(x,t) = \\sum_n b_n \\cos\\!\\frac{n\\pi x}{L}\\, e^{-k(n\\pi/L)^2 t}$", "rationale": "Zero-temperature ends call for sines, which vanish at the ends. Which spatial function fits?" },
+                    { "text": "$u(x,t) = \\sum_n b_n \\sin\\!\\frac{n\\pi x}{L}\\, \\cos\\!\\frac{n\\pi c t}{L}$", "rationale": "Oscillating time factors belong to the wave equation. What time behavior does heat flow show?" }
+                ]
+            },
+            {
+                "id": "mp_yK-xFXATzyQ_3",
+                "prompt": "In the heat-equation solution, which modes decay fastest in time?",
+                "hint": "The decay rate grows with the square of the mode number.",
+                "answerOptions": [
+                    { "text": "High-frequency modes (large $n$)", "correct": true, "rationale": "Yes. Since the decay rate is $k(n\\pi/L)^2$, larger $n$ decays faster, smoothing the profile." },
+                    { "text": "Low-frequency modes (small $n$)", "rationale": "Small $n$ decays slowest, not fastest. Which modes have the largest decay rate?" },
+                    { "text": "All modes decay at the same rate", "rationale": "The rate depends on $n^2$, so it varies. Which modes decay quickest?" },
+                    { "text": "The constant mode decays fastest", "rationale": "A constant mode would not decay at all. Which high-$n$ modes vanish soonest?" }
+                ]
+            },
+            {
+                "id": "mp_yK-xFXATzyQ_4",
+                "prompt": "As $t \\to \\infty$ for a rod with zero-temperature ends, the heat-equation solution approaches what?",
+                "hint": "Every decaying mode dies out.",
+                "answerOptions": [
+                    { "text": "Zero everywhere", "correct": true, "rationale": "Yes. Each mode decays to zero, so the temperature approaches zero throughout the rod." },
+                    { "text": "A nonzero constant", "rationale": "With both ends at zero, no nonzero steady value survives. What limit do the decaying modes give?" },
+                    { "text": "A growing profile", "rationale": "The modes decay, they do not grow. What value is approached as $t$ increases?" },
+                    { "text": "A standing oscillation", "rationale": "Heat flow decays rather than oscillates. What steady limit results?" }
+                ]
+            },
+            {
+                "id": "mp_yK-xFXATzyQ_5",
+                "prompt": "How are the coefficients $b_n$ in the heat-equation solution determined?",
+                "hint": "Match the solution at $t = 0$ to the initial temperature.",
+                "answerOptions": [
+                    { "text": "By expanding the initial temperature distribution in a sine series", "correct": true, "rationale": "Yes. Setting $t = 0$ leaves a sine series whose coefficients are the Fourier sine coefficients of the initial data." },
+                    { "text": "By the boundary conditions alone", "rationale": "The boundary conditions fix the mode shapes, not the coefficients. What initial data determines $b_n$?" },
+                    { "text": "By the diffusivity constant $k$", "rationale": "The constant $k$ sets decay rates, not the coefficients. What expansion of the initial profile gives $b_n$?" },
+                    { "text": "They are all equal to one", "rationale": "The coefficients depend on the initial profile. What sine expansion produces them?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.6, video 2
+           "Wave Equation" */
+        "6lbSrBmGUik": [
+            {
+                "id": "mp_6lbSrBmGUik_1",
+                "prompt": "The one-dimensional wave equation is which of these?",
+                "hint": "It is second order in time, unlike the heat equation.",
+                "answerOptions": [
+                    { "text": "$u_{tt} = c^2\\,u_{xx}$", "correct": true, "rationale": "Yes. The wave equation sets the second time derivative equal to $c^2$ times the second spatial derivative." },
+                    { "text": "$u_t = c^2\\,u_{xx}$", "rationale": "A single time derivative gives the heat equation. What time derivative does the wave equation use?" },
+                    { "text": "$u_{tt} = c\\,u_x$", "rationale": "The spatial term is a second derivative scaled by $c^2$. What is the correct right side?" },
+                    { "text": "$u_{xx} = c^2\\,u_{tt}$ with $c$ a temperature", "rationale": "Here $c$ is a wave speed, and the standard form solves for $u_{tt}$. What is the usual arrangement?" }
+                ]
+            },
+            {
+                "id": "mp_6lbSrBmGUik_2",
+                "prompt": "For a string fixed at both ends, the time factors of the separated wave solution are which functions?",
+                "hint": "With no decay, the time behavior oscillates.",
+                "answerOptions": [
+                    { "text": "$\\cos\\!\\frac{n\\pi c t}{L}$ and $\\sin\\!\\frac{n\\pi c t}{L}$", "correct": true, "rationale": "Yes. The wave equation gives oscillatory time factors at the modal frequencies, with no decay." },
+                    { "text": "$e^{-k(n\\pi/L)^2 t}$", "rationale": "Exponential decay belongs to the heat equation. What oscillatory time factors arise for waves?" },
+                    { "text": "$e^{n\\pi c t/L}$, a growing exponential", "rationale": "Wave modes oscillate rather than grow. What bounded time functions appear?" },
+                    { "text": "A constant in time", "rationale": "The modes vibrate in time. What oscillating functions describe them?" }
+                ]
+            },
+            {
+                "id": "mp_6lbSrBmGUik_3",
+                "prompt": "In the wave equation $u_{tt} = c^2 u_{xx}$, the constant $c$ represents what?",
+                "hint": "It carries units of distance over time.",
+                "answerOptions": [
+                    { "text": "The wave (propagation) speed", "correct": true, "rationale": "Yes. The constant $c$ is the speed at which disturbances travel along the medium." },
+                    { "text": "The thermal diffusivity", "rationale": "Diffusivity belongs to the heat equation. What does $c$ measure for waves?" },
+                    { "text": "The amplitude of the wave", "rationale": "Amplitude is set by initial data, not by $c$. What rate does $c$ represent?" },
+                    { "text": "The period of oscillation", "rationale": "The period depends on $c$ and the mode, but $c$ itself is a speed. What quantity is $c$?" }
+                ]
+            },
+            {
+                "id": "mp_6lbSrBmGUik_4",
+                "prompt": "How many initial conditions does the wave equation require, and why?",
+                "hint": "It is second order in time.",
+                "answerOptions": [
+                    { "text": "Two: initial position and initial velocity, since it is second order in time", "correct": true, "rationale": "Yes. Being second order in time, the wave equation needs both the initial displacement and the initial velocity." },
+                    { "text": "One: only the initial position", "rationale": "A single condition underdetermines a second-order-in-time equation. What second piece of data is needed?" },
+                    { "text": "Zero: the boundary conditions suffice", "rationale": "Initial data in time is still required. How many time conditions does second order need?" },
+                    { "text": "Three: position, velocity, and acceleration", "rationale": "Acceleration is set by the equation itself. How many independent initial conditions are required?" }
+                ]
+            },
+            {
+                "id": "mp_6lbSrBmGUik_5",
+                "prompt": "D'Alembert's solution of the wave equation expresses $u$ as what?",
+                "hint": "Two shapes travel in opposite directions at speed $c$.",
+                "answerOptions": [
+                    { "text": "A sum of left- and right-traveling waves, $f(x - ct) + g(x + ct)$", "correct": true, "rationale": "Yes. D'Alembert's form is the superposition of a right-moving wave $f(x - ct)$ and a left-moving wave $g(x + ct)$." },
+                    { "text": "A single decaying exponential in time", "rationale": "Decay describes diffusion, not waves. What traveling-wave combination solves it?" },
+                    { "text": "A product $f(x)\\,g(t)$ only", "rationale": "That separated product is one family of solutions, but d'Alembert's form is different. What traveling waves appear?" },
+                    { "text": "A constant plus a linear term", "rationale": "That cannot capture propagation. What pair of traveling waves does d'Alembert use?" }
+                ]
+            }
+        ],
+
+        /* Unit 18, Module 18.6, video 3
+           "1d wave equation with a forcing function (Duhamel's Principle)" */
+        "BNULJwNPmFk": [
+            {
+                "id": "mp_BNULJwNPmFk_1",
+                "prompt": "Duhamel's principle is a technique for solving which kind of wave equation?",
+                "hint": "It addresses an external driving term on the right-hand side.",
+                "answerOptions": [
+                    { "text": "The forced (inhomogeneous) wave equation with a source term", "correct": true, "rationale": "Yes. Duhamel's principle constructs the response of a forced wave equation from its impulse responses." },
+                    { "text": "Only the homogeneous wave equation", "rationale": "The homogeneous case needs no source handling. What kind of equation does Duhamel target?" },
+                    { "text": "Only the steady-state Laplace equation", "rationale": "Laplace's equation has no time forcing. Which time-dependent forced equation does Duhamel address?" },
+                    { "text": "Only first-order transport equations", "rationale": "Duhamel applies to the second-order forced wave equation. What source-driven equation is it for?" }
+                ]
+            },
+            {
+                "id": "mp_BNULJwNPmFk_2",
+                "prompt": "The central idea of Duhamel's principle is to build the forced response by doing what?",
+                "hint": "Treat the forcing as a continuous train of impulses and add their effects.",
+                "answerOptions": [
+                    { "text": "Superposing the responses to impulses applied at each earlier time", "correct": true, "rationale": "Yes. The forcing is decomposed into impulses, and their individual responses are integrated over time." },
+                    { "text": "Differentiating the forcing twice", "rationale": "Duhamel integrates impulse responses rather than differentiating the source. How are the impulses combined?" },
+                    { "text": "Ignoring the forcing entirely", "rationale": "The forcing is exactly what is being handled. How does Duhamel incorporate it?" },
+                    { "text": "Replacing the forcing with a constant", "rationale": "The method respects the full time-varying source. How does it accumulate the source's effect?" }
+                ]
+            },
+            {
+                "id": "mp_BNULJwNPmFk_3",
+                "prompt": "The full solution of a forced wave equation is written as which combination?",
+                "hint": "Add the free response to the response due to the source.",
+                "answerOptions": [
+                    { "text": "A homogeneous solution plus a particular (forced) solution", "correct": true, "rationale": "Yes. As with linear ODEs, the total is the homogeneous solution plus a particular solution driven by the forcing." },
+                    { "text": "Only the particular solution", "rationale": "The homogeneous part carries the initial data. What is added to the particular solution?" },
+                    { "text": "Only the homogeneous solution", "rationale": "The forcing must contribute a particular part. What is added to the homogeneous solution?" },
+                    { "text": "The product of homogeneous and particular solutions", "rationale": "Linear superposition adds the two, it does not multiply. How are they combined?" }
+                ]
+            },
+            {
+                "id": "mp_BNULJwNPmFk_4",
+                "prompt": "In the forced wave equation $u_{tt} - c^2 u_{xx} = f(x, t)$, the term $f(x, t)$ represents what?",
+                "hint": "It is the term that makes the equation inhomogeneous.",
+                "answerOptions": [
+                    { "text": "An external forcing (source) term", "correct": true, "rationale": "Yes. The function $f(x, t)$ is the external forcing driving the wave equation." },
+                    { "text": "The wave speed", "rationale": "The speed is the constant $c$, not $f$. What does the right-hand term represent?" },
+                    { "text": "The initial displacement", "rationale": "Initial displacement is initial data, not the right-hand side. What is $f(x, t)$?" },
+                    { "text": "The boundary condition", "rationale": "Boundary conditions are imposed separately. What role does $f(x, t)$ play in the equation?" }
+                ]
+            },
+            {
+                "id": "mp_BNULJwNPmFk_5",
+                "prompt": "Duhamel's principle relies on which structural property of the wave equation?",
+                "hint": "Responses to separate inputs can be added.",
+                "answerOptions": [
+                    { "text": "Linearity, so responses to separate forcings superpose", "correct": true, "rationale": "Yes. Linearity is what lets the responses to individual impulses be summed into the total response." },
+                    { "text": "Nonlinearity of the equation", "rationale": "The wave equation here is linear, and that is essential. What property allows superposing impulse responses?" },
+                    { "text": "The absence of boundary conditions", "rationale": "Boundary conditions can be present. What structural property underlies Duhamel's method?" },
+                    { "text": "The forcing being constant", "rationale": "Duhamel handles time-varying forcing precisely because of one property. Which property is it?" }
+                ]
+            }
         ]
 
     },
@@ -19247,6 +20687,672 @@ const QUIZ_DATA = {
                     { "text": "A stable node", "rationale": "Stability needs both eigenvalues negative, but $a > 0$. What does the positive one give?" },
                     { "text": "A center", "rationale": "The eigenvalues are real and opposite, not imaginary. What type is that?" },
                     { "text": "A stable spiral", "rationale": "Spirals need complex eigenvalues; these are real. What opposite-sign type results?" }
+                ]
+            }
+        ],
+
+        "Unit 17: Boundary Value Problems and Sturm-Liouville Theory": [
+            {
+                "id": "um_17_1",
+                "prompt": "What distinguishes a boundary value problem from an initial value problem?",
+                "hint": "Consider where the side conditions are imposed.",
+                "answerOptions": [
+                    { "text": "Conditions are imposed at two different points rather than all at one point", "correct": true, "rationale": "Yes. A BVP spreads its conditions across two endpoints, unlike the single-point IVP." },
+                    { "text": "It must be nonlinear", "rationale": "Linearity is not the distinction; both kinds can be linear. Where are the conditions placed?" },
+                    { "text": "It is always first order", "rationale": "Order is unrelated to this distinction. What about the placement of conditions?" },
+                    { "text": "It has no side conditions", "rationale": "A BVP has conditions, just at two ends. How are they distributed compared with an IVP?" }
+                ]
+            },
+            {
+                "id": "um_17_2",
+                "prompt": "A second-order differential equation requires how many side conditions to pin down a particular solution?",
+                "hint": "Match the count to the number of arbitrary constants.",
+                "answerOptions": [
+                    { "text": "Two", "correct": true, "rationale": "Yes. Two arbitrary constants require two conditions." },
+                    { "text": "One", "rationale": "One leaves a constant unfixed. How many constants does second order carry?" },
+                    { "text": "Four", "rationale": "That exceeds the number of constants. How many does second order need?" },
+                    { "text": "None", "rationale": "Without conditions the solution stays general. How many are required?" }
+                ]
+            },
+            {
+                "id": "um_17_3",
+                "prompt": "Regarding existence and uniqueness, boundary value problems differ from initial value problems in what way?",
+                "hint": "Recall the clean IVP guarantee and whether two endpoints preserve it.",
+                "answerOptions": [
+                    { "text": "A BVP may have no solution, one solution, or infinitely many", "correct": true, "rationale": "Yes. The two-endpoint structure breaks the IVP uniqueness guarantee." },
+                    { "text": "A BVP always has a unique solution", "rationale": "That clean guarantee is exactly what fails. What outcomes are possible at two endpoints?" },
+                    { "text": "A BVP never has solutions", "rationale": "Many do have solutions. What range of outcomes is possible?" },
+                    { "text": "They behave identically", "rationale": "The structures differ in outcomes. How does the BVP differ?" }
+                ]
+            },
+            {
+                "id": "um_17_4",
+                "prompt": "A Dirichlet boundary condition prescribes which quantity, and a Neumann condition prescribes which?",
+                "hint": "One fixes the value, the other fixes the slope.",
+                "answerOptions": [
+                    { "text": "Dirichlet fixes $y$; Neumann fixes $y'$", "correct": true, "rationale": "Yes. Dirichlet sets the function value and Neumann sets the derivative at the endpoint." },
+                    { "text": "Dirichlet fixes $y'$; Neumann fixes $y$", "rationale": "The roles are reversed here. Which condition names the value itself?" },
+                    { "text": "Both fix $y''$", "rationale": "Second derivatives are not what these conditions set. Which derivatives or values do they name?" },
+                    { "text": "Both fix the integral of $y$", "rationale": "These are pointwise conditions, not integrals. What does each prescribe at the endpoint?" }
+                ]
+            },
+            {
+                "id": "um_17_5",
+                "prompt": "Steady-state heat conduction in a rod with fixed end temperatures is modeled as which type of problem?",
+                "hint": "Conditions sit at the two ends in space.",
+                "answerOptions": [
+                    { "text": "A boundary value problem", "correct": true, "rationale": "Yes. Fixing temperatures at both ends imposes conditions at two points in space." },
+                    { "text": "An initial value problem", "rationale": "The conditions are spatial endpoints, not a single starting time. What type is that?" },
+                    { "text": "An unconstrained problem", "rationale": "Two fixed end temperatures are real conditions. Where do they sit?" },
+                    { "text": "A purely algebraic problem", "rationale": "The model is a differential equation. What kind of conditions does it carry?" }
+                ]
+            },
+            {
+                "id": "um_17_6",
+                "prompt": "Solve $y'' = 0$ with $y(0) = 1$ and $y(2) = 5$.",
+                "hint": "The general solution is a line; fit both points.",
+                "answerOptions": [
+                    { "text": "$y = 1 + 2x$", "correct": true, "rationale": "Correct. From $y = c_1 + c_2 x$, $y(0) = 1$ gives $c_1 = 1$, and $y(2) = 1 + 2c_2 = 5$ gives $c_2 = 2$." },
+                    { "text": "$y = 1 + 5x$", "rationale": "Check $y(2)$: it must equal $5$, not $11$. What slope makes $y(2) = 5$?" },
+                    { "text": "$y = 5x$", "rationale": "This violates $y(0) = 1$. What constant term satisfies the left endpoint?" },
+                    { "text": "$y = x^2 + 1$", "rationale": "The solution of $y'' = 0$ is linear, not quadratic. What line fits both points?" }
+                ]
+            },
+            {
+                "id": "um_17_7",
+                "prompt": "What is the standard method for a linear two-point boundary value problem?",
+                "hint": "Build the general solution first.",
+                "answerOptions": [
+                    { "text": "Find the general solution, then impose both boundary conditions", "correct": true, "rationale": "Yes. The constants are fixed by applying the two endpoint conditions to the general solution." },
+                    { "text": "Apply the conditions before solving", "rationale": "The general solution must come first. What is the proper order?" },
+                    { "text": "Use only one endpoint", "rationale": "Both endpoints must be satisfied. What systematic approach uses the general solution?" },
+                    { "text": "Differentiate the boundary data", "rationale": "The conditions are applied as given. What do you do with the general solution?" }
+                ]
+            },
+            {
+                "id": "um_17_8",
+                "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$, $y(\\pi) = 0$ has how many solutions?",
+                "hint": "After $A = 0$, test whether the second condition restricts $B$.",
+                "answerOptions": [
+                    { "text": "Infinitely many, $y = B\\sin x$", "correct": true, "rationale": "Yes. $y(0) = 0$ forces $A = 0$, and $\\sin\\pi = 0$ leaves $B$ free." },
+                    { "text": "Exactly one, $y \\equiv 0$", "rationale": "The second condition holds for any $B$. What family of nonzero solutions remains?" },
+                    { "text": "None", "rationale": "At least the zero solution exists, and more. What does $\\sin\\pi = 0$ allow?" },
+                    { "text": "Exactly two", "rationale": "The constant $B$ is unrestricted. How many values can it take?" }
+                ]
+            },
+            {
+                "id": "um_17_9",
+                "prompt": "A homogeneous boundary value problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ always admits which solution?",
+                "hint": "Consider the identically zero function.",
+                "answerOptions": [
+                    { "text": "The trivial solution $y \\equiv 0$", "correct": true, "rationale": "Yes. The zero function satisfies the equation and both conditions for every $\\lambda$." },
+                    { "text": "A unique nonzero solution", "rationale": "Nonzero solutions appear only at eigenvalues. What always works?" },
+                    { "text": "No solution", "rationale": "The zero function always solves it. What is that solution?" },
+                    { "text": "A nonzero constant", "rationale": "A nonzero constant cannot vanish at the ends. What trivial solution fits?" }
+                ]
+            },
+            {
+                "id": "um_17_10",
+                "prompt": "Solve $y'' = 2$ with $y(0) = 0$ and $y(1) = 0$.",
+                "hint": "Integrate twice to get $y = x^2 + c_1 x + c_2$, then apply the endpoints.",
+                "answerOptions": [
+                    { "text": "$y = x^2 - x$", "correct": true, "rationale": "Correct. $y = x^2 + c_1 x + c_2$ with $y(0) = 0$ gives $c_2 = 0$, and $y(1) = 1 + c_1 = 0$ gives $c_1 = -1$." },
+                    { "text": "$y = x^2$", "rationale": "This gives $y(1) = 1 \\neq 0$. What linear term makes $y(1) = 0$?" },
+                    { "text": "$y = x^2 + x$", "rationale": "Then $y(1) = 2$, not $0$. What sign should the linear coefficient have?" },
+                    { "text": "$y = 2x$", "rationale": "That solves $y'' = 0$, not $y'' = 2$. What quadratic results from integrating twice?" }
+                ]
+            },
+            {
+                "id": "um_17_11",
+                "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, the eigenvalues are which?",
+                "hint": "Sine must vanish at $x = L$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = (n\\pi/L)^2$, $n = 1, 2, 3, \\dots$", "correct": true, "rationale": "Correct. Requiring $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\lambda_n = (n\\pi/L)^2$." },
+                    { "text": "$\\lambda_n = n\\pi/L$", "rationale": "You must square $\\sqrt{\\lambda}\\,L = n\\pi$. What is $\\lambda$ itself?" },
+                    { "text": "$\\lambda_n = -(n\\pi/L)^2$", "rationale": "Negative values give only the trivial solution. What sign gives oscillation?" },
+                    { "text": "$\\lambda_n = (n\\pi)^2$", "rationale": "The length $L$ must appear. How does $L$ enter the formula?" }
+                ]
+            },
+            {
+                "id": "um_17_12",
+                "prompt": "The eigenfunctions of $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ are which?",
+                "hint": "They vanish at both ends.",
+                "answerOptions": [
+                    { "text": "$\\sin(n\\pi x/L)$", "correct": true, "rationale": "Correct. These sines are zero at $x = 0$ and $x = L$." },
+                    { "text": "$\\cos(n\\pi x/L)$", "rationale": "Cosine is nonzero at $x = 0$. Which function vanishes at both ends?" },
+                    { "text": "$e^{nx}$", "rationale": "Exponentials cannot meet zero conditions at both ends. What oscillatory function does?" },
+                    { "text": "$x^n$", "rationale": "Powers do not vanish at $x = L$ in general. What sine fits?" }
+                ]
+            },
+            {
+                "id": "um_17_13",
+                "prompt": "For $L = \\pi$, the eigenvalues of $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$ are which numbers?",
+                "hint": "Set $L = \\pi$ in $(n\\pi/L)^2$.",
+                "answerOptions": [
+                    { "text": "$\\lambda_n = n^2$", "correct": true, "rationale": "Correct. With $L = \\pi$ the factors of $\\pi$ cancel, leaving $n^2$." },
+                    { "text": "$\\lambda_n = n$", "rationale": "The formula squares the index. What is $(n\\pi/\\pi)^2$?" },
+                    { "text": "$\\lambda_n = \\pi^2 n^2$", "rationale": "The $\\pi$ cancels when $L = \\pi$. What remains?" },
+                    { "text": "$\\lambda_n = 2n$", "rationale": "There is no factor of $2$. What does $n^2$ give?" }
+                ]
+            },
+            {
+                "id": "um_17_14",
+                "prompt": "For Neumann conditions $y'(0) = y'(L) = 0$, the eigenfunctions of $y'' + \\lambda y = 0$ are which?",
+                "hint": "The derivative must vanish at both ends, and a constant mode is allowed.",
+                "answerOptions": [
+                    { "text": "$\\cos(n\\pi x/L)$, $n = 0, 1, 2, \\dots$", "correct": true, "rationale": "Correct. Cosines have zero slope at both ends, and $n = 0$ gives the constant mode." },
+                    { "text": "$\\sin(n\\pi x/L)$", "rationale": "Sine has nonzero slope at $x = 0$. Which function has zero derivative there?" },
+                    { "text": "$x^n$", "rationale": "Powers do not satisfy zero-slope conditions. What pure cosine works?" },
+                    { "text": "$e^{-nx}$", "rationale": "Exponentials fail the slope conditions. What oscillatory function fits?" }
+                ]
+            },
+            {
+                "id": "um_17_15",
+                "prompt": "As the mode number $n$ grows, the eigenvalues $\\lambda_n = (n\\pi/L)^2$ behave how?",
+                "hint": "Track the growth of $n^2$.",
+                "answerOptions": [
+                    { "text": "They increase without bound", "correct": true, "rationale": "Yes. Growing like $n^2$, the eigenvalues tend to infinity." },
+                    { "text": "They approach a finite limit", "rationale": "There is no ceiling on $n^2$. Which direction do they go?" },
+                    { "text": "They decrease to zero", "rationale": "Larger $n$ makes them larger. Which way do they move?" },
+                    { "text": "They alternate in sign", "rationale": "They are all positive here. What single trend do they follow?" }
+                ]
+            },
+            {
+                "id": "um_17_16",
+                "prompt": "The shooting method converts a boundary value problem into what?",
+                "hint": "It guesses the missing starting datum.",
+                "answerOptions": [
+                    { "text": "An initial value problem with a guessed initial slope", "correct": true, "rationale": "Yes. It guesses the missing initial slope and integrates as an IVP." },
+                    { "text": "A partial differential equation", "rationale": "No new variable is introduced. What single-point problem replaces the BVP?" },
+                    { "text": "A purely algebraic system", "rationale": "Integration is still required. What initial-value problem does it solve?" },
+                    { "text": "A Fourier series", "rationale": "Shooting uses IVP integration, not Fourier expansion. What problem form does it create?" }
+                ]
+            },
+            {
+                "id": "um_17_17",
+                "prompt": "In the shooting method, the guessed initial slope is adjusted until what holds?",
+                "hint": "You want the far-end condition met.",
+                "answerOptions": [
+                    { "text": "The solution matches the far boundary condition", "correct": true, "rationale": "Yes. The slope is tuned until the integrated solution hits the target at the far end." },
+                    { "text": "The solution becomes constant", "rationale": "A constant solution is not the goal. What far-end requirement is enforced?" },
+                    { "text": "The differential equation changes", "rationale": "The equation is fixed. What endpoint condition must be satisfied?" },
+                    { "text": "The interval length changes", "rationale": "The interval is given. What boundary value is matched?" }
+                ]
+            },
+            {
+                "id": "um_17_18",
+                "prompt": "For a linear boundary value problem, how many shots determine the exact initial slope?",
+                "hint": "Linear dependence on the guess means a straight-line fit.",
+                "answerOptions": [
+                    { "text": "Two, followed by linear interpolation", "correct": true, "rationale": "Yes. The endpoint depends linearly on the guess, so two shots fix it exactly." },
+                    { "text": "One", "rationale": "One point is not enough to interpolate a line. How many points are needed?" },
+                    { "text": "Infinitely many", "rationale": "Linearity makes it finite. How many define the line?" },
+                    { "text": "It cannot be found by shooting", "rationale": "Linear problems are the easiest case for shooting. How many shots suffice?" }
+                ]
+            },
+            {
+                "id": "um_17_19",
+                "prompt": "With $F(s) = y(b; s) - \\beta$ the boundary mismatch, the shooting method seeks what?",
+                "hint": "You want the mismatch to vanish.",
+                "answerOptions": [
+                    { "text": "A root $F(s) = 0$", "correct": true, "rationale": "Yes. The guess that makes the endpoint error zero solves the problem." },
+                    { "text": "A maximum of $F(s)$", "rationale": "You want zero error, not a maximum. What value of $F$ is sought?" },
+                    { "text": "The derivative $F'(s) = 0$", "rationale": "You drive $F$ itself to zero, not its derivative. What condition is the goal?" },
+                    { "text": "A constant value of $F$", "rationale": "The mismatch should vanish, not merely stay constant. What root is sought?" }
+                ]
+            },
+            {
+                "id": "um_17_20",
+                "prompt": "A key practical benefit of the shooting method is that it lets you reuse what?",
+                "hint": "It builds on well-tested one-point machinery.",
+                "answerOptions": [
+                    { "text": "Robust initial value problem integrators such as Runge-Kutta", "correct": true, "rationale": "Yes. Each shot is an IVP integration, reusing mature solvers." },
+                    { "text": "Closed-form solution formulas", "rationale": "Closed forms are usually unavailable. What numerical machinery is reused?" },
+                    { "text": "Tables of Fourier coefficients", "rationale": "No Fourier table is needed. What solvers does shooting rely on?" },
+                    { "text": "Matrix eigenvalue routines", "rationale": "Eigenvalue routines are a different approach. What IVP tools does shooting reuse?" }
+                ]
+            },
+            {
+                "id": "um_17_21",
+                "prompt": "The inner product of functions $f$ and $g$ on $[a, b]$ is which expression?",
+                "hint": "It integrates the product of the two functions.",
+                "answerOptions": [
+                    { "text": "$\\int_a^b f(x) g(x)\\,dx$", "correct": true, "rationale": "Yes. The function inner product integrates the product over the interval." },
+                    { "text": "$f(b) g(b) - f(a) g(a)$", "rationale": "That is a boundary difference. What integral defines the inner product?" },
+                    { "text": "$\\int_a^b (f + g)\\,dx$", "rationale": "You multiply, not add. What integrand appears?" },
+                    { "text": "$f(a)/g(a)$", "rationale": "A pointwise quotient is not an inner product. What integral of a product is used?" }
+                ]
+            },
+            {
+                "id": "um_17_22",
+                "prompt": "Two functions are orthogonal on $[a, b]$ when which quantity is zero?",
+                "hint": "It is the function analog of perpendicular vectors.",
+                "answerOptions": [
+                    { "text": "Their inner product $\\int_a^b f g\\,dx$", "correct": true, "rationale": "Yes. Orthogonality means the integral of the product vanishes." },
+                    { "text": "Their sum", "rationale": "A zero sum makes them negatives, not orthogonal. What integral vanishes?" },
+                    { "text": "Their product at every point", "rationale": "The product need not vanish pointwise, only its integral. What integral is zero?" },
+                    { "text": "Their values at the endpoints", "rationale": "Endpoint values are unrelated. What integral must equal zero?" }
+                ]
+            },
+            {
+                "id": "um_17_23",
+                "prompt": "For $m \\neq n$, what is $\\int_0^L \\sin(n\\pi x/L)\\sin(m\\pi x/L)\\,dx$, and what is it for $m = n$?",
+                "hint": "Distinct modes are orthogonal; a mode against itself gives the squared norm.",
+                "answerOptions": [
+                    { "text": "$0$ for $m \\neq n$ and $L/2$ for $m = n$", "correct": true, "rationale": "Correct. The sine modes are orthogonal, with self inner product $L/2$." },
+                    { "text": "$0$ for both cases", "rationale": "The $m = n$ case is nonzero. What is the self inner product?" },
+                    { "text": "$L$ for both cases", "rationale": "Distinct modes give zero. What does orthogonality say for $m \\neq n$?" },
+                    { "text": "$L/2$ for $m \\neq n$ and $0$ for $m = n$", "rationale": "The cases are reversed. Which case gives zero?" }
+                ]
+            },
+            {
+                "id": "um_17_24",
+                "prompt": "The set $\\{1, \\cos x, \\sin x, \\cos 2x, \\sin 2x, \\dots\\}$ on $[-\\pi, \\pi]$ has which property?",
+                "hint": "Every distinct pair integrates to zero against each other.",
+                "answerOptions": [
+                    { "text": "It is an orthogonal set", "correct": true, "rationale": "Yes. Every distinct pair is orthogonal on $[-\\pi, \\pi]$, the foundation of Fourier series." },
+                    { "text": "It is linearly dependent", "rationale": "These functions are independent. What stronger relation holds?" },
+                    { "text": "Each pair has inner product $1$", "rationale": "Distinct pairs integrate to zero, not one. What is that called?" },
+                    { "text": "It spans only constants", "rationale": "The set reaches far beyond constants. What orthogonality property holds?" }
+                ]
+            },
+            {
+                "id": "um_17_25",
+                "prompt": "Why does orthogonality make computing series coefficients easy?",
+                "hint": "Integrating against one basis function isolates its coefficient.",
+                "answerOptions": [
+                    { "text": "Each coefficient is found independently by one inner product", "correct": true, "rationale": "Yes. Orthogonality decouples the coefficients, each from a single inner product." },
+                    { "text": "It makes all the basis functions equal", "rationale": "They remain distinct. What does orthogonality let you compute term by term?" },
+                    { "text": "It eliminates all integration", "rationale": "Coefficients still come from integrals. What does orthogonality decouple?" },
+                    { "text": "It forces a finite number of terms", "rationale": "Series may be infinite. What computational simplification does it give?" }
+                ]
+            },
+            {
+                "id": "um_17_26",
+                "prompt": "The standard Sturm-Liouville form of a second-order equation is which?",
+                "hint": "It collects the leading term as a single derivative of $p y'$.",
+                "answerOptions": [
+                    { "text": "$\\big(p(x) y'\\big)' + \\big(q(x) + \\lambda w(x)\\big)y = 0$", "correct": true, "rationale": "Yes. The self-adjoint form uses $(p y')'$ with a weight $w$ multiplying $\\lambda$." },
+                    { "text": "$p(x) y'' + \\lambda y = q(x)$", "rationale": "The leading term must be $(p y')'$, not $p y''$. What self-adjoint form is standard?" },
+                    { "text": "$y' = \\lambda w(x) y$", "rationale": "A first-order form misses the structure. What second-order form is used?" },
+                    { "text": "$y'' = \\lambda^2 y$", "rationale": "That is a narrow special case. What general $p$, $q$, $w$ form is standard?" }
+                ]
+            },
+            {
+                "id": "um_17_27",
+                "prompt": "For a regular Sturm-Liouville problem, the eigenvalues are guaranteed to be what?",
+                "hint": "The self-adjoint structure rules out complex values.",
+                "answerOptions": [
+                    { "text": "Real", "correct": true, "rationale": "Yes. Self-adjointness forces all eigenvalues to be real." },
+                    { "text": "Always complex", "rationale": "The structure forbids genuinely complex eigenvalues. What must they be?" },
+                    { "text": "Always zero", "rationale": "They are generally nonzero and varied. What property is guaranteed?" },
+                    { "text": "Always negative", "rationale": "They need not be negative. What is guaranteed about them?" }
+                ]
+            },
+            {
+                "id": "um_17_28",
+                "prompt": "Eigenfunctions of a Sturm-Liouville problem for distinct eigenvalues are orthogonal with respect to what?",
+                "hint": "A weight function enters the inner product.",
+                "answerOptions": [
+                    { "text": "The weight function $w(x)$", "correct": true, "rationale": "Yes. They are orthogonal under the weighted inner product with weight $w$." },
+                    { "text": "No weight at all", "rationale": "The orthogonality is weighted by $w$. Which function provides the weight?" },
+                    { "text": "The coefficient $p(x)$ alone", "rationale": "The weight in the inner product is $w$, not $p$. Which function weights the orthogonality?" },
+                    { "text": "The eigenvalue $\\lambda$", "rationale": "The eigenvalue is not the weight. What function $w$ defines the inner product?" }
+                ]
+            },
+            {
+                "id": "um_17_29",
+                "prompt": "Writing $y'' + \\lambda y = 0$ in Sturm-Liouville form uses which functions?",
+                "hint": "Match $(p y')'$ to a plain $y''$.",
+                "answerOptions": [
+                    { "text": "$p = 1$, $q = 0$, $w = 1$", "correct": true, "rationale": "Correct. With $p = 1$ the term $(p y')' = y''$, and $q = 0$, $w = 1$ recover the equation." },
+                    { "text": "$p = 0$, $q = 1$, $w = 1$", "rationale": "If $p = 0$ the second-derivative term disappears. What $p$ gives $y''$?" },
+                    { "text": "$p = x$, $q = 0$, $w = 1$", "rationale": "A nonconstant $p$ adds a $y'$ term. What constant $p$ works?" },
+                    { "text": "$p = 1$, $q = \\lambda$, $w = 0$", "rationale": "With $w = 0$ the eigenvalue term vanishes. Which function multiplies $\\lambda$?" }
+                ]
+            },
+            {
+                "id": "um_17_30",
+                "prompt": "A central payoff of Sturm-Liouville theory is that its eigenfunctions form what?",
+                "hint": "They can represent broad classes of functions.",
+                "answerOptions": [
+                    { "text": "A complete basis for eigenfunction (generalized Fourier) expansions", "correct": true, "rationale": "Yes. The eigenfunctions are complete, enabling expansions of general functions." },
+                    { "text": "A finite set spanning only polynomials", "rationale": "The set is infinite and richer than polynomials. What expansion power do they have?" },
+                    { "text": "A basis only for constants", "rationale": "They represent far more than constants. What completeness do they possess?" },
+                    { "text": "A set that represents no functions", "rationale": "They represent broad function classes. What basis property do they have?" }
+                ]
+            }
+        ],
+
+        "Unit 18: Fourier Series and Partial Differential Equations": [
+            {
+                "id": "um_18_1",
+                "prompt": "A Fourier series represents a periodic function as a sum of what?",
+                "hint": "Think of the integer-multiple-frequency building-block waves.",
+                "answerOptions": [
+                    { "text": "Sines and cosines of integer-multiple frequencies", "correct": true, "rationale": "Yes. The series sums harmonics whose frequencies are integer multiples of a fundamental." },
+                    { "text": "Powers of $x$", "rationale": "Powers belong to a power series. What oscillating functions does Fourier use?" },
+                    { "text": "A single sine wave", "rationale": "One wave cannot capture a general shape. What collection of waves is summed?" },
+                    { "text": "Exponentials with random frequencies", "rationale": "The frequencies are integer multiples, not random. What waves are used?" }
+                ]
+            },
+            {
+                "id": "um_18_2",
+                "prompt": "Why does a square wave require infinitely many Fourier terms?",
+                "hint": "Smooth finite sums stay smooth.",
+                "answerOptions": [
+                    { "text": "Its sharp jumps cannot be matched exactly by any finite sum of smooth sinusoids", "correct": true, "rationale": "Yes. Discontinuities require infinitely many harmonics to approach." },
+                    { "text": "Because it is not periodic", "rationale": "A square wave is periodic. What feature demands an infinite series?" },
+                    { "text": "Because sines are not periodic", "rationale": "Sines are periodic. What property of the square wave forces infinitely many terms?" },
+                    { "text": "Because each term has the same frequency", "rationale": "The harmonics have distinct frequencies. What jump feature forces an infinite series?" }
+                ]
+            },
+            {
+                "id": "um_18_3",
+                "prompt": "The Fourier transform decomposes a non-periodic signal into what?",
+                "hint": "It reports a continuum of frequency content.",
+                "answerOptions": [
+                    { "text": "A continuous spectrum of frequencies", "correct": true, "rationale": "Yes. The transform gives a continuous distribution over frequency." },
+                    { "text": "A finite list of harmonics", "rationale": "A discrete harmonic list is the series picture. What continuum does the transform give?" },
+                    { "text": "A single frequency", "rationale": "Even a dominant frequency sits in a full spectrum. What continuous object results?" },
+                    { "text": "A polynomial in time", "rationale": "The output is in frequency, not a time polynomial. What spectrum results?" }
+                ]
+            },
+            {
+                "id": "um_18_4",
+                "prompt": "When is a Fourier series used instead of a Fourier transform?",
+                "hint": "Series handle one periodicity class, transforms the other.",
+                "answerOptions": [
+                    { "text": "For periodic signals", "correct": true, "rationale": "Yes. Series represent periodic signals; the transform suits non-periodic ones." },
+                    { "text": "For non-periodic signals", "rationale": "Those are the transform's domain. Which class does the series serve?" },
+                    { "text": "For constant signals only", "rationale": "Constants are a trivial case. What periodicity does the series require?" },
+                    { "text": "For signals defined only at integers", "rationale": "That is a discrete tool. What kind of signals does the series represent?" }
+                ]
+            },
+            {
+                "id": "um_18_5",
+                "prompt": "In a Fourier transform spectrum, a strongly present frequency appears as what?",
+                "hint": "A strong match makes the detector respond sharply.",
+                "answerOptions": [
+                    { "text": "A peak at that frequency", "correct": true, "rationale": "Yes. A present frequency produces a pronounced spectral peak." },
+                    { "text": "A zero at that frequency", "rationale": "A present frequency gives a large response. What feature marks it?" },
+                    { "text": "A flat spectrum", "rationale": "Flatness means no dominant frequency. What localized feature appears?" },
+                    { "text": "A discontinuity in time", "rationale": "The feature lives in frequency. What does a present frequency produce there?" }
+                ]
+            },
+            {
+                "id": "um_18_6",
+                "prompt": "For a function of period $2L$, the cosine coefficient $a_n$ is given by which formula?",
+                "hint": "Project $f$ onto the matching cosine, normalized by $L$.",
+                "answerOptions": [
+                    { "text": "$a_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\cos\\!\\frac{n\\pi x}{L}\\,dx$", "correct": true, "rationale": "Correct. Each cosine coefficient is the inner product of $f$ with $\\cos(n\\pi x/L)$, normalized by $L$." },
+                    { "text": "$a_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "That projects onto sine, giving $b_n$. Which trig function pairs with $a_n$?" },
+                    { "text": "$a_n = \\int_{-L}^{L} f(x)\\,dx$", "rationale": "The harmonic factor and normalization are missing. What integrand gives $a_n$?" },
+                    { "text": "$a_n = f(n\\pi/L)$", "rationale": "Coefficients are integrals, not point values. What integral defines $a_n$?" }
+                ]
+            },
+            {
+                "id": "um_18_7",
+                "prompt": "The average value of a function over one period equals which part of its Fourier series?",
+                "hint": "Sinusoids average to zero over a period.",
+                "answerOptions": [
+                    { "text": "The constant term $a_0/2$", "correct": true, "rationale": "Correct. All harmonics average to zero, leaving $a_0/2$ as the mean." },
+                    { "text": "The coefficient $b_1$", "rationale": "Sinusoids average to zero. What constant term survives?" },
+                    { "text": "The largest coefficient", "rationale": "Size does not set the average. What term remains after averaging?" },
+                    { "text": "Always zero", "rationale": "The mean is zero only if $a_0 = 0$. What term equals the average in general?" }
+                ]
+            },
+            {
+                "id": "um_18_8",
+                "prompt": "For an odd function on $[-L, L]$, which Fourier coefficients vanish?",
+                "hint": "Cosine is even; an odd function has no overlap with it.",
+                "answerOptions": [
+                    { "text": "All cosine coefficients $a_n$, including $a_0$", "correct": true, "rationale": "Correct. An odd function is orthogonal to every cosine, leaving only sine terms." },
+                    { "text": "All sine coefficients $b_n$", "rationale": "Sine matches an odd function, so they survive. Which family vanishes?" },
+                    { "text": "Only $a_0$", "rationale": "Every cosine coefficient vanishes, not just $a_0$. Which whole family disappears?" },
+                    { "text": "None of them", "rationale": "Parity forces half to vanish. Which family goes to zero for an odd function?" }
+                ]
+            },
+            {
+                "id": "um_18_9",
+                "prompt": "The Fourier series of $f(x) = x^2$ on $[-\\pi, \\pi]$ contains which terms?",
+                "hint": "Determine the parity of $x^2$.",
+                "answerOptions": [
+                    { "text": "A constant and cosine terms only", "correct": true, "rationale": "Correct. Since $x^2$ is even, the sine terms vanish." },
+                    { "text": "Sine terms only", "rationale": "Sines vanish for an even function. What terms survive?" },
+                    { "text": "Equal sine and cosine terms", "rationale": "The odd sine terms drop out. Which terms remain?" },
+                    { "text": "No terms", "rationale": "A nonzero function has a nonzero series. Which terms does an even function keep?" }
+                ]
+            },
+            {
+                "id": "um_18_10",
+                "prompt": "At a jump discontinuity, the Fourier series converges to which value?",
+                "hint": "It splits the difference between the one-sided limits.",
+                "answerOptions": [
+                    { "text": "The midpoint of the left and right limits", "correct": true, "rationale": "Correct. The series converges to the average of the one-sided limits at a jump." },
+                    { "text": "The left-hand limit only", "rationale": "It does not favor one side. What average does it take?" },
+                    { "text": "The larger limit", "rationale": "It is not the maximum. What average value results?" },
+                    { "text": "Zero", "rationale": "The value is generally nonzero. What average of the side limits does it pick?" }
+                ]
+            },
+            {
+                "id": "um_18_11",
+                "prompt": "A half-range sine series represents a function on $[0, L]$ using which extension?",
+                "hint": "Sines are odd.",
+                "answerOptions": [
+                    { "text": "The odd periodic extension", "correct": true, "rationale": "Yes. An odd extension produces a pure sine series." },
+                    { "text": "The even periodic extension", "rationale": "Even extension gives cosines. What parity yields sines?" },
+                    { "text": "A constant extension", "rationale": "That does not produce sine harmonics. What odd extension does?" },
+                    { "text": "No extension", "rationale": "A specific extension builds the series. Which odd one gives sines?" }
+                ]
+            },
+            {
+                "id": "um_18_12",
+                "prompt": "A sine series suits a heat problem with which boundary conditions?",
+                "hint": "Sine vanishes at both ends.",
+                "answerOptions": [
+                    { "text": "Fixed zero temperature at both ends", "correct": true, "rationale": "Yes. Sines vanish at the ends, matching Dirichlet conditions." },
+                    { "text": "Insulated ends", "rationale": "Insulated ends suit cosines. What conditions do sines match?" },
+                    { "text": "No boundary conditions", "rationale": "The choice depends on the conditions. Which do sines satisfy?" },
+                    { "text": "A fixed slope at both ends", "rationale": "Sines match fixed values, not slopes. What conditions do they satisfy?" }
+                ]
+            },
+            {
+                "id": "um_18_13",
+                "prompt": "A cosine series suits a problem with which boundary conditions?",
+                "hint": "Cosine has zero slope at both ends.",
+                "answerOptions": [
+                    { "text": "Insulated ends, $u_x(0) = u_x(L) = 0$", "correct": true, "rationale": "Yes. Cosines have vanishing derivative at the ends, matching Neumann conditions." },
+                    { "text": "Fixed zero temperature at both ends", "rationale": "Fixed values suit sines. What slope conditions do cosines match?" },
+                    { "text": "A fixed value at one end only", "rationale": "Cosine series handle symmetric slope conditions. Which derivatives vanish?" },
+                    { "text": "Periodic conditions only", "rationale": "Half-range cosine series target Neumann conditions. Which conditions do they satisfy?" }
+                ]
+            },
+            {
+                "id": "um_18_14",
+                "prompt": "The overshoot of a Fourier partial sum near a jump is called what?",
+                "hint": "It is a famous named artifact.",
+                "answerOptions": [
+                    { "text": "The Gibbs phenomenon", "correct": true, "rationale": "Yes. The persistent overshoot near a jump is the Gibbs phenomenon." },
+                    { "text": "The Runge phenomenon", "rationale": "That concerns polynomial interpolation. What is the Fourier overshoot called?" },
+                    { "text": "Resonance", "rationale": "Resonance is a forcing effect. What name fits the jump overshoot?" },
+                    { "text": "Aliasing", "rationale": "Aliasing is a sampling effect. What is the named overshoot near a jump?" }
+                ]
+            },
+            {
+                "id": "um_18_15",
+                "prompt": "The half-range sine coefficients are given by which formula?",
+                "hint": "Project onto $\\sin(n\\pi x/L)$ over $[0, L]$ with factor $2/L$.",
+                "answerOptions": [
+                    { "text": "$b_n = \\frac{2}{L}\\int_0^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "correct": true, "rationale": "Correct. The half-range sine coefficient integrates over $[0, L]$ with the factor $2/L$." },
+                    { "text": "$b_n = \\frac{1}{L}\\int_0^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "The half-range convention uses $2/L$. What prefactor is correct?" },
+                    { "text": "$b_n = \\frac{2}{L}\\int_0^L f(x)\\cos\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "Sine coefficients pair with sine. Which function belongs in the integrand?" },
+                    { "text": "$b_n = \\frac{2}{L}\\int_{-L}^L f(x)\\sin\\!\\frac{n\\pi x}{L}\\,dx$", "rationale": "The half-range integral runs over $[0, L]$. What limits are correct?" }
+                ]
+            },
+            {
+                "id": "um_18_16",
+                "prompt": "Separation of variables seeks a solution of which form?",
+                "hint": "Split the dependence on each variable into its own factor.",
+                "answerOptions": [
+                    { "text": "$u(x, t) = X(x)\\,T(t)$, a product", "correct": true, "rationale": "Yes. The solution is assumed to factor into a function of $x$ times a function of $t$." },
+                    { "text": "$u(x, t) = X(x) + T(t)$, a sum", "rationale": "Separation uses a product. How are the factors combined?" },
+                    { "text": "$u(x, t) = X(x)\\,T(x)$", "rationale": "One factor must depend on $t$. Which variables do the factors use?" },
+                    { "text": "$u(x, t) = X(t)\\,T(x)$", "rationale": "Each factor should carry its own variable. What is the correct product?" }
+                ]
+            },
+            {
+                "id": "um_18_17",
+                "prompt": "After substituting $u = X T$ and dividing, each side depends on one variable. What follows?",
+                "hint": "A function of $x$ equal to a function of $t$ for all values must be constant.",
+                "answerOptions": [
+                    { "text": "Both sides equal a common separation constant", "correct": true, "rationale": "Yes. Independence forces both sides to equal a shared constant." },
+                    { "text": "Both sides equal zero", "rationale": "They share a constant, not necessarily zero. What common value do they take?" },
+                    { "text": "The variables become dependent", "rationale": "They stay independent yet equal. What must each side be?" },
+                    { "text": "The equation has no solution", "rationale": "Separation succeeds here. What shared quantity appears?" }
+                ]
+            },
+            {
+                "id": "um_18_18",
+                "prompt": "Separation of variables turns one PDE into what?",
+                "hint": "Each single-variable factor obeys its own equation.",
+                "answerOptions": [
+                    { "text": "Two ordinary differential equations", "correct": true, "rationale": "Yes. One ODE for $X(x)$ and one for $T(t)$ result." },
+                    { "text": "A larger PDE", "rationale": "Separation reduces the problem. What simpler equations result?" },
+                    { "text": "A single algebraic equation", "rationale": "Derivatives remain, so they are differential. How many ODEs appear?" },
+                    { "text": "An integral equation", "rationale": "No integral equation arises. What kind of equations result?" }
+                ]
+            },
+            {
+                "id": "um_18_19",
+                "prompt": "In the separated heat equation, the spatial part $X(x)$ with its boundary conditions forms what?",
+                "hint": "The separation constant becomes a quantized eigenvalue.",
+                "answerOptions": [
+                    { "text": "A boundary value eigenvalue problem", "correct": true, "rationale": "Yes. The spatial ODE plus boundary conditions is an eigenvalue problem selecting the separation constants." },
+                    { "text": "An initial value problem", "rationale": "The spatial part carries boundary conditions, not initial data. What problem does $X$ solve?" },
+                    { "text": "A purely algebraic identity", "rationale": "Spatial derivatives remain. What boundary-condition problem does $X$ satisfy?" },
+                    { "text": "A nonlinear system", "rationale": "The separated spatial equation is linear. What linear eigenvalue problem results?" }
+                ]
+            },
+            {
+                "id": "um_18_20",
+                "prompt": "After finding many separated modes, how is an arbitrary initial condition matched?",
+                "hint": "Linearity allows adding modes with Fourier coefficients.",
+                "answerOptions": [
+                    { "text": "By superposing the modes and choosing coefficients via a Fourier expansion", "correct": true, "rationale": "Yes. Summing eigenmodes and matching the initial data through a Fourier series fixes the coefficients." },
+                    { "text": "By keeping only the first mode", "rationale": "A single mode rarely matches arbitrary data. What combination is used?" },
+                    { "text": "By multiplying the modes together", "rationale": "Superposition adds modes. How are they combined?" },
+                    { "text": "By ignoring the initial condition", "rationale": "The initial condition must be met. What expansion sets the coefficients?" }
+                ]
+            },
+            {
+                "id": "um_18_21",
+                "prompt": "In two dimensions, the Laplacian of $u$ is which expression?",
+                "hint": "It sums the unmixed second partial derivatives.",
+                "answerOptions": [
+                    { "text": "$u_{xx} + u_{yy}$", "correct": true, "rationale": "Yes. The Laplacian sums the pure second partials." },
+                    { "text": "$u_x + u_y$", "rationale": "First derivatives form the gradient. What second derivatives are summed?" },
+                    { "text": "$u_{xy}$", "rationale": "The mixed partial is not the Laplacian. Which pure second partials add?" },
+                    { "text": "$u_{xx}\\,u_{yy}$", "rationale": "It is a sum, not a product. What combination defines it?" }
+                ]
+            },
+            {
+                "id": "um_18_22",
+                "prompt": "The Laplacian at a point measures what intuitively?",
+                "hint": "It compares a point with the average of its neighbors.",
+                "answerOptions": [
+                    { "text": "How the value compares with the average of nearby values", "correct": true, "rationale": "Yes. The Laplacian captures the difference between a point and its neighborhood average." },
+                    { "text": "The slope in the $x$ direction", "rationale": "A slope is a first derivative. What neighborhood comparison does it make?" },
+                    { "text": "The maximum nearby value", "rationale": "It compares with the average, not the maximum. What average does it use?" },
+                    { "text": "The total integral of $u$", "rationale": "It is local, not global. What local comparison does it express?" }
+                ]
+            },
+            {
+                "id": "um_18_23",
+                "prompt": "A function satisfying $\\nabla^2 u = 0$ is called what?",
+                "hint": "This is the steady-state Laplace condition.",
+                "answerOptions": [
+                    { "text": "Harmonic", "correct": true, "rationale": "Yes. Functions with zero Laplacian are harmonic." },
+                    { "text": "Periodic", "rationale": "Zero Laplacian does not mean periodic. What term applies?" },
+                    { "text": "Singular", "rationale": "Harmonic functions are typically smooth. What is the term for zero Laplacian?" },
+                    { "text": "Linear", "rationale": "Harmonic functions need not be linear. What special name applies?" }
+                ]
+            },
+            {
+                "id": "um_18_24",
+                "prompt": "If $\\nabla^2 u > 0$ at a point, the value there is generally what relative to neighbors?",
+                "hint": "A positive Laplacian signals a local dip.",
+                "answerOptions": [
+                    { "text": "Lower than the surrounding average", "correct": true, "rationale": "Yes. A positive Laplacian means the point sits below its neighborhood average." },
+                    { "text": "Higher than the average", "rationale": "That is a negative Laplacian. What does a positive value indicate?" },
+                    { "text": "Equal to the average", "rationale": "Equality is a zero Laplacian. What does a positive sign indicate?" },
+                    { "text": "Always a maximum", "rationale": "A positive value suggests a dip, not a peak. How does it compare with neighbors?" }
+                ]
+            },
+            {
+                "id": "um_18_25",
+                "prompt": "The Laplacian is the shared spatial operator in which equations?",
+                "hint": "It is common to the classical second-order PDEs.",
+                "answerOptions": [
+                    { "text": "The heat, wave, and Laplace equations", "correct": true, "rationale": "Yes. All three classical PDEs use the Laplacian as their spatial operator." },
+                    { "text": "Only the heat equation", "rationale": "It appears in more than the heat equation. Which family shares it?" },
+                    { "text": "Only first-order transport equations", "rationale": "Those use a first derivative. Which second-order equations use it?" },
+                    { "text": "None of the classical PDEs", "rationale": "It is central to them. Which classical equations contain it?" }
+                ]
+            },
+            {
+                "id": "um_18_26",
+                "prompt": "The one-dimensional heat equation is which of these?",
+                "hint": "First order in time, second in space.",
+                "answerOptions": [
+                    { "text": "$u_t = k\\,u_{xx}$", "correct": true, "rationale": "Yes. The heat equation links the first time derivative to the second spatial derivative." },
+                    { "text": "$u_{tt} = c^2\\,u_{xx}$", "rationale": "Two time derivatives give the wave equation. What single time derivative defines heat?" },
+                    { "text": "$u_{xx} + u_{yy} = 0$", "rationale": "That is Laplace's equation. What time-dependent equation models heat?" },
+                    { "text": "$u_t = k\\,u_x$", "rationale": "Diffusion uses the second spatial derivative. Which derivative belongs in the heat equation?" }
+                ]
+            },
+            {
+                "id": "um_18_27",
+                "prompt": "The one-dimensional wave equation is which of these?",
+                "hint": "Second order in both time and space.",
+                "answerOptions": [
+                    { "text": "$u_{tt} = c^2\\,u_{xx}$", "correct": true, "rationale": "Yes. The wave equation equates the second time derivative to $c^2$ times the second spatial derivative." },
+                    { "text": "$u_t = k\\,u_{xx}$", "rationale": "A single time derivative gives the heat equation. What time derivative does the wave equation use?" },
+                    { "text": "$u_t + u_x = 0$", "rationale": "That first-order transport equation is not the wave equation. What second-order form is correct?" },
+                    { "text": "$u_{xx} + u_{yy} = 0$", "rationale": "That steady Laplace equation has no time. What time-dependent equation describes waves?" }
+                ]
+            },
+            {
+                "id": "um_18_28",
+                "prompt": "For a heated rod with zero-temperature ends, the separated solution has which time behavior?",
+                "hint": "The time factor decays for diffusion.",
+                "answerOptions": [
+                    { "text": "Exponential decay, $e^{-k(n\\pi/L)^2 t}$", "correct": true, "rationale": "Yes. Each mode decays exponentially at a rate set by $k(n\\pi/L)^2$." },
+                    { "text": "Oscillation, $\\cos(n\\pi c t/L)$", "rationale": "Oscillation belongs to the wave equation. What time behavior does diffusion show?" },
+                    { "text": "Exponential growth", "rationale": "Cooling does not grow. What sign does the time exponent carry?" },
+                    { "text": "A constant in time", "rationale": "The modes change in time. What decaying behavior occurs?" }
+                ]
+            },
+            {
+                "id": "um_18_29",
+                "prompt": "How many initial conditions does the wave equation need, and why?",
+                "hint": "It is second order in time.",
+                "answerOptions": [
+                    { "text": "Two: initial position and initial velocity, since it is second order in time", "correct": true, "rationale": "Yes. Being second order in time, it needs both initial displacement and initial velocity." },
+                    { "text": "One: only the initial position", "rationale": "That underdetermines second order. What second datum is needed?" },
+                    { "text": "Zero: boundary conditions suffice", "rationale": "Initial data in time is still required. How many time conditions are needed?" },
+                    { "text": "Three", "rationale": "Acceleration is set by the equation. How many independent initial conditions are required?" }
+                ]
+            },
+            {
+                "id": "um_18_30",
+                "prompt": "D'Alembert's solution of the wave equation expresses $u$ as what?",
+                "hint": "Two shapes travel in opposite directions at speed $c$.",
+                "answerOptions": [
+                    { "text": "A sum of traveling waves, $f(x - ct) + g(x + ct)$", "correct": true, "rationale": "Yes. It superposes a right-moving wave $f(x - ct)$ and a left-moving wave $g(x + ct)$." },
+                    { "text": "A single decaying exponential", "rationale": "Decay describes diffusion, not waves. What traveling-wave combination solves it?" },
+                    { "text": "A product $f(x)\\,g(t)$ only", "rationale": "That separated form is different from d'Alembert's. What traveling waves appear?" },
+                    { "text": "A constant plus a linear term", "rationale": "That cannot capture propagation. What traveling waves does d'Alembert use?" }
                 ]
             }
         ]
