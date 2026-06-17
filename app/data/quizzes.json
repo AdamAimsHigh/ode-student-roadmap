@@ -5246,6 +5246,1470 @@
           }
         ]
       }
+    ],
+    "7q33RFkMMpY": [
+      {
+        "id": "mp_7q33RFkMMpY_1",
+        "prompt": "For $\\frac{dy}{dt} = f(y)$, an equilibrium solution is a constant $y = c$ satisfying which condition?",
+        "hint": "A constant solution never changes, so think about what its derivative must equal.",
+        "answerOptions": [
+          {
+            "text": "$f(c) = 0$, so the rate of change is zero there",
+            "correct": true,
+            "rationale": "Yes. Where $f(c) = 0$ the derivative vanishes, so the solution stays put forever."
+          },
+          {
+            "text": "$f'(c) = 0$",
+            "rationale": "That sets the slope of $f$ to zero, not the rate of change of $y$. What must $\\frac{dy}{dt}$ equal for a constant solution?"
+          },
+          {
+            "text": "$c = 0$ always",
+            "rationale": "Equilibria need not sit at the origin. What equation must the constant satisfy in terms of $f$?"
+          },
+          {
+            "text": "$f(c) = c$",
+            "rationale": "That is a fixed point condition for a map, not an equilibrium of this rate equation. What value must $f$ take for $y$ to stay constant?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7q33RFkMMpY_2",
+        "prompt": "Find all equilibrium solutions of $\\frac{dy}{dt} = y(y - 3)$.",
+        "hint": "Set the right side equal to zero and solve the resulting product equation.",
+        "answerOptions": [
+          {
+            "text": "$y = 0$ and $y = 3$",
+            "correct": true,
+            "rationale": "Correct. The product $y(y - 3)$ is zero exactly when $y = 0$ or $y = 3$."
+          },
+          {
+            "text": "$y = 3$ only",
+            "rationale": "A product is zero when either factor is zero. What value of $y$ makes the first factor vanish?"
+          },
+          {
+            "text": "$y = -3$ and $y = 0$",
+            "rationale": "Check the sign in the factor $y - 3$. Which value of $y$ makes it zero?"
+          },
+          {
+            "text": "There are no equilibria",
+            "rationale": "Set $y(y - 3) = 0$. Can a product of two terms be zero? Which values do that?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7q33RFkMMpY_3",
+        "prompt": "For $\\frac{dy}{dt} = y - 2$, classify the equilibrium at $y = 2$ using the sign of the rate just off it.",
+        "hint": "Check $\\frac{dy}{dt}$ slightly above and slightly below $y = 2$. Do solutions head toward or away from it?",
+        "answerOptions": [
+          {
+            "text": "Unstable, since $\\frac{dy}{dt} > 0$ above and $< 0$ below, pushing solutions away",
+            "correct": true,
+            "rationale": "Yes. Above $2$ the rate is positive and below it is negative, so nearby solutions move away."
+          },
+          {
+            "text": "Stable, since solutions return to $y = 2$",
+            "rationale": "Test $y = 3$, where $\\frac{dy}{dt} = 1 > 0$. Does that move toward or away from $2$?"
+          },
+          {
+            "text": "Semi-stable",
+            "rationale": "Semi-stable needs the same sign on both sides. Here the sign flips across $y = 2$. What does a sign flip away from the point indicate?"
+          },
+          {
+            "text": "It cannot be classified without solving the equation",
+            "rationale": "The sign of $y - 2$ near $y = 2$ is enough. What is the sign just above and just below?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7q33RFkMMpY_4",
+        "prompt": "An equilibrium $y = c$ is asymptotically stable when nearby solutions do what over time?",
+        "hint": "Stability is about whether a small nudge fades away or grows.",
+        "answerOptions": [
+          {
+            "text": "They move back toward $c$ as $t$ increases",
+            "correct": true,
+            "rationale": "Yes. A stable equilibrium attracts nearby solutions, so small perturbations decay."
+          },
+          {
+            "text": "They move away from $c$ as $t$ increases",
+            "rationale": "That describes the opposite behavior. Which direction do solutions go near a stable rest state?"
+          },
+          {
+            "text": "They stay exactly at their starting value",
+            "rationale": "Only the equilibrium itself is constant. What do solutions starting slightly off a stable point do?"
+          },
+          {
+            "text": "They oscillate forever without settling",
+            "rationale": "A scalar autonomous equation has no oscillation about a point. What must nearby solutions do for stability?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7q33RFkMMpY_5",
+        "prompt": "For $\\frac{dy}{dt} = (y - 1)(y + 2)$, find the equilibria and classify $y = 1$.",
+        "hint": "Solve for the equilibria, then test the sign of the rate just above and below $y = 1$.",
+        "answerOptions": [
+          {
+            "text": "Equilibria $y = 1$ and $y = -2$, and $y = 1$ is unstable",
+            "correct": true,
+            "rationale": "Yes. Just above $y = 1$ both factors are positive so the rate is positive, pushing solutions away."
+          },
+          {
+            "text": "Equilibria $y = 1$ and $y = -2$, and $y = 1$ is stable",
+            "rationale": "Test $y = 1.1$. Both factors are positive there, so what is the sign of the rate, and which way does it push?"
+          },
+          {
+            "text": "Equilibria $y = -1$ and $y = 2$",
+            "rationale": "Read the factors carefully. Which values of $y$ make $y - 1$ and $y + 2$ vanish?"
+          },
+          {
+            "text": "Only $y = 1$ is an equilibrium",
+            "rationale": "A product of two factors gives two roots. What value makes $y + 2$ zero as well?"
+          }
+        ]
+      }
+    ],
+    "NmntYoB1uJg": [
+      {
+        "id": "mp_NmntYoB1uJg_1",
+        "prompt": "A steady state of $\\frac{dy}{dt} = f(y)$ is called stable when a small perturbation does what?",
+        "hint": "Picture nudging the system slightly off the rest value. Stability asks what happens next.",
+        "answerOptions": [
+          {
+            "text": "It decays, so the system returns to the steady state",
+            "correct": true,
+            "rationale": "Yes. A stable steady state pulls small disturbances back to itself."
+          },
+          {
+            "text": "It grows without bound",
+            "rationale": "Unbounded growth of a disturbance is the hallmark of instability. What happens to the nudge at a stable state?"
+          },
+          {
+            "text": "It stays the same size forever",
+            "rationale": "A constant size disturbance is the borderline case, not stability. What must the perturbation do to call the state stable?"
+          },
+          {
+            "text": "It instantly jumps to a different steady state",
+            "rationale": "Solutions move continuously, not by jumps. What does a small perturbation do near a stable point?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NmntYoB1uJg_2",
+        "prompt": "The linearization test classifies a steady state $y^{*}$ of $\\frac{dy}{dt} = f(y)$ using which quantity?",
+        "hint": "Near $y^{*}$ the equation behaves like its tangent. The slope of $f$ at $y^{*}$ controls the local behavior.",
+        "answerOptions": [
+          {
+            "text": "The sign of $f'(y^{*})$, stable if negative and unstable if positive",
+            "correct": true,
+            "rationale": "Yes. A negative slope of $f$ at the steady state forces nearby disturbances to shrink."
+          },
+          {
+            "text": "The sign of $f(y^{*})$ itself",
+            "rationale": "At a steady state $f(y^{*}) = 0$ by definition, so its sign gives nothing. What derivative carries the information?"
+          },
+          {
+            "text": "The value of $y^{*}$, stable if positive",
+            "rationale": "The location of the state does not set its stability. Which derivative of $f$ does?"
+          },
+          {
+            "text": "The second derivative $f''(y^{*})$ only",
+            "rationale": "The leading test uses the first derivative. What sign of $f'(y^{*})$ signals stability?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NmntYoB1uJg_3",
+        "prompt": "If $f(y^{*}) = 0$ and $f'(y^{*}) < 0$, the steady state $y^{*}$ is which kind?",
+        "hint": "A negative slope of $f$ means the rate opposes any displacement.",
+        "answerOptions": [
+          {
+            "text": "Stable, since the rate pushes $y$ back toward $y^{*}$",
+            "correct": true,
+            "rationale": "Yes. With $f' < 0$, moving above $y^{*}$ gives a negative rate and moving below gives a positive rate, both restoring."
+          },
+          {
+            "text": "Unstable",
+            "rationale": "A negative slope opposes displacement. Does opposing a nudge push the system away or back?"
+          },
+          {
+            "text": "Semi-stable",
+            "rationale": "Semi-stable arises when $f$ touches zero without changing sign. Does a strict negative slope create that?"
+          },
+          {
+            "text": "Undetermined by this information",
+            "rationale": "A nonzero $f'(y^{*})$ settles the question. What does a negative slope imply about returning to $y^{*}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NmntYoB1uJg_4",
+        "prompt": "For $\\frac{dy}{dt} = y - y^{3}$, classify the steady state $y = 1$ using $f'(y)$.",
+        "hint": "Compute $f'(y) = 1 - 3y^{2}$ and evaluate its sign at $y = 1$.",
+        "answerOptions": [
+          {
+            "text": "Stable, because $f'(1) = 1 - 3 = -2 < 0$",
+            "correct": true,
+            "rationale": "Yes. The negative slope at $y = 1$ makes the steady state stable."
+          },
+          {
+            "text": "Unstable, because $f'(1) > 0$",
+            "rationale": "Recompute $f'(1) = 1 - 3(1)^{2}$. Is the result positive or negative?"
+          },
+          {
+            "text": "Semi-stable, because $f'(1) = 0$",
+            "rationale": "Evaluate $1 - 3(1)^{2}$. Does it actually equal zero at $y = 1$?"
+          },
+          {
+            "text": "Stable, because $f(1) = 0$ and that is enough",
+            "rationale": "Vanishing of $f$ only marks the steady state. Which derivative decides its stability, and what is its sign here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NmntYoB1uJg_5",
+        "prompt": "A steady state where $f$ touches zero but does not change sign across it is described as what?",
+        "hint": "Think of a double root, where the rate has the same sign on both sides of the point.",
+        "answerOptions": [
+          {
+            "text": "Semi-stable, attracting from one side and repelling from the other",
+            "correct": true,
+            "rationale": "Yes. With the same sign on both sides, solutions approach from one direction and leave on the other."
+          },
+          {
+            "text": "Fully stable from both sides",
+            "rationale": "Full stability needs the rate to point back from both sides. Does the same sign on both sides do that?"
+          },
+          {
+            "text": "Fully unstable from both sides",
+            "rationale": "Full instability needs the rate to point away on both sides. Does a constant sign produce that here?"
+          },
+          {
+            "text": "Not an equilibrium at all",
+            "rationale": "The rate is still zero at the point, so it is an equilibrium. What special name fits when the sign does not flip?"
+          }
+        ]
+      }
+    ],
+    "pZOmToxx-R8": [
+      {
+        "id": "mp_pZOmToxx-R8_1",
+        "prompt": "What makes a first order equation $\\frac{dy}{dt} = f(t, y)$ autonomous?",
+        "hint": "Look at which variables the right side actually uses.",
+        "answerOptions": [
+          {
+            "text": "The right side depends only on $y$, not explicitly on $t$",
+            "correct": true,
+            "rationale": "Yes. An autonomous equation has the form $\\frac{dy}{dt} = f(y)$, with no explicit time dependence."
+          },
+          {
+            "text": "The right side depends only on $t$, not on $y$",
+            "rationale": "That would make the equation a direct integration in $t$. Which variable must the rule depend on alone to be autonomous?"
+          },
+          {
+            "text": "The equation is linear in $y$",
+            "rationale": "Autonomy is about variable dependence, not linearity. Which variable may not appear explicitly on the right?"
+          },
+          {
+            "text": "The solution is always constant",
+            "rationale": "Autonomous equations have plenty of nonconstant solutions. What restriction on the right side defines the term?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pZOmToxx-R8_2",
+        "prompt": "On the phase line for $\\frac{dy}{dt} = y - 4$, which way does the arrow point at $y = 5$?",
+        "hint": "Evaluate the rate at $y = 5$. A positive rate means $y$ is increasing.",
+        "answerOptions": [
+          {
+            "text": "Upward, since $\\frac{dy}{dt} = 1 > 0$ there",
+            "correct": true,
+            "rationale": "Yes. At $y = 5$ the rate is positive, so $y$ increases and the arrow points up."
+          },
+          {
+            "text": "Downward, since the rate is negative",
+            "rationale": "Compute $5 - 4$. Is that value negative, or positive?"
+          },
+          {
+            "text": "It does not move, since $y = 5$ is an equilibrium",
+            "rationale": "Check whether $5 - 4$ equals zero. Is $y = 5$ actually an equilibrium?"
+          },
+          {
+            "text": "Sideways, with no vertical direction",
+            "rationale": "The phase line tracks whether $y$ rises or falls. What does a positive rate mean for the direction?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pZOmToxx-R8_3",
+        "prompt": "For an autonomous equation, the phase line is drawn along which axis?",
+        "hint": "The phase line displays the states of the system, which are the values of the dependent variable.",
+        "answerOptions": [
+          {
+            "text": "The $y$ axis, the line of all possible values of the dependent variable",
+            "correct": true,
+            "rationale": "Yes. The phase line is the $y$ axis with arrows showing where $y$ increases or decreases."
+          },
+          {
+            "text": "The $t$ axis, the line of time values",
+            "rationale": "Time is not displayed on the phase line. Which variable holds the states of the system?"
+          },
+          {
+            "text": "A diagonal line through the origin",
+            "rationale": "The phase line is one straight axis of states. Which single variable does it represent?"
+          },
+          {
+            "text": "The horizontal axis of a slope field",
+            "rationale": "A slope field is a different picture in the $t y$ plane. The phase line collapses onto which single axis?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pZOmToxx-R8_4",
+        "prompt": "For $\\frac{dy}{dt} = 2 - y$, find the equilibrium and the direction of motion at $y = 0$.",
+        "hint": "Solve $2 - y = 0$, then evaluate the rate at $y = 0$ to see which way it heads.",
+        "answerOptions": [
+          {
+            "text": "Equilibrium $y = 2$, and at $y = 0$ the rate is $2 > 0$, so $y$ increases toward $2$",
+            "correct": true,
+            "rationale": "Yes. The equilibrium is $y = 2$, and below it the positive rate carries solutions up toward it, making it stable."
+          },
+          {
+            "text": "Equilibrium $y = 2$, and at $y = 0$ the rate is negative",
+            "rationale": "Evaluate $2 - 0$. Is that value negative, or positive?"
+          },
+          {
+            "text": "Equilibrium $y = -2$, and at $y = 0$ the rate is positive",
+            "rationale": "Solve $2 - y = 0$ carefully. Does $y$ equal $2$ or $-2$?"
+          },
+          {
+            "text": "There is no equilibrium",
+            "rationale": "Set $2 - y = 0$. Is there a value of $y$ that makes the rate vanish?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pZOmToxx-R8_5",
+        "prompt": "Why are all solution curves of an autonomous equation horizontal time shifts of one another?",
+        "hint": "If $y(t)$ solves the equation, consider whether $y(t - c)$ solves it too, since the rule does not depend on $t$.",
+        "answerOptions": [
+          {
+            "text": "Because the rule does not depend on $t$, shifting a solution in time gives another solution",
+            "correct": true,
+            "rationale": "Yes. Time invariance of the right side means $y(t - c)$ is also a solution, so the graphs are horizontal shifts."
+          },
+          {
+            "text": "Because every solution is a straight line",
+            "rationale": "Solutions are generally curved, not straight. What property of the right side makes time shifting work?"
+          },
+          {
+            "text": "Because the equation has only one solution",
+            "rationale": "There is a whole family of solutions. What feature lets a shifted solution remain a solution?"
+          },
+          {
+            "text": "Because $t$ appears explicitly in the rule",
+            "rationale": "Autonomous means $t$ does not appear explicitly. How does that absence permit horizontal shifting?"
+          }
+        ]
+      }
+    ],
+    "swt-let4pCI": [
+      {
+        "id": "mp_swt-let4pCI_1",
+        "prompt": "On a phase line, an equilibrium with arrows pointing toward it from both sides is called what?",
+        "hint": "Arrows converging on a point mean nearby solutions are drawn in.",
+        "answerOptions": [
+          {
+            "text": "A stable equilibrium, also called a sink",
+            "correct": true,
+            "rationale": "Yes. Arrows pointing inward from both sides pull solutions in, the signature of a sink."
+          },
+          {
+            "text": "An unstable equilibrium, also called a source",
+            "rationale": "A source has arrows pointing away. Which way do the arrows point here, inward or outward?"
+          },
+          {
+            "text": "A semi-stable equilibrium",
+            "rationale": "Semi-stable mixes one inward and one outward arrow. Do both arrows here point the same way or opposite ways?"
+          },
+          {
+            "text": "Not an equilibrium, since arrows surround it",
+            "rationale": "The arrows surround it precisely because the rate is zero at the point. What do two inward arrows make it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_swt-let4pCI_2",
+        "prompt": "An equilibrium with arrows pointing away from it on both sides is which type?",
+        "hint": "Diverging arrows mean nearby solutions are pushed out.",
+        "answerOptions": [
+          {
+            "text": "Unstable, a source",
+            "correct": true,
+            "rationale": "Yes. Arrows pointing outward on both sides drive solutions away, the signature of a source."
+          },
+          {
+            "text": "Stable, a sink",
+            "rationale": "A sink pulls solutions inward. Do the arrows here converge or diverge?"
+          },
+          {
+            "text": "Semi-stable",
+            "rationale": "Semi-stable has one inward and one outward arrow. Do both arrows here point outward?"
+          },
+          {
+            "text": "A center with closed orbits",
+            "rationale": "Centers belong to systems in the plane, not a single phase line. What do two outward arrows indicate?"
+          }
+        ]
+      },
+      {
+        "id": "mp_swt-let4pCI_3",
+        "prompt": "For $\\frac{dy}{dt} = y^{2} - 4$, what is the sign of the rate for $y$ strictly between $-2$ and $2$?",
+        "hint": "Pick a test value such as $y = 0$ and evaluate $y^{2} - 4$.",
+        "answerOptions": [
+          {
+            "text": "Negative, for example at $y = 0$ the rate is $-4$",
+            "correct": true,
+            "rationale": "Yes. Between the roots $y^{2} < 4$, so $y^{2} - 4 < 0$ throughout that interval."
+          },
+          {
+            "text": "Positive throughout",
+            "rationale": "Test $y = 0$, giving $0 - 4$. Is that value positive?"
+          },
+          {
+            "text": "Zero throughout",
+            "rationale": "The rate is zero only at the roots $y = \\pm 2$. What sign does $y = 0$ give between them?"
+          },
+          {
+            "text": "It changes sign at $y = 0$",
+            "rationale": "The sign only flips at the equilibria $y = \\pm 2$. What single sign holds for all $y$ in between?"
+          }
+        ]
+      },
+      {
+        "id": "mp_swt-let4pCI_4",
+        "prompt": "Classify the equilibria of $\\frac{dy}{dt} = y^{2} - 4$ at $y = -2$ and $y = 2$.",
+        "hint": "Use the rate signs: below $-2$, between $-2$ and $2$, and above $2$. Track which way the arrows point.",
+        "answerOptions": [
+          {
+            "text": "$y = -2$ is stable and $y = 2$ is unstable",
+            "correct": true,
+            "rationale": "Yes. The rate is positive below $-2$, negative between, and positive above, so $-2$ attracts and $2$ repels."
+          },
+          {
+            "text": "$y = -2$ is unstable and $y = 2$ is stable",
+            "rationale": "You may have swapped them. Between the roots the rate is negative, pulling toward which root and away from which?"
+          },
+          {
+            "text": "Both are stable",
+            "rationale": "Above $y = 2$ the rate is positive, pushing solutions away from $2$. Can $2$ be stable then?"
+          },
+          {
+            "text": "Both are unstable",
+            "rationale": "Below $y = -2$ the rate is positive, carrying solutions up toward $-2$. Does that make $-2$ stable or unstable?"
+          }
+        ]
+      },
+      {
+        "id": "mp_swt-let4pCI_5",
+        "prompt": "For $\\frac{dy}{dt} = (y - 1)^{2}$, classify the equilibrium at $y = 1$.",
+        "hint": "The square is never negative. Check the rate sign just above and just below $y = 1$.",
+        "answerOptions": [
+          {
+            "text": "Semi-stable, since the rate is positive on both sides",
+            "correct": true,
+            "rationale": "Yes. A square stays nonnegative, so solutions rise on both sides, approaching $1$ from below and leaving above."
+          },
+          {
+            "text": "Stable, since it is a perfect square",
+            "rationale": "A square gives a positive rate above $y = 1$, which pushes solutions away. Does that fit a stable point?"
+          },
+          {
+            "text": "Unstable, since the rate is positive",
+            "rationale": "Below $y = 1$ the positive rate carries solutions up toward $1$. Does it leave on both sides, or only one?"
+          },
+          {
+            "text": "Not an equilibrium",
+            "rationale": "At $y = 1$ the rate $(1 - 1)^{2}$ is zero, so it is an equilibrium. With the same sign on each side, what name fits?"
+          }
+        ]
+      }
+    ],
+    "aP4YXOo-Uko": [
+      {
+        "id": "mp_aP4YXOo-Uko_1",
+        "prompt": "In the logistic equation $\\frac{dP}{dt} = rP\\left(1 - \\frac{P}{K}\\right)$, what does the constant $K$ represent?",
+        "hint": "Look at the value of $P$ that makes the bracket, and therefore the growth, vanish.",
+        "answerOptions": [
+          {
+            "text": "The carrying capacity, the population level where growth stops",
+            "correct": true,
+            "rationale": "Yes. At $P = K$ the bracket is zero, so the population levels off at the carrying capacity."
+          },
+          {
+            "text": "The intrinsic growth rate",
+            "rationale": "The growth rate is the separate constant $r$. What does $K$ control about the long term population size?"
+          },
+          {
+            "text": "The initial population",
+            "rationale": "The starting value is set by an initial condition, not $K$. What population level does $K$ cap the growth at?"
+          },
+          {
+            "text": "The time at which growth is fastest",
+            "rationale": "$K$ is a population level, not a time. What size does the population approach as it levels off?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aP4YXOo-Uko_2",
+        "prompt": "Find the equilibrium solutions of $\\frac{dP}{dt} = rP\\left(1 - \\frac{P}{K}\\right)$.",
+        "hint": "Set the right side to zero. It is a product, so each factor offers a root.",
+        "answerOptions": [
+          {
+            "text": "$P = 0$ and $P = K$",
+            "correct": true,
+            "rationale": "Yes. The product is zero when $P = 0$ or when the bracket gives $P = K$."
+          },
+          {
+            "text": "$P = K$ only",
+            "rationale": "A product is zero when any factor is zero. What value of $P$ makes the first factor vanish?"
+          },
+          {
+            "text": "$P = r$ and $P = K$",
+            "rationale": "The factor $rP$ is zero at $P = 0$, not $P = r$. Which population value zeroes that factor?"
+          },
+          {
+            "text": "$P = 0$ only",
+            "rationale": "The bracket $1 - \\frac{P}{K}$ also vanishes somewhere. At what value of $P$ does it equal zero?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aP4YXOo-Uko_3",
+        "prompt": "In the logistic model with $r > 0$, how do the two equilibria classify?",
+        "hint": "For a small population growth is positive, and near the carrying capacity growth slows to zero. Track the arrows.",
+        "answerOptions": [
+          {
+            "text": "$P = 0$ is unstable and $P = K$ is stable",
+            "correct": true,
+            "rationale": "Yes. A small population grows away from $0$ and every positive start settles toward $K$."
+          },
+          {
+            "text": "$P = 0$ is stable and $P = K$ is unstable",
+            "rationale": "Just above $P = 0$ the growth is positive, pushing the population up. Does that make $0$ stable?"
+          },
+          {
+            "text": "Both equilibria are stable",
+            "rationale": "Solutions move away from $0$ when slightly positive. Can a point that repels nearby solutions be stable?"
+          },
+          {
+            "text": "Both equilibria are unstable",
+            "rationale": "Populations between $0$ and $K$ rise toward $K$ and stay. Does that make $K$ stable or unstable?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aP4YXOo-Uko_4",
+        "prompt": "At what population does the logistic growth rate $rP\\left(1 - \\frac{P}{K}\\right)$ reach its maximum?",
+        "hint": "The rate is a downward parabola in $P$ with roots at $0$ and $K$. The peak sits halfway between the roots.",
+        "answerOptions": [
+          {
+            "text": "$P = \\frac{K}{2}$",
+            "correct": true,
+            "rationale": "Yes. The parabola peaks at the midpoint of its roots, which is half the carrying capacity."
+          },
+          {
+            "text": "$P = K$",
+            "rationale": "At $P = K$ the bracket is zero, so the rate is zero, not maximal. Where between the roots is the peak?"
+          },
+          {
+            "text": "$P = 0$",
+            "rationale": "At $P = 0$ the factor $rP$ is zero, so the rate is zero. Where does the parabola actually peak?"
+          },
+          {
+            "text": "$P = \\frac{K}{4}$",
+            "rationale": "The peak of a parabola lies at the midpoint of its two roots $0$ and $K$. What is that midpoint?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aP4YXOo-Uko_5",
+        "prompt": "For a logistic model with $r > 0$ and any starting population $P_{0} > 0$, what happens as $t \\to \\infty$?",
+        "hint": "Think about where every positive solution is pulled, given the stability of the equilibria.",
+        "answerOptions": [
+          {
+            "text": "$P$ approaches the carrying capacity $K$",
+            "correct": true,
+            "rationale": "Yes. Because $K$ is the stable equilibrium, every positive start converges to it over time."
+          },
+          {
+            "text": "$P$ grows without bound",
+            "rationale": "The bracket shuts off growth as $P$ nears $K$. What finite level does the population approach?"
+          },
+          {
+            "text": "$P$ approaches $0$",
+            "rationale": "Zero is unstable, so positive populations move away from it. Which equilibrium do they approach instead?"
+          },
+          {
+            "text": "$P$ oscillates between $0$ and $K$",
+            "rationale": "A scalar logistic equation has no oscillation. Toward which single value does $P$ settle?"
+          }
+        ]
+      }
+    ],
+    "TCkLSYxx21c": [
+      {
+        "id": "mp_TCkLSYxx21c_1",
+        "prompt": "In $\\frac{dP}{dt} = rP\\left(1 - \\frac{P}{K}\\right)$, what does the factor $1 - \\frac{P}{K}$ do as $P$ rises toward $K$?",
+        "hint": "Substitute values of $P$ approaching $K$ into the bracket and watch it shrink.",
+        "answerOptions": [
+          {
+            "text": "It approaches zero, slowing the growth to a halt",
+            "correct": true,
+            "rationale": "Yes. As $P$ nears $K$ the bracket shrinks toward zero, throttling the growth rate."
+          },
+          {
+            "text": "It approaches one, keeping growth at full strength",
+            "rationale": "The bracket equals one only when $P = 0$. What does $1 - \\frac{P}{K}$ become as $P$ nears $K$?"
+          },
+          {
+            "text": "It grows without bound",
+            "rationale": "The bracket is bounded above by one. What value does it head to as $P$ approaches $K$?"
+          },
+          {
+            "text": "It becomes negative immediately",
+            "rationale": "For $P$ below $K$ the bracket stays positive. What value does it approach right at $P = K$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TCkLSYxx21c_2",
+        "prompt": "For a very small population $P$, the logistic equation behaves approximately like which simpler model?",
+        "hint": "When $P$ is tiny, the ratio $\\frac{P}{K}$ is nearly zero, so the bracket is close to one.",
+        "answerOptions": [
+          {
+            "text": "Exponential growth $\\frac{dP}{dt} \\approx rP$",
+            "correct": true,
+            "rationale": "Yes. With $\\frac{P}{K}$ near zero the bracket is about one, leaving simple exponential growth."
+          },
+          {
+            "text": "Linear growth $\\frac{dP}{dt} \\approx r$",
+            "rationale": "The rate still scales with $P$ through the factor $rP$. What model has rate proportional to $P$?"
+          },
+          {
+            "text": "Decay $\\frac{dP}{dt} \\approx -rP$",
+            "rationale": "For small positive $P$ and $r > 0$ the rate is positive, not negative. Which growth model results?"
+          },
+          {
+            "text": "No growth at all",
+            "rationale": "A small positive population still grows when $r > 0$. What familiar model does $rP$ alone describe?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TCkLSYxx21c_3",
+        "prompt": "With $r = 0.5$ and $K = 100$, compute $\\frac{dP}{dt}$ when $P = 25$.",
+        "hint": "Substitute into $rP\\left(1 - \\frac{P}{K}\\right)$ and simplify step by step.",
+        "answerOptions": [
+          {
+            "text": "$9.375$",
+            "correct": true,
+            "rationale": "Correct. $0.5 \\cdot 25 \\cdot \\left(1 - \\frac{25}{100}\\right) = 12.5 \\cdot 0.75 = 9.375$."
+          },
+          {
+            "text": "$12.5$",
+            "rationale": "You found $rP$ but skipped the bracket. What is $1 - \\frac{25}{100}$, and what is $12.5$ times that?"
+          },
+          {
+            "text": "$6.25$",
+            "rationale": "Recheck the bracket. Is $1 - \\frac{25}{100}$ equal to $0.5$, or to $0.75$?"
+          },
+          {
+            "text": "$18.75$",
+            "rationale": "Multiply carefully. What is $12.5 \\cdot 0.75$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TCkLSYxx21c_4",
+        "prompt": "The logistic solution curve starting below $K$ has what overall shape?",
+        "hint": "It grows slowly at first, fastest in the middle, then levels off. Picture that profile.",
+        "answerOptions": [
+          {
+            "text": "An S shaped sigmoid with an inflection point at $P = \\frac{K}{2}$",
+            "correct": true,
+            "rationale": "Yes. Growth accelerates up to $\\frac{K}{2}$, then decelerates toward $K$, tracing an S curve."
+          },
+          {
+            "text": "A straight line with constant slope",
+            "rationale": "The growth rate changes as $P$ changes, so the slope is not constant. What curved shape results?"
+          },
+          {
+            "text": "A parabola opening upward",
+            "rationale": "The population levels off rather than rising forever. What bounded S like shape fits the logistic solution?"
+          },
+          {
+            "text": "An exponential curve that never levels off",
+            "rationale": "The carrying capacity caps the growth. What shape captures both early acceleration and a final plateau?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TCkLSYxx21c_5",
+        "prompt": "What is the carrying capacity of the model $\\frac{dP}{dt} = 0.2P\\left(1 - \\frac{P}{500}\\right)$?",
+        "hint": "The carrying capacity is the population value that makes the bracket zero.",
+        "answerOptions": [
+          {
+            "text": "$500$",
+            "correct": true,
+            "rationale": "Yes. The bracket vanishes at $P = 500$, which is the carrying capacity $K$."
+          },
+          {
+            "text": "$0.2$",
+            "rationale": "That value is the growth rate $r$, not the capacity. Which number sets the level where growth stops?"
+          },
+          {
+            "text": "$250$",
+            "rationale": "That is half the capacity, where growth peaks, not the capacity itself. What value zeroes the bracket?"
+          },
+          {
+            "text": "$100$",
+            "rationale": "Look at the denominator inside the bracket. What value of $P$ makes $1 - \\frac{P}{500}$ equal zero?"
+          }
+        ]
+      }
+    ],
+    "NjIMGAIPbzg": [
+      {
+        "id": "mp_NjIMGAIPbzg_1",
+        "prompt": "Which form identifies a Bernoulli differential equation?",
+        "hint": "It looks like a first order linear equation except for a power of $y$ on the right.",
+        "answerOptions": [
+          {
+            "text": "$y' + P(x)y = Q(x)y^{n}$",
+            "correct": true,
+            "rationale": "Yes. A Bernoulli equation has the linear left side but a power $y^{n}$ multiplying the right side."
+          },
+          {
+            "text": "$y' + P(x)y = Q(x)$",
+            "rationale": "That is already first order linear, with no power of $y$ on the right. What extra factor makes it Bernoulli?"
+          },
+          {
+            "text": "$y'' + P(x)y' + Q(x)y = 0$",
+            "rationale": "That is a second order linear equation. Bernoulli is first order. What term on the right distinguishes it?"
+          },
+          {
+            "text": "$y' = P(x)Q(y)$",
+            "rationale": "That is a separable equation. Which form keeps a linear left side but adds a power $y^{n}$ on the right?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NjIMGAIPbzg_2",
+        "prompt": "To solve $y' + P(x)y = Q(x)y^{n}$, which substitution is used?",
+        "hint": "The goal is to turn the equation into a linear one in a new variable. The exponent involves $1 - n$.",
+        "answerOptions": [
+          {
+            "text": "$v = y^{1 - n}$",
+            "correct": true,
+            "rationale": "Yes. Setting $v = y^{1-n}$ converts the Bernoulli equation into a first order linear equation in $v$."
+          },
+          {
+            "text": "$v = y^{n}$",
+            "rationale": "Check the exponent that linearizes the equation. Is it $n$, or $1 - n$?"
+          },
+          {
+            "text": "$v = y^{n - 1}$",
+            "rationale": "You have the right pieces but the sign is off. Is the exponent $n - 1$ or $1 - n$?"
+          },
+          {
+            "text": "$v = e^{y}$",
+            "rationale": "An exponential substitution does not match the power structure here. What power of $y$ linearizes a Bernoulli equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NjIMGAIPbzg_3",
+        "prompt": "For a Bernoulli equation with $n = 2$, what is the substitution $v = y^{1 - n}$?",
+        "hint": "Plug $n = 2$ into the exponent $1 - n$.",
+        "answerOptions": [
+          {
+            "text": "$v = y^{-1}$",
+            "correct": true,
+            "rationale": "Correct. With $n = 2$, the exponent is $1 - 2 = -1$, so $v = y^{-1}$."
+          },
+          {
+            "text": "$v = y$",
+            "rationale": "Compute $1 - n$ with $n = 2$. Does the exponent come out to $1$?"
+          },
+          {
+            "text": "$v = y^{2}$",
+            "rationale": "That uses $n$ directly. The substitution exponent is $1 - n$. What is $1 - 2$?"
+          },
+          {
+            "text": "$v = y^{-2}$",
+            "rationale": "Recheck the exponent. Is $1 - 2$ equal to $-1$ or $-2$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NjIMGAIPbzg_4",
+        "prompt": "After the substitution $v = y^{1 - n}$, the Bernoulli equation becomes which type of equation in $v$?",
+        "hint": "The whole point of the substitution is to remove the power of $y$ and reach a familiar solvable form.",
+        "answerOptions": [
+          {
+            "text": "A first order linear equation in $v$",
+            "correct": true,
+            "rationale": "Yes. The substitution clears the power of $y$, leaving a linear equation solvable by an integrating factor."
+          },
+          {
+            "text": "A separable equation in $v$",
+            "rationale": "The result is not generally separable. What standard first order form does the substitution produce?"
+          },
+          {
+            "text": "A second order equation in $v$",
+            "rationale": "The order does not increase. The substitution keeps it first order. What kind of first order equation results?"
+          },
+          {
+            "text": "Another Bernoulli equation in $v$",
+            "rationale": "The power of the unknown is removed by the substitution. What simpler linear form does $v$ satisfy?"
+          }
+        ]
+      },
+      {
+        "id": "mp_NjIMGAIPbzg_5",
+        "prompt": "For $y' + y = xy^{3}$, identify $n$ and the substitution $v$.",
+        "hint": "Match to $y' + P(x)y = Q(x)y^{n}$ to read off $n$, then use $v = y^{1 - n}$.",
+        "answerOptions": [
+          {
+            "text": "$n = 3$ and $v = y^{-2}$",
+            "correct": true,
+            "rationale": "Yes. The right side carries $y^{3}$, so $n = 3$ and $v = y^{1 - 3} = y^{-2}$."
+          },
+          {
+            "text": "$n = 3$ and $v = y^{-3}$",
+            "rationale": "You read $n$ correctly. Now compute $1 - n$ for the exponent. Is it $-2$ or $-3$?"
+          },
+          {
+            "text": "$n = 1$ and $v = y^{0}$",
+            "rationale": "The power on the right is $y^{3}$, not $y^{1}$. What is $n$, and then $1 - n$?"
+          },
+          {
+            "text": "$n = 3$ and $v = y^{2}$",
+            "rationale": "The exponent is $1 - n$, which is negative here. What is $1 - 3$?"
+          }
+        ]
+      }
+    ],
+    "iCN8nGXE29o": [
+      {
+        "id": "mp_iCN8nGXE29o_1",
+        "prompt": "Why does the substitution $v = y^{1 - n}$ help solve a Bernoulli equation?",
+        "hint": "The substitution is chosen so the troublesome power of $y$ cancels out.",
+        "answerOptions": [
+          {
+            "text": "It transforms the nonlinear equation into a linear one that standard methods solve",
+            "correct": true,
+            "rationale": "Yes. The substitution linearizes the equation, so an integrating factor finishes the job."
+          },
+          {
+            "text": "It makes the equation separable so you can integrate both sides directly",
+            "rationale": "The transformed equation is linear, not generally separable. What familiar solvable form does it reach?"
+          },
+          {
+            "text": "It reduces the order of the equation",
+            "rationale": "The order stays first order throughout. What changes is the nonlinearity. Into what does it turn?"
+          },
+          {
+            "text": "It removes the need for any integration",
+            "rationale": "Integration is still needed for the linear equation. What property of the equation does the substitution fix?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iCN8nGXE29o_2",
+        "prompt": "If $v = y^{1 - n}$, what is $\\frac{dv}{dx}$ in terms of $y$ and $\\frac{dy}{dx}$?",
+        "hint": "Differentiate $v = y^{1 - n}$ with respect to $x$ using the chain rule.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dv}{dx} = (1 - n)y^{-n}\\frac{dy}{dx}$",
+            "correct": true,
+            "rationale": "Yes. The power rule and chain rule give $(1-n)y^{-n}$ times $\\frac{dy}{dx}$."
+          },
+          {
+            "text": "$\\frac{dv}{dx} = (1 - n)y^{1 - n}\\frac{dy}{dx}$",
+            "rationale": "Lower the exponent by one when differentiating $y^{1 - n}$. What power of $y$ should appear?"
+          },
+          {
+            "text": "$\\frac{dv}{dx} = y^{-n}\\frac{dy}{dx}$",
+            "rationale": "Do not drop the coefficient from the power rule. What factor multiplies $y^{-n}$?"
+          },
+          {
+            "text": "$\\frac{dv}{dx} = (1 - n)y^{-n}$",
+            "rationale": "The chain rule attaches a derivative of the inside function. What factor besides $(1-n)y^{-n}$ belongs here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iCN8nGXE29o_3",
+        "prompt": "For which values of $n$ is a Bernoulli equation already linear, needing no substitution?",
+        "hint": "Look at the right side $Q(x)y^{n}$. Which exponents make it linear in $y$ on its own?",
+        "answerOptions": [
+          {
+            "text": "$n = 0$ and $n = 1$",
+            "correct": true,
+            "rationale": "Yes. With $n = 0$ the right side is just $Q(x)$, and with $n = 1$ it is linear in $y$, so both are already linear."
+          },
+          {
+            "text": "$n = 2$ and $n = 3$",
+            "rationale": "Those exponents produce genuine nonlinear powers that need the substitution. Which small exponents leave the equation linear?"
+          },
+          {
+            "text": "Only $n = 0$",
+            "rationale": "There is a second exponent that also keeps the equation linear. What does $n = 1$ give on the right side?"
+          },
+          {
+            "text": "Only $n = 1$",
+            "rationale": "There is a second value too. What does the right side become when $n = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iCN8nGXE29o_4",
+        "prompt": "For $y' + \\frac{1}{x}y = y^{2}$, identify $n$ and the substitution $v$.",
+        "hint": "Match to the Bernoulli form to read $n$, then apply $v = y^{1 - n}$.",
+        "answerOptions": [
+          {
+            "text": "$n = 2$ and $v = y^{-1}$",
+            "correct": true,
+            "rationale": "Yes. The right side is $y^{2}$, so $n = 2$ and $v = y^{1 - 2} = y^{-1}$."
+          },
+          {
+            "text": "$n = 2$ and $v = y^{-2}$",
+            "rationale": "You read $n$ correctly. Compute $1 - n$ for the exponent. Is it $-1$ or $-2$?"
+          },
+          {
+            "text": "$n = 1$ and $v = y^{0}$",
+            "rationale": "The right side carries $y^{2}$. What is $n$, and then $1 - n$?"
+          },
+          {
+            "text": "$n = -1$ and $v = y^{2}$",
+            "rationale": "The exponent on the right is $+2$, not $-1$. What is $n$ here, and what is $1 - n$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iCN8nGXE29o_5",
+        "prompt": "Substituting $v = y^{-1}$ into $y' + \\frac{1}{x}y = y^{2}$ produces which linear equation in $v$?",
+        "hint": "Divide through by $y^{2}$ first, then use $v = y^{-1}$ and $v' = -y^{-2}y'$ to rewrite each term.",
+        "answerOptions": [
+          {
+            "text": "$v' - \\frac{1}{x}v = -1$",
+            "correct": true,
+            "rationale": "Yes. Dividing by $y^{2}$ gives $y^{-2}y' + \\frac{1}{x}y^{-1} = 1$, and $v' = -y^{-2}y'$ turns it into $v' - \\frac{1}{x}v = -1$."
+          },
+          {
+            "text": "$v' + \\frac{1}{x}v = 1$",
+            "rationale": "Recall $v' = -y^{-2}y'$ carries a minus sign. How does that flip the signs when you substitute?"
+          },
+          {
+            "text": "$v' - \\frac{1}{x}v = 1$",
+            "rationale": "Track the right side after multiplying through by the minus sign from $v'$. What sign does the constant take?"
+          },
+          {
+            "text": "$v' + xv = -1$",
+            "rationale": "The coefficient comes from $\\frac{1}{x}$, not $x$, and the sign flips with $v'$. What is the correct coefficient of $v$?"
+          }
+        ]
+      }
+    ],
+    "DdJzN4MS_0k": [
+      {
+        "id": "mp_DdJzN4MS_0k_1",
+        "prompt": "What is the first algebraic step when solving $y' + P(x)y = Q(x)y^{n}$ by hand?",
+        "hint": "You want the right side free of $y$, so think about what to divide the whole equation by.",
+        "answerOptions": [
+          {
+            "text": "Divide every term by $y^{n}$",
+            "correct": true,
+            "rationale": "Yes. Dividing by $y^{n}$ sets up the equation for the substitution $v = y^{1 - n}$."
+          },
+          {
+            "text": "Multiply every term by $y^{n}$",
+            "rationale": "Multiplying raises the powers of $y$ further. Which operation instead clears the power from the right side?"
+          },
+          {
+            "text": "Integrate both sides immediately",
+            "rationale": "The equation is not yet in an integrable form. What division prepares it for the substitution?"
+          },
+          {
+            "text": "Differentiate both sides",
+            "rationale": "Differentiating adds complexity rather than simplifying. What division sets up the linear substitution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DdJzN4MS_0k_2",
+        "prompt": "Dividing $y' + y = xy^{2}$ by $y^{2}$ gives which equation?",
+        "hint": "Divide each term by $y^{2}$ and simplify the powers of $y$.",
+        "answerOptions": [
+          {
+            "text": "$y^{-2}y' + y^{-1} = x$",
+            "correct": true,
+            "rationale": "Yes. Each term divided by $y^{2}$ gives $y^{-2}y'$, $y^{-1}$, and $x$ on the right."
+          },
+          {
+            "text": "$y^{-2}y' + y = x$",
+            "rationale": "Divide the middle term $y$ by $y^{2}$ as well. What power of $y$ results?"
+          },
+          {
+            "text": "$y' + y^{-1} = x$",
+            "rationale": "The first term $y'$ must also be divided by $y^{2}$. What factor appears in front of $y'$?"
+          },
+          {
+            "text": "$y^{-2}y' + y^{-1} = xy^{2}$",
+            "rationale": "The right side $xy^{2}$ divided by $y^{2}$ simplifies. What is left after the powers cancel?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DdJzN4MS_0k_3",
+        "prompt": "With $v = y^{-1}$, what is $\\frac{dv}{dx}$ in terms of $y'$?",
+        "hint": "Differentiate $v = y^{-1}$ using the power and chain rules.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dv}{dx} = -y^{-2}y'$",
+            "correct": true,
+            "rationale": "Yes. Differentiating $y^{-1}$ gives $-y^{-2}$ times $y'$."
+          },
+          {
+            "text": "$\\frac{dv}{dx} = y^{-2}y'$",
+            "rationale": "Do not lose the minus sign from lowering the exponent on $y^{-1}$. What sign should the coefficient carry?"
+          },
+          {
+            "text": "$\\frac{dv}{dx} = -y^{-1}y'$",
+            "rationale": "Lower the exponent by one when differentiating $y^{-1}$. What power of $y$ appears?"
+          },
+          {
+            "text": "$\\frac{dv}{dx} = -2y^{-3}y'$",
+            "rationale": "The starting exponent is $-1$, not $-2$. What is the derivative of $y^{-1}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DdJzN4MS_0k_4",
+        "prompt": "Substituting $v = y^{-1}$ and $v' = -y^{-2}y'$ into $y^{-2}y' + y^{-1} = x$ gives which linear equation?",
+        "hint": "Replace $y^{-1}$ with $v$ and note that $y^{-2}y' = -v'$, then rearrange into standard linear form.",
+        "answerOptions": [
+          {
+            "text": "$v' - v = -x$",
+            "correct": true,
+            "rationale": "Yes. Since $y^{-2}y' = -v'$, the equation becomes $-v' + v = x$, which rearranges to $v' - v = -x$."
+          },
+          {
+            "text": "$v' + v = x$",
+            "rationale": "The term $y^{-2}y'$ equals $-v'$, not $v'$. How does that minus sign change the equation?"
+          },
+          {
+            "text": "$v' - v = x$",
+            "rationale": "Carry the minus sign through to the right side when you multiply by $-1$. What sign does $x$ take?"
+          },
+          {
+            "text": "$-v' - v = x$",
+            "rationale": "Substitute $y^{-1} = v$ directly into the middle term. What sign should the $v$ term have before rearranging?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DdJzN4MS_0k_5",
+        "prompt": "What is the integrating factor for the linear equation $v' - v = -x$?",
+        "hint": "For $v' + p(x)v = g(x)$, the integrating factor is $e^{\\int p(x)\\,dx}$ with $p(x) = -1$ here.",
+        "answerOptions": [
+          {
+            "text": "$e^{-x}$",
+            "correct": true,
+            "rationale": "Yes. With $p(x) = -1$, the integrating factor is $e^{\\int -1\\,dx} = e^{-x}$."
+          },
+          {
+            "text": "$e^{x}$",
+            "rationale": "Check the sign of $p(x)$. The coefficient of $v$ is $-1$, so what is $\\int p\\,dx$?"
+          },
+          {
+            "text": "$e^{-x^{2}/2}$",
+            "rationale": "That would come from $p(x) = -x$. Here $p(x)$ is the constant $-1$. What is its integral?"
+          },
+          {
+            "text": "$-x$",
+            "rationale": "The integrating factor is an exponential of the integral, not the integral itself. What is $e^{\\int -1\\,dx}$?"
+          }
+        ]
+      }
+    ],
+    "QnTt9huzdNU": [
+      {
+        "id": "mp_QnTt9huzdNU_1",
+        "prompt": "After solving the linear equation for $v$, where $v = y^{-1}$, how do you recover $y$?",
+        "hint": "Invert the substitution relation between $v$ and $y$.",
+        "answerOptions": [
+          {
+            "text": "$y = \\frac{1}{v}$",
+            "correct": true,
+            "rationale": "Yes. Since $v = y^{-1}$, taking the reciprocal returns $y = \\frac{1}{v}$."
+          },
+          {
+            "text": "$y = v$",
+            "rationale": "The substitution was $v = y^{-1}$, not $v = y$. What operation undoes a reciprocal?"
+          },
+          {
+            "text": "$y = v^{2}$",
+            "rationale": "Squaring does not invert $v = y^{-1}$. What relationship recovers $y$ from its reciprocal?"
+          },
+          {
+            "text": "$y = -v$",
+            "rationale": "A negative sign does not undo a reciprocal. How do you solve $v = y^{-1}$ for $y$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QnTt9huzdNU_2",
+        "prompt": "In a Bernoulli initial value problem, when is the best time to apply the initial condition $y(x_{0}) = y_{0}$?",
+        "hint": "Think about whether it is cleaner to fix the constant in the $v$ solution or after returning to $y$.",
+        "answerOptions": [
+          {
+            "text": "Either convert it to a condition on $v$, or apply it after back-substituting to $y$",
+            "correct": true,
+            "rationale": "Yes. You may translate $y_{0}$ into $v(x_{0})$ or wait until $y$ is recovered, both fix the constant correctly."
+          },
+          {
+            "text": "Before doing any substitution, on the original Bernoulli equation",
+            "rationale": "The constant of integration only appears after solving the linear equation. When does a constant become available to pin down?"
+          },
+          {
+            "text": "It is never needed, since Bernoulli problems have unique solutions automatically",
+            "rationale": "The general solution carries an arbitrary constant. What information removes that arbitrariness?"
+          },
+          {
+            "text": "Only on the integrating factor",
+            "rationale": "The integrating factor carries no arbitrary constant to fix. Where does the constant that the initial condition determines actually appear?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QnTt9huzdNU_3",
+        "prompt": "If $v = y^{1 - n}$ with $n = 3$, and the initial condition is $y(0) = 1$, what is $v(0)$?",
+        "hint": "Compute the exponent $1 - n$, then evaluate $v = y^{1 - n}$ at the initial value.",
+        "answerOptions": [
+          {
+            "text": "$v(0) = 1$",
+            "correct": true,
+            "rationale": "Yes. With $n = 3$, $v = y^{-2}$, and $1^{-2} = 1$."
+          },
+          {
+            "text": "$v(0) = -2$",
+            "rationale": "The exponent $1 - n$ is $-2$, but you evaluate $1^{-2}$, not the exponent itself. What is $1^{-2}$?"
+          },
+          {
+            "text": "$v(0) = 0$",
+            "rationale": "Raising $1$ to any power gives $1$, not $0$. What is $1^{-2}$?"
+          },
+          {
+            "text": "$v(0) = 3$",
+            "rationale": "The base is $y(0) = 1$, not $n$. What is $1$ raised to the power $1 - 3$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QnTt9huzdNU_4",
+        "prompt": "Which ordering of steps correctly solves a Bernoulli initial value problem?",
+        "hint": "Trace the path from the nonlinear equation to a number, ending with the initial condition.",
+        "answerOptions": [
+          {
+            "text": "Divide by $y^{n}$, substitute $v = y^{1-n}$, solve the linear equation, back-substitute, then apply the initial condition",
+            "correct": true,
+            "rationale": "Yes. Linearize first, solve, return to $y$, and finally use the initial condition to fix the constant."
+          },
+          {
+            "text": "Apply the initial condition, then divide by $y^{n}$, then substitute",
+            "rationale": "The constant to be fixed only appears after integrating the linear equation. Can the initial condition be used before that constant exists?"
+          },
+          {
+            "text": "Substitute $v = y^{1-n}$, apply the initial condition, then divide by $y^{n}$",
+            "rationale": "Dividing by $y^{n}$ sets up the substitution and must come first. What is the correct opening step?"
+          },
+          {
+            "text": "Integrate the original equation directly, then substitute",
+            "rationale": "The original Bernoulli equation is not directly integrable due to the power of $y$. What step removes that nonlinearity first?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QnTt9huzdNU_5",
+        "prompt": "Suppose back-substitution gives the linear solution $v = Ce^{x} + x + 1$ and the condition $v(0) = 2$. Find $C$.",
+        "hint": "Evaluate the solution at $x = 0$, set it equal to $2$, and solve for $C$.",
+        "answerOptions": [
+          {
+            "text": "$C = 1$",
+            "correct": true,
+            "rationale": "Correct. At $x = 0$, $v(0) = C + 0 + 1 = C + 1 = 2$, so $C = 1$."
+          },
+          {
+            "text": "$C = 2$",
+            "rationale": "Do not forget the constant term. At $x = 0$ the solution is $C + 1$, not $C$. What value of $C$ makes that equal $2$?"
+          },
+          {
+            "text": "$C = 3$",
+            "rationale": "Evaluate carefully at $x = 0$: the $x$ term vanishes and the $+1$ remains. What is $C$ if $C + 1 = 2$?"
+          },
+          {
+            "text": "$C = 0$",
+            "rationale": "With $C = 0$ the solution at $x = 0$ would be $1$, not $2$. What value of $C$ gives $C + 1 = 2$?"
+          }
+        ]
+      }
+    ],
+    "tsBxekziI6Q": [
+      {
+        "id": "mp_tsBxekziI6Q_1",
+        "prompt": "The fluid Bernoulli equation $P + \\frac{1}{2}\\rho v^{2} + \\rho g h = \\text{constant}$ expresses the conservation of what along a streamline?",
+        "hint": "Each term is an energy per unit volume. Adding them and holding the total fixed states a conservation law.",
+        "answerOptions": [
+          {
+            "text": "Energy, the total mechanical energy per unit volume of the flowing fluid",
+            "correct": true,
+            "rationale": "Yes. The pressure, kinetic, and potential terms sum to a constant total energy per unit volume."
+          },
+          {
+            "text": "Mass, the amount of fluid passing a point",
+            "rationale": "Mass conservation is the separate continuity equation. What quantity do the summed pressure and energy terms conserve?"
+          },
+          {
+            "text": "Momentum, the product of mass and velocity",
+            "rationale": "Bernoulli is an energy statement, not a momentum balance. What conserved quantity do the three terms represent together?"
+          },
+          {
+            "text": "Temperature of the fluid",
+            "rationale": "Temperature does not appear in these terms. What physical quantity per unit volume stays constant along the streamline?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tsBxekziI6Q_2",
+        "prompt": "According to Bernoulli's principle, as the speed of a fluid increases along a streamline, its pressure does what?",
+        "hint": "With the total held constant, raising one term forces another to fall. Watch the pressure and the speed terms trade off.",
+        "answerOptions": [
+          {
+            "text": "It decreases",
+            "correct": true,
+            "rationale": "Yes. Since the total is fixed, a larger speed term $\\frac{1}{2}\\rho v^{2}$ requires a smaller pressure."
+          },
+          {
+            "text": "It increases",
+            "rationale": "If both the speed term and pressure rose, the fixed total would be exceeded. Which way must pressure move to compensate?"
+          },
+          {
+            "text": "It stays the same",
+            "rationale": "The pressure cannot stay fixed while the speed term grows and the total is constant. What must pressure do?"
+          },
+          {
+            "text": "It drops to zero immediately",
+            "rationale": "Pressure decreases gradually, not to zero. In which direction does it change as speed rises?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tsBxekziI6Q_3",
+        "prompt": "In the Bernoulli equation, the term $\\frac{1}{2}\\rho v^{2}$ represents which energy per unit volume?",
+        "hint": "The form $\\frac{1}{2}(\\text{mass density})(\\text{speed})^{2}$ should look familiar from mechanics.",
+        "answerOptions": [
+          {
+            "text": "Kinetic energy per unit volume",
+            "correct": true,
+            "rationale": "Yes. The $\\frac{1}{2}\\rho v^{2}$ term is the kinetic energy of the moving fluid per unit volume."
+          },
+          {
+            "text": "Potential energy per unit volume",
+            "rationale": "Potential energy is carried by the height term $\\rho g h$. What does the speed squared term measure?"
+          },
+          {
+            "text": "Pressure energy from the surroundings",
+            "rationale": "That role belongs to the term $P$. What kind of energy does motion at speed $v$ contribute?"
+          },
+          {
+            "text": "Thermal energy from friction",
+            "rationale": "Bernoulli assumes no friction losses. What mechanical energy does $\\frac{1}{2}\\rho v^{2}$ describe?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tsBxekziI6Q_4",
+        "prompt": "The continuity equation $A_{1}v_{1} = A_{2}v_{2}$ implies what about fluid speed in a narrower section of pipe?",
+        "hint": "The product of cross sectional area and speed is constant. If the area shrinks, the speed must adjust.",
+        "answerOptions": [
+          {
+            "text": "The speed increases where the area is smaller",
+            "correct": true,
+            "rationale": "Yes. To keep the product constant, a smaller area forces a larger speed."
+          },
+          {
+            "text": "The speed decreases where the area is smaller",
+            "rationale": "That would make the product $Av$ shrink, breaking the equality. Which way must speed move when area falls?"
+          },
+          {
+            "text": "The speed is unaffected by area",
+            "rationale": "The relation $A_{1}v_{1} = A_{2}v_{2}$ ties them together. How does speed respond when area decreases?"
+          },
+          {
+            "text": "The speed drops to zero in the narrow part",
+            "rationale": "A narrow section speeds the flow rather than stopping it. What happens to speed as area shrinks?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tsBxekziI6Q_5",
+        "prompt": "How does Bernoulli's principle help explain lift on an airplane wing?",
+        "hint": "Air moving faster over one surface relates to a pressure difference between the two surfaces.",
+        "answerOptions": [
+          {
+            "text": "Faster flow over the top lowers the pressure there, and the higher pressure below pushes the wing up",
+            "correct": true,
+            "rationale": "Yes. The speed difference creates a pressure difference, and the net upward pressure force is lift."
+          },
+          {
+            "text": "Faster flow over the top raises the pressure there, pushing the wing up",
+            "rationale": "Bernoulli ties faster flow to lower pressure, not higher. Which side ends up at lower pressure?"
+          },
+          {
+            "text": "The wing is lifted by the temperature difference across it",
+            "rationale": "Temperature is not the mechanism here. What pressure difference does the speed difference create?"
+          },
+          {
+            "text": "Lift comes from the air being compressed to zero speed below the wing",
+            "rationale": "The flow does not stop below the wing. What pressure relationship does the speed difference produce?"
+          }
+        ]
+      }
+    ],
+    "DW4rItB20h4": [
+      {
+        "id": "mp_DW4rItB20h4_1",
+        "prompt": "Bernoulli's principle is fundamentally a statement of the conservation of which quantity for an ideal fluid?",
+        "hint": "It balances pressure, motion, and height contributions that together form one conserved total.",
+        "answerOptions": [
+          {
+            "text": "Energy",
+            "correct": true,
+            "rationale": "Yes. Bernoulli's equation is the conservation of mechanical energy per unit volume for an ideal fluid."
+          },
+          {
+            "text": "Electric charge",
+            "rationale": "Charge plays no role in fluid flow here. What conserved mechanical quantity do the pressure and motion terms form?"
+          },
+          {
+            "text": "Angular momentum",
+            "rationale": "Bernoulli does not track rotation. What quantity per unit volume stays constant along a streamline?"
+          },
+          {
+            "text": "Entropy",
+            "rationale": "Entropy is a thermodynamic measure, not the conserved quantity here. What mechanical quantity is conserved?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DW4rItB20h4_2",
+        "prompt": "In $P + \\frac{1}{2}\\rho v^{2} + \\rho g h = \\text{constant}$, the term $\\rho g h$ represents which energy per unit volume?",
+        "hint": "The structure $(\\text{density})(\\text{gravity})(\\text{height})$ mirrors the familiar $mgh$ from mechanics.",
+        "answerOptions": [
+          {
+            "text": "Gravitational potential energy per unit volume",
+            "correct": true,
+            "rationale": "Yes. The term $\\rho g h$ is the gravitational potential energy of the fluid per unit volume."
+          },
+          {
+            "text": "Kinetic energy per unit volume",
+            "rationale": "Kinetic energy is the speed squared term. What does the height term $\\rho g h$ measure?"
+          },
+          {
+            "text": "Pressure energy per unit volume",
+            "rationale": "Pressure energy is the term $P$. What does the height dependence $\\rho g h$ contribute?"
+          },
+          {
+            "text": "Frictional energy loss",
+            "rationale": "Bernoulli neglects friction. What stored energy does raising the fluid to height $h$ represent?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DW4rItB20h4_3",
+        "prompt": "In a horizontal pipe, if the fluid speed in a section doubles, the dynamic pressure $\\frac{1}{2}\\rho v^{2}$ changes by what factor?",
+        "hint": "The term depends on $v^{2}$. Replace $v$ with $2v$ and see how the square responds.",
+        "answerOptions": [
+          {
+            "text": "It quadruples, since the term depends on $v^{2}$",
+            "correct": true,
+            "rationale": "Yes. Doubling $v$ multiplies $v^{2}$ by four, so the dynamic pressure quadruples."
+          },
+          {
+            "text": "It doubles",
+            "rationale": "The term scales with the square of speed, not the speed itself. What is $(2v)^{2}$ compared with $v^{2}$?"
+          },
+          {
+            "text": "It stays the same",
+            "rationale": "A change in speed changes $\\frac{1}{2}\\rho v^{2}$. By what factor does squaring a doubled speed grow?"
+          },
+          {
+            "text": "It is cut in half",
+            "rationale": "Faster flow raises the dynamic pressure, not lowers it. What factor comes from squaring a doubling?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DW4rItB20h4_4",
+        "prompt": "Which set of assumptions underlies the standard Bernoulli equation?",
+        "hint": "Recall the idealizations that let energy be conserved with no losses along a streamline.",
+        "answerOptions": [
+          {
+            "text": "Steady, incompressible, non-viscous flow along a streamline",
+            "correct": true,
+            "rationale": "Yes. These idealizations remove energy losses and density changes, so the energy sum stays constant."
+          },
+          {
+            "text": "Unsteady, compressible, viscous flow",
+            "rationale": "Each of these would break the simple energy balance. What opposite idealizations does Bernoulli assume?"
+          },
+          {
+            "text": "Flow that gains energy from friction along the walls",
+            "rationale": "Friction removes mechanical energy rather than adding it, and Bernoulli neglects it. What viscosity assumption is required?"
+          },
+          {
+            "text": "Flow with strong heat exchange and turbulence",
+            "rationale": "Heat exchange and turbulence introduce losses the equation ignores. What smooth, loss free conditions are assumed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DW4rItB20h4_5",
+        "prompt": "The Venturi effect, where flow speeds up and pressure drops in a constriction, follows from combining Bernoulli's equation with what?",
+        "hint": "You need a second relation linking the cross sectional area to the speed of the flow.",
+        "answerOptions": [
+          {
+            "text": "The continuity equation relating area and speed",
+            "correct": true,
+            "rationale": "Yes. Continuity forces higher speed in the constriction, and Bernoulli then predicts the lower pressure."
+          },
+          {
+            "text": "Newton's law of cooling",
+            "rationale": "Cooling describes heat transfer, not flow speed and area. What conservation relation ties area to speed?"
+          },
+          {
+            "text": "Hooke's law for springs",
+            "rationale": "Springs are unrelated to pipe flow. What equation connects cross sectional area to fluid speed?"
+          },
+          {
+            "text": "The ideal gas law alone",
+            "rationale": "The gas law relates pressure, volume, and temperature, not area and speed. Which flow relation does Bernoulli combine with here?"
+          }
+        ]
+      }
     ]
   },
   "unit_mastery": {
@@ -8133,6 +9597,728 @@
           {
             "text": "Separation of variables, with $f$ separable",
             "rationale": "Separability is not required. What general principle and Lipschitz condition power the proof?"
+          }
+        ]
+      }
+    ],
+    "Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability": [
+      {
+        "id": "um_4_1",
+        "prompt": "An equilibrium solution of $\\frac{dy}{dt} = f(y)$ is a constant $y = c$ for which condition?",
+        "hint": "A constant solution has zero derivative. What does that force $f$ to be?",
+        "answerOptions": [
+          {
+            "text": "$f(c) = 0$",
+            "correct": true,
+            "rationale": "Yes. The rate vanishes where $f(c) = 0$, so the solution stays constant."
+          },
+          {
+            "text": "$f'(c) = 0$",
+            "rationale": "That is about the slope of $f$, not the rate of $y$. What must the rate equal?"
+          },
+          {
+            "text": "$f(c) = c$",
+            "rationale": "That is a fixed point of a map, not an equilibrium of this rate equation. What value must $f$ take?"
+          },
+          {
+            "text": "$c = 0$",
+            "rationale": "Equilibria are not always at the origin. What equation in $f$ defines them?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_2",
+        "prompt": "Find all equilibrium solutions of $\\frac{dy}{dt} = y(y - 3)$.",
+        "hint": "Set the product equal to zero and read off both roots.",
+        "answerOptions": [
+          {
+            "text": "$y = 0$ and $y = 3$",
+            "correct": true,
+            "rationale": "Yes. The product is zero exactly at $y = 0$ and $y = 3$."
+          },
+          {
+            "text": "$y = 3$ only",
+            "rationale": "A product vanishes when either factor does. What makes the factor $y$ zero?"
+          },
+          {
+            "text": "$y = -3$ and $y = 0$",
+            "rationale": "Check the sign inside $y - 3$. Which value zeroes it?"
+          },
+          {
+            "text": "No equilibria exist",
+            "rationale": "Can a product be zero? Which values of $y$ achieve that here?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_3",
+        "prompt": "Using the sign of $f'$, classify the equilibrium $y = 2$ of $\\frac{dy}{dt} = y - 2$.",
+        "hint": "Here $f(y) = y - 2$, so compute $f'(2)$ and use its sign.",
+        "answerOptions": [
+          {
+            "text": "Unstable, since $f'(2) = 1 > 0$",
+            "correct": true,
+            "rationale": "Yes. A positive slope of $f$ at the equilibrium repels nearby solutions."
+          },
+          {
+            "text": "Stable, since $f'(2) = 1$",
+            "rationale": "A positive $f'$ signals instability, not stability. What does a positive slope do to disturbances?"
+          },
+          {
+            "text": "Semi-stable, since $f'(2) = 0$",
+            "rationale": "Compute $f'(y)$ for $f = y - 2$. Is it really zero at $y = 2$?"
+          },
+          {
+            "text": "Stable, since $f(2) = 0$",
+            "rationale": "Vanishing of $f$ only marks the equilibrium. Which derivative decides stability, and what is its sign?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_4",
+        "prompt": "For $\\frac{dy}{dt} = y - y^{3}$, classify the equilibrium $y = 1$.",
+        "hint": "Compute $f'(y) = 1 - 3y^{2}$ and evaluate at $y = 1$.",
+        "answerOptions": [
+          {
+            "text": "Stable, since $f'(1) = -2 < 0$",
+            "correct": true,
+            "rationale": "Yes. The negative slope at $y = 1$ makes it stable."
+          },
+          {
+            "text": "Unstable, since $f'(1) > 0$",
+            "rationale": "Recompute $1 - 3(1)^{2}$. Is the result positive?"
+          },
+          {
+            "text": "Semi-stable, since $f'(1) = 0$",
+            "rationale": "Evaluate $1 - 3$. Does it equal zero?"
+          },
+          {
+            "text": "Stable, only because $y = 1$ is positive",
+            "rationale": "The sign of $y$ does not set stability. Which derivative does, and what is its value here?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_5",
+        "prompt": "A steady state where $f$ touches zero without changing sign across it is called what?",
+        "hint": "Picture a double root, where the rate keeps the same sign on both sides.",
+        "answerOptions": [
+          {
+            "text": "Semi-stable",
+            "correct": true,
+            "rationale": "Yes. With the same sign on both sides, it attracts from one side and repels from the other."
+          },
+          {
+            "text": "Asymptotically stable",
+            "rationale": "Full stability needs the rate to restore from both sides. Does a constant sign do that?"
+          },
+          {
+            "text": "A source",
+            "rationale": "A source repels on both sides. Does a non-changing sign push away on both sides?"
+          },
+          {
+            "text": "Not an equilibrium",
+            "rationale": "The rate is still zero there. What name applies when the sign does not flip?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_6",
+        "prompt": "For $\\frac{dy}{dt} = (y - 1)(y + 2)$, classify the equilibrium $y = -2$.",
+        "hint": "Test the rate sign just above and just below $y = -2$.",
+        "answerOptions": [
+          {
+            "text": "Stable",
+            "correct": true,
+            "rationale": "Yes. Below $-2$ the rate is positive and just above it is negative, so solutions return to $-2$."
+          },
+          {
+            "text": "Unstable",
+            "rationale": "Just below $-2$ both factors are negative, giving a positive rate toward $-2$. Does that repel or attract?"
+          },
+          {
+            "text": "Semi-stable",
+            "rationale": "The sign of the rate flips across $y = -2$. Does a sign flip toward the point mean semi-stable?"
+          },
+          {
+            "text": "It is not an equilibrium",
+            "rationale": "Check $(y - 1)(y + 2)$ at $y = -2$. Does the product vanish there?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_7",
+        "prompt": "What characterizes an autonomous first order equation?",
+        "hint": "Focus on which variable is allowed to appear on the right side.",
+        "answerOptions": [
+          {
+            "text": "The right side depends only on $y$, not explicitly on $t$",
+            "correct": true,
+            "rationale": "Yes. Autonomous means $\\frac{dy}{dt} = f(y)$ with no explicit $t$."
+          },
+          {
+            "text": "The right side depends only on $t$",
+            "rationale": "That gives a direct integration, not an autonomous equation. Which variable alone may appear?"
+          },
+          {
+            "text": "The equation is separable",
+            "rationale": "Autonomy concerns variable dependence, not separability. Which variable is excluded from the right side?"
+          },
+          {
+            "text": "The solution is always constant",
+            "rationale": "Autonomous equations have many nonconstant solutions. What restriction defines the term?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_8",
+        "prompt": "On the phase line for $\\frac{dy}{dt} = y - 4$, which way does the arrow point at $y = 5$?",
+        "hint": "Evaluate the rate at $y = 5$ and read its sign.",
+        "answerOptions": [
+          {
+            "text": "Upward, since the rate is $1 > 0$",
+            "correct": true,
+            "rationale": "Yes. A positive rate means $y$ increases, so the arrow points up."
+          },
+          {
+            "text": "Downward, since the rate is negative",
+            "rationale": "Compute $5 - 4$. Is that negative?"
+          },
+          {
+            "text": "No motion, since $y = 5$ is an equilibrium",
+            "rationale": "Is $5 - 4$ equal to zero? Check whether $y = 5$ is an equilibrium."
+          },
+          {
+            "text": "The direction cannot be determined",
+            "rationale": "The sign of $5 - 4$ settles it. What is that sign?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_9",
+        "prompt": "On a phase line, an equilibrium with arrows pointing toward it from both sides is which type?",
+        "hint": "Converging arrows pull nearby solutions inward.",
+        "answerOptions": [
+          {
+            "text": "Stable, a sink",
+            "correct": true,
+            "rationale": "Yes. Inward arrows from both sides make it a stable sink."
+          },
+          {
+            "text": "Unstable, a source",
+            "rationale": "A source has outward arrows. Which way do these point?"
+          },
+          {
+            "text": "Semi-stable",
+            "rationale": "Semi-stable mixes one inward and one outward arrow. Do both point the same way here?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers belong to planar systems, not a phase line. What do two inward arrows make it?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_10",
+        "prompt": "For $\\frac{dy}{dt} = y^{2} - 4$, what is the sign of the rate for $-2 < y < 2$?",
+        "hint": "Test $y = 0$ in $y^{2} - 4$.",
+        "answerOptions": [
+          {
+            "text": "Negative",
+            "correct": true,
+            "rationale": "Yes. Between the roots $y^{2} < 4$, so $y^{2} - 4 < 0$."
+          },
+          {
+            "text": "Positive",
+            "rationale": "Test $y = 0$, giving $-4$. Is that positive?"
+          },
+          {
+            "text": "Zero",
+            "rationale": "The rate is zero only at $y = \\pm 2$. What sign holds strictly between them?"
+          },
+          {
+            "text": "It alternates sign",
+            "rationale": "The sign only changes at the equilibria. What single sign holds in the interval?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_11",
+        "prompt": "Classify the equilibria of $\\frac{dy}{dt} = y^{2} - 4$.",
+        "hint": "Track the rate sign below $-2$, between $-2$ and $2$, and above $2$.",
+        "answerOptions": [
+          {
+            "text": "$y = -2$ stable, $y = 2$ unstable",
+            "correct": true,
+            "rationale": "Yes. The rate is positive below $-2$, negative between, and positive above, so $-2$ attracts and $2$ repels."
+          },
+          {
+            "text": "$y = -2$ unstable, $y = 2$ stable",
+            "rationale": "You may have swapped them. Between the roots the rate is negative, pulling toward which root?"
+          },
+          {
+            "text": "Both stable",
+            "rationale": "Above $y = 2$ the rate is positive, pushing away from $2$. Can $2$ be stable?"
+          },
+          {
+            "text": "Both unstable",
+            "rationale": "Below $y = -2$ the rate is positive, carrying solutions up to $-2$. Is $-2$ stable or unstable?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_12",
+        "prompt": "Why are solution curves of an autonomous equation horizontal time shifts of one another?",
+        "hint": "If $y(t)$ is a solution, consider whether $y(t - c)$ also solves the equation.",
+        "answerOptions": [
+          {
+            "text": "Because the right side has no explicit $t$, so a time-shifted solution is still a solution",
+            "correct": true,
+            "rationale": "Yes. Time invariance means $y(t - c)$ solves the equation too, giving horizontal shifts."
+          },
+          {
+            "text": "Because every solution is a straight line",
+            "rationale": "Solutions are usually curved. What property allows shifting in time?"
+          },
+          {
+            "text": "Because there is only one solution",
+            "rationale": "There is a whole family. What lets a shifted curve remain a solution?"
+          },
+          {
+            "text": "Because $t$ appears explicitly",
+            "rationale": "Autonomous means $t$ does not appear explicitly. How does that absence allow the shift?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_13",
+        "prompt": "In $\\frac{dP}{dt} = rP\\left(1 - \\frac{P}{K}\\right)$, what does $K$ represent?",
+        "hint": "Find the population value that makes the bracket and the growth vanish.",
+        "answerOptions": [
+          {
+            "text": "The carrying capacity",
+            "correct": true,
+            "rationale": "Yes. At $P = K$ the bracket is zero and growth stops, so $K$ is the carrying capacity."
+          },
+          {
+            "text": "The intrinsic growth rate",
+            "rationale": "That is the constant $r$. What level does $K$ cap the population at?"
+          },
+          {
+            "text": "The initial population",
+            "rationale": "The start is set by an initial condition. What ceiling does $K$ impose?"
+          },
+          {
+            "text": "The time of fastest growth",
+            "rationale": "$K$ is a population level, not a time. What size does the population approach?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_14",
+        "prompt": "What are the equilibrium solutions of $\\frac{dP}{dt} = rP\\left(1 - \\frac{P}{K}\\right)$?",
+        "hint": "Set the product to zero and solve each factor.",
+        "answerOptions": [
+          {
+            "text": "$P = 0$ and $P = K$",
+            "correct": true,
+            "rationale": "Yes. The factor $rP$ gives $P = 0$ and the bracket gives $P = K$."
+          },
+          {
+            "text": "$P = K$ only",
+            "rationale": "The factor $rP$ also vanishes. At what $P$?"
+          },
+          {
+            "text": "$P = r$ and $P = K$",
+            "rationale": "The factor $rP$ is zero at $P = 0$, not $P = r$. Which value zeroes it?"
+          },
+          {
+            "text": "$P = 0$ only",
+            "rationale": "The bracket $1 - \\frac{P}{K}$ also vanishes. At what value of $P$?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_15",
+        "prompt": "For the logistic model with $r > 0$, how do the equilibria classify?",
+        "hint": "A small population grows away from zero and large populations settle near the capacity.",
+        "answerOptions": [
+          {
+            "text": "$P = 0$ unstable, $P = K$ stable",
+            "correct": true,
+            "rationale": "Yes. Solutions move away from $0$ and toward $K$."
+          },
+          {
+            "text": "$P = 0$ stable, $P = K$ unstable",
+            "rationale": "Just above $0$ growth is positive, pushing up. Does that make $0$ stable?"
+          },
+          {
+            "text": "Both stable",
+            "rationale": "Solutions leave the neighborhood of $0$. Can a repelling point be stable?"
+          },
+          {
+            "text": "Both unstable",
+            "rationale": "Populations between $0$ and $K$ approach $K$ and remain. Is $K$ stable?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_16",
+        "prompt": "At what population is the logistic growth rate $rP\\left(1 - \\frac{P}{K}\\right)$ greatest?",
+        "hint": "The rate is a downward parabola in $P$ with roots at $0$ and $K$.",
+        "answerOptions": [
+          {
+            "text": "$P = \\frac{K}{2}$",
+            "correct": true,
+            "rationale": "Yes. The parabola peaks halfway between its roots."
+          },
+          {
+            "text": "$P = K$",
+            "rationale": "At $P = K$ the rate is zero. Where between the roots is the peak?"
+          },
+          {
+            "text": "$P = 0$",
+            "rationale": "At $P = 0$ the rate is zero. Where does the parabola peak?"
+          },
+          {
+            "text": "$P = \\frac{K}{4}$",
+            "rationale": "The peak is at the midpoint of $0$ and $K$. What is that midpoint?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_17",
+        "prompt": "With $r = 0.5$ and $K = 100$, what is $\\frac{dP}{dt}$ when $P = 25$?",
+        "hint": "Substitute into $rP\\left(1 - \\frac{P}{K}\\right)$ and simplify.",
+        "answerOptions": [
+          {
+            "text": "$9.375$",
+            "correct": true,
+            "rationale": "Correct. $0.5 \\cdot 25 \\cdot 0.75 = 9.375$."
+          },
+          {
+            "text": "$12.5$",
+            "rationale": "That is $rP$ alone. Multiply by the bracket $1 - \\frac{25}{100}$. What results?"
+          },
+          {
+            "text": "$6.25$",
+            "rationale": "Recheck the bracket. Is $1 - 0.25$ equal to $0.5$ or $0.75$?"
+          },
+          {
+            "text": "$18.75$",
+            "rationale": "Recompute $12.5 \\cdot 0.75$. What is the product?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_18",
+        "prompt": "For small $P$, the logistic equation is approximately which simpler model?",
+        "hint": "When $P$ is tiny, $\\frac{P}{K}$ is near zero and the bracket is near one.",
+        "answerOptions": [
+          {
+            "text": "Exponential growth $\\frac{dP}{dt} \\approx rP$",
+            "correct": true,
+            "rationale": "Yes. With the bracket near one, only $rP$ remains."
+          },
+          {
+            "text": "Linear growth $\\frac{dP}{dt} \\approx r$",
+            "rationale": "The rate still scales with $P$. What model has rate proportional to $P$?"
+          },
+          {
+            "text": "Decay $\\frac{dP}{dt} \\approx -rP$",
+            "rationale": "For small positive $P$ and $r > 0$ the rate is positive. Which growth model applies?"
+          },
+          {
+            "text": "Constant population",
+            "rationale": "A small positive population still grows. What model does $rP$ describe?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_19",
+        "prompt": "Which form identifies a Bernoulli equation?",
+        "hint": "It resembles a first order linear equation but with a power of $y$ on the right.",
+        "answerOptions": [
+          {
+            "text": "$y' + P(x)y = Q(x)y^{n}$",
+            "correct": true,
+            "rationale": "Yes. The linear left side with a $y^{n}$ on the right is the Bernoulli form."
+          },
+          {
+            "text": "$y' + P(x)y = Q(x)$",
+            "rationale": "That is already linear with no power of $y$. What extra factor makes it Bernoulli?"
+          },
+          {
+            "text": "$y'' + P(x)y' + Q(x)y = 0$",
+            "rationale": "That is second order linear. Bernoulli is first order. What right side term distinguishes it?"
+          },
+          {
+            "text": "$y' = P(x)Q(y)$",
+            "rationale": "That is separable. Which form keeps a linear left side but a power $y^{n}$ on the right?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_20",
+        "prompt": "Which substitution linearizes the Bernoulli equation $y' + P(x)y = Q(x)y^{n}$?",
+        "hint": "The linearizing exponent is $1 - n$.",
+        "answerOptions": [
+          {
+            "text": "$v = y^{1 - n}$",
+            "correct": true,
+            "rationale": "Yes. This substitution turns the equation linear in $v$."
+          },
+          {
+            "text": "$v = y^{n}$",
+            "rationale": "Check the linearizing exponent. Is it $n$ or $1 - n$?"
+          },
+          {
+            "text": "$v = y^{n - 1}$",
+            "rationale": "The sign is reversed. Is the exponent $n - 1$ or $1 - n$?"
+          },
+          {
+            "text": "$v = \\ln y$",
+            "rationale": "A logarithm does not match the power structure. What power of $y$ linearizes it?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_21",
+        "prompt": "For a Bernoulli equation with $n = 2$, the substitution $v = y^{1 - n}$ is what?",
+        "hint": "Compute $1 - n$ for $n = 2$.",
+        "answerOptions": [
+          {
+            "text": "$v = y^{-1}$",
+            "correct": true,
+            "rationale": "Yes. $1 - 2 = -1$, so $v = y^{-1}$."
+          },
+          {
+            "text": "$v = y^{2}$",
+            "rationale": "That uses $n$ directly. What is $1 - 2$?"
+          },
+          {
+            "text": "$v = y^{-2}$",
+            "rationale": "Recheck $1 - 2$. Is it $-1$ or $-2$?"
+          },
+          {
+            "text": "$v = y$",
+            "rationale": "Compute $1 - n$ for $n = 2$. Does it give $1$?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_22",
+        "prompt": "After the substitution $v = y^{1 - n}$, a Bernoulli equation becomes which type in $v$?",
+        "hint": "The substitution is designed to remove the power of $y$.",
+        "answerOptions": [
+          {
+            "text": "First order linear in $v$",
+            "correct": true,
+            "rationale": "Yes. The result is linear, solvable by an integrating factor."
+          },
+          {
+            "text": "Separable in $v$",
+            "rationale": "The result is not generally separable. What standard form appears?"
+          },
+          {
+            "text": "Second order in $v$",
+            "rationale": "The order stays first. What first order form results?"
+          },
+          {
+            "text": "Still Bernoulli in $v$",
+            "rationale": "The power is cleared by the substitution. What simpler form is left?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_23",
+        "prompt": "For $y' + y = xy^{3}$, identify $n$ and the substitution.",
+        "hint": "Read $n$ from the power on the right, then use $v = y^{1 - n}$.",
+        "answerOptions": [
+          {
+            "text": "$n = 3$, $v = y^{-2}$",
+            "correct": true,
+            "rationale": "Yes. The right side is $y^{3}$, so $n = 3$ and $v = y^{-2}$."
+          },
+          {
+            "text": "$n = 3$, $v = y^{-3}$",
+            "rationale": "Compute $1 - n$ for the exponent. Is it $-2$ or $-3$?"
+          },
+          {
+            "text": "$n = 1$, $v = y^{0}$",
+            "rationale": "The right power is $y^{3}$. What is $n$?"
+          },
+          {
+            "text": "$n = 3$, $v = y^{2}$",
+            "rationale": "The exponent $1 - 3$ is negative. What is its value?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_24",
+        "prompt": "If $v = y^{1 - n}$, then $\\frac{dv}{dx}$ equals which expression?",
+        "hint": "Differentiate $y^{1 - n}$ with the chain rule.",
+        "answerOptions": [
+          {
+            "text": "$(1 - n)y^{-n}\\frac{dy}{dx}$",
+            "correct": true,
+            "rationale": "Yes. The power rule lowers the exponent and the chain rule attaches $\\frac{dy}{dx}$."
+          },
+          {
+            "text": "$(1 - n)y^{1 - n}\\frac{dy}{dx}$",
+            "rationale": "Lower the exponent by one. What power of $y$ appears?"
+          },
+          {
+            "text": "$y^{-n}\\frac{dy}{dx}$",
+            "rationale": "Do not drop the coefficient. What factor multiplies $y^{-n}$?"
+          },
+          {
+            "text": "$(1 - n)y^{-n}$",
+            "rationale": "The chain rule attaches a derivative. What factor besides $(1-n)y^{-n}$ belongs?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_25",
+        "prompt": "For which $n$ is a Bernoulli equation already linear, with no substitution needed?",
+        "hint": "Look at the right side $Q(x)y^{n}$ for exponents that keep it linear.",
+        "answerOptions": [
+          {
+            "text": "$n = 0$ and $n = 1$",
+            "correct": true,
+            "rationale": "Yes. With $n = 0$ the right side is $Q(x)$, and with $n = 1$ it is linear in $y$."
+          },
+          {
+            "text": "$n = 2$ and $n = 3$",
+            "rationale": "Those give genuine nonlinear powers. Which small exponents stay linear?"
+          },
+          {
+            "text": "Only $n = 0$",
+            "rationale": "A second exponent also stays linear. What does $n = 1$ give?"
+          },
+          {
+            "text": "Only $n = 1$",
+            "rationale": "A second value too. What does $n = 0$ give on the right?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_26",
+        "prompt": "What is the first algebraic step in solving $y' + P(x)y = Q(x)y^{n}$ by hand?",
+        "hint": "You want to clear the power of $y$ from the right side.",
+        "answerOptions": [
+          {
+            "text": "Divide every term by $y^{n}$",
+            "correct": true,
+            "rationale": "Yes. Dividing by $y^{n}$ prepares the substitution $v = y^{1 - n}$."
+          },
+          {
+            "text": "Multiply every term by $y^{n}$",
+            "rationale": "That raises the powers further. Which operation clears the power instead?"
+          },
+          {
+            "text": "Integrate both sides",
+            "rationale": "The equation is not yet integrable. What division sets up the substitution?"
+          },
+          {
+            "text": "Take the logarithm of both sides",
+            "rationale": "A logarithm does not match the structure. What division prepares the substitution?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_27",
+        "prompt": "With $v = y^{-1}$, what is $\\frac{dv}{dx}$ in terms of $y'$?",
+        "hint": "Differentiate $y^{-1}$ with the power and chain rules.",
+        "answerOptions": [
+          {
+            "text": "$-y^{-2}y'$",
+            "correct": true,
+            "rationale": "Yes. The derivative of $y^{-1}$ is $-y^{-2}$ times $y'$."
+          },
+          {
+            "text": "$y^{-2}y'$",
+            "rationale": "Do not lose the minus sign from the exponent $-1$. What sign appears?"
+          },
+          {
+            "text": "$-y^{-1}y'$",
+            "rationale": "Lower the exponent by one. What power of $y$ results?"
+          },
+          {
+            "text": "$y^{-1}y'$",
+            "rationale": "Both the sign and the exponent need care. What is the derivative of $y^{-1}$?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_28",
+        "prompt": "After solving the linear equation for $v$ where $v = y^{-1}$, how do you recover $y$?",
+        "hint": "Invert the relation $v = y^{-1}$.",
+        "answerOptions": [
+          {
+            "text": "$y = \\frac{1}{v}$",
+            "correct": true,
+            "rationale": "Yes. The reciprocal of $v = y^{-1}$ returns $y = \\frac{1}{v}$."
+          },
+          {
+            "text": "$y = v$",
+            "rationale": "The substitution was a reciprocal, not equality. What undoes a reciprocal?"
+          },
+          {
+            "text": "$y = v^{2}$",
+            "rationale": "Squaring does not invert $v = y^{-1}$. What operation does?"
+          },
+          {
+            "text": "$y = \\sqrt{v}$",
+            "rationale": "A square root does not invert a reciprocal. How do you solve $v = y^{-1}$ for $y$?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_29",
+        "prompt": "The fluid Bernoulli equation $P + \\frac{1}{2}\\rho v^{2} + \\rho g h = \\text{constant}$ expresses conservation of what?",
+        "hint": "Each term is an energy per unit volume summing to a fixed total.",
+        "answerOptions": [
+          {
+            "text": "Mechanical energy per unit volume along a streamline",
+            "correct": true,
+            "rationale": "Yes. The pressure, kinetic, and potential terms sum to a constant energy per unit volume."
+          },
+          {
+            "text": "Mass of the fluid",
+            "rationale": "Mass conservation is the continuity equation. What do these energy terms conserve?"
+          },
+          {
+            "text": "Momentum of the fluid",
+            "rationale": "Bernoulli is an energy statement. What conserved quantity do the three terms form?"
+          },
+          {
+            "text": "Temperature of the fluid",
+            "rationale": "Temperature does not appear here. What quantity per unit volume stays constant?"
+          }
+        ]
+      },
+      {
+        "id": "um_4_30",
+        "prompt": "By Bernoulli's principle, as a fluid speeds up along a streamline, its pressure does what, and in a horizontal pipe doubling the speed changes the dynamic pressure $\\frac{1}{2}\\rho v^{2}$ by what factor?",
+        "hint": "The total is fixed, so a larger speed term lowers pressure, and the speed term depends on $v^{2}$.",
+        "answerOptions": [
+          {
+            "text": "Pressure decreases, and the dynamic pressure quadruples",
+            "correct": true,
+            "rationale": "Yes. A larger speed term forces lower pressure, and squaring a doubled speed multiplies the term by four."
+          },
+          {
+            "text": "Pressure increases, and the dynamic pressure doubles",
+            "rationale": "Bernoulli ties faster flow to lower pressure, and the speed term scales with $v^{2}$. Reconsider both parts."
+          },
+          {
+            "text": "Pressure decreases, and the dynamic pressure doubles",
+            "rationale": "The pressure direction is right, but $\\frac{1}{2}\\rho v^{2}$ depends on the square of speed. What is $(2v)^{2}$ over $v^{2}$?"
+          },
+          {
+            "text": "Pressure increases, and the dynamic pressure quadruples",
+            "rationale": "The factor is right, but check the pressure direction. With the total fixed, does a larger speed term raise or lower pressure?"
           }
         ]
       }
