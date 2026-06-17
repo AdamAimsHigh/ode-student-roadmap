@@ -10944,6 +10944,1086 @@ const QUIZ_DATA = {
                     { "text": "It eliminates the need for the kernel", "rationale": "The kernel is central and explained, not removed. What familiar idea does the transform extend?" }
                 ]
             }
+        ],
+
+        /* Unit 13, Module 13.1, video 1
+           "How To Calculate The Taylor Expansion of e^x?" */
+        "ZcvxlNKKY_Q": [
+            {
+                "id": "mp_ZcvxlNKKY_Q_1",
+                "prompt": "What is the Maclaurin (Taylor about $0$) series of $e^x$?",
+                "hint": "Every derivative of $e^x$ equals $e^x$, which is $1$ at $x = 0$.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "correct": true, "rationale": "Yes. Since every derivative of $e^x$ is $1$ at $0$, the coefficient of $x^n$ is $1/n!$." },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n}$", "rationale": "The factorial, not $n$, comes from the Taylor coefficient $f^{(n)}(0)/n!$. What goes in the denominator?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} n!\\, x^n$", "rationale": "The factorial appears in the denominator, not the numerator. What is $f^{(n)}(0)/n!$ for $e^x$?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^{2n}}{(2n)!}$", "rationale": "Only even powers is the pattern for $\\cosh$ or $\\cos$. Does $e^x$ skip the odd powers?" }
+                ]
+            },
+            {
+                "id": "mp_ZcvxlNKKY_Q_2",
+                "prompt": "In the Maclaurin series of $e^x$, what is the coefficient of $x^4$?",
+                "hint": "The coefficient of $x^n$ is $1/n!$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{24}$", "correct": true, "rationale": "Correct. The coefficient is $1/4! = 1/24$." },
+                    { "text": "$\\frac{1}{4}$", "rationale": "The denominator is the factorial $4!$, not $4$. What is $4!$?" },
+                    { "text": "$24$", "rationale": "The factorial sits in the denominator. What is $1/4!$?" },
+                    { "text": "$\\frac{1}{16}$", "rationale": "That is $1/4^2$, not $1/4!$. What is the value of $4!$?" }
+                ]
+            },
+            {
+                "id": "mp_ZcvxlNKKY_Q_3",
+                "prompt": "The Taylor coefficient of $x^n$ for a function $f$ expanded about $0$ is given by which formula?",
+                "hint": "It involves the $n$-th derivative evaluated at the center.",
+                "answerOptions": [
+                    { "text": "$\\frac{f^{(n)}(0)}{n!}$", "correct": true, "rationale": "Yes. The $n$-th Taylor coefficient is the $n$-th derivative at the center divided by $n!$." },
+                    { "text": "$\\frac{f^{(n)}(0)}{n}$", "rationale": "The denominator is a factorial, not $n$. What divides $f^{(n)}(0)$?" },
+                    { "text": "$f^{(n)}(0)$", "rationale": "There is a factorial in the denominator. What must $f^{(n)}(0)$ be divided by?" },
+                    { "text": "$\\frac{f(0)}{n!}$", "rationale": "The numerator uses the $n$-th derivative, not $f$ itself. Which derivative appears?" }
+                ]
+            },
+            {
+                "id": "mp_ZcvxlNKKY_Q_4",
+                "prompt": "Why does the Taylor expansion of $e^x$ have the simple coefficients $1/n!$?",
+                "hint": "Consider what the $n$-th derivative of $e^x$ equals at $x = 0$.",
+                "answerOptions": [
+                    { "text": "Every derivative of $e^x$ equals $e^x$, which is $1$ at $x = 0$", "correct": true, "rationale": "Yes. Because $f^{(n)}(0) = 1$ for all $n$, the coefficient $f^{(n)}(0)/n!$ reduces to $1/n!$." },
+                    { "text": "Because $e^x$ is a polynomial of finite degree", "rationale": "The series has infinitely many terms, so $e^x$ is not a polynomial. What is special about its derivatives at $0$?" },
+                    { "text": "Because the derivatives of $e^x$ grow like $n!$", "rationale": "The derivatives of $e^x$ at $0$ are all $1$, not $n!$. What is $f^{(n)}(0)$ here?" },
+                    { "text": "Because $e^x$ is its own integral plus a constant", "rationale": "The key fact is about the derivatives at the center. What does $f^{(n)}(0)$ equal for $e^x$?" }
+                ]
+            },
+            {
+                "id": "mp_ZcvxlNKKY_Q_5",
+                "prompt": "What is the third-degree Taylor polynomial of $e^x$ about $0$?",
+                "hint": "Take the terms of $\\sum x^n/n!$ up through $n = 3$.",
+                "answerOptions": [
+                    { "text": "$1 + x + \\frac{x^2}{2} + \\frac{x^3}{6}$", "correct": true, "rationale": "Correct. The coefficients are $1/0!, 1/1!, 1/2!, 1/3!$, that is $1, 1, 1/2, 1/6$." },
+                    { "text": "$1 + x + x^2 + x^3$", "rationale": "Each term is divided by a factorial. What are $1/2!$ and $1/3!$?" },
+                    { "text": "$x + \\frac{x^2}{2} + \\frac{x^3}{6}$", "rationale": "The constant term $1/0!$ is missing. What is the $n = 0$ term?" },
+                    { "text": "$1 + x + \\frac{x^2}{2} + \\frac{x^3}{3}$", "rationale": "The cubic term uses $3! = 6$, not $3$. What is $1/3!$?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.1, video 2
+           "Taylor Series and Power Series Made Easy, Review of Calculus" */
+        "ebfOSDj4j3I": [
+            {
+                "id": "mp_ebfOSDj4j3I_1",
+                "prompt": "What is the Taylor series of a function $f$ centered at $x = a$?",
+                "hint": "It is a sum of derivative terms weighted by powers of $(x - a)$.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}(x - a)^n$", "correct": true, "rationale": "Yes. Each term uses the $n$-th derivative at $a$ over $n!$, times $(x - a)^n$." },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}x^n$", "rationale": "Centering at $a$ means powers of $(x - a)$, not $x$. What base should be raised to the $n$-th power?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} f^{(n)}(a)(x - a)^n$", "rationale": "Each derivative must be divided by a factorial. What is missing from the coefficient?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{f(a)}{n!}(x - a)^n$", "rationale": "The numerator uses the $n$-th derivative, not $f(a)$ for every term. Which derivative appears in term $n$?" }
+                ]
+            },
+            {
+                "id": "mp_ebfOSDj4j3I_2",
+                "prompt": "A Maclaurin series is a Taylor series centered at which point?",
+                "hint": "Maclaurin is the special case with the simplest center.",
+                "answerOptions": [
+                    { "text": "$x = 0$", "correct": true, "rationale": "Yes. A Maclaurin series is just a Taylor series with center $a = 0$." },
+                    { "text": "$x = 1$", "rationale": "The Maclaurin center is the origin, not $1$. What value of $a$ gives powers of $x$ alone?" },
+                    { "text": "$x = a$ for any $a$", "rationale": "Maclaurin fixes one specific center. Which value makes $(x - a)^n$ become $x^n$?" },
+                    { "text": "the nearest singular point", "rationale": "The center is a fixed simple point, not tied to singularities. Which point gives plain powers of $x$?" }
+                ]
+            },
+            {
+                "id": "mp_ebfOSDj4j3I_3",
+                "prompt": "The geometric series $\\sum_{n=0}^{\\infty} x^n$ converges to $\\frac{1}{1-x}$ on which interval?",
+                "hint": "A geometric series converges exactly when the ratio has magnitude below $1$.",
+                "answerOptions": [
+                    { "text": "$|x| < 1$", "correct": true, "rationale": "Yes. A geometric series converges precisely when the common ratio satisfies $|x| < 1$." },
+                    { "text": "$|x| < \\infty$ (all real $x$)", "rationale": "Geometric convergence requires the ratio to be small. What bound must $|x|$ satisfy?" },
+                    { "text": "$|x| > 1$", "rationale": "Large ratios make the terms grow without bound. For which $|x|$ do the terms shrink?" },
+                    { "text": "$x > 0$ only", "rationale": "Convergence depends on magnitude, not sign. What condition on $|x|$ is required?" }
+                ]
+            },
+            {
+                "id": "mp_ebfOSDj4j3I_4",
+                "prompt": "Using the ratio test, what is the radius of convergence of $\\sum_{n=0}^{\\infty} \\frac{x^n}{2^n}$?",
+                "hint": "The series is geometric with ratio $x/2$; it converges when $|x/2| < 1$.",
+                "answerOptions": [
+                    { "text": "$R = 2$", "correct": true, "rationale": "Correct. The ratio is $x/2$, so $|x/2| < 1$ means $|x| < 2$, giving $R = 2$." },
+                    { "text": "$R = 1$", "rationale": "The factor $2^n$ widens the interval. From $|x/2| < 1$, what is the bound on $|x|$?" },
+                    { "text": "$R = \\frac{1}{2}$", "rationale": "That inverts the bound. Solve $|x/2| < 1$ for $|x|$ to find $R$." },
+                    { "text": "$R = \\infty$", "rationale": "A geometric series has a finite radius unless the ratio always shrinks. What does $|x/2| < 1$ give?" }
+                ]
+            },
+            {
+                "id": "mp_ebfOSDj4j3I_5",
+                "prompt": "What is the Maclaurin series of $\\cos x$?",
+                "hint": "Cosine is even, so only even powers appear, with alternating signs.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n}}{(2n)!}$", "correct": true, "rationale": "Yes. Cosine keeps only even powers with alternating signs and factorial denominators." },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n+1}}{(2n+1)!}$", "rationale": "Odd powers belong to $\\sin x$. Which powers does an even function keep?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^{2n}}{(2n)!}$", "rationale": "The signs must alternate for cosine. What factor produces the alternation?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^n}{n!}$", "rationale": "That keeps all powers, but cosine uses only even ones. Which exponent pattern appears?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.2, video 1
+           "How to solve ODEs with infinite series, Intro and Easiest Example y prime equals y" */
+        "xeeM3TT4Zgg": [
+            {
+                "id": "mp_xeeM3TT4Zgg_1",
+                "prompt": "To solve an ODE by the power series method, what form do we assume for the solution about $x = 0$?",
+                "hint": "We posit an unknown analytic function and solve for its coefficients.",
+                "answerOptions": [
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n x^n$", "correct": true, "rationale": "Yes. We assume a power series with unknown coefficients $a_n$ and determine them from the equation." },
+                    { "text": "$y = e^{rx}$ for a constant $r$", "rationale": "The exponential trial is for constant-coefficient equations. What general analytic form has unknown coefficients?" },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n n!\\, x^n$", "rationale": "The factorial is not part of the assumed form; it is built into the coefficients we solve for. What is the plain series ansatz?" },
+                    { "text": "$y = a_0 + a_1 x$ (a polynomial)", "rationale": "A finite polynomial cannot solve most ODEs. What infinite form do we assume?" }
+                ]
+            },
+            {
+                "id": "mp_xeeM3TT4Zgg_2",
+                "prompt": "If $y = \\sum_{n=0}^{\\infty} a_n x^n$, which series equals $y'$ after re-indexing to powers of $x^n$?",
+                "hint": "Differentiate term by term, then shift the index so the power is $x^n$.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} (n+1)a_{n+1} x^n$", "correct": true, "rationale": "Yes. Differentiating gives $\\sum n a_n x^{n-1}$, and shifting the index produces $(n+1)a_{n+1}x^n$." },
+                    { "text": "$\\sum_{n=0}^{\\infty} n a_n x^n$", "rationale": "Differentiation lowers the exponent by one before re-indexing. What does shifting back to $x^n$ do to the coefficient?" },
+                    { "text": "$\\sum_{n=1}^{\\infty} a_{n-1} x^n$", "rationale": "That omits the factor brought down by differentiation. What multiplies $a_{n+1}$ after the shift?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} a_{n+1} x^n$", "rationale": "Differentiating brings down a power, so a factor is missing. What coefficient multiplies $a_{n+1}$?" }
+                ]
+            },
+            {
+                "id": "mp_xeeM3TT4Zgg_3",
+                "prompt": "Substituting the series into $y' = y$ and matching coefficients of $x^n$ gives which recurrence?",
+                "hint": "Set $(n+1)a_{n+1} = a_n$ and solve for $a_{n+1}$.",
+                "answerOptions": [
+                    { "text": "$a_{n+1} = \\frac{a_n}{n+1}$", "correct": true, "rationale": "Correct. Equating $(n+1)a_{n+1} = a_n$ gives $a_{n+1} = a_n/(n+1)$." },
+                    { "text": "$a_{n+1} = (n+1)a_n$", "rationale": "The factor $(n+1)$ divides, it does not multiply. Solve $(n+1)a_{n+1} = a_n$ for $a_{n+1}$." },
+                    { "text": "$a_{n+1} = a_n$", "rationale": "The differentiation factor $(n+1)$ cannot just disappear. What divides $a_n$?" },
+                    { "text": "$a_{n+1} = \\frac{a_n}{n}$", "rationale": "The index shift gives $(n+1)$, not $n$, in the denominator. What is the exact divisor?" }
+                ]
+            },
+            {
+                "id": "mp_xeeM3TT4Zgg_4",
+                "prompt": "Using $a_{n+1} = a_n/(n+1)$ with $a_0 = 1$, what is $a_2$?",
+                "hint": "Compute $a_1$ first, then $a_2$.",
+                "answerOptions": [
+                    { "text": "$a_2 = \\frac{1}{2}$", "correct": true, "rationale": "Correct. $a_1 = a_0/1 = 1$, then $a_2 = a_1/2 = 1/2$." },
+                    { "text": "$a_2 = 1$", "rationale": "Apply the recurrence twice. After $a_1 = 1$, what is $a_1/2$?" },
+                    { "text": "$a_2 = 2$", "rationale": "The recurrence divides rather than multiplies. What is $a_1/2$?" },
+                    { "text": "$a_2 = \\frac{1}{3}$", "rationale": "The step from $a_1$ to $a_2$ divides by $2$, not $3$. What is $a_1/(1+1)$?" }
+                ]
+            },
+            {
+                "id": "mp_xeeM3TT4Zgg_5",
+                "prompt": "With $a_0 = 1$ the recurrence $a_{n+1} = a_n/(n+1)$ produces $a_n = 1/n!$. Which known function is the series solution?",
+                "hint": "The coefficients $1/n!$ are the Maclaurin coefficients of a familiar function.",
+                "answerOptions": [
+                    { "text": "$y = e^x$", "correct": true, "rationale": "Yes. The coefficients $1/n!$ reconstruct $\\sum x^n/n! = e^x$, as expected for $y' = y$." },
+                    { "text": "$y = \\cos x$", "rationale": "Cosine has alternating signs and only even powers. Do the coefficients $1/n!$ alternate?" },
+                    { "text": "$y = \\ln(1+x)$", "rationale": "That series does not have $1/n!$ coefficients. Which function has Maclaurin coefficients $1/n!$?" },
+                    { "text": "$y = \\frac{1}{1-x}$", "rationale": "The geometric series has all coefficients $1$, not $1/n!$. Which function matches $1/n!$?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.2, video 2
+           "Power Series Solutions of Differential Equations" */
+        "6csP7dw0XTY": [
+            {
+                "id": "mp_6csP7dw0XTY_1",
+                "prompt": "For $y'' + p(x)y' + q(x)y = 0$, what makes $x_0$ an ordinary point?",
+                "hint": "An ordinary point is where the coefficient functions behave nicely as power series.",
+                "answerOptions": [
+                    { "text": "Both $p(x)$ and $q(x)$ are analytic at $x_0$", "correct": true, "rationale": "Yes. At an ordinary point both coefficient functions have convergent power series, so a power series solution exists." },
+                    { "text": "Both $p(x)$ and $q(x)$ are zero at $x_0$", "rationale": "They need not vanish, only be well behaved. What property of $p$ and $q$ defines an ordinary point?" },
+                    { "text": "$p(x)$ has a pole at $x_0$", "rationale": "A pole signals a singular point, not an ordinary one. What must be true of $p$ at an ordinary point?" },
+                    { "text": "$q(x_0) = 1$", "rationale": "No special value is required. What general property must $p$ and $q$ have at $x_0$?" }
+                ]
+            },
+            {
+                "id": "mp_6csP7dw0XTY_2",
+                "prompt": "If $y = \\sum a_n x^n$, which series equals $y''$ after re-indexing to powers of $x^n$?",
+                "hint": "Differentiate twice, then shift the index so the power is $x^n$.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} (n+2)(n+1)a_{n+2} x^n$", "correct": true, "rationale": "Yes. Two differentiations and an index shift give $(n+2)(n+1)a_{n+2}$ as the coefficient of $x^n$." },
+                    { "text": "$\\sum_{n=0}^{\\infty} n(n-1)a_n x^n$", "rationale": "That is before re-indexing back to $x^n$. What coefficient multiplies $a_{n+2}$ after the shift?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} (n+1)a_{n+1} x^n$", "rationale": "That is the first derivative, not the second. How many factors does differentiating twice bring down?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} (n+2)a_{n+2} x^n$", "rationale": "Two derivatives bring down two factors, not one. What is the full product of factors?" }
+                ]
+            },
+            {
+                "id": "mp_6csP7dw0XTY_3",
+                "prompt": "Substituting the series into $y'' + y = 0$ gives which recurrence for the coefficients?",
+                "hint": "Match $(n+2)(n+1)a_{n+2} + a_n = 0$ and solve for $a_{n+2}$.",
+                "answerOptions": [
+                    { "text": "$a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}$", "correct": true, "rationale": "Correct. From $(n+2)(n+1)a_{n+2} + a_n = 0$ we solve $a_{n+2} = -a_n/[(n+2)(n+1)]$." },
+                    { "text": "$a_{n+2} = \\frac{a_n}{(n+2)(n+1)}$", "rationale": "The $+y$ term moves across with a sign change. What sign does $a_n$ pick up?" },
+                    { "text": "$a_{n+1} = \\frac{-a_n}{n+1}$", "rationale": "The second derivative links $a_{n+2}$ to $a_n$, skipping one index. Which coefficient is solved for?" },
+                    { "text": "$a_{n+2} = \\frac{-a_n}{(n+1)}$", "rationale": "Two derivatives give the product $(n+2)(n+1)$ in the denominator. What is the full product?" }
+                ]
+            },
+            {
+                "id": "mp_6csP7dw0XTY_4",
+                "prompt": "The two independent power series solutions of $y'' + y = 0$ (from $a_0$ and $a_1$) are which familiar functions?",
+                "hint": "This equation is the harmonic oscillator; its series rebuild two trig functions.",
+                "answerOptions": [
+                    { "text": "$\\cos x$ and $\\sin x$", "correct": true, "rationale": "Yes. The even-indexed series gives $\\cos x$ and the odd-indexed series gives $\\sin x$." },
+                    { "text": "$e^x$ and $e^{-x}$", "rationale": "Those solve $y'' - y = 0$, with the opposite sign. What does $y'' + y = 0$ give?" },
+                    { "text": "$\\cosh x$ and $\\sinh x$", "rationale": "The hyperbolic pair solves $y'' - y = 0$. Which oscillatory pair solves $y'' + y = 0$?" },
+                    { "text": "$1$ and $x$", "rationale": "Those solve $y'' = 0$. What functions arise when the recurrence alternates signs?" }
+                ]
+            },
+            {
+                "id": "mp_6csP7dw0XTY_5",
+                "prompt": "At an ordinary point, the radius of convergence of a power series solution is at least equal to what?",
+                "hint": "The guaranteed radius reaches out to the nearest place where the coefficients misbehave.",
+                "answerOptions": [
+                    { "text": "The distance to the nearest singular point of the equation", "correct": true, "rationale": "Yes. The series is guaranteed to converge at least out to the closest singular point in the complex plane." },
+                    { "text": "Exactly $1$, always", "rationale": "The radius depends on the equation, not a fixed value. What geometric distance bounds it?" },
+                    { "text": "Zero", "rationale": "At an ordinary point convergence is guaranteed on a positive interval. What sets that radius?" },
+                    { "text": "The distance to the farthest singular point", "rationale": "Convergence is limited by the closest trouble spot, not the farthest. Which singular point matters?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.3, video 1
+           "Introduction to the Frobenius Method" */
+        "_qQLuxYClA4": [
+            {
+                "id": "mp__qQLuxYClA4_1",
+                "prompt": "For $y'' + p(x)y' + q(x)y = 0$, what makes $x_0 = 0$ a regular singular point?",
+                "hint": "It is singular, but the singularity is mild: $x p(x)$ and $x^2 q(x)$ must stay analytic.",
+                "answerOptions": [
+                    { "text": "$x_0$ is singular, yet $x\\,p(x)$ and $x^2 q(x)$ are analytic at $x_0$", "correct": true, "rationale": "Yes. A regular singular point is a singularity tamed by the factors $x$ and $x^2$, which is exactly what Frobenius needs." },
+                    { "text": "Both $p$ and $q$ are analytic at $x_0$", "rationale": "That describes an ordinary point, where plain power series work. What extra factors must be analytic at a regular singular point?" },
+                    { "text": "$p$ and $q$ have no singularity anywhere", "rationale": "A regular singular point is genuinely singular. What tamed combinations must remain analytic?" },
+                    { "text": "$x^3 p(x)$ and $x^4 q(x)$ are analytic", "rationale": "The required powers are $1$ for $p$ and $2$ for $q$. Which factors tame the singularity?" }
+                ]
+            },
+            {
+                "id": "mp__qQLuxYClA4_2",
+                "prompt": "What solution form does the Frobenius method assume at a regular singular point?",
+                "hint": "It is a power series multiplied by a possibly non-integer power $x^r$.",
+                "answerOptions": [
+                    { "text": "$y = x^r \\sum_{n=0}^{\\infty} a_n x^n = \\sum_{n=0}^{\\infty} a_n x^{n+r}$", "correct": true, "rationale": "Yes. The exponent $r$, found from the indicial equation, lets the series capture the singular behavior." },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n x^n$", "rationale": "A plain power series is the ordinary-point ansatz. What extra factor handles the singularity?" },
+                    { "text": "$y = e^{rx}\\sum_{n=0}^{\\infty} a_n x^n$", "rationale": "The Frobenius factor is a power $x^r$, not an exponential. What multiplies the series?" },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n (x - r)^n$", "rationale": "The parameter $r$ is an exponent, not a shifted center. What power of $x$ multiplies the series?" }
+                ]
+            },
+            {
+                "id": "mp__qQLuxYClA4_3",
+                "prompt": "With $p_0 = \\lim_{x\\to 0} x\\,p(x)$ and $q_0 = \\lim_{x\\to 0} x^2 q(x)$, what is the indicial equation?",
+                "hint": "It is the quadratic in $r$ coming from the lowest power of $x$ in the substitution.",
+                "answerOptions": [
+                    { "text": "$r(r-1) + p_0\\, r + q_0 = 0$", "correct": true, "rationale": "Yes. The lowest-order terms give $r(r-1) + p_0 r + q_0 = 0$, whose roots set the exponents." },
+                    { "text": "$r^2 + p_0 r + q_0 = 0$", "rationale": "The leading second-derivative term gives $r(r-1)$, not $r^2$. What is $r(r-1) + p_0 r$ expanded?" },
+                    { "text": "$r(r-1) + q_0 r + p_0 = 0$", "rationale": "The roles of $p_0$ and $q_0$ are swapped. Which constant multiplies $r$?" },
+                    { "text": "$r(r+1) + p_0 r + q_0 = 0$", "rationale": "The second derivative contributes $r(r-1)$, not $r(r+1)$. What is the falling factorial here?" }
+                ]
+            },
+            {
+                "id": "mp__qQLuxYClA4_4",
+                "prompt": "For $x^2 y'' + x y' - y = 0$, here $p_0 = 1$ and $q_0 = -1$. What are the indicial roots?",
+                "hint": "Solve $r(r-1) + r - 1 = 0$, which simplifies to $r^2 - 1 = 0$.",
+                "answerOptions": [
+                    { "text": "$r = 1$ and $r = -1$", "correct": true, "rationale": "Correct. $r(r-1) + r - 1 = r^2 - 1 = 0$, so $r = \\pm 1$." },
+                    { "text": "$r = 0$ and $r = 1$", "rationale": "Simplify $r(r-1) + r - 1$ first. What quadratic in $r$ results?" },
+                    { "text": "$r = 1$ (repeated)", "rationale": "The simplified equation $r^2 - 1 = 0$ has two distinct roots. What are they?" },
+                    { "text": "$r = 2$ and $r = -2$", "rationale": "Solve $r^2 - 1 = 0$, not $r^2 - 4 = 0$. What are the square roots of $1$?" }
+                ]
+            },
+            {
+                "id": "mp__qQLuxYClA4_5",
+                "prompt": "When should the Frobenius method be used instead of an ordinary power series?",
+                "hint": "The choice depends on what kind of point $x_0$ is.",
+                "answerOptions": [
+                    { "text": "When expanding about a regular singular point", "correct": true, "rationale": "Yes. At a regular singular point the plain series can fail, so the $x^r$ factor of Frobenius is needed." },
+                    { "text": "When expanding about an ordinary point", "rationale": "At an ordinary point a plain power series already works. What kind of point requires Frobenius?" },
+                    { "text": "When the equation has constant coefficients", "rationale": "Constant-coefficient equations use the characteristic equation, not series. Which singular structure calls for Frobenius?" },
+                    { "text": "Only when the solution is a polynomial", "rationale": "Frobenius applies broadly, not just to polynomial solutions. What feature of $x_0$ triggers it?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.3, video 2
+           "Power Series Solutions Part 2, Frobenius Method" */
+        "58_qJyfVl-Y": [
+            {
+                "id": "mp_58_qJyfVl-Y_1",
+                "prompt": "In standard form $y'' + \\frac{3}{2x}y' - \\frac{1}{2x^2}y = 0$ gives $p_0 = \\tfrac{3}{2}$, $q_0 = -\\tfrac{1}{2}$. What are the indicial roots?",
+                "hint": "Solve $r(r-1) + \\tfrac{3}{2}r - \\tfrac{1}{2} = 0$, or $2r^2 + r - 1 = 0$.",
+                "answerOptions": [
+                    { "text": "$r = \\frac{1}{2}$ and $r = -1$", "correct": true, "rationale": "Correct. $2r^2 + r - 1 = (2r - 1)(r + 1) = 0$ gives $r = 1/2$ and $r = -1$." },
+                    { "text": "$r = 1$ and $r = -\\frac{1}{2}$", "rationale": "Factor $2r^2 + r - 1$ carefully. What roots does $(2r - 1)(r + 1) = 0$ give?" },
+                    { "text": "$r = \\frac{1}{2}$ and $r = 1$", "rationale": "One root is negative. What does the factor $(r + 1)$ contribute?" },
+                    { "text": "$r = -\\frac{1}{2}$ and $r = -1$", "rationale": "The factor $(2r - 1)$ gives a positive root. What is it?" }
+                ]
+            },
+            {
+                "id": "mp_58_qJyfVl-Y_2",
+                "prompt": "When the two indicial roots are distinct and do not differ by an integer, the Frobenius method yields what?",
+                "hint": "Each root independently generates its own series solution.",
+                "answerOptions": [
+                    { "text": "Two independent Frobenius series solutions, one per root", "correct": true, "rationale": "Yes. Each root $r$ gives a full series $x^r \\sum a_n x^n$, and the two are independent." },
+                    { "text": "A single solution with a logarithm", "rationale": "Logarithms enter only in special cases such as a repeated root. What do two well-separated roots give?" },
+                    { "text": "No valid solution", "rationale": "Distinct non-integer-separated roots are the cleanest case. How many series solutions result?" },
+                    { "text": "Only a polynomial solution", "rationale": "Frobenius solutions are generally infinite series. How many independent ones arise here?" }
+                ]
+            },
+            {
+                "id": "mp_58_qJyfVl-Y_3",
+                "prompt": "If the indicial equation has a repeated root, what feature must the second solution include?",
+                "hint": "A double root leaves only one series, so a different independent piece is needed.",
+                "answerOptions": [
+                    { "text": "A logarithmic term, of the form $y_1 \\ln x$ plus a second series", "correct": true, "rationale": "Yes. A repeated root forces a $\\ln x$ term to build a second independent solution." },
+                    { "text": "A second distinct power $x^r$ with a different $r$", "rationale": "A repeated root gives only one exponent. What extra function supplies independence?" },
+                    { "text": "An exponential factor $e^{rx}$", "rationale": "Frobenius solutions carry powers and possibly logs, not exponentials. What term appears for a double root?" },
+                    { "text": "Nothing extra; the single series suffices", "rationale": "One series cannot span a second-order solution space. What must the second solution contain?" }
+                ]
+            },
+            {
+                "id": "mp_58_qJyfVl-Y_4",
+                "prompt": "Near $x = 0$, a Frobenius solution behaves like which leading term?",
+                "hint": "The lowest-order term of $x^r \\sum a_n x^n$ dominates as $x \\to 0$.",
+                "answerOptions": [
+                    { "text": "$a_0 x^r$, the lowest power set by the indicial root", "correct": true, "rationale": "Yes. The first nonzero term $a_0 x^r$ controls the behavior near the singular point." },
+                    { "text": "$a_0$, a nonzero constant", "rationale": "A constant is the leading term only when $r = 0$. What power dominates for general $r$?" },
+                    { "text": "$a_1 x^{r+1}$", "rationale": "The very lowest power comes from $a_0$, not $a_1$. What is the leading term?" },
+                    { "text": "$e^{rx}$", "rationale": "Frobenius leading behavior is a power, not an exponential. What is $a_0 x^r$?" }
+                ]
+            },
+            {
+                "id": "mp_58_qJyfVl-Y_5",
+                "prompt": "When the indicial roots differ by a positive integer, the smaller root's solution may require what?",
+                "hint": "The two series can collide, so a correction sometimes appears.",
+                "answerOptions": [
+                    { "text": "Possibly a logarithmic term, since the solutions can overlap", "correct": true, "rationale": "Yes. Integer-separated roots can make the series interfere, sometimes forcing a $\\ln x$ term." },
+                    { "text": "Always a third independent solution", "rationale": "A second-order equation has only two independent solutions. What term may the second one need?" },
+                    { "text": "Replacing $x^r$ with $e^{rx}$", "rationale": "The Frobenius form keeps powers of $x$. What additional term may be required?" },
+                    { "text": "Nothing; the case is identical to distinct roots", "rationale": "Integer separation is a special, trickier case. What can it force into the second solution?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.4, video 1
+           "Solving ODEs by Series Solutions, Legendre ODE" */
+        "3e5BUrtUKZc": [
+            {
+                "id": "mp_3e5BUrtUKZc_1",
+                "prompt": "Which equation is Legendre's differential equation?",
+                "hint": "It has a $(1 - x^2)$ factor on the second derivative and a parameter $n(n+1)$.",
+                "answerOptions": [
+                    { "text": "$(1 - x^2)y'' - 2x y' + n(n+1)y = 0$", "correct": true, "rationale": "Yes. This is Legendre's equation, with parameter $n(n+1)$ multiplying $y$." },
+                    { "text": "$x^2 y'' + x y' + (x^2 - n^2)y = 0$", "rationale": "That is Bessel's equation. Which equation carries the factor $(1 - x^2)$?" },
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "rationale": "That is Hermite's equation. What term multiplies $y''$ in Legendre's equation?" },
+                    { "text": "$(1 - x^2)y'' - x y' + n^2 y = 0$", "rationale": "That is Chebyshev's equation, with a single $x y'$ and $n^2$. What are the correct middle and last coefficients for Legendre?" }
+                ]
+            },
+            {
+                "id": "mp_3e5BUrtUKZc_2",
+                "prompt": "For a non-negative integer $n$, one solution of Legendre's equation is special. What is it?",
+                "hint": "The series terminates, leaving a finite expression.",
+                "answerOptions": [
+                    { "text": "A polynomial of degree $n$, the Legendre polynomial $P_n(x)$", "correct": true, "rationale": "Yes. For integer $n$ the series truncates into the degree-$n$ Legendre polynomial." },
+                    { "text": "An exponential $e^{nx}$", "rationale": "The terminating solution is polynomial, not exponential. What degree does it have?" },
+                    { "text": "An infinite series that never terminates", "rationale": "For integer $n$ one solution does terminate. What kind of function results?" },
+                    { "text": "A trigonometric function $\\cos(nx)$", "rationale": "That pattern belongs to Chebyshev polynomials. What polynomial does Legendre give?" }
+                ]
+            },
+            {
+                "id": "mp_3e5BUrtUKZc_3",
+                "prompt": "The Legendre polynomials begin $P_0 = 1$, $P_1 = x$. What is $P_2(x)$?",
+                "hint": "It is the quadratic Legendre polynomial, normalized so $P_2(1) = 1$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{2}(3x^2 - 1)$", "correct": true, "rationale": "Correct. $P_2(x) = \\tfrac{1}{2}(3x^2 - 1)$, which equals $1$ at $x = 1$." },
+                    { "text": "$x^2$", "rationale": "The Legendre normalization mixes in a constant and a factor of $3$. What is $\\tfrac{1}{2}(3x^2 - 1)$?" },
+                    { "text": "$\\frac{1}{2}(3x^2 + 1)$", "rationale": "Check the sign of the constant so that $P_2(1) = 1$. Should it be $+1$ or $-1$ inside?" },
+                    { "text": "$2x^2 - 1$", "rationale": "That is the Chebyshev polynomial $T_2$. What is the Legendre $P_2$?" }
+                ]
+            },
+            {
+                "id": "mp_3e5BUrtUKZc_4",
+                "prompt": "Where are the singular points of Legendre's equation, and is $x = 0$ ordinary?",
+                "hint": "Singularities occur where the leading coefficient $(1 - x^2)$ vanishes.",
+                "answerOptions": [
+                    { "text": "Singular at $x = \\pm 1$; $x = 0$ is an ordinary point", "correct": true, "rationale": "Yes. The factor $(1 - x^2)$ vanishes at $\\pm 1$, but $x = 0$ is ordinary, so a power series works there." },
+                    { "text": "Singular at $x = 0$; expansion fails there", "rationale": "The leading coefficient is nonzero at $0$. Where does $(1 - x^2)$ actually vanish?" },
+                    { "text": "No singular points anywhere", "rationale": "The coefficient $(1 - x^2)$ does vanish somewhere. At which points?" },
+                    { "text": "Singular at $x = \\pm 2$", "rationale": "Set $1 - x^2 = 0$ to find the singular points. What values solve that?" }
+                ]
+            },
+            {
+                "id": "mp_3e5BUrtUKZc_5",
+                "prompt": "On the interval $[-1, 1]$, the Legendre polynomials $P_m$ and $P_n$ for $m \\neq n$ satisfy which property?",
+                "hint": "They form an orthogonal family under the standard inner product.",
+                "answerOptions": [
+                    { "text": "They are orthogonal: $\\int_{-1}^{1} P_m P_n\\, dx = 0$", "correct": true, "rationale": "Yes. Distinct Legendre polynomials are orthogonal on $[-1, 1]$ with weight $1$." },
+                    { "text": "They are equal", "rationale": "Different-degree polynomials are not equal. What integral relation do they satisfy?" },
+                    { "text": "Their product integrates to $1$", "rationale": "The cross integral vanishes, not equals $1$. What is $\\int_{-1}^1 P_m P_n\\, dx$ for $m \\neq n$?" },
+                    { "text": "They are parallel as vectors", "rationale": "Orthogonality is the key relation, the opposite of parallel. What does the cross integral equal?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.4, video 2
+           "Bessel Functions and the Frobenius Method" */
+        "uLORiAWe63A": [
+            {
+                "id": "mp_uLORiAWe63A_1",
+                "prompt": "Which equation is Bessel's differential equation of order $\\nu$?",
+                "hint": "It has $x^2$ on the second derivative and the combination $(x^2 - \\nu^2)$ on $y$.",
+                "answerOptions": [
+                    { "text": "$x^2 y'' + x y' + (x^2 - \\nu^2)y = 0$", "correct": true, "rationale": "Yes. Bessel's equation of order $\\nu$ has exactly this form." },
+                    { "text": "$(1 - x^2)y'' - 2x y' + \\nu(\\nu+1)y = 0$", "rationale": "That is Legendre's equation. Which equation carries $x^2 y''$ and $(x^2 - \\nu^2)y$?" },
+                    { "text": "$x^2 y'' + x y' - \\nu^2 y = 0$", "rationale": "That is an equidimensional equation missing the $x^2 y$ term. What term gives Bessel its oscillatory solutions?" },
+                    { "text": "$x y'' + (1 - x)y' + \\nu y = 0$", "rationale": "That is Laguerre's equation. What is the correct Bessel form?" }
+                ]
+            },
+            {
+                "id": "mp_uLORiAWe63A_2",
+                "prompt": "What type of point is $x = 0$ for Bessel's equation, and which method applies?",
+                "hint": "Writing it in standard form shows $x p(x)$ and $x^2 q(x)$ stay analytic.",
+                "answerOptions": [
+                    { "text": "A regular singular point, so the Frobenius method applies", "correct": true, "rationale": "Yes. At $x = 0$ Bessel's equation has a regular singular point, exactly where Frobenius is used." },
+                    { "text": "An ordinary point, so a plain power series applies", "rationale": "The coefficients blow up at $0$, so it is not ordinary. What kind of singular point is it?" },
+                    { "text": "An irregular singular point, so no series works", "rationale": "The singularity is mild enough for Frobenius. What is the precise classification?" },
+                    { "text": "A removable point with no special treatment", "rationale": "The point genuinely matters here. Which method handles a regular singular point?" }
+                ]
+            },
+            {
+                "id": "mp_uLORiAWe63A_3",
+                "prompt": "For Bessel's equation of order $\\nu$, what are the indicial roots?",
+                "hint": "The indicial equation reduces to $r^2 - \\nu^2 = 0$.",
+                "answerOptions": [
+                    { "text": "$r = \\nu$ and $r = -\\nu$", "correct": true, "rationale": "Correct. The indicial equation $r^2 - \\nu^2 = 0$ gives $r = \\pm \\nu$." },
+                    { "text": "$r = \\nu$ (repeated)", "rationale": "The equation $r^2 - \\nu^2 = 0$ has two roots unless $\\nu = 0$. What are both?" },
+                    { "text": "$r = \\nu^2$ and $r = -\\nu^2$", "rationale": "Solve $r^2 = \\nu^2$, taking the square root. What are the roots?" },
+                    { "text": "$r = 0$ and $r = 1$", "rationale": "The roots depend on $\\nu$, not fixed integers. What does $r^2 = \\nu^2$ give?" }
+                ]
+            },
+            {
+                "id": "mp_uLORiAWe63A_4",
+                "prompt": "The Bessel function of the first kind $J_\\nu(x)$ with $\\nu > 0$ behaves how as $x \\to 0$?",
+                "hint": "Its leading Frobenius term is proportional to $x^\\nu$ with the larger root.",
+                "answerOptions": [
+                    { "text": "It approaches $0$, growing from zero like $x^\\nu$", "correct": true, "rationale": "Yes. The first-kind solution uses the root $+\\nu$, so $J_\\nu(x) \\sim x^\\nu \\to 0$ for $\\nu > 0$." },
+                    { "text": "It blows up to infinity", "rationale": "The unbounded behavior belongs to the second-kind solution. How does the $+\\nu$ root behave at $0$?" },
+                    { "text": "It approaches the constant $1$", "rationale": "Only the order-zero case $J_0$ tends to $1$. For $\\nu > 0$, what does $x^\\nu$ give at $0$?" },
+                    { "text": "It oscillates infinitely near $0$", "rationale": "The rapid oscillation happens for large $x$, not near $0$. What is the leading power behavior?" }
+                ]
+            },
+            {
+                "id": "mp_uLORiAWe63A_5",
+                "prompt": "Bessel functions naturally arise in which kind of physical problem?",
+                "hint": "Think about wave or heat problems with circular or cylindrical symmetry.",
+                "answerOptions": [
+                    { "text": "Vibrations and heat flow with cylindrical symmetry, such as a circular drumhead", "correct": true, "rationale": "Yes. Separating variables in cylindrical geometry yields Bessel's equation." },
+                    { "text": "Straight-line motion under constant force", "rationale": "That gives polynomials, not Bessel functions. What geometry produces Bessel's equation?" },
+                    { "text": "Radioactive decay", "rationale": "Decay is governed by simple exponentials. Which symmetric geometry leads to Bessel functions?" },
+                    { "text": "Linear population growth", "rationale": "That is a first-order model, unrelated to Bessel. What symmetry gives rise to these functions?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.5, video 1
+           "Hermite and Laguerre Polynomials, Differential Equations" */
+        "1WlTe-DzO5E": [
+            {
+                "id": "mp_1WlTe-DzO5E_1",
+                "prompt": "Which equation is Hermite's differential equation?",
+                "hint": "It has a constant leading coefficient, a $-2x y'$ term, and parameter $2n$.",
+                "answerOptions": [
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "correct": true, "rationale": "Yes. Hermite's equation is $y'' - 2x y' + 2n y = 0$, terminating into Hermite polynomials for integer $n$." },
+                    { "text": "$x y'' + (1 - x)y' + n y = 0$", "rationale": "That is Laguerre's equation. Which equation has the $-2x y'$ term?" },
+                    { "text": "$(1 - x^2)y'' - 2x y' + n(n+1)y = 0$", "rationale": "That is Legendre's equation. What is the Hermite form?" },
+                    { "text": "$y'' + 2x y' + 2n y = 0$", "rationale": "The sign on the first-derivative term is negative for Hermite. What is the correct middle term?" }
+                ]
+            },
+            {
+                "id": "mp_1WlTe-DzO5E_2",
+                "prompt": "The Hermite polynomials (physicists' convention) begin $H_0 = 1$, $H_1 = 2x$. What is $H_2(x)$?",
+                "hint": "Use the recurrence $H_{n+1} = 2x H_n - 2n H_{n-1}$ with $n = 1$.",
+                "answerOptions": [
+                    { "text": "$4x^2 - 2$", "correct": true, "rationale": "Correct. $H_2 = 2x H_1 - 2H_0 = 2x(2x) - 2 = 4x^2 - 2$." },
+                    { "text": "$x^2 - 1$", "rationale": "Apply $H_2 = 2x H_1 - 2H_0$ with $H_1 = 2x$. What does $2x(2x) - 2$ give?" },
+                    { "text": "$4x^2$", "rationale": "The recurrence subtracts $2H_0 = 2$. What is $4x^2 - 2$?" },
+                    { "text": "$2x^2 - 1$", "rationale": "That is the Chebyshev $T_2$. Using the Hermite recurrence, what is $H_2$?" }
+                ]
+            },
+            {
+                "id": "mp_1WlTe-DzO5E_3",
+                "prompt": "Which equation is Laguerre's differential equation?",
+                "hint": "It has $x$ on the second derivative and a $(1 - x)$ factor on the first.",
+                "answerOptions": [
+                    { "text": "$x y'' + (1 - x)y' + n y = 0$", "correct": true, "rationale": "Yes. Laguerre's equation is $x y'' + (1 - x)y' + n y = 0$." },
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "rationale": "That is Hermite's equation. Which one has $x y''$ and the $(1 - x)$ factor?" },
+                    { "text": "$x^2 y'' + x y' + (x^2 - n^2)y = 0$", "rationale": "That is Bessel's equation. What is the Laguerre form?" },
+                    { "text": "$x y'' + (1 + x)y' + n y = 0$", "rationale": "The sign inside the first-derivative coefficient is $(1 - x)$, not $(1 + x)$. What is the correct factor?" }
+                ]
+            },
+            {
+                "id": "mp_1WlTe-DzO5E_4",
+                "prompt": "Hermite polynomials are orthogonal on $(-\\infty, \\infty)$ with respect to which weight function?",
+                "hint": "The weight is the Gaussian tied to the Hermite recurrence.",
+                "answerOptions": [
+                    { "text": "$e^{-x^2}$", "correct": true, "rationale": "Yes. Hermite polynomials are orthogonal with the Gaussian weight $e^{-x^2}$." },
+                    { "text": "$e^{-x}$", "rationale": "That weight belongs to Laguerre polynomials on $[0, \\infty)$. What Gaussian weight pairs with Hermite?" },
+                    { "text": "$\\frac{1}{\\sqrt{1 - x^2}}$", "rationale": "That is the Chebyshev weight on $[-1, 1]$. What weight does Hermite use on the whole line?" },
+                    { "text": "$1$", "rationale": "Weight $1$ is for Legendre on $[-1, 1]$. Which weight makes Hermite integrals converge on the whole line?" }
+                ]
+            },
+            {
+                "id": "mp_1WlTe-DzO5E_5",
+                "prompt": "In which physical setting do Hermite polynomials famously appear?",
+                "hint": "Think of the bound-state wavefunctions of a familiar quadratic-potential system.",
+                "answerOptions": [
+                    { "text": "The quantum harmonic oscillator wavefunctions", "correct": true, "rationale": "Yes. The stationary states of the quantum harmonic oscillator involve Hermite polynomials times a Gaussian." },
+                    { "text": "The hydrogen atom radial equation", "rationale": "That setting involves Laguerre polynomials. Which quadratic-potential system uses Hermite?" },
+                    { "text": "Black-body radiation", "rationale": "That is governed by Planck's law, not Hermite polynomials. Which oscillator problem uses them?" },
+                    { "text": "Radioactive decay chains", "rationale": "Those are simple exponential processes. Which quantum system features Hermite polynomials?" }
+                ]
+            }
+        ],
+
+        /* Unit 13, Module 13.5, video 2
+           "Chebyshev Differential Equations" */
+        "sHlIF-YZ9Yw": [
+            {
+                "id": "mp_sHlIF-YZ9Yw_1",
+                "prompt": "Which equation is Chebyshev's differential equation?",
+                "hint": "It has the $(1 - x^2)$ factor like Legendre but a single $x y'$ term and parameter $n^2$.",
+                "answerOptions": [
+                    { "text": "$(1 - x^2)y'' - x y' + n^2 y = 0$", "correct": true, "rationale": "Yes. Chebyshev's equation has one $x y'$ term and $n^2 y$, distinguishing it from Legendre." },
+                    { "text": "$(1 - x^2)y'' - 2x y' + n(n+1)y = 0$", "rationale": "That is Legendre's equation, with $2x y'$ and $n(n+1)$. What are the Chebyshev coefficients?" },
+                    { "text": "$x^2 y'' + x y' + (x^2 - n^2)y = 0$", "rationale": "That is Bessel's equation. Which equation pairs $(1 - x^2)$ with a single $x y'$?" },
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "rationale": "That is Hermite's equation. What is the Chebyshev form?" }
+                ]
+            },
+            {
+                "id": "mp_sHlIF-YZ9Yw_2",
+                "prompt": "The Chebyshev polynomials of the first kind begin $T_0 = 1$, $T_1 = x$. What is $T_2(x)$?",
+                "hint": "Use the recurrence $T_{n+1} = 2x T_n - T_{n-1}$ with $n = 1$.",
+                "answerOptions": [
+                    { "text": "$2x^2 - 1$", "correct": true, "rationale": "Correct. $T_2 = 2x T_1 - T_0 = 2x^2 - 1$." },
+                    { "text": "$x^2$", "rationale": "The recurrence $2x T_1 - T_0$ subtracts $1$. What is $2x^2 - 1$?" },
+                    { "text": "$4x^2 - 2$", "rationale": "That is the Hermite $H_2$. Using $T_{n+1} = 2x T_n - T_{n-1}$, what is $T_2$?" },
+                    { "text": "$\\frac{1}{2}(3x^2 - 1)$", "rationale": "That is the Legendre $P_2$. What does the Chebyshev recurrence give?" }
+                ]
+            },
+            {
+                "id": "mp_sHlIF-YZ9Yw_3",
+                "prompt": "Chebyshev polynomials satisfy the elegant identity $T_n(\\cos\\theta) = ?$",
+                "hint": "They are designed so a cosine substitution collapses them to a single cosine.",
+                "answerOptions": [
+                    { "text": "$\\cos(n\\theta)$", "correct": true, "rationale": "Yes. Substituting $x = \\cos\\theta$ gives $T_n(\\cos\\theta) = \\cos(n\\theta)$, the defining trigonometric identity." },
+                    { "text": "$\\cos^n\\theta$", "rationale": "It is the cosine of $n\\theta$, not the $n$-th power of cosine. What does the recurrence produce under $x = \\cos\\theta$?" },
+                    { "text": "$n\\cos\\theta$", "rationale": "The result is a cosine of a multiple angle, not a multiple of cosine. What is $T_n(\\cos\\theta)$?" },
+                    { "text": "$\\sin(n\\theta)$", "rationale": "First-kind Chebyshev gives a cosine; sine relates to the second kind. What is the identity?" }
+                ]
+            },
+            {
+                "id": "mp_sHlIF-YZ9Yw_4",
+                "prompt": "Chebyshev polynomials of the first kind are orthogonal on $[-1, 1]$ with which weight function?",
+                "hint": "The weight comes from the Jacobian of the substitution $x = \\cos\\theta$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{\\sqrt{1 - x^2}}$", "correct": true, "rationale": "Yes. The Chebyshev weight is $1/\\sqrt{1 - x^2}$, matching the $x = \\cos\\theta$ substitution." },
+                    { "text": "$1$", "rationale": "Weight $1$ is for Legendre. What weight arises from $x = \\cos\\theta$?" },
+                    { "text": "$e^{-x^2}$", "rationale": "That Gaussian weight belongs to Hermite on the whole line. What is the Chebyshev weight on $[-1, 1]$?" },
+                    { "text": "$e^{-x}$", "rationale": "That weight is for Laguerre on $[0, \\infty)$. Which weight pairs with Chebyshev?" }
+                ]
+            },
+            {
+                "id": "mp_sHlIF-YZ9Yw_5",
+                "prompt": "Why are Chebyshev polynomials especially valued in numerical approximation?",
+                "hint": "Their equal-ripple behavior controls the worst-case error across the interval.",
+                "answerOptions": [
+                    { "text": "They minimize the maximum error, spreading it evenly (the equioscillation property)", "correct": true, "rationale": "Yes. Chebyshev polynomials equioscillate, which makes them ideal for minimizing worst-case approximation error." },
+                    { "text": "They are the only polynomials that are continuous", "rationale": "All polynomials are continuous, so that is no advantage. What error property makes Chebyshev special?" },
+                    { "text": "They grow fastest outside $[-1, 1]$", "rationale": "Fast growth outside the interval is not the approximation advantage. What do they do to the error inside it?" },
+                    { "text": "They have no real roots", "rationale": "Chebyshev polynomials do have real roots in $[-1, 1]$. What worst-case property makes them useful?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.1, video 1
+           "Linear combinations, span, and basis vectors, Chapter 2" */
+        "k7RM-ot2NWY": [
+            {
+                "id": "mp_k7RM-ot2NWY_1",
+                "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
+                "hint": "It is built by scaling each vector and adding the results.",
+                "answerOptions": [
+                    { "text": "$a\\mathbf{v} + b\\mathbf{w}$ for scalars $a$ and $b$", "correct": true, "rationale": "Yes. A linear combination scales each vector by a scalar and adds, giving $a\\mathbf{v} + b\\mathbf{w}$." },
+                    { "text": "$\\mathbf{v}\\cdot\\mathbf{w}$, their dot product", "rationale": "The dot product returns a single number, not a combined vector. What operation scales and adds the vectors?" },
+                    { "text": "$\\mathbf{v}\\times\\mathbf{w}$, their cross product", "rationale": "The cross product is a specific perpendicular vector, not a general combination. What form uses arbitrary scalars?" },
+                    { "text": "$\\mathbf{v}^a \\mathbf{w}^b$", "rationale": "Vectors are not raised to powers. What combination uses scalar multiples and addition?" }
+                ]
+            },
+            {
+                "id": "mp_k7RM-ot2NWY_2",
+                "prompt": "Compute the linear combination $2(1, 0) + 3(0, 1)$.",
+                "hint": "Scale each vector, then add componentwise.",
+                "answerOptions": [
+                    { "text": "$(2, 3)$", "correct": true, "rationale": "Correct. $2(1,0) = (2,0)$ and $3(0,1) = (0,3)$, which sum to $(2,3)$." },
+                    { "text": "$(3, 2)$", "rationale": "Keep the components in order: the first scalar scales the first basis vector. What is $(2,0) + (0,3)$?" },
+                    { "text": "$(5, 5)$", "rationale": "The scalars do not add together; they scale separate directions. What is $2(1,0) + 3(0,1)$ componentwise?" },
+                    { "text": "$(6, 0)$", "rationale": "The two vectors point in different directions, so they do not merge into one axis. What is the componentwise sum?" }
+                ]
+            },
+            {
+                "id": "mp_k7RM-ot2NWY_3",
+                "prompt": "What is the span of a set of vectors?",
+                "hint": "It is everything you can reach by combining them.",
+                "answerOptions": [
+                    { "text": "The set of all linear combinations of those vectors", "correct": true, "rationale": "Yes. The span is every vector reachable as a linear combination of the given set." },
+                    { "text": "Only the vectors themselves", "rationale": "The span includes far more than the listed vectors. What set of reachable vectors does it describe?" },
+                    { "text": "The longest vector in the set", "rationale": "Span is a whole set of vectors, not a single longest one. What collection does it form?" },
+                    { "text": "The dot products of the vectors", "rationale": "Span is about combinations, not dot products. What operation generates the span?" }
+                ]
+            },
+            {
+                "id": "mp_k7RM-ot2NWY_4",
+                "prompt": "What is the span of two nonzero vectors in $\\mathbb{R}^2$ that do not lie on the same line?",
+                "hint": "Two independent directions in the plane reach everywhere in it.",
+                "answerOptions": [
+                    { "text": "All of $\\mathbb{R}^2$ (the entire plane)", "correct": true, "rationale": "Yes. Two linearly independent vectors in the plane span all of $\\mathbb{R}^2$." },
+                    { "text": "A single line through the origin", "rationale": "A single line is spanned by parallel vectors. What do two independent directions reach?" },
+                    { "text": "Only the two vectors", "rationale": "Linear combinations reach much more than the two vectors. What region of the plane is covered?" },
+                    { "text": "A single point, the origin", "rationale": "Only the zero vectors span just the origin. What do two independent vectors span?" }
+                ]
+            },
+            {
+                "id": "mp_k7RM-ot2NWY_5",
+                "prompt": "What two conditions must a set of vectors satisfy to be a basis for a space?",
+                "hint": "A basis must reach everything, with no redundancy.",
+                "answerOptions": [
+                    { "text": "It must be linearly independent and span the space", "correct": true, "rationale": "Yes. A basis spans the space and has no redundant vectors, that is, it is linearly independent." },
+                    { "text": "It must contain the zero vector", "rationale": "The zero vector makes a set dependent, which is disallowed. What two properties define a basis?" },
+                    { "text": "It must be orthogonal", "rationale": "Orthogonality is optional, not required for a basis. What two conditions are essential?" },
+                    { "text": "It must have infinitely many vectors", "rationale": "A finite-dimensional basis is finite. What spanning and independence conditions are needed?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.1, video 2
+           "Linear transformations and matrices, Chapter 3" */
+        "kYB8IZa5AuE": [
+            {
+                "id": "mp_kYB8IZa5AuE_1",
+                "prompt": "Which property must a linear transformation $T$ satisfy?",
+                "hint": "Linearity means it respects vector addition and scalar multiplication.",
+                "answerOptions": [
+                    { "text": "$T(a\\mathbf{u} + b\\mathbf{v}) = aT(\\mathbf{u}) + bT(\\mathbf{v})$", "correct": true, "rationale": "Yes. A linear transformation preserves linear combinations, which is exactly this identity." },
+                    { "text": "$T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u})\\,T(\\mathbf{v})$", "rationale": "Linear maps add outputs, they do not multiply them. What identity preserves combinations?" },
+                    { "text": "$T(\\mathbf{u}) = \\mathbf{u} + \\mathbf{c}$ for a fixed $\\mathbf{c} \\neq \\mathbf{0}$", "rationale": "A nonzero shift moves the origin, breaking linearity. What identity must hold instead?" },
+                    { "text": "$T(\\mathbf{u}) = \\|\\mathbf{u}\\|$", "rationale": "That returns a scalar length, not a linear vector map. What property defines linearity?" }
+                ]
+            },
+            {
+                "id": "mp_kYB8IZa5AuE_2",
+                "prompt": "For a matrix representing a linear transformation, what do its columns represent?",
+                "hint": "Feed in the standard basis vectors and see where they land.",
+                "answerOptions": [
+                    { "text": "The images of the standard basis vectors under the transformation", "correct": true, "rationale": "Yes. Column $j$ is where the $j$-th basis vector is sent, which fully determines the map." },
+                    { "text": "The eigenvalues of the transformation", "rationale": "Eigenvalues come from the characteristic equation, not directly from columns. What do the columns show geometrically?" },
+                    { "text": "The lengths of the input vectors", "rationale": "Columns encode directions of basis images, not input lengths. What landing points do they record?" },
+                    { "text": "The fixed points of the transformation", "rationale": "Columns are basis images, not fixed points. Where does each basis vector go?" }
+                ]
+            },
+            {
+                "id": "mp_kYB8IZa5AuE_3",
+                "prompt": "Apply the transformation with rows $(2, 0)$ and $(0, 3)$ to the vector $(1, 1)$.",
+                "hint": "Each output component is a row dotted with the input.",
+                "answerOptions": [
+                    { "text": "$(2, 3)$", "correct": true, "rationale": "Correct. Row $(2,0)\\cdot(1,1) = 2$ and row $(0,3)\\cdot(1,1) = 3$, giving $(2,3)$." },
+                    { "text": "$(2, 2)$", "rationale": "The second row is $(0, 3)$, scaling the second component by $3$. What is $(0,3)\\cdot(1,1)$?" },
+                    { "text": "$(3, 2)$", "rationale": "Keep the row order: the first row gives the first output. What is $(2,0)\\cdot(1,1)$?" },
+                    { "text": "$(5, 5)$", "rationale": "Each output uses one row only, not both summed. What is row one dotted with the input?" }
+                ]
+            },
+            {
+                "id": "mp_kYB8IZa5AuE_4",
+                "prompt": "Apply the transformation with rows $(1, 2)$ and $(3, 4)$ to the vector $(1, 1)$.",
+                "hint": "Dot each row with $(1, 1)$.",
+                "answerOptions": [
+                    { "text": "$(3, 7)$", "correct": true, "rationale": "Correct. $(1,2)\\cdot(1,1) = 3$ and $(3,4)\\cdot(1,1) = 7$, giving $(3, 7)$." },
+                    { "text": "$(7, 3)$", "rationale": "Keep the rows in order. What is the first row $(1,2)$ dotted with $(1,1)$?" },
+                    { "text": "$(3, 4)$", "rationale": "The second component uses row $(3, 4)$ dotted with $(1, 1)$, summing the entries. What is $3 + 4$?" },
+                    { "text": "$(1, 3)$", "rationale": "Each output adds both row entries since the input is $(1,1)$. What are $1 + 2$ and $3 + 4$?" }
+                ]
+            },
+            {
+                "id": "mp_kYB8IZa5AuE_5",
+                "prompt": "How is the composition of two linear transformations represented with matrices?",
+                "hint": "Doing one transformation after another corresponds to a single combined operation.",
+                "answerOptions": [
+                    { "text": "By the product of their matrices", "correct": true, "rationale": "Yes. Composing transformations corresponds to multiplying the matrices, applied right to left." },
+                    { "text": "By the sum of their matrices", "rationale": "Adding matrices represents adding transformations, not composing them. What operation chains them?" },
+                    { "text": "By the dot product of their columns", "rationale": "Composition is a full matrix operation, not a single dot product. What matrix operation applies?" },
+                    { "text": "By swapping their rows and columns", "rationale": "That describes a transpose, not composition. How are two maps combined into one matrix?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.2, video 1
+           "The determinant, Chapter 6" */
+        "Ip3X9LOh2dk": [
+            {
+                "id": "mp_Ip3X9LOh2dk_1",
+                "prompt": "Geometrically, what does the determinant of a $2\\times 2$ matrix measure?",
+                "hint": "Think about how the transformation rescales areas.",
+                "answerOptions": [
+                    { "text": "The factor by which areas are scaled by the transformation", "correct": true, "rationale": "Yes. The determinant is the area-scaling factor of the linear transformation." },
+                    { "text": "The total length of the column vectors", "rationale": "The determinant measures area change, not summed lengths. What does it scale?" },
+                    { "text": "The angle between the column vectors", "rationale": "Angle is not what the determinant reports. What geometric quantity does it scale?" },
+                    { "text": "The number of eigenvalues", "rationale": "Eigenvalue count is fixed by size, not the determinant. What area effect does it capture?" }
+                ]
+            },
+            {
+                "id": "mp_Ip3X9LOh2dk_2",
+                "prompt": "For a matrix with rows $(a, b)$ and $(c, d)$, what is the determinant?",
+                "hint": "It is the difference of the two diagonal products.",
+                "answerOptions": [
+                    { "text": "$ad - bc$", "correct": true, "rationale": "Yes. The $2\\times 2$ determinant is the main diagonal product minus the off-diagonal product, $ad - bc$." },
+                    { "text": "$ab - cd$", "rationale": "The determinant pairs entries across the diagonals, not along rows. What is $ad - bc$?" },
+                    { "text": "$ad + bc$", "rationale": "The off-diagonal product is subtracted, not added. What is the correct sign?" },
+                    { "text": "$ac - bd$", "rationale": "Group the entries by diagonal: $a$ with $d$, and $b$ with $c$. What is $ad - bc$?" }
+                ]
+            },
+            {
+                "id": "mp_Ip3X9LOh2dk_3",
+                "prompt": "Compute the determinant of the matrix with rows $(3, 1)$ and $(2, 4)$.",
+                "hint": "Use $ad - bc$ with $a = 3$, $b = 1$, $c = 2$, $d = 4$.",
+                "answerOptions": [
+                    { "text": "$10$", "correct": true, "rationale": "Correct. $ad - bc = 3\\cdot 4 - 1\\cdot 2 = 12 - 2 = 10$." },
+                    { "text": "$14$", "rationale": "The off-diagonal product is subtracted, not added. What is $12 - 2$?" },
+                    { "text": "$12$", "rationale": "Do not forget to subtract $bc = 1\\cdot 2$. What is $12 - 2$?" },
+                    { "text": "$11$", "rationale": "Recompute $bc = 1 \\cdot 2 = 2$, then subtract. What is $12 - 2$?" }
+                ]
+            },
+            {
+                "id": "mp_Ip3X9LOh2dk_4",
+                "prompt": "What does a determinant of $0$ tell you about a linear transformation?",
+                "hint": "Zero area scaling means the output is flattened.",
+                "answerOptions": [
+                    { "text": "It collapses space to a lower dimension, so the columns are linearly dependent", "correct": true, "rationale": "Yes. A zero determinant squishes the plane onto a line or point, signaling dependent columns." },
+                    { "text": "It rotates space without changing area", "rationale": "A pure rotation has determinant $1$, not $0$. What does zero area scaling do to the space?" },
+                    { "text": "It doubles every area", "rationale": "Doubling is determinant $2$. What does a factor of $0$ do to areas?" },
+                    { "text": "It leaves every vector fixed", "rationale": "Fixing all vectors is the identity, with determinant $1$. What does determinant $0$ imply?" }
+                ]
+            },
+            {
+                "id": "mp_Ip3X9LOh2dk_5",
+                "prompt": "What does a negative determinant indicate about a linear transformation?",
+                "hint": "The sign tracks whether orientation is preserved.",
+                "answerOptions": [
+                    { "text": "The transformation reverses orientation (it flips the plane)", "correct": true, "rationale": "Yes. A negative determinant means orientation is reversed, like a reflection, while its magnitude still gives area scaling." },
+                    { "text": "The areas become negative", "rationale": "Area magnitude stays positive; the sign tracks orientation. What does the negative sign flip?" },
+                    { "text": "The transformation is not invertible", "rationale": "Invertibility fails only at determinant $0$, not for negative values. What does the sign indicate?" },
+                    { "text": "All eigenvalues are negative", "rationale": "The determinant sign is the product of eigenvalues, not each one. What orientation effect does a negative sign signal?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.2, video 2
+           "Change of basis, Chapter 13" */
+        "P2LTAUO1TdA": [
+            {
+                "id": "mp_P2LTAUO1TdA_1",
+                "prompt": "What does a change of basis matrix do?",
+                "hint": "It translates the description of a vector between two coordinate systems.",
+                "answerOptions": [
+                    { "text": "It converts a vector's coordinates from one basis to another", "correct": true, "rationale": "Yes. A change of basis matrix relabels the same vector in a different coordinate system." },
+                    { "text": "It changes the actual vector into a different vector", "rationale": "The underlying vector is unchanged; only its coordinates change. What does the matrix translate?" },
+                    { "text": "It computes the length of a vector", "rationale": "Length is not what a change of basis produces. What does it convert between coordinate systems?" },
+                    { "text": "It always rotates vectors by ninety degrees", "rationale": "A change of basis is general, not a fixed rotation. What does it do to coordinates?" }
+                ]
+            },
+            {
+                "id": "mp_P2LTAUO1TdA_2",
+                "prompt": "In a change of basis matrix, what do the columns contain?",
+                "hint": "They record where the new basis vectors sit in the old language.",
+                "answerOptions": [
+                    { "text": "The new basis vectors written in the old coordinates", "correct": true, "rationale": "Yes. Each column is a new basis vector expressed in terms of the original basis." },
+                    { "text": "The eigenvalues of the transformation", "rationale": "Eigenvalues are separate from a basis change. What vectors fill the columns?" },
+                    { "text": "The lengths of the old basis vectors", "rationale": "Columns hold full vectors, not scalar lengths. Which vectors do they store?" },
+                    { "text": "The dot products of the bases", "rationale": "Columns are basis vectors, not dot products. What do they express?" }
+                ]
+            },
+            {
+                "id": "mp_P2LTAUO1TdA_3",
+                "prompt": "To express a transformation $A$ in a new basis given by change of basis matrix $P$, which formula applies?",
+                "hint": "You translate into the new basis, apply $A$, then translate back.",
+                "answerOptions": [
+                    { "text": "$P^{-1} A P$", "correct": true, "rationale": "Yes. The similarity transform $P^{-1} A P$ rewrites $A$ in the new coordinate system." },
+                    { "text": "$P A P^{-1}$", "rationale": "Check the order of translating in and out. Which factor converts an input from the new basis first?" },
+                    { "text": "$A P$", "rationale": "You must also translate back after applying $A$. What completes the conjugation?" },
+                    { "text": "$P^{-1} A$", "rationale": "The input must first be converted into the original basis. What factor goes on the right?" }
+                ]
+            },
+            {
+                "id": "mp_P2LTAUO1TdA_4",
+                "prompt": "A matrix and its representation in a new basis describe what, relative to each other?",
+                "hint": "Only the coordinate language changes, not the underlying action.",
+                "answerOptions": [
+                    { "text": "The same linear transformation in different coordinates", "correct": true, "rationale": "Yes. Similar matrices are the same transformation viewed through different bases." },
+                    { "text": "Two completely unrelated transformations", "rationale": "They are tightly linked by the basis change. What single object do they both describe?" },
+                    { "text": "A transformation and its inverse", "rationale": "A basis change is not inversion. What stays the same between the two representations?" },
+                    { "text": "A transformation and its transpose", "rationale": "Similarity is not transposition. What underlying map do similar matrices share?" }
+                ]
+            },
+            {
+                "id": "mp_P2LTAUO1TdA_5",
+                "prompt": "Why is choosing an eigenbasis a particularly useful change of basis?",
+                "hint": "In the right basis the transformation acts as simple independent scalings.",
+                "answerOptions": [
+                    { "text": "In an eigenbasis the matrix becomes diagonal, so the action is just scaling each axis", "correct": true, "rationale": "Yes. Using eigenvectors as the basis diagonalizes the matrix, simplifying powers and exponentials." },
+                    { "text": "In an eigenbasis the matrix becomes the zero matrix", "rationale": "Diagonalization scales the axes, it does not annihilate them. What special form does the matrix take?" },
+                    { "text": "An eigenbasis makes the determinant equal $1$", "rationale": "The determinant is unchanged by a basis change. What simpler structure does the matrix gain?" },
+                    { "text": "An eigenbasis removes all eigenvalues", "rationale": "Eigenvalues are preserved and become the diagonal entries. What form does the matrix take?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.3, video 1
+           "Eigenvectors and eigenvalues, Chapter 14" */
+        "PFDu9oVAE-g": [
+            {
+                "id": "mp_PFDu9oVAE-g_1",
+                "prompt": "What equation defines an eigenvector $\\mathbf{v}$ of a matrix $A$ with eigenvalue $\\lambda$?",
+                "hint": "The transformation only stretches the eigenvector, leaving its direction fixed.",
+                "answerOptions": [
+                    { "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$ with $\\mathbf{v} \\neq \\mathbf{0}$", "correct": true, "rationale": "Yes. An eigenvector is a nonzero vector that the matrix only scales, by the factor $\\lambda$." },
+                    { "text": "$A\\mathbf{v} = \\mathbf{0}$ with $\\mathbf{v} \\neq \\mathbf{0}$", "rationale": "That defines a null-space vector, the special case $\\lambda = 0$. What is the general eigenvalue equation?" },
+                    { "text": "$A\\mathbf{v} = \\mathbf{v} + \\lambda$", "rationale": "You cannot add a scalar to a vector. How should $\\lambda$ act on $\\mathbf{v}$?" },
+                    { "text": "$A + \\lambda\\mathbf{v} = \\mathbf{0}$", "rationale": "The matrix multiplies the vector, it is not added to it. What is the correct multiplicative relation?" }
+                ]
+            },
+            {
+                "id": "mp_PFDu9oVAE-g_2",
+                "prompt": "Geometrically, what is special about an eigenvector under its transformation?",
+                "hint": "Most vectors get knocked off their line; eigenvectors do not.",
+                "answerOptions": [
+                    { "text": "It stays on its own line through the origin, only stretched or compressed", "correct": true, "rationale": "Yes. An eigenvector keeps its direction (its span), being scaled by the eigenvalue." },
+                    { "text": "It is rotated to a perpendicular direction", "rationale": "Eigenvectors keep their direction rather than rotating. What happens to their line?" },
+                    { "text": "It is sent to the zero vector", "rationale": "That only happens for eigenvalue $0$, a special case. What generally happens to an eigenvector's direction?" },
+                    { "text": "It doubles in number of components", "rationale": "A transformation does not change the dimension of a vector. What stays fixed about an eigenvector?" }
+                ]
+            },
+            {
+                "id": "mp_PFDu9oVAE-g_3",
+                "prompt": "The eigenvalues of $A$ are found by solving which equation?",
+                "hint": "Eigenvalues make $A - \\lambda I$ fail to be invertible.",
+                "answerOptions": [
+                    { "text": "$\\det(A - \\lambda I) = 0$", "correct": true, "rationale": "Yes. Eigenvalues are the roots of the characteristic equation $\\det(A - \\lambda I) = 0$." },
+                    { "text": "$\\det(A) = \\lambda$", "rationale": "The eigenvalues come from a determinant set to zero, not the determinant itself. What is the characteristic equation?" },
+                    { "text": "$A - \\lambda I = 0$", "rationale": "Setting the whole matrix to zero is too strong; only its determinant must vanish. What is the correct condition?" },
+                    { "text": "$\\text{tr}(A) = \\lambda$", "rationale": "The trace is the sum of eigenvalues, not the defining equation. What determinant condition gives each $\\lambda$?" }
+                ]
+            },
+            {
+                "id": "mp_PFDu9oVAE-g_4",
+                "prompt": "What are the eigenvalues of the matrix with rows $(3, 0)$ and $(0, 5)$?",
+                "hint": "For a diagonal matrix the eigenvalues sit on the diagonal.",
+                "answerOptions": [
+                    { "text": "$3$ and $5$", "correct": true, "rationale": "Correct. A diagonal matrix has its diagonal entries as eigenvalues, here $3$ and $5$." },
+                    { "text": "$0$ and $0$", "rationale": "The off-diagonal zeros are not the eigenvalues. Which entries does a diagonal matrix expose as eigenvalues?" },
+                    { "text": "$8$ and $0$", "rationale": "The trace $8$ is the sum, not an eigenvalue. What are the individual diagonal entries?" },
+                    { "text": "$15$ and $1$", "rationale": "The product $15$ is the determinant, not an eigenvalue. What sit on the diagonal?" }
+                ]
+            },
+            {
+                "id": "mp_PFDu9oVAE-g_5",
+                "prompt": "What are the eigenvalues of the upper triangular matrix with rows $(2, 7)$ and $(0, 4)$?",
+                "hint": "A triangular matrix shares the diagonal-eigenvalue property.",
+                "answerOptions": [
+                    { "text": "$2$ and $4$", "correct": true, "rationale": "Correct. A triangular matrix has its diagonal entries as eigenvalues, here $2$ and $4$; the entry $7$ does not affect them." },
+                    { "text": "$2$ and $7$", "rationale": "The off-diagonal entry $7$ is not an eigenvalue of a triangular matrix. Which entries are?" },
+                    { "text": "$7$ and $4$", "rationale": "The eigenvalues are the diagonal entries, not the off-diagonal one. What are they?" },
+                    { "text": "$6$ and $8$", "rationale": "Those are not the diagonal entries. For a triangular matrix, where do the eigenvalues sit?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.3, video 2
+           "A quick trick for computing eigenvalues, Chapter 15" */
+        "e50Bj7jn9IQ": [
+            {
+                "id": "mp_e50Bj7jn9IQ_1",
+                "prompt": "For a $2\\times 2$ matrix, the eigenvalues are the roots of which quadratic?",
+                "hint": "The characteristic polynomial is built from the trace and determinant.",
+                "answerOptions": [
+                    { "text": "$\\lambda^2 - (\\text{tr}\\,A)\\lambda + \\det A = 0$", "correct": true, "rationale": "Yes. For a $2\\times 2$ matrix the characteristic equation is $\\lambda^2 - (\\text{tr})\\lambda + \\det = 0$." },
+                    { "text": "$\\lambda^2 + (\\text{tr}\\,A)\\lambda + \\det A = 0$", "rationale": "The trace term carries a minus sign. What is the correct sign on the $\\lambda$ term?" },
+                    { "text": "$\\lambda^2 - (\\det A)\\lambda + \\text{tr}\\,A = 0$", "rationale": "The trace and determinant roles are swapped. Which one multiplies $\\lambda$?" },
+                    { "text": "$\\lambda^2 - \\text{tr}\\,A - \\det A = 0$", "rationale": "The trace must multiply $\\lambda$, not stand alone. What is the proper quadratic?" }
+                ]
+            },
+            {
+                "id": "mp_e50Bj7jn9IQ_2",
+                "prompt": "The quick trick writes eigenvalues as $\\lambda = m \\pm \\sqrt{m^2 - p}$. What are $m$ and $p$?",
+                "hint": "One is half the trace (the mean of the eigenvalues), the other is the determinant.",
+                "answerOptions": [
+                    { "text": "$m = \\tfrac{1}{2}\\text{tr}\\,A$ (the mean) and $p = \\det A$ (the product)", "correct": true, "rationale": "Yes. The mean of the eigenvalues is half the trace, and their product is the determinant." },
+                    { "text": "$m = \\text{tr}\\,A$ and $p = \\det A$", "rationale": "The mean is half the trace, not the full trace. What is $m$?" },
+                    { "text": "$m = \\det A$ and $p = \\tfrac{1}{2}\\text{tr}\\,A$", "rationale": "The roles are reversed. Which quantity is the mean and which is the product?" },
+                    { "text": "$m = \\tfrac{1}{2}\\det A$ and $p = \\text{tr}\\,A$", "rationale": "The mean comes from the trace and the product from the determinant. What are $m$ and $p$?" }
+                ]
+            },
+            {
+                "id": "mp_e50Bj7jn9IQ_3",
+                "prompt": "Use the trick on the matrix with rows $(2, 1)$ and $(1, 2)$: trace $4$, determinant $3$. What are the eigenvalues?",
+                "hint": "Compute $m = 2$, $p = 3$, then $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+                "answerOptions": [
+                    { "text": "$3$ and $1$", "correct": true, "rationale": "Correct. $m = 2$, $p = 3$, so $\\lambda = 2 \\pm \\sqrt{4 - 3} = 2 \\pm 1$, giving $3$ and $1$." },
+                    { "text": "$4$ and $0$", "rationale": "Use $m = 2$ and $\\sqrt{m^2 - p} = \\sqrt{1} = 1$. What is $2 \\pm 1$?" },
+                    { "text": "$2$ and $2$", "rationale": "The discriminant $m^2 - p = 1$ is nonzero, so the roots differ. What is $2 \\pm 1$?" },
+                    { "text": "$3$ and $-1$", "rationale": "Both roots are $2$ plus or minus $1$. What is $2 - 1$?" }
+                ]
+            },
+            {
+                "id": "mp_e50Bj7jn9IQ_4",
+                "prompt": "For any matrix, the sum of the eigenvalues equals which quantity?",
+                "hint": "It is the invariant formed by adding the diagonal entries.",
+                "answerOptions": [
+                    { "text": "The trace of the matrix", "correct": true, "rationale": "Yes. The eigenvalues sum to the trace, the sum of the diagonal entries." },
+                    { "text": "The determinant of the matrix", "rationale": "The determinant equals the product of eigenvalues, not their sum. What invariant gives the sum?" },
+                    { "text": "The rank of the matrix", "rationale": "Rank counts independent directions, unrelated to the eigenvalue sum. Which diagonal quantity matches the sum?" },
+                    { "text": "Always zero", "rationale": "The sum is generally nonzero. Which matrix invariant equals the eigenvalue sum?" }
+                ]
+            },
+            {
+                "id": "mp_e50Bj7jn9IQ_5",
+                "prompt": "Use the trick on the matrix with rows $(3, 1)$ and $(1, 3)$: trace $6$, determinant $8$. What are the eigenvalues?",
+                "hint": "Compute $m = 3$, $p = 8$, then $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+                "answerOptions": [
+                    { "text": "$4$ and $2$", "correct": true, "rationale": "Correct. $m = 3$, $p = 8$, so $\\lambda = 3 \\pm \\sqrt{9 - 8} = 3 \\pm 1$, giving $4$ and $2$." },
+                    { "text": "$6$ and $8$", "rationale": "The trace and determinant are not themselves the eigenvalues. What is $3 \\pm 1$?" },
+                    { "text": "$3$ and $3$", "rationale": "The discriminant $9 - 8 = 1$ is nonzero, so the roots split. What is $3 \\pm 1$?" },
+                    { "text": "$5$ and $1$", "rationale": "Check the discriminant: $\\sqrt{9 - 8} = 1$, not $2$. What is $3 \\pm 1$?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.4, video 1
+           "Motivating Eigenvalues and Eigenvectors with Differential Equations" */
+        "QYS-ML_vn4k": [
+            {
+                "id": "mp_QYS-ML_vn4k_1",
+                "prompt": "For the linear system $\\mathbf{x}' = A\\mathbf{x}$, what trial solution leads to the eigenvalue problem?",
+                "hint": "Guess a fixed direction whose size changes exponentially in time.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ for a constant vector $\\mathbf{v}$", "correct": true, "rationale": "Yes. Substituting this trial turns the system into the eigenvalue equation for $A$." },
+                    { "text": "$\\mathbf{x} = \\lambda t\\,\\mathbf{v}$", "rationale": "Linear-in-$t$ growth does not solve a first-order linear system. What time dependence does?" },
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}$ (a scalar)", "rationale": "The state is a vector, so the trial needs a constant direction $\\mathbf{v}$. What is the full vector trial?" },
+                    { "text": "$\\mathbf{x} = \\cos(\\lambda t)\\mathbf{v}$", "rationale": "The natural trial for a first-order system is exponential, not cosine. What form should $\\mathbf{x}$ take?" }
+                ]
+            },
+            {
+                "id": "mp_QYS-ML_vn4k_2",
+                "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ and cancelling $e^{\\lambda t}$ gives what?",
+                "hint": "The derivative brings down a $\\lambda$, and the exponential factors out.",
+                "answerOptions": [
+                    { "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$, the eigenvalue problem", "correct": true, "rationale": "Yes. The substitution reduces to $\\lambda\\mathbf{v} = A\\mathbf{v}$, exactly the eigenvalue equation." },
+                    { "text": "$A\\mathbf{v} = \\mathbf{0}$", "rationale": "The left side differentiates to $\\lambda e^{\\lambda t}\\mathbf{v}$, leaving a $\\lambda\\mathbf{v}$ term. What equation results?" },
+                    { "text": "$\\mathbf{v}' = \\lambda\\mathbf{v}$", "rationale": "The vector $\\mathbf{v}$ is constant, so it has no derivative. What relation between $A\\mathbf{v}$ and $\\lambda\\mathbf{v}$ appears?" },
+                    { "text": "$A = \\lambda I$ exactly", "rationale": "That would force every direction to be an eigenvector. What weaker equation does the substitution give?" }
+                ]
+            },
+            {
+                "id": "mp_QYS-ML_vn4k_3",
+                "prompt": "Each eigenpair $(\\lambda, \\mathbf{v})$ of $A$ provides which solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+                "hint": "Reassemble the trial with the eigenpair you found.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$", "correct": true, "rationale": "Yes. Each eigenpair yields the exponential solution $e^{\\lambda t}\\mathbf{v}$." },
+                    { "text": "$\\mathbf{x} = \\lambda e^{t}\\mathbf{v}$", "rationale": "The eigenvalue belongs in the exponent, not as a front multiplier. What is the correct solution?" },
+                    { "text": "$\\mathbf{x} = e^{t}\\mathbf{v}$", "rationale": "The growth rate is the eigenvalue $\\lambda$, not $1$. What exponent should appear?" },
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}A\\mathbf{v}$", "rationale": "The eigenvector $\\mathbf{v}$ itself rides the exponential. What is the clean solution form?" }
+                ]
+            },
+            {
+                "id": "mp_QYS-ML_vn4k_4",
+                "prompt": "Why does using eigenvectors simplify the system $\\mathbf{x}' = A\\mathbf{x}$?",
+                "hint": "Along an eigenvector the matrix acts like a single number.",
+                "answerOptions": [
+                    { "text": "Along an eigenvector the system decouples into a scalar equation $x' = \\lambda x$", "correct": true, "rationale": "Yes. In the eigenvector direction $A$ acts as multiplication by $\\lambda$, reducing to a simple scalar ODE." },
+                    { "text": "Eigenvectors make $A$ the zero matrix", "rationale": "Eigenvectors diagonalize, not annihilate, the matrix. What scalar equation appears along an eigenvector?" },
+                    { "text": "Eigenvectors eliminate the need for initial conditions", "rationale": "Initial conditions are still needed to fix constants. What does the eigenvector direction simplify the dynamics to?" },
+                    { "text": "Eigenvectors turn the system nonlinear", "rationale": "The system stays linear; eigenvectors decouple it. Into what simple form?" }
+                ]
+            },
+            {
+                "id": "mp_QYS-ML_vn4k_5",
+                "prompt": "How is the general solution of $\\mathbf{x}' = A\\mathbf{x}$ built from several eigensolutions?",
+                "hint": "A linear system lets independent solutions be superposed.",
+                "answerOptions": [
+                    { "text": "As a linear combination of the eigensolutions $e^{\\lambda_i t}\\mathbf{v}_i$", "correct": true, "rationale": "Yes. Superposition combines the independent eigensolutions into the general solution." },
+                    { "text": "As the product of the eigensolutions", "rationale": "Linear systems superpose by addition, not multiplication. How are the eigensolutions combined?" },
+                    { "text": "By choosing only the largest eigenvalue's solution", "rationale": "Dropping solutions loses generality. How are all eigensolutions used together?" },
+                    { "text": "As the determinant of the eigensolutions", "rationale": "A determinant is not how solutions combine. What linear operation builds the general solution?" }
+                ]
+            }
+        ],
+
+        /* Unit 14, Module 14.4, video 2
+           "Applications of Eigenvalues and Eigenvectors to solve Differential Equations, part 1" */
+        "Cose44Lgssw": [
+            {
+                "id": "mp_Cose44Lgssw_1",
+                "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$ with eigenpairs $(\\lambda_1, \\mathbf{v}_1)$ and $(\\lambda_2, \\mathbf{v}_2)$, what is the general solution?",
+                "hint": "Combine the two exponential eigensolutions with arbitrary constants.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$", "correct": true, "rationale": "Yes. The general solution superposes the two eigensolutions with constants $c_1$ and $c_2$." },
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_2 + c_2 e^{\\lambda_2 t}\\mathbf{v}_1$", "rationale": "Each exponential must pair with its own eigenvector. Which vector goes with $\\lambda_1$?" },
+                    { "text": "$\\mathbf{x} = (c_1 + c_2)e^{(\\lambda_1 + \\lambda_2)t}\\mathbf{v}_1$", "rationale": "The eigenvalues do not add into one exponent. How are the two separate eigensolutions combined?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$", "rationale": "The eigenvectors must appear, since $\\mathbf{x}$ is a vector. What multiplies each exponential?" }
+                ]
+            },
+            {
+                "id": "mp_Cose44Lgssw_2",
+                "prompt": "If $A$ has eigenvalue $\\lambda = -2$ with eigenvector $\\mathbf{v}$, what is the corresponding solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+                "hint": "Place the eigenvalue in the exponent of the eigensolution.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = c\\,e^{-2t}\\mathbf{v}$", "correct": true, "rationale": "Correct. The eigenpair gives the decaying solution $e^{-2t}\\mathbf{v}$." },
+                    { "text": "$\\mathbf{x} = c\\,e^{2t}\\mathbf{v}$", "rationale": "The eigenvalue is $-2$, so the exponent is negative. What is the sign in the exponent?" },
+                    { "text": "$\\mathbf{x} = c\\,e^{-2t}$", "rationale": "The vector $\\mathbf{v}$ must appear in a vector solution. What rides the exponential?" },
+                    { "text": "$\\mathbf{x} = -2c\\,e^{t}\\mathbf{v}$", "rationale": "The eigenvalue sets the exponent, not a front factor. What exponential appears?" }
+                ]
+            },
+            {
+                "id": "mp_Cose44Lgssw_3",
+                "prompt": "For real eigenvalues, what does the sign of $\\lambda$ tell you about the corresponding solution as $t \\to \\infty$?",
+                "hint": "The exponential $e^{\\lambda t}$ either grows or decays depending on the sign.",
+                "answerOptions": [
+                    { "text": "Negative $\\lambda$ gives decay toward the origin; positive $\\lambda$ gives growth", "correct": true, "rationale": "Yes. The factor $e^{\\lambda t}$ decays for $\\lambda < 0$ and grows for $\\lambda > 0$, governing stability." },
+                    { "text": "Negative $\\lambda$ gives growth; positive $\\lambda$ gives decay", "rationale": "Check the behavior of $e^{\\lambda t}$: which sign of $\\lambda$ makes it shrink as $t$ grows?" },
+                    { "text": "The sign has no effect on growth or decay", "rationale": "The sign is decisive for $e^{\\lambda t}$. Which sign causes decay?" },
+                    { "text": "Any real $\\lambda$ produces oscillation", "rationale": "Oscillation needs complex eigenvalues, not real ones. What do real negative eigenvalues produce?" }
+                ]
+            },
+            {
+                "id": "mp_Cose44Lgssw_4",
+                "prompt": "The matrix with rows $(1, 0)$ and $(0, -2)$ has eigenvalues $1$ and $-2$ with eigenvectors $(1,0)$ and $(0,1)$. What is the general solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+                "hint": "Pair each diagonal eigenvalue with its standard eigenvector in the superposition.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{-2t}(0, 1)$", "correct": true, "rationale": "Correct. Eigenvalue $1$ pairs with $(1,0)$ and eigenvalue $-2$ pairs with $(0,1)$." },
+                    { "text": "$\\mathbf{x} = c_1 e^{-2t}(1, 0) + c_2 e^{t}(0, 1)$", "rationale": "Match each exponent to its own eigenvector. Which eigenvalue belongs to $(1, 0)$?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{2t}(0, 1)$", "rationale": "The second eigenvalue is $-2$, not $2$. What is the correct exponent for $(0, 1)$?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{t} + c_2 e^{-2t}$", "rationale": "The eigenvectors must appear in a vector solution. What multiplies each exponential?" }
+                ]
+            },
+            {
+                "id": "mp_Cose44Lgssw_5",
+                "prompt": "If $A$ has complex eigenvalues, what qualitative behavior do the solutions of $\\mathbf{x}' = A\\mathbf{x}$ show?",
+                "hint": "The imaginary part of the eigenvalue introduces a rotational character.",
+                "answerOptions": [
+                    { "text": "Oscillation, since complex eigenvalues produce sines and cosines", "correct": true, "rationale": "Yes. Complex eigenvalues introduce oscillatory factors, giving spiraling or circulating solutions." },
+                    { "text": "Pure exponential decay with no oscillation", "rationale": "Pure decay comes from real negative eigenvalues. What does the imaginary part add?" },
+                    { "text": "Constant solutions that never change", "rationale": "Constant solutions require a zero eigenvalue. What does a nonzero imaginary part introduce?" },
+                    { "text": "Unbounded linear growth in $t$", "rationale": "Linear-in-$t$ growth signals repeated eigenvalues, not complex ones. What behavior do complex eigenvalues give?" }
+                ]
+            }
         ]
 
     },
@@ -15275,6 +16355,672 @@ const QUIZ_DATA = {
                     { "text": "The transform is an unmotivated convention", "rationale": "The derivation shows it is well motivated. Where does the integral come from?" },
                     { "text": "The transform has no relation to series", "rationale": "The series connection is the whole insight. What does it generalize?" },
                     { "text": "The kernel could be any function", "rationale": "The kernel $e^{-st}$ arises specifically from the power-series analogy. What motivates it?" }
+                ]
+            }
+        ],
+
+        "Unit 13: Series Solutions": [
+            {
+                "id": "um_13_1",
+                "prompt": "The Taylor coefficient of $(x - a)^n$ for a function $f$ expanded about $a$ is which expression?",
+                "hint": "It uses the $n$-th derivative at the center over a factorial.",
+                "answerOptions": [
+                    { "text": "$\\frac{f^{(n)}(a)}{n!}$", "correct": true, "rationale": "Yes. The $n$-th Taylor coefficient is $f^{(n)}(a)/n!$." },
+                    { "text": "$\\frac{f^{(n)}(a)}{n}$", "rationale": "The denominator is a factorial, not $n$. What divides $f^{(n)}(a)$?" },
+                    { "text": "$f^{(n)}(a)$", "rationale": "A factorial divides the derivative. What is the denominator?" },
+                    { "text": "$\\frac{f(a)}{n!}$", "rationale": "The numerator is the $n$-th derivative, not $f(a)$. Which derivative appears?" }
+                ]
+            },
+            {
+                "id": "um_13_2",
+                "prompt": "What is the Maclaurin series of $e^x$?",
+                "hint": "All derivatives at $0$ equal $1$.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$", "correct": true, "rationale": "Yes. With $f^{(n)}(0) = 1$, the coefficient of $x^n$ is $1/n!$." },
+                    { "text": "$\\sum_{n=0}^{\\infty} n!\\, x^n$", "rationale": "The factorial belongs in the denominator. What is $1/n!$?" },
+                    { "text": "$\\sum_{n=1}^{\\infty} \\frac{x^n}{n}$", "rationale": "That is the series for $-\\ln(1 - x)$, not $e^x$. What denominator does $e^x$ use?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^n}{n!}$", "rationale": "Alternating signs give $e^{-x}$. Does $e^x$ alternate?" }
+                ]
+            },
+            {
+                "id": "um_13_3",
+                "prompt": "In the Maclaurin series of $e^x$, what is the coefficient of $x^3$?",
+                "hint": "The coefficient of $x^n$ is $1/n!$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{6}$", "correct": true, "rationale": "Correct. The coefficient is $1/3! = 1/6$." },
+                    { "text": "$\\frac{1}{3}$", "rationale": "The denominator is $3!$, not $3$. What is $3!$?" },
+                    { "text": "$6$", "rationale": "The factorial is in the denominator. What is $1/3!$?" },
+                    { "text": "$\\frac{1}{9}$", "rationale": "That is $1/3^2$, not $1/3!$. What is $3!$?" }
+                ]
+            },
+            {
+                "id": "um_13_4",
+                "prompt": "A Maclaurin series is a Taylor series with which center?",
+                "hint": "It is the simplest possible center.",
+                "answerOptions": [
+                    { "text": "$a = 0$", "correct": true, "rationale": "Yes. Maclaurin means the Taylor series centered at the origin." },
+                    { "text": "$a = 1$", "rationale": "The Maclaurin center is the origin. What value gives plain powers of $x$?" },
+                    { "text": "the nearest singular point", "rationale": "The center is fixed at the origin, not tied to singularities. What is $a$?" },
+                    { "text": "$a = \\infty$", "rationale": "A Taylor center is a finite point. Which one defines Maclaurin?" }
+                ]
+            },
+            {
+                "id": "um_13_5",
+                "prompt": "What is the radius of convergence of the geometric series $\\sum_{n=0}^{\\infty} x^n$?",
+                "hint": "A geometric series converges when the ratio has magnitude below $1$.",
+                "answerOptions": [
+                    { "text": "$R = 1$", "correct": true, "rationale": "Yes. The geometric series converges exactly for $|x| < 1$, so $R = 1$." },
+                    { "text": "$R = \\infty$", "rationale": "The terms do not shrink for large $|x|$. For which $|x|$ does it converge?" },
+                    { "text": "$R = 0$", "rationale": "It converges on a positive interval around $0$. What is the bound on $|x|$?" },
+                    { "text": "$R = 2$", "rationale": "The ratio is $x$ itself, so $|x| < 1$. What radius does that give?" }
+                ]
+            },
+            {
+                "id": "um_13_6",
+                "prompt": "What is the Maclaurin series of $\\sin x$?",
+                "hint": "Sine is odd, so it keeps only odd powers with alternating signs.",
+                "answerOptions": [
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n+1}}{(2n+1)!}$", "correct": true, "rationale": "Yes. Sine uses odd powers with alternating signs and factorial denominators." },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n}}{(2n)!}$", "rationale": "Even powers belong to $\\cos x$. Which powers does an odd function keep?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{x^{2n+1}}{(2n+1)!}$", "rationale": "The signs must alternate. What factor supplies the alternation?" },
+                    { "text": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^n}{n!}$", "rationale": "That keeps all powers and equals $e^{-x}$. Which exponents does sine keep?" }
+                ]
+            },
+            {
+                "id": "um_13_7",
+                "prompt": "In the power series method, what form is assumed for the solution about an ordinary point $x = 0$?",
+                "hint": "An analytic function with unknown coefficients.",
+                "answerOptions": [
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n x^n$", "correct": true, "rationale": "Yes. We posit a power series and solve for the coefficients $a_n$." },
+                    { "text": "$y = x^r\\sum_{n=0}^{\\infty} a_n x^n$", "rationale": "The $x^r$ factor is the Frobenius form, used at singular points. What is assumed at an ordinary point?" },
+                    { "text": "$y = e^{rx}$", "rationale": "That trial is for constant-coefficient equations. What analytic series is assumed?" },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n e^{nx}$", "rationale": "The method uses powers of $x$, not exponentials. What is the standard ansatz?" }
+                ]
+            },
+            {
+                "id": "um_13_8",
+                "prompt": "Substituting $y = \\sum a_n x^n$ into $y' = y$ yields which recurrence?",
+                "hint": "Match coefficients: $(n+1)a_{n+1} = a_n$.",
+                "answerOptions": [
+                    { "text": "$a_{n+1} = \\frac{a_n}{n+1}$", "correct": true, "rationale": "Correct. From $(n+1)a_{n+1} = a_n$ we get $a_{n+1} = a_n/(n+1)$." },
+                    { "text": "$a_{n+1} = (n+1)a_n$", "rationale": "The factor $(n+1)$ divides. Solve $(n+1)a_{n+1} = a_n$ for $a_{n+1}$." },
+                    { "text": "$a_{n+1} = a_n$", "rationale": "The differentiation factor cannot vanish. What divides $a_n$?" },
+                    { "text": "$a_n = \\frac{a_{n+1}}{n+1}$", "rationale": "Solve for the higher-index coefficient. What is $a_{n+1}$ in terms of $a_n$?" }
+                ]
+            },
+            {
+                "id": "um_13_9",
+                "prompt": "Using $a_{n+1} = a_n/(n+1)$ with $a_0 = 1$, what is $a_3$?",
+                "hint": "Step through $a_1, a_2, a_3$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{6}$", "correct": true, "rationale": "Correct. $a_1 = 1$, $a_2 = 1/2$, $a_3 = (1/2)/3 = 1/6$." },
+                    { "text": "$\\frac{1}{3}$", "rationale": "Apply the recurrence three times from $a_0 = 1$. What is $a_2/3$?" },
+                    { "text": "$\\frac{1}{2}$", "rationale": "That is $a_2$, not $a_3$. What is the next step $a_2/3$?" },
+                    { "text": "$\\frac{1}{9}$", "rationale": "The final divisor is $3$ applied to $a_2 = 1/2$. What is $(1/2)/3$?" }
+                ]
+            },
+            {
+                "id": "um_13_10",
+                "prompt": "For $y'' + p(x)y' + q(x)y = 0$, what defines an ordinary point $x_0$?",
+                "hint": "The coefficient functions must be analytic there.",
+                "answerOptions": [
+                    { "text": "Both $p$ and $q$ are analytic at $x_0$", "correct": true, "rationale": "Yes. At an ordinary point both coefficients have convergent power series." },
+                    { "text": "$x\\,p$ and $x^2 q$ are analytic but $p$, $q$ are not", "rationale": "That describes a regular singular point. What is true at an ordinary point itself?" },
+                    { "text": "$p$ and $q$ both vanish at $x_0$", "rationale": "They need not be zero, only analytic. What property is required?" },
+                    { "text": "$q$ has a simple pole at $x_0$", "rationale": "A pole signals a singular point. What must hold for an ordinary point?" }
+                ]
+            },
+            {
+                "id": "um_13_11",
+                "prompt": "Substituting the series into $y'' + y = 0$ gives which recurrence?",
+                "hint": "Use $(n+2)(n+1)a_{n+2} + a_n = 0$.",
+                "answerOptions": [
+                    { "text": "$a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}$", "correct": true, "rationale": "Correct. The second derivative contributes $(n+2)(n+1)$ and the $+y$ flips the sign." },
+                    { "text": "$a_{n+2} = \\frac{a_n}{(n+2)(n+1)}$", "rationale": "The $+y$ term changes the sign of $a_n$. What sign appears?" },
+                    { "text": "$a_{n+2} = \\frac{-a_n}{(n+1)}$", "rationale": "Two derivatives give the product $(n+2)(n+1)$. What is the full denominator?" },
+                    { "text": "$a_{n+1} = -a_n$", "rationale": "The second derivative links indices two apart. Which coefficient is solved for?" }
+                ]
+            },
+            {
+                "id": "um_13_12",
+                "prompt": "At an ordinary point, the radius of convergence of a series solution is at least what?",
+                "hint": "It extends to the nearest place the coefficients break down.",
+                "answerOptions": [
+                    { "text": "The distance to the nearest singular point", "correct": true, "rationale": "Yes. Convergence is guaranteed out to the closest singularity in the complex plane." },
+                    { "text": "Exactly $1$ always", "rationale": "The radius depends on the equation. What geometric distance bounds it?" },
+                    { "text": "Zero", "rationale": "Convergence is guaranteed on a positive interval. What sets its radius?" },
+                    { "text": "Infinite for every equation", "rationale": "Singular points can limit it. What distance gives the guaranteed radius?" }
+                ]
+            },
+            {
+                "id": "um_13_13",
+                "prompt": "What is a regular singular point of $y'' + p(x)y' + q(x)y = 0$ at $x_0 = 0$?",
+                "hint": "A singularity mild enough that $x p$ and $x^2 q$ stay analytic.",
+                "answerOptions": [
+                    { "text": "A singular point where $x\\,p(x)$ and $x^2 q(x)$ are analytic at $0$", "correct": true, "rationale": "Yes. The factors $x$ and $x^2$ tame the singularity, exactly what Frobenius requires." },
+                    { "text": "A point where $p$ and $q$ are both analytic", "rationale": "That is an ordinary point. What extra tamed combinations must be analytic?" },
+                    { "text": "A point where the solution is undefined for all methods", "rationale": "Frobenius does handle it. What mild condition classifies a regular singular point?" },
+                    { "text": "A point where $x^3 p$ and $x^4 q$ are analytic", "rationale": "The required powers are $1$ and $2$. Which factors tame the singularity?" }
+                ]
+            },
+            {
+                "id": "um_13_14",
+                "prompt": "What solution form does the Frobenius method assume?",
+                "hint": "A power series times a power $x^r$.",
+                "answerOptions": [
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n x^{n+r}$", "correct": true, "rationale": "Yes. The exponent $r$ comes from the indicial equation and captures the singular behavior." },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n x^n$", "rationale": "That plain series is the ordinary-point form. What extra factor is needed?" },
+                    { "text": "$y = e^{rx}\\sum_{n=0}^{\\infty} a_n x^n$", "rationale": "The factor is a power $x^r$, not an exponential. What multiplies the series?" },
+                    { "text": "$y = \\sum_{n=0}^{\\infty} a_n (x - r)^n$", "rationale": "$r$ is an exponent, not a shifted center. What is the correct form?" }
+                ]
+            },
+            {
+                "id": "um_13_15",
+                "prompt": "With $p_0 = \\lim x\\,p(x)$ and $q_0 = \\lim x^2 q(x)$, what is the indicial equation?",
+                "hint": "It is the quadratic from the lowest power of $x$.",
+                "answerOptions": [
+                    { "text": "$r(r-1) + p_0\\, r + q_0 = 0$", "correct": true, "rationale": "Yes. The lowest-order balance gives $r(r-1) + p_0 r + q_0 = 0$." },
+                    { "text": "$r^2 + p_0 r + q_0 = 0$", "rationale": "The leading term is $r(r-1)$, not $r^2$. What does that expand to?" },
+                    { "text": "$r(r-1) + q_0 r + p_0 = 0$", "rationale": "The constants $p_0$ and $q_0$ are swapped. Which one multiplies $r$?" },
+                    { "text": "$p_0 r^2 + q_0 r + 1 = 0$", "rationale": "The structure is $r(r-1) + p_0 r + q_0$. What is the correct indicial form?" }
+                ]
+            },
+            {
+                "id": "um_13_16",
+                "prompt": "For $x^2 y'' + x y' - y = 0$ ($p_0 = 1$, $q_0 = -1$), what are the indicial roots?",
+                "hint": "Solve $r(r-1) + r - 1 = r^2 - 1 = 0$.",
+                "answerOptions": [
+                    { "text": "$r = 1$ and $r = -1$", "correct": true, "rationale": "Correct. $r^2 - 1 = 0$ gives $r = \\pm 1$." },
+                    { "text": "$r = 0$ and $r = 1$", "rationale": "Simplify $r(r-1) + r - 1$ to $r^2 - 1$. What are its roots?" },
+                    { "text": "$r = 1$ repeated", "rationale": "The equation $r^2 - 1 = 0$ has two distinct roots. What are they?" },
+                    { "text": "$r = \\pm i$", "rationale": "$r^2 - 1 = 0$ has real roots, since $r^2 = 1$. What are they?" }
+                ]
+            },
+            {
+                "id": "um_13_17",
+                "prompt": "When the indicial equation has a repeated root, the second Frobenius solution must include what?",
+                "hint": "One series is not enough for two independent solutions.",
+                "answerOptions": [
+                    { "text": "A logarithmic term", "correct": true, "rationale": "Yes. A repeated root forces a $\\ln x$ term in the second independent solution." },
+                    { "text": "A second distinct power $x^r$", "rationale": "A repeated root supplies only one exponent. What term gives independence?" },
+                    { "text": "An exponential factor $e^{rx}$", "rationale": "Frobenius solutions use powers and logs, not exponentials. What extra term appears?" },
+                    { "text": "Nothing beyond the single series", "rationale": "One series cannot span the solution space. What must the second solution contain?" }
+                ]
+            },
+            {
+                "id": "um_13_18",
+                "prompt": "Near $x = 0$, a Frobenius solution behaves like which leading term?",
+                "hint": "The smallest power dominates as $x \\to 0$.",
+                "answerOptions": [
+                    { "text": "$a_0 x^r$", "correct": true, "rationale": "Yes. The first nonzero term $a_0 x^r$ controls the behavior near the singular point." },
+                    { "text": "$a_0$ (a constant)", "rationale": "A constant leads only when $r = 0$. What power dominates for general $r$?" },
+                    { "text": "$x^{2r}$", "rationale": "The leading power is $x^r$, not $x^{2r}$. What is the lowest term?" },
+                    { "text": "$e^{rx}$", "rationale": "The leading behavior is a power, not an exponential. What is $a_0 x^r$?" }
+                ]
+            },
+            {
+                "id": "um_13_19",
+                "prompt": "Which equation is Legendre's differential equation?",
+                "hint": "It carries the $(1 - x^2)$ factor and the parameter $n(n+1)$.",
+                "answerOptions": [
+                    { "text": "$(1 - x^2)y'' - 2x y' + n(n+1)y = 0$", "correct": true, "rationale": "Yes. This is Legendre's equation." },
+                    { "text": "$x^2 y'' + x y' + (x^2 - n^2)y = 0$", "rationale": "That is Bessel's equation. Which has the $(1 - x^2)$ factor?" },
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "rationale": "That is Hermite's equation. What is the Legendre form?" },
+                    { "text": "$(1 - x^2)y'' - x y' + n^2 y = 0$", "rationale": "That is Chebyshev's equation. What are the correct middle and last terms?" }
+                ]
+            },
+            {
+                "id": "um_13_20",
+                "prompt": "What is the Legendre polynomial $P_2(x)$?",
+                "hint": "It is the quadratic Legendre polynomial, with $P_2(1) = 1$.",
+                "answerOptions": [
+                    { "text": "$\\frac{1}{2}(3x^2 - 1)$", "correct": true, "rationale": "Correct. $P_2(x) = \\tfrac{1}{2}(3x^2 - 1)$." },
+                    { "text": "$2x^2 - 1$", "rationale": "That is the Chebyshev $T_2$. What is the Legendre $P_2$?" },
+                    { "text": "$x^2$", "rationale": "Legendre normalization adds a constant and a factor $3$. What is $\\tfrac{1}{2}(3x^2 - 1)$?" },
+                    { "text": "$4x^2 - 2$", "rationale": "That is the Hermite $H_2$. What is $P_2$?" }
+                ]
+            },
+            {
+                "id": "um_13_21",
+                "prompt": "Where are the singular points of Legendre's equation?",
+                "hint": "They occur where the leading coefficient $(1 - x^2)$ vanishes.",
+                "answerOptions": [
+                    { "text": "At $x = \\pm 1$", "correct": true, "rationale": "Yes. The factor $(1 - x^2)$ vanishes at $x = \\pm 1$." },
+                    { "text": "At $x = 0$", "rationale": "The leading coefficient is nonzero at $0$, an ordinary point. Where does $(1 - x^2)$ vanish?" },
+                    { "text": "Nowhere", "rationale": "The coefficient does vanish somewhere. At which points?" },
+                    { "text": "At $x = \\pm 2$", "rationale": "Solve $1 - x^2 = 0$. What values result?" }
+                ]
+            },
+            {
+                "id": "um_13_22",
+                "prompt": "What kind of point is $x = 0$ for Bessel's equation, and which method applies?",
+                "hint": "The coefficients blow up mildly at $0$.",
+                "answerOptions": [
+                    { "text": "A regular singular point, handled by the Frobenius method", "correct": true, "rationale": "Yes. Bessel's equation has a regular singular point at $0$, exactly where Frobenius applies." },
+                    { "text": "An ordinary point, handled by a plain power series", "rationale": "The coefficients are singular at $0$, so it is not ordinary. What is it?" },
+                    { "text": "An irregular singular point with no series solution", "rationale": "The singularity is mild enough for Frobenius. What is the precise type?" },
+                    { "text": "A removable point needing no special method", "rationale": "The point genuinely matters. Which method is used at a regular singular point?" }
+                ]
+            },
+            {
+                "id": "um_13_23",
+                "prompt": "For Bessel's equation of order $\\nu$, what are the indicial roots?",
+                "hint": "The indicial equation reduces to $r^2 - \\nu^2 = 0$.",
+                "answerOptions": [
+                    { "text": "$r = \\pm\\nu$", "correct": true, "rationale": "Correct. $r^2 - \\nu^2 = 0$ gives $r = \\pm\\nu$." },
+                    { "text": "$r = \\nu$ repeated", "rationale": "There are two roots unless $\\nu = 0$. What are both?" },
+                    { "text": "$r = \\pm\\nu^2$", "rationale": "Take the square root of $r^2 = \\nu^2$. What are the roots?" },
+                    { "text": "$r = 0, 1$", "rationale": "The roots depend on $\\nu$. What does $r^2 = \\nu^2$ give?" }
+                ]
+            },
+            {
+                "id": "um_13_24",
+                "prompt": "On $[-1, 1]$, distinct Legendre polynomials $P_m$ and $P_n$ ($m \\neq n$) satisfy which relation?",
+                "hint": "They form an orthogonal family with weight $1$.",
+                "answerOptions": [
+                    { "text": "$\\int_{-1}^{1} P_m P_n\\, dx = 0$", "correct": true, "rationale": "Yes. Distinct Legendre polynomials are orthogonal on $[-1, 1]$." },
+                    { "text": "$\\int_{-1}^{1} P_m P_n\\, dx = 1$", "rationale": "The cross integral vanishes for $m \\neq n$. What does it equal?" },
+                    { "text": "$P_m = P_n$", "rationale": "Different degrees are not equal. What integral relation holds?" },
+                    { "text": "$P_m P_n = 0$ for all $x$", "rationale": "The product is not identically zero; its integral is. What is $\\int_{-1}^1 P_m P_n\\, dx$?" }
+                ]
+            },
+            {
+                "id": "um_13_25",
+                "prompt": "Which equation is Hermite's differential equation?",
+                "hint": "It has a $-2x y'$ term and parameter $2n$.",
+                "answerOptions": [
+                    { "text": "$y'' - 2x y' + 2n y = 0$", "correct": true, "rationale": "Yes. Hermite's equation is $y'' - 2x y' + 2n y = 0$." },
+                    { "text": "$x y'' + (1 - x)y' + n y = 0$", "rationale": "That is Laguerre's equation. Which has $-2x y'$?" },
+                    { "text": "$(1 - x^2)y'' - 2x y' + n(n+1)y = 0$", "rationale": "That is Legendre's equation. What is the Hermite form?" },
+                    { "text": "$y'' + 2x y' + 2n y = 0$", "rationale": "The first-derivative term is negative for Hermite. What is the correct sign?" }
+                ]
+            },
+            {
+                "id": "um_13_26",
+                "prompt": "What is the Hermite polynomial $H_2(x)$ (physicists' convention)?",
+                "hint": "Use $H_2 = 2x H_1 - 2H_0$ with $H_0 = 1$, $H_1 = 2x$.",
+                "answerOptions": [
+                    { "text": "$4x^2 - 2$", "correct": true, "rationale": "Correct. $H_2 = 2x(2x) - 2 = 4x^2 - 2$." },
+                    { "text": "$2x^2 - 1$", "rationale": "That is the Chebyshev $T_2$. What does the Hermite recurrence give?" },
+                    { "text": "$x^2 - 1$", "rationale": "Apply $H_2 = 2x H_1 - 2H_0$ with $H_1 = 2x$. What is $4x^2 - 2$?" },
+                    { "text": "$4x^2$", "rationale": "The recurrence subtracts $2H_0 = 2$. What is $4x^2 - 2$?" }
+                ]
+            },
+            {
+                "id": "um_13_27",
+                "prompt": "Hermite polynomials are orthogonal on $(-\\infty, \\infty)$ with which weight?",
+                "hint": "The weight is the Gaussian tied to the recurrence.",
+                "answerOptions": [
+                    { "text": "$e^{-x^2}$", "correct": true, "rationale": "Yes. Hermite polynomials use the Gaussian weight $e^{-x^2}$." },
+                    { "text": "$e^{-x}$", "rationale": "That is the Laguerre weight on $[0, \\infty)$. What Gaussian pairs with Hermite?" },
+                    { "text": "$\\frac{1}{\\sqrt{1 - x^2}}$", "rationale": "That is the Chebyshev weight. What weight makes Hermite integrals converge on the whole line?" },
+                    { "text": "$1$", "rationale": "Weight $1$ is for Legendre. What weight does Hermite use?" }
+                ]
+            },
+            {
+                "id": "um_13_28",
+                "prompt": "What is the Chebyshev polynomial $T_2(x)$ of the first kind?",
+                "hint": "Use $T_2 = 2x T_1 - T_0$ with $T_0 = 1$, $T_1 = x$.",
+                "answerOptions": [
+                    { "text": "$2x^2 - 1$", "correct": true, "rationale": "Correct. $T_2 = 2x(x) - 1 = 2x^2 - 1$." },
+                    { "text": "$4x^2 - 2$", "rationale": "That is the Hermite $H_2$. What does the Chebyshev recurrence give?" },
+                    { "text": "$\\frac{1}{2}(3x^2 - 1)$", "rationale": "That is the Legendre $P_2$. What is the Chebyshev $T_2$?" },
+                    { "text": "$x^2$", "rationale": "The recurrence subtracts $T_0 = 1$. What is $2x^2 - 1$?" }
+                ]
+            },
+            {
+                "id": "um_13_29",
+                "prompt": "Chebyshev polynomials of the first kind satisfy which identity under $x = \\cos\\theta$?",
+                "hint": "They collapse to a single cosine of a multiple angle.",
+                "answerOptions": [
+                    { "text": "$T_n(\\cos\\theta) = \\cos(n\\theta)$", "correct": true, "rationale": "Yes. This defining identity makes $T_n(\\cos\\theta)$ equal $\\cos(n\\theta)$." },
+                    { "text": "$T_n(\\cos\\theta) = \\cos^n\\theta$", "rationale": "It is the cosine of $n\\theta$, not the $n$-th power. What is the identity?" },
+                    { "text": "$T_n(\\cos\\theta) = \\sin(n\\theta)$", "rationale": "First-kind Chebyshev gives a cosine. What is $T_n(\\cos\\theta)$?" },
+                    { "text": "$T_n(\\cos\\theta) = n\\cos\\theta$", "rationale": "The result is a multiple-angle cosine, not a multiple of cosine. What is the identity?" }
+                ]
+            },
+            {
+                "id": "um_13_30",
+                "prompt": "In which physical setting do Laguerre polynomials famously appear?",
+                "hint": "Think of the radial part of a well-known atomic wavefunction.",
+                "answerOptions": [
+                    { "text": "The radial wavefunctions of the hydrogen atom", "correct": true, "rationale": "Yes. The hydrogen atom's radial equation produces Laguerre polynomials." },
+                    { "text": "The quantum harmonic oscillator", "rationale": "That setting uses Hermite polynomials. Which atomic problem uses Laguerre?" },
+                    { "text": "Vibrations of a circular drumhead", "rationale": "That involves Bessel functions. Which atomic system features Laguerre polynomials?" },
+                    { "text": "Planetary orbital mechanics", "rationale": "That is governed by Kepler's laws, not Laguerre. Which quantum system uses them?" }
+                ]
+            }
+        ],
+
+        "Unit 14: Linear Algebra Foundations for Systems": [
+            {
+                "id": "um_14_1",
+                "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
+                "hint": "Scale each vector and add the results.",
+                "answerOptions": [
+                    { "text": "$a\\mathbf{v} + b\\mathbf{w}$ for scalars $a$ and $b$", "correct": true, "rationale": "Yes. A linear combination scales each vector and adds them." },
+                    { "text": "$\\mathbf{v}\\cdot\\mathbf{w}$", "rationale": "The dot product returns a scalar, not a combined vector. What scales and adds?" },
+                    { "text": "$\\mathbf{v}\\times\\mathbf{w}$", "rationale": "The cross product is one perpendicular vector, not a general combination. What uses arbitrary scalars?" },
+                    { "text": "$\\|\\mathbf{v}\\| + \\|\\mathbf{w}\\|$", "rationale": "That adds lengths, not vectors. What is the vector combination?" }
+                ]
+            },
+            {
+                "id": "um_14_2",
+                "prompt": "What is the span of a set of vectors?",
+                "hint": "Everything reachable by combining them.",
+                "answerOptions": [
+                    { "text": "The set of all linear combinations of the vectors", "correct": true, "rationale": "Yes. The span is every vector reachable as a linear combination." },
+                    { "text": "Only the listed vectors", "rationale": "The span includes far more. What set does it form?" },
+                    { "text": "The longest vector", "rationale": "Span is a whole set, not one vector. What collection is it?" },
+                    { "text": "The perpendicular to the vectors", "rationale": "Span is built from combinations, not perpendiculars. What does it contain?" }
+                ]
+            },
+            {
+                "id": "um_14_3",
+                "prompt": "What two conditions make a set of vectors a basis?",
+                "hint": "Reach everything, with no redundancy.",
+                "answerOptions": [
+                    { "text": "Linear independence and spanning the space", "correct": true, "rationale": "Yes. A basis spans the space and is linearly independent." },
+                    { "text": "Orthogonality and unit length", "rationale": "Those are optional refinements, not the definition. What two conditions are essential?" },
+                    { "text": "Containing the zero vector", "rationale": "The zero vector creates dependence. What two properties define a basis?" },
+                    { "text": "Having infinitely many vectors", "rationale": "A finite-dimensional basis is finite. What conditions are required?" }
+                ]
+            },
+            {
+                "id": "um_14_4",
+                "prompt": "What is the span of two nonzero, non-parallel vectors in $\\mathbb{R}^2$?",
+                "hint": "Two independent directions cover the plane.",
+                "answerOptions": [
+                    { "text": "All of $\\mathbb{R}^2$", "correct": true, "rationale": "Yes. Two independent vectors span the entire plane." },
+                    { "text": "A single line", "rationale": "A line is spanned by parallel vectors. What do independent directions reach?" },
+                    { "text": "Just the origin", "rationale": "Only zero vectors span the origin alone. What do two independent vectors span?" },
+                    { "text": "Only the two vectors", "rationale": "Combinations reach much more. What region results?" }
+                ]
+            },
+            {
+                "id": "um_14_5",
+                "prompt": "Compute the linear combination $3(1, 0) + 2(0, 1)$.",
+                "hint": "Scale each, then add componentwise.",
+                "answerOptions": [
+                    { "text": "$(3, 2)$", "correct": true, "rationale": "Correct. $3(1,0) + 2(0,1) = (3,0) + (0,2) = (3,2)$." },
+                    { "text": "$(2, 3)$", "rationale": "Keep the scalars with their own directions. What is $(3,0) + (0,2)$?" },
+                    { "text": "$(5, 5)$", "rationale": "The scalars scale separate axes; they do not add together. What is the componentwise sum?" },
+                    { "text": "$(6, 0)$", "rationale": "The vectors point in different directions. What is the componentwise sum?" }
+                ]
+            },
+            {
+                "id": "um_14_6",
+                "prompt": "Which identity must a linear transformation $T$ satisfy?",
+                "hint": "It preserves linear combinations.",
+                "answerOptions": [
+                    { "text": "$T(a\\mathbf{u} + b\\mathbf{v}) = aT(\\mathbf{u}) + bT(\\mathbf{v})$", "correct": true, "rationale": "Yes. Linearity preserves linear combinations exactly this way." },
+                    { "text": "$T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u})\\,T(\\mathbf{v})$", "rationale": "Outputs add, they do not multiply. What identity holds?" },
+                    { "text": "$T(\\mathbf{u}) = \\mathbf{u} + \\mathbf{c}$, $\\mathbf{c}\\neq\\mathbf{0}$", "rationale": "A nonzero shift breaks linearity. What identity is required?" },
+                    { "text": "$T(\\mathbf{u}) = \\|\\mathbf{u}\\|$", "rationale": "That returns a scalar, not a linear map. What property defines linearity?" }
+                ]
+            },
+            {
+                "id": "um_14_7",
+                "prompt": "For a matrix of a linear transformation, what do the columns represent?",
+                "hint": "Send in the standard basis vectors.",
+                "answerOptions": [
+                    { "text": "The images of the standard basis vectors", "correct": true, "rationale": "Yes. Each column is where a basis vector lands." },
+                    { "text": "The eigenvalues", "rationale": "Eigenvalues come from the characteristic equation. What do columns show?" },
+                    { "text": "The input vector lengths", "rationale": "Columns are basis images, not lengths. What do they record?" },
+                    { "text": "The fixed points", "rationale": "Columns are basis images, not fixed points. Where does each basis vector go?" }
+                ]
+            },
+            {
+                "id": "um_14_8",
+                "prompt": "Apply the transformation with rows $(1, 2)$ and $(3, 4)$ to $(1, 1)$.",
+                "hint": "Dot each row with the input.",
+                "answerOptions": [
+                    { "text": "$(3, 7)$", "correct": true, "rationale": "Correct. $(1,2)\\cdot(1,1) = 3$ and $(3,4)\\cdot(1,1) = 7$." },
+                    { "text": "$(7, 3)$", "rationale": "Keep the rows in order. What is row one dotted with $(1,1)$?" },
+                    { "text": "$(3, 4)$", "rationale": "The second output is $(3,4)\\cdot(1,1) = 3 + 4$. What is that?" },
+                    { "text": "$(4, 6)$", "rationale": "Each output dots one row with $(1,1)$. What are $1+2$ and $3+4$?" }
+                ]
+            },
+            {
+                "id": "um_14_9",
+                "prompt": "Geometrically, what does the determinant of a $2\\times 2$ matrix measure?",
+                "hint": "How the transformation rescales area.",
+                "answerOptions": [
+                    { "text": "The area-scaling factor of the transformation", "correct": true, "rationale": "Yes. The determinant is the factor by which areas are scaled." },
+                    { "text": "The summed length of the columns", "rationale": "It measures area change, not length. What does it scale?" },
+                    { "text": "The angle between the columns", "rationale": "Angle is not the determinant. What geometric quantity does it scale?" },
+                    { "text": "The number of eigenvalues", "rationale": "That is fixed by size. What area effect does the determinant capture?" }
+                ]
+            },
+            {
+                "id": "um_14_10",
+                "prompt": "For a matrix with rows $(a, b)$ and $(c, d)$, what is the determinant?",
+                "hint": "The difference of the diagonal products.",
+                "answerOptions": [
+                    { "text": "$ad - bc$", "correct": true, "rationale": "Yes. The $2\\times 2$ determinant is $ad - bc$." },
+                    { "text": "$ab - cd$", "rationale": "Pair entries across the diagonals, not along rows. What is $ad - bc$?" },
+                    { "text": "$ad + bc$", "rationale": "The off-diagonal product is subtracted. What is the sign?" },
+                    { "text": "$ac - bd$", "rationale": "Group $a$ with $d$ and $b$ with $c$. What is $ad - bc$?" }
+                ]
+            },
+            {
+                "id": "um_14_11",
+                "prompt": "Compute the determinant of the matrix with rows $(2, 3)$ and $(1, 4)$.",
+                "hint": "Use $ad - bc$.",
+                "answerOptions": [
+                    { "text": "$5$", "correct": true, "rationale": "Correct. $2\\cdot 4 - 3\\cdot 1 = 8 - 3 = 5$." },
+                    { "text": "$11$", "rationale": "The off-diagonal product is subtracted, not added. What is $8 - 3$?" },
+                    { "text": "$8$", "rationale": "Subtract $bc = 3\\cdot 1$. What is $8 - 3$?" },
+                    { "text": "$2$", "rationale": "Recompute: $ad = 8$ and $bc = 3$. What is $8 - 3$?" }
+                ]
+            },
+            {
+                "id": "um_14_12",
+                "prompt": "What does a determinant of $0$ indicate?",
+                "hint": "Zero area scaling flattens the space.",
+                "answerOptions": [
+                    { "text": "Space collapses to a lower dimension and the columns are dependent", "correct": true, "rationale": "Yes. A zero determinant squishes the plane onto a line or point, so the columns are linearly dependent." },
+                    { "text": "The transformation is a pure rotation", "rationale": "A rotation has determinant $1$. What does zero area scaling do?" },
+                    { "text": "Areas are doubled", "rationale": "Doubling is determinant $2$. What does factor $0$ do?" },
+                    { "text": "Every vector is fixed", "rationale": "That is the identity, determinant $1$. What does determinant $0$ imply?" }
+                ]
+            },
+            {
+                "id": "um_14_13",
+                "prompt": "What does a negative determinant indicate?",
+                "hint": "The sign tracks orientation.",
+                "answerOptions": [
+                    { "text": "The transformation reverses orientation (a flip)", "correct": true, "rationale": "Yes. A negative determinant reverses orientation, like a reflection; its magnitude still gives area scaling." },
+                    { "text": "Areas become negative", "rationale": "Area magnitude stays positive; the sign tracks orientation. What does it flip?" },
+                    { "text": "The matrix is not invertible", "rationale": "Invertibility fails only at $0$. What does a negative sign indicate?" },
+                    { "text": "All eigenvalues are negative", "rationale": "The sign is the product of eigenvalues, not each one. What orientation effect does it signal?" }
+                ]
+            },
+            {
+                "id": "um_14_14",
+                "prompt": "What does a change of basis matrix do?",
+                "hint": "It relabels the same vector in new coordinates.",
+                "answerOptions": [
+                    { "text": "It converts a vector's coordinates from one basis to another", "correct": true, "rationale": "Yes. It relabels the same vector in a different coordinate system." },
+                    { "text": "It changes the vector into a different vector", "rationale": "The vector is unchanged; only coordinates change. What does it translate?" },
+                    { "text": "It computes a vector's length", "rationale": "Length is unrelated. What does it convert?" },
+                    { "text": "It always rotates by ninety degrees", "rationale": "It is general, not a fixed rotation. What does it convert?" }
+                ]
+            },
+            {
+                "id": "um_14_15",
+                "prompt": "To express a transformation $A$ in a new basis given by matrix $P$, which formula applies?",
+                "hint": "Translate in, apply $A$, translate back.",
+                "answerOptions": [
+                    { "text": "$P^{-1} A P$", "correct": true, "rationale": "Yes. The similarity transform $P^{-1} A P$ rewrites $A$ in the new basis." },
+                    { "text": "$P A P^{-1}$", "rationale": "Check which factor converts the input first. What goes on the right of $A$?" },
+                    { "text": "$A P$", "rationale": "You must translate back after applying $A$. What completes the conjugation?" },
+                    { "text": "$P^{-1} A$", "rationale": "The input must be converted into the original basis first. What goes on the right?" }
+                ]
+            },
+            {
+                "id": "um_14_16",
+                "prompt": "Why is an eigenbasis a particularly useful change of basis?",
+                "hint": "The transformation becomes simple independent scalings.",
+                "answerOptions": [
+                    { "text": "The matrix becomes diagonal, scaling each axis independently", "correct": true, "rationale": "Yes. In an eigenbasis the matrix is diagonal, simplifying powers and exponentials." },
+                    { "text": "The matrix becomes the zero matrix", "rationale": "Diagonalization scales axes, not annihilates them. What form results?" },
+                    { "text": "The determinant becomes $1$", "rationale": "The determinant is unchanged by a basis change. What structure does the matrix gain?" },
+                    { "text": "The eigenvalues all vanish", "rationale": "Eigenvalues become the diagonal entries. What form does the matrix take?" }
+                ]
+            },
+            {
+                "id": "um_14_17",
+                "prompt": "What equation defines an eigenvector $\\mathbf{v}$ of $A$ with eigenvalue $\\lambda$?",
+                "hint": "The matrix only scales the eigenvector.",
+                "answerOptions": [
+                    { "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$ with $\\mathbf{v}\\neq\\mathbf{0}$", "correct": true, "rationale": "Yes. An eigenvector is a nonzero vector that $A$ only scales by $\\lambda$." },
+                    { "text": "$A\\mathbf{v} = \\mathbf{0}$ with $\\mathbf{v}\\neq\\mathbf{0}$", "rationale": "That is the special case $\\lambda = 0$. What is the general equation?" },
+                    { "text": "$A\\mathbf{v} = \\mathbf{v} + \\lambda$", "rationale": "A scalar cannot be added to a vector. How should $\\lambda$ act?" },
+                    { "text": "$A + \\lambda\\mathbf{v} = \\mathbf{0}$", "rationale": "The matrix multiplies the vector. What is the multiplicative relation?" }
+                ]
+            },
+            {
+                "id": "um_14_18",
+                "prompt": "The eigenvalues of $A$ are the roots of which equation?",
+                "hint": "They make $A - \\lambda I$ singular.",
+                "answerOptions": [
+                    { "text": "$\\det(A - \\lambda I) = 0$", "correct": true, "rationale": "Yes. Eigenvalues are roots of the characteristic equation $\\det(A - \\lambda I) = 0$." },
+                    { "text": "$\\det(A) = \\lambda$", "rationale": "Eigenvalues come from a determinant set to zero, not the determinant itself. What is the equation?" },
+                    { "text": "$A - \\lambda I = 0$", "rationale": "Only the determinant must vanish, not the whole matrix. What is the condition?" },
+                    { "text": "$\\text{tr}(A) = \\lambda$", "rationale": "The trace is the sum of eigenvalues, not the defining equation. What gives each $\\lambda$?" }
+                ]
+            },
+            {
+                "id": "um_14_19",
+                "prompt": "What are the eigenvalues of the matrix with rows $(4, 0)$ and $(0, 7)$?",
+                "hint": "A diagonal matrix exposes its eigenvalues on the diagonal.",
+                "answerOptions": [
+                    { "text": "$4$ and $7$", "correct": true, "rationale": "Correct. The diagonal entries are the eigenvalues." },
+                    { "text": "$0$ and $0$", "rationale": "The off-diagonal zeros are not the eigenvalues. Which entries are?" },
+                    { "text": "$11$ and $0$", "rationale": "The trace $11$ is the sum, not an eigenvalue. What are the diagonal entries?" },
+                    { "text": "$28$ and $1$", "rationale": "The product $28$ is the determinant. What sit on the diagonal?" }
+                ]
+            },
+            {
+                "id": "um_14_20",
+                "prompt": "For any matrix, the sum of the eigenvalues equals which quantity?",
+                "hint": "Add the diagonal entries.",
+                "answerOptions": [
+                    { "text": "The trace", "correct": true, "rationale": "Yes. The eigenvalues sum to the trace." },
+                    { "text": "The determinant", "rationale": "The determinant is the product of eigenvalues, not the sum. What gives the sum?" },
+                    { "text": "The rank", "rationale": "Rank counts independent directions. What invariant equals the eigenvalue sum?" },
+                    { "text": "Zero, always", "rationale": "The sum is generally nonzero. Which invariant matches it?" }
+                ]
+            },
+            {
+                "id": "um_14_21",
+                "prompt": "For any matrix, the product of the eigenvalues equals which quantity?",
+                "hint": "It is the area or volume scaling factor.",
+                "answerOptions": [
+                    { "text": "The determinant", "correct": true, "rationale": "Yes. The eigenvalues multiply to the determinant." },
+                    { "text": "The trace", "rationale": "The trace is the sum, not the product. What invariant equals the product?" },
+                    { "text": "The number of columns", "rationale": "Column count is fixed by size. What invariant equals the eigenvalue product?" },
+                    { "text": "One, always", "rationale": "The product is generally not $1$. Which invariant matches it?" }
+                ]
+            },
+            {
+                "id": "um_14_22",
+                "prompt": "For a $2\\times 2$ matrix, the eigenvalues are roots of which quadratic?",
+                "hint": "Built from the trace and determinant.",
+                "answerOptions": [
+                    { "text": "$\\lambda^2 - (\\text{tr}\\,A)\\lambda + \\det A = 0$", "correct": true, "rationale": "Yes. The characteristic equation is $\\lambda^2 - (\\text{tr})\\lambda + \\det = 0$." },
+                    { "text": "$\\lambda^2 + (\\text{tr}\\,A)\\lambda + \\det A = 0$", "rationale": "The trace term is negative. What is the correct sign?" },
+                    { "text": "$\\lambda^2 - (\\det A)\\lambda + \\text{tr}\\,A = 0$", "rationale": "Trace and determinant roles are swapped. Which multiplies $\\lambda$?" },
+                    { "text": "$\\lambda^2 = \\text{tr}\\,A + \\det A$", "rationale": "The structure is a full quadratic in $\\lambda$. What is it?" }
+                ]
+            },
+            {
+                "id": "um_14_23",
+                "prompt": "Use the trick $\\lambda = m \\pm \\sqrt{m^2 - p}$ on rows $(2, 1)$ and $(1, 2)$: trace $4$, determinant $3$.",
+                "hint": "Here $m = 2$, $p = 3$.",
+                "answerOptions": [
+                    { "text": "$3$ and $1$", "correct": true, "rationale": "Correct. $\\lambda = 2 \\pm \\sqrt{4 - 3} = 2 \\pm 1$, giving $3$ and $1$." },
+                    { "text": "$4$ and $0$", "rationale": "Use $\\sqrt{m^2 - p} = 1$. What is $2 \\pm 1$?" },
+                    { "text": "$2$ and $2$", "rationale": "The discriminant $1$ is nonzero. What is $2 \\pm 1$?" },
+                    { "text": "$3$ and $-1$", "rationale": "Both roots are $2$ plus or minus $1$. What is $2 - 1$?" }
+                ]
+            },
+            {
+                "id": "um_14_24",
+                "prompt": "What are the eigenvalues of the upper triangular matrix with rows $(5, 9)$ and $(0, 2)$?",
+                "hint": "A triangular matrix shows eigenvalues on the diagonal.",
+                "answerOptions": [
+                    { "text": "$5$ and $2$", "correct": true, "rationale": "Correct. The diagonal entries $5$ and $2$ are the eigenvalues; the off-diagonal $9$ does not affect them." },
+                    { "text": "$5$ and $9$", "rationale": "The off-diagonal $9$ is not an eigenvalue. Which entries are?" },
+                    { "text": "$9$ and $2$", "rationale": "The eigenvalues are the diagonal entries. What are they?" },
+                    { "text": "$7$ and $11$", "rationale": "Those are not diagonal entries. Where do triangular eigenvalues sit?" }
+                ]
+            },
+            {
+                "id": "um_14_25",
+                "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$, which trial solution leads to the eigenvalue problem?",
+                "hint": "A fixed direction with exponential time dependence.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ for a constant vector $\\mathbf{v}$", "correct": true, "rationale": "Yes. This trial turns the system into the eigenvalue equation." },
+                    { "text": "$\\mathbf{x} = \\lambda t\\,\\mathbf{v}$", "rationale": "Linear-in-$t$ growth does not solve the system. What time dependence does?" },
+                    { "text": "$\\mathbf{x} = e^{\\lambda t}$ (scalar)", "rationale": "The state is a vector, so a direction $\\mathbf{v}$ is needed. What is the full trial?" },
+                    { "text": "$\\mathbf{x} = \\sin(\\lambda t)\\mathbf{v}$", "rationale": "The natural first-order trial is exponential. What form is it?" }
+                ]
+            },
+            {
+                "id": "um_14_26",
+                "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ gives what?",
+                "hint": "The derivative brings down $\\lambda$; the exponential cancels.",
+                "answerOptions": [
+                    { "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$", "correct": true, "rationale": "Yes. It reduces to the eigenvalue equation $A\\mathbf{v} = \\lambda\\mathbf{v}$." },
+                    { "text": "$A\\mathbf{v} = \\mathbf{0}$", "rationale": "The left side gives $\\lambda\\mathbf{v}$, not zero. What equation results?" },
+                    { "text": "$\\mathbf{v}' = \\lambda\\mathbf{v}$", "rationale": "The vector $\\mathbf{v}$ is constant. What relation appears?" },
+                    { "text": "$A = \\lambda I$", "rationale": "That forces every vector to be an eigenvector. What weaker equation results?" }
+                ]
+            },
+            {
+                "id": "um_14_27",
+                "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$ with eigenpairs $(\\lambda_1,\\mathbf{v}_1)$ and $(\\lambda_2,\\mathbf{v}_2)$, what is the general solution?",
+                "hint": "Superpose the two eigensolutions with constants.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$", "correct": true, "rationale": "Yes. The general solution superposes the eigensolutions." },
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_2 + c_2 e^{\\lambda_2 t}\\mathbf{v}_1$", "rationale": "Each exponential pairs with its own eigenvector. Which vector goes with $\\lambda_1$?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$", "rationale": "The eigenvectors must appear in a vector solution. What multiplies each exponential?" },
+                    { "text": "$\\mathbf{x} = (c_1 + c_2)e^{(\\lambda_1+\\lambda_2)t}\\mathbf{v}_1$", "rationale": "The eigenvalues do not merge into one exponent. How are the eigensolutions combined?" }
+                ]
+            },
+            {
+                "id": "um_14_28",
+                "prompt": "For real eigenvalues, what does $\\lambda < 0$ imply for the solution as $t \\to \\infty$?",
+                "hint": "Look at the sign in $e^{\\lambda t}$.",
+                "answerOptions": [
+                    { "text": "The solution decays toward the origin", "correct": true, "rationale": "Yes. With $\\lambda < 0$ the factor $e^{\\lambda t}$ decays to zero." },
+                    { "text": "The solution grows without bound", "rationale": "Growth needs $\\lambda > 0$. What does a negative exponent do?" },
+                    { "text": "The solution oscillates", "rationale": "Oscillation needs complex eigenvalues. What do real negative ones do?" },
+                    { "text": "The solution stays constant", "rationale": "A constant needs $\\lambda = 0$. What does $\\lambda < 0$ give?" }
+                ]
+            },
+            {
+                "id": "um_14_29",
+                "prompt": "The matrix with rows $(1, 0)$ and $(0, -2)$ has eigenvalues $1$ and $-2$ with eigenvectors $(1,0)$ and $(0,1)$. What is the general solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+                "hint": "Pair each eigenvalue with its eigenvector.",
+                "answerOptions": [
+                    { "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{-2t}(0, 1)$", "correct": true, "rationale": "Correct. Eigenvalue $1$ pairs with $(1,0)$ and $-2$ pairs with $(0,1)$." },
+                    { "text": "$\\mathbf{x} = c_1 e^{-2t}(1, 0) + c_2 e^{t}(0, 1)$", "rationale": "Match each exponent to its own eigenvector. Which eigenvalue belongs to $(1,0)$?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{2t}(0, 1)$", "rationale": "The second eigenvalue is $-2$, not $2$. What exponent goes with $(0,1)$?" },
+                    { "text": "$\\mathbf{x} = c_1 e^{t} + c_2 e^{-2t}$", "rationale": "The eigenvectors must appear. What multiplies each exponential?" }
+                ]
+            },
+            {
+                "id": "um_14_30",
+                "prompt": "If $A$ has complex eigenvalues, what behavior do the solutions of $\\mathbf{x}' = A\\mathbf{x}$ show?",
+                "hint": "The imaginary part brings rotation.",
+                "answerOptions": [
+                    { "text": "Oscillation, from the sine and cosine the complex parts produce", "correct": true, "rationale": "Yes. Complex eigenvalues give oscillatory, spiraling solutions." },
+                    { "text": "Pure exponential decay only", "rationale": "Pure decay comes from real negative eigenvalues. What does the imaginary part add?" },
+                    { "text": "Constant solutions", "rationale": "Those need a zero eigenvalue. What does a nonzero imaginary part introduce?" },
+                    { "text": "Linear growth in $t$", "rationale": "That signals repeated eigenvalues. What do complex eigenvalues give?" }
                 ]
             }
         ]
