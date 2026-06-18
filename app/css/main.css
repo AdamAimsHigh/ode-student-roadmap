@@ -102,6 +102,106 @@ body {
     background: var(--accent-soft);
 }
 
+/* Global navigation dropdown, CSS-only via :hover and :focus-within */
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.nav-dropdown-trigger:hover,
+.nav-dropdown:focus-within .nav-dropdown-trigger {
+    background: var(--accent-soft);
+}
+
+.nav-dropdown-trigger:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Indicator arrow, rotates on expansion */
+
+.nav-dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-arrow,
+.nav-dropdown:focus-within .nav-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* The menu panel, hidden until hover or focus-within */
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 1100;
+    min-width: 12rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
+
+.nav-dropdown-menu li {
+    margin: 0;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    outline: none;
+}
+
 /* Progress banner */
 
 .progress-banner {
