@@ -361,6 +361,48 @@ body {
     align-self: stretch;
 }
 
+/* Action row holding the cheat sheet download button, wraps on narrow screens. */
+.practice-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Practice problem list, a plain numbered list with comfortable spacing. */
+.practice-problem-list {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.practice-problem-list li {
+    margin-bottom: 0.85rem;
+    line-height: 1.55;
+}
+
+/* The solutions block sits behind the toggle and is set apart with an accent
+   top edge so it reads as a clearly separate section from the problems above. */
+.practice-set-solutions {
+    border-top: 2px solid var(--accent-color);
+    padding-top: 1rem;
+}
+
+/* Each solution becomes a soft panel with an accent left bar, so a revealed
+   solution is visually distinct from the practice problems. */
+.practice-solution-list {
+    list-style-position: inside;
+    margin: 0;
+    padding-left: 0;
+}
+
+.practice-solution-list li {
+    margin-bottom: 0.85rem;
+    line-height: 1.55;
+    padding: 0.6rem 0.85rem;
+    border-left: 3px solid var(--accent-color);
+    background: var(--panel-bg);
+    border-radius: 0 8px 8px 0;
+}
+
 /* Progress banner */
 
 .progress-banner {

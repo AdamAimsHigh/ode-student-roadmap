@@ -6,53 +6,62 @@
    when Guided Pathway mode is active, keyed by the global module sequence. */
 
 /* Downloadable curriculum materials, keyed by unit array index (0 through 18).
-   Every unit gets a primary cheat sheet built from its index by the renderer;
-   this map adds the optional focused topic guides that some units carry. Each
-   subtopic has a display title and a file name resolved under app/assets/pdfs/.
-   The files are scaffolded targets, the index lists them before the PDFs land. */
+   Every unit carries a primary cheat sheet "file" resolved under
+   app/assets/pdfs/, and some units add an array of focused topic guides, each
+   with its own display title and file. The files are scaffolded targets, the
+   index lists them before the PDFs land. */
 const AVAILABLE_MATERIALS = {
-    9: { subtopics: [
+    0: { file: "Unit-0-Cheat-Sheet.pdf" },
+    1: { file: "Unit-1-Cheat-Sheet.pdf" },
+    2: { file: "Unit-2-Cheat-Sheet.pdf" },
+    3: { file: "Unit-3-Cheat-Sheet.pdf" },
+    4: { file: "Unit-4-Cheat-Sheet.pdf" },
+    5: { file: "Unit-5-Cheat-Sheet.pdf" },
+    6: { file: "Unit-6-Cheat-Sheet.pdf" },
+    7: { file: "Unit-7-Cheat-Sheet.pdf" },
+    8: { file: "Unit-8-Cheat-Sheet.pdf" },
+    9: { file: "Unit-9-Cheat-Sheet.pdf", subtopics: [
         { title: "Abel's Identity", file: "Unit-9-Abels-Identity.pdf" },
         { title: "The Wronskian and Independence", file: "Unit-9-Wronskian.pdf" },
         { title: "Reduction of Order", file: "Unit-9-Reduction-of-Order.pdf" },
         { title: "The Cauchy-Euler Equation", file: "Unit-9-Cauchy-Euler.pdf" }
     ] },
-    10: { subtopics: [
+    10: { file: "Unit-10-Cheat-Sheet.pdf", subtopics: [
         { title: "Exponential Response Formula", file: "Unit-10-Exponential-Response-Formula.pdf" },
         { title: "Variation of Parameters", file: "Unit-10-Variation-of-Parameters.pdf" },
         { title: "The Annihilator Method", file: "Unit-10-Annihilator-Method.pdf" },
         { title: "Undetermined Coefficients Guesses", file: "Unit-10-Undetermined-Coefficients.pdf" }
     ] },
-    11: { subtopics: [
+    11: { file: "Unit-11-Cheat-Sheet.pdf", subtopics: [
         { title: "The Damping Discriminant", file: "Unit-11-Damping-Discriminant.pdf" },
         { title: "Forced Vibrations and Resonance", file: "Unit-11-Forced-Vibrations.pdf" }
     ] },
-    12: { subtopics: [
+    12: { file: "Unit-12-Cheat-Sheet.pdf", subtopics: [
         { title: "Laplace Transform Table", file: "Unit-12-Laplace-Table.pdf" },
         { title: "Partial Fractions for Inverses", file: "Unit-12-Partial-Fractions.pdf" },
         { title: "Heaviside and Dirac Delta", file: "Unit-12-Heaviside-and-Delta.pdf" }
     ] },
-    13: { subtopics: [
+    13: { file: "Unit-13-Cheat-Sheet.pdf", subtopics: [
         { title: "The Frobenius Method", file: "Unit-13-Frobenius-Method.pdf" },
         { title: "Legendre and Bessel Equations", file: "Unit-13-Legendre-and-Bessel.pdf" }
     ] },
-    14: { subtopics: [
+    14: { file: "Unit-14-Cheat-Sheet.pdf", subtopics: [
         { title: "Eigenvalues and Eigenvectors", file: "Unit-14-Eigenvalues-and-Eigenvectors.pdf" },
         { title: "The Determinant and Change of Basis", file: "Unit-14-Determinant-and-Change-of-Basis.pdf" }
     ] },
-    15: { subtopics: [
+    15: { file: "Unit-15-Cheat-Sheet.pdf", subtopics: [
         { title: "The Matrix Exponential", file: "Unit-15-Matrix-Exponential.pdf" },
         { title: "Fundamental Matrices", file: "Unit-15-Fundamental-Matrices.pdf" }
     ] },
-    16: { subtopics: [
+    16: { file: "Unit-16-Cheat-Sheet.pdf", subtopics: [
         { title: "Phase Plane Classification", file: "Unit-16-Phase-Plane-Classification.pdf" },
         { title: "Linearization and the Jacobian", file: "Unit-16-Linearization.pdf" }
     ] },
-    17: { subtopics: [
+    17: { file: "Unit-17-Cheat-Sheet.pdf", subtopics: [
         { title: "Sturm-Liouville Theory", file: "Unit-17-Sturm-Liouville.pdf" },
         { title: "Orthogonal Functions", file: "Unit-17-Orthogonal-Functions.pdf" }
     ] },
-    18: { subtopics: [
+    18: { file: "Unit-18-Cheat-Sheet.pdf", subtopics: [
         { title: "Computing Fourier Series", file: "Unit-18-Computing-Fourier-Series.pdf" },
         { title: "The Heat and Wave Equations", file: "Unit-18-Heat-and-Wave-Equations.pdf" }
     ] }
@@ -309,16 +318,35 @@ function renderPracticeSets(container) {
     container.appendChild(grid);
 }
 
+/* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
+   widgets: inline math is wrapped in single dollar signs and display math in
+   double dollar signs. Safe to call when the auto render script is absent. */
+function renderPracticeMath(el) {
+    if (typeof renderMathInElement === "function") {
+        renderMathInElement(el, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false }
+            ]
+        });
+    }
+}
+
 /* The Practice Set sub-view for a single unit, the second level of the
    directory. Renders a back button to the Practice Sets index, the unit title,
-   a Practice Problems section, and a Solutions section that stays hidden behind
-   a toggle so the answers do not spoil the practice. The problem and solution
-   content is a placeholder for now and will be filled in later. */
+   an action row with the cheat sheet PDF download, a Practice Problems section
+   drawn from PRACTICE_DATA, and a Solutions section that stays hidden behind a
+   toggle so the answers do not spoil the practice. Units without practice data
+   yet show a short coming soon note in each section. */
 function renderPracticeSetDetail(container, unitIndex) {
     container.innerHTML = "";
 
     const unitData = CURRICULUM[unitIndex];
+    const materials = AVAILABLE_MATERIALS[unitIndex];
+    const practice = PRACTICE_DATA[unitIndex];
+    const problems = (practice && practice.problems) || [];
 
+    // Back button to the Practice Sets index.
     const nav = document.createElement("div");
     nav.className = "unit-detail-nav";
 
@@ -333,6 +361,7 @@ function renderPracticeSetDetail(container, unitIndex) {
     nav.appendChild(backBtn);
     container.appendChild(nav);
 
+    // Unit title header.
     const intro = document.createElement("div");
     intro.className = "toc-intro";
 
@@ -348,24 +377,43 @@ function renderPracticeSetDetail(container, unitIndex) {
     intro.appendChild(sub);
     container.appendChild(intro);
 
-    // Practice Problems section.
+    // Action row: download the unit cheat sheet PDF.
+    const actionRow = document.createElement("div");
+    actionRow.className = "practice-action-row";
+
+    const download = document.createElement("a");
+    download.className = "pdf-download-btn";
+    download.href = "assets/pdfs/" + materials.file;
+    download.setAttribute("download", "");
+    download.textContent = "Download Unit " + unitIndex + " Cheat Sheet (PDF)";
+    actionRow.appendChild(download);
+    container.appendChild(actionRow);
+
+    // Practice Problems section, rendered from PRACTICE_DATA as an ordered list.
     const problemsSection = document.createElement("section");
     problemsSection.className = "practice-set-section";
 
     const problemsHeader = document.createElement("h2");
     problemsHeader.className = "module-title";
     problemsHeader.textContent = "Practice Problems";
-
-    const problemsBody = document.createElement("div");
-    problemsBody.className = "practice-set-problems";
-
-    const problemsPlaceholder = document.createElement("p");
-    problemsPlaceholder.className = "static-page-placeholder";
-    problemsPlaceholder.textContent = "Practice problems loading...";
-    problemsBody.appendChild(problemsPlaceholder);
-
     problemsSection.appendChild(problemsHeader);
-    problemsSection.appendChild(problemsBody);
+
+    if (problems.length) {
+        const list = document.createElement("ol");
+        list.className = "practice-problem-list";
+        problems.forEach(function (item) {
+            const li = document.createElement("li");
+            li.className = "practice-problem";
+            li.textContent = item.problem;
+            list.appendChild(li);
+        });
+        problemsSection.appendChild(list);
+    } else {
+        const note = document.createElement("p");
+        note.className = "static-page-placeholder";
+        note.textContent = "Practice problems for this unit are coming soon.";
+        problemsSection.appendChild(note);
+    }
     container.appendChild(problemsSection);
 
     // Solutions section, hidden by default behind a toggle so the answers stay
@@ -385,13 +433,24 @@ function renderPracticeSetDetail(container, unitIndex) {
     const solutionsHeader = document.createElement("h2");
     solutionsHeader.className = "module-title";
     solutionsHeader.textContent = "Solutions";
-
-    const solutionsPlaceholder = document.createElement("p");
-    solutionsPlaceholder.className = "static-page-placeholder";
-    solutionsPlaceholder.textContent = "Solutions loading...";
-
     solutionsBody.appendChild(solutionsHeader);
-    solutionsBody.appendChild(solutionsPlaceholder);
+
+    if (problems.length) {
+        const solList = document.createElement("ol");
+        solList.className = "practice-solution-list";
+        problems.forEach(function (item) {
+            const li = document.createElement("li");
+            li.className = "practice-solution";
+            li.textContent = item.solution;
+            solList.appendChild(li);
+        });
+        solutionsBody.appendChild(solList);
+    } else {
+        const note = document.createElement("p");
+        note.className = "static-page-placeholder";
+        note.textContent = "Solutions for this unit are coming soon.";
+        solutionsBody.appendChild(note);
+    }
 
     toggleBtn.addEventListener("click", function () {
         solutionsBody.hidden = !solutionsBody.hidden;
@@ -401,6 +460,9 @@ function renderPracticeSetDetail(container, unitIndex) {
     solutionsSection.appendChild(toggleBtn);
     solutionsSection.appendChild(solutionsBody);
     container.appendChild(solutionsSection);
+
+    // Render all KaTeX in the problems and solutions in one pass.
+    renderPracticeMath(container);
 }
 
 /* The Quizzes Index route, the top level of a two level directory. A grid of
