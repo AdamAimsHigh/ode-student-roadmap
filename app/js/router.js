@@ -46,14 +46,75 @@ function renderCurriculum() {
     const container = document.getElementById("app-content");
     if (!container) return;
 
-    const unitIndex = unitIndexFromHash();
-    if (unitIndex === null) {
-        renderTableOfContents(container);
+    // Static navigation routes from the global header dropdown take priority
+    // over the unit views. Each maps a hash to a scaffolded page.
+    const hash = window.location.hash;
+    if (hash === "#practice-sets") {
+        renderPracticeSets(container);
+    } else if (hash === "#cheat-sheets") {
+        renderCheatSheets(container);
+    } else if (hash === "#quizzes-index") {
+        renderStaticPage(container, "Quizzes Index", "Content coming soon.");
+    } else if (hash === "#interactives") {
+        renderStaticPage(container, "Interactives", "Content coming soon.");
     } else {
-        renderUnitDetail(container, unitIndex);
+        const unitIndex = unitIndexFromHash();
+        if (unitIndex === null) {
+            renderTableOfContents(container);
+        } else {
+            renderUnitDetail(container, unitIndex);
+        }
     }
 
     updateProgressBanner();
+}
+
+/* Shared scaffolding for the static navigation routes. Renders a back button,
+   a themed page title, and a placeholder message. The real content for each of
+   these pages is future work, so for now they announce that it is coming. */
+function renderStaticPage(container, title, message) {
+    container.innerHTML = "";
+
+    const nav = document.createElement("div");
+    nav.className = "unit-detail-nav";
+
+    const backBtn = document.createElement("button");
+    backBtn.type = "button";
+    backBtn.className = "back-to-toc-btn";
+    backBtn.textContent = "Back to Table of Contents";
+    backBtn.addEventListener("click", function () {
+        window.location.hash = "";
+    });
+
+    nav.appendChild(backBtn);
+    container.appendChild(nav);
+
+    const section = document.createElement("section");
+    section.className = "static-page";
+
+    const heading = document.createElement("h1");
+    heading.className = "static-page-title";
+    heading.textContent = title;
+
+    const placeholder = document.createElement("p");
+    placeholder.className = "static-page-placeholder";
+    placeholder.textContent = message;
+
+    section.appendChild(heading);
+    section.appendChild(placeholder);
+    container.appendChild(section);
+}
+
+/* The Practice Sets route. Scaffolding only for now. */
+function renderPracticeSets(container) {
+    renderStaticPage(container, "Practice Sets", "Content coming soon.");
+}
+
+/* The Cheat Sheets route. This page will host downloadable PDF links from
+   app/assets/pdfs/ using the reusable pdf-download-btn component. Scaffolding
+   only for now. */
+function renderCheatSheets(container) {
+    renderStaticPage(container, "Cheat Sheets (PDFs)", "Content coming soon.");
 }
 
 /* The Table of Contents view: a grid of unit cards, each showing its title,
