@@ -5,6 +5,59 @@
    browser back button works. Gateway locking still runs at the module level
    when Guided Pathway mode is active, keyed by the global module sequence. */
 
+/* Downloadable curriculum materials, keyed by unit array index (0 through 18).
+   Every unit gets a primary cheat sheet built from its index by the renderer;
+   this map adds the optional focused topic guides that some units carry. Each
+   subtopic has a display title and a file name resolved under app/assets/pdfs/.
+   The files are scaffolded targets, the index lists them before the PDFs land. */
+const AVAILABLE_MATERIALS = {
+    9: { subtopics: [
+        { title: "Abel's Identity", file: "Unit-9-Abels-Identity.pdf" },
+        { title: "The Wronskian and Independence", file: "Unit-9-Wronskian.pdf" },
+        { title: "Reduction of Order", file: "Unit-9-Reduction-of-Order.pdf" },
+        { title: "The Cauchy-Euler Equation", file: "Unit-9-Cauchy-Euler.pdf" }
+    ] },
+    10: { subtopics: [
+        { title: "Exponential Response Formula", file: "Unit-10-Exponential-Response-Formula.pdf" },
+        { title: "Variation of Parameters", file: "Unit-10-Variation-of-Parameters.pdf" },
+        { title: "The Annihilator Method", file: "Unit-10-Annihilator-Method.pdf" },
+        { title: "Undetermined Coefficients Guesses", file: "Unit-10-Undetermined-Coefficients.pdf" }
+    ] },
+    11: { subtopics: [
+        { title: "The Damping Discriminant", file: "Unit-11-Damping-Discriminant.pdf" },
+        { title: "Forced Vibrations and Resonance", file: "Unit-11-Forced-Vibrations.pdf" }
+    ] },
+    12: { subtopics: [
+        { title: "Laplace Transform Table", file: "Unit-12-Laplace-Table.pdf" },
+        { title: "Partial Fractions for Inverses", file: "Unit-12-Partial-Fractions.pdf" },
+        { title: "Heaviside and Dirac Delta", file: "Unit-12-Heaviside-and-Delta.pdf" }
+    ] },
+    13: { subtopics: [
+        { title: "The Frobenius Method", file: "Unit-13-Frobenius-Method.pdf" },
+        { title: "Legendre and Bessel Equations", file: "Unit-13-Legendre-and-Bessel.pdf" }
+    ] },
+    14: { subtopics: [
+        { title: "Eigenvalues and Eigenvectors", file: "Unit-14-Eigenvalues-and-Eigenvectors.pdf" },
+        { title: "The Determinant and Change of Basis", file: "Unit-14-Determinant-and-Change-of-Basis.pdf" }
+    ] },
+    15: { subtopics: [
+        { title: "The Matrix Exponential", file: "Unit-15-Matrix-Exponential.pdf" },
+        { title: "Fundamental Matrices", file: "Unit-15-Fundamental-Matrices.pdf" }
+    ] },
+    16: { subtopics: [
+        { title: "Phase Plane Classification", file: "Unit-16-Phase-Plane-Classification.pdf" },
+        { title: "Linearization and the Jacobian", file: "Unit-16-Linearization.pdf" }
+    ] },
+    17: { subtopics: [
+        { title: "Sturm-Liouville Theory", file: "Unit-17-Sturm-Liouville.pdf" },
+        { title: "Orthogonal Functions", file: "Unit-17-Orthogonal-Functions.pdf" }
+    ] },
+    18: { subtopics: [
+        { title: "Computing Fourier Series", file: "Unit-18-Computing-Fourier-Series.pdf" },
+        { title: "The Heat and Wave Equations", file: "Unit-18-Heat-and-Wave-Equations.pdf" }
+    ] }
+};
+
 /* Reads the URL hash and returns a valid unit index, or null for the Table
    of Contents. The hash form is "#unit-N" where N is the unit array index. */
 function unitIndexFromHash() {
@@ -54,7 +107,7 @@ function renderCurriculum() {
     } else if (hash === "#cheat-sheets") {
         renderCheatSheets(container);
     } else if (hash === "#quizzes-index") {
-        renderStaticPage(container, "Quizzes Index", "Content coming soon.");
+        renderQuizzesIndex(container);
     } else if (hash === "#interactives") {
         renderStaticPage(container, "Interactives", "Content coming soon.");
     } else {
@@ -105,16 +158,170 @@ function renderStaticPage(container, title, message) {
     container.appendChild(section);
 }
 
-/* The Practice Sets route. Scaffolding only for now. */
-function renderPracticeSets(container) {
-    renderStaticPage(container, "Practice Sets", "Content coming soon.");
+/* Builds the back button and the intro header shared by the materials index
+   pages, appends them to the container, and returns nothing. The grid that
+   follows is appended by each caller. Reuses the Table of Contents intro and
+   heading classes so the materials pages match the main curriculum styling. */
+function buildIndexShell(container, title, subhead) {
+    container.innerHTML = "";
+
+    const nav = document.createElement("div");
+    nav.className = "unit-detail-nav";
+
+    const backBtn = document.createElement("button");
+    backBtn.type = "button";
+    backBtn.className = "back-to-toc-btn";
+    backBtn.textContent = "Back to Table of Contents";
+    backBtn.addEventListener("click", function () {
+        window.location.hash = "";
+    });
+
+    nav.appendChild(backBtn);
+    container.appendChild(nav);
+
+    const intro = document.createElement("div");
+    intro.className = "toc-intro";
+
+    const heading = document.createElement("h1");
+    heading.className = "toc-heading";
+    heading.textContent = title;
+
+    const sub = document.createElement("p");
+    sub.className = "toc-subhead";
+    sub.textContent = subhead;
+
+    intro.appendChild(heading);
+    intro.appendChild(sub);
+    container.appendChild(intro);
 }
 
-/* The Cheat Sheets route. This page will host downloadable PDF links from
-   app/assets/pdfs/ using the reusable pdf-download-btn component. Scaffolding
-   only for now. */
+/* The Cheat Sheets route. A data driven Table of Contents that mirrors the main
+   curriculum: one card per unit with a primary cheat sheet download, plus the
+   focused topic guides listed for that unit in AVAILABLE_MATERIALS. */
 function renderCheatSheets(container) {
-    renderStaticPage(container, "Cheat Sheets (PDFs)", "Content coming soon.");
+    buildIndexShell(container, "Cheat Sheets (PDFs)",
+        "Download a one page cheat sheet for each unit. Some units add focused topic guides.");
+
+    const grid = document.createElement("div");
+    grid.className = "toc-grid";
+
+    CURRICULUM.forEach(function (unitData, index) {
+        const card = document.createElement("div");
+        card.className = "materials-card";
+
+        const title = document.createElement("h3");
+        title.className = "materials-card-title";
+        title.textContent = unitData.unit;
+        card.appendChild(title);
+
+        const desc = document.createElement("p");
+        desc.className = "materials-card-desc";
+        desc.textContent = unitData.description;
+        card.appendChild(desc);
+
+        const primary = document.createElement("a");
+        primary.className = "pdf-download-btn";
+        primary.href = "assets/pdfs/Unit-" + index + "-Cheat-Sheet.pdf";
+        primary.setAttribute("download", "");
+        primary.textContent = "Download Unit " + index + " Cheat Sheet";
+        card.appendChild(primary);
+
+        const materials = AVAILABLE_MATERIALS[index];
+        if (materials && materials.subtopics && materials.subtopics.length) {
+            const wrap = document.createElement("div");
+            wrap.className = "materials-subtopics";
+
+            const label = document.createElement("p");
+            label.className = "materials-subtopics-label";
+            label.textContent = "Topic guides";
+            wrap.appendChild(label);
+
+            const list = document.createElement("ul");
+            list.className = "materials-subtopics-list";
+            materials.subtopics.forEach(function (sub) {
+                const li = document.createElement("li");
+                const link = document.createElement("a");
+                link.className = "pdf-download-link";
+                link.href = "assets/pdfs/" + sub.file;
+                link.setAttribute("download", "");
+                link.textContent = sub.title;
+                li.appendChild(link);
+                list.appendChild(li);
+            });
+            wrap.appendChild(list);
+            card.appendChild(wrap);
+        }
+
+        grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+}
+
+/* The Practice Sets route. The same per unit card structure as Cheat Sheets,
+   tailored for web based practice. The primary action opens the unit, whose
+   detail view already hosts the micro practice and the mastery quiz. A
+   dedicated HTML review guide will replace this target once those are built. */
+function renderPracticeSets(container) {
+    buildIndexShell(container, "Practice Sets",
+        "Open the web based practice set for each unit. Each set gathers the review and the quizzes for that unit.");
+
+    const grid = document.createElement("div");
+    grid.className = "toc-grid";
+
+    CURRICULUM.forEach(function (unitData, index) {
+        const card = document.createElement("div");
+        card.className = "materials-card";
+
+        const title = document.createElement("h3");
+        title.className = "materials-card-title";
+        title.textContent = unitData.unit;
+        card.appendChild(title);
+
+        const desc = document.createElement("p");
+        desc.className = "materials-card-desc";
+        desc.textContent = unitData.description;
+        card.appendChild(desc);
+
+        const open = document.createElement("a");
+        open.className = "pdf-download-btn";
+        open.href = "#unit-" + index;
+        open.textContent = "Open Unit " + index + " Practice Set";
+        card.appendChild(open);
+
+        grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+}
+
+/* The Quizzes Index route. A dashboard of every unit mastery quiz, each mounted
+   through the existing quiz engine launch card so its progress line and launch,
+   resume, or review button all behave exactly as they do inside a unit. The
+   shared mastery id means progress stays in sync with the unit detail view. */
+function renderQuizzesIndex(container) {
+    buildIndexShell(container, "Quizzes Index",
+        "Every unit mastery quiz in one place. Each card tracks your progress and launches the same thirty question runner.");
+
+    const grid = document.createElement("div");
+    grid.className = "toc-grid";
+
+    CURRICULUM.forEach(function (unitData) {
+        const mastery = QUIZ_DATA.unit_mastery[unitData.unit];
+        if (!mastery || !mastery.length) return;
+
+        const host = document.createElement("div");
+        host.className = "unit-mastery-host";
+        QuizEngine.mount(host, {
+            id: "mastery::" + unitData.unit,
+            title: unitData.unit,
+            intro: "Thirty questions across the whole unit. Track your score, and let any missed question point you back to its module.",
+            items: mastery
+        });
+        grid.appendChild(host);
+    });
+
+    container.appendChild(grid);
 }
 
 /* The Table of Contents view: a grid of unit cards, each showing its title,

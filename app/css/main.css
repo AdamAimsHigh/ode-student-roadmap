@@ -258,6 +258,92 @@ body {
     transform: translateY(1px);
 }
 
+/* Materials index pages (Cheat Sheets and Practice Sets), rendered by router.js.
+   The cards reuse the Table of Contents grid for responsive layout, and mirror
+   the unit card look as a static container that holds its own action buttons. */
+
+.materials-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px var(--shadow-color);
+}
+
+.materials-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.materials-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+/* The primary action button hugs its content rather than stretching the card. */
+.materials-card .pdf-download-btn {
+    align-self: flex-start;
+}
+
+.materials-subtopics {
+    border-top: 1px solid var(--panel-border);
+    padding-top: 0.75rem;
+}
+
+.materials-subtopics-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.materials-subtopics-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* A lighter link for each topic guide PDF, set apart from the solid primary
+   button above it by a small accent marker rather than a filled background. */
+.pdf-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+.pdf-download-link::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 2px;
+    background: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.pdf-download-link:hover {
+    background: var(--accent-soft);
+}
+
+.pdf-download-link:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
 /* Progress banner */
 
 .progress-banner {
