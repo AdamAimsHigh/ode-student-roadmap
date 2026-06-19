@@ -24,6 +24,7 @@
 \definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
 \definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
 \definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
+\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
 
 % ---------------------------------------------------------------------------
 % Subsection typography: headerblue numbered sub-module titles
@@ -85,6 +86,17 @@
     title={#1},
     boxrule=0.3pt, arc=1mm,
     left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 6. Crimson west-bordered warning box for common pitfalls.
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
 }
 
 \setlist[enumerate]{itemsep=4pt, topsep=4pt}

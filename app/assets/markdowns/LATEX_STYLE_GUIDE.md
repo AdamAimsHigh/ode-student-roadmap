@@ -13,7 +13,7 @@ The Unit 2 sources (`Unit-2-Cheat-Sheet.tex`, `Unit-2-Practice-Set.tex`,
 ## 1. Preamble Configuration
 
 Every source declares the same document class and package set, then defines the
-shared palette and the five custom boxes (Section 3).
+shared palette and the six custom boxes (Section 3).
 
 ```latex
 \documentclass[11pt]{article}
@@ -44,12 +44,14 @@ inline accent draws from this palette — no raw `blue!70!black`-style mixes.
 | `accentgreen`   | `#2E7D32` | Algorithms and laid-out methods                 |
 | `accentorange`  | `#E27A1E` | Formulas and final concept takeaways            |
 | `workpurple`    | `#A020F0` | Worked-example framing and live solution tracking (vibrant) |
+| `warnred`       | `#C0392B` | Crimson warning boxes for common pitfalls       |
 
 ```latex
 \definecolor{headerblue}{HTML}{1C569E}
 \definecolor{accentgreen}{HTML}{2E7D32}
 \definecolor{accentorange}{HTML}{E27A1E}
 \definecolor{workpurple}{HTML}{A020F0}
+\definecolor{warnred}{HTML}{C0392B}
 ```
 
 ### 1.2 Subsection Typography
@@ -106,8 +108,8 @@ carry a table of contents, but use the same numbered `\subsection` convention.
 
 ## 3. Box System (Unbreakable)
 
-Five custom `tcolorbox` components define the visual vocabulary. Shared rules for
-all five:
+Six custom `tcolorbox` components define the visual vocabulary. Shared rules for
+all six:
 
 - **Unbreakable.** No `breakable` parameter — every box stays whole on one page.
   The `breakable` library is *not* loaded; only `skins`.
@@ -167,6 +169,17 @@ all five:
     boxrule=0.3pt, arc=1mm,
     left=3mm, right=3mm, top=2mm, bottom=2mm
 }
+
+% 6. warningbox — Crimson West-Bordered Common Pitfall
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
 ```
 
 | Box          | Frame          | Distinction                                  | Use                                   |
@@ -176,6 +189,7 @@ all five:
 | `methodbox`  | `accentgreen`  | Standard rule `0.6pt`                         | Explicitly laid-out algorithm steps   |
 | `examplebox` | `workpurple`   | `3pt` west border, `sharp corners`           | Step-by-step worked examples          |
 | `conceptbox` | `accentorange` | Thin rule `0.3pt`                             | The closing concept takeaway          |
+| `warningbox` | `warnred`      | `3pt` crimson west border, `sharp corners`   | Common pitfalls and cautions          |
 
 ---
 
