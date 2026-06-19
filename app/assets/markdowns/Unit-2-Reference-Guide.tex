@@ -1,0 +1,398 @@
+% Unit 2: First Order Linear Differential Equations
+% Master Unit Reference Guide (Cheat Sheet, Problems, and Solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (2.1 to 2.5) and the
+% QUIZ_DATA micro-practice and unit-mastery items for Unit 2.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+
+\tcbuselibrary{skins, breakable}
+
+% ---------------------------------------------------------------------------
+% Custom colored boxes
+% ---------------------------------------------------------------------------
+
+% Blue overview box for the topics summary.
+\newtcolorbox{topicsbox}{
+    enhanced, breakable,
+    colback=blue!5!white, colframe=blue!70!black,
+    coltitle=white, fonttitle=\bfseries,
+    title=Unit 2 at a Glance: Core Sub-Topics,
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% Orange box for standard forms and master formulas.
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced, breakable,
+    colback=orange!8!white, colframe=orange!80!black,
+    coltitle=white, fonttitle=\bfseries,
+    title=#1,
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% Purple box with a thick left border for step-by-step worked examples.
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced, breakable,
+    colback=purple!4!white, colframe=purple!70!black,
+    coltitle=white, fonttitle=\bfseries,
+    title=#1,
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{purple!70!black},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 2: First Order Linear Differential Equations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Master Unit Reference Guide: Cheat Sheet, Problems, and Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}
+This unit assembles the core solving toolkit of first order theory. Each
+sub-topic below builds on the last, moving from raw integration techniques
+toward genuine physical models.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Separable Equations} --- splitting a rate law into a pure
+          $x$ side and a pure $y$ side, then integrating each independently.
+    \item \textbf{First-Order Linear Equations and Integrating Factors} ---
+          the standard form $y' + P(x)y = Q(x)$ and the factor that collapses
+          the left side into a single derivative.
+    \item \textbf{Initial Value Problems} --- using a known data point to pin
+          the arbitrary constant and select one curve from the solution family.
+    \item \textbf{Homogeneous Equations and Substitution} --- the
+          substitution $y = vx$ that reduces a degree-matched equation to a
+          separable one.
+    \item \textbf{Applications: Growth, Decay, and Newton's Law of Cooling}
+          --- the exponential models that these methods unlock.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\section*{Part I --- Condensed Cheat Sheet}
+
+\subsection*{2.1 Separable Equations}
+
+A first order equation is \emph{separable} when its right side factors into a
+function of $x$ alone times a function of $y$ alone --- that single structural
+test is the whole game. Once it factors, you divide and multiply until every
+$y$ rides with $dy$ and every $x$ rides with $dx$, then integrate both sides.
+
+\begin{formulabox}[Standard Form and Method: Separable]
+A separable equation and its solution scheme:
+\[
+    \frac{dy}{dx} = g(x)\,h(y)
+    \quad\Longrightarrow\quad
+    \int \frac{1}{h(y)}\,dy = \int g(x)\,dx + C.
+\]
+One constant $C$ suffices, since the two constants of integration merge into
+a single arbitrary constant.
+\end{formulabox}
+
+\noindent\textbf{Pitfall.} Dividing by $h(y)$ silently assumes $h(y) \neq 0$.
+Any constant value of $y$ that makes $h(y) = 0$ is an equilibrium solution that
+this step can quietly discard --- always check it separately.
+
+\begin{examplebox}[Worked Example 2.1: Solve $\frac{dy}{dx} = 6x^{2}y$]
+\textbf{Step 1.} Separate the variables:
+\[ \frac{1}{y}\,dy = 6x^{2}\,dx. \]
+\textbf{Step 2.} Integrate both sides:
+\[ \ln|y| = 2x^{3} + C. \]
+\textbf{Step 3.} Exponentiate to isolate $y$:
+\[ y = e^{2x^{3} + C} = C\,e^{2x^{3}}. \]
+The dropped solution $y = 0$ is recovered as the case $C = 0$.
+\end{examplebox}
+
+\subsection*{2.2 First-Order Linear Equations and Integrating Factors}
+
+A first order equation is \emph{linear} when $y$ and $y'$ each appear only to
+the first power and never multiply one another. Before reading off anything,
+you must normalize so the derivative carries coefficient one --- only then is
+$P(x)$ truly the coefficient of $y$.
+
+\begin{formulabox}[Standard Form and Integrating Factor]
+Standard form, integrating factor, and solution:
+\[
+    \frac{dy}{dx} + P(x)\,y = Q(x),
+    \qquad
+    \mu(x) = e^{\int P(x)\,dx},
+\]
+\[
+    \frac{d}{dx}\big[\mu(x)\,y\big] = \mu(x)\,Q(x)
+    \quad\Longrightarrow\quad
+    y = \frac{1}{\mu(x)}\left( \int \mu(x)\,Q(x)\,dx + C \right).
+\]
+\end{formulabox}
+
+\noindent The magic of $\mu(x)$ is that multiplying through turns the entire
+left side into the exact product-rule derivative $\frac{d}{dx}[\mu y]$ ---
+that is the single fact the whole method rests on.
+
+\begin{examplebox}[Worked Example 2.2: Solve $\frac{dy}{dx} + y = e^{x}$]
+\textbf{Step 1.} Read off $P(x) = 1$, so the integrating factor is
+\[ \mu = e^{\int 1\,dx} = e^{x}. \]
+\textbf{Step 2.} Multiply through; the left side collapses to a derivative:
+\[ \frac{d}{dx}\big[e^{x}y\big] = e^{x}\cdot e^{x} = e^{2x}. \]
+\textbf{Step 3.} Integrate both sides:
+\[ e^{x}y = \frac{1}{2}e^{2x} + C. \]
+\textbf{Step 4.} Divide by $e^{x}$:
+\[ y = \frac{1}{2}e^{x} + C e^{-x}. \]
+\end{examplebox}
+
+\subsection*{2.3 Initial Value Problems}
+
+The general solution of a first order equation is a whole family of curves
+indexed by one arbitrary constant. An \emph{initial condition} $y(x_0) = y_0$
+selects exactly one member --- it fixes the constant to the value that forces
+the curve through the given point.
+
+\begin{formulabox}[General versus Particular Solution]
+A first order equation needs exactly \textbf{one} initial condition. The
+general solution carries the free constant; the particular solution has it
+determined:
+\[
+    y = F(x) + C \;\;\xrightarrow{\;y(x_0)=y_0\;}\;\; C = y_0 - F(x_0).
+\]
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 2.3: Solve $\frac{dy}{dx} = 3x^{2}$, $\;y(1)=5$]
+\textbf{Step 1.} Integrate for the general solution:
+\[ y = x^{3} + C. \]
+\textbf{Step 2.} Apply $y(1) = 5$:
+\[ 5 = (1)^{3} + C \;\Longrightarrow\; C = 4. \]
+\textbf{Step 3.} State the particular solution:
+\[ y = x^{3} + 4. \]
+\end{examplebox}
+
+\subsection*{2.4 Homogeneous First-Order Equations and Substitution}
+
+A function $f(x,y)$ is \emph{homogeneous of degree $n$} when scaling both
+inputs pulls out a clean power of the scale factor: $f(tx, ty) = t^{n}f(x,y)$.
+An equation $M\,dx + N\,dy = 0$ is homogeneous when $M$ and $N$ share the same
+degree --- and that shared degree is precisely what lets the ratio
+substitution work.
+
+\begin{formulabox}[The Substitution $y = vx$]
+For a homogeneous equation, set
+\[
+    y = vx, \qquad \frac{dy}{dx} = v + x\frac{dv}{dx},
+\]
+which always reduces the equation to a \emph{separable} one in $v$ and $x$.
+After solving for $v$, back-substitute $v = \dfrac{y}{x}$.
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 2.4: Solve $\frac{dy}{dx} = \frac{x + 2y}{x}$]
+\textbf{Step 1.} Rewrite the right side and substitute $y = vx$:
+\[ \frac{dy}{dx} = 1 + 2\frac{y}{x} = 1 + 2v, \qquad v + x\frac{dv}{dx} = 1 + 2v. \]
+\textbf{Step 2.} Cancel $v$ and separate:
+\[ x\frac{dv}{dx} = 1 + v \;\Longrightarrow\; \frac{1}{1+v}\,dv = \frac{1}{x}\,dx. \]
+\textbf{Step 3.} Integrate and exponentiate:
+\[ \ln|1+v| = \ln|x| + C \;\Longrightarrow\; 1 + v = Cx. \]
+\textbf{Step 4.} Back-substitute $v = \frac{y}{x}$ and clear:
+\[ 1 + \frac{y}{x} = Cx \;\Longrightarrow\; y = Cx^{2} - x. \]
+\end{examplebox}
+
+\subsection*{2.5 Applications: Growth, Decay, and Newton's Law of Cooling}
+
+When a rate of change is proportional to the current amount, the solution is
+exponential --- this single idea drives population models, radioactive decay,
+and cooling alike.
+
+\begin{formulabox}[Exponential Models]
+Growth and decay:
+\[
+    \frac{dP}{dt} = kP \;\Longrightarrow\; P(t) = P_{0}e^{kt}
+    \qquad (k>0 \text{ grows},\; k<0 \text{ decays}),
+\]
+with doubling time $t = \dfrac{\ln 2}{k}$. Newton's law of cooling:
+\[
+    \frac{dT}{dt} = -k\,(T - T_{s}) \;\Longrightarrow\;
+    T(t) = T_{s} + (T_{0} - T_{s})\,e^{-kt},
+\]
+so $T \to T_{s}$ as $t \to \infty$.
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 2.5: A culture doubles in 3 hours]
+\textbf{Step 1.} The model $P = P_{0}e^{kt}$ doubles when $e^{3k} = 2$:
+\[ 3k = \ln 2 \;\Longrightarrow\; k = \frac{\ln 2}{3}. \]
+\textbf{Step 2.} The growth law is therefore
+\[ P(t) = P_{0}\,e^{(\ln 2 / 3)\,t} = P_{0}\,2^{\,t/3}. \]
+Every $3$ hours the population multiplies by two, as required.
+\end{examplebox}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% ===========================================================================
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order; they are graded from direct
+separation through linear factors, initial value problems, the homogeneous
+substitution, and a full physical model. Solutions follow in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item Solve $\dfrac{dy}{dx} = \dfrac{x}{y}$ by separation of variables.
+
+    \item Solve $\dfrac{dy}{dx} = e^{\,x - y}$.
+
+    \item Solve $\dfrac{dy}{dx} = y\cos x$, and identify any solution that is
+          lost when you divide by $y$.
+
+    \item Solve the linear equation $\dfrac{dy}{dx} + 3y = 6$ using an
+          integrating factor.
+
+    \item Solve $x\dfrac{dy}{dx} + y = x^{2}$ by first writing it in standard
+          linear form.
+
+    \item Solve $\dfrac{dy}{dx} + \dfrac{2}{x}\,y = x$.
+
+    \item Solve the initial value problem $\dfrac{dy}{dx} + 2y = 4$ with
+          $y(0) = 1$.
+
+    \item Solve the homogeneous equation $\dfrac{dy}{dx} = \dfrac{x + y}{x}$
+          using the substitution $y = vx$.
+
+    \item Solve the homogeneous equation
+          $\dfrac{dy}{dx} = \dfrac{x^{2} + y^{2}}{xy}$ using $y = vx$.
+
+    \item \textbf{(Application)} An object at $100^{\circ}$ is placed in a room
+          held at $20^{\circ}$. After $10$ minutes its temperature is
+          $60^{\circ}$. Find the temperature function $T(t)$ and determine how
+          long it takes the object to reach $30^{\circ}$.
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% ===========================================================================
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Separate, then integrate.
+\[ \textcolor{purple}{y\,dy = x\,dx} \]
+\[ \textcolor{purple}{\frac{y^{2}}{2} = \frac{x^{2}}{2} + C_{1}} \]
+\[ \textcolor{purple}{y^{2} = x^{2} + C} \qquad\text{(general solution).} \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad Split the exponential as
+$e^{x-y} = e^{x}e^{-y}$, then separate.
+\[ \textcolor{purple}{e^{\,y}\,dy = e^{\,x}\,dx} \]
+\[ \textcolor{purple}{e^{\,y} = e^{\,x} + C} \]
+\[ \textcolor{purple}{y = \ln\!\left(e^{\,x} + C\right)}. \]
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Separate (assuming $y \neq 0$), integrate,
+and exponentiate.
+\[ \textcolor{purple}{\frac{1}{y}\,dy = \cos x\,dx} \]
+\[ \textcolor{purple}{\ln|y| = \sin x + C} \]
+\[ \textcolor{purple}{y = C\,e^{\sin x}}. \]
+Dividing by $y$ assumed $y \neq 0$, so it dropped the equilibrium solution
+$\textcolor{purple}{y = 0}$ --- which is recovered as the special case $C = 0$.
+
+\medskip
+\noindent\textbf{Solution 4.}\quad Here $P = 3$, so the integrating factor is
+$\textcolor{purple}{\mu = e^{\int 3\,dx} = e^{3x}}$. Multiply through:
+\[ \textcolor{purple}{\frac{d}{dx}\big[e^{3x}y\big] = 6\,e^{3x}} \]
+\[ \textcolor{purple}{e^{3x}y = \int 6\,e^{3x}\,dx = 2\,e^{3x} + C} \]
+\[ \textcolor{purple}{y = 2 + C\,e^{-3x}}. \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Divide by $x$ to reach standard form:
+\[ \textcolor{purple}{\frac{dy}{dx} + \frac{1}{x}\,y = x}, \qquad
+   \textcolor{purple}{\mu = e^{\int (1/x)\,dx} = e^{\ln|x|} = x}. \]
+Multiply through and integrate:
+\[ \textcolor{purple}{\frac{d}{dx}\big[xy\big] = x\cdot x = x^{2}} \]
+\[ \textcolor{purple}{xy = \frac{x^{3}}{3} + C} \]
+\[ \textcolor{purple}{y = \frac{x^{2}}{3} + \frac{C}{x}}. \]
+
+\medskip
+\noindent\textbf{Solution 6.}\quad With $P = \frac{2}{x}$, integrate the
+coefficient and exponentiate:
+\[ \textcolor{purple}{\mu = e^{\int (2/x)\,dx} = e^{2\ln|x|} = x^{2}}. \]
+Multiply through and integrate:
+\[ \textcolor{purple}{\frac{d}{dx}\big[x^{2}y\big] = x^{2}\cdot x = x^{3}} \]
+\[ \textcolor{purple}{x^{2}y = \frac{x^{4}}{4} + C} \]
+\[ \textcolor{purple}{y = \frac{x^{2}}{4} + \frac{C}{x^{2}}}. \]
+
+\medskip
+\noindent\textbf{Solution 7.}\quad The integrating factor is
+$\textcolor{purple}{\mu = e^{\int 2\,dx} = e^{2x}}$. Multiply through and
+integrate:
+\[ \textcolor{purple}{\frac{d}{dx}\big[e^{2x}y\big] = 4\,e^{2x}} \]
+\[ \textcolor{purple}{e^{2x}y = 2\,e^{2x} + C} \]
+\[ \textcolor{purple}{y = 2 + C\,e^{-2x}}. \]
+Apply the initial condition $y(0) = 1$:
+\[ \textcolor{purple}{1 = 2 + C \;\Longrightarrow\; C = -1} \]
+\[ \textcolor{purple}{y = 2 - e^{-2x}}. \]
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Rewrite as $\frac{dy}{dx} = 1 + \frac{y}{x}$
+and substitute $y = vx$, so $\frac{dy}{dx} = v + x\frac{dv}{dx}$:
+\[ \textcolor{purple}{v + x\frac{dv}{dx} = 1 + v} \]
+\[ \textcolor{purple}{x\frac{dv}{dx} = 1 \;\Longrightarrow\; dv = \frac{1}{x}\,dx} \]
+\[ \textcolor{purple}{v = \ln|x| + C}. \]
+Back-substitute $v = \frac{y}{x}$:
+\[ \textcolor{purple}{y = x\ln|x| + Cx}. \]
+
+\medskip
+\noindent\textbf{Solution 9.}\quad Substitute $y = vx$. The right side becomes
+\[ \textcolor{purple}{\frac{x^{2} + v^{2}x^{2}}{x\cdot vx} = \frac{1 + v^{2}}{v}}. \]
+With $\frac{dy}{dx} = v + x\frac{dv}{dx}$,
+\[ \textcolor{purple}{v + x\frac{dv}{dx} = \frac{1 + v^{2}}{v} = \frac{1}{v} + v} \]
+\[ \textcolor{purple}{x\frac{dv}{dx} = \frac{1}{v} \;\Longrightarrow\; v\,dv = \frac{1}{x}\,dx} \]
+\[ \textcolor{purple}{\frac{v^{2}}{2} = \ln|x| + C_{1} \;\Longrightarrow\; v^{2} = 2\ln|x| + C}. \]
+Back-substitute $v = \frac{y}{x}$:
+\[ \textcolor{purple}{\frac{y^{2}}{x^{2}} = 2\ln|x| + C \;\Longrightarrow\; y^{2} = x^{2}\big(2\ln|x| + C\big)}. \]
+
+\medskip
+\noindent\textbf{Solution 10.}\quad Newton's law of cooling with surrounding
+temperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives
+\[ \textcolor{purple}{T(t) = 20 + (100 - 20)\,e^{-kt} = 20 + 80\,e^{-kt}}. \]
+Use the reading $T(10) = 60$ to find $k$:
+\[ \textcolor{purple}{60 = 20 + 80\,e^{-10k} \;\Longrightarrow\; 80\,e^{-10k} = 40} \]
+\[ \textcolor{purple}{e^{-10k} = \tfrac{1}{2} \;\Longrightarrow\; -10k = -\ln 2 \;\Longrightarrow\; k = \frac{\ln 2}{10}}. \]
+Hence the temperature function is
+\[ \textcolor{purple}{T(t) = 20 + 80\,e^{-(\ln 2 / 10)\,t} = 20 + 80\left(\tfrac{1}{2}\right)^{t/10}}. \]
+To reach $30^{\circ}$, solve $T(t) = 30$:
+\[ \textcolor{purple}{30 = 20 + 80\,e^{-kt} \;\Longrightarrow\; 80\,e^{-kt} = 10 \;\Longrightarrow\; e^{-kt} = \tfrac{1}{8}} \]
+\[ \textcolor{purple}{-kt = -\ln 8 = -3\ln 2 \;\Longrightarrow\; t = \frac{3\ln 2}{k} = \frac{3\ln 2}{\ln 2 / 10} = 30 \text{ minutes}}. \]
+
+\vspace{0.8em}
+\begin{center}
+\textit{End of Unit 2 Master Reference Guide. Prepared by Staples Education.}
+\end{center}
+
+\end{document}
