@@ -245,6 +245,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    /* Pack every content block at the top so the title, description, button, and
+       topic guides sit flush together. The grid stretches cards to a shared row
+       height, and flex-start collects any leftover space at the bottom of the
+       card, beneath the last subtopic, keeping a clean baseline across the row. */
+    justify-content: flex-start;
     background: var(--panel-bg);
     border: 1px solid var(--panel-border);
     border-radius: 14px;
@@ -271,12 +276,11 @@ body {
     align-self: flex-start;
 }
 
-/* The topic guides block carries the vertical distribution: margin-top auto
-   anchors it to the bottom padding boundary of the card, so cards of differing
-   description lengths share an even baseline while the primary button stays
-   tucked against the description above. */
+/* The topic guides block sits naturally right below the primary action button,
+   separated only by the card flex gap and its own top border and padding. The
+   card itself collects any leftover space at the bottom (see .materials-card),
+   so there is no artificial gap between the button and this list. */
 .materials-subtopics {
-    margin-top: auto;
     border-top: 1px solid var(--panel-border);
     padding-top: 0.75rem;
 }
