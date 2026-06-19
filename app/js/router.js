@@ -772,6 +772,25 @@ function renderUnitDetail(container, unitIndex) {
         unitSection.appendChild(masteryHost);
     }
 
+    // Master reference guide, the closing action of every unit detail page. It
+    // opens the unit cheat sheet PDF in a new tab, the single document that
+    // gathers the cheat sheet, the practice problems, and the worked solutions.
+    const materials = AVAILABLE_MATERIALS[unitIndex];
+    if (materials && materials.file) {
+        const resourceRow = document.createElement("div");
+        resourceRow.className = "unit-master-resource-row";
+
+        const guideLink = document.createElement("a");
+        guideLink.className = "pdf-download-btn";
+        guideLink.href = "assets/pdfs/" + materials.file;
+        guideLink.target = "_blank";
+        guideLink.rel = "noopener";
+        guideLink.textContent = "View Full Unit Reference Guide (Cheat Sheet, Problems, and Solutions)";
+
+        resourceRow.appendChild(guideLink);
+        unitSection.appendChild(resourceRow);
+    }
+
     container.appendChild(unitSection);
 }
 
