@@ -253,7 +253,7 @@ function appendSubtopics(card, unitIndex, asLinks) {
    curriculum modules otherwise). */
 function renderCheatSheets(container) {
     buildIndexShell(container, "Cheat Sheets (PDFs)",
-        "Download a one page cheat sheet for each unit. Some units add focused topic guides.");
+        "Open the reference materials for each unit, each in a new tab. Some units add focused topic guides.");
 
     const grid = document.createElement("div");
     grid.className = "toc-grid";
@@ -277,7 +277,7 @@ function renderCheatSheets(container) {
         primary.href = "assets/pdfs/Unit-" + index + "-Cheat-Sheet.pdf";
         primary.target = "_blank";
         primary.rel = "noopener";
-        primary.textContent = "Download Unit " + index + " Cheat Sheet";
+        primary.textContent = "Open Unit " + index + " Cheat Sheet";
         card.appendChild(primary);
 
         // Topic guides, as PDF links where a curated guide exists.
