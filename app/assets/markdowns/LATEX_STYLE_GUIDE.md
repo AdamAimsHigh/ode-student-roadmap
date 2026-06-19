@@ -42,13 +42,13 @@ inline accent draws from this palette — no raw `blue!70!black`-style mixes.
 | `headerblue`    | `#1C569E` | Overview / structural framing, hyperlinks       |
 | `accentgreen`   | `#2E7D32` | Algorithms and laid-out methods                 |
 | `accentorange`  | `#E27A1E` | Formulas and final concept takeaways            |
-| `workpurple`    | `#744AA8` | Worked-example framing and solution tracking    |
+| `workpurple`    | `#A020F0` | Worked-example framing and live solution tracking (vibrant) |
 
 ```latex
 \definecolor{headerblue}{HTML}{1C569E}
 \definecolor{accentgreen}{HTML}{2E7D32}
 \definecolor{accentorange}{HTML}{E27A1E}
-\definecolor{workpurple}{HTML}{744AA8}
+\definecolor{workpurple}{HTML}{A020F0}
 ```
 
 ---
@@ -59,8 +59,21 @@ Every **master guide** file (the merged Reference Guide that contains Parts I,
 II, and III together) must generate a clean `\tableofcontents` block directly
 beneath the main title block, before the first content section.
 
-Because the Part headings are unnumbered (`\section*`), each Part registers a
-single crisp TOC line explicitly:
+The index is **two levels deep**: it lists both the major Parts and the
+underlying mathematical sub-modules (2.1 through 2.5). Both depth counters are
+set explicitly to level 2 in the preamble:
+
+```latex
+\setcounter{secnumdepth}{2}   % number sections and subsections
+\setcounter{tocdepth}{2}      % list both in the table of contents
+```
+
+The Part headings stay unnumbered (`\section*`), so each Part registers one crisp
+section-level TOC line explicitly. The content sub-modules are authored as
+**numbered** `\subsection` commands so they register in the TOC automatically.
+Because the parent Part is starred (the section counter never advances), the
+section counter is forced to the unit number so the sub-modules read 2.1, 2.2,
+... rather than 0.1, 0.2:
 
 ```latex
 \tableofcontents
@@ -69,10 +82,12 @@ single crisp TOC line explicitly:
 \phantomsection
 \addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
 \section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{2}        % so subsections auto-number 2.1, 2.2, ...
+\subsection{Separable Equations}        % renders and indexes as "2.1 Separable Equations"
 ```
 
 Standalone single-part assets (an isolated Cheat Sheet or Practice Set) do **not**
-carry a table of contents.
+carry a table of contents, but use the same numbered `\subsection` convention.
 
 ---
 
@@ -154,11 +169,13 @@ all five:
 ## 4. Inline Typography
 
 - **Live solution tracking.** Every live evaluation step inside a worked
-  solution is wrapped in `\textcolor{purple}{...}`. This is retained verbatim —
-  the running purple math is how a reader follows the execution of a problem.
+  solution is wrapped in `\textcolor{workpurple}{...}`, which resolves to the
+  signature vibrant purple (`#A020F0`). The running purple math is how a reader
+  follows the execution of a problem, and it shares one named color with the
+  worked-example box frame so the purple reads identically everywhere.
 
   ```latex
-  \[ \textcolor{purple}{\ln|y| = 2x^{3} + C} \]
+  \[ \textcolor{workpurple}{\ln|y| = 2x^{3} + C} \]
   ```
 
 - **Concept takeaways.** The final steps of a solution set conclude in a

@@ -23,7 +23,7 @@
 \definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
 \definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
 \definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
-\definecolor{workpurple}{HTML}{744AA8}   % worked-example tracking
+\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
 
 % ---------------------------------------------------------------------------
 % Five core custom boxes (unbreakable, title={#1} protected)
@@ -82,6 +82,10 @@
 
 \setlist[enumerate]{itemsep=4pt, topsep=4pt}
 
+% Number and index sections plus subsections (e.g., 2.1) two levels deep.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
 \begin{document}
 
 % ---------------------------------------------------------------------------
@@ -126,8 +130,9 @@ toward genuine physical models.
 % PART I: CONDENSED CHEAT SHEET
 % ===========================================================================
 \section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{2}   % subsections auto-number as the unit modules 2.1, 2.2, ...
 
-\subsection*{2.1 Separable Equations}
+\subsection{Separable Equations}
 
 A first order equation is \emph{separable} when its right side factors into a
 function of $x$ alone times a function of $y$ alone --- that single structural
@@ -159,7 +164,7 @@ this step can quietly discard --- always check it separately.
 The dropped solution $y = 0$ is recovered as the case $C = 0$.
 \end{examplebox}
 
-\subsection*{2.2 First-Order Linear Equations and Integrating Factors}
+\subsection{First-Order Linear Equations and Integrating Factors}
 
 A first order equation is \emph{linear} when $y$ and $y'$ each appear only to
 the first power and never multiply one another. Before reading off anything,
@@ -206,7 +211,7 @@ that is the single fact the whole method rests on.
 \[ y = \frac{1}{2}e^{x} + C e^{-x}. \]
 \end{examplebox}
 
-\subsection*{2.3 Initial Value Problems}
+\subsection{Initial Value Problems}
 
 The general solution of a first order equation is a whole family of curves
 indexed by one arbitrary constant. An \emph{initial condition} $y(x_0) = y_0$
@@ -231,7 +236,7 @@ determined:
 \[ y = x^{3} + 4. \]
 \end{examplebox}
 
-\subsection*{2.4 Homogeneous First-Order Equations and Substitution}
+\subsection{Homogeneous First-Order Equations and Substitution}
 
 A function $f(x,y)$ is \emph{homogeneous of degree $n$} when scaling both
 inputs pulls out a clean power of the scale factor: $f(tx, ty) = t^{n}f(x,y)$.
@@ -259,7 +264,7 @@ After solving for $v$, back-substitute $v = \dfrac{y}{x}$.
 \[ 1 + \frac{y}{x} = Cx \;\Longrightarrow\; y = Cx^{2} - x. \]
 \end{examplebox}
 
-\subsection*{2.5 Applications: Growth, Decay, and Newton's Law of Cooling}
+\subsection{Applications: Growth, Decay, and Newton's Law of Cooling}
 
 When a rate of change is proportional to the current amount, the solution is
 exponential --- this single idea drives population models, radioactive decay,

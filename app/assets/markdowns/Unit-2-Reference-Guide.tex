@@ -23,7 +23,7 @@
 \definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
 \definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
 \definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
-\definecolor{workpurple}{HTML}{744AA8}   % worked-example tracking
+\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
 
 % ---------------------------------------------------------------------------
 % Five core custom boxes (unbreakable, title={#1} protected)
@@ -82,6 +82,10 @@
 
 \setlist[enumerate]{itemsep=4pt, topsep=4pt}
 
+% Number and index sections plus subsections (e.g., 2.1) two levels deep.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
 \begin{document}
 
 % ---------------------------------------------------------------------------
@@ -135,8 +139,9 @@ toward genuine physical models.
 \phantomsection
 \addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
 \section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{2}   % subsections auto-number as the unit modules 2.1, 2.2, ...
 
-\subsection*{2.1 Separable Equations}
+\subsection{Separable Equations}
 
 A first order equation is \emph{separable} when its right side factors into a
 function of $x$ alone times a function of $y$ alone --- that single structural
@@ -168,7 +173,7 @@ this step can quietly discard --- always check it separately.
 The dropped solution $y = 0$ is recovered as the case $C = 0$.
 \end{examplebox}
 
-\subsection*{2.2 First-Order Linear Equations and Integrating Factors}
+\subsection{First-Order Linear Equations and Integrating Factors}
 
 A first order equation is \emph{linear} when $y$ and $y'$ each appear only to
 the first power and never multiply one another. Before reading off anything,
@@ -215,7 +220,7 @@ that is the single fact the whole method rests on.
 \[ y = \frac{1}{2}e^{x} + C e^{-x}. \]
 \end{examplebox}
 
-\subsection*{2.3 Initial Value Problems}
+\subsection{Initial Value Problems}
 
 The general solution of a first order equation is a whole family of curves
 indexed by one arbitrary constant. An \emph{initial condition} $y(x_0) = y_0$
@@ -240,7 +245,7 @@ determined:
 \[ y = x^{3} + 4. \]
 \end{examplebox}
 
-\subsection*{2.4 Homogeneous First-Order Equations and Substitution}
+\subsection{Homogeneous First-Order Equations and Substitution}
 
 A function $f(x,y)$ is \emph{homogeneous of degree $n$} when scaling both
 inputs pulls out a clean power of the scale factor: $f(tx, ty) = t^{n}f(x,y)$.
@@ -268,7 +273,7 @@ After solving for $v$, back-substitute $v = \dfrac{y}{x}$.
 \[ 1 + \frac{y}{x} = Cx \;\Longrightarrow\; y = Cx^{2} - x. \]
 \end{examplebox}
 
-\subsection*{2.5 Applications: Growth, Decay, and Newton's Law of Cooling}
+\subsection{Applications: Growth, Decay, and Newton's Law of Cooling}
 
 When a rate of change is proportional to the current amount, the solution is
 exponential --- this single idea drives population models, radioactive decay,
@@ -356,93 +361,93 @@ substitution, and a full physical model. Solutions follow in Part III.
 \section*{Part III --- Complete Solutions}
 
 \noindent\textbf{Solution 1.}\quad Separate, then integrate.
-\[ \textcolor{purple}{y\,dy = x\,dx} \]
-\[ \textcolor{purple}{\frac{y^{2}}{2} = \frac{x^{2}}{2} + C_{1}} \]
-\[ \textcolor{purple}{y^{2} = x^{2} + C} \qquad\text{(general solution).} \]
+\[ \textcolor{workpurple}{y\,dy = x\,dx} \]
+\[ \textcolor{workpurple}{\frac{y^{2}}{2} = \frac{x^{2}}{2} + C_{1}} \]
+\[ \textcolor{workpurple}{y^{2} = x^{2} + C} \qquad\text{(general solution).} \]
 
 \medskip
 \noindent\textbf{Solution 2.}\quad Split the exponential as
 $e^{x-y} = e^{x}e^{-y}$, then separate.
-\[ \textcolor{purple}{e^{\,y}\,dy = e^{\,x}\,dx} \]
-\[ \textcolor{purple}{e^{\,y} = e^{\,x} + C} \]
-\[ \textcolor{purple}{y = \ln\!\left(e^{\,x} + C\right)}. \]
+\[ \textcolor{workpurple}{e^{\,y}\,dy = e^{\,x}\,dx} \]
+\[ \textcolor{workpurple}{e^{\,y} = e^{\,x} + C} \]
+\[ \textcolor{workpurple}{y = \ln\!\left(e^{\,x} + C\right)}. \]
 
 \medskip
 \noindent\textbf{Solution 3.}\quad Separate (assuming $y \neq 0$), integrate,
 and exponentiate.
-\[ \textcolor{purple}{\frac{1}{y}\,dy = \cos x\,dx} \]
-\[ \textcolor{purple}{\ln|y| = \sin x + C} \]
-\[ \textcolor{purple}{y = C\,e^{\sin x}}. \]
+\[ \textcolor{workpurple}{\frac{1}{y}\,dy = \cos x\,dx} \]
+\[ \textcolor{workpurple}{\ln|y| = \sin x + C} \]
+\[ \textcolor{workpurple}{y = C\,e^{\sin x}}. \]
 Dividing by $y$ assumed $y \neq 0$, so it dropped the equilibrium solution
-$\textcolor{purple}{y = 0}$ --- which is recovered as the special case $C = 0$.
+$\textcolor{workpurple}{y = 0}$ --- which is recovered as the special case $C = 0$.
 
 \medskip
 \noindent\textbf{Solution 4.}\quad Here $P = 3$, so the integrating factor is
-$\textcolor{purple}{\mu = e^{\int 3\,dx} = e^{3x}}$. Multiply through:
-\[ \textcolor{purple}{\frac{d}{dx}\big[e^{3x}y\big] = 6\,e^{3x}} \]
-\[ \textcolor{purple}{e^{3x}y = \int 6\,e^{3x}\,dx = 2\,e^{3x} + C} \]
-\[ \textcolor{purple}{y = 2 + C\,e^{-3x}}. \]
+$\textcolor{workpurple}{\mu = e^{\int 3\,dx} = e^{3x}}$. Multiply through:
+\[ \textcolor{workpurple}{\frac{d}{dx}\big[e^{3x}y\big] = 6\,e^{3x}} \]
+\[ \textcolor{workpurple}{e^{3x}y = \int 6\,e^{3x}\,dx = 2\,e^{3x} + C} \]
+\[ \textcolor{workpurple}{y = 2 + C\,e^{-3x}}. \]
 
 \medskip
 \noindent\textbf{Solution 5.}\quad Divide by $x$ to reach standard form:
-\[ \textcolor{purple}{\frac{dy}{dx} + \frac{1}{x}\,y = x}, \qquad
-   \textcolor{purple}{\mu = e^{\int (1/x)\,dx} = e^{\ln|x|} = x}. \]
+\[ \textcolor{workpurple}{\frac{dy}{dx} + \frac{1}{x}\,y = x}, \qquad
+   \textcolor{workpurple}{\mu = e^{\int (1/x)\,dx} = e^{\ln|x|} = x}. \]
 Multiply through and integrate:
-\[ \textcolor{purple}{\frac{d}{dx}\big[xy\big] = x\cdot x = x^{2}} \]
-\[ \textcolor{purple}{xy = \frac{x^{3}}{3} + C} \]
-\[ \textcolor{purple}{y = \frac{x^{2}}{3} + \frac{C}{x}}. \]
+\[ \textcolor{workpurple}{\frac{d}{dx}\big[xy\big] = x\cdot x = x^{2}} \]
+\[ \textcolor{workpurple}{xy = \frac{x^{3}}{3} + C} \]
+\[ \textcolor{workpurple}{y = \frac{x^{2}}{3} + \frac{C}{x}}. \]
 
 \medskip
 \noindent\textbf{Solution 6.}\quad With $P = \frac{2}{x}$, integrate the
 coefficient and exponentiate:
-\[ \textcolor{purple}{\mu = e^{\int (2/x)\,dx} = e^{2\ln|x|} = x^{2}}. \]
+\[ \textcolor{workpurple}{\mu = e^{\int (2/x)\,dx} = e^{2\ln|x|} = x^{2}}. \]
 Multiply through and integrate:
-\[ \textcolor{purple}{\frac{d}{dx}\big[x^{2}y\big] = x^{2}\cdot x = x^{3}} \]
-\[ \textcolor{purple}{x^{2}y = \frac{x^{4}}{4} + C} \]
-\[ \textcolor{purple}{y = \frac{x^{2}}{4} + \frac{C}{x^{2}}}. \]
+\[ \textcolor{workpurple}{\frac{d}{dx}\big[x^{2}y\big] = x^{2}\cdot x = x^{3}} \]
+\[ \textcolor{workpurple}{x^{2}y = \frac{x^{4}}{4} + C} \]
+\[ \textcolor{workpurple}{y = \frac{x^{2}}{4} + \frac{C}{x^{2}}}. \]
 
 \medskip
 \noindent\textbf{Solution 7.}\quad The integrating factor is
-$\textcolor{purple}{\mu = e^{\int 2\,dx} = e^{2x}}$. Multiply through and
+$\textcolor{workpurple}{\mu = e^{\int 2\,dx} = e^{2x}}$. Multiply through and
 integrate:
-\[ \textcolor{purple}{\frac{d}{dx}\big[e^{2x}y\big] = 4\,e^{2x}} \]
-\[ \textcolor{purple}{e^{2x}y = 2\,e^{2x} + C} \]
-\[ \textcolor{purple}{y = 2 + C\,e^{-2x}}. \]
+\[ \textcolor{workpurple}{\frac{d}{dx}\big[e^{2x}y\big] = 4\,e^{2x}} \]
+\[ \textcolor{workpurple}{e^{2x}y = 2\,e^{2x} + C} \]
+\[ \textcolor{workpurple}{y = 2 + C\,e^{-2x}}. \]
 Apply the initial condition $y(0) = 1$:
-\[ \textcolor{purple}{1 = 2 + C \;\Longrightarrow\; C = -1} \]
-\[ \textcolor{purple}{y = 2 - e^{-2x}}. \]
+\[ \textcolor{workpurple}{1 = 2 + C \;\Longrightarrow\; C = -1} \]
+\[ \textcolor{workpurple}{y = 2 - e^{-2x}}. \]
 
 \medskip
 \noindent\textbf{Solution 8.}\quad Rewrite as $\frac{dy}{dx} = 1 + \frac{y}{x}$
 and substitute $y = vx$, so $\frac{dy}{dx} = v + x\frac{dv}{dx}$:
-\[ \textcolor{purple}{v + x\frac{dv}{dx} = 1 + v} \]
-\[ \textcolor{purple}{x\frac{dv}{dx} = 1 \;\Longrightarrow\; dv = \frac{1}{x}\,dx} \]
-\[ \textcolor{purple}{v = \ln|x| + C}. \]
+\[ \textcolor{workpurple}{v + x\frac{dv}{dx} = 1 + v} \]
+\[ \textcolor{workpurple}{x\frac{dv}{dx} = 1 \;\Longrightarrow\; dv = \frac{1}{x}\,dx} \]
+\[ \textcolor{workpurple}{v = \ln|x| + C}. \]
 Back-substitute $v = \frac{y}{x}$:
-\[ \textcolor{purple}{y = x\ln|x| + Cx}. \]
+\[ \textcolor{workpurple}{y = x\ln|x| + Cx}. \]
 
 \medskip
 \noindent\textbf{Solution 9.}\quad Substitute $y = vx$. The right side becomes
-\[ \textcolor{purple}{\frac{x^{2} + v^{2}x^{2}}{x\cdot vx} = \frac{1 + v^{2}}{v}}. \]
+\[ \textcolor{workpurple}{\frac{x^{2} + v^{2}x^{2}}{x\cdot vx} = \frac{1 + v^{2}}{v}}. \]
 With $\frac{dy}{dx} = v + x\frac{dv}{dx}$,
-\[ \textcolor{purple}{v + x\frac{dv}{dx} = \frac{1 + v^{2}}{v} = \frac{1}{v} + v} \]
-\[ \textcolor{purple}{x\frac{dv}{dx} = \frac{1}{v} \;\Longrightarrow\; v\,dv = \frac{1}{x}\,dx} \]
-\[ \textcolor{purple}{\frac{v^{2}}{2} = \ln|x| + C_{1} \;\Longrightarrow\; v^{2} = 2\ln|x| + C}. \]
+\[ \textcolor{workpurple}{v + x\frac{dv}{dx} = \frac{1 + v^{2}}{v} = \frac{1}{v} + v} \]
+\[ \textcolor{workpurple}{x\frac{dv}{dx} = \frac{1}{v} \;\Longrightarrow\; v\,dv = \frac{1}{x}\,dx} \]
+\[ \textcolor{workpurple}{\frac{v^{2}}{2} = \ln|x| + C_{1} \;\Longrightarrow\; v^{2} = 2\ln|x| + C}. \]
 Back-substitute $v = \frac{y}{x}$:
-\[ \textcolor{purple}{\frac{y^{2}}{x^{2}} = 2\ln|x| + C \;\Longrightarrow\; y^{2} = x^{2}\big(2\ln|x| + C\big)}. \]
+\[ \textcolor{workpurple}{\frac{y^{2}}{x^{2}} = 2\ln|x| + C \;\Longrightarrow\; y^{2} = x^{2}\big(2\ln|x| + C\big)}. \]
 
 \medskip
 \noindent\textbf{Solution 10.}\quad Newton's law of cooling with surrounding
 temperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives
-\[ \textcolor{purple}{T(t) = 20 + (100 - 20)\,e^{-kt} = 20 + 80\,e^{-kt}}. \]
+\[ \textcolor{workpurple}{T(t) = 20 + (100 - 20)\,e^{-kt} = 20 + 80\,e^{-kt}}. \]
 Use the reading $T(10) = 60$ to find $k$:
-\[ \textcolor{purple}{60 = 20 + 80\,e^{-10k} \;\Longrightarrow\; 80\,e^{-10k} = 40} \]
-\[ \textcolor{purple}{e^{-10k} = \tfrac{1}{2} \;\Longrightarrow\; -10k = -\ln 2 \;\Longrightarrow\; k = \frac{\ln 2}{10}}. \]
+\[ \textcolor{workpurple}{60 = 20 + 80\,e^{-10k} \;\Longrightarrow\; 80\,e^{-10k} = 40} \]
+\[ \textcolor{workpurple}{e^{-10k} = \tfrac{1}{2} \;\Longrightarrow\; -10k = -\ln 2 \;\Longrightarrow\; k = \frac{\ln 2}{10}}. \]
 Hence the temperature function is
-\[ \textcolor{purple}{T(t) = 20 + 80\,e^{-(\ln 2 / 10)\,t} = 20 + 80\left(\tfrac{1}{2}\right)^{t/10}}. \]
+\[ \textcolor{workpurple}{T(t) = 20 + 80\,e^{-(\ln 2 / 10)\,t} = 20 + 80\left(\tfrac{1}{2}\right)^{t/10}}. \]
 To reach $30^{\circ}$, solve $T(t) = 30$:
-\[ \textcolor{purple}{30 = 20 + 80\,e^{-kt} \;\Longrightarrow\; 80\,e^{-kt} = 10 \;\Longrightarrow\; e^{-kt} = \tfrac{1}{8}} \]
-\[ \textcolor{purple}{-kt = -\ln 8 = -3\ln 2 \;\Longrightarrow\; t = \frac{3\ln 2}{k} = \frac{3\ln 2}{\ln 2 / 10} = 30 \text{ minutes}}. \]
+\[ \textcolor{workpurple}{30 = 20 + 80\,e^{-kt} \;\Longrightarrow\; 80\,e^{-kt} = 10 \;\Longrightarrow\; e^{-kt} = \tfrac{1}{8}} \]
+\[ \textcolor{workpurple}{-kt = -\ln 8 = -3\ln 2 \;\Longrightarrow\; t = \frac{3\ln 2}{k} = \frac{3\ln 2}{\ln 2 / 10} = 30 \text{ minutes}}. \]
 
 \vspace{0.8em}
 \begin{conceptbox}[Unit 2 Key Takeaway]
