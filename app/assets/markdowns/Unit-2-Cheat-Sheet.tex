@@ -13,43 +13,71 @@
 \usepackage[most]{tcolorbox}
 \usepackage{enumitem}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
 
-\tcbuselibrary{skins, breakable}
+\tcbuselibrary{skins}
 
 % ---------------------------------------------------------------------------
-% Custom colored boxes
+% Unified style-guide palette (see LATEX_STYLE_GUIDE.md)
+% ---------------------------------------------------------------------------
+\definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
+\definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
+\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
+\definecolor{workpurple}{HTML}{744AA8}   % worked-example tracking
+
+% ---------------------------------------------------------------------------
+% Five core custom boxes (unbreakable, title={#1} protected)
 % ---------------------------------------------------------------------------
 
-% Blue overview box for the topics summary.
+% 1. Blue overview capsule for the topics summary.
 \newtcolorbox{topicsbox}{
     enhanced,
-    colback=blue!5!white, colframe=blue!70!black,
+    colback=headerblue!6!white, colframe=headerblue,
     coltitle=white, fonttitle=\bfseries,
     title=Unit 2 at a Glance: Core Sub-Topics,
     boxrule=0.6pt, arc=2mm,
     left=3mm, right=3mm, top=2mm, bottom=2mm
 }
 
-% Orange box for standard forms and master formulas.
+% 2. Orange formula container for standard forms and master formulas.
 \newtcolorbox{formulabox}[1][Master Formula]{
     enhanced,
-    colback=orange!8!white, colframe=orange!80!black,
+    colback=accentorange!8!white, colframe=accentorange,
     coltitle=white, fonttitle=\bfseries,
     title={#1},
     boxrule=0.6pt, arc=1mm,
     left=3mm, right=3mm, top=2mm, bottom=2mm
 }
 
-% Purple box with a thick left border for step-by-step worked examples.
+% 3. Green algorithm block for explicitly laid-out procedures.
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 4. Purple west-bordered worked example for step-by-step solutions.
 \newtcolorbox{examplebox}[1][Worked Example]{
     enhanced,
-    colback=purple!4!white, colframe=purple!70!black,
+    colback=workpurple!4!white, colframe=workpurple,
     coltitle=white, fonttitle=\bfseries,
     title={#1},
     boxrule=0.4pt, sharp corners,
-    borderline west={3pt}{0pt}{purple!70!black},
+    borderline west={3pt}{0pt}{workpurple},
     left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 5. Orange thin-bordered final concept takeaway.
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
 }
 
 \setlist[enumerate]{itemsep=4pt, topsep=4pt}
@@ -152,6 +180,17 @@ Standard form, integrating factor, and solution:
 \]
 \end{formulabox}
 
+\begin{methodbox}[Algorithm: Solving a First-Order Linear Equation]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Write the equation in standard form $y' + P(x)\,y = Q(x)$, dividing
+          through so the derivative carries coefficient one.
+    \item Compute the integrating factor $\mu(x) = e^{\int P(x)\,dx}$.
+    \item Multiply through by $\mu(x)$; the left side collapses to the single
+          derivative $\frac{d}{dx}\big[\mu(x)\,y\big]$.
+    \item Integrate both sides, then divide by $\mu(x)$ to isolate $y$.
+\end{enumerate}
+\end{methodbox}
+
 \noindent The magic of $\mu(x)$ is that multiplying through turns the entire
 left side into the exact product-rule derivative $\frac{d}{dx}[\mu y]$ ---
 that is the single fact the whole method rests on.
@@ -249,8 +288,13 @@ Every $3$ hours the population multiplies by two, as required.
 \end{examplebox}
 
 \vspace{0.8em}
-\begin{center}
-\textit{End of Unit 2 Cheat Sheet. Prepared by Staples Education.}
-\end{center}
+\begin{conceptbox}[Unit 2 Key Takeaway]
+Every method in this unit reduces to a single move --- rewrite the equation
+into a form you can integrate. \textcolor{accentorange}{Separation of variables}
+splits a factored rate law; the \textcolor{accentorange}{integrating factor
+$\mu = e^{\int P\,dx}$} collapses a linear left side into one derivative; and
+the \textcolor{accentorange}{substitution $y = vx$} turns a homogeneous equation
+separable. Read the structure first, and the technique always follows.
+\end{conceptbox}
 
 \end{document}
