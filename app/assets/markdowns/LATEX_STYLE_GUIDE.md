@@ -24,6 +24,7 @@ shared palette and the five custom boxes (Section 3).
 \usepackage{xcolor}
 \usepackage[most]{tcolorbox}
 \usepackage{enumitem}
+\usepackage{titlesec}
 \usepackage{hyperref}
 
 % Links map to the structural header blue.
@@ -49,6 +50,18 @@ inline accent draws from this palette — no raw `blue!70!black`-style mixes.
 \definecolor{accentgreen}{HTML}{2E7D32}
 \definecolor{accentorange}{HTML}{E27A1E}
 \definecolor{workpurple}{HTML}{A020F0}
+```
+
+### 1.2 Subsection Typography
+
+Numbered sub-module headings (`2.1`, `2.2`, ...) are a permanent part of the
+visual system: both the section number and the title render in `headerblue`,
+large and bold, via `titlesec`. This rule is mandatory in every unit source so
+the sub-module headings read consistently across all assets.
+
+```latex
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
 ```
 
 ---

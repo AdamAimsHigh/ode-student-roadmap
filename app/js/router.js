@@ -392,7 +392,6 @@ function renderPracticeSetDetail(container, unitIndex) {
     container.innerHTML = "";
 
     const unitData = CURRICULUM[unitIndex];
-    const materials = AVAILABLE_MATERIALS[unitIndex];
     const practice = PRACTICE_DATA[unitIndex];
     const problems = (practice && practice.problems) || [];
 
@@ -427,16 +426,16 @@ function renderPracticeSetDetail(container, unitIndex) {
     intro.appendChild(sub);
     container.appendChild(intro);
 
-    // Action row: download the unit cheat sheet PDF.
+    // Action row: open the unit practice set PDF in a new tab.
     const actionRow = document.createElement("div");
     actionRow.className = "practice-action-row";
 
     const download = document.createElement("a");
     download.className = "pdf-download-btn";
-    download.href = "assets/pdfs/" + materials.file;
+    download.href = "assets/pdfs/Unit-" + unitIndex + "-Practice-Set.pdf";
     download.target = "_blank";
     download.rel = "noopener";
-    download.textContent = "Open Unit " + unitIndex + " Cheat Sheet (PDF)";
+    download.textContent = "Open Unit " + unitIndex + " Practice Set (PDF)";
     actionRow.appendChild(download);
     container.appendChild(actionRow);
 
@@ -773,8 +772,8 @@ function renderUnitDetail(container, unitIndex) {
     }
 
     // Master reference guide, the closing action of every unit detail page. It
-    // opens the unit cheat sheet PDF in a new tab, the single document that
-    // gathers the cheat sheet, the practice problems, and the worked solutions.
+    // opens the unit master reference guide PDF in a new tab, the single document
+    // that gathers the cheat sheet, the practice problems, and the worked solutions.
     const materials = AVAILABLE_MATERIALS[unitIndex];
     if (materials && materials.file) {
         const resourceRow = document.createElement("div");
@@ -782,7 +781,7 @@ function renderUnitDetail(container, unitIndex) {
 
         const guideLink = document.createElement("a");
         guideLink.className = "pdf-download-btn";
-        guideLink.href = "assets/pdfs/" + materials.file;
+        guideLink.href = "assets/pdfs/Unit-" + unitIndex + "-Reference-Guide.pdf";
         guideLink.target = "_blank";
         guideLink.rel = "noopener";
         guideLink.textContent = "View Full Unit Reference Guide (Cheat Sheet, Problems, and Solutions)";
