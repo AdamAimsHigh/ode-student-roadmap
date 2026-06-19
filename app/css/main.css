@@ -58,31 +58,8 @@ body {
     flex-wrap: wrap;
 }
 
-/* Learning mode switch */
-
-.mode-switch {
-    display: flex;
-    border: 1px solid var(--panel-border);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.mode-btn {
-    background: var(--panel-bg);
-    color: var(--text-secondary);
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.mode-btn.active {
-    background: var(--accent-color);
-    color: #ffffff;
-    font-weight: 600;
-}
+/* Learning mode is selected through the shared .nav-dropdown component (see the
+   Global navigation dropdown block below), so it carries no dedicated styling. */
 
 /* Theme toggle, top right of the Global Header per specification */
 
@@ -185,21 +162,37 @@ body {
     margin: 0;
 }
 
-.nav-dropdown-menu a {
+.nav-dropdown-menu a,
+.nav-dropdown-menu button {
     display: block;
+    width: 100%;
+    text-align: left;
     padding: 0.5rem 0.75rem;
+    border: none;
     border-radius: 6px;
+    background: none;
     color: var(--text-color);
     text-decoration: none;
     font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-dropdown-menu a:hover,
-.nav-dropdown-menu a:focus-visible {
+.nav-dropdown-menu a:focus-visible,
+.nav-dropdown-menu button:hover,
+.nav-dropdown-menu button:focus-visible {
     background: var(--accent-soft);
     color: var(--accent-color);
     outline: none;
+}
+
+/* The active learning mode option, marked so the open menu shows the selection. */
+.nav-dropdown-menu button.active {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    font-weight: 600;
 }
 
 /* Static navigation pages (Practice Sets, Cheat Sheets, and other scaffolded
@@ -342,6 +335,27 @@ body {
 .pdf-download-link:focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
+}
+
+/* A plain text topic guide entry, used on the Practice Sets and Interactives
+   hubs where the topic is not a downloadable PDF. It mirrors the link spacing
+   and accent marker without the interactive affordance. */
+.materials-subtopic-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.materials-subtopic-text::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 2px;
+    background: var(--accent-color);
+    flex-shrink: 0;
 }
 
 /* Practice Set sub-view (problems and toggleable solutions), rendered by

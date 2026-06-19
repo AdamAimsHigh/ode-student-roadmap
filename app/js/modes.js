@@ -44,6 +44,13 @@ const ODEModes = (function () {
 
         explorationBtn.classList.toggle("active", activeMode === "exploration");
         guidedBtn.classList.toggle("active", activeMode === "guided");
+
+        // Reflect the active mode on the dropdown trigger so the closed menu
+        // always shows which mode is currently selected.
+        const label = document.getElementById("mode-dropdown-label");
+        if (label) {
+            label.textContent = activeMode === "guided" ? "Guided Pathway" : "Exploration Mode";
+        }
     }
 
     function initModeControls() {

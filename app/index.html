@@ -40,9 +40,15 @@
                         <li role="none"><a role="menuitem" href="#interactives">Interactives</a></li>
                     </ul>
                 </nav>
-                <div class="mode-switch" role="group" aria-label="Learning mode selection">
-                    <button id="mode-exploration" class="mode-btn active" type="button">Exploration Mode</button>
-                    <button id="mode-guided" class="mode-btn" type="button">Guided Pathway</button>
+                <div class="nav-dropdown mode-dropdown" aria-label="Learning mode">
+                    <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="nav-dropdown-label" id="mode-dropdown-label">Exploration Mode</span>
+                        <span class="nav-dropdown-arrow" aria-hidden="true"></span>
+                    </button>
+                    <ul class="nav-dropdown-menu" role="menu" aria-label="Learning mode options">
+                        <li role="none"><button id="mode-exploration" type="button" role="menuitem" class="active" data-mode="exploration">Exploration Mode</button></li>
+                        <li role="none"><button id="mode-guided" type="button" role="menuitem" data-mode="guided">Guided Pathway</button></li>
+                    </ul>
                 </div>
                 <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Switch color theme">Dark Mode</button>
             </div>
