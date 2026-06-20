@@ -1,0 +1,304 @@
+% Unit 0: What are Differential Equations
+% Condensed Cheat Sheet (Part I only)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (0.1 to 0.4) and the
+% QUIZ_DATA micro-practice and unit-mastery items for Unit 0.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+
+\tcbuselibrary{skins}
+
+% ---------------------------------------------------------------------------
+% Unified style-guide palette (see LATEX_STYLE_GUIDE.md)
+% ---------------------------------------------------------------------------
+\definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
+\definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
+\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
+\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
+\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
+
+% ---------------------------------------------------------------------------
+% Subsection typography: headerblue numbered sub-module titles
+% ---------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% Six core custom boxes (unbreakable, title={#1} protected)
+% ---------------------------------------------------------------------------
+
+% 1. Blue overview capsule for the topics summary.
+\newtcolorbox{topicsbox}{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title=Unit 0 at a Glance: Core Sub-Topics,
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 2. Orange formula container for standard forms and master formulas.
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 3. Green algorithm block for explicitly laid-out procedures.
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 4. Purple west-bordered worked example for step-by-step solutions.
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 5. Orange thin-bordered final concept takeaway.
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 6. Crimson west-bordered warning box for common pitfalls.
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+
+% Number and index sections plus subsections (e.g., 0.1) two levels deep.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 0: What are Differential Equations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}
+This opening unit builds the core mental model of the whole course: a
+differential equation is an equation whose unknown is a \emph{function}, tied
+to its own rates of change. Each sub-topic below sharpens that idea, moving
+from raw definition toward why these equations describe the changing world.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{What are Differential Equations} --- the unknown is a
+          function, and the equation relates it to its own derivatives.
+    \item \textbf{How Differential Equations Work} --- what it means for a
+          function to be a solution, and why one equation yields a whole
+          family of curves.
+    \item \textbf{A Tourist's Guide} --- the vocabulary of order, linearity,
+          ODE versus PDE, and the slope-field picture of a rate law.
+    \item \textbf{Why You Are Learning Them} --- how laws about rates and
+          forces become equations we can analyze, from growth to cooling.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{0}   % subsections auto-number as the unit modules 0.1, 0.2, ...
+
+\subsection{What are Differential Equations}
+
+A \emph{differential equation} is an equation whose unknown is a function and
+which relates that function to one or more of its own derivatives. This is the
+one structural fact that separates it from algebra --- in algebra you solve for
+a number, but here you solve for a whole function. The \emph{order} of the
+equation is simply the highest derivative that appears.
+
+\begin{formulabox}[Definition and Order]
+A differential equation links an unknown function $y(x)$ to its derivatives:
+\[
+    F\!\left(x,\; y,\; \frac{dy}{dx},\; \frac{d^{2}y}{dx^{2}},\; \dots\right) = 0.
+\]
+The \textbf{order} is the highest derivative present. For example,
+$\dfrac{dy}{dx} = 3y$ is \emph{first order}, while $\dfrac{d^{2}y}{dx^{2}} + 4y = 0$
+is \emph{second order}.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Unknown Is a Function, Not a Number]
+The most common first-week mistake is hunting for a single number, as in
+algebra. The unknown here is an entire function $y(x)$ --- a rule defined across
+its whole domain. A solution is satisfied at \emph{every} point, not at one
+isolated value.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 0.1: Read $\frac{dy}{dx} = 3y$]
+\textbf{Unknown.} The function $y(x)$, not the constant $3$ and not the input $x$.\\
+\textbf{Order.} The highest derivative is the first derivative, so the equation
+is first order.\\
+\textbf{Reading.} It says: find every function whose rate of change equals three
+times its own current value.
+\end{examplebox}
+
+\subsection{How Differential Equations Work}
+
+To \emph{solve} a differential equation is to find the function --- or family of
+functions --- that satisfies it for all inputs. You \emph{check} a candidate by
+substituting it and its derivatives back in and confirming both sides agree
+everywhere. Because a first-order equation fixes only the slope at each point
+and not the starting height, its general solution carries one arbitrary
+constant, and an initial condition selects one curve from that family.
+
+\begin{formulabox}[Solution, General versus Particular]
+A function is a solution when substitution makes the equation hold for all $x$.
+The \textbf{general solution} of a first-order equation carries one free
+constant; an \textbf{initial condition} $y(x_0) = y_0$ pins it down:
+\[
+    y = F(x) + C
+    \;\;\xrightarrow{\;y(x_0)=y_0\;}\;\;
+    \text{one particular curve.}
+\]
+\end{formulabox}
+
+\begin{methodbox}[Algorithm: Verifying a Candidate Solution]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Compute the derivatives of the candidate that the equation requires.
+    \item Substitute the candidate and those derivatives into the equation.
+    \item Simplify the left-hand side and the right-hand side independently.
+    \item Confirm the two sides are equal as an identity in $x$ --- true for
+          every input, not just one point.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}[Worked Example 0.2: Verify $y = e^{2x}$ solves $\frac{dy}{dx} = 2y$]
+\textbf{Step 1.} Differentiate the candidate:
+\[ \frac{dy}{dx} = 2e^{2x}. \]
+\textbf{Step 2.} Compute the right side from the candidate:
+\[ 2y = 2e^{2x}. \]
+\textbf{Step 3.} Both sides equal $2e^{2x}$ for all $x$, so $y = e^{2x}$ is a
+solution.
+\end{examplebox}
+
+\subsection{A Tourist's Guide to Differential Equations}
+
+Before solving anything, you learn to classify. An equation is an \emph{ordinary}
+differential equation (ODE) when its unknown depends on a single independent
+variable, and \emph{partial} (PDE) when it depends on several. It is
+\emph{linear} when the unknown and its derivatives appear only to the first
+power and are never multiplied together. Geometrically, a first-order equation
+is a \emph{slope field} --- a direction mark at every point that solution curves
+must follow.
+
+\begin{formulabox}[Classification Vocabulary]
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+    \item \textbf{Order} --- the highest derivative present.
+    \item \textbf{ODE vs PDE} --- one independent variable versus several.
+    \item \textbf{Linear} --- $y$ and its derivatives appear to the first power
+          only, with no products such as $y\,y'$ and no terms like $\sin y$.
+    \item \textbf{Slope field} --- the picture $\dfrac{dy}{dx} = f(x,y)$ paints,
+          assigning a direction to every point of the plane.
+\end{itemize}
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Order Is Not Term Count or Degree]
+The order is set \emph{only} by the highest derivative --- not by the number of
+terms, the size of the coefficients, or the power to which the function is
+raised. The equation $\left(\dfrac{dy}{dx}\right)^{3} = y$ is still
+\emph{first order}; the cube is a degree, not an order.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 0.3: Classify three equations]
+\textbf{(a)} $\dfrac{dy}{dx} + y = x$ --- first order, linear, ODE.\\
+\textbf{(b)} $\dfrac{d^{2}\theta}{dt^{2}} + \sin\theta = 0$ --- second order,
+\emph{nonlinear} (the $\sin\theta$ term), ODE.\\
+\textbf{(c)} $\dfrac{\partial u}{\partial t} = \dfrac{\partial^{2} u}{\partial x^{2}}$
+--- a PDE, since $u$ depends on both $t$ and $x$.
+\end{examplebox}
+
+\subsection{Why You Are Learning Differential Equations}
+
+Differential equations are the language of science because most physical laws
+describe \emph{how} a quantity changes, which is exactly what a derivative
+measures. To model a phenomenon you identify the changing quantity and what its
+rate of change depends on. The same handful of rate laws --- a rate proportional
+to an amount, or to a difference --- reappear across growth, decay, and cooling.
+
+\begin{formulabox}[Standard Models]
+A rate proportional to the current amount gives exponential behavior:
+\[
+    \frac{dP}{dt} = kP \;\Longrightarrow\; P(t) = P_{0}e^{kt}
+    \qquad (k>0 \text{ grows},\; k<0 \text{ decays}).
+\]
+Radioactive decay and Newton's law of cooling share the structure:
+\[
+    \frac{dN}{dt} = -\lambda N,
+    \qquad
+    \frac{dT}{dt} = -k\,(T - T_{s}).
+\]
+Newton's second law writes acceleration as a second derivative of position:
+$F = m\dfrac{d^{2}x}{dt^{2}}$.
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 0.4: Set up a growth model]
+\textbf{Step 1.} A population whose growth rate is proportional to its size
+obeys
+\[ \frac{dP}{dt} = kP. \]
+\textbf{Step 2.} Check that $P(t) = P_{0}e^{kt}$ fits: its derivative is
+$kP_{0}e^{kt} = kP$, matching the equation, and $P(0) = P_{0}$ sets the initial
+size. The single rate law captures the whole exponential family.
+\end{examplebox}
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 0 Key Takeaway]
+A differential equation trades the algebra question ``what number?'' for the
+calculus question ``what \textcolor{accentorange}{function}?'' It pins down the
+\textcolor{accentorange}{rate of change} at every point, so its general solution
+is a \textcolor{accentorange}{whole family of curves} that an
+\textcolor{accentorange}{initial condition} narrows to one. Read the structure
+first --- order, linearity, and what is changing --- and every later technique
+has a place to land.
+\end{conceptbox}
+
+\end{document}

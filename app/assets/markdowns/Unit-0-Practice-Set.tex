@@ -1,0 +1,278 @@
+% Unit 0: What are Differential Equations
+% Practice Problems and Solutions (Part II and Part III only)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (0.1 to 0.4) and the
+% QUIZ_DATA micro-practice and unit-mastery items for Unit 0.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+
+\tcbuselibrary{skins}
+
+% ---------------------------------------------------------------------------
+% Unified style-guide palette (see LATEX_STYLE_GUIDE.md)
+% ---------------------------------------------------------------------------
+\definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
+\definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
+\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
+\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
+\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
+
+% ---------------------------------------------------------------------------
+% Subsection typography: headerblue numbered sub-module titles
+% ---------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% Six core custom boxes (unbreakable, title={#1} protected)
+% ---------------------------------------------------------------------------
+
+% 1. Blue overview capsule for the topics summary.
+\newtcolorbox{topicsbox}{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title=Unit 0 at a Glance: Core Sub-Topics,
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 2. Orange formula container for standard forms and master formulas.
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 3. Green algorithm block for explicitly laid-out procedures.
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 4. Purple west-bordered worked example for step-by-step solutions.
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 5. Orange thin-bordered final concept takeaway.
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 6. Crimson west-bordered warning box for common pitfalls.
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+
+% Number and index sections plus subsections (e.g., 0.1) two levels deep.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 0: What are Differential Equations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Problems and Solutions}
+\end{center}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% No \clearpage here: a standalone Practice Set opens directly on its problems.
+% ===========================================================================
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They are graded from reading and
+classifying an equation, through verifying candidate solutions and applying
+initial conditions, up to two full physical models. Complete solutions follow
+in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item Verify that $y = e^{3x}$ is a solution of $\dfrac{dy}{dx} = 3y$.
+
+    \item State the order of each equation:
+          \textbf{(a)} $\dfrac{dy}{dx} + y^{2} = x$, \quad
+          \textbf{(b)} $\dfrac{d^{2}y}{dx^{2}} + 3\dfrac{dy}{dx} + 2y = 0$, \quad
+          \textbf{(c)} $\dfrac{d^{3}y}{dx^{3}} + \left(\dfrac{dy}{dx}\right)^{5} = \sin x$.
+
+    \item Classify each equation as linear or nonlinear, and name the offending
+          term when it is nonlinear:
+          \textbf{(a)} $\dfrac{dy}{dx} + x^{2}y = e^{x}$, \quad
+          \textbf{(b)} $\dfrac{dy}{dx} = y^{2}$, \quad
+          \textbf{(c)} $\dfrac{d^{2}y}{dx^{2}} + \sin y = 0$.
+
+    \item The general solution of $\dfrac{dy}{dx} = 2x$ is $y = x^{2} + C$.
+          Verify it, then find the particular solution satisfying $y(1) = 5$.
+
+    \item Show that $y = Ce^{-2x}$ satisfies $\dfrac{dy}{dx} + 2y = 0$ for every
+          constant $C$, then find the $C$ for which $y(0) = 4$.
+
+    \item Verify that $y = \cos 2x$ is a solution of the second-order equation
+          $\dfrac{d^{2}y}{dx^{2}} + 4y = 0$.
+
+    \item Classify each as an ordinary or a partial differential equation:
+          \textbf{(a)} $\dfrac{dy}{dt} = ky$, \quad
+          \textbf{(b)} $\dfrac{\partial u}{\partial t} = \dfrac{\partial^{2}u}{\partial x^{2}}$, \quad
+          \textbf{(c)} $\dfrac{d^{2}x}{dt^{2}} + x = 0$.
+
+    \item The general solution of $\dfrac{dy}{dx} = x + y$ is
+          $y = Ce^{x} - x - 1$. Verify it, then find the particular solution
+          with $y(0) = 2$.
+
+    \item \textbf{(Application)} A population grows at a rate proportional to its
+          size, $\dfrac{dP}{dt} = kP$, with $P(0) = 500$. If the population
+          doubles in $4$ hours, find $k$ and write $P(t)$ explicitly.
+
+    \item \textbf{(Application)} A radioactive sample obeys
+          $\dfrac{dN}{dt} = -\lambda N$ with $N(0) = N_{0}$. Verify that
+          $N(t) = N_{0}e^{-\lambda t}$ is a solution, then find $\lambda$ given
+          a half-life of $10$ years.
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% \clearpage so the solutions print on their own page.
+% ===========================================================================
+\clearpage
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Differentiate the candidate and compare both
+sides.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = 3e^{3x}} \qquad\text{and}\qquad
+   \textcolor{workpurple}{3y = 3e^{3x}}. \]
+Both sides equal $\textcolor{workpurple}{3e^{3x}}$ for all $x$, so $y = e^{3x}$
+satisfies the equation.
+
+\medskip
+\noindent\textbf{Solution 2.}\quad The order is the highest derivative present.
+\[ \textcolor{workpurple}{\text{(a) first order}}, \quad
+   \textcolor{workpurple}{\text{(b) second order}}, \quad
+   \textcolor{workpurple}{\text{(c) third order}}. \]
+In (c) the fifth \emph{power} on $\frac{dy}{dx}$ is a degree, not an order ---
+the highest derivative is still the third.
+
+\medskip
+\noindent\textbf{Solution 3.}\quad An equation is linear when $y$ and its
+derivatives appear only to the first power and are never composed inside another
+function.
+\[ \textcolor{workpurple}{\text{(a) linear}}, \quad
+   \textcolor{workpurple}{\text{(b) nonlinear: the term } y^{2}}, \quad
+   \textcolor{workpurple}{\text{(c) nonlinear: the term } \sin y}. \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad Differentiate to verify, then apply the
+condition.
+\[ \textcolor{workpurple}{\frac{d}{dx}\big(x^{2} + C\big) = 2x} \qquad\checkmark \]
+Apply $y(1) = 5$:
+\[ \textcolor{workpurple}{5 = (1)^{2} + C \;\Longrightarrow\; C = 4}. \]
+The particular solution is $\textcolor{workpurple}{y = x^{2} + 4}$.
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Differentiate $y = Ce^{-2x}$ and substitute.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = -2Ce^{-2x}} \]
+\[ \textcolor{workpurple}{\frac{dy}{dx} + 2y = -2Ce^{-2x} + 2Ce^{-2x} = 0} \qquad\checkmark \]
+The equation holds for every $C$. Apply $y(0) = 4$:
+\[ \textcolor{workpurple}{y(0) = C = 4 \;\Longrightarrow\; y = 4e^{-2x}}. \]
+
+\medskip
+\noindent\textbf{Solution 6.}\quad Differentiate twice and substitute.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = -2\sin 2x}, \qquad
+   \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} = -4\cos 2x} \]
+\[ \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} + 4y = -4\cos 2x + 4\cos 2x = 0} \qquad\checkmark \]
+So $y = \cos 2x$ is a solution of the second-order equation.
+
+\medskip
+\noindent\textbf{Solution 7.}\quad An ordinary equation has a single independent
+variable; a partial equation has several.
+\[ \textcolor{workpurple}{\text{(a) ODE (only } t)}, \quad
+   \textcolor{workpurple}{\text{(b) PDE (}t \text{ and } x)}, \quad
+   \textcolor{workpurple}{\text{(c) ODE (only } t)}. \]
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Differentiate $y = Ce^{x} - x - 1$ and check
+against $x + y$.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = Ce^{x} - 1} \]
+\[ \textcolor{workpurple}{x + y = x + \big(Ce^{x} - x - 1\big) = Ce^{x} - 1} \qquad\checkmark \]
+The two agree, so the family solves the equation. Apply $y(0) = 2$:
+\[ \textcolor{workpurple}{2 = Ce^{0} - 0 - 1 = C - 1 \;\Longrightarrow\; C = 3} \]
+\[ \textcolor{workpurple}{y = 3e^{x} - x - 1}. \]
+
+\medskip
+\noindent\textbf{Solution 9.}\quad A rate proportional to size gives exponential
+growth, $\textcolor{workpurple}{P(t) = P_{0}e^{kt}}$, and here $P_{0} = 500$:
+\[ \textcolor{workpurple}{P(t) = 500\,e^{kt}}. \]
+Doubling in $4$ hours means $P(4) = 1000$:
+\[ \textcolor{workpurple}{1000 = 500\,e^{4k} \;\Longrightarrow\; e^{4k} = 2 \;\Longrightarrow\; 4k = \ln 2} \]
+\[ \textcolor{workpurple}{k = \frac{\ln 2}{4}}. \]
+Hence
+\[ \textcolor{workpurple}{P(t) = 500\,e^{(\ln 2 / 4)\,t} = 500\cdot 2^{\,t/4}}. \]
+
+\medskip
+\noindent\textbf{Solution 10.}\quad First verify the candidate by
+differentiating:
+\[ \textcolor{workpurple}{\frac{dN}{dt} = -\lambda N_{0}e^{-\lambda t} = -\lambda N} \qquad\checkmark \]
+so $N(t) = N_{0}e^{-\lambda t}$ solves the decay law. A half-life of $10$ years
+means $N(10) = \tfrac{1}{2}N_{0}$:
+\[ \textcolor{workpurple}{\tfrac{1}{2}N_{0} = N_{0}e^{-10\lambda} \;\Longrightarrow\; e^{-10\lambda} = \tfrac{1}{2}} \]
+\[ \textcolor{workpurple}{-10\lambda = -\ln 2 \;\Longrightarrow\; \lambda = \frac{\ln 2}{10} \text{ per year}}. \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 0 Key Takeaway]
+Every problem here rests on one habit --- treat the unknown as a
+\textcolor{accentorange}{function} and let the equation test it. You
+\textcolor{accentorange}{verify} a candidate by substituting it and its
+derivatives and checking both sides agree for all $x$; you pass from the
+\textcolor{accentorange}{general solution} to a particular curve by using an
+\textcolor{accentorange}{initial condition} to fix the arbitrary constant. The
+same proportional rate law drives growth and decay alike.
+\end{conceptbox}
+
+\end{document}
