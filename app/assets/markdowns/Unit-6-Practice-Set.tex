@@ -1,0 +1,180 @@
+% Unit 6: Multivariable Calculus Foundations
+% Practice Set (Parts II and III only: problems then full solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (6.1 to 6.10) and the
+% QUIZ_DATA micro-practice items for Unit 6.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 6: Multivariable Calculus Foundations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Set: Problems and Complete Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% No leading \clearpage: this standalone set opens directly on its problems.
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They climb from first and mixed partial
+derivatives, through the gradient and directional derivatives, into the
+multivariable chain rule, and close with a full optimization sweep --- finding
+and classifying critical points with the second-derivative test. Solutions follow
+in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item For $f(x,y) = x^2 y + y^3$, compute both first partials $f_x$ and
+          $f_y$.
+
+    \item For $f(x,y) = x^2 y^3$, compute the mixed partials $f_{xy}$ and
+          $f_{yx}$ and confirm Clairaut's theorem.
+
+    \item For $f(x,y) = x^2 + xy + y^2$, find the gradient $\nabla f$ and
+          evaluate it at the point $(1,2)$.
+
+    \item Using the gradient from Problem 3, compute the directional derivative of
+          $f$ at $(1,2)$ in the direction of $\mathbf v = (3,4)$. Remember to
+          normalize.
+
+    \item At the same point $(1,2)$, state the direction of steepest ascent of
+          $f=x^2+xy+y^2$ and the maximum rate of increase there.
+
+    \item For $z = x^2 + y^2$ with $x = \cos t$ and $y = \sin t$, use the chain
+          rule to find $\dfrac{dz}{dt}$, and explain the result geometrically.
+
+    \item For $z = x^2 y$ with $x = s + t$ and $y = st$, use the chain-rule tree
+          to find $\dfrac{\partial z}{\partial s}$.
+
+    \item Find and classify the single critical point of
+          $f(x,y) = x^2 + y^2 - 4x - 6y + 13$, and give the extreme value.
+
+    \item Find and classify the critical point of $f(x,y) = x^2 - y^2$ using the
+          second-derivative test.
+
+    \item \textbf{(Capstone)} Find \emph{all} critical points of
+          $f(x,y) = x^3 - 3x + y^2$ and classify each with the second-derivative
+          test, reporting any extreme values.
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% Standalone set keeps the \clearpage before Part III so solutions print fresh.
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Hold $y$ constant for $f_x$, then $x$ constant
+for $f_y$. The pure-$y$ term $y^3$ vanishes under $\partial_x$:
+\[ \textcolor{workpurple}{f_x = 2xy, \qquad f_y = x^2 + 3y^2.} \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad Differentiate in $x$ first, then $y$ --- and
+in the reverse order:
+\[ \textcolor{workpurple}{f_x = 2xy^3 \;\Rightarrow\; f_{xy} = 6xy^2,
+   \qquad f_y = 3x^2y^2 \;\Rightarrow\; f_{yx} = 6xy^2.} \]
+Both equal $6xy^2$, so $f_{xy}=f_{yx}$ --- Clairaut's theorem holds because the
+second partials are continuous everywhere.
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Differentiate componentwise:
+\[ \textcolor{workpurple}{\nabla f = (2x + y,\; x + 2y),
+   \qquad \nabla f(1,2) = (2+2,\; 1+4) = (4,5).} \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad The raw direction $\mathbf v=(3,4)$ has
+$\lvert\mathbf v\rvert=\sqrt{9+16}=5$, so the unit direction is
+$\mathbf u=(\tfrac35,\tfrac45)$. Then
+\[ \textcolor{workpurple}{D_{\mathbf u}f = \nabla f(1,2)\cdot\mathbf u
+   = (4,5)\cdot\left(\tfrac35,\tfrac45\right)
+   = \tfrac{12}{5} + \tfrac{20}{5} = \tfrac{32}{5} = 6.4.} \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Steepest ascent points along the gradient
+itself, $\nabla f(1,2)=(4,5)$, i.e.\ the unit direction
+$(4,5)/\sqrt{41}$. The maximum rate of increase is the gradient's magnitude:
+\[ \textcolor{workpurple}{\lvert\nabla f(1,2)\rvert = \sqrt{4^2+5^2}
+   = \sqrt{41} \approx 6.40.} \]
+
+\medskip
+\noindent\textbf{Solution 6.}\quad With $z_x=2x$, $z_y=2y$, $x'=-\sin t$,
+$y'=\cos t$:
+\[ \textcolor{workpurple}{\frac{dz}{dt} = (2x)(-\sin t) + (2y)(\cos t)
+   = 2\cos t(-\sin t) + 2\sin t(\cos t) = 0.} \]
+Geometrically the path $(\cos t,\sin t)$ rides the unit circle, where
+$z=x^2+y^2=1$ is constant --- so its rate of change is zero, and the velocity is
+tangent to the level curve, perpendicular to $\nabla z$.
+
+\medskip
+\noindent\textbf{Solution 7.}\quad The tree has two branches to $s$:
+$\dfrac{\partial z}{\partial s}=z_x\,x_s+z_y\,y_s$ with $z_x=2xy$, $z_y=x^2$,
+$x_s=1$, $y_s=t$:
+\[ \textcolor{workpurple}{\frac{\partial z}{\partial s}
+   = (2xy)(1) + (x^2)(t)
+   = 2(s+t)(st) + (s+t)^2\,t.} \]
+Factoring $t(s+t)$ gives
+\[ \textcolor{workpurple}{\frac{\partial z}{\partial s}
+   = t(s+t)\big[\,2s + (s+t)\,\big] = t(s+t)(3s+t).} \]
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Set the gradient to zero:
+\[ \textcolor{workpurple}{f_x = 2x - 4 = 0 \Rightarrow x = 2,
+   \qquad f_y = 2y - 6 = 0 \Rightarrow y = 3,} \]
+so the only critical point is $(2,3)$. The second partials are $f_{xx}=2$,
+$f_{yy}=2$, $f_{xy}=0$, giving
+\[ \textcolor{workpurple}{D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0,
+   \quad f_{xx} = 2 > 0,} \]
+a \textbf{local minimum}. The value is
+$\textcolor{workpurple}{f(2,3) = 4 + 9 - 8 - 18 + 13 = 0}$.
+
+\medskip
+\noindent\textbf{Solution 9.}\quad Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone
+critical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$:
+\[ \textcolor{workpurple}{D = (2)(-2) - 0 = -4 < 0,} \]
+so $(0,0)$ is a \textbf{saddle point} --- $f$ rises along $x$ and falls along
+$y$, and the sign of $f_{xx}$ is irrelevant once $D<0$.
+
+\medskip
+\noindent\textbf{Solution (Capstone).}\quad Set both partials to zero:
+\[ \textcolor{workpurple}{f_x = 3x^2 - 3 = 0 \Rightarrow x = \pm 1,
+   \qquad f_y = 2y = 0 \Rightarrow y = 0,} \]
+giving critical points $(1,0)$ and $(-1,0)$. The second partials are
+$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$.
+\[ \textcolor{workpurple}{(1,0):\ D = 12 > 0,\ f_{xx} = 6 > 0
+   \Rightarrow \text{local minimum},\quad f(1,0) = 1 - 3 = -2.} \]
+\[ \textcolor{workpurple}{(-1,0):\ D = -12 < 0
+   \Rightarrow \text{saddle point}.} \]
+So $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the
+cubic term means there is no global extremum.
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 6 Key Takeaway]
+The workflow is uniform: \textcolor{accentorange}{partials} build the
+\textcolor{accentorange}{gradient $\nabla f$}; the gradient drives directional
+derivatives $\textcolor{accentorange}{D_{\mathbf u}f=\nabla f\cdot\mathbf u}$
+(always on a \emph{unit} $\mathbf u$) and points along steepest ascent
+$\textcolor{accentorange}{\lvert\nabla f\rvert}$; the
+\textcolor{accentorange}{chain rule} sums one term per path; and
+\textcolor{accentorange}{optimization} solves $\nabla f=\mathbf 0$ then sorts each
+point with $\textcolor{accentorange}{D=f_{xx}f_{yy}-f_{xy}^{\,2}}$ --- $D>0$ an
+extremum (sign of $f_{xx}$ decides min vs.\ max), $D<0$ a saddle.
+\end{conceptbox}
+
+\end{document}
