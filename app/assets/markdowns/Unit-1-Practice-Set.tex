@@ -1,0 +1,254 @@
+% Unit 1: Foundations and Prerequisites
+% Practice Problems and Solutions (Part II and Part III only)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (1.1 to 1.6) and the
+% QUIZ_DATA micro-practice and unit-mastery items for Unit 1.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+
+\tcbuselibrary{skins}
+
+% ---------------------------------------------------------------------------
+% Unified style-guide palette (see LATEX_STYLE_GUIDE.md)
+% ---------------------------------------------------------------------------
+\definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
+\definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
+\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
+\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
+\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
+
+% ---------------------------------------------------------------------------
+% Subsection typography: headerblue numbered sub-module titles
+% ---------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% Six core custom boxes (unbreakable, title={#1} protected)
+% ---------------------------------------------------------------------------
+
+% 1. Blue overview capsule for the topics summary.
+\newtcolorbox{topicsbox}{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title=Unit 1 at a Glance: Core Sub-Topics,
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 2. Orange formula container for standard forms and master formulas.
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 3. Green algorithm block for explicitly laid-out procedures.
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 4. Purple west-bordered worked example for step-by-step solutions.
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 5. Orange thin-bordered final concept takeaway.
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 6. Crimson west-bordered warning box for common pitfalls.
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+
+% Number and index sections plus subsections (e.g., 1.1) two levels deep.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 1: Foundations and Prerequisites}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Problems and Solutions}
+\end{center}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% No \clearpage here: a standalone Practice Set opens directly on its problems.
+% ===========================================================================
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They are graded from raw calculus
+review, through the number $e$ and Euler's formula, into classifying equations,
+verifying solutions, and finally building equations by eliminating constants.
+Complete solutions follow in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item Differentiate $y = e^{3x}$ using the chain rule.
+
+    \item Evaluate the indefinite integral $\displaystyle\int e^{-2x}\,dx$.
+
+    \item Differentiate \textbf{(a)} $(2x+1)^{3}$ and \textbf{(b)} $\sin(x^{2})$.
+
+    \item Compute $\dfrac{d}{dt}e^{kt}$, then state the general solution of
+          $\dfrac{dy}{dt} = y$.
+
+    \item Use Euler's formula $e^{i\theta} = \cos\theta + i\sin\theta$ to
+          evaluate \textbf{(a)} $e^{i\pi}$ and \textbf{(b)} $e^{i\pi/2}$, and
+          write down Euler's identity.
+
+    \item For each equation, state the order and the degree, and say whether it
+          is linear:
+          \textbf{(a)} $\dfrac{d^{2}y}{dx^{2}} + 3\dfrac{dy}{dx} = 0$, \quad
+          \textbf{(b)} $\left(\dfrac{dy}{dx}\right)^{3} + y = x$, \quad
+          \textbf{(c)} $\dfrac{dy}{dx} + y^{2} = 0$.
+
+    \item Verify that $y = e^{2x}$ is a solution of $\dfrac{d^{2}y}{dx^{2}} - 4y = 0$.
+
+    \item Decide whether $y = x^{2}$ satisfies $x\dfrac{dy}{dx} = 2y$, and
+          whether $y = \cos x$ satisfies $\dfrac{d^{2}y}{dx^{2}} + y = 0$.
+
+    \item Form a differential equation by eliminating $C$ from \textbf{(a)}
+          $y = Cx^{2}$ and \textbf{(b)} $y = Ce^{x}$.
+
+    \item \textbf{(Capstone)} Eliminate both constants from
+          $y = A\cos x + B\sin x$, and separately eliminate $r$ from the circle
+          family $x^{2} + y^{2} = r^{2}$.
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% \clearpage so the solutions print on their own page.
+% ===========================================================================
+\clearpage
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad The exponential reproduces itself, and the
+chain rule multiplies by the derivative of the inside, $3$.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = e^{3x}\cdot 3 = 3e^{3x}}. \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad Integrating an exponential divides by the
+constant in the exponent and restores the arbitrary constant.
+\[ \textcolor{workpurple}{\int e^{-2x}\,dx = \frac{1}{-2}e^{-2x} + C = -\tfrac{1}{2}e^{-2x} + C}. \]
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Apply the power-and-chain rule, then the
+chain rule on the sine.
+\[ \textcolor{workpurple}{\frac{d}{dx}(2x+1)^{3} = 3(2x+1)^{2}\cdot 2 = 6(2x+1)^{2}} \]
+\[ \textcolor{workpurple}{\frac{d}{dx}\sin(x^{2}) = \cos(x^{2})\cdot 2x = 2x\cos(x^{2})}. \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad The exponential returns itself times the
+constant from the exponent.
+\[ \textcolor{workpurple}{\frac{d}{dt}e^{kt} = k\,e^{kt}}. \]
+The equation $\frac{dy}{dt} = y$ asks for a function equal to its own derivative,
+so
+\[ \textcolor{workpurple}{y = Ce^{t}}. \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Substitute the angles into Euler's formula.
+\[ \textcolor{workpurple}{e^{i\pi} = \cos\pi + i\sin\pi = -1 + 0 = -1} \]
+\[ \textcolor{workpurple}{e^{i\pi/2} = \cos\tfrac{\pi}{2} + i\sin\tfrac{\pi}{2} = 0 + i = i}. \]
+Rearranging the first gives Euler's identity,
+$\textcolor{workpurple}{e^{i\pi} + 1 = 0}$.
+
+\medskip
+\noindent\textbf{Solution 6.}\quad The order is the highest derivative; the
+degree is its power; linearity forbids powers above one on $y$ and its
+derivatives.
+\[ \textcolor{workpurple}{\text{(a) order } 2,\; \text{degree } 1,\; \text{linear}} \]
+\[ \textcolor{workpurple}{\text{(b) order } 1,\; \text{degree } 3,\; \text{nonlinear}} \]
+\[ \textcolor{workpurple}{\text{(c) order } 1,\; \text{degree } 1,\; \text{nonlinear (the } y^{2} \text{ term)}}. \]
+
+\medskip
+\noindent\textbf{Solution 7.}\quad Differentiate twice and substitute.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = 2e^{2x}}, \qquad
+   \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} = 4e^{2x}} \]
+\[ \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} - 4y = 4e^{2x} - 4e^{2x} = 0} \qquad\checkmark \]
+so $y = e^{2x}$ is a solution.
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Test each candidate by substitution.
+\[ \textcolor{workpurple}{y = x^{2}: \quad y' = 2x, \;\; x\,y' = x\cdot 2x = 2x^{2} = 2y} \qquad\checkmark \]
+\[ \textcolor{workpurple}{y = \cos x: \quad y'' = -\cos x, \;\; y'' + y = -\cos x + \cos x = 0} \qquad\checkmark \]
+Both candidates check out.
+
+\medskip
+\noindent\textbf{Solution 9.}\quad Differentiate, then replace the constant from
+the original relation.
+\[ \textcolor{workpurple}{y = Cx^{2}: \quad y' = 2Cx, \;\; C = \frac{y}{x^{2}} \;\Longrightarrow\; y' = 2\cdot\frac{y}{x^{2}}\cdot x = \frac{2y}{x}} \]
+\[ \textcolor{workpurple}{\text{so } x\frac{dy}{dx} = 2y}. \]
+\[ \textcolor{workpurple}{y = Ce^{x}: \quad y' = Ce^{x} = y \;\Longrightarrow\; \frac{dy}{dx} = y}. \]
+
+\medskip
+\noindent\textbf{Solution 10.}\quad Each family needs differentiation to clear
+its constants. For $y = A\cos x + B\sin x$ (two constants), differentiate twice:
+\[ \textcolor{workpurple}{y'' = -A\cos x - B\sin x = -y \;\Longrightarrow\; \frac{d^{2}y}{dx^{2}} + y = 0}. \]
+For the circle $x^{2} + y^{2} = r^{2}$ (one constant), differentiate implicitly:
+\[ \textcolor{workpurple}{2x + 2y\frac{dy}{dx} = 0 \;\Longrightarrow\; \frac{dy}{dx} = -\frac{x}{y}}. \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 1 Key Takeaway]
+These problems exercise the two directions of the subject. Going forward, you
+\textcolor{accentorange}{differentiate and integrate} fluently and
+\textcolor{accentorange}{verify a solution} by substituting it into the equation;
+going backward, you \textcolor{accentorange}{eliminate arbitrary constants} to
+build the equation a family satisfies. Throughout, the
+\textcolor{accentorange}{order, degree, and linearity} of an equation are the
+first labels you read off.
+\end{conceptbox}
+
+\end{document}
