@@ -1,0 +1,165 @@
+% Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability
+% Practice Set (Parts II and III only: problems then full solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (4.1 to 4.6) and the
+% QUIZ_DATA micro-practice items for Unit 4.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Set: Problems and Complete Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% No leading \clearpage: this standalone set opens directly on its problems.
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They climb from locating equilibria,
+through stability tests and phase lines, into the logistic model, and finish with
+the Bernoulli substitution $v = y^{1-n}$ and a full solve. Solutions follow in
+Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item Find all equilibrium solutions of $\dfrac{dy}{dt} = y(y-3)$.
+
+    \item Classify the equilibrium $y = 2$ of $\dfrac{dy}{dt} = y - 2$ using the
+          sign of $f'$.
+
+    \item For $\dfrac{dy}{dt} = y - y^{3}$, find every equilibrium and classify
+          each with the linearized test.
+
+    \item Classify the equilibrium $y = 1$ of $\dfrac{dy}{dt} = (y-1)^{2}$. Why
+          does the $f'$ test alone not settle it?
+
+    \item Build the phase line for $\dfrac{dy}{dt} = y^{2} - 4$: mark the
+          equilibria, set the arrows, and classify each.
+
+    \item For the logistic equation $\dfrac{dP}{dt} = rP\!\left(1-\dfrac{P}{K}\right)$
+          with $r > 0$, find both equilibria, classify them, and give the
+          population of fastest growth.
+
+    \item With $r = 0.5$ and $K = 100$, compute $\dfrac{dP}{dt}$ at $P = 25$ and
+          state the population at which the growth rate is greatest.
+
+    \item For $y' + y = xy^{3}$, identify $n$, write the substitution $v$, and
+          compute $\dfrac{dv}{dx}$ in terms of $y'$.
+
+    \item Reduce $y' + \dfrac{1}{x}\,y = x\,y^{2}$ to a first-order \emph{linear}
+          equation in $v = y^{1-n}$ (do not solve it yet).
+
+    \item \textbf{(Capstone)} Solve the Bernoulli equation $y' + y = y^{2}$
+          completely: reduce it with $v = y^{-1}$, solve the linear equation, and
+          back-substitute for $y$.
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% Standalone set keeps the \clearpage before Part III so solutions print fresh.
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Equilibria are the roots of $f(y)=0$:
+\[ \textcolor{workpurple}{y(y-3) = 0 \;\Longrightarrow\; y = 0 \text{ and } y = 3.} \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad Here $f(y) = y - 2$, so $f'(y) = 1$:
+\[ \textcolor{workpurple}{f'(2) = 1 > 0 \;\Longrightarrow\; \text{unstable (a source).}} \]
+A positive slope of $f$ at the equilibrium repels nearby solutions.
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Factor for the equilibria, then apply
+$f'(y) = 1 - 3y^{2}$:
+\[ \textcolor{workpurple}{y - y^{3} = y(1-y)(1+y) = 0 \;\Longrightarrow\; y = -1,\,0,\,1.} \]
+\[ \textcolor{workpurple}{f'(0) = 1 > 0\ (\text{unstable}), \qquad f'(\pm 1) = 1 - 3 = -2 < 0\ (\text{stable}).} \]
+So $y = \pm 1$ are sinks and $y = 0$ is a source.
+
+\medskip
+\noindent\textbf{Solution 4.}\quad The only equilibrium is $y = 1$. The
+linearized test is inconclusive because
+\[ \textcolor{workpurple}{f'(y) = 2(y-1) \;\Longrightarrow\; f'(1) = 0.} \]
+Fall back on the sign of $f(y) = (y-1)^{2}$, which is $\ge 0$ everywhere and
+\emph{never} changes sign across $y = 1$:
+\[ \textcolor{workpurple}{y<1:\ f>0\ (\uparrow), \qquad y>1:\ f>0\ (\uparrow).} \]
+Solutions rise toward $1$ from below but away from $1$ above, so $y = 1$ is
+\textbf{semi-stable}.
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Equilibria where the rate vanishes:
+\[ \textcolor{workpurple}{y^{2} - 4 = 0 \;\Longrightarrow\; y = -2,\,2.} \]
+Test the rate sign on each interval:
+\[ \textcolor{workpurple}{y<-2:\ (+)\,\uparrow, \qquad -2<y<2:\ (-)\,\downarrow, \qquad y>2:\ (+)\,\uparrow.} \]
+Arrows converge on $-2$ (\textbf{stable}) and diverge from $2$
+(\textbf{unstable}).
+
+\medskip
+\noindent\textbf{Solution 6.}\quad Set the product to zero:
+\[ \textcolor{workpurple}{rP\!\left(1-\frac{P}{K}\right) = 0 \;\Longrightarrow\; P = 0 \text{ and } P = K.} \]
+Classify with $f'(P) = r\!\left(1 - \dfrac{2P}{K}\right)$:
+\[ \textcolor{workpurple}{f'(0) = r > 0\ (\text{unstable}), \qquad f'(K) = r(1-2) = -r < 0\ (\text{stable}).} \]
+The growth rate, a downward parabola in $P$ with roots $0$ and $K$, peaks at the
+midpoint:
+\[ \textcolor{workpurple}{P = \frac{K}{2}.} \]
+
+\medskip
+\noindent\textbf{Solution 7.}\quad Substitute into $rP\!\left(1-\frac{P}{K}\right)$:
+\[ \textcolor{workpurple}{\frac{dP}{dt} = 0.5 \cdot 25\!\left(1 - \frac{25}{100}\right) = 12.5 \cdot 0.75 = 9.375.} \]
+The greatest growth occurs at
+$\textcolor{workpurple}{P = \frac{K}{2} = 50}$.
+
+\medskip
+\noindent\textbf{Solution 8.}\quad The right side is $y^{3}$, so $n = 3$ and the
+linearizing exponent is $1 - n = -2$:
+\[ \textcolor{workpurple}{v = y^{1-n} = y^{-2}, \qquad \frac{dv}{dx} = (1-n)y^{-n}\,\frac{dy}{dx} = -2\,y^{-3}\,y'.} \]
+
+\medskip
+\noindent\textbf{Solution 9.}\quad Here $n = 2$, so $v = y^{-1}$ and
+$v' = -y^{-2}y'$. Divide every term by $y^{2}$:
+\[ \textcolor{workpurple}{y^{-2}y' + \frac{1}{x}\,y^{-1} = x.} \]
+Replace $y^{-1} = v$ and $y^{-2}y' = -v'$:
+\[ \textcolor{workpurple}{-v' + \frac{1}{x}\,v = x \;\Longrightarrow\; v' - \frac{1}{x}\,v = -x,} \]
+a first-order linear equation in $v$.
+
+\medskip
+\noindent\textbf{Solution 10.}\quad With $n = 2$, set $v = y^{-1}$,
+$v' = -y^{-2}y'$. Divide $y' + y = y^{2}$ by $y^{2}$:
+\[ \textcolor{workpurple}{y^{-2}y' + y^{-1} = 1.} \]
+Substitute $y^{-1} = v$, $y^{-2}y' = -v'$:
+\[ \textcolor{workpurple}{-v' + v = 1 \;\Longrightarrow\; v' - v = -1.} \]
+Integrating factor $\mu = e^{-x}$:
+\[ \textcolor{workpurple}{\left(e^{-x}v\right)' = -e^{-x} \;\Longrightarrow\; e^{-x}v = e^{-x} + C.} \]
+So $\textcolor{workpurple}{v = 1 + Ce^{x}}$, and back-substituting $v = y^{-1}$:
+\[ \textcolor{workpurple}{y = \frac{1}{v} = \frac{1}{1 + Ce^{x}}.} \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 4 Key Takeaway]
+Stability is settled by two signs: \textcolor{accentorange}{$f(c)=0$} locates an
+equilibrium and \textcolor{accentorange}{the sign of $f'(c)$} (or, when that is
+zero, the sign of $f$ on each side) classifies it. The
+\textcolor{accentorange}{logistic equation} packages this with a stable carrying
+capacity $K$ and fastest growth at $\tfrac{K}{2}$. Every Bernoulli equation
+yields to \textcolor{accentorange}{$v = y^{1-n}$}, which trades the lone power of
+$y$ for a clean linear solve.
+\end{conceptbox}
+
+\end{document}

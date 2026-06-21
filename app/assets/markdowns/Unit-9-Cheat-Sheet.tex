@@ -1,0 +1,192 @@
+% Unit 9: Second-Order Linear Equations, Theory and Structure
+% Condensed Cheat Sheet (Part I only, standalone)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (9.1 to 9.8) and the
+% QUIZ_DATA micro-practice items for Unit 9.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 9: Second-Order Linear Equations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet: Theory and Structure}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 9 at a Glance: Core Sub-Topics]
+A second-order linear equation reads
+$a(x)y'' + b(x)y' + c(x)y = g(x)$; this unit builds the homogeneous theory and the
+constant-coefficient solution machine.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Existence, uniqueness, superposition} --- two side conditions
+          pin a unique solution; linear combinations of solutions are solutions.
+    \item \textbf{The Wronskian} --- $W(y_1,y_2)=y_1y_2'-y_2y_1'$ tests linear
+          independence and certifies a fundamental set.
+    \item \textbf{Abel's identity} --- the Wronskian itself solves a first-order
+          ODE, so it is either never zero or identically zero.
+    \item \textbf{Reduction of order} --- one known solution $y_1$ manufactures a
+          second, independent $y_2$.
+    \item \textbf{Constant-coefficient roots} --- the characteristic equation
+          $ar^2+br+c=0$ splits into real-distinct, repeated, and complex cases.
+    \item \textbf{Cauchy--Euler and higher order} --- the $x^m$ trick and the
+          degree-$n$ characteristic polynomial.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{9}   % subsections auto-number as the unit modules 9.1, 9.2, ...
+
+\subsection{Introduction to Second-Order Equations}
+
+The general linear second-order equation is
+$a(x)y'' + b(x)y' + c(x)y = g(x)$. It is \textbf{homogeneous} when $g(x)=0$ and
+\textbf{nonhomogeneous} otherwise; its general solution carries \emph{two}
+arbitrary constants.
+
+\begin{formulabox}[Standard and Normalized Forms]
+\[ a(x)y'' + b(x)y' + c(x)y = g(x), \qquad
+   y'' + p(x)y' + q(x)y = r(x), \]
+with $p=b/a$, $q=c/a$, $r=g/a$ where $a(x)\neq 0$. Linearity means $y$, $y'$, $y''$
+each appear to the first power and are never multiplied together.
+\end{formulabox}
+
+\subsection{Existence, Uniqueness, Superposition, and Independence}
+
+On any interval where $p$, $q$, and $r$ are continuous, the initial value problem
+with $y(x_0)=y_0$, $y'(x_0)=y_0'$ has a \emph{unique} solution.
+
+\begin{formulabox}[Superposition Principle]
+If $y_1$ and $y_2$ each solve the homogeneous equation
+$y''+p\,y'+q\,y=0$, then for \emph{any} constants $c_1,c_2$,
+\[ y = c_1 y_1 + c_2 y_2 \]
+is also a solution. The general solution is this two-parameter family precisely
+when $y_1,y_2$ are linearly independent.
+\end{formulabox}
+
+\subsection{Linear Independence and the Wronskian}
+
+Two solutions form a \textbf{fundamental set} exactly when they are linearly
+independent, and the Wronskian is the determinant that tests it.
+
+\begin{formulabox}[The Wronskian]
+\[ W(y_1,y_2)(x) = \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix}
+   = y_1 y_2' - y_2 y_1'. \]
+If $W(x_0)\neq 0$ at any point, $y_1,y_2$ are \textbf{linearly independent} on the
+interval and $\{y_1,y_2\}$ is a fundamental set.
+\end{formulabox}
+
+\subsection{Abel's Identity}
+
+Abel's identity says the Wronskian of two solutions of
+$y''+p(x)y'+q(x)y=0$ itself satisfies a first-order ODE, so its sign can never
+change.
+
+\begin{methodbox}[Abel's Formula]
+For $y'' + p(x)\,y' + q(x)\,y = 0$,
+\[ W(x) = W(x_0)\,\exp\!\left(-\int_{x_0}^{x} p(t)\,dt\right). \]
+Because the exponential is never zero, $W$ is \textbf{either identically zero}
+(dependent solutions) \textbf{or never zero} (independent) --- there is no middle
+ground.
+\end{methodbox}
+
+\subsection{Reduction of Order}
+
+Given one nonzero solution $y_1$ of the homogeneous equation, reduction of order
+substitutes $y_2 = v(x)\,y_1$ and solves for $v$, producing a second independent
+solution.
+
+\begin{methodbox}[Reduction of Order Formula]
+For $y'' + p(x)\,y' + q(x)\,y = 0$ with a known solution $y_1$,
+\[ y_2 = y_1(x)\int \frac{e^{-\int p(x)\,dx}}{y_1(x)^2}\,dx. \]
+The substitution $y_2=v y_1$ collapses the second-order equation to a
+\emph{first-order} equation in $v'$, which the integral above solves directly.
+\end{methodbox}
+
+\subsection{Constant Coefficient Homogeneous Equations}
+
+For $ay'' + by' + cy = 0$ with constants $a,b,c$, try $y=e^{rx}$ to get the
+\textbf{characteristic equation} $ar^2 + br + c = 0$. The discriminant
+$b^2-4ac$ selects one of three cases.
+
+\begin{formulabox}[The Three Root Cases]
+\[ ar^2 + br + c = 0, \qquad r = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \]
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Real distinct} ($b^2-4ac>0$), roots $r_1\neq r_2$:
+          \[ y = c_1 e^{r_1 x} + c_2 e^{r_2 x}. \]
+    \item \textbf{Repeated} ($b^2-4ac=0$), one root $r$:
+          \[ y = (c_1 + c_2 x)\,e^{r x}. \]
+    \item \textbf{Complex conjugate} ($b^2-4ac<0$), $r=\alpha\pm\beta i$:
+          \[ y = e^{\alpha x}\big(c_1\cos\beta x + c_2\sin\beta x\big). \]
+\end{itemize}
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Repeated-Root Boundary]
+The repeated case ($b^2-4ac=0$) is the boundary between real and complex roots.
+Do \emph{not} write $y=(c_1+c_2)e^{rx}$ --- that is a single constant; the second
+solution carries the factor $x$, giving $y=(c_1+c_2 x)e^{rx}$. For complex roots,
+$\alpha$ is the \emph{real} part (in the exponential) and $\beta$ the
+\emph{imaginary} part (inside the sine and cosine); swapping them is the classic
+sign trap.
+\end{warningbox}
+
+\subsection{The Cauchy--Euler Equation}
+
+The Cauchy--Euler (equidimensional) equation $ax^2y'' + bxy' + cy = 0$ has powers
+of $x$ matching derivative orders. Try $y=x^m$.
+
+\begin{formulabox}[Cauchy--Euler Root Cases]
+Substituting $y=x^m$ gives the indicial equation $am(m-1)+bm+c=0$:
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Distinct} $m_1\neq m_2$: \quad $y = c_1 x^{m_1} + c_2 x^{m_2}$.
+    \item \textbf{Repeated} $m$: \quad $y = (c_1 + c_2\ln x)\,x^{m}$.
+    \item \textbf{Complex} $m=\alpha\pm\beta i$:
+          \[ y = x^{\alpha}\big(c_1\cos(\beta\ln x) + c_2\sin(\beta\ln x)\big). \]
+\end{itemize}
+\end{formulabox}
+
+\subsection{Higher-Order Linear Equations}
+
+An $n$th-order constant-coefficient equation has a degree-$n$ characteristic
+polynomial; each real root contributes an exponential, and a root of
+\textbf{multiplicity} $k$ contributes $k$ independent terms.
+
+\begin{formulabox}[Repeated Roots at Higher Order]
+A root $r$ of multiplicity $k$ contributes
+\[ e^{r x},\; x e^{r x},\; x^2 e^{r x},\; \ldots,\; x^{k-1} e^{r x}, \]
+and a complex pair $\alpha\pm\beta i$ of multiplicity $k$ contributes the analogous
+$x^j e^{\alpha x}\cos\beta x$ and $x^j e^{\alpha x}\sin\beta x$ for $j=0,\ldots,k-1$.
+\end{formulabox}
+
+\begin{conceptbox}[Unit 9 Key Takeaway]
+The general solution of a homogeneous second-order linear equation is
+$\textcolor{accentorange}{c_1 y_1 + c_2 y_2}$ for any
+\textcolor{accentorange}{linearly independent} pair, which the
+\textcolor{accentorange}{Wronskian} certifies and \textcolor{accentorange}{Abel's
+identity} guards. For constant coefficients the
+\textcolor{accentorange}{characteristic roots} dictate the form ---
+\textcolor{accentorange}{real-distinct}, \textcolor{accentorange}{repeated}
+(carry the $x$), or \textcolor{accentorange}{complex} ($e^{\alpha x}$ times sines
+and cosines) --- and \textcolor{accentorange}{reduction of order} recovers a second
+solution from a first.
+\end{conceptbox}
+
+\end{document}

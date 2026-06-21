@@ -1,0 +1,231 @@
+% Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability
+% Condensed Cheat Sheet (Part I only)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (4.1 to 4.6) and the
+% QUIZ_DATA micro-practice items for Unit 4.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 4 at a Glance: Core Sub-Topics]
+This unit studies first-order equations \emph{qualitatively}: when the right
+side depends on $y$ alone, the long-run behavior can be read off without ever
+solving. It then closes with the Bernoulli family, the one nonlinear form that a
+clever substitution turns linear.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Equilibrium Solutions and Stability} --- constant solutions
+          $f(c)=0$, and the sign of $f'(c)$ that makes them attract or repel.
+    \item \textbf{Autonomous Equations and the Phase Line} --- $y'=f(y)$ as a
+          one-dimensional flow, with arrows set by the sign of $f$.
+    \item \textbf{The Logistic Equation} --- $P'=rP(1-P/K)$, its two equilibria,
+          and the carrying capacity $K$.
+    \item \textbf{Bernoulli Differential Equations} --- the form
+          $y'+P(x)y=Q(x)y^{n}$ and the linearizing substitution $v=y^{1-n}$.
+    \item \textbf{Solving Bernoulli Equations} --- the full divide, substitute,
+          solve-linear, and back-substitute workflow.
+    \item \textbf{Applications of Bernoulli Equations} --- population models and
+          the fluid-energy form along a streamline.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{4}   % subsections auto-number as the unit modules 4.1, 4.2, ...
+
+\subsection{Equilibrium Solutions and Stability}
+
+An \emph{equilibrium} (steady state) of $\frac{dy}{dt} = f(y)$ is a constant
+solution $y = c$. A constant has zero derivative, so the rate must vanish there:
+$f(c) = 0$. Whether nearby solutions return to $c$ or flee from it is decided by
+the sign of the slope $f'(c)$.
+
+\begin{formulabox}[Equilibria and the Linearized Stability Test]
+$y = c$ is an equilibrium of $\dfrac{dy}{dt}=f(y)$ exactly when
+\[ f(c) = 0. \]
+Classify it by the sign of $f'(c)$:
+\[
+\begin{array}{ll}
+f'(c) < 0 & \text{stable (a \textbf{sink}) --- solutions return}\\
+f'(c) > 0 & \text{unstable (a \textbf{source}) --- solutions flee}\\
+f'(c) = 0 & \text{test fails; check the sign of } f \text{ on each side}
+\end{array}
+\]
+When $f$ touches zero \emph{without changing sign}, the point is
+\textbf{semi-stable}: it attracts from one side and repels from the other.
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 4.1: Classify the equilibria of $\frac{dy}{dt}=y-y^{3}$]
+\textbf{Step 1.} Set $f(y)=0$ and factor:
+\[ \textcolor{workpurple}{y - y^{3} = y(1-y^{2}) = y(1-y)(1+y) = 0 \;\Longrightarrow\; y = -1,\,0,\,1.} \]
+\textbf{Step 2.} Test each root with $f'(y) = 1 - 3y^{2}$:
+\[ \textcolor{workpurple}{f'(0) = 1 > 0\ (\text{unstable}), \qquad f'(\pm 1) = -2 < 0\ (\text{stable}).} \]
+So $y=\pm 1$ are sinks and $y=0$ is a source.
+\end{examplebox}
+
+\subsection{Autonomous Equations and the Phase Line}
+
+An equation is \emph{autonomous} when its right side depends on $y$ alone, with
+no explicit $t$: $\frac{dy}{dt} = f(y)$. Because nothing depends on the clock,
+any time-shift $y(t-c)$ of a solution is again a solution --- solution curves are
+horizontal translates of one another. All the behavior collapses onto a single
+\emph{phase line}: a $y$-axis with arrows.
+
+\begin{formulabox}[Reading the Phase Line]
+Mark the equilibria ($f=0$) on the $y$-axis. Between them the sign of $f$ sets
+the arrow:
+\[ f(y) > 0 \Rightarrow \text{arrow up},\qquad f(y) < 0 \Rightarrow \text{arrow down}. \]
+\[
+\begin{array}{ll}
+\text{arrows in from both sides} & \text{stable sink}\\
+\text{arrows out from both sides} & \text{unstable source}\\
+\text{one in, one out} & \text{semi-stable}
+\end{array}
+\]
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 4.2: Phase line for $\frac{dy}{dt}=y^{2}-4$]
+\textbf{Step 1.} Equilibria where the rate vanishes:
+\[ \textcolor{workpurple}{y^{2} - 4 = 0 \;\Longrightarrow\; y = -2,\,2.} \]
+\textbf{Step 2.} Test the rate sign in each interval:
+\[ \textcolor{workpurple}{y<-2:\ (+)\uparrow, \qquad -2<y<2:\ (-)\downarrow, \qquad y>2:\ (+)\uparrow.} \]
+Arrows converge on $-2$ (stable) and diverge from $2$ (unstable).
+\end{examplebox}
+
+\subsection{The Logistic Equation}
+
+The logistic model corrects exponential growth with a crowding term, so growth
+slows as the population nears its ceiling. For small $P$ it behaves like
+exponential growth $P' \approx rP$; near the ceiling the growth shuts off.
+
+\begin{formulabox}[The Logistic Equation and Its Equilibria]
+\[ \frac{dP}{dt} = rP\!\left(1 - \frac{P}{K}\right), \qquad r>0. \]
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+    \item Equilibria: $P = 0$ (\textbf{unstable}) and $P = K$ (\textbf{stable}).
+    \item $K$ is the \textbf{carrying capacity} --- the population level the
+          solution approaches.
+    \item Growth rate is greatest at the midpoint $P = \tfrac{K}{2}$, where the
+          downward parabola in $P$ peaks.
+\end{itemize}
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Carrying-Capacity Traps]
+$K$ is a \emph{population level}, not a growth rate --- the intrinsic rate is the
+constant $r$. The peak growth sits at $\tfrac{K}{2}$, not at $K$ (where growth is
+zero). And do not drop the $P=0$ equilibrium: with $r>0$ it is \emph{unstable},
+while $P=K$ is the \emph{stable} ceiling --- reversing these two is the classic
+sign error.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 4.3: Evaluate the logistic rate]
+With $r = 0.5$, $K = 100$, find $\frac{dP}{dt}$ at $P = 25$:
+\[ \textcolor{workpurple}{\frac{dP}{dt} = 0.5 \cdot 25\!\left(1 - \frac{25}{100}\right) = 12.5 \cdot 0.75 = 9.375.} \]
+The population is below $\tfrac{K}{2}=50$, so it is still accelerating toward the
+fastest-growth point.
+\end{examplebox}
+
+\subsection{Bernoulli Differential Equations}
+
+A \emph{Bernoulli equation} looks like a first-order linear equation but carries
+a power of $y$ on the right. That single nonlinear term is exactly what the
+substitution $v = y^{1-n}$ removes.
+
+\begin{formulabox}[Standard Form and Linearizing Substitution]
+\[ y' + P(x)\,y = Q(x)\,y^{n}. \]
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+    \item For $n = 0$ or $n = 1$ the equation is already linear --- no
+          substitution needed.
+    \item For any other $n$, set
+          \[ v = y^{1-n}, \qquad \frac{dv}{dx} = (1-n)\,y^{-n}\,\frac{dy}{dx}, \]
+          which turns the equation into a \textbf{first-order linear} equation
+          in $v$.
+\end{itemize}
+\end{formulabox}
+
+\begin{methodbox}[Why $v=y^{1-n}$ Works]
+Dividing $y' + P y = Q y^{n}$ by $y^{n}$ gives $y^{-n}y' + P\,y^{1-n} = Q$. The
+group $y^{1-n}$ is exactly $v$, and $y^{-n}y'$ is $\frac{1}{1-n}\,v'$, so the
+whole equation becomes
+\[ \frac{1}{1-n}\,v' + P\,v = Q \quad\Longrightarrow\quad v' + (1-n)P\,v = (1-n)Q, \]
+a clean linear equation ready for an integrating factor.
+\end{methodbox}
+
+\subsection{Solving Bernoulli Equations, Worked Examples}
+
+The solution is a fixed four-step pipeline: clear the power, substitute, solve
+the linear equation with an integrating factor, then undo the substitution.
+
+\begin{methodbox}[The Bernoulli Solution Algorithm]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item \textbf{Divide} every term by $y^{n}$.
+    \item \textbf{Substitute} $v = y^{1-n}$, $v' = (1-n)y^{-n}y'$ to get
+          $v' + (1-n)P\,v = (1-n)Q$.
+    \item \textbf{Solve} the linear equation with $\mu = e^{\int (1-n)P\,dx}$.
+    \item \textbf{Back-substitute} $v = y^{1-n}$ and solve for $y$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}[Worked Example 4.5: Reduce $y' + y = xy^{3}$]
+\textbf{Step 1.} Here $n = 3$, so $v = y^{1-3} = y^{-2}$ and
+$v' = -2y^{-3}y'$.
+\[ \textcolor{workpurple}{\text{Divide by } y^{3}:\quad y^{-3}y' + y^{-2} = x.} \]
+\textbf{Step 2.} Substitute, using $y^{-3}y' = -\tfrac{1}{2}v'$:
+\[ \textcolor{workpurple}{-\tfrac{1}{2}v' + v = x \;\Longrightarrow\; v' - 2v = -2x,} \]
+a first-order linear equation in $v$ ready for $\mu = e^{-2x}$.
+\end{examplebox}
+
+\subsection{Applications of Bernoulli Equations}
+
+The name attaches to two distinct ideas. The Bernoulli \emph{differential
+equation} models constrained growth and resistive dynamics; the Bernoulli
+\emph{principle} in fluids is an energy balance along a streamline.
+
+\begin{formulabox}[The Fluid Bernoulli Equation]
+Along a streamline, mechanical energy per unit volume is conserved:
+\[ P + \tfrac{1}{2}\rho v^{2} + \rho g h = \text{constant}. \]
+The three terms are pressure, kinetic, and potential energy density. With the
+total fixed, a faster flow ($v\uparrow$) forces a lower pressure ($P\downarrow$);
+because the kinetic term scales with $v^{2}$, doubling the speed quadruples it.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Two Different ``Bernoulli'' Equations]
+The Bernoulli \emph{ODE} $y'+P(x)y = Q(x)y^{n}$ and the fluid Bernoulli
+\emph{principle} share only a name. Do not import the substitution $v=y^{1-n}$
+into a fluids problem, or treat $\tfrac{1}{2}\rho v^{2}$ as something to
+linearize --- one is a solution method, the other a conservation law.
+\end{warningbox}
+
+\begin{conceptbox}[Unit 4 Key Takeaway]
+Autonomous first-order equations are read, not solved: the
+\textcolor{accentorange}{equilibria $f(c)=0$} and the
+\textcolor{accentorange}{sign of $f'(c)$} fix the entire phase line, and the
+\textcolor{accentorange}{logistic model $P'=rP(1-P/K)$} is its headline example
+with a stable ceiling at $K$. The lone nonlinear straggler, the
+\textcolor{accentorange}{Bernoulli equation $y'+Py=Qy^{n}$}, surrenders to the
+substitution \textcolor{accentorange}{$v=y^{1-n}$}, which makes it linear.
+\end{conceptbox}
+
+\end{document}
