@@ -123,7 +123,13 @@ The Laplace transform is defined as:
 \[ \mathcal{L}\{f(t)\} = \int_{0}^{\infty} e^{-st}f(t)\,dt \]
 We can break this infinite integral into a sum of integrals over each period $P$:
 \[ \int_{0}^{P} e^{-st}f(t)\,dt + \int_{P}^{2P} e^{-st}f(t)\,dt + \int_{2P}^{3P} e^{-st}f(t)\,dt + \dots \]
-By applying a time-shift $t = \tau + nP$ to each term, the repeating values of $f(t)$ allow us to pull out an exponential factor $e^{-nPs}$ for each cycle:
+The key move is a \emph{time-shift substitution}. Consider the general $n$-th term, integrated over the interval $[nP, (n+1)P]$. We substitute $t = \tau + nP$, so that $d t = d\tau$. As $t$ runs across $[nP, (n+1)P]$, the new variable $\tau$ runs across $[0, P]$, collapsing every interval back onto the very first period:
+\[ \int_{nP}^{(n+1)P} e^{-st}f(t)\,dt = \int_{0}^{P} e^{-s(\tau + nP)}f(\tau + nP)\,d\tau \]
+Because $f$ has period $P$, repeating the shift $n$ times leaves the function unchanged: $f(\tau + nP) = f(\tau)$. Meanwhile, the exponential splits by the law of exponents:
+\[ e^{-s(\tau + nP)} = e^{-s\tau}\cdot e^{-nPs} \]
+The factor $e^{-nPs}$ is constant with respect to $\tau$, so it pulls straight out of the integral:
+\[ \int_{nP}^{(n+1)P} e^{-st}f(t)\,dt = e^{-nPs}\int_{0}^{P} e^{-s\tau}f(\tau)\,d\tau \]
+Summing this identity over every cycle $n = 0, 1, 2, \dots$ factors the shared single-period integral out front, leaving behind a sum of the constants $e^{-nPs}$:
 \[ \left( 1 + e^{-Ps} + e^{-2Ps} + e^{-3Ps} + \dots \right) \int_{0}^{P} e^{-s\tau}f(\tau)\,d\tau \]
 The expression in the parentheses is a classic infinite geometric series with ratio $r = e^{-Ps}$. Since $e^{-Ps} < 1$ for $s > 0$, the series converges to $\frac{1}{1 - e^{-Ps}}$.
 
@@ -223,20 +229,20 @@ Find the Laplace transform of the periodic function defined over its first perio
 
 \textbf{Solution 1: The Sawtooth Wave}\\
 The period is $P = 2$. Applying the master formula:
-\[ F(s) = \frac{1}{1 - e^{-2s}} \int_0^2 e^{-st} t \,dt \]
-We use Integration by Parts for $\int_0^2 t e^{-st} \,dt$ where $u = t$, $du = dt$, $dv = e^{-st} dt$, $v = -\frac{1}{s}e^{-st}$:
-\[
-\int_0^2 t e^{-st} \,dt = \left[ \textcolor{workpurple}{-\frac{t}{s}e^{-st}} \right]_0^2 - \int_0^2 \left( \textcolor{workpurple}{-\frac{1}{s}e^{-st}} \right) \,dt
+\[ \color{workpurple} F(s) = \frac{1}{1 - e^{-2s}} \int_0^2 e^{-st} t \,dt \]
+We use Integration by Parts for $\int_0^2 t e^{-st} \,dt$ with the choices \textcolor{workpurple}{$u = t$}, \textcolor{workpurple}{$du = dt$}, \textcolor{workpurple}{$dv = e^{-st}\,dt$}, \textcolor{workpurple}{$v = -\frac{1}{s}e^{-st}$}:
+\[ \color{workpurple}
+\int_0^2 t e^{-st} \,dt = \left[ -\frac{t}{s}e^{-st} \right]_0^2 - \int_0^2 \left( -\frac{1}{s}e^{-st} \right) \,dt
 \]
-\[
-= \left( \textcolor{workpurple}{-\frac{2}{s}e^{-2s}} - 0 \right) - \left[ \textcolor{workpurple}{\frac{1}{s^2}e^{-st}} \right]_0^2
+\[ \color{workpurple}
+= \left( -\frac{2}{s}e^{-2s} - 0 \right) - \left[ \frac{1}{s^2}e^{-st} \right]_0^2
 \]
-\[
-= \textcolor{workpurple}{-\frac{2}{s}e^{-2s}} - \left( \textcolor{workpurple}{\frac{1}{s^2}e^{-2s}} - \textcolor{workpurple}{\frac{1}{s^2}} \right) = \textcolor{workpurple}{\frac{1}{s^2}} - \textcolor{workpurple}{\frac{1}{s^2}e^{-2s}} - \textcolor{workpurple}{\frac{2}{s}e^{-2s}}
+\[ \color{workpurple}
+= -\frac{2}{s}e^{-2s} - \left( \frac{1}{s^2}e^{-2s} - \frac{1}{s^2} \right) = \frac{1}{s^2} - \frac{1}{s^2}e^{-2s} - \frac{2}{s}e^{-2s}
 \]
 Factoring out the terms and combining with the multiplier:
-\[
-F(s) = \frac{1}{1 - e^{-2s}} \left( \frac{\textcolor{workpurple}{1 - e^{-2s} - 2se^{-2s}}}{s^2} \right)
+\[ \color{workpurple}
+F(s) = \frac{1}{1 - e^{-2s}} \left( \frac{1 - e^{-2s} - 2se^{-2s}}{s^2} \right)
 \]
 
 \vspace{1cm}
@@ -244,40 +250,40 @@ F(s) = \frac{1}{1 - e^{-2s}} \left( \frac{\textcolor{workpurple}{1 - e^{-2s} - 2
 \textbf{Solution 2: Rectified Sine Wave}\\
 For $f(t) = |\sin(t)|$, the normal period of $2\pi$ is halved to $P = \pi$.
 Over the interval $[0, \pi)$, $\sin(t)$ is positive, so $f(t) = \sin(t)$.
-\[ F(s) = \frac{1}{1 - e^{-\pi s}} \int_0^\pi e^{-st} \sin(t) \,dt \]
-The standard integral identity for $\int e^{at} \sin(bt) \,dt = \frac{e^{at}}{a^2+b^2}(a \sin(bt) - b \cos(bt))$ gives us:
-\[
-\int_0^\pi e^{-st} \sin(t) \,dt = \left[ \textcolor{workpurple}{\frac{e^{-st}}{s^2 + 1} (-s \sin(t) - \cos(t))} \right]_0^\pi
+\[ \color{workpurple} F(s) = \frac{1}{1 - e^{-\pi s}} \int_0^\pi e^{-st} \sin(t) \,dt \]
+The standard integral identity \textcolor{workpurple}{$\int e^{at} \sin(bt) \,dt = \frac{e^{at}}{a^2+b^2}(a \sin(bt) - b \cos(bt))$} gives us:
+\[ \color{workpurple}
+\int_0^\pi e^{-st} \sin(t) \,dt = \left[ \frac{e^{-st}}{s^2 + 1} (-s \sin(t) - \cos(t)) \right]_0^\pi
 \]
-Evaluating at the bounds ($\sin(\pi)=0$, $\cos(\pi)=-1$ and $\sin(0)=0$, $\cos(0)=1$):
-\[
-= \left( \textcolor{workpurple}{\frac{e^{-\pi s}}{s^2 + 1} (0 - (-1))} \right) - \left( \textcolor{workpurple}{\frac{1}{s^2 + 1} (0 - 1)} \right) = \textcolor{workpurple}{\frac{e^{-\pi s} + 1}{s^2 + 1}}
+Evaluating at the bounds (\textcolor{workpurple}{$\sin(\pi)=0$}, \textcolor{workpurple}{$\cos(\pi)=-1$} and \textcolor{workpurple}{$\sin(0)=0$}, \textcolor{workpurple}{$\cos(0)=1$}):
+\[ \color{workpurple}
+= \left( \frac{e^{-\pi s}}{s^2 + 1} (0 - (-1)) \right) - \left( \frac{1}{s^2 + 1} (0 - 1) \right) = \frac{e^{-\pi s} + 1}{s^2 + 1}
 \]
 Multiplying by the periodic factor gives the combined transform:
-\[
-F(s) = \frac{\textcolor{workpurple}{e^{-\pi s} + 1}}{\textcolor{workpurple}{(1 - e^{-\pi s})}(s^2 + 1)}
+\[ \color{workpurple}
+F(s) = \frac{e^{-\pi s} + 1}{(1 - e^{-\pi s})(s^2 + 1)}
 \]
 To collapse this into the standard hyperbolic form, factor $e^{-\pi s/2}$ out of the numerator and denominator of the periodic ratio:
-\[
-\frac{1 + e^{-\pi s}}{1 - e^{-\pi s}} = \frac{\textcolor{workpurple}{e^{\pi s/2} + e^{-\pi s/2}}}{\textcolor{workpurple}{e^{\pi s/2} - e^{-\pi s/2}}} = \frac{\textcolor{workpurple}{2\cosh(\pi s/2)}}{\textcolor{workpurple}{2\sinh(\pi s/2)}} = \textcolor{workpurple}{\coth\!\left( \frac{\pi s}{2} \right)}
+\[ \color{workpurple}
+\frac{1 + e^{-\pi s}}{1 - e^{-\pi s}} = \frac{e^{\pi s/2} + e^{-\pi s/2}}{e^{\pi s/2} - e^{-\pi s/2}} = \frac{2\cosh(\pi s/2)}{2\sinh(\pi s/2)} = \coth\!\left( \frac{\pi s}{2} \right)
 \]
 Therefore the rectified sine transform reduces to the compact closed form:
-\[
-F(s) = \frac{1}{s^2 + 1}\,\textcolor{workpurple}{\coth\!\left( \frac{\pi s}{2} \right)}
+\[ \color{workpurple}
+F(s) = \frac{1}{s^2 + 1}\,\coth\!\left( \frac{\pi s}{2} \right)
 \]
 
 \vspace{1cm}
 
 \textbf{Solution 3: Heaviside Formulation}\\
 The period is $P = 3$. The function is $1$ between $t=1$ and $t=2$, and $0$ elsewhere in the period.
-\[ F(s) = \frac{1}{1 - e^{-3s}} \int_0^3 e^{-st} (u_1(t) - u_2(t)) \,dt \]
+\[ \color{workpurple} F(s) = \frac{1}{1 - e^{-3s}} \int_0^3 e^{-st} (u_1(t) - u_2(t)) \,dt \]
 This simplifies the integral bounds to $[1, 2]$:
-\[
-\int_1^2 e^{-st} (1) \,dt = \left[ \textcolor{workpurple}{-\frac{1}{s} e^{-st}} \right]_1^2 = \textcolor{workpurple}{-\frac{1}{s}(e^{-2s} - e^{-s})} = \textcolor{workpurple}{\frac{e^{-s} - e^{-2s}}{s}}
+\[ \color{workpurple}
+\int_1^2 e^{-st} (1) \,dt = \left[ -\frac{1}{s} e^{-st} \right]_1^2 = -\frac{1}{s}(e^{-2s} - e^{-s}) = \frac{e^{-s} - e^{-2s}}{s}
 \]
 Combining with the multiplier:
-\[
-F(s) = \frac{\textcolor{workpurple}{e^{-s} - e^{-2s}}}{s(1 - e^{-3s})}
+\[ \color{workpurple}
+F(s) = \frac{e^{-s} - e^{-2s}}{s(1 - e^{-3s})}
 \]
 
 \end{document}
