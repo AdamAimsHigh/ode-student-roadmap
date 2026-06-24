@@ -113,6 +113,13 @@
 \end{itemize}
 \end{topicsbox}
 
+\begin{conceptbox}[Historical Origin: From Heaviside's Operators to Laplace's Rigor]
+These rules did not arrive as abstract mathematics --- they were forged by engineers solving real circuits. In the late nineteenth century, the self-taught British physicist \textcolor{accentorange}{Oliver Heaviside} developed his \emph{operational calculus} to tame the telegraph equations governing long-distance signal transmission. His bold move was to treat the differential operator $p = \frac{d}{dt}$ as an ordinary \emph{algebraic variable}: where calculus saw differentiation, Heaviside simply wrote ``multiply by $p$,'' turning differential equations into algebra he could rearrange at will.
+
+\smallskip
+The decisive insight for this section is what happens to the \emph{inverse} operation. If differentiation is multiplication by $p$, then its inverse --- \textcolor{accentorange}{integration} --- must be \textcolor{accentorange}{division by $p$}, i.e.\ the operator $\tfrac{1}{p}$. Heaviside used $\tfrac{1}{p}$ to mean ``integrate'' and obtained correct answers years before anyone could justify why. That justification came later, when the formal \textcolor{accentorange}{Laplace transform} put his operators on rigorous footing: Heaviside's algebraic $p$ became the transform variable $s$, and his operator $\tfrac{1}{p}$ became the rule $\frac{F(s)}{s}$ derived below. The division-by-$s$ rule is thus a physicist's engineering shortcut, made mathematically exact.
+\end{conceptbox}
+
 \subsection{The Integral Operational Rule}
 
 Throughout Section~2.7 we saw that differentiating a function in the time domain corresponds to \emph{multiplying} its transform by $s$ (and subtracting the initial value). Differentiation and integration are inverse operations, so we should expect integration to do the opposite: to \emph{divide} the transform by $s$. That expectation is exactly correct, and it is one of the most useful labor-saving tools in the entire Laplace toolkit.
@@ -125,6 +132,11 @@ Read in reverse, this is an inversion rule: dividing a known transform by $s$ co
 \end{formulabox}
 
 \noindent The variable of integration is written $\tau$ (a dummy variable) precisely so that it cannot be confused with the upper limit $t$. The upper limit $t$ is the ``real'' time variable that survives into the answer; $\tau$ sweeps from $0$ up to that $t$ and is gone once the integral is evaluated.
+
+\smallskip
+\noindent\textbf{A physical anchor --- charge on a capacitor.} Why should accumulation deserve its own operational rule? Consider an electrical capacitor. If $i(t)$ is the current flowing into it, the charge stored on its plates is not the current itself but the \emph{total accumulated current up to the present moment} --- the running integral
+\[ q(t) = \int_0^t i(\tau)\,d\tau. \]
+Current is a \emph{rate} (charge per second); charge is the \emph{accumulation} of that rate over time. To find the charge in the Laplace domain, the Integral Operational Rule says you do not have to perform any integration at all: you simply transform the current and divide by $s$, $Q(s) = I(s)/s$. The same one move that converts current to charge converts velocity to position, or flow rate to total volume. Accumulation is everywhere in physics, and division by $s$ handles all of it uniformly.
 
 \begin{methodbox}[The Proof --- From the Derivative Rule, Step by Step]
 We will \emph{derive} the integral rule rather than memorize it, building it entirely from the derivative rule we already trust. The idea: give the accumulation integral a name, differentiate it, and feed the result through the derivative rule.
@@ -342,7 +354,29 @@ The integrand is $f(\tau) = e^{-2\tau}$, with transform $F(s) = \dfrac{1}{s+2}$.
 \[ \color{workpurple} \mathcal{L}^{-1}\!\left\{\frac{1}{s(s^2+4)}\right\} = \int_0^t \tfrac{1}{2}\sin(2\tau)\,d\tau = \tfrac{1}{2}\left[-\tfrac{1}{2}\cos(2\tau)\right]_0^t = \tfrac{1}{4}\big(1 - \cos 2t\big). \]
 
 \smallskip
-\noindent\textit{Cross-check by partial fractions.} Writing $\dfrac{1}{s(s^2+4)} = \dfrac{A}{s} + \dfrac{Bs + C}{s^2+4}$ and clearing gives $1 = A(s^2+4) + (Bs+C)s$. At $s = 0$: $1 = 4A \Rightarrow A = \tfrac14$. Matching $s^2$: $0 = A + B \Rightarrow B = -\tfrac14$. Matching $s^1$: $0 = C$. So $\dfrac{1/4}{s} - \dfrac{1}{4}\cdot\dfrac{s}{s^2+4}$ inverts to $\tfrac14 - \tfrac14\cos 2t$, the same result.
+\noindent\textit{Cross-check by partial fractions.} We rebuild the same answer from scratch using a partial fraction decomposition, showing every algebraic step.
+
+\smallskip
+\textbf{(a) Set up the form.} The denominator has a linear factor $s$ and an irreducible quadratic factor $s^2+4$. A linear factor gets a constant numerator; an irreducible quadratic gets a \emph{linear} numerator $Bs + C$:
+\[ \color{workpurple} \frac{1}{s(s^2+4)} = \frac{A}{s} + \frac{Bs + C}{s^2+4}. \]
+
+\textbf{(b) Clear the denominators.} Multiply both sides by the full denominator $s(s^2+4)$. On the right, the first term keeps $s^2+4$ and the second keeps $s$:
+\[ \color{workpurple} 1 = A(s^2+4) + (Bs + C)\,s. \]
+
+\textbf{(c) Expand and group by powers of $s$.} Distribute every product, then collect like powers:
+\[ \color{workpurple} 1 = A s^2 + 4A + B s^2 + C s = (A + B)\,s^2 + C\,s + 4A. \]
+
+\textbf{(d) Equate coefficients.} The left side is the constant $1$, i.e.\ $0\cdot s^2 + 0\cdot s + 1$. Matching the coefficient of each power of $s$ on both sides gives one equation per power:
+\[ \color{workpurple} \underbrace{A + B = 0}_{s^2\text{ terms}}, \qquad \underbrace{C = 0}_{s^1\text{ terms}}, \qquad \underbrace{4A = 1}_{s^0\text{ terms}}. \]
+
+\textbf{(e) Solve the system.} The constant equation gives $A$ immediately; back-substitute into the $s^2$ equation for $B$:
+\[ \color{workpurple} 4A = 1 \;\Rightarrow\; A = \tfrac14, \qquad A + B = 0 \;\Rightarrow\; B = -A = -\tfrac14, \qquad C = 0. \]
+So the decomposition is
+\[ \color{workpurple} \frac{1}{s(s^2+4)} = \frac{1}{4}\cdot\frac{1}{s} - \frac{1}{4}\cdot\frac{s}{s^2+4}. \]
+
+\textbf{(f) Invert term by term.} Using $\mathcal{L}^{-1}\{1/s\} = 1$ and $\mathcal{L}^{-1}\{s/(s^2+4)\} = \cos 2t$:
+\[ \color{workpurple} \mathcal{L}^{-1}\!\left\{\frac{1}{s(s^2+4)}\right\} = \frac{1}{4} - \frac{1}{4}\cos 2t = \tfrac14\big(1 - \cos 2t\big), \]
+exactly matching the result from the $1/s$ rule above.
 
 \bigskip
 \noindent\textbf{Solution 5: $\displaystyle \mathcal{L}^{-1}\!\left\{\frac{1}{s^2(s+1)}\right\}$.}\\[2pt]
@@ -356,7 +390,33 @@ The integrand is $f(\tau) = e^{-2\tau}$, with transform $F(s) = \dfrac{1}{s+2}$.
 \[ \color{workpurple} \mathcal{L}^{-1}\!\left\{\frac{1}{s^2(s+1)}\right\} = \int_0^t \big(1 - e^{-\tau}\big)\,d\tau = \big[\tau + e^{-\tau}\big]_0^t = \big(t + e^{-t}\big) - \big(0 + 1\big) = t - 1 + e^{-t}. \]
 
 \smallskip
-\noindent\textit{Cross-check by full partial fractions.} $\dfrac{1}{s^2(s+1)} = \dfrac{A}{s} + \dfrac{B}{s^2} + \dfrac{C}{s+1}$ gives $1 = A s(s+1) + B(s+1) + C s^2$. At $s=0$: $B = 1$. At $s=-1$: $C = 1$. Matching $s^2$: $0 = A + C \Rightarrow A = -1$. So $-\dfrac1s + \dfrac{1}{s^2} + \dfrac{1}{s+1}$ inverts to $-1 + t + e^{-t}$, matching.
+\noindent\textit{Cross-check by full partial fractions.} We decompose the whole expression at once, showing every step.
+
+\smallskip
+\textbf{(a) Set up the form.} The factor $s$ is \emph{repeated} (it appears as $s^2$), so a repeated linear factor requires \emph{one term for each power} up to its multiplicity --- both $\dfrac{A}{s}$ and $\dfrac{B}{s^2}$ --- plus a term for the distinct factor $s+1$:
+\[ \color{workpurple} \frac{1}{s^2(s+1)} = \frac{A}{s} + \frac{B}{s^2} + \frac{C}{s+1}. \]
+
+\textbf{(b) Clear the denominators.} Multiply both sides by $s^2(s+1)$. The $\dfrac{A}{s}$ term keeps $s(s+1)$, the $\dfrac{B}{s^2}$ term keeps $(s+1)$, and the $\dfrac{C}{s+1}$ term keeps $s^2$:
+\[ \color{workpurple} 1 = A\,s(s+1) + B(s+1) + C\,s^2. \]
+
+\textbf{(c) Use strategic roots for $B$ and $C$.} Substituting the roots of the denominator zeroes out two of the three unknowns at a time.
+
+\smallskip
+Let $s = 0$: the $A$ and $C$ terms carry a factor of $s$ and vanish, leaving
+\[ \color{workpurple} 1 = B(0+1) = B \quad\Longrightarrow\quad B = 1. \]
+Let $s = -1$: the $A$ and $B$ terms carry a factor of $(s+1)$ and vanish, leaving
+\[ \color{workpurple} 1 = C(-1)^2 = C \quad\Longrightarrow\quad C = 1. \]
+
+\textbf{(d) Find $A$ by matching the leading coefficient.} The substitution trick cannot reach $A$ directly (no remaining convenient root), so expand and compare the highest power. Expanding the right side,
+\[ \color{workpurple} 1 = A(s^2 + s) + B s + B + C s^2 = (A + C)\,s^2 + (A + B)\,s + B. \]
+The left side has no $s^2$ term, so the coefficient of $s^2$ must be zero:
+\[ \color{workpurple} A + C = 0 \quad\Longrightarrow\quad A = -C = -1. \]
+
+\textbf{(e) Assemble and invert.} With $A = -1$, $B = 1$, $C = 1$:
+\[ \color{workpurple} \frac{1}{s^2(s+1)} = -\frac{1}{s} + \frac{1}{s^2} + \frac{1}{s+1}. \]
+Inverting term by term with $\mathcal{L}^{-1}\{1/s\}=1$, $\mathcal{L}^{-1}\{1/s^2\}=t$, and $\mathcal{L}^{-1}\{1/(s+1)\}=e^{-t}$:
+\[ \color{workpurple} \mathcal{L}^{-1}\!\left\{\frac{1}{s^2(s+1)}\right\} = -1 + t + e^{-t} = t - 1 + e^{-t}, \]
+matching the result from the $1/s$ rule.
 
 \bigskip
 \noindent\textbf{Solution 6: $\displaystyle x(t) = 1 + \int_0^t x(\tau)\,d\tau$.}\\[2pt]
