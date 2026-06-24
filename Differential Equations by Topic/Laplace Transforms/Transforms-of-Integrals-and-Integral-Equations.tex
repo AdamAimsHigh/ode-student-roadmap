@@ -138,6 +138,12 @@ Read in reverse, this is an inversion rule: dividing a known transform by $s$ co
 \[ q(t) = \int_0^t i(\tau)\,d\tau. \]
 Current is a \emph{rate} (charge per second); charge is the \emph{accumulation} of that rate over time. To find the charge in the Laplace domain, the Integral Operational Rule says you do not have to perform any integration at all: you simply transform the current and divide by $s$, $Q(s) = I(s)/s$. The same one move that converts current to charge converts velocity to position, or flow rate to total volume. Accumulation is everywhere in physics, and division by $s$ handles all of it uniformly.
 
+\begin{conceptbox}[The $n$-fold Integral]
+The rule scales effortlessly. Integrating $n$ times in a row --- accumulating an accumulation, and so on --- simply repeats the division by $s$ once per integration:
+\[ \mathcal{L}\!\left\{\underbrace{\int\!\cdots\!\int}_{n}\, f(t)\,dt^{\,n}\right\} = \frac{F(s)}{s^{\,n}}. \]
+Each nested integral contributes one factor of $\dfrac{1}{s}$, so $n$ of them stack to $\dfrac{1}{s^{\,n}}$. This is exactly \textcolor{accentorange}{Heaviside's operator logic} in miniature: the integration operator $\tfrac{1}{p}$ raised to the $n$th power is $\tfrac{1}{p^{\,n}}$. The single-integral rule $F(s)/s$ is the case $n = 1$; Problem~9 proves the case $n = 2$ explicitly.
+\end{conceptbox}
+
 \begin{methodbox}[The Proof --- From the Derivative Rule, Step by Step]
 We will \emph{derive} the integral rule rather than memorize it, building it entirely from the derivative rule we already trust. The idea: give the accumulation integral a name, differentiate it, and feed the result through the derivative rule.
 
@@ -303,7 +309,7 @@ Solve for $x(t)$:
 
 \bigskip
 \noindent\textbf{Problem 8: An Integro-Differential Equation.}\\[2pt]
-Solve for $x(t)$, given $x(0) = 0$:
+Solve for $x(t)$, given $x(0) = 2$:
 \[ x'(t) + \int_0^t x(\tau)\,d\tau = 1. \]
 
 \bigskip
@@ -464,24 +470,32 @@ At $s = 0$: $2 = B(1) \Rightarrow B = 2$. At $s = -1$: $2 = C(-1)^2 = C \Rightar
 \noindent\textit{Check.} $\int_0^t (-2 + 2\tau + 2e^{-\tau})\,d\tau = \big[-2\tau + \tau^2 - 2e^{-\tau}\big]_0^t = -2t + t^2 - 2e^{-t} + 2$. Then $t^2 - (\text{this}) = t^2 + 2t - t^2 + 2e^{-t} - 2 = 2t - 2 + 2e^{-t} = x(t)$. \checkmark
 
 \bigskip
-\noindent\textbf{Solution 8: $\displaystyle x'(t) + \int_0^t x(\tau)\,d\tau = 1, \quad x(0) = 0$.}\\[2pt]
-\textbf{Step 1 --- Transform each term.} The derivative rule gives $\mathcal{L}\{x'\} = sX(s) - x(0) = sX(s)$ since $x(0) = 0$. The integral rule gives $\int_0^t x \to \dfrac{X(s)}{s}$, and $\mathcal{L}\{1\} = \dfrac1s$:
-\[ \color{workpurple} sX(s) + \frac{X(s)}{s} = \frac{1}{s}. \]
+\noindent\textbf{Solution 8: $\displaystyle x'(t) + \int_0^t x(\tau)\,d\tau = 1, \quad x(0) = 2$.}\\[2pt]
+\textbf{Step 1 --- Transform each term, keeping the initial value.} The derivative rule is $\mathcal{L}\{x'\} = sX(s) - x(0)$. With $x(0) = 2$ this becomes $sX(s) - 2$ --- the initial value does \emph{not} drop out this time. The integral rule gives $\int_0^t x \to \dfrac{X(s)}{s}$, and $\mathcal{L}\{1\} = \dfrac1s$:
+\[ \color{workpurple} sX(s) - 2 + \frac{X(s)}{s} = \frac{1}{s}. \]
 
-\textbf{Step 2 --- Factor out $X(s)$.}
-\[ \color{workpurple} X(s)\left(s + \frac{1}{s}\right) = \frac{1}{s}. \]
+\textbf{Step 2 --- Move the constant $-2$ to the right side.} Add $2$ to both sides so that only $X(s)$ terms remain on the left:
+\[ \color{workpurple} sX(s) + \frac{X(s)}{s} = \frac{1}{s} + 2. \]
 
-\textbf{Step 3 --- Common denominator in the bracket.}
-\[ \color{workpurple} s + \frac{1}{s} = \frac{s^2 + 1}{s}, \qquad\text{so}\qquad X(s)\left(\frac{s^2+1}{s}\right) = \frac{1}{s}. \]
+\textbf{Step 3 --- Factor out $X(s)$ on the left.}
+\[ \color{workpurple} X(s)\left(s + \frac{1}{s}\right) = \frac{1}{s} + 2. \]
 
-\textbf{Step 4 --- Multiply by the reciprocal and cancel.}
-\[ \color{workpurple} X(s) = \frac{1}{s}\cdot\frac{s}{s^2+1} = \frac{1}{s^2+1}. \]
+\textbf{Step 4 --- Common denominator on \emph{both} sides.} The bracket on the left combines over $s$, and the right side combines over $s$ as well by writing $2 = \dfrac{2s}{s}$:
+\[ \color{workpurple} s + \frac{1}{s} = \frac{s^2 + 1}{s}, \qquad \frac{1}{s} + 2 = \frac{1}{s} + \frac{2s}{s} = \frac{2s + 1}{s}, \]
+so the equation becomes
+\[ \color{workpurple} X(s)\left(\frac{s^2+1}{s}\right) = \frac{2s + 1}{s}. \]
 
-\textbf{Step 5 --- Invert.}
-\[ \color{workpurple} x(t) = \sin t. \]
+\textbf{Step 5 --- Multiply by the reciprocal and cancel.} Multiply both sides by $\dfrac{s}{s^2+1}$; the factors of $s$ cancel cleanly:
+\[ \color{workpurple} X(s) = \frac{2s+1}{s}\cdot\frac{s}{s^2+1} = \frac{2s+1}{s^2+1}. \]
+
+\textbf{Step 6 --- Split into table-ready pieces.} Separate the numerator over the common denominator:
+\[ \color{workpurple} X(s) = \frac{2s+1}{s^2+1} = 2\cdot\frac{s}{s^2+1} + \frac{1}{s^2+1}. \]
+
+\textbf{Step 7 --- Invert.} Using $\mathcal{L}^{-1}\{s/(s^2+1)\} = \cos t$ and $\mathcal{L}^{-1}\{1/(s^2+1)\} = \sin t$:
+\[ \color{workpurple} x(t) = 2\cos t + \sin t. \]
 
 \smallskip
-\noindent\textit{Check.} $x'(t) = \cos t$ and $\int_0^t \sin\tau\,d\tau = 1 - \cos t$, so $\cos t + (1 - \cos t) = 1$. \checkmark The initial condition $x(0) = \sin 0 = 0$ also holds.
+\noindent\textit{Check.} The initial condition holds: $x(0) = 2\cos 0 + \sin 0 = 2$. \checkmark Differentiating, $x'(t) = -2\sin t + \cos t$, and $\int_0^t (2\cos\tau + \sin\tau)\,d\tau = \big[2\sin\tau - \cos\tau\big]_0^t = 2\sin t - \cos t + 1$. Adding, $x'(t) + \int_0^t x\,d\tau = (-2\sin t + \cos t) + (2\sin t - \cos t + 1) = 1$. \checkmark
 
 \bigskip
 \noindent\textbf{Solution 9 (Proof): The Double-Integral Rule.}\\[2pt]
@@ -515,6 +529,12 @@ So the running integral of $f$ is \emph{literally} the convolution of $f$ with t
 \textbf{Step 3 --- Apply the convolution theorem.} The transform of $g(t) = 1$ is $G(s) = \dfrac{1}{s}$. Therefore
 \[ \color{workpurple} \mathcal{L}\!\left\{\int_0^t f(\tau)\,d\tau\right\} = \mathcal{L}\{(f * 1)(t)\} = F(s)\,G(s) = F(s)\cdot\frac{1}{s} = \frac{F(s)}{s}. \]
 This reproduces the Integral Operational Rule, now seen as the special case of convolution against the constant $1$. \qquad$\blacksquare$
+
+\begin{conceptbox}[Bridge to the Next Unit]
+That ``constant function $g(t) = 1$'' is not as innocent as it looks. A function that equals $1$ for all $t \ge 0$ (and $0$ before) is formally the \textcolor{accentorange}{Heaviside step function}, written $u(t)$ or $u_0(t)$ --- the very function Heaviside introduced to switch a signal on at $t = 0$. Step~2 above therefore carries a deeper reading: the running integral $\int_0^t f(\tau)\,d\tau$ is precisely $f * u_0$, the convolution of $f$ with the unit step. In one sentence:
+\[ \textcolor{accentorange}{\text{Integration is simply convolution with the unit step function } u_0(t).} \]
+When the next unit takes up the step function and piecewise forcing in earnest, this identity is the hinge that connects it back to everything proved here.
+\end{conceptbox}
 
 \begin{conceptbox}[Closing Takeaway]
 Two independent proofs --- one through the \textcolor{accentorange}{derivative rule and the Fundamental Theorem of Calculus}, the other through the \textcolor{accentorange}{convolution theorem with $g(t)=1$} --- converge on the same identity $\mathcal{L}\{\int_0^t f\,d\tau\} = F(s)/s$. Whenever an unknown hides inside an accumulation integral, divide by $s$, isolate $X(s)$, and invert: \textcolor{accentorange}{integration in $t$ is division by $s$}.
