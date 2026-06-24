@@ -1,0 +1,283 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+% Links map to the structural header blue.
+% bookmarks=false avoids the spaced-jobname .out failure on Windows/tectonic.
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue, bookmarks=false}
+
+\tcbuselibrary{skins}
+
+% 1.1 Palette
+\definecolor{headerblue}{HTML}{1C569E}
+\definecolor{accentgreen}{HTML}{2E7D32}
+\definecolor{accentorange}{HTML}{E27A1E}
+\definecolor{workpurple}{HTML}{A020F0}
+\definecolor{warnred}{HTML}{C0392B}
+
+% 1.2 Subsection Typography
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+% 2. Table of Contents Depth
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% 3. Box System
+\newtcolorbox{topicsbox}{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title={Unit at a Glance: Core Sub-Topics},
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\begin{document}
+
+\begin{center}
+    \Large\bfseries\color{headerblue} Periodic Functions and Their Transforms
+\end{center}
+\vspace{0.5cm}
+
+\tableofcontents
+\vspace{1cm}
+
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{3}
+\setcounter{subsection}{5}
+\subsection{Periodic Functions and Their Transforms}
+
+\begin{topicsbox}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Motivation:} Modeling repeating physical phenomena like AC circuits, structural vibrations, and signal processing.
+    \item \textbf{Master Formula:} Combining integration over a single period with the geometric series multiplier.
+    \item \textbf{Constructive Tools:} Using Heaviside step functions $u_c(t)$ and Dirac Delta functions $\delta(t-c)$ to build piecewise and instantaneous periodic signals.
+\end{itemize}
+\end{topicsbox}
+
+\subsubsection*{Origin \& Motivation}
+In engineering and physics, systems rarely experience isolated, one-off forces. Instead, they are driven by repeating cyclic inputs---an alternating current pushing through a circuit, an engine vibrating at a constant RPM, or a digital clock generating continuous square waves.
+
+To solve Ordinary Differential Equations modeling these systems, we need a way to take the Laplace transform of a function that stretches endlessly into the future. Integrating an infinite sequence of repeating intervals is intimidating, but by leveraging the repeating nature of the function, we can compress the infinite work down to evaluating just one single cycle.
+
+\subsubsection*{Intuition \& Derivation}
+Let $f(t)$ be a periodic function with period $P$, meaning $f(t+P) = f(t)$ for all $t \geq 0$.
+The Laplace transform is defined as:
+\[ \mathcal{L}\{f(t)\} = \int_{0}^{\infty} e^{-st}f(t)\,dt \]
+We can break this infinite integral into a sum of integrals over each period $P$:
+\[ \int_{0}^{P} e^{-st}f(t)\,dt + \int_{P}^{2P} e^{-st}f(t)\,dt + \int_{2P}^{3P} e^{-st}f(t)\,dt + \dots \]
+By applying a time-shift $t = \tau + nP$ to each term, the repeating values of $f(t)$ allow us to pull out an exponential factor $e^{-nPs}$ for each cycle:
+\[ \left( 1 + e^{-Ps} + e^{-2Ps} + e^{-3Ps} + \dots \right) \int_{0}^{P} e^{-s\tau}f(\tau)\,d\tau \]
+The expression in the parentheses is a classic infinite geometric series with ratio $r = e^{-Ps}$. Since $e^{-Ps} < 1$ for $s > 0$, the series converges to $\frac{1}{1 - e^{-Ps}}$.
+
+\begin{formulabox}[Periodic Function Transform]
+If $f(t)$ is piecewise continuous for $t \geq 0$ and has period $P$, its Laplace transform is:
+\[ \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-Ps}} \int_0^P e^{-st} f(t) \,dt \]
+\end{formulabox}
+
+\begin{methodbox}[Algorithm: Transforming a Periodic Function]
+\begin{enumerate}
+    \item \textbf{Identify the Period ($P$):} Determine the exact length of one complete cycle.
+    \item \textbf{Define the Single-Cycle Function:} Write an explicit piecewise or Heaviside expression for $f(t)$ strictly on the interval $[0, P)$.
+    \item \textbf{Integrate over $[0, P]$:} Evaluate $\int_0^P e^{-st} f(t) \,dt$.
+    \item \textbf{Apply the Multiplier:} Multiply your integral result by $\frac{1}{1 - e^{-Ps}}$.
+    \item \textbf{Simplify Algebraically:} Look for factoring opportunities, especially difference of squares like $(1 - e^{-2s})(1 + e^{-2s})$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: Integration Bounds]
+Do not integrate to infinity! A highly common mistake is forgetting to bound the integral $\int_0^P e^{-st} f(t) \,dt$ exclusively to the first period. The $\frac{1}{1 - e^{-Ps}}$ term already accounts for all future cycles $[P, \infty)$.
+\end{warningbox}
+
+\subsubsection*{Advanced Machinery}
+To build complex waveforms, we utilize specific mathematical tools:
+\begin{itemize}
+    \item \textbf{Heaviside Step Function $u_c(t)$:} Used to ``turn on'' or ``turn off'' pieces of a function within the period $[0, P]$.
+    \item \textbf{Dirac Delta Function $\delta(t-c)$:} Used to represent sudden, instantaneous strikes or impulses within a repeating cycle.
+\end{itemize}
+
+\begin{examplebox}[Worked Example 1: Square Wave]
+For $f(t) = +1$ on $[0,2)$ and $-1$ on $[2,4)$ with period $P = 4$:
+
+First, we handle the integral breakdown over the period $[0, 4]$:
+\[
+\int_0^4 e^{-st}f(t)\,dt = \textcolor{workpurple}{\int_0^2 (1)e^{-st}\,dt + \int_2^4 (-1)e^{-st}\,dt}
+\]
+Evaluating the integrals:
+\[
+\textcolor{workpurple}{\left[ \frac{-1}{s} e^{-st} \right]_0^2 - \left[ \frac{-1}{s} e^{-st} \right]_2^4} = \textcolor{workpurple}{\left( \frac{1 - e^{-2s}}{s} \right) - \left( \frac{e^{-2s} - e^{-4s}}{s} \right)} = \textcolor{workpurple}{\frac{1 - 2e^{-2s} + e^{-4s}}{s}} = \textcolor{workpurple}{\frac{(1 - e^{-2s})^2}{s}}
+\]
+
+Next, we address the geometric multiplier denominator $1 - e^{-Ps} = 1 - e^{-4s}$.
+Using difference of squares for algebraic simplification:
+\[
+1 - e^{-4s} = \textcolor{workpurple}{(1 - e^{-2s})(1 + e^{-2s})}
+\]
+
+Bringing it all together in the master formula:
+\[
+F(s) = \frac{1}{1 - e^{-4s}} \int_0^4 e^{-st} f(t) \,dt = \textcolor{workpurple}{\frac{(1 - e^{-2s})^2}{s(1 - e^{-2s})(1 + e^{-2s})}} = \textcolor{workpurple}{\frac{1 - e^{-2s}}{s(1 + e^{-2s})}}.
+\]
+\end{examplebox}
+
+\begin{examplebox}[Worked Example 2: Impulse Train]
+Find the transform of a periodic unit impulse train $f(t) = \sum_{n=0}^{\infty} \delta(t - nP)$.
+
+Here, the period is $P$. Over a single period $[0, P]$, the function is simply $f(t) = \delta(t)$.
+Integrating over the first period yields:
+\[
+\int_0^P e^{-st} \delta(t) \,dt = \textcolor{workpurple}{e^{-s(0)}} = \textcolor{workpurple}{1}
+\]
+
+Applying the master formula:
+\[
+F(s) = \frac{1}{1 - e^{-Ps}} \int_0^P e^{-st} f(t) \,dt = \textcolor{workpurple}{\frac{1}{1 - e^{-Ps}}(1)} = \textcolor{workpurple}{\frac{1}{1 - e^{-Ps}}}.
+\]
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+The periodic Laplace transform converts an infinite sequence of repeating integrations into \textcolor{accentorange}{a single finite integral} multiplied by \textcolor{accentorange}{the geometric sum factor $\frac{1}{1 - e^{-Ps}}$}.
+\end{conceptbox}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Practice Set}
+\section*{Part II --- Practice Set}
+
+\textbf{Problem 1: The Sawtooth Wave}\\
+Find the Laplace transform of the periodic function $f(t) = t$ for $0 \leq t < 2$, with period $P = 2$.
+
+\vspace{1cm}
+
+\textbf{Problem 2: Rectified Sine Wave}\\
+Find the Laplace transform of the fully rectified sine wave $f(t) = |\sin(t)|$.
+\textit{Hint: The absolute value cuts the normal sine period in half. What is the new period $P$?}
+
+\vspace{1cm}
+
+\textbf{Problem 3: Heaviside Formulation}\\
+Find the Laplace transform of the periodic function defined over its first period $P=3$ by:
+\[ f(t) = u_1(t) - u_2(t) \quad \text{for} \quad 0 \leq t < 3 \]
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\textbf{Solution 1: The Sawtooth Wave}\\
+The period is $P = 2$. Applying the master formula:
+\[ F(s) = \frac{1}{1 - e^{-2s}} \int_0^2 e^{-st} t \,dt \]
+We use Integration by Parts for $\int_0^2 t e^{-st} \,dt$ where $u = t$, $du = dt$, $dv = e^{-st} dt$, $v = -\frac{1}{s}e^{-st}$:
+\[
+\int_0^2 t e^{-st} \,dt = \left[ \textcolor{workpurple}{-\frac{t}{s}e^{-st}} \right]_0^2 - \int_0^2 \left( \textcolor{workpurple}{-\frac{1}{s}e^{-st}} \right) \,dt
+\]
+\[
+= \left( \textcolor{workpurple}{-\frac{2}{s}e^{-2s}} - 0 \right) - \left[ \textcolor{workpurple}{\frac{1}{s^2}e^{-st}} \right]_0^2
+\]
+\[
+= \textcolor{workpurple}{-\frac{2}{s}e^{-2s}} - \left( \textcolor{workpurple}{\frac{1}{s^2}e^{-2s}} - \textcolor{workpurple}{\frac{1}{s^2}} \right) = \textcolor{workpurple}{\frac{1}{s^2}} - \textcolor{workpurple}{\frac{1}{s^2}e^{-2s}} - \textcolor{workpurple}{\frac{2}{s}e^{-2s}}
+\]
+Factoring out the terms and combining with the multiplier:
+\[
+F(s) = \frac{1}{1 - e^{-2s}} \left( \frac{\textcolor{workpurple}{1 - e^{-2s} - 2se^{-2s}}}{s^2} \right)
+\]
+
+\vspace{1cm}
+
+\textbf{Solution 2: Rectified Sine Wave}\\
+For $f(t) = |\sin(t)|$, the normal period of $2\pi$ is halved to $P = \pi$.
+Over the interval $[0, \pi)$, $\sin(t)$ is positive, so $f(t) = \sin(t)$.
+\[ F(s) = \frac{1}{1 - e^{-\pi s}} \int_0^\pi e^{-st} \sin(t) \,dt \]
+The standard integral identity for $\int e^{at} \sin(bt) \,dt = \frac{e^{at}}{a^2+b^2}(a \sin(bt) - b \cos(bt))$ gives us:
+\[
+\int_0^\pi e^{-st} \sin(t) \,dt = \left[ \textcolor{workpurple}{\frac{e^{-st}}{s^2 + 1} (-s \sin(t) - \cos(t))} \right]_0^\pi
+\]
+Evaluating at the bounds ($\sin(\pi)=0$, $\cos(\pi)=-1$ and $\sin(0)=0$, $\cos(0)=1$):
+\[
+= \left( \textcolor{workpurple}{\frac{e^{-\pi s}}{s^2 + 1} (0 - (-1))} \right) - \left( \textcolor{workpurple}{\frac{1}{s^2 + 1} (0 - 1)} \right) = \textcolor{workpurple}{\frac{e^{-\pi s} + 1}{s^2 + 1}}
+\]
+Multiplying by the periodic factor gives the combined transform:
+\[
+F(s) = \frac{\textcolor{workpurple}{e^{-\pi s} + 1}}{\textcolor{workpurple}{(1 - e^{-\pi s})}(s^2 + 1)}
+\]
+To collapse this into the standard hyperbolic form, factor $e^{-\pi s/2}$ out of the numerator and denominator of the periodic ratio:
+\[
+\frac{1 + e^{-\pi s}}{1 - e^{-\pi s}} = \frac{\textcolor{workpurple}{e^{\pi s/2} + e^{-\pi s/2}}}{\textcolor{workpurple}{e^{\pi s/2} - e^{-\pi s/2}}} = \frac{\textcolor{workpurple}{2\cosh(\pi s/2)}}{\textcolor{workpurple}{2\sinh(\pi s/2)}} = \textcolor{workpurple}{\coth\!\left( \frac{\pi s}{2} \right)}
+\]
+Therefore the rectified sine transform reduces to the compact closed form:
+\[
+F(s) = \frac{1}{s^2 + 1}\,\textcolor{workpurple}{\coth\!\left( \frac{\pi s}{2} \right)}
+\]
+
+\vspace{1cm}
+
+\textbf{Solution 3: Heaviside Formulation}\\
+The period is $P = 3$. The function is $1$ between $t=1$ and $t=2$, and $0$ elsewhere in the period.
+\[ F(s) = \frac{1}{1 - e^{-3s}} \int_0^3 e^{-st} (u_1(t) - u_2(t)) \,dt \]
+This simplifies the integral bounds to $[1, 2]$:
+\[
+\int_1^2 e^{-st} (1) \,dt = \left[ \textcolor{workpurple}{-\frac{1}{s} e^{-st}} \right]_1^2 = \textcolor{workpurple}{-\frac{1}{s}(e^{-2s} - e^{-s})} = \textcolor{workpurple}{\frac{e^{-s} - e^{-2s}}{s}}
+\]
+Combining with the multiplier:
+\[
+F(s) = \frac{\textcolor{workpurple}{e^{-s} - e^{-2s}}}{s(1 - e^{-3s})}
+\]
+
+\end{document}
