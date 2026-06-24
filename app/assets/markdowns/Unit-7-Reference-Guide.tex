@@ -1,0 +1,918 @@
+% Unit 7: First-Order Exactness and Methods
+% Master Unit Reference Guide (Cheat Sheet, Problems, and Solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (7.1 to 7.7) read from
+% curriculum-data.js and the 10-problem master practice set for Unit 7.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 7: First-Order Exactness and Methods}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Master Unit Reference Guide: Cheat Sheet, Problems, and Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Table of contents (master guide only)
+% ---------------------------------------------------------------------------
+\tableofcontents
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box (all 7 curriculum modules from curriculum-data.js)
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 7 at a Glance: Core Sub-Topics]
+A first-order ODE written as $M\,dx + N\,dy = 0$ is \emph{exact} when its
+left side is already the total differential $dF$ of some scalar potential $F$,
+making the general solution simply $F(x,y)=C$. This unit develops the complete
+toolkit: test the cross-partials to detect exactness, reconstruct the potential
+via the integration loop, repair non-exact equations with special integrating
+factors, connect the theory to conservative vector fields, and read the physics
+through thermodynamic state functions.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{7.1 Exact Differential Equations} --- the criterion $M_y = N_x$
+          and the implicit general solution $F(x,y)=C$.
+    \item \textbf{7.2 Exact Equations Intuition} --- Clairaut's theorem:
+          $F_{xy}=F_{yx}$ is why $M_y=N_x$ guarantees a potential.
+    \item \textbf{7.3 Exact Equations Motivation and Theory} --- the integration
+          loop: $F = \int M\,dx + g(y)$, fix $g'(y)$ by matching $F_y = N$.
+    \item \textbf{7.4 Non-Exact Equations and Special Integrating Factors} ---
+          integrating factor $\mu(x)$ when $\Delta/N$ is pure in $x$; $\mu(y)$
+          when $-\Delta/M$ is pure in $y$ (where $\Delta = M_y - N_x$).
+    \item \textbf{7.5 Almost Exact Differential Equations} --- decision tree:
+          test both $\mu(x)$ and $\mu(y)$ routes systematically, then execute
+          the repair and re-verify exactness before reconstructing $F$.
+    \item \textbf{7.6 Exact Equations and Conservative Vector Fields} ---
+          $M_y=N_x$ iff $\mathbf F=\langle M,N\rangle$ is conservative;
+          path independence via the Fundamental Theorem for Line Integrals.
+    \item \textbf{7.7 Applications in Thermodynamics} --- $dU$ is an exact
+          state differential; $\delta Q$ is inexact; the integrating factor
+          $1/T$ produces exact entropy $dS = \delta Q/T$.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{7}   % subsections auto-number as 7.1, 7.2, ...
+
+% ---------------------------------------------------------------------------
+\subsection{Exact Differential Equations}
+% ---------------------------------------------------------------------------
+
+A first-order ODE $M(x,y)\,dx + N(x,y)\,dy = 0$ is \emph{exact} on a simply
+connected region when its left side equals the total differential $dF$ of some
+potential function $F(x,y)$. The key theorem reduces exactness to a single
+algebraic test on the cross-partial derivatives of $M$ and $N$.
+
+\begin{formulabox}[Exactness Criterion and Implicit Solution]
+The ODE $M\,dx + N\,dy = 0$ (with $M,N$ having continuous first partials) is
+\textbf{exact} on a simply connected region if and only if
+\[
+  \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}.
+\]
+When exact, a potential $F(x,y)$ exists satisfying $F_x = M$ and $F_y = N$,
+and the \textbf{general solution} is
+\[
+  F(x,y) = C.
+\]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Swapped Cross Partials]
+Always differentiate $M$ with respect to \textbf{$y$} and $N$ with respect to
+\textbf{$x$}. The test is $M_y = N_x$, never $M_x$ versus $N_y$. Computing the
+same-variable partials tells you nothing about exactness and will produce a
+false positive or false negative on every equation you test.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Exact Equations Intuition}
+% ---------------------------------------------------------------------------
+
+The cross-partial criterion is not an arbitrary rule --- it is Clairaut's
+theorem in disguise. If $M = F_x$ and $N = F_y$ for some $F$, then
+$M_y = F_{xy}$ and $N_x = F_{yx}$, and Clairaut guarantees the two mixed
+partials agree whenever $F$ has continuous second partials. Exactness is
+precisely the statement that $M$ and $N$ are partials of a common function.
+
+\begin{formulabox}[Clairaut's Theorem and the Exact-Differential Connection]
+On a simply connected region with $M,N$ continuously differentiable,
+\[
+  M\,dx + N\,dy = dF
+  \iff
+  \frac{\partial M}{\partial y}
+  = \frac{\partial^{2}F}{\partial y\,\partial x}
+  = \frac{\partial^{2}F}{\partial x\,\partial y}
+  = \frac{\partial N}{\partial x}.
+\]
+The equality of mixed partials is both \textbf{necessary} (if $dF$ exists then
+the cross partials must agree) and \textbf{sufficient} (on a simply connected
+domain, equal cross partials guarantee a global potential).
+\end{formulabox}
+
+% ---------------------------------------------------------------------------
+\subsection{Exact Equations Motivation and Theory}
+% ---------------------------------------------------------------------------
+
+Once exactness is confirmed, the potential $F$ is found by a two-step
+integration loop. Integrating $M$ with respect to $x$ introduces an arbitrary
+function $g(y)$ in place of a constant; that function is then pinned down by
+the condition $F_y = N$.
+
+\begin{methodbox}[Potential Function Reconstruction: The Integration Loop]
+Given $M\,dx + N\,dy = 0$ confirmed exact by $M_y = N_x$:
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+    \item \textbf{Integrate $M$ in $x$}, holding $y$ fixed:
+          \[
+            F(x,y) = \int M(x,y)\,dx + g(y).
+          \]
+    \item \textbf{Differentiate $F$ in $y$} and set the result equal to $N$:
+          \[
+            \frac{\partial F}{\partial y} = N(x,y)
+            \quad\Longrightarrow\quad
+            g'(y) = N(x,y) - \frac{\partial}{\partial y}\int M\,dx.
+          \]
+          (All $x$-terms must cancel; if they do not, re-check the exactness
+          test.)
+    \item \textbf{Integrate $g'(y)$} in $y$ to obtain $g(y)$.
+    \item Write the \textbf{general solution} $F(x,y) = C$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: $g'(y)$ Must Be Free of $x$]
+After forming $g'(y) = N - \partial_y\!\int M\,dx$, every $x$-term must
+cancel. If $x$ survives in $g'(y)$, the equation was not exact (or an
+arithmetic error occurred). Integrating an $x$-dependent expression as if it
+were a function of $y$ alone produces a wrong answer without any algebra error
+to signal the problem.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Non-Exact Equations and Special Integrating Factors}
+% ---------------------------------------------------------------------------
+
+When $M_y \neq N_x$, no potential $F$ exists for the equation as written.
+Multiplying both sides by a non-zero \emph{integrating factor} $\mu$ can
+change the cross partials of $\mu M$ and $\mu N$ until they match. Two
+special forms of $\mu$ are algebraically testable and cover the majority of
+non-exact equations encountered in practice.
+
+\begin{formulabox}[Integrating Factors $\mu(x)$ and $\mu(y)$]
+Let $\Delta = M_y - N_x$ (the \textbf{exactness defect}).
+\begin{itemize}[leftmargin=1.4em, itemsep=4pt]
+    \item \textbf{Test for $\mu(x)$:} Compute $\dfrac{\Delta}{N}$.
+          If the result depends on $x$ \emph{only}, set $h(x)=\Delta/N$ and
+          \[
+            \mu(x) = \exp\!\left(\int h(x)\,dx\right).
+          \]
+    \item \textbf{Test for $\mu(y)$:} Compute $\dfrac{N_x - M_y}{M}
+          = \dfrac{-\Delta}{M}$.
+          If the result depends on $y$ \emph{only}, set $k(y)=-\Delta/M$ and
+          \[
+            \mu(y) = \exp\!\left(\int k(y)\,dy\right).
+          \]
+\end{itemize}
+After multiplying the ODE through by $\mu$, solve the resulting exact equation
+via the integration loop (Section~7.3).
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Always Re-Verify Exactness After Multiplying]
+The formulas for $\mu(x)$ and $\mu(y)$ are derived by assuming the repaired
+equation will be exact. After multiplying by $\mu$, explicitly re-compute the
+cross partials $(\mu M)_y$ and $(\mu N)_x$ and confirm they are equal before
+proceeding. A mis-simplified defect ratio can give a wrong $\mu$ that does
+\emph{not} restore exactness.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Almost Exact Differential Equations}
+% ---------------------------------------------------------------------------
+
+An \emph{almost exact} equation is non-exact but possesses an integrating
+factor of one of the two standard forms ($\mu(x)$ or $\mu(y)$). The key skill
+is recognizing which test succeeds and executing the full repair-and-solve
+workflow systematically.
+
+\begin{methodbox}[Integrating-Factor Decision Tree]
+Given $M\,dx + N\,dy = 0$ with $M_y \neq N_x$:
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+    \item Compute the defect $\Delta = M_y - N_x$.
+    \item \textbf{Try $\mu(x)$:} Form $\Delta/N$. Does all $y$ cancel?
+          If yes, $\mu(x) = e^{\int \Delta/N\,dx}$.
+    \item \textbf{Try $\mu(y)$:} Form $-\Delta/M$. Does all $x$ cancel?
+          If yes, $\mu(y) = e^{\int(-\Delta/M)\,dy}$.
+    \item Multiply the ODE by $\mu$, re-verify $(\mu M)_y = (\mu N)_x$, then
+          use the integration loop to find $F$ and write $F = C$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{formulabox}[Why the Integrating Factor ODE Works]
+Requiring $(\mu M)_y = (\mu N)_x$ for $\mu = \mu(x)$ yields
+\[
+  \mu\,M_y = \mu'\,N + \mu\,N_x
+  \quad\Longrightarrow\quad
+  \frac{\mu'}{\mu} = \frac{M_y - N_x}{N} = \frac{\Delta}{N},
+\]
+a separable ODE in $\mu(x)$ whose solution is $\mu = e^{\int \Delta/N\,dx}$.
+The analogous calculation with $\mu = \mu(y)$ gives $\mu'/\mu = -\Delta/M$.
+\end{formulabox}
+
+% ---------------------------------------------------------------------------
+\subsection{Exact Equations and Conservative Vector Fields}
+% ---------------------------------------------------------------------------
+
+Every exact equation $M\,dx + N\,dy = 0$ can be read as the zero-work
+condition $\mathbf{F}\cdot d\mathbf{r}=0$ for the vector field
+$\mathbf{F}=\langle M,N\rangle$. Exactness is equivalent to $\mathbf{F}$
+being \emph{conservative}, and the potential $F$ of the ODE is the scalar
+potential $\varphi$ with $\nabla\varphi=\mathbf{F}$.
+
+\begin{formulabox}[Conservative Fields, Scalar Potentials, and Path Independence]
+A $C^1$ vector field $\mathbf{F}=\langle M,N\rangle$ on a simply connected
+region is \textbf{conservative} if and only if
+\[
+  \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}.
+\]
+When conservative, there exists a scalar potential $\varphi$ with
+$\nabla\varphi = \mathbf{F}$, found by the same integration loop as the ODE
+potential. Line integrals are then \textbf{path independent}:
+\[
+  \int_C \mathbf{F}\cdot d\mathbf{r}
+  = \varphi\!\left(B\right) - \varphi\!\left(A\right)
+\]
+for any smooth curve $C$ from point $A$ to point $B$ (Fundamental Theorem for
+Line Integrals). Equivalently, $\oint_C \mathbf{F}\cdot d\mathbf{r}=0$ for
+every closed curve.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Domain Must Be Simply Connected]
+The equivalence $M_y = N_x \iff$ conservative holds only on a
+\textbf{simply connected} domain (a domain with no holes). On a
+multiply-connected domain such as $\mathbb{R}^2\setminus\{(0,0)\}$, the field
+$\mathbf{F}=\langle -y,\,x\rangle/(x^2+y^2)$ satisfies $M_y=N_x$ everywhere
+it is defined yet is \emph{not} conservative: its integral around the unit
+circle equals $2\pi\neq 0$.
+\end{warningbox}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% Structural \clearpage before Part II in the master Reference Guide.
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. Problems 1--4 develop the core
+exactness test and potential-function reconstruction (Modules 7.1--7.3).
+Problems 5--7 require finding a special integrating factor $\mu(x)$ or $\mu(y)$
+to repair a non-exact equation (Modules 7.4--7.5). Problem 8 applies the
+conservative-field interpretation and the Fundamental Theorem for Line
+Integrals (Module 7.6). Problems 9--10 treat thermodynamic state functions,
+the exact versus inexact distinction, and entropy via the $1/T$ integrating
+factor (Module 7.7). Complete solutions follow in Part III.
+
+\begin{enumerate}[leftmargin=2em, itemsep=8pt]
+
+    \item For the equation $(2x + 3y)\,dx + (3x + 2y)\,dy = 0$, compute $M_y$
+          and $N_x$, confirm the equation is exact, and reconstruct the
+          potential function $F(x,y) = C$.
+
+    \item Verify that $(2xy - \sec^2\!x)\,dx + (x^2 + 2y)\,dy = 0$ is exact,
+          then determine $F(x,y)$ by integrating $M$ with respect to $x$ and
+          solving for the integration term $g(y)$.
+
+    \item Show that $(e^x\sin y + 2y)\,dx + (e^x\cos y + 2x - 2)\,dy = 0$
+          is exact and find the implicit solution $F(x,y) = C$.
+
+    \item Given $\bigl(\tfrac{y}{x} + 6x\bigr)\,dx + (\ln x - 2)\,dy = 0$
+          for $x > 0$, test for exactness, reconstruct $F(x,y)$ including the
+          full evaluation of $g(y)$, and then solve the initial-value problem
+          with $y(1) = 4$.
+
+    \item The equation $(3xy + y^2)\,dx + (x^2 + xy)\,dy = 0$ is not exact.
+          Determine whether an integrating factor of the form $\mu(x)$ exists,
+          find it, and solve the resulting exact equation.
+
+    \item Show that $(2y^2 + 3x)\,dx + 2xy\,dy = 0$ fails the exactness test,
+          find an integrating factor depending on $x$ alone, and produce the
+          solution $F(x,y) = C$.
+
+    \item For $y\,dx + (2x - ye^y)\,dy = 0$, demonstrate that no integrating
+          factor $\mu(x)$ works but an integrating factor $\mu(y)$ does;
+          determine $\mu(y)$ and solve.
+
+    \item Consider the vector field
+          $\mathbf{F}(x,y) = \langle 2xy + y^3,\; x^2 + 3xy^2 \rangle$.
+          Show that $\mathbf{F}$ is conservative, find a scalar potential
+          $\varphi$ with $\nabla\varphi = \mathbf{F}$, and use it to evaluate
+          $\displaystyle\int_C \mathbf{F}\cdot d\mathbf{r}$ along any path
+          from $(0,0)$ to $(2,1)$.
+
+    \item For an ideal gas the inexact heat differential is
+          $\delta Q = C_V\,dT + \tfrac{nRT}{V}\,dV$.
+          Show that $\delta Q$ is not exact, then verify that multiplying by
+          the integrating factor $1/T$ produces an exact differential
+          $dS = \delta Q/T$, and reconstruct the state function $S(T,V)$.
+
+    \item \textbf{(Capstone)} Given $dU = C_V\,dT$ (internal energy) and
+          $\delta Q = dU + P\,dV$ with $P = nRT/V$ for an ideal gas, determine
+          which of $dU$ and $\delta Q$ is an exact (state) differential by the
+          $M_y = N_x$ criterion applied to each. Confirm that $1/T$ converts
+          the inexact form into the exact entropy differential $dS$, and
+          exhibit the recovered $S(T,V)$ up to an additive constant.
+
+\end{enumerate}
+
+% ===========================================================================
+% PART III: COMPLETE SOLUTIONS
+% Structural \clearpage before Part III in the master Reference Guide.
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 1.}\quad
+Identify $M = 2x + 3y$ and $N = 3x + 2y$. Compute the cross-partial
+derivatives:
+\[
+  \textcolor{workpurple}{M_y = \frac{\partial}{\partial y}(2x + 3y) = 3,
+  \qquad
+  N_x = \frac{\partial}{\partial x}(3x + 2y) = 3.}
+\]
+Since $M_y = N_x = 3$, the equation is \textbf{exact}.
+Integrate $M$ with respect to $x$, holding $y$ fixed:
+\[
+  \textcolor{workpurple}{F(x,y) = \int(2x + 3y)\,dx = x^2 + 3xy + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N$:
+\[
+  \textcolor{workpurple}{F_y = 3x + g'(y) = N = 3x + 2y
+  \quad\Longrightarrow\quad g'(y) = 2y.}
+\]
+Integrate $g'(y)$:
+\[
+  \textcolor{workpurple}{g(y) = \int 2y\,dy = y^2.}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = x^2 + 3xy + y^2 = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 2.}\quad
+Identify $M = 2xy - \sec^2\!x$ and $N = x^2 + 2y$. Compute the
+cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y = \frac{\partial}{\partial y}(2xy - \sec^2\!x) = 2x,
+  \qquad
+  N_x = \frac{\partial}{\partial x}(x^2 + 2y) = 2x.}
+\]
+Since $M_y = N_x = 2x$, the equation is \textbf{exact}.
+Integrate $M$ with respect to $x$, using $\int\sec^2\!x\,dx = \tan x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int(2xy - \sec^2\!x)\,dx
+  = x^2 y - \tan x + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N$:
+\[
+  \textcolor{workpurple}{F_y = x^2 + g'(y) = x^2 + 2y
+  \quad\Longrightarrow\quad g'(y) = 2y.}
+\]
+Integrate $g'(y)$:
+\[
+  \textcolor{workpurple}{g(y) = y^2.}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = x^2 y - \tan x + y^2 = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 3.}\quad
+Identify $M = e^x\sin y + 2y$ and $N = e^x\cos y + 2x - 2$.
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y
+  = \frac{\partial}{\partial y}(e^x\sin y + 2y)
+  = e^x\cos y + 2.}
+\]
+\[
+  \textcolor{workpurple}{N_x
+  = \frac{\partial}{\partial x}(e^x\cos y + 2x - 2)
+  = e^x\cos y + 2.}
+\]
+Since $M_y = N_x = e^x\cos y + 2$, the equation is \textbf{exact}.
+Integrate $M$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int(e^x\sin y + 2y)\,dx
+  = e^x\sin y + 2xy + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N$:
+\[
+  \textcolor{workpurple}{F_y = e^x\cos y + 2x + g'(y)
+  = e^x\cos y + 2x - 2
+  \quad\Longrightarrow\quad g'(y) = -2.}
+\]
+Integrate $g'(y)$:
+\[
+  \textcolor{workpurple}{g(y) = -2y.}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = e^x\sin y + 2xy - 2y = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 4.}\quad
+Identify $M = y/x + 6x$ and $N = \ln x - 2$ (with $x>0$).
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y
+  = \frac{\partial}{\partial y}\!\left(\frac{y}{x} + 6x\right)
+  = \frac{1}{x},
+  \qquad
+  N_x
+  = \frac{\partial}{\partial x}(\ln x - 2)
+  = \frac{1}{x}.}
+\]
+Since $M_y = N_x = 1/x$, the equation is \textbf{exact}.
+Integrate $M$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int\!\left(\frac{y}{x} + 6x\right)dx
+  = y\ln x + 3x^2 + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N$:
+\[
+  \textcolor{workpurple}{F_y = \ln x + g'(y) = \ln x - 2
+  \quad\Longrightarrow\quad g'(y) = -2.}
+\]
+Integrate $g'(y)$:
+\[
+  \textcolor{workpurple}{g(y) = -2y.}
+\]
+The general solution is $y\ln x + 3x^2 - 2y = C$.
+Apply the initial condition $y(1) = 4$; since $\ln 1 = 0$:
+\[
+  \textcolor{workpurple}{(4)\ln 1 + 3(1)^2 - 2(4)
+  = 0 + 3 - 8 = -5 = C.}
+\]
+The particular implicit solution is $y\ln x + 3x^2 - 2y = -5$.
+Collecting $y$ terms and solving explicitly:
+\[
+  \textcolor{workpurple}{y(\ln x - 2) = -5 - 3x^2
+  \quad\Longrightarrow\quad
+  y = \frac{-5 - 3x^2}{\ln x - 2} = \frac{3x^2 + 5}{2 - \ln x}.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 5.}\quad
+Identify $M = 3xy + y^2$ and $N = x^2 + xy$.
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y
+  = \frac{\partial}{\partial y}(3xy + y^2)
+  = 3x + 2y,
+  \qquad
+  N_x
+  = \frac{\partial}{\partial x}(x^2 + xy)
+  = 2x + y.}
+\]
+Since $M_y = 3x + 2y \neq 2x + y = N_x$, the equation is \textbf{not exact}.
+Compute the exactness defect:
+\[
+  \textcolor{workpurple}{\Delta = M_y - N_x = (3x + 2y) - (2x + y) = x + y.}
+\]
+Test for $\mu(x)$ by forming $\Delta/N$:
+\[
+  \textcolor{workpurple}{\frac{\Delta}{N}
+  = \frac{x + y}{x^2 + xy}
+  = \frac{x + y}{x(x + y)}
+  = \frac{1}{x}.}
+\]
+This is a function of $x$ alone, so $\mu(x)$ exists:
+\[
+  \textcolor{workpurple}{\mu(x)
+  = e^{\int (1/x)\,dx}
+  = e^{\ln x}
+  = x.}
+\]
+Multiply the ODE by $\mu = x$; the new coefficients are
+$M^* = x(3xy + y^2) = 3x^2 y + xy^2$ and
+$N^* = x(x^2 + xy) = x^3 + x^2 y$.
+Re-verify exactness:
+\[
+  \textcolor{workpurple}{(M^*)_y
+  = \frac{\partial}{\partial y}(3x^2 y + xy^2)
+  = 3x^2 + 2xy,
+  \qquad
+  (N^*)_x
+  = \frac{\partial}{\partial x}(x^3 + x^2 y)
+  = 3x^2 + 2xy.}
+\]
+Equal. Now exact. Integrate $M^*$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int(3x^2 y + xy^2)\,dx
+  = x^3 y + \tfrac{1}{2}x^2 y^2 + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N^*$:
+\[
+  \textcolor{workpurple}{F_y = x^3 + x^2 y + g'(y) = x^3 + x^2 y
+  \quad\Longrightarrow\quad g'(y) = 0,\quad g(y) = 0.}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = x^3 y + \tfrac{1}{2}x^2 y^2 = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 6.}\quad
+Identify $M = 2y^2 + 3x$ and $N = 2xy$.
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y
+  = \frac{\partial}{\partial y}(2y^2 + 3x)
+  = 4y,
+  \qquad
+  N_x
+  = \frac{\partial}{\partial x}(2xy)
+  = 2y.}
+\]
+Since $M_y = 4y \neq 2y = N_x$, the equation is \textbf{not exact}.
+Compute the exactness defect:
+\[
+  \textcolor{workpurple}{\Delta = M_y - N_x = 4y - 2y = 2y.}
+\]
+Test for $\mu(x)$ by forming $\Delta/N$:
+\[
+  \textcolor{workpurple}{\frac{\Delta}{N}
+  = \frac{2y}{2xy}
+  = \frac{1}{x}.}
+\]
+Pure in $x$. The integrating factor is:
+\[
+  \textcolor{workpurple}{\mu(x)
+  = e^{\int (1/x)\,dx}
+  = e^{\ln x}
+  = x.}
+\]
+Multiply the ODE by $\mu = x$; the new coefficients are
+$M^* = x(2y^2 + 3x) = 2xy^2 + 3x^2$ and $N^* = x\cdot 2xy = 2x^2 y$.
+Re-verify exactness:
+\[
+  \textcolor{workpurple}{(M^*)_y
+  = \frac{\partial}{\partial y}(2xy^2 + 3x^2)
+  = 4xy,
+  \qquad
+  (N^*)_x
+  = \frac{\partial}{\partial x}(2x^2 y)
+  = 4xy.}
+\]
+Equal. Now exact. Integrate $M^*$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int(2xy^2 + 3x^2)\,dx
+  = x^2 y^2 + x^3 + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N^*$:
+\[
+  \textcolor{workpurple}{F_y = 2x^2 y + g'(y) = 2x^2 y
+  \quad\Longrightarrow\quad g'(y) = 0,\quad g(y) = 0.}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = x^2 y^2 + x^3 = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 7.}\quad
+Identify $M = y$ and $N = 2x - ye^y$.
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{M_y
+  = \frac{\partial}{\partial y}(y)
+  = 1,
+  \qquad
+  N_x
+  = \frac{\partial}{\partial x}(2x - ye^y)
+  = 2.}
+\]
+Since $M_y = 1 \neq 2 = N_x$, the equation is \textbf{not exact}.
+Compute $\Delta = M_y - N_x = 1 - 2 = -1$.
+
+\noindent\textit{Test $\mu(x)$:} Form $\Delta/N$:
+\[
+  \textcolor{workpurple}{\frac{\Delta}{N}
+  = \frac{-1}{2x - ye^y}.}
+\]
+This contains $y$, so it is not a function of $x$ alone. \textbf{No $\mu(x)$
+exists.}
+
+\noindent\textit{Test $\mu(y)$:} Form $-\Delta/M = (N_x - M_y)/M$:
+\[
+  \textcolor{workpurple}{\frac{N_x - M_y}{M}
+  = \frac{2 - 1}{y}
+  = \frac{1}{y}.}
+\]
+Pure in $y$. The integrating factor is:
+\[
+  \textcolor{workpurple}{\mu(y)
+  = e^{\int (1/y)\,dy}
+  = e^{\ln y}
+  = y.}
+\]
+Multiply the ODE by $\mu = y$; the new coefficients are
+$M^* = y\cdot y = y^2$ and $N^* = y(2x - ye^y) = 2xy - y^2 e^y$.
+Re-verify exactness:
+\[
+  \textcolor{workpurple}{(M^*)_y
+  = \frac{\partial}{\partial y}(y^2)
+  = 2y,
+  \qquad
+  (N^*)_x
+  = \frac{\partial}{\partial x}(2xy - y^2 e^y)
+  = 2y.}
+\]
+Equal. Now exact. Integrate $M^*$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int y^2\,dx
+  = xy^2 + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N^*$:
+\[
+  \textcolor{workpurple}{F_y = 2xy + g'(y) = 2xy - y^2 e^y
+  \quad\Longrightarrow\quad g'(y) = -y^2 e^y.}
+\]
+Evaluate $g(y) = -\int y^2 e^y\,dy$ by integration by parts twice.
+First application, $u = y^2$ and $dv = e^y\,dy$:
+\[
+  \textcolor{workpurple}{\int y^2 e^y\,dy
+  = y^2 e^y - 2\int y e^y\,dy.}
+\]
+Second application for $\int y e^y\,dy$, with $u = y$ and $dv = e^y\,dy$:
+\[
+  \textcolor{workpurple}{\int y e^y\,dy
+  = ye^y - \int e^y\,dy
+  = ye^y - e^y
+  = e^y(y - 1).}
+\]
+Combining:
+\[
+  \textcolor{workpurple}{\int y^2 e^y\,dy
+  = y^2 e^y - 2e^y(y-1)
+  = e^y(y^2 - 2y + 2).}
+\]
+Therefore:
+\[
+  \textcolor{workpurple}{g(y) = -e^y(y^2 - 2y + 2).}
+\]
+The general solution is
+\[
+  \textcolor{workpurple}{F(x,y) = xy^2 - e^y(y^2 - 2y + 2) = C.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 8.}\quad
+Let $P = 2xy + y^3$ and $Q = x^2 + 3xy^2$.
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{P_y
+  = \frac{\partial}{\partial y}(2xy + y^3)
+  = 2x + 3y^2,
+  \qquad
+  Q_x
+  = \frac{\partial}{\partial x}(x^2 + 3xy^2)
+  = 2x + 3y^2.}
+\]
+Since $P_y = Q_x = 2x + 3y^2$ on all of $\mathbb{R}^2$ (a simply connected
+domain), $\mathbf{F}$ is \textbf{conservative}.
+Find the scalar potential $\varphi$ by integrating $P$ with respect to $x$:
+\[
+  \textcolor{workpurple}{\varphi(x,y)
+  = \int(2xy + y^3)\,dx
+  = x^2 y + xy^3 + g(y).}
+\]
+Differentiate $\varphi$ with respect to $y$ and match to $Q$:
+\[
+  \textcolor{workpurple}{\varphi_y
+  = x^2 + 3xy^2 + g'(y)
+  = x^2 + 3xy^2
+  \quad\Longrightarrow\quad g'(y) = 0,\quad g(y) = 0.}
+\]
+Therefore:
+\[
+  \textcolor{workpurple}{\varphi(x,y) = x^2 y + xy^3.}
+\]
+By the Fundamental Theorem for Line Integrals, the integral is path
+independent:
+\[
+  \textcolor{workpurple}{\int_C \mathbf{F}\cdot d\mathbf{r}
+  = \varphi(2,1) - \varphi(0,0).}
+\]
+Evaluate each endpoint:
+\[
+  \textcolor{workpurple}{\varphi(2,1)
+  = (2)^2(1) + (2)(1)^3
+  = 4 + 2
+  = 6,
+  \qquad
+  \varphi(0,0) = 0.}
+\]
+Therefore:
+\[
+  \textcolor{workpurple}{\int_C \mathbf{F}\cdot d\mathbf{r}
+  = 6 - 0 = 6.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 9.}\quad
+Treat $T$ and $V$ as the two independent variables. The differential is
+$\delta Q = C_V\,dT + \tfrac{nRT}{V}\,dV$, so
+$M = C_V$ (coefficient of $dT$) and $N = nRT/V$ (coefficient of $dV$).
+
+Compute the cross-partial derivatives:
+\[
+  \textcolor{workpurple}{\frac{\partial M}{\partial V}
+  = \frac{\partial C_V}{\partial V}
+  = 0,
+  \qquad
+  \frac{\partial N}{\partial T}
+  = \frac{\partial}{\partial T}\!\left(\frac{nRT}{V}\right)
+  = \frac{nR}{V}.}
+\]
+Since $0 \neq nR/V$, the cross partials are unequal: $\delta Q$ is
+\textbf{not exact} and heat is not a state function.
+
+Multiply by the integrating factor $1/T$ to define $dS = \delta Q/T$:
+\[
+  \textcolor{workpurple}{dS
+  = \frac{\delta Q}{T}
+  = \frac{C_V}{T}\,dT + \frac{nR}{V}\,dV.}
+\]
+Now $M^* = C_V/T$ and $N^* = nR/V$. Re-verify exactness:
+\[
+  \textcolor{workpurple}{\frac{\partial M^*}{\partial V}
+  = \frac{\partial}{\partial V}\!\left(\frac{C_V}{T}\right)
+  = 0,
+  \qquad
+  \frac{\partial N^*}{\partial T}
+  = \frac{\partial}{\partial T}\!\left(\frac{nR}{V}\right)
+  = 0.}
+\]
+Both cross partials equal zero; $dS$ is \textbf{exact}, confirming $1/T$ is a
+valid integrating factor and $S$ is a state function.
+
+Reconstruct $S$ by integrating $M^* = C_V/T$ with respect to $T$
+($C_V$ constant):
+\[
+  \textcolor{workpurple}{S(T,V)
+  = \int \frac{C_V}{T}\,dT + g(V)
+  = C_V\ln T + g(V).}
+\]
+Differentiate $S$ with respect to $V$ and match to $N^*$:
+\[
+  \textcolor{workpurple}{\frac{\partial S}{\partial V}
+  = g'(V)
+  = \frac{nR}{V}
+  \quad\Longrightarrow\quad
+  g(V) = nR\ln V.}
+\]
+The entropy state function is:
+\[
+  \textcolor{workpurple}{S(T,V) = C_V\ln T + nR\ln V + \text{const.}}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 10 (Capstone).}\quad
+The internal energy of an ideal gas depends only on temperature (Joule's
+theorem), so the genuine state-function differential is
+$dU = C_V\,dT + 0\cdot dV$. With $M = C_V$ (coefficient of $dT$) and
+$N = 0$ (coefficient of $dV$), test exactness:
+\[
+  \textcolor{workpurple}{\frac{\partial M}{\partial V}
+  = \frac{\partial C_V}{\partial V}
+  = 0,
+  \qquad
+  \frac{\partial N}{\partial T}
+  = \frac{\partial (0)}{\partial T}
+  = 0.}
+\]
+The cross partials are equal: $dU = C_V\,dT$ is \textbf{exact}. Integrate to
+confirm the potential:
+\[
+  \textcolor{workpurple}{U(T) = \int C_V\,dT = C_V T + \text{const.}}
+\]
+$U$ is a genuine state function depending only on $T$.
+
+Now build $\delta Q$ using $dU = C_V\,dT$ and $P\,dV = (nRT/V)\,dV$:
+\[
+  \textcolor{workpurple}{\delta Q = dU + P\,dV
+  = C_V\,dT + \frac{nRT}{V}\,dV.}
+\]
+With $M = C_V$ and $N = nRT/V$, test exactness:
+\[
+  \textcolor{workpurple}{\frac{\partial M}{\partial V}
+  = 0,
+  \qquad
+  \frac{\partial N}{\partial T}
+  = \frac{nR}{V}.}
+\]
+Since $0 \neq nR/V$, $\delta Q$ is \textbf{not exact}: heat is not a state
+function. Of the two, $dU$ is the exact (state) differential and $\delta Q$
+is the inexact one.
+
+Apply the integrating factor $1/T$ to $\delta Q$:
+\[
+  \textcolor{workpurple}{dS
+  = \frac{\delta Q}{T}
+  = \frac{C_V}{T}\,dT + \frac{nR}{V}\,dV.}
+\]
+Test exactness of $dS$ with $M^* = C_V/T$ and $N^* = nR/V$:
+\[
+  \textcolor{workpurple}{\frac{\partial M^*}{\partial V}
+  = 0,
+  \qquad
+  \frac{\partial N^*}{\partial T}
+  = 0.}
+\]
+Equal. $dS$ is \textbf{exact}. Integrate $M^*$ with respect to $T$:
+\[
+  \textcolor{workpurple}{S(T,V)
+  = \int\frac{C_V}{T}\,dT + g(V)
+  = C_V\ln T + g(V).}
+\]
+Match $\partial S/\partial V$ to $N^*$:
+\[
+  \textcolor{workpurple}{g'(V)
+  = \frac{nR}{V}
+  \quad\Longrightarrow\quad
+  g(V) = nR\ln V.}
+\]
+The entropy state function recovered from $\delta Q/T$ is:
+\[
+  \textcolor{workpurple}{S(T,V)
+  = C_V\ln T + nR\ln V + \text{const.}}
+\]
+
+\vspace{0.8em}
+
+\begin{conceptbox}[Unit 7 Key Takeaway]
+Every exact equation $M\,dx+N\,dy=0$ reduces to finding the potential
+\textcolor{accentorange}{$F(x,y)=C$} via the integration loop
+\textcolor{accentorange}{$F=\int M\,dx+g(y)$} with $g'(y)$ pinned by matching
+$F_y=N$. For non-exact equations, compute the defect
+\textcolor{accentorange}{$\Delta=M_y-N_x$} and apply
+\textcolor{accentorange}{$\mu(x)=e^{\int\Delta/N\,dx}$} when $\Delta/N$ is
+pure in $x$, or \textcolor{accentorange}{$\mu(y)=e^{-\int\Delta/M\,dy}$} when
+$-\Delta/M$ is pure in $y$; always re-verify exactness after multiplying. The
+conservative-field identity \textcolor{accentorange}{$M_y=N_x\iff\mathbf{F}=\nabla\varphi$}
+makes line integrals path-independent:
+\textcolor{accentorange}{$\int_C\mathbf{F}\cdot d\mathbf{r}=\varphi(B)-\varphi(A)$}.
+In thermodynamics, \textcolor{accentorange}{$dU$} is exact while
+\textcolor{accentorange}{$\delta Q$} is not; the integrating factor
+\textcolor{accentorange}{$1/T$} converts $\delta Q$ into the exact entropy
+differential \textcolor{accentorange}{$dS=C_V\ln T+nR\ln V+\text{const}$}.
+\end{conceptbox}
+
+\end{document}
