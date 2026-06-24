@@ -157,15 +157,18 @@ The integral above starts at $t = a$ rather than $0$ because the integrand $e^{-
   \draw[very thick, workpurple] (3,1.5) -- (6,1.5);
   % jump indicator
   \draw[dotted, workpurple] (3,0) -- (3,1.5);
+  % unit-jump dimension arrow (the "rise"), tying the step to the delta
+  \draw[<->, thick, accentgreen] (3.2,0) -- (3.2,1.5);
+  \node[accentgreen, align=left, right] at (3.32,0.72) {\small unit jump\\[-2pt]\small $= 1\ \to\ \delta(t-a)$};
   % open circle at (a,0), closed at (a,1)
   \filldraw[fill=white, draw=workpurple, very thick] (3,0) circle (2.6pt);
   \filldraw[fill=workpurple, draw=workpurple, very thick] (3,1.5) circle (2.6pt);
-  \node[workpurple, align=center] at (1.5,0.95) {\small off\\[-2pt]\small $u_a = 0$};
+  \node[workpurple, align=center] at (1.3,0.55) {\small off\\[-2pt]\small $u_a = 0$};
   \node[workpurple, align=center] at (4.6,1.95) {\small on, $u_a = 1$};
 \end{tikzpicture}
 \end{center}
 \begin{center}
-\small\itshape The unit step $u_a(t)$: a clean jump discontinuity of height $1$ at $t = a$. Open circle = value not attained; filled circle = value attained.
+\small\itshape The unit step $u_a(t)$: a clean jump discontinuity at $t = a$, rising by exactly $1$. That ``unit jump'' is the visceral link to the next section --- compressing this entire rise into an instant is precisely what makes its derivative the unit-area Dirac delta, $\frac{d}{dt}u_a(t) = \delta(t - a)$. Open circle = value not attained; filled circle = value attained.
 \end{center}
 
 \subsubsection*{Encoding Piecewise Functions}
@@ -253,6 +256,25 @@ When you invert a term carrying $e^{-as}$, the delay produces \textbf{two} effec
 \end{enumerate}
 Writing $\mathcal{L}^{-1}\{e^{-7s}F(s)\} = f(t-7)$ \textbf{without} the $u_7(t)$ factor is wrong: that bare expression is nonzero for $t < 7$, claiming the delayed response acts \emph{before} it was triggered. The $u_a(t)$ is what enforces causality --- nothing happens until the switch is thrown. \textbf{Always carry the gate:} $\mathcal{L}^{-1}\{e^{-7s}F(s)\} = u_7(t)\,f(t-7)$.
 \end{warningbox}
+
+\begin{formulabox}[Exam Safeguard: Shifted Step vs.\ Delayed Function]
+When $e^{-as}$ appears, decide \emph{what} it multiplies. A bare $e^{-as}/s$ is just the switch; an $e^{-as}F(s)$ is a whole function delayed --- and inverting it \textbf{must} restore the $u_a(t)$ gate.
+
+\smallskip
+\renewcommand{\arraystretch}{1.5}
+\noindent\begin{tabular}{@{}p{0.30\linewidth}p{0.32\linewidth}p{0.30\linewidth}@{}}
+\textbf{Object} & \textbf{Time domain} & \textbf{Transform / Inverse}\\[2pt]
+\hline
+Shifted step (switch alone) & $u_a(t)$ & $\mathcal{L}\{u_a(t)\} = \dfrac{e^{-as}}{s}$\\
+Delayed function (forward) & $u_a(t)\,f(t-a)$ & $\mathcal{L}\{\cdot\} = e^{-as}F(s)$\\
+Inverting $e^{-as}F(s)$ \textbf{(correct)} & $\textcolor{accentgreen}{u_a(t)}\,f(t-a)$ & $\mathcal{L}^{-1}\{e^{-as}F(s)\}$\\
+Gate dropped \textbf{(wrong)} & \textcolor{warnred}{$f(t-a)$ alone} & --- acts before $t=a$\\
+\hline
+\end{tabular}
+
+\smallskip
+\textbf{Reading rule:} shift the argument $t \to t-a$ \emph{and} multiply by $u_a(t)$. The $\tfrac{1}{s}$ in the first row is special to the step itself; a general $F(s)$ keeps its own inverse $f$.
+\end{formulabox}
 
 \begin{conceptbox}[Key Takeaway]
 The step function $u_a(t)$ is a \textcolor{accentorange}{switch}; the Second Shift Theorem $\mathcal{L}\{u_a(t)f(t-a)\} = e^{-as}F(s)$ is how that switch travels through the transform. An \textcolor{accentorange}{$e^{-as}$ in the $s$-domain always means a delay of $a$ in time} --- invert the bare transform, shift $t \to t - a$, and gate with $u_a(t)$.
