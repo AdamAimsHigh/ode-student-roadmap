@@ -318,5 +318,42 @@
         { "id": "mp_sHlIF-YZ9Yw_5", "prompt": "Why are Chebyshev polynomials valued in numerical approximation?", "answer": "They minimize the maximum error, spreading it evenly (equioscillation)." }
       ]
     }
-  ]
+  ],
+  "cheatSubtitle": "Condensed Cheat Sheet: Power Series, Frobenius, and the Classical Special Functions",
+  "cheatTakeaway": {
+    "title": "Unit Key Takeaway",
+    "body": "The series method is one idea applied with increasing nerve: \\textcolor{accentorange}{posit an analytic solution} $y=\\sum a_n x^n$, substitute, and match powers to get a recurrence. At an ordinary point a plain power series works; at a regular singular point the \\textcolor{accentorange}{Frobenius factor $x^r$} and its indicial equation are required. Run the machine on the great equations of physics and out come the Legendre, Bessel, Hermite, Laguerre, and Chebyshev families --- each an orthogonal basis under its own weight."
+  },
+  "practice": {
+    "subtitle": "Practice Set: Problems and Complete Solutions",
+    "intro": "Work the following ten problems in order. They climb through Taylor coefficients and the standard library, the radius of convergence, a power-series solution at an ordinary point and the re-indexing that produces its recurrence, the Frobenius classification and indicial equation, and finally the classical special functions --- Legendre, Bessel, and the recurrence-built Hermite and Chebyshev polynomials. Solutions follow in Part III.",
+    "problems": [
+      "\\textbf{(Maclaurin series)} Write the Maclaurin series of $e^x$ and state the coefficient of $x^4$.",
+      "\\textbf{(Standard library)} Write the Maclaurin series of $\\cos x$ in summation form.",
+      "\\textbf{(Radius of convergence)} Use the ratio test to find the radius of convergence of $\\sum_{n=0}^{\\infty} \\dfrac{x^n}{2^n}$.",
+      "\\textbf{(Series at an ordinary point)} Substitute $y=\\sum a_n x^n$ into $y''+y=0$, derive the recurrence for $a_{n+2}$, and identify the two independent solutions.",
+      "\\textbf{(Re-indexing)} For $y=\\sum_{n=0}^{\\infty} a_n x^n$, write $y''$ re-indexed so every term carries the common power $x^n$.",
+      "\\textbf{(Frobenius classification)} For $x^2 y'' + x y' - y = 0$, show $x=0$ is a regular singular point, compute $p_0$ and $q_0$, and solve the indicial equation.",
+      "\\textbf{(Indicial roots)} Given $p_0=\\tfrac{3}{2}$ and $q_0=-\\tfrac{1}{2}$, solve the indicial equation $r(r-1)+p_0 r+q_0=0$.",
+      "\\textbf{(Legendre polynomial)} For $n=2$, Legendre's equation has a terminating solution. Find it and normalize so $P_2(1)=1$.",
+      "\\textbf{(Bessel's equation)} State Bessel's equation of order $\\nu$, classify the point $x=0$, and give the indicial roots.",
+      "\\textbf{(Classical families, capstone)} Using the Hermite recurrence $H_{n+1}=2xH_n-2nH_{n-1}$ and the Chebyshev recurrence $T_{n+1}=2xT_n-T_{n-1}$ (with $H_0=1,H_1=2x,T_0=1,T_1=x$), compute $H_2$ and $T_2$, and contrast them with $P_2$."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quad Every derivative of $e^x$ equals $e^x$, which is $1$ at $x=0$, so $a_n=f^{(n)}(0)/n!=1/n!$:\n\\[ \\textcolor{workpurple}{e^x = \\sum_{n=0}^{\\infty}\\frac{x^n}{n!} = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\frac{x^4}{24} + \\cdots} \\]\nThe coefficient of $x^4$ is $\\dfrac{1}{4!}=\\dfrac{1}{24}$.",
+      "\\noindent\\textbf{Solution 2.}\\quad Only even powers survive, with alternating sign:\n\\[ \\textcolor{workpurple}{\\cos x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n}}{(2n)!} = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} - \\cdots} \\]",
+      "\\noindent\\textbf{Solution 3.}\\quad With $a_n=1/2^n$, the ratio test gives\n\\[ \\textcolor{workpurple}{\\frac{1}{R} = \\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right| = \\lim_{n\\to\\infty}\\frac{1/2^{n+1}}{1/2^n} = \\frac{1}{2} \\;\\Longrightarrow\\; R = 2.} \\]",
+      "\\noindent\\textbf{Solution 4.}\\quad Re-index $y''=\\sum_{n\\ge 0}(n+2)(n+1)a_{n+2}x^n$ and add $y$:\n\\[ \\textcolor{workpurple}{\\sum_{n=0}^{\\infty}\\big[(n+2)(n+1)a_{n+2}+a_n\\big]x^n = 0 \\;\\Longrightarrow\\; a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}.} \\]\nThe $a_0$ branch builds $1-\\tfrac{x^2}{2!}+\\tfrac{x^4}{4!}-\\cdots=\\cos x$ and the $a_1$ branch builds $\\sin x$, so\n\\[ \\textcolor{workpurple}{y = a_0\\cos x + a_1\\sin x.} \\]",
+      "\\noindent\\textbf{Solution 5.}\\quad Differentiate twice and shift the index by two so the power is $x^n$:\n\\[ \\textcolor{workpurple}{y'' = \\sum_{n=0}^{\\infty}(n+2)(n+1)\\,a_{n+2}\\,x^n.} \\]\nForgetting the $(n+2)(n+1)$ factor here is the most common source of a wrong recurrence.",
+      "\\noindent\\textbf{Solution 6.}\\quad In standard form $y'' + \\tfrac{1}{x}y' - \\tfrac{1}{x^2}y = 0$, so $p=\\tfrac1x$, $q=-\\tfrac1{x^2}$. Since $xp=1$ and $x^2q=-1$ are analytic at $0$, the point is a regular singular point. Then\n\\[ \\textcolor{workpurple}{p_0 = \\lim_{x\\to 0} x\\,p = 1, \\qquad q_0 = \\lim_{x\\to 0} x^2 q = -1,} \\]\n\\[ \\textcolor{workpurple}{r(r-1)+r-1 = r^2-1 = 0 \\;\\Longrightarrow\\; r = \\pm 1.} \\]",
+      "\\noindent\\textbf{Solution 7.}\\quad Substitute into the indicial equation and clear the fraction:\n\\[ \\textcolor{workpurple}{r(r-1) + \\tfrac{3}{2}r - \\tfrac{1}{2} = r^2 + \\tfrac{1}{2}r - \\tfrac{1}{2} = 0 \\;\\Longrightarrow\\; 2r^2 + r - 1 = 0.} \\]\nFactor $(2r-1)(r+1)=0$:\n\\[ \\textcolor{workpurple}{r = \\tfrac{1}{2} \\quad\\text{and}\\quad r = -1.} \\]",
+      "\\noindent\\textbf{Solution 8.}\\quad For $n=2$ the even series terminates: $a_2 = -\\tfrac{n(n+1)}{2}a_0 = -3a_0$ and $a_4=0$, so $y=a_0(1-3x^2)$. Normalize with $P_2(1)=1$:\n\\[ \\textcolor{workpurple}{a_0(1-3) = -2a_0 = 1 \\;\\Longrightarrow\\; a_0 = -\\tfrac{1}{2},} \\]\n\\[ \\textcolor{workpurple}{P_2(x) = -\\tfrac{1}{2}(1-3x^2) = \\tfrac{1}{2}(3x^2-1).} \\]",
+      "\\noindent\\textbf{Solution 9.}\\quad Bessel's equation of order $\\nu$ is\n\\[ \\textcolor{workpurple}{x^2 y'' + x y' + (x^2 - \\nu^2)y = 0.} \\]\nAt $x=0$ the coefficients blow up but $xp$ and $x^2q$ are analytic, so it is a regular singular point; the indicial equation $r^2-\\nu^2=0$ gives\n\\[ \\textcolor{workpurple}{r = \\nu \\quad\\text{and}\\quad r = -\\nu.} \\]",
+      "\\noindent\\textbf{Solution 10.}\\quad Apply each recurrence once:\n\\[ \\textcolor{workpurple}{H_2 = 2xH_1 - 2(1)H_0 = 2x(2x) - 2 = 4x^2 - 2,} \\]\n\\[ \\textcolor{workpurple}{T_2 = 2xT_1 - T_0 = 2x(x) - 1 = 2x^2 - 1.} \\]\nAll three degree-2 members look alike but come from different equations and weights:\n\\[ \\textcolor{workpurple}{H_2 = 4x^2-2, \\quad T_2 = 2x^2-1, \\quad P_2 = \\tfrac{1}{2}(3x^2-1).} \\]"
+    ],
+    "takeaway": {
+      "title": "Unit Key Takeaway",
+      "body": "Every problem above runs the same engine: \\textcolor{accentorange}{assume an analytic (or Frobenius) ansatz, substitute, and match powers} to extract a recurrence. The ordinary-point case gives the two free constants $a_0,a_1$; the regular-singular case needs the $x^r$ factor and its indicial roots; and the named physical equations terminate or specialize into the \\textcolor{accentorange}{classical orthogonal families}."
+    }
+  }
 }
