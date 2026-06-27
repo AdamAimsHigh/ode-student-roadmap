@@ -1,0 +1,212 @@
+% Unit 11: Mechanical Vibrations and Oscillators
+% Condensed Cheat Sheet (Part I only, standalone)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (11.1 to 11.6) and the
+% QUIZ_DATA micro-practice items for Unit 11.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 11: Mechanical Vibrations and Oscillators}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet: Springs, Damping, Resonance, and Coupled Motion}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 11 at a Glance: Core Sub-Topics]
+This is the physics payoff of second-order theory. A mass on a spring obeys
+$m x'' + c x' + k x = F(t)$, and every behavior in the unit --- pure oscillation,
+decay, blow-up, and shared rhythm --- is read off that one equation by inspecting
+its mass, damping, stiffness, and forcing.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Simple harmonic motion} --- Hooke's law $F=-kx$ and the natural
+          frequency $\omega_0=\sqrt{k/m}$.
+    \item \textbf{Free undamped vibrations} --- $x = C\cos(\omega_0 t - \phi)$ and the
+          amplitude-phase form.
+    \item \textbf{Damped vibrations} --- the discriminant $c^2-4mk$ sorts the motion
+          into over-, critically, and underdamped.
+    \item \textbf{Forced vibrations and resonance} --- driving at $\omega_0$ produces
+          unbounded growth; driving near it produces beats.
+    \item \textbf{Coupled oscillators} --- eigenvalues of $\mathbf{x}''=A\mathbf{x}$
+          give the normal-mode frequencies.
+    \item \textbf{The harmonic oscillator} --- one equation, $x''+\omega_0^2 x=0$,
+          solved four ways and hiding inside almost every stable system.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{11}   % subsections auto-number as the unit modules 11.1, 11.2, ...
+
+\subsection{Simple Harmonic Motion and Hooke's Law}
+
+A spring resists displacement with a force proportional to how far it is stretched
+and directed back toward equilibrium. That single linear law turns Newton's second
+law into the master oscillator equation.
+
+\begin{formulabox}[Hooke's Law and the Natural Frequency]
+\[ F = -kx, \qquad m x'' + k x = 0, \qquad x'' + \omega_0^2 x = 0, \qquad \omega_0 = \sqrt{\tfrac{k}{m}}. \]
+The period and ordinary frequency follow directly from $\omega_0$:
+\[ T = \frac{2\pi}{\omega_0}, \qquad f = \frac{\omega_0}{2\pi}. \]
+A hanging mass settles where gravity balances the spring, $mg = kL$, which is how a
+measured static stretch $L$ delivers the stiffness $k = mg/L$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Angular Frequency Is Not Frequency]
+The $\omega_0$ inside $\cos(\omega_0 t)$ is the \textbf{angular} frequency in
+radians per second; the ordinary frequency $f$ in cycles per second is smaller by a
+factor of $2\pi$, $f=\omega_0/(2\pi)$. A second trap lives one step earlier: after
+dividing by the mass you read off $\omega_0^{2}$, \emph{not} $\omega_0$. For
+$2x''+18x=0$ the equation becomes $x''+9x=0$, so $\omega_0^{2}=9$ and
+$\omega_0=3$ --- never $9$.
+\end{warningbox}
+
+\subsection{Free Undamped Vibrations}
+
+With no damping and no forcing, the imaginary roots $\pm i\omega_0$ give a clean,
+everlasting sinusoid. Two initial conditions --- position and velocity --- pin down
+its two constants.
+
+\begin{formulabox}[General Solution and Amplitude-Phase Form]
+\[ x(t) = c_1 \cos(\omega_0 t) + c_2 \sin(\omega_0 t) = C\cos(\omega_0 t - \phi), \]
+\[ C = \sqrt{c_1^{2} + c_2^{2}}, \qquad \tan\phi = \frac{c_2}{c_1}. \]
+The amplitude $C$ and phase $\phi$ depend on the initial data, while $\omega_0$ is
+fixed by the physical system alone --- a stiffer spring (larger $k$) or a lighter
+mass raises $\omega_0$ and the motion runs faster.
+\end{formulabox}
+
+\begin{methodbox}[Solving a Spring-Mass IVP]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Divide by the mass to reach $x'' + \omega_0^{2}x = 0$ and read $\omega_0$.
+    \item Write $x = c_1\cos\omega_0 t + c_2\sin\omega_0 t$.
+    \item Apply $x(0)$ to fix $c_1$; differentiate and apply $x'(0)$ to fix $c_2$
+          (remember $x'(0) = \omega_0 c_2$).
+    \item Collapse to $C\cos(\omega_0 t - \phi)$ with $C=\sqrt{c_1^2+c_2^2}$ to read
+          the amplitude.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{Damped Vibrations and the Damping Discriminant}
+
+Add a dashpot and the equation gains a velocity term $c x'$. The sign of one
+discriminant decides the entire character of the motion.
+
+\begin{formulabox}[The Damping Discriminant]
+\[ m x'' + c x' + k x = 0, \qquad \Delta = c^{2} - 4mk. \]
+\[
+\begin{array}{l|l|l}
+\textbf{Sign} & \textbf{Roots} & \textbf{Regime}\\ \hline
+\Delta > 0 & \text{two distinct real} & \text{overdamped (no oscillation)}\\
+\Delta = 0 & \text{repeated real} & \text{critically damped}\\
+\Delta < 0 & \text{complex } -b \pm i\mu & \text{underdamped (decaying oscillation)}
+\end{array}
+\]
+The critical value $c = 2\sqrt{mk}$ is the boundary; it returns the system to
+equilibrium fastest \emph{without} overshooting.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Quasi-Frequency Is Not $\omega_0$]
+An underdamped solution $e^{-bt}(c_1\cos\mu t + c_2\sin\mu t)$ oscillates at the
+\textbf{quasi-frequency} $\mu = \sqrt{\omega_0^{2}-b^{2}}$, which is strictly
+\emph{below} the undamped natural frequency $\omega_0$. Damping always slows the
+oscillation; it never speeds it up.
+\end{warningbox}
+
+\subsection{Forced Vibrations, Beats, and Resonance}
+
+Drive the system with $F_0\cos(\omega t)$ and the steady response depends sharply on
+how the drive frequency $\omega$ compares to the natural frequency $\omega_0$.
+
+\begin{formulabox}[Steady Amplitude, Beats, and Resonance]
+For undamped forced motion $m x'' + k x = F_0\cos(\omega t)$ with $\omega\neq\omega_0$,
+\[ x_p(t) = \frac{F_0}{m(\omega_0^{2}-\omega^{2})}\cos(\omega t). \]
+As $\omega \to \omega_0$ the denominator vanishes and the amplitude blows up. At
+exact \textbf{resonance} $\omega=\omega_0$ the trial gains a factor of $t$,
+\[ x_p(t) = t\,(A\cos\omega_0 t + B\sin\omega_0 t), \]
+so the amplitude grows linearly without bound. For $\omega$ \emph{close to but not
+equal} to $\omega_0$ the two nearby frequencies interfere to produce \textbf{beats}
+--- a fast oscillation under a slow envelope whose period lengthens as
+$\omega\to\omega_0$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Resonance Versus Beats]
+Beats and resonance are not the same phenomenon. \textbf{Beats} need
+$\omega \approx \omega_0$ (close, not equal) and give a \emph{bounded}, slowly
+modulated amplitude. \textbf{Resonance} needs $\omega = \omega_0$ exactly and gives
+\emph{unbounded} growth from the resonant $t$ factor. Mistaking one for the other
+misreads whether a structure merely throbs or is being torn apart.
+\end{warningbox}
+
+\subsection{Coupled Oscillators and Normal Modes}
+
+When two masses share a spring, neither equation stands alone: each acceleration
+depends on the other's position. Writing the system as $\mathbf{x}'' = A\mathbf{x}$
+turns the physics into an eigenvalue problem.
+
+\begin{formulabox}[Normal Modes from Eigenvalues]
+\[ \mathbf{x}'' = A\,\mathbf{x}, \qquad A\mathbf{v} = \lambda\mathbf{v}, \qquad
+   \omega^{2} = -\lambda, \qquad \omega = \sqrt{-\lambda}. \]
+Each eigenvalue gives one \textbf{normal mode}: a motion in which all masses
+oscillate at a single shared frequency with a fixed amplitude ratio (the
+eigenvector). A system with $n$ degrees of freedom has exactly $n$ modes, and the
+general motion is a \textbf{superposition} of them, each with its own amplitude and
+phase.
+\end{formulabox}
+
+\begin{methodbox}[Finding the Normal Modes]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Assemble the coupling matrix $A$ from the equations of motion.
+    \item Solve $\det(A-\lambda I)=0$ for the eigenvalues $\lambda$.
+    \item Convert each to a mode frequency $\omega = \sqrt{-\lambda}$.
+    \item Find each eigenvector for the mode shape (amplitude ratio), then superpose.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{The Harmonic Oscillator Solved Four Ways}
+
+Strip away damping and forcing and one equation remains, $x''+\omega_0^{2}x=0$. It is
+worth meeting from several directions because it is the linear heartbeat of nearly
+every stable system.
+
+\begin{formulabox}[One Equation, Many Faces]
+\[ x'' + \omega_0^{2}x = 0 \;\Longrightarrow\; r^{2}+\omega_0^{2}=0 \;\Longrightarrow\;
+   r = \pm i\omega_0 \;\Longrightarrow\; x = c_1\cos\omega_0 t + c_2\sin\omega_0 t. \]
+The energy method --- multiply by $x'$ and integrate --- yields the conserved
+quantity
+\[ \tfrac{1}{2}(x')^{2} + \tfrac{1}{2}\omega_0^{2}x^{2} = \text{const}. \]
+The same equation governs an ideal $LC$ circuit $L q'' + \tfrac{1}{C}q = 0$ with
+$\omega_0 = 1/\sqrt{LC}$, because near any stable equilibrium a smooth potential
+looks quadratic and its restoring force looks linear.
+\end{formulabox}
+
+\begin{conceptbox}[Unit 11 Key Takeaway]
+Everything flows from $m x'' + c x' + k x = F(t)$. The
+\textcolor{accentorange}{natural frequency $\omega_0=\sqrt{k/m}$} sets the rhythm;
+the \textcolor{accentorange}{discriminant $c^2-4mk$} sorts damped motion into
+over-, critically, and underdamped; \textcolor{accentorange}{resonance at
+$\omega=\omega_0$} forces a $t$ factor and unbounded growth while a near-match gives
+\textcolor{accentorange}{beats}; and the \textcolor{accentorange}{eigenvalues of
+$\mathbf{x}''=A\mathbf{x}$} unlock the normal modes of coupled motion. Underneath it
+all sits the \textcolor{accentorange}{harmonic oscillator $x''+\omega_0^2 x=0$}, the
+universal linear model of a system near stable equilibrium.
+\end{conceptbox}
+
+\end{document}
