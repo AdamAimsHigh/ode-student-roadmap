@@ -1,0 +1,216 @@
+% Unit 12: The Laplace Transform
+% Condensed Cheat Sheet (Part I only, standalone)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (12.1 to 12.12) and the
+% QUIZ_DATA micro-practice items for Unit 12.
+% Shared style harness pulled from the unified preamble input.
+
+\input{app/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 12: The Laplace Transform}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet: Transforms, Inversion, Discontinuous Forcing, and the $s$-Plane}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 12 at a Glance: Core Sub-Topics]
+The Laplace transform turns a differential equation in $t$ into an algebraic equation
+in $s$: initial data is baked in, discontinuous and impulsive forcing become algebra,
+and a system's behavior is read off the location of its poles. The whole unit is one
+pipeline --- transform, solve the algebra, invert.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Definition and existence} --- the integral $F(s)=\int_0^\infty e^{-st}f\,dt$
+          and exponential order.
+    \item \textbf{The toolkit} --- linearity, the two shift theorems, derivatives,
+          and integrals.
+    \item \textbf{Inversion} --- partial fractions and completing the square.
+    \item \textbf{Discontinuous forcing} --- Heaviside steps and Dirac impulses.
+    \item \textbf{Convolution and periodicity} --- products in $s$, repeating inputs.
+    \item \textbf{The $s$-plane} --- the Fourier connection, poles, and stability.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{12}   % subsections auto-number as the Unit 12 modules 12.1, 12.2, ...
+
+\subsection{Intuition and Motivation}
+
+The transform re-expresses a signal $f(t)$ in the \textbf{frequency domain} $F(s)$:
+each value of $s$ measures ``how much of the mode $e^{st}$ lives inside $f$.''
+Oscillations and decay rates in $t$ become the locations of poles in $s$.
+
+\begin{conceptbox}[Why Bother]
+The payoff is that \textcolor{accentorange}{differentiation becomes multiplication by
+$s$}. An ODE (hard calculus) turns into a polynomial equation (easy algebra), which
+is why the transform solves initial-value problems mechanically.
+\end{conceptbox}
+
+\subsection{Definition and Computing Transforms}
+
+\begin{formulabox}[The Defining Integral]
+\[ \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{\infty} e^{-st} f(t)\,dt. \]
+Base cases straight from the integral:
+\[ \mathcal{L}\{1\}=\frac{1}{s}, \quad \mathcal{L}\{e^{at}\}=\frac{1}{s-a}, \quad
+   \mathcal{L}\{t^n\}=\frac{n!}{s^{n+1}}. \]
+\end{formulabox}
+
+The trig pair follows from the Euler trick ($a=i\omega$ in $1/(s-a)$):
+\[ \mathcal{L}\{\cos\omega t\}=\frac{s}{s^2+\omega^2}, \qquad
+   \mathcal{L}\{\sin\omega t\}=\frac{\omega}{s^2+\omega^2}. \]
+
+\subsection{Properties, Linearity, Existence, and Inverses}
+
+\begin{formulabox}[Linearity and Existence]
+\[ \mathcal{L}\{af+bg\}=aF+bG, \qquad \mathcal{L}^{-1}\{aF+bG\}=af+bg. \]
+$F(s)$ exists when $f$ is piecewise continuous and of \textbf{exponential order}
+($|f|\le Me^{at}$); then $F(s)\to 0$ as $s\to\infty$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: A Transform Must Vanish at Infinity]
+If $\lim_{s\to\infty}F(s)\ne 0$, then $F$ is not the transform of a well-behaved $f$.
+A function like $e^{t^2}$ grows faster than every $Me^{at}$ and has no transform.
+\end{warningbox}
+
+\subsection{Transforms of Derivatives and Integrals}
+
+\begin{formulabox}[Derivative and Integral Rules]
+\[ \mathcal{L}\{f'\}=sF-f(0), \qquad \mathcal{L}\{f''\}=s^2F-sf(0)-f'(0), \]
+\[ \mathcal{L}\!\left\{\int_0^t f\right\}=\frac{F(s)}{s}, \qquad
+   \mathcal{L}\{t^n f\}=(-1)^n F^{(n)}(s). \]
+\end{formulabox}
+
+Each derivative adds one power of $s$ and peels off one initial value --- this is the
+rule that pulls the initial conditions into the algebra immediately.
+
+\subsection{Inverse Transforms and Partial Fractions}
+
+\begin{methodbox}[Partial-Fraction Playbook]
+\begin{enumerate}
+    \item \textbf{Distinct real root} $(s-r)$: $\dfrac{A}{s-r}\to Ae^{rt}$.
+    \item \textbf{Repeated root} $(s-r)^m$: $\dfrac{A_k}{(s-r)^k}\to A_k\dfrac{t^{k-1}}{(k-1)!}e^{rt}$.
+    \item \textbf{Irreducible quadratic}: complete the square to $(s+a)^2+\omega^2$,
+          then match shifted $\sin/\cos$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: Complete the Square, Don't Go Complex]
+For a quadratic with complex roots, write $s^2+2s+5=(s+1)^2+4$ and invert to
+$e^{-t}$ times trig in $2t$. Factoring into complex linear terms is correct but
+error-prone.
+\end{warningbox}
+
+\subsection{Solving Initial Value Problems}
+
+\begin{methodbox}[The Five-Step Method]
+\begin{enumerate}
+    \item \textbf{Transform} the ODE (derivative rules pull in the data).
+    \item \textbf{Substitute} the given $y(0), y'(0)$.
+    \item \textbf{Solve} algebraically for $Y(s)$.
+    \item \textbf{Decompose} by partial fractions / completing the square.
+    \item \textbf{Invert} term by term.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{Heaviside and Piecewise Functions}
+
+\begin{formulabox}[Unit Step and the Second Shift]
+\[ u(t-c)=\begin{cases}0,&t<c\\1,&t\ge c\end{cases}, \qquad
+   \mathcal{L}\{u(t-c)\}=\frac{e^{-cs}}{s}, \]
+\[ \mathcal{L}\{u(t-c)f(t-c)\}=e^{-cs}F(s). \]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Shift the Argument Too]
+$\mathcal{L}\{u(t-c)f(t)\}\ne e^{-cs}F(s)$. Re-express every $t$ as $(t-c)+c$ first.
+For $t^2$ switched on at $c=3$: $t^2=(t-3)^2+6(t-3)+9$, then transform each piece.
+\end{warningbox}
+
+\subsection{The Dirac Delta and Impulse Forcing}
+
+\begin{formulabox}[Sifting and the Impulse Transform]
+\[ \int_{-\infty}^{\infty}\delta(t-c)g(t)\,dt=g(c), \qquad
+   \mathcal{L}\{\delta(t-c)\}=e^{-cs}, \quad \mathcal{L}\{\delta(t)\}=1. \]
+The delta is the derivative of the step: $\delta(t-c)=\frac{d}{dt}u(t-c)$.
+\end{formulabox}
+
+\begin{conceptbox}[Impulse Response]
+A $\delta$-kick produces a \textcolor{accentorange}{jump in the highest-order state}:
+for $y''+\cdots=\delta(t-c)$ the velocity $y'$ jumps by $1$ at $t=c$ while $y$ stays
+continuous. The resulting motion is the system's impulse response.
+\end{conceptbox}
+
+\subsection{Convolution and Periodic Functions}
+
+\begin{formulabox}[Convolution and Periodicity]
+\[ (f*g)(t)=\int_0^t f(\tau)g(t-\tau)\,d\tau, \qquad \mathcal{L}\{f*g\}=F(s)G(s). \]
+For a $T$-periodic $f$: \;
+$\mathcal{L}\{f\}=\dfrac{1}{1-e^{-sT}}\displaystyle\int_0^T e^{-st}f(t)\,dt.$
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Products Don't Multiply]
+$\mathcal{L}\{f\,g\}\ne F(s)G(s)$. The product $F(s)G(s)$ inverts to the
+\emph{convolution} $f*g$, never to the pointwise product $f(t)g(t)$.
+\end{warningbox}
+
+\subsection{The Fourier Connection}
+
+Writing $s=\sigma+i\omega$, the transform is a Fourier transform of the damped signal
+$e^{-\sigma t}f(t)$:
+\[ F(s)=\int_0^\infty \big[e^{-\sigma t}f(t)\big]e^{-i\omega t}\,dt. \]
+
+\begin{conceptbox}[The Imaginary Axis Is the Fourier Axis]
+Evaluating $H(s)$ on $s=i\omega$ gives the \textcolor{accentorange}{frequency
+response} $H(i\omega)$. The real part $\sigma$ is the convergence knob Fourier lacks
+--- it lets Laplace handle growing and switched-on transients.
+\end{conceptbox}
+
+\subsection{Frequency Domain and Pole Diagrams}
+
+\begin{formulabox}[Poles and Behavior]
+A pole at $s=\alpha+i\beta$ contributes a mode $e^{\alpha t}\cos(\beta t)$:
+\[
+\alpha<0 \Rightarrow \text{decay (stable)}, \quad
+\alpha=0 \Rightarrow \text{oscillation (marginal)}, \quad
+\alpha>0 \Rightarrow \text{growth (unstable)}.
+\]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Resonance Is a Repeated Pole]
+A simple pole on the imaginary axis gives bounded oscillation; a \textbf{double} pole
+there is what produces $t$-growth. Check pole \emph{multiplicity}, not just location.
+\end{warningbox}
+
+\subsection{Deriving the Transform from First Principles}
+
+The transform is the continuous limit of a power series. Replacing the discrete
+$\sum a_n x^n$ with the integral $\int_0^\infty f(t)\,x^t\,dt$ and writing $x=e^{-s}$
+(so $x^t=e^{-st}$) yields exactly $\int_0^\infty e^{-st}f(t)\,dt$.
+
+\begin{conceptbox}[Unit Key Takeaway]
+The Laplace transform is one disciplined pipeline:
+\textcolor{accentorange}{transform $\to$ solve the algebra $\to$ invert}. Initial data
+rides in through the derivative rules, discontinuities become $e^{-cs}$ and $\delta$
+bookkeeping, products become convolutions, and the
+\textcolor{accentorange}{geometry of the poles} tells you whether a system decays,
+oscillates, or blows up before you invert a single term.
+\end{conceptbox}
+
+\end{document}
