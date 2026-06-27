@@ -188,6 +188,38 @@ def render_module_condensed(module: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Practice blocks (shared by the standalone Practice Set and the master guide)
+# ---------------------------------------------------------------------------
+def render_practice_problems(practice: dict) -> list[str]:
+    """The intro paragraph plus the numbered list of practice problems."""
+    out = []
+    if practice.get("intro"):
+        out.append(practice["intro"])
+        out.append("")
+    out.append("\\begin{enumerate}[leftmargin=2em]")
+    for problem in practice["problems"]:
+        out.append(f"    \\item {problem}")
+        out.append("")
+    out.append("\\end{enumerate}")
+    out.append("")
+    return out
+
+
+def render_practice_solutions(practice: dict) -> list[str]:
+    """The worked solutions, each followed by spacing, plus an optional takeaway."""
+    out = []
+    for solution in practice["solutions"]:
+        out.append(solution)
+        out.append("")
+        out.append("\\medskip")
+        out.append("")
+    if practice.get("takeaway"):
+        out.append(render_conceptbox(practice["takeaway"]))
+        out.append("")
+    return out
+
+
+# ---------------------------------------------------------------------------
 # Document assemblers, one per mode
 # ---------------------------------------------------------------------------
 def render_master(data: dict) -> str:
@@ -210,6 +242,23 @@ def render_master(data: dict) -> str:
     out.append("")
     for module in data["modules"]:
         out.append(render_module_full(module))
+    # Fold the practice problems and worked solutions into the full guide so the
+    # Reference Guide is a single comprehensive document. The standalone
+    # Practice Set still renders the same content via --mode practice.
+    practice = data.get("practice")
+    if practice:
+        out.append("\\clearpage")
+        out.append("\\phantomsection")
+        out.append("\\addcontentsline{toc}{section}{Practice Problems}")
+        out.append("\\section*{Practice Problems}")
+        out.append("")
+        out += render_practice_problems(practice)
+        out.append("\\clearpage")
+        out.append("\\phantomsection")
+        out.append("\\addcontentsline{toc}{section}{Complete Solutions}")
+        out.append("\\section*{Complete Solutions}")
+        out.append("")
+        out += render_practice_solutions(practice)
     out.append("\\end{document}")
     out.append("")
     return "\n".join(out)
@@ -262,29 +311,14 @@ def render_practice(data: dict) -> str:
     out.append("\\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}")
     out.append("\\section*{Part II --- Review Guide: Practice Problems}")
     out.append("")
-    if practice.get("intro"):
-        out.append(practice["intro"])
-        out.append("")
-    out.append("\\begin{enumerate}[leftmargin=2em]")
-    for problem in practice["problems"]:
-        out.append(f"    \\item {problem}")
-        out.append("")
-    out.append("\\end{enumerate}")
-    out.append("")
+    out += render_practice_problems(practice)
     # Part III --- solutions.
     out.append("\\clearpage")
     out.append("\\phantomsection")
     out.append("\\addcontentsline{toc}{section}{Part III --- Complete Solutions}")
     out.append("\\section*{Part III --- Complete Solutions}")
     out.append("")
-    for solution in practice["solutions"]:
-        out.append(solution)
-        out.append("")
-        out.append("\\medskip")
-        out.append("")
-    if practice.get("takeaway"):
-        out.append(render_conceptbox(practice["takeaway"]))
-        out.append("")
+    out += render_practice_solutions(practice)
     out.append("\\end{document}")
     out.append("")
     return "\n".join(out)
