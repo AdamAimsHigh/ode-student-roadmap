@@ -31,3 +31,18 @@ quiz-modal-verify.png
 
 # Data Caches and Heavy Files (TOKEN PROTECTION)
 *.csv
+
+# Ignore textbook PDFs and large media
+*.pdf
+!app/assets/pdfs/*.pdf
+*.pptx
+*.ppt
+*.docx
+
+# Ignore LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
