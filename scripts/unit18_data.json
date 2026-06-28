@@ -1,0 +1,361 @@
+{
+  "unit": "Unit 18: Fourier Series and Partial Differential Equations",
+  "unitNumber": 18,
+  "title": "Fourier Series and Partial Differential Equations",
+  "subtitle": "From Fourier Series to Separation of Variables and the Classical PDEs",
+  "cheatSubtitle": "Condensed Cheat Sheet: Fourier Coefficients $a_n,b_n$, Half-Range Series, Separation of Variables, the Laplacian $\\nabla^2 u$, and the Heat/Wave Equations",
+  "description": "A Fourier series rebuilds any reasonable periodic function as an infinite superposition of sines and cosines, f(x)=a_0/2+sum a_n cos(n pi x/L)+b_n sin(n pi x/L), with each coefficient extracted by a single orthogonality integral (the Euler-Fourier formulas). Even functions collapse to a pure cosine series and odd functions to a pure sine series, and a function defined only on [0,L] can be forced into either by an even or odd extension -- the half-range expansions. This machinery is exactly what unlocks partial differential equations. Separation of variables u(x,t)=X(x)T(t) splits a linear PDE with homogeneous boundary conditions into two ODEs joined by a separation constant, turning the spatial part into the eigenvalue BVP of Unit 17; the boundary data selects the eigenfunctions and the initial data is matched by a Fourier series. The Laplacian nabla^2 u = u_xx + u_yy measures how a value differs from its neighborhood average and is the spatial heart of the three classical equations: the heat equation u_t = alpha^2 u_xx (diffusion, parabolic), the wave equation u_tt = c^2 u_xx (vibration, hyperbolic, with d'Alembert's traveling-wave solution), and Laplace's equation nabla^2 u = 0 (steady state, elliptic, harmonic functions).",
+  "atAGlance": {
+    "title": "Unit 18 at a Glance: Fourier Series as the Key to Partial Differential Equations",
+    "summary": "A \\textcolor{accentorange}{Fourier series} expresses a periodic function as a sum of sines and cosines, and because the trigonometric system is \\emph{orthogonal}, every coefficient is one independent integral --- the \\textcolor{accentorange}{Euler--Fourier formulas}. Symmetry simplifies the work: \\textcolor{accentorange}{even} functions need only cosines, \\textcolor{accentorange}{odd} functions only sines, and a function on a half-interval can be expanded as either via a half-range extension. This is the toolkit that cracks \\textcolor{accentorange}{partial differential equations}: \\textcolor{accentorange}{separation of variables} $u=X(x)T(t)$ splits a PDE into ODEs linked by a separation constant, the boundary conditions reproduce the eigenvalue BVP of Unit~17, and the initial profile is matched by a Fourier series. The \\textcolor{accentorange}{Laplacian} $\\nabla^2 u$ governs the three classical equations --- heat (diffusion), wave (vibration), and Laplace (steady state).",
+    "bullets": [
+      "\\textbf{Fourier intuition} --- any reasonable periodic signal is a superposition of pure frequencies; the Fourier transform is the continuous-spectrum limit of the Fourier series.",
+      "\\textbf{Computing the series} --- $a_n=\\frac1L\\int_{-L}^{L}f\\cos\\frac{n\\pi x}{L}\\,dx$, $b_n=\\frac1L\\int_{-L}^{L}f\\sin\\frac{n\\pi x}{L}\\,dx$, derived from trig orthogonality.",
+      "\\textbf{Symmetry and half-range} --- even $\\Rightarrow$ cosine series, odd $\\Rightarrow$ sine series; extend a function on $0\\le x\\le L$ evenly or oddly to get either.",
+      "\\textbf{Separation of variables} --- $u(x,t)=X(x)T(t)$ turns a linear homogeneous PDE into two ODEs; the spatial ODE is the Unit~17 eigenvalue problem.",
+      "\\textbf{The Laplacian and the classical PDEs} --- $\\nabla^2 u=u_{xx}+u_{yy}$ drives heat $u_t=\\alpha^2 u_{xx}$, wave $u_{tt}=c^2 u_{xx}$, and Laplace $\\nabla^2 u=0$."
+    ]
+  },
+  "modules": [
+    {
+      "id": "18.1",
+      "title": "Fourier Series and Transform Intuition",
+      "topics": "A periodic function as a superposition of pure-frequency sines and cosines; the time-domain versus frequency-domain picture; harmonics and the fundamental frequency; the Fourier transform as the continuous-spectrum limit of the Fourier series.",
+      "formulas": [
+        {
+          "title": "The Fourier Series --- Superposition of Harmonics",
+          "body": "f(x) = \\frac{a_0}{2} + \\sum_{n=1}^{\\infty}\\left( a_n\\cos\\frac{n\\pi x}{L} + b_n\\sin\\frac{n\\pi x}{L}\\right), \\qquad \\text{period } 2L."
+        },
+        {
+          "title": "Harmonics and the Fundamental Frequency",
+          "body": "\\begin{gathered} \\text{the } n\\text{th harmonic has frequency } \\tfrac{n}{2L}; \\\\ n=1 \\text{ is the \\emph{fundamental}},\\ n\\ge 2 \\text{ the \\emph{overtones}.} \\end{gathered}"
+        },
+        {
+          "title": "The Fourier Transform --- Continuous Spectrum",
+          "body": "\\begin{gathered} \\hat f(\\xi) = \\int_{-\\infty}^{\\infty} f(x)\\,e^{-2\\pi i \\xi x}\\,dx; \\\\ \\text{the } L\\to\\infty \\text{ limit turns the discrete harmonics } n/2L \\text{ into a continuum } \\xi. \\end{gathered}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Read a Function in the Frequency Domain",
+        "steps": [
+          "Treat the signal $f(x)$ as living in the \\emph{time} (or space) domain --- its value at each point.",
+          "Ask which pure frequencies $\\cos(n\\pi x/L),\\ \\sin(n\\pi x/L)$ it is built from, and with what amplitudes $a_n,b_n$.",
+          "Plot the amplitudes against frequency: this \\emph{frequency-domain} spectrum is an equivalent description of the same signal.",
+          "For a non-periodic signal, let the period $2L\\to\\infty$; the discrete spectrum fills in to a continuous one and the sum becomes the Fourier transform integral."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Spectrum of a Two-Tone Signal",
+          "setup": "Identify the Fourier content of $f(x)=3+5\\cos(\\pi x)-2\\sin(3\\pi x)$ on the interval of period $2$ (so $L=1$).",
+          "steps": [
+            "\\textbf{Match the template: } f(x)=\\frac{a_0}{2}+\\sum_n\\big(a_n\\cos n\\pi x+b_n\\sin n\\pi x\\big) \\text{ with } L=1.",
+            "\\textbf{Constant term: } \\frac{a_0}{2}=3 \\Rightarrow a_0=6 \\text{ (the average / DC level).}",
+            "\\textbf{Cosine amplitude: } a_1=5 \\text{ (a fundamental cosine at frequency } \\tfrac12).",
+            "\\textbf{Sine amplitude: } b_3=-2 \\text{ (a third-harmonic sine); all other } a_n,b_n=0.",
+            "\\textbf{Spectrum: } \\text{only three lines --- DC, } n=1 \\text{ cosine, } n=3 \\text{ sine --- because } f \\text{ is already a finite trig sum.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A Fourier series says any reasonable periodic function is a \\textcolor{accentorange}{superposition of pure frequencies} --- a chord of sines and cosines. The same signal then has two equivalent portraits: the familiar \\textcolor{accentorange}{time-domain} graph and the \\textcolor{accentorange}{frequency-domain} spectrum of amplitudes. Letting the period grow without bound turns the discrete spectrum into a continuous one, and the series becomes the Fourier transform."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "The constant term is $a_0/2$, \\textcolor{warnred}{not} $a_0$ --- the factor of $\\tfrac12$ is what makes the single Euler--Fourier formula $a_n=\\frac1L\\int_{-L}^{L}f\\cos\\frac{n\\pi x}{L}\\,dx$ work for $n=0$ as well. Also, a Fourier \\emph{series} needs a \\textcolor{warnred}{periodic} (or finite-interval) function; a non-periodic signal on the whole line requires the Fourier \\emph{transform}, not a series."
+      }
+    },
+    {
+      "id": "18.2",
+      "title": "Computing Fourier Series",
+      "topics": "The Euler--Fourier coefficient formulas on $-L\\le x\\le L$; orthogonality of the trigonometric system as their engine; the constant (DC) term $a_0/2$; convergence at jumps to the midpoint of the one-sided limits (Dirichlet conditions).",
+      "formulas": [
+        {
+          "title": "The Euler--Fourier Coefficient Formulas",
+          "body": "a_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\cos\\frac{n\\pi x}{L}\\,dx \\ (n\\ge 0), \\qquad b_n = \\frac{1}{L}\\int_{-L}^{L} f(x)\\sin\\frac{n\\pi x}{L}\\,dx \\ (n\\ge 1)."
+        },
+        {
+          "title": "Orthogonality of the Trigonometric System",
+          "body": "\\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\cos\\frac{m\\pi x}{L}\\,dx = L\\,\\delta_{nm}, \\quad \\int_{-L}^{L}\\sin\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,dx = L\\,\\delta_{nm}, \\quad \\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,dx = 0."
+        },
+        {
+          "title": "Convergence at a Jump (Dirichlet)",
+          "body": "\\text{At a jump } x_0,\\ \\text{the series converges to } \\tfrac12\\big[f(x_0^-)+f(x_0^+)\\big], \\text{ the midpoint of the one-sided limits.}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Compute a Fourier Series",
+        "steps": [
+          "Identify the half-period $L$ so the function repeats with period $2L$, and write the target $f=\\frac{a_0}{2}+\\sum_n(a_n\\cos\\frac{n\\pi x}{L}+b_n\\sin\\frac{n\\pi x}{L})$.",
+          "Compute $a_0=\\frac1L\\int_{-L}^{L}f\\,dx$ --- twice the average value of $f$ over one period.",
+          "Compute $a_n$ and $b_n$ from the Euler--Fourier integrals, using integration by parts where $f$ is polynomial times trig.",
+          "Exploit symmetry to skip half the work: if $f$ is even all $b_n=0$; if $f$ is odd all $a_n=0$ (and $a_0=0$).",
+          "State the series and note its value at any jump is the midpoint $\\tfrac12[f(x_0^-)+f(x_0^+)]$."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Fourier Series of $f(x)=x$ on $-\\pi\\le x\\le \\pi$",
+          "setup": "Find the Fourier series of the $2\\pi$-periodic extension of $f(x)=x$ on $-\\pi\\le x\\le\\pi$ (so $L=\\pi$), computing every coefficient in full.",
+          "steps": [
+            "\\textbf{Symmetry: } f(x)=x \\text{ is odd} \\Rightarrow a_0=0 \\text{ and } a_n=0 \\text{ for all } n; \\text{ only the } b_n \\text{ survive.}",
+            "\\textbf{Set up } b_n: \\ b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi} x\\sin(nx)\\,dx=\\frac2\\pi\\int_{0}^{\\pi} x\\sin(nx)\\,dx \\ \\text{(even integrand).}",
+            "\\textbf{By parts: } u=x,\\ dv=\\sin(nx)\\,dx \\Rightarrow du=dx,\\ v=-\\tfrac1n\\cos(nx).",
+            "\\int_0^\\pi x\\sin(nx)\\,dx=\\Big[-\\tfrac{x}{n}\\cos(nx)\\Big]_0^\\pi+\\tfrac1n\\int_0^\\pi\\cos(nx)\\,dx=-\\tfrac{\\pi}{n}\\cos(n\\pi)+\\tfrac1{n^2}\\big[\\sin(nx)\\big]_0^\\pi.",
+            "\\textbf{Evaluate: } \\cos(n\\pi)=(-1)^n,\\ \\sin(n\\pi)=0 \\Rightarrow \\int_0^\\pi x\\sin(nx)\\,dx=-\\tfrac{\\pi}{n}(-1)^n=(-1)^{n+1}\\tfrac{\\pi}{n}.",
+            "\\textbf{Coefficient: } b_n=\\frac2\\pi\\cdot(-1)^{n+1}\\tfrac{\\pi}{n}=(-1)^{n+1}\\frac{2}{n}.",
+            "\\textbf{Series: } x=\\sum_{n=1}^{\\infty}(-1)^{n+1}\\frac{2}{n}\\sin(nx)=2\\Big(\\sin x-\\tfrac12\\sin 2x+\\tfrac13\\sin 3x-\\cdots\\Big),\\ \\text{converging to } 0 \\text{ at } x=\\pm\\pi."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The Euler--Fourier formulas are pure \\textcolor{accentorange}{orthogonality}: integrating $f$ against a single basis wave annihilates every other term and leaves one coefficient. The constant $a_0/2$ is the function's \\textcolor{accentorange}{average}; the $a_n,b_n$ are how strongly each harmonic is present. Symmetry is the great labor-saver --- recognizing $f$ as even or odd erases half the integrals before you compute anything."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Watch the normalizations: the coefficients use $\\frac1L$ (over the full period $2L$), while the half-range formulas of the next module use $\\frac2L$ (over $0\\le x\\le L$). \\textcolor{warnred}{Mixing the two} is the most common Fourier error. And the series equals $f$ only where $f$ is continuous --- at a \\textcolor{warnred}{jump} it converges to the midpoint $\\tfrac12[f(x_0^-)+f(x_0^+)]$, not to either one-sided value."
+      }
+    },
+    {
+      "id": "18.3",
+      "title": "Fourier Series for Differential Equations",
+      "topics": "Even and odd functions and their product rules; the pure cosine series (even) and pure sine series (odd); half-range expansions via even or odd extension of a function given only on $0\\le x\\le L$; choosing the expansion that matches the boundary conditions of a PDE.",
+      "formulas": [
+        {
+          "title": "Even/Odd Symmetry Collapses the Series",
+          "body": "f \\text{ even} \\Rightarrow b_n=0 \\ (\\text{pure cosine series}); \\qquad f \\text{ odd} \\Rightarrow a_n=0 \\ (\\text{pure sine series}, \\text{ and } a_0=0)."
+        },
+        {
+          "title": "Half-Range Cosine Series (Even Extension)",
+          "body": "f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty} a_n\\cos\\frac{n\\pi x}{L}, \\qquad a_n=\\frac{2}{L}\\int_0^L f(x)\\cos\\frac{n\\pi x}{L}\\,dx \\ \\ (n\\ge 0)."
+        },
+        {
+          "title": "Half-Range Sine Series (Odd Extension)",
+          "body": "f(x)=\\sum_{n=1}^{\\infty} b_n\\sin\\frac{n\\pi x}{L}, \\qquad b_n=\\frac{2}{L}\\int_0^L f(x)\\sin\\frac{n\\pi x}{L}\\,dx."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Build a Half-Range Expansion",
+        "steps": [
+          "You are given $f$ only on $0\\le x\\le L$ and must represent it by sines \\emph{or} cosines alone.",
+          "For a \\emph{sine} series, extend $f$ as an \\emph{odd} function to $-L\\le x\\le 0$; for a \\emph{cosine} series, extend it as an \\emph{even} function.",
+          "Apply the half-range formula with the $\\frac2L$ normalization (the $-L$ to $0$ contribution doubles the $0$ to $L$ integral).",
+          "Let the boundary conditions of the target PDE pick the series: Dirichlet ends ($u=0$) call for the \\emph{sine} series, Neumann ends ($u_x=0$) for the \\emph{cosine} series.",
+          "Write the expansion, remembering the odd extension forces $f(0)=f(L)=0$ in the limit, matching homogeneous Dirichlet data."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Half-Range Sine Series of $f(x)=1$ on $0\\le x\\le L$",
+          "setup": "Expand the constant $f(x)=1$ on $0\\le x\\le L$ in a half-range \\emph{sine} series (odd extension), the form needed for a Dirichlet BVP.",
+          "steps": [
+            "\\textbf{Formula: } b_n=\\frac2L\\int_0^L 1\\cdot\\sin\\frac{n\\pi x}{L}\\,dx.",
+            "\\textbf{Integrate: } \\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx=\\Big[-\\frac{L}{n\\pi}\\cos\\frac{n\\pi x}{L}\\Big]_0^L=-\\frac{L}{n\\pi}\\big(\\cos n\\pi-1\\big).",
+            "\\textbf{Simplify: } \\cos n\\pi=(-1)^n \\Rightarrow \\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx=\\frac{L}{n\\pi}\\big(1-(-1)^n\\big).",
+            "\\textbf{Coefficient: } b_n=\\frac2L\\cdot\\frac{L}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{2}{n\\pi}\\big(1-(-1)^n\\big)=\\begin{cases}\\dfrac{4}{n\\pi}, & n \\text{ odd},\\\\[4pt] 0, & n \\text{ even}.\\end{cases}",
+            "\\textbf{Series: } 1=\\frac{4}{\\pi}\\sum_{k=0}^{\\infty}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}=\\frac4\\pi\\Big(\\sin\\frac{\\pi x}{L}+\\tfrac13\\sin\\frac{3\\pi x}{L}+\\cdots\\Big),\\ 0<x<L."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Symmetry is a choice you can \\textcolor{accentorange}{impose}. A function living only on $0\\le x\\le L$ has no symmetry of its own, but you may extend it \\textcolor{accentorange}{evenly} to get a cosine series or \\textcolor{accentorange}{oddly} to get a sine series. Which you pick is dictated by the PDE: \\textcolor{accentorange}{Dirichlet} boundary data wants the \\textcolor{accentorange}{sine} series (it vanishes at the ends), \\textcolor{accentorange}{Neumann} data wants the \\textcolor{accentorange}{cosine} series (its slope vanishes)."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "The half-range formulas carry $\\frac2L$, \\textcolor{warnred}{not} $\\frac1L$ --- the odd or even extension doubles the integral over $0\\le x\\le L$. Do not also integrate over $-L$ to $L$; that double-counts. And the sine series of a function with $f(0)\\neq 0$ (like $f=1$ above) \\textcolor{warnred}{converges to $0$ at the endpoints} because the odd extension forces a jump there --- expected, not an error."
+      }
+    },
+    {
+      "id": "18.4",
+      "title": "Separable Partial Differential Equations",
+      "topics": "The separation-of-variables ansatz $u(x,t)=X(x)T(t)$; splitting a linear homogeneous PDE into two ODEs joined by a separation constant; the role of homogeneous boundary conditions in producing the spatial eigenvalue BVP; the classical PDEs and their boundary/initial data.",
+      "formulas": [
+        {
+          "title": "The Separation Ansatz and Constant",
+          "body": "\\begin{gathered} u(x,t)=X(x)\\,T(t); \\\\ \\frac{1}{\\alpha^2}\\frac{T'}{T}=\\frac{X''}{X}=-\\lambda \\ \\ (\\text{constant: each side depends on a different variable}). \\end{gathered}"
+        },
+        {
+          "title": "The Two Resulting ODEs (Heat Equation)",
+          "body": "X''+\\lambda X=0 \\ \\ (\\text{spatial, an eigenvalue BVP}); \\qquad T'+\\alpha^2\\lambda T=0 \\ \\ (\\text{temporal, first order, } T_n=e^{-\\alpha^2\\lambda_n t})."
+        },
+        {
+          "title": "Superposition of the Product Solutions",
+          "body": "\\begin{gathered} u(x,t)=\\sum_{n=1}^{\\infty} b_n\\,X_n(x)\\,T_n(t); \\\\ \\text{the } b_n \\text{ are fixed by matching the initial condition with a Fourier series.} \\end{gathered}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Solve a PDE by Separation of Variables",
+        "steps": [
+          "Assume a product solution $u(x,t)=X(x)T(t)$ and substitute into the PDE.",
+          "Divide through so all $x$-dependence is on one side and all $t$-dependence on the other; set both equal to the separation constant $-\\lambda$.",
+          "Solve the \\emph{spatial} ODE with the homogeneous boundary conditions first --- this is the Unit~17 eigenvalue BVP, yielding eigenvalues $\\lambda_n$ and eigenfunctions $X_n$.",
+          "Solve the \\emph{temporal} ODE for each $\\lambda_n$ to get $T_n(t)$, then form the superposition $u=\\sum_n b_n X_n T_n$.",
+          "Impose the initial condition $u(x,0)=f(x)$ and read off the $b_n$ as the Fourier (half-range) coefficients of $f$."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Separating the Heat Equation",
+          "setup": "Separate $u_t=\\alpha^2 u_{xx}$ on $0\\le x\\le L$ with $u(0,t)=u(L,t)=0$, and identify the two ODEs and the spatial eigenpairs.",
+          "steps": [
+            "\\textbf{Substitute } u=X(x)T(t):\\ XT'=\\alpha^2 X''T.",
+            "\\textbf{Divide by } \\alpha^2 XT:\\ \\frac{T'}{\\alpha^2 T}=\\frac{X''}{X}.",
+            "\\textbf{Separation constant: } \\text{LHS depends only on } t, \\text{ RHS only on } x \\Rightarrow \\text{both} =-\\lambda.",
+            "\\textbf{Spatial BVP: } X''+\\lambda X=0,\\ X(0)=X(L)=0 \\Rightarrow \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\ X_n=\\sin\\frac{n\\pi x}{L} \\ (\\text{Unit 17}).",
+            "\\textbf{Temporal ODE: } T'+\\alpha^2\\lambda_n T=0 \\Rightarrow T_n(t)=e^{-\\alpha^2(n\\pi/L)^2 t}.",
+            "\\textbf{Product modes: } u_n(x,t)=\\sin\\frac{n\\pi x}{L}\\,e^{-\\alpha^2(n\\pi/L)^2 t},\\ \\text{ready to superpose.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Separation of variables is the master move for linear PDEs: assuming $u=X(x)T(t)$ \\textcolor{accentorange}{decouples} the equation into two ODEs tied by a single separation constant. The homogeneous boundary conditions turn the spatial ODE into the \\textcolor{accentorange}{eigenvalue BVP of Unit~17}, so its eigenfunctions become the building blocks; \\textcolor{accentorange}{superposition} assembles them and the \\textcolor{accentorange}{initial condition} fixes the weights through a Fourier series."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Separation of variables needs the PDE to be \\textcolor{warnred}{linear and homogeneous with homogeneous boundary conditions} --- a nonzero boundary value or a forcing term breaks the clean split (handle those by first subtracting a steady-state/particular solution). Also, always solve the \\textcolor{warnred}{spatial} eigenvalue problem before the temporal one: the boundary conditions live in $x$, and they are what quantize $\\lambda$."
+      }
+    },
+    {
+      "id": "18.5",
+      "title": "The Laplacian",
+      "topics": "The Laplacian $\\nabla^2 u=\\nabla\\cdot\\nabla u=u_{xx}+u_{yy}$ as the divergence of the gradient; its meaning as how a value departs from its local average; Laplace's equation $\\nabla^2 u=0$ and harmonic functions; the steady-state limit of diffusion; polar/spherical forms.",
+      "formulas": [
+        {
+          "title": "The Laplacian --- Divergence of the Gradient",
+          "body": "\\nabla^2 u = \\nabla\\cdot(\\nabla u) = \\frac{\\partial^2 u}{\\partial x^2}+\\frac{\\partial^2 u}{\\partial y^2}+\\frac{\\partial^2 u}{\\partial z^2} \\ \\ (\\text{Cartesian, here through } 3\\text{D})."
+        },
+        {
+          "title": "Laplace's Equation and Harmonic Functions",
+          "body": "\\begin{gathered} \\nabla^2 u = 0 \\quad\\Longleftrightarrow\\quad u \\text{ is \\emph{harmonic}}; \\\\ \\text{value at a point} = \\text{average over any surrounding circle/sphere (mean value).} \\end{gathered}"
+        },
+        {
+          "title": "The Laplacian in Polar Coordinates",
+          "body": "\\nabla^2 u = u_{rr} + \\frac{1}{r}u_r + \\frac{1}{r^2}u_{\\theta\\theta} \\ \\ (\\text{the natural form for disks and annuli})."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Test and Interpret the Laplacian",
+        "steps": [
+          "Compute the second partial in each spatial variable and add them to form $\\nabla^2 u$.",
+          "Read the sign as curvature versus the neighborhood: $\\nabla^2 u>0$ means the value sits \\emph{below} its local average (a dip), $\\nabla^2 u<0$ means \\emph{above} (a bump).",
+          "If $\\nabla^2 u=0$ everywhere, the function is harmonic --- it equals its local average and has no interior maxima or minima (maximum principle).",
+          "For diffusion, recognize $\\nabla^2 u$ as the spatial driver: heat flows so as to erase departures from the average, and the steady state ($u_t=0$) is exactly Laplace's equation."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Verify a Harmonic Function",
+          "setup": "Show that $u(x,y)=x^2-y^2$ is harmonic, and contrast it with $v(x,y)=x^2+y^2$.",
+          "steps": [
+            "\\textbf{Gradient pieces: } u_x=2x,\\ u_{xx}=2; \\qquad u_y=-2y,\\ u_{yy}=-2.",
+            "\\textbf{Laplacian of } u: \\ \\nabla^2 u=u_{xx}+u_{yy}=2+(-2)=0 \\Rightarrow u \\text{ is harmonic.}",
+            "\\textbf{Now } v: \\ v_{xx}=2,\\ v_{yy}=2 \\Rightarrow \\nabla^2 v=4\\neq 0 \\Rightarrow v \\text{ is \\emph{not} harmonic.}",
+            "\\textbf{Interpretation: } \\nabla^2 v=4>0 \\Rightarrow v \\text{ sits below its local average --- a bowl with an interior minimum.}",
+            "\\textbf{Contrast: } u=x^2-y^2 \\text{ is a saddle; its curvatures cancel, so no interior extremum (maximum principle).}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The Laplacian $\\nabla^2 u$ is the \\textcolor{accentorange}{divergence of the gradient} --- a scalar measuring how a point's value departs from the \\textcolor{accentorange}{average of its neighbors}. Where it is positive the point is a relative dip, where negative a relative bump, and where it is \\textcolor{accentorange}{zero the function is harmonic} and equals its local average. This single operator is the spatial engine of all three classical PDEs."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "The Laplacian is a \\emph{sum} of unmixed second partials, $u_{xx}+u_{yy}$ --- \\textcolor{warnred}{do not include the mixed partial} $u_{xy}$, and do not confuse $\\nabla^2 u$ (a scalar) with the gradient $\\nabla u$ (a vector) or the Hessian (a matrix). In curved coordinates you \\textcolor{warnred}{cannot} just sum naive second derivatives: polar form carries the extra $\\frac1r u_r$ and $\\frac1{r^2}u_{\\theta\\theta}$ terms."
+      }
+    },
+    {
+      "id": "18.6",
+      "title": "The Heat and Wave Equations",
+      "topics": "The heat equation $u_t=\\alpha^2 u_{xx}$ (parabolic diffusion) solved by separation plus a Fourier sine series; the wave equation $u_{tt}=c^2 u_{xx}$ (hyperbolic vibration) with standing-mode and d'Alembert traveling-wave solutions; Duhamel's principle for a forced wave; the classification of the three classical equations.",
+      "formulas": [
+        {
+          "title": "The Three Classical Equations",
+          "body": "\\begin{aligned} \\text{Heat (parabolic): }\\ &u_t=\\alpha^2 u_{xx}; \\\\ \\text{Wave (hyperbolic): }\\ &u_{tt}=c^2 u_{xx}; \\\\ \\text{Laplace (elliptic): }\\ &u_{xx}+u_{yy}=0. \\end{aligned}"
+        },
+        {
+          "title": "Heat Equation --- Fourier Solution",
+          "body": "u(x,t)=\\sum_{n=1}^{\\infty} b_n\\sin\\frac{n\\pi x}{L}\\,e^{-\\alpha^2(n\\pi/L)^2 t}, \\qquad b_n=\\frac{2}{L}\\int_0^L f(x)\\sin\\frac{n\\pi x}{L}\\,dx."
+        },
+        {
+          "title": "Wave Equation --- d'Alembert's Solution",
+          "body": "u(x,t)=\\tfrac12\\big[f(x-ct)+f(x+ct)\\big]+\\frac{1}{2c}\\int_{x-ct}^{x+ct} g(s)\\,ds \\quad (\\text{initial shape } f,\\ \\text{initial velocity } g)."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Solve the 1D Heat Equation on a Rod",
+        "steps": [
+          "Separate $u=X(x)T(t)$ and solve the spatial BVP $X''+\\lambda X=0$, $X(0)=X(L)=0$ to get $\\lambda_n=(n\\pi/L)^2$, $X_n=\\sin\\frac{n\\pi x}{L}$.",
+          "Solve $T'+\\alpha^2\\lambda_n T=0$ for $T_n=e^{-\\alpha^2(n\\pi/L)^2 t}$, so each mode decays faster the higher its frequency.",
+          "Superpose: $u(x,t)=\\sum_n b_n\\sin\\frac{n\\pi x}{L}\\,e^{-\\alpha^2(n\\pi/L)^2 t}$.",
+          "Set $t=0$: $u(x,0)=\\sum_n b_n\\sin\\frac{n\\pi x}{L}=f(x)$, so the $b_n$ are the half-range \\emph{sine} coefficients of the initial temperature $f$.",
+          "Evaluate $b_n=\\frac2L\\int_0^L f\\sin\\frac{n\\pi x}{L}\\,dx$ and write the full series solution."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Heat on a Rod with Initial Temperature $f(x)=100$",
+          "setup": "A rod $0\\le x\\le L$ has ends held at $0^\\circ$ ($u(0,t)=u(L,t)=0$) and uniform initial temperature $u(x,0)=100$. Solve $u_t=\\alpha^2 u_{xx}$ completely, computing the coefficients in full.",
+          "steps": [
+            "\\textbf{Separate: } u=X T \\Rightarrow X''+\\lambda X=0,\\ X(0)=X(L)=0,\\ \\text{ and } T'+\\alpha^2\\lambda T=0.",
+            "\\textbf{Spatial eigenpairs: } \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\quad X_n=\\sin\\frac{n\\pi x}{L},\\quad n=1,2,3,\\dots",
+            "\\textbf{Temporal factor: } T_n(t)=e^{-\\alpha^2(n\\pi/L)^2 t}.",
+            "\\textbf{Superposition: } u(x,t)=\\sum_{n=1}^{\\infty} b_n\\sin\\frac{n\\pi x}{L}\\,e^{-\\alpha^2(n\\pi/L)^2 t}.",
+            "\\textbf{Match } t=0: \\ \\sum_n b_n\\sin\\frac{n\\pi x}{L}=100 \\Rightarrow b_n=\\frac2L\\int_0^L 100\\sin\\frac{n\\pi x}{L}\\,dx.",
+            "\\textbf{Integrate: } \\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx=\\frac{L}{n\\pi}\\big(1-(-1)^n\\big) \\Rightarrow b_n=\\frac{200}{n\\pi}\\big(1-(-1)^n\\big).",
+            "\\textbf{Odd-only: } b_n=\\dfrac{400}{n\\pi}\\ (n \\text{ odd}),\\ 0\\ (n \\text{ even}).",
+            "\\textbf{Solution: } u(x,t)=\\frac{400}{\\pi}\\sum_{k=0}^{\\infty}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}\\,e^{-\\alpha^2((2k+1)\\pi/L)^2 t}\\ \\xrightarrow{t\\to\\infty}\\ 0."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The classical PDEs all yield to the same pipeline: \\textcolor{accentorange}{separate}, solve the \\textcolor{accentorange}{spatial eigenvalue BVP}, attach the time factor, \\textcolor{accentorange}{superpose}, and fit the initial data with a \\textcolor{accentorange}{Fourier series}. Their characters differ --- the \\textcolor{accentorange}{heat} equation smooths and decays (high modes die fastest), the \\textcolor{accentorange}{wave} equation oscillates and propagates (d'Alembert's two traveling waves), and \\textcolor{accentorange}{Laplace} gives the steady state --- but Fourier analysis is the common engine."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Match the time factor to the equation's order in $t$: the heat equation is \\emph{first} order so each mode carries a single decaying $e^{-\\alpha^2\\lambda_n t}$, while the wave equation is \\emph{second} order so each mode needs \\textcolor{warnred}{two} time functions $\\cos(c\\sqrt{\\lambda_n}\\,t)$ and $\\sin(c\\sqrt{\\lambda_n}\\,t)$ --- and therefore \\emph{two} initial conditions (shape \\emph{and} velocity). Using a single exponential for the wave equation \\textcolor{warnred}{loses half the solution}."
+      }
+    }
+  ],
+  "cheatTakeaway": {
+    "title": "Unit 18 Cheat-Sheet Takeaway",
+    "body": "Fourier analysis is the through-line. A periodic function is a sum of harmonics with coefficients $a_n,b_n$ pulled out by \\textcolor{accentorange}{orthogonality}; \\textcolor{accentorange}{even/odd symmetry} reduces it to a pure cosine or sine series, and half-range extensions let you choose. That same series solves PDEs: \\textcolor{accentorange}{separation of variables} $u=X(x)T(t)$ splits the equation into ODEs, the spatial part is the Unit~17 \\textcolor{accentorange}{eigenvalue BVP}, and the initial data is matched by a Fourier series. The \\textcolor{accentorange}{Laplacian} $\\nabla^2 u$ powers the heat ($u_t=\\alpha^2 u_{xx}$), wave ($u_{tt}=c^2 u_{xx}$), and Laplace ($\\nabla^2 u=0$) equations."
+  },
+  "practice": {
+    "subtitle": "Practice Set: Problems and Complete Solutions",
+    "intro": "Work the following ten problems in order. They climb from reading the harmonics of a signal and computing Euler--Fourier coefficients, through even/odd symmetry and half-range expansions, into separation of variables and the Laplacian, and up to a complete separation-of-variables solution of the heat equation with every coefficient integral expanded, plus the d'Alembert solution of the wave equation.",
+    "problems": [
+      "\\textbf{(Harmonics)} For $f(x)=4-3\\cos(2\\pi x)+\\sin(\\pi x)$ with period $2$ ($L=1$), state $a_0$, the nonzero $a_n$, and the nonzero $b_n$.",
+      "\\textbf{(Euler--Fourier setup)} Write the Euler--Fourier formulas for $a_n$ and $b_n$ of a $2L$-periodic function, and state the orthogonality relations that justify them.",
+      "\\textbf{(Odd function series)} Find the Fourier series of the $2\\pi$-periodic extension of $f(x)=x$ on $-\\pi\\le x\\le\\pi$, computing $b_n$ in full.",
+      "\\textbf{(Symmetry shortcut)} Without integrating, explain why $f(x)=x^2$ on $-\\pi\\le x\\le\\pi$ has $b_n=0$ for all $n$, and which series type it has.",
+      "\\textbf{(Half-range sine)} Expand $f(x)=1$ on $0\\le x\\le L$ in a half-range sine series, giving $b_n$ and the resulting series.",
+      "\\textbf{(Separation of variables)} Separate $u_t=\\alpha^2 u_{xx}$ via $u=X(x)T(t)$; state the two ODEs and, with $u(0,t)=u(L,t)=0$, the spatial eigenpairs and time factor.",
+      "\\textbf{(Laplacian / harmonic)} Determine whether $u(x,y)=x^2-y^2$ and $v(x,y)=e^{x}\\sin y$ are harmonic by computing $\\nabla^2$ of each.",
+      "\\textbf{(Classification)} Classify $u_t=\\alpha^2u_{xx}$, $u_{tt}=c^2u_{xx}$, and $u_{xx}+u_{yy}=0$ as parabolic, hyperbolic, or elliptic, and name the phenomenon each models.",
+      "\\textbf{(Heat equation capstone)} Solve $u_t=\\alpha^2u_{xx}$ on $0\\le x\\le L$, $u(0,t)=u(L,t)=0$, $u(x,0)=100$, computing the coefficients in full.",
+      "\\textbf{(Wave equation)} Use d'Alembert's formula to solve $u_{tt}=c^2u_{xx}$ on the line with $u(x,0)=f(x)$ and $u_t(x,0)=0$, and describe the motion."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quad Match $f=\\frac{a_0}{2}+\\sum_n(a_n\\cos n\\pi x+b_n\\sin n\\pi x)$ with $L=1$. The constant $\\tfrac{a_0}{2}=4$, so\n\\[ \\textcolor{workpurple}{a_0=8; \\qquad a_2=-3 \\ (\\text{from } -3\\cos 2\\pi x); \\qquad b_1=1 \\ (\\text{from } \\sin\\pi x).} \\]\nAll other coefficients are $0$.",
+      "\\noindent\\textbf{Solution 2.}\\quad For a $2L$-periodic $f$,\n\\[ \\textcolor{workpurple}{a_n=\\frac1L\\int_{-L}^{L}f\\cos\\frac{n\\pi x}{L}\\,dx,\\qquad b_n=\\frac1L\\int_{-L}^{L}f\\sin\\frac{n\\pi x}{L}\\,dx.} \\]\nThey follow from orthogonality: $\\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\cos\\frac{m\\pi x}{L}dx=L\\delta_{nm}$, the same for sines, and $\\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}dx=0$ --- integrating $f$ against one basis wave isolates its coefficient.",
+      "\\noindent\\textbf{Solution 3.}\\quad $f(x)=x$ is odd, so $a_n=0$ and only $b_n$ survive. With $L=\\pi$, integration by parts gives\n\\[ \\textcolor{workpurple}{b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}x\\sin(nx)\\,dx=\\frac2\\pi\\Big[-\\frac{\\pi}{n}(-1)^n\\Big]=(-1)^{n+1}\\frac2n.} \\]\nHence $x=\\sum_{n\\ge1}(-1)^{n+1}\\frac2n\\sin(nx)=2(\\sin x-\\tfrac12\\sin2x+\\tfrac13\\sin3x-\\cdots)$.",
+      "\\noindent\\textbf{Solution 4.}\\quad $f(x)=x^2$ is \\emph{even} ($f(-x)=f(x)$). The integrand $x^2\\sin\\frac{n\\pi x}{L}$ is then odd, so\n\\[ \\textcolor{workpurple}{b_n=\\frac1L\\int_{-L}^{L}x^2\\sin\\frac{n\\pi x}{L}\\,dx=0 \\quad(\\text{odd integrand over a symmetric interval}).} \\]\nIt therefore has a pure \\emph{cosine} series (only $a_0$ and $a_n$).",
+      "\\noindent\\textbf{Solution 5.}\\quad Half-range sine: $b_n=\\frac2L\\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx$. Then\n\\[ \\textcolor{workpurple}{b_n=\\frac2L\\cdot\\frac{L}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{2}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{4}{n\\pi}\\ (n\\text{ odd}),\\ 0\\ (n\\text{ even}).} \\]\nSo $1=\\frac4\\pi\\sum_{k\\ge0}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}$ on $0<x<L$.",
+      "\\noindent\\textbf{Solution 6.}\\quad Substituting $u=XT$ into $u_t=\\alpha^2u_{xx}$ and dividing by $\\alpha^2XT$ gives $\\frac{T'}{\\alpha^2T}=\\frac{X''}{X}=-\\lambda$. Thus\n\\[ \\textcolor{workpurple}{\\begin{gathered} X''+\\lambda X=0,\\ X(0)=X(L)=0\\ \\Rightarrow\\ \\lambda_n=\\Big(\\tfrac{n\\pi}{L}\\Big)^2,\\ X_n=\\sin\\tfrac{n\\pi x}{L}; \\\\ T'+\\alpha^2\\lambda_n T=0\\ \\Rightarrow\\ T_n=e^{-\\alpha^2(n\\pi/L)^2t}. \\end{gathered}} \\]",
+      "\\noindent\\textbf{Solution 7.}\\quad For $u=x^2-y^2$: $u_{xx}=2$, $u_{yy}=-2$, so\n\\[ \\textcolor{workpurple}{\\nabla^2u=2-2=0 \\ (\\text{harmonic}).} \\]\nFor $v=e^x\\sin y$: $v_{xx}=e^x\\sin y$, $v_{yy}=-e^x\\sin y$, so\n\\[ \\textcolor{workpurple}{\\nabla^2v=e^x\\sin y-e^x\\sin y=0 \\ (\\text{also harmonic}).} \\]",
+      "\\noindent\\textbf{Solution 8.}\\quad By the second-order classification:\n\\[ \\textcolor{workpurple}{\\begin{aligned} &u_t=\\alpha^2u_{xx}: \\ \\text{parabolic (diffusion/heat)},\\\\ &u_{tt}=c^2u_{xx}: \\ \\text{hyperbolic (vibration/waves)},\\\\ &u_{xx}+u_{yy}=0: \\ \\text{elliptic (steady state).}\\end{aligned}} \\]",
+      "\\noindent\\textbf{Solution 9.}\\quad Separation gives $X_n=\\sin\\frac{n\\pi x}{L}$, $T_n=e^{-\\alpha^2(n\\pi/L)^2t}$, so $u=\\sum_n b_n\\sin\\frac{n\\pi x}{L}e^{-\\alpha^2(n\\pi/L)^2t}$. Matching $u(x,0)=100$,\n\\[ \\textcolor{workpurple}{b_n=\\frac2L\\int_0^L 100\\sin\\frac{n\\pi x}{L}\\,dx=\\frac{200}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{400}{n\\pi}\\ (n\\text{ odd}),\\ 0\\ (n\\text{ even}).} \\]\n\\[ \\textcolor{workpurple}{u(x,t)=\\frac{400}{\\pi}\\sum_{k\\ge0}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}\\,e^{-\\alpha^2((2k+1)\\pi/L)^2t}\\ \\xrightarrow{t\\to\\infty}0.} \\]",
+      "\\noindent\\textbf{Solution 10.}\\quad With initial velocity $g\\equiv0$, d'Alembert's formula reduces to\n\\[ \\textcolor{workpurple}{u(x,t)=\\tfrac12\\big[f(x-ct)+f(x+ct)\\big].} \\]\nThe initial shape splits into two half-amplitude copies, one traveling right at speed $c$ and one left at speed $c$; their sum reconstructs $f$ at $t=0$ and separates thereafter."
+    ],
+    "takeaway": {
+      "title": "Unit Key Takeaway",
+      "body": "One idea organizes the whole unit: \\textcolor{accentorange}{decompose into frequencies, then solve frequency by frequency}. Fourier series rebuild a function from orthogonal sines and cosines, with symmetry choosing the cosine or sine form and half-range extensions adapting it to a boundary. For PDEs, \\textcolor{accentorange}{separation of variables} turns the equation into the Unit~17 \\textcolor{accentorange}{eigenvalue BVP} plus a time ODE, superposition assembles the modes, and the \\textcolor{accentorange}{initial condition} is fitted by a Fourier series. The \\textcolor{accentorange}{Laplacian} is the shared spatial operator behind the heat, wave, and Laplace equations --- diffusion that smooths, vibration that propagates, and the harmonic steady state."
+    }
+  }
+}
