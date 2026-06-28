@@ -1,6 +1,7 @@
 {
   "unit": "Unit 5: Numerical Methods",
   "unitNumber": 5,
+  "is_rich_source": true,
   "title": "Numerical Methods",
   "subtitle": "From Euler's method through the Runge-Kutta family, with error analysis and adaptive stepping.",
   "cheatSubtitle": "Condensed Cheat Sheet: Numerical Methods",

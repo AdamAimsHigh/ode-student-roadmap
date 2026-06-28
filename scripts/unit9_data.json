@@ -1,6 +1,7 @@
 {
   "unit": "Unit 9: Second-Order Linear Equations, Theory and Structure",
   "unitNumber": 9,
+  "is_rich_source": true,
   "title": "Second-Order Linear Equations, Theory and Structure",
   "subtitle": "Superposition, linear independence, the Wronskian, Abel's identity, and the constant coefficient solution machine.",
   "cheatSubtitle": "Condensed Cheat Sheet: Second-Order Linear Equations, Theory and Structure",

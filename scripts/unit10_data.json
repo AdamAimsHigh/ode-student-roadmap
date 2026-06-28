@@ -1,6 +1,7 @@
 {
   "unit": "Unit 10: Nonhomogeneous Equations and Forced Response",
   "unitNumber": 10,
+  "is_rich_source": true,
   "title": "Nonhomogeneous Equations and Forced Response",
   "subtitle": "Finding particular solutions by every major technique, and understanding how systems respond to inputs.",
   "cheatSubtitle": "Condensed Cheat Sheet: Nonhomogeneous Equations and Forced Response",

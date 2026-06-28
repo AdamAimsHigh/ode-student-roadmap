@@ -1,6 +1,7 @@
 {
   "unit": "Unit 3: Existence, Uniqueness, and Geometry",
   "unitNumber": 3,
+  "is_rich_source": true,
   "title": "Existence, Uniqueness, and Geometry",
   "subtitle": "The geometric and theoretical heart of first-order theory: visual fields, the phase plane, and why solutions exist and are unique.",
   "cheatSubtitle": "Condensed Cheat Sheet: Existence, Uniqueness, and Geometry",

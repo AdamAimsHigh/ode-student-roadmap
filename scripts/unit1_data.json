@@ -1,6 +1,7 @@
 {
   "unit": "Unit 1: Foundations and Prerequisites",
   "unitNumber": 1,
+  "is_rich_source": true,
   "title": "Foundations and Prerequisites",
   "subtitle": "Refreshes the calculus toolkit, the number e, and Euler's formula, then locks in the vocabulary of order, degree, linearity, and solutions.",
   "cheatSubtitle": "Condensed Cheat Sheet: Foundations and Prerequisites",

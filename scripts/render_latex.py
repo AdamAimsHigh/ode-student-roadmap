@@ -93,10 +93,14 @@ def render_topicsbox(glance: dict) -> str:
     return "\n".join(lines)
 
 
-def render_formulabox(formula: dict) -> str:
+def render_formulabox(formula: dict, rich: bool = False) -> str:
+    # Rich-source bodies are already complete LaTeX (prose plus their own
+    # display math), so they are emitted verbatim. Atomic bodies (the Unit 13+
+    # authoring style) are bare math and get wrapped in a display block here.
+    body = formula["body"] if rich else display(formula["body"])
     return "\n".join([
         f"\\begin{{formulabox}}[{formula['title']}]",
-        display(formula["body"]),
+        body,
         "\\end{formulabox}",
     ])
 
@@ -110,13 +114,15 @@ def render_methodbox(method: dict) -> str:
     return "\n".join(lines)
 
 
-def render_examplebox(example: dict) -> str:
+def render_examplebox(example: dict, rich: bool = False) -> str:
     lines = [f"\\begin{{examplebox}}[{example['title']}]"]
     if example.get("setup"):
         lines.append(example["setup"])
-    # Each live solution step is tracked in workpurple per the style guide.
-    for step in example["steps"]:
-        lines.append(purple_display(step))
+    # Atomic examples track each live step in workpurple per the style guide;
+    # rich-source examples carry their full worked body in ``setup`` already, so
+    # any ``steps`` are emitted verbatim without the color-isolation wrapper.
+    for step in example.get("steps", []):
+        lines.append(step if rich else purple_display(step))
     lines.append("\\end{examplebox}")
     return "\n".join(lines)
 
@@ -140,8 +146,13 @@ def render_warningbox(warning: dict) -> str:
 # ---------------------------------------------------------------------------
 # Module renderers (full vs condensed)
 # ---------------------------------------------------------------------------
-def render_module_full(module: dict) -> str:
-    """Master guide: heading, topics lead-in, then the complete box matrix."""
+def render_module_full(module: dict, rich: bool = False) -> str:
+    """Master guide: heading, topics lead-in, then the complete box matrix.
+
+    Rich-source modules (back-filled from the older hand-authored guides) are not
+    a strict 6-box matrix, so the singleton boxes are guarded for null and the
+    formula/example bodies are emitted verbatim.
+    """
     parts = [
         f"% ---- Module {module['id']} {'-' * 50}",
         f"\\subsection{{{module['title']}}}",
@@ -149,25 +160,29 @@ def render_module_full(module: dict) -> str:
         "",
     ]
     for formula in module["formulas"]:
-        parts.append(render_formulabox(formula))
+        parts.append(render_formulabox(formula, rich))
         parts.append("")
-    parts.append(render_methodbox(module["methodology"]))
-    parts.append("")
+    if module.get("methodology"):
+        parts.append(render_methodbox(module["methodology"]))
+        parts.append("")
     for example in module["examples"]:
-        parts.append(render_examplebox(example))
+        parts.append(render_examplebox(example, rich))
         parts.append("")
-    parts.append(render_conceptbox(module["concept"]))
-    parts.append("")
-    parts.append(render_warningbox(module["warning"]))
+    if module.get("concept"):
+        parts.append(render_conceptbox(module["concept"]))
+        parts.append("")
+    if module.get("warning"):
+        parts.append(render_warningbox(module["warning"]))
     parts.append("\n\\vspace{0.8em}\n")
     return "\n".join(parts)
 
 
-def render_module_condensed(module: dict) -> str:
+def render_module_condensed(module: dict, rich: bool = False) -> str:
     """Cheat sheet: heading, topics lead-in, formulas, method, concept, warning.
 
     Worked examples and the per-module quiz bank are intentionally dropped so the
-    cheat sheet stays a dense single-pass reference.
+    cheat sheet stays a dense single-pass reference. Rich-source singleton boxes
+    are guarded for null and formula bodies are emitted verbatim.
     """
     parts = [
         f"% ---- Module {module['id']} {'-' * 40}",
@@ -176,13 +191,16 @@ def render_module_condensed(module: dict) -> str:
         "",
     ]
     for formula in module["formulas"]:
-        parts.append(render_formulabox(formula))
+        parts.append(render_formulabox(formula, rich))
         parts.append("")
-    parts.append(render_methodbox(module["methodology"]))
-    parts.append("")
-    parts.append(render_conceptbox(module["concept"]))
-    parts.append("")
-    parts.append(render_warningbox(module["warning"]))
+    if module.get("methodology"):
+        parts.append(render_methodbox(module["methodology"]))
+        parts.append("")
+    if module.get("concept"):
+        parts.append(render_conceptbox(module["concept"]))
+        parts.append("")
+    if module.get("warning"):
+        parts.append(render_warningbox(module["warning"]))
     parts.append("\n\\vspace{0.6em}\n")
     return "\n".join(parts)
 
@@ -250,8 +268,9 @@ def render_master(data: dict) -> str:
     # Force the section counter so sub-modules read N.1, N.2, ...
     out.append(f"\\setcounter{{section}}{{{data['unitNumber']}}}")
     out.append("")
+    rich = data.get("is_rich_source", False)
     for module in data["modules"]:
-        out.append(render_module_full(module))
+        out.append(render_module_full(module, rich))
     # Fold the practice problems and worked solutions into the full guide so the
     # Reference Guide is a single comprehensive document. The standalone
     # Practice Set still renders the same content via --mode practice.
@@ -295,8 +314,9 @@ def render_cheat(data: dict) -> str:
     out.append("\\section*{Part I --- Condensed Cheat Sheet}")
     out.append(f"\\setcounter{{section}}{{{n}}}   % subsections auto-number as the Unit {n} modules")
     out.append("")
+    rich = data.get("is_rich_source", False)
     for module in data["modules"]:
-        out.append(render_module_condensed(module))
+        out.append(render_module_condensed(module, rich))
     if data.get("cheatTakeaway"):
         out.append(render_conceptbox(data["cheatTakeaway"]))
         out.append("")

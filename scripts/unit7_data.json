@@ -1,6 +1,7 @@
 {
   "unit": "Unit 7: First-Order Exactness and Methods",
   "unitNumber": 7,
+  "is_rich_source": true,
   "title": "First-Order Exactness and Methods",
   "subtitle": "Exact equations from motivation through intuition, repair of non-exact equations, and physical applications.",
   "cheatSubtitle": "Condensed Cheat Sheet: First-Order Exactness and Methods",

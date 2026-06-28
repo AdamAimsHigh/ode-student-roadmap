@@ -1,6 +1,7 @@
 {
   "unit": "Unit 0: What are Differential Equations",
   "unitNumber": 0,
+  "is_rich_source": true,
   "title": "What are Differential Equations",
   "subtitle": "Builds the core mental model: equations whose unknowns are functions, and why they describe the changing world.",
   "cheatSubtitle": "Condensed Cheat Sheet: What are Differential Equations",

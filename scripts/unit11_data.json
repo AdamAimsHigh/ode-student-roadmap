@@ -1,6 +1,7 @@
 {
   "unit": "Unit 11: Mechanical Vibrations and Oscillators",
   "unitNumber": 11,
+  "is_rich_source": true,
   "title": "Mechanical Vibrations and Oscillators",
   "subtitle": "The physics payoff of second-order theory: springs, damping regimes, resonance, and coupled oscillation.",
   "cheatSubtitle": "Condensed Cheat Sheet: Mechanical Vibrations and Oscillators",

@@ -1,6 +1,7 @@
 {
   "unit": "Unit 6: Multivariable Calculus Foundations",
   "unitNumber": 6,
+  "is_rich_source": true,
   "title": "Multivariable Calculus Foundations",
   "subtitle": "The multivariable bridge to exactness: partial derivatives, the chain rule, line integrals, potential functions, and curve geometry.",
   "cheatSubtitle": "Condensed Cheat Sheet: Multivariable Calculus Foundations",

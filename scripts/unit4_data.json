@@ -1,6 +1,7 @@
 {
   "unit": "Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability",
   "unitNumber": 4,
+  "is_rich_source": true,
   "title": "Autonomous Equations, Equilibrium Solutions, and Stability",
   "subtitle": "Qualitative analysis of autonomous equations, the logistic model, and the Bernoulli family of equations.",
   "cheatSubtitle": "Condensed Cheat Sheet: Autonomous Equations, Equilibrium Solutions, and Stability",

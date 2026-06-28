@@ -1,6 +1,7 @@
 {
   "unit": "Unit 2: First Order Linear Differential Equations",
   "unitNumber": 2,
+  "is_rich_source": true,
   "title": "First Order Linear Differential Equations",
   "subtitle": "The core solving toolkit: separation of variables, integrating factors, initial value problems, substitutions, and first physical models.",
   "cheatSubtitle": "Condensed Cheat Sheet: First Order Linear Differential Equations",
