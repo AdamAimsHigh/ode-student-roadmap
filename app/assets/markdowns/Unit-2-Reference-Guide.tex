@@ -3,107 +3,9 @@
 % Prepared by Staples Education
 % Content informed by the local curriculum modules (2.1 to 2.5) and the
 % QUIZ_DATA micro-practice and unit-mastery items for Unit 2.
+% Shared style harness pulled from the unified preamble input.
 
-\documentclass[11pt]{article}
-
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{xcolor}
-\usepackage[most]{tcolorbox}
-\usepackage{enumitem}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
-
-\tcbuselibrary{skins}
-
-% ---------------------------------------------------------------------------
-% Unified style-guide palette (see LATEX_STYLE_GUIDE.md)
-% ---------------------------------------------------------------------------
-\definecolor{headerblue}{HTML}{1C569E}   % overview / structural framing
-\definecolor{accentgreen}{HTML}{2E7D32}  % algorithms / methods
-\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
-\definecolor{workpurple}{HTML}{A020F0}   % worked-example tracking (vibrant)
-\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
-
-% ---------------------------------------------------------------------------
-% Subsection typography: headerblue numbered sub-module titles
-% ---------------------------------------------------------------------------
-\usepackage{titlesec}
-\titleformat{\subsection}
-  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
-
-% ---------------------------------------------------------------------------
-% Five core custom boxes (unbreakable, title={#1} protected)
-% ---------------------------------------------------------------------------
-
-% 1. Blue overview capsule for the topics summary.
-\newtcolorbox{topicsbox}{
-    enhanced,
-    colback=headerblue!6!white, colframe=headerblue,
-    coltitle=white, fonttitle=\bfseries,
-    title=Unit 2 at a Glance: Core Sub-Topics,
-    boxrule=0.6pt, arc=2mm,
-    left=3mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 2. Orange formula container for standard forms and master formulas.
-\newtcolorbox{formulabox}[1][Master Formula]{
-    enhanced,
-    colback=accentorange!8!white, colframe=accentorange,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.6pt, arc=1mm,
-    left=3mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 3. Green algorithm block for explicitly laid-out procedures.
-\newtcolorbox{methodbox}[1][Method]{
-    enhanced,
-    colback=accentgreen!6!white, colframe=accentgreen,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.6pt, arc=1mm,
-    left=3mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 4. Purple west-bordered worked example for step-by-step solutions.
-\newtcolorbox{examplebox}[1][Worked Example]{
-    enhanced,
-    colback=workpurple!4!white, colframe=workpurple,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.4pt, sharp corners,
-    borderline west={3pt}{0pt}{workpurple},
-    left=5mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 5. Orange thin-bordered final concept takeaway.
-\newtcolorbox{conceptbox}[1][Key Takeaway]{
-    enhanced,
-    colback=accentorange!5!white, colframe=accentorange,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.3pt, arc=1mm,
-    left=3mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 6. Crimson west-bordered warning box for common pitfalls.
-\newtcolorbox{warningbox}[1][Common Pitfall]{
-    enhanced,
-    colback=red!3!white, colframe=warnred,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.4pt, sharp corners,
-    borderline west={3pt}{0pt}{warnred},
-    left=5mm, right=3mm, top=2mm, bottom=2mm
-}
-
-\setlist[enumerate]{itemsep=4pt, topsep=4pt}
-
-% Number and index sections plus subsections (e.g., 2.1) two levels deep.
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
+\input{app/assets/markdowns/preamble.tex}
 
 \begin{document}
 
@@ -128,7 +30,7 @@
 % ---------------------------------------------------------------------------
 % Topics overview box
 % ---------------------------------------------------------------------------
-\begin{topicsbox}
+\begin{topicsbox}[Unit 2 at a Glance: Core Sub-Topics]
 This unit assembles the core solving toolkit of first order theory. Each
 sub-topic below builds on the last, moving from raw integration techniques
 toward genuine physical models.

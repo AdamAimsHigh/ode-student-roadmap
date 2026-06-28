@@ -1,0 +1,207 @@
+{
+  "unit": "Unit 8: Special Equations and Classical Models",
+  "unitNumber": 8,
+  "title": "Special Equations and Classical Models",
+  "subtitle": "Singular solutions, classical curve problems, and the modeling tradition from fluids to ecology and economics.",
+  "cheatSubtitle": "Condensed Cheat Sheet: Special Equations and Classical Models",
+  "description": "Singular solutions, classical curve problems, and the modeling tradition from fluids to ecology and economics.",
+  "atAGlance": {
+    "title": "Unit 8 at a Glance: Core Sub-Topics",
+    "summary": "Unit 8 moves from the algebraic theory of first-order ODEs into the classical applied models that drive physics, biology, and economics. It opens with two \\emph{special equation types}---the Clairaut equation (singular-solution envelopes) and pursuit/tractrix curves---before building three major applied models: the Navier--Stokes-derived plane Poiseuille velocity profile, the supply-and-demand price-adjustment ODE, and the Lotka--Volterra predator-prey and competition systems. The unit closes with a structured survey of first-order solution methods.",
+    "bullets": [
+      "\\textbf{8.1 The Clairaut Equation and Singular Solutions} --- general solution $y = Cx + f(C)$; singular (envelope) solution from the system $\\{y = xp + f(p),\\; 0 = x + f'(p)\\}$.",
+      "\\textbf{8.2 Pursuit Curves and the Tractrix} --- tractrix DE $dy/dx = -\\sqrt{a^2 - x^2}/x$; general pursuit $x\\,y'' = k\\sqrt{1+(y')^2}$ with speed ratio $k = v_m/v_d$.",
+      "\\textbf{8.3 Fluid Dynamics and Viscosity} --- Newtonian shear $\\tau = \\mu\\,du/dy$; plane Poiseuille flow $\\mu u'' = -G$ with no-slip boundary conditions.",
+      "\\textbf{8.4 Economic Models, Supply, Demand, and Price} --- price ODE $dp/dt = k(D - S)$; equilibrium $p^* = (a+c)/(b+d)$; convergence for $k(b+d) > 0$.",
+      "\\textbf{8.5 The Lotka--Volterra Predator-Prey Model} --- coexistence equilibrium $(c/d,\\, a/b)$; conserved quantity $H = dx - c\\ln x + by - a\\ln y$.",
+      "\\textbf{8.6 Competition Models} --- two-species carrying-capacity system; nullcline inequalities for stable coexistence versus competitive exclusion.",
+      "\\textbf{8.7 A Survey of Solution Methods} --- decision tree: separable, linear (integrating factor), Bernoulli, exact; classify by structure before solving."
+    ]
+  },
+  "modules": [
+    {
+      "id": "8.1",
+      "title": "The Clairaut Equation and Singular Solutions",
+      "topics": "A \\emph{Clairaut equation} has the special form $y = xy' + f(y')$. Setting $p = y'$ and differentiating both sides with respect to $x$ yields $(x + f'(p))\\,dp/dx = 0$, splitting into two branches whose solutions are the general family of straight lines and the singular envelope.",
+      "formulas": [
+        {
+          "title": "Clairaut Equation: General and Singular Solutions",
+          "body": "For $y = xp + f(p)$ with $p = y'$:\n\\[\n  \\textbf{General solution:}\\quad y = Cx + f(C) \\quad (p = C = \\text{const}),\n\\]\n\\[\n  \\textbf{Singular solution (envelope):}\\quad\n  \\begin{cases}\n    y = xp + f(p) \\\\\n    0 = x + f'(p)\n  \\end{cases}\n\\]\nEliminate $p$ from this system to obtain the envelope: a curve tangent to every\nline in the general family.\nThe singular solution satisfies the ODE but \\emph{cannot} be obtained from the\ngeneral solution by any choice of $C$."
+        }
+      ],
+      "methodology": {
+        "title": "Envelope Elimination Procedure",
+        "steps": [
+          "Write the equation as $F(x,y,C) = y - Cx - f(C) = 0$.",
+          "Differentiate with respect to $C$: $\\partial F/\\partial C = -x - f'(C) = 0$, giving $x = -f'(C)$.",
+          "Solve for $C = C(x)$ and substitute back into $F = 0$ to obtain the envelope curve $y = y(x)$.",
+          "Verify: the envelope must satisfy the original ODE directly."
+        ]
+      },
+      "examples": [],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: Singular Solution Is Not a Particular Solution",
+        "body": "The singular solution is \\emph{not} a member of the general family $y = Cx + f(C)$\nfor any finite $C$. Derive it exclusively via the envelope elimination system;\nattempting to recover it by substituting a value of $C$ will always fail."
+      }
+    },
+    {
+      "id": "8.2",
+      "title": "Pursuit Curves and the Tractrix",
+      "topics": "A \\emph{pursuit curve} traces the path of a pursuer who always aims directly at a moving target. The tractrix is the classical limiting case in which the pursuer is dragged at constant distance $a$ from a target walking along a line.",
+      "formulas": [
+        {
+          "title": "Tractrix Differential Equation and Solution",
+          "body": "Target on the $y$-axis, pursuer starts at $(a,0)$, equal speeds, string length $a$:\n\\[\n  \\frac{dy}{dx} = -\\frac{\\sqrt{a^2 - x^2}}{x}, \\qquad 0 < x \\le a,\\quad y(a) = 0.\n\\]\nSolution (via $x = a\\sin\\theta$):\n\\[\n  y(x) = a\\ln\\!\\left(\\frac{a + \\sqrt{a^2 - x^2}}{x}\\right) - \\sqrt{a^2 - x^2}.\n\\]"
+        },
+        {
+          "title": "General Pursuit Equation",
+          "body": "Dog at origin pursues owner on line $x = c$ at speed $v_m$; dog speed $v_d > v_m$;\n$k = v_m/v_d < 1$:\n\\[\n  x\\,y'' = k\\sqrt{1+(y')^2}, \\qquad y(c) = 0,\\quad y'(c) = 0.\n\\]\nSolution ($k \\ne 1$):\n\\[\n  y(x) = \\frac{1}{2}\\!\\left[\\frac{x^{k+1}}{(k+1)c^k}\n  - \\frac{c^k x^{1-k}}{1-k}\\right] + \\frac{ck}{1-k^2}.\n\\]\nCapture height: $y(0) = ck/(1-k^2)$."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: Direction of the Derivative Sign",
+        "body": "In the tractrix, $dy/dx$ is \\emph{negative} because $x$ decreases as the pursuer\nis dragged toward the $y$-axis. Always verify the geometric sign from the\ntangent-segment picture before writing the ODE."
+      }
+    },
+    {
+      "id": "8.3",
+      "title": "Fluid Dynamics and Viscosity",
+      "topics": "Newtonian viscosity: $\\tau = \\mu\\,du/dy$. Plane Poiseuille flow reduces the momentum balance to a second-order constant-coefficient ODE with a parabolic solution.",
+      "formulas": [
+        {
+          "title": "Plane Poiseuille Velocity Profile",
+          "body": "$\\mu\\,u''(y) = -G$, $u(0) = u(h) = 0$:\n\\[\n  u(y) = \\frac{G}{2\\mu}\\,y(h - y), \\qquad\n  y_{\\max} = \\frac{h}{2}, \\qquad\n  u_{\\max} = \\frac{Gh^2}{8\\mu}.\n\\]\nShear stress: $\\tau(y) = \\tfrac{G}{2}(h - 2y)$, linear, zero at the centerline."
+        },
+        {
+          "title": "2D Incompressible Continuity and Stream Function",
+          "body": "$\\partial u/\\partial x + \\partial v/\\partial y = 0$.\nGiven $u$: integrate $\\partial v/\\partial y = -\\partial u/\\partial x$ in $y$.\nStream function: $u = \\partial\\psi/\\partial y$, $v = -\\partial\\psi/\\partial x$;\nstreamlines are $\\psi(x,y) = C$."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: Both No-Slip Conditions Are Required",
+        "body": "The Poiseuille ODE produces a quadratic with two free constants. Both\n$u(0) = 0$ and $u(h) = 0$ must be applied; using only one gives a wrong family."
+      }
+    },
+    {
+      "id": "8.4",
+      "title": "Economic Models, Supply, Demand, and Price",
+      "topics": "Price adjusts at a rate proportional to excess demand. With linear demand and supply the ODE is first-order linear, and the equilibrium price is globally stable.",
+      "formulas": [
+        {
+          "title": "Price Adjustment ODE and Equilibrium",
+          "body": "$D = a - bp$, $S = -c + dp$ ($a,b,c,d > 0$):\n\\[\n  \\frac{dp}{dt} = k\\bigl[(a+c) - (b+d)p\\bigr],\n  \\qquad\n  p(t) = p^* + (p_0 - p^*)\\,e^{-k(b+d)t},\n  \\qquad\n  p^* = \\frac{a+c}{b+d}.\n\\]\nConvergence: $k(b+d) > 0$ always."
+        }
+      ],
+      "methodology": {
+        "title": "Solving the Price ODE via Integrating Factor",
+        "steps": [
+          "Write $dp/dt + k(b+d)p = k(a+c)$.",
+          "$\\mu(t) = e^{k(b+d)t}$; multiply and integrate.",
+          "Apply $p(0) = p_0$: $C = p_0 - p^*$."
+        ]
+      },
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "8.5",
+      "title": "The Lotka--Volterra Predator-Prey Model",
+      "topics": "The Lotka--Volterra system produces closed phase-plane orbits guaranteed by the first integral $H(x,y)$.",
+      "formulas": [
+        {
+          "title": "Lotka--Volterra System and Conserved Quantity",
+          "body": "$\\dot{x} = ax - bxy$, $\\dot{y} = -cy + dxy$ ($a,b,c,d > 0$):\n\\[\n  E_0 = (0,0), \\qquad E^* = (c/d,\\; a/b).\n\\]\n\\[\n  H(x,y) = dx - c\\ln x + by - a\\ln y = \\text{const} \\quad\n  (\\text{minimum at } E^*).\n\\]"
+        }
+      ],
+      "methodology": {
+        "title": "Deriving the Conserved Quantity",
+        "steps": [
+          "Form $dy/dx = \\dot{y}/\\dot{x} = y(-c + dx)/[x(a - by)]$.",
+          "Separate: $(a/y - b)\\,dy = (-c/x + d)\\,dx$.",
+          "Integrate: $a\\ln y - by = -c\\ln x + dx + \\text{const}$.",
+          "Rearrange: $H = dx - c\\ln x + by - a\\ln y$.",
+          "Verify $\\nabla H = 0$ at $E^*$ and Hessian positive definite."
+        ]
+      },
+      "examples": [],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: The Coexistence Equilibrium Is a Center",
+        "body": "$(c/d, a/b)$ is a \\emph{center} (closed orbits), not a stable spiral.\nPerturbations do not damp out in the pure Lotka--Volterra model; adding\nsaturation converts the center to a stable spiral."
+      }
+    },
+    {
+      "id": "8.6",
+      "title": "Competition Models",
+      "topics": "Two-species competition: the outcome depends on the relative positions of the $x$- and $y$-nullclines.",
+      "formulas": [
+        {
+          "title": "Competition System and Interior Equilibrium",
+          "body": "$\\dot{x} = r_1 x(1 - (x + \\alpha y)/K_1)$,\\;\n$\\dot{y} = r_2 y(1 - (y + \\beta x)/K_2)$.\n\\[\n  E_3 = (x^*, y^*), \\quad\n  x^* = \\frac{K_1 - \\alpha K_2}{1 - \\alpha\\beta}, \\quad\n  y^* = \\frac{K_2 - \\beta K_1}{1 - \\alpha\\beta}.\n\\]\nNullclines: $x + \\alpha y = K_1$ and $\\beta x + y = K_2$."
+        }
+      ],
+      "methodology": {
+        "title": "Coexistence vs.\\ Exclusion: Nullcline Intercept Test",
+        "steps": [
+          "\\textbf{Stable coexistence} ($\\alpha\\beta < 1$): $K_1 < K_2/\\beta$ and $K_2 < K_1/\\alpha$.",
+          "\\textbf{Bistable exclusion} ($\\alpha\\beta > 1$): $K_1 > K_2/\\beta$ and $K_2 > K_1/\\alpha$.",
+          "\\textbf{$x$ wins}: $K_1 > K_2/\\beta$ and $K_2 < K_1/\\alpha$.",
+          "\\textbf{$y$ wins}: $K_1 < K_2/\\beta$ and $K_2 > K_1/\\alpha$."
+        ]
+      },
+      "examples": [],
+      "concept": {
+        "title": "Unit 8 Key Takeaway --- Part I",
+        "body": "Clairaut equations split into a \\textcolor{accentorange}{general line family\n$y = Cx + f(C)$} and a \\textcolor{accentorange}{singular envelope} from\n$x + f'(p) = 0$. The Poiseuille profile\n\\textcolor{accentorange}{$u = (G/2\\mu)\\,y(h-y)$} and price path\n\\textcolor{accentorange}{$p(t) = p^* + (p_0 - p^*)e^{-k(b+d)t}$} follow from\nlinear BVPs. Lotka--Volterra orbits are level sets of\n\\textcolor{accentorange}{$H = dx - c\\ln x + by - a\\ln y$}; competition outcomes\nfollow from \\textcolor{accentorange}{$\\alpha\\beta < 1$} (coexistence) versus\n\\textcolor{accentorange}{$\\alpha\\beta > 1$} (exclusion)."
+      },
+      "warning": {
+        "title": "Common Pitfall: Interior Equilibrium Feasibility",
+        "body": "$E_3$ is biologically meaningful only when both $x^* > 0$ and $y^* > 0$.\nCheck the signs of numerators and denominator before drawing conclusions."
+      }
+    }
+  ],
+  "cheatTakeaway": {
+    "title": "Unit 8 Key Takeaway",
+    "body": "Every Clairaut equation $y = xy' + f(y')$ yields a\n\\textcolor{accentorange}{general line family $y = Cx + f(C)$} and a\n\\textcolor{accentorange}{singular envelope} obtained by eliminating $p$ from\n$x + f'(p) = 0$. Pursuit geometry converts tangency and speed constraints\ninto separable second-order ODEs. The Poiseuille profile\n\\textcolor{accentorange}{$u = (G/2\\mu)\\,y(h-y)$} and the price path\n\\textcolor{accentorange}{$p(t) = p^* + (p_0 - p^*)e^{-k(b+d)t}$} both follow\nfrom linear BVPs. In Lotka--Volterra dynamics the\n\\textcolor{accentorange}{conserved quantity $H = dx - c\\ln x + by - a\\ln y$}\norganizes all phase-plane orbits as closed curves around the coexistence\nequilibrium $(c/d, a/b)$; in two-species competition the entire outcome is\ndecided by \\textcolor{accentorange}{$\\alpha\\beta < 1$ (stable coexistence) versus\n$\\alpha\\beta > 1$ (competitive exclusion)}."
+  },
+  "practice": {
+    "subtitle": "Practice Set: Problems and Complete Solutions",
+    "intro": "Work the following ten problems in order. Problems 1--2 develop the Clairaut equation: general straight-line family and singular envelope elimination (Module 8.1). Problems 3--4 derive and solve the tractrix ODE and the general pursuit equation with a speed-ratio parameter (Module 8.2). Problem 5 solves the plane Poiseuille velocity profile with no-slip boundary conditions, and Problem 6 applies 2D incompressible continuity to find the stream function (Module 8.3). Problem 7 solves the linear price-adjustment ODE and identifies the equilibrium (Module 8.4). Problem 8 analyzes the full Lotka--Volterra predator-prey system including the conserved quantity $H$ (Module 8.5). Problem 9 classifies coexistence versus competitive exclusion in a two-species competition model via nullcline inequalities (Module 8.6). Problem 10 closes with a four-part classification and solution survey (Module 8.7).",
+    "problems": [
+      "Find the general solution and the singular solution of the Clairaut equation $y = xy' + (y')^2$. Verify that the singular solution is the envelope of the general straight-line family.",
+      "For the Clairaut equation $y = xy' - \\ln(y')$ (with $y' > 0$), find the one-parameter family of straight-line solutions and the singular solution. Confirm that the singular solution satisfies the ODE directly.",
+      "A target moves from the origin up the positive $y$-axis. A pursuer starts at $(a,0)$ and is always connected to the target by a taut string of length $a$, with both moving at the same speed. Derive the tractrix differential equation \\[ \\frac{dy}{dx} = -\\frac{\\sqrt{a^2 - x^2}}{x}, \\qquad y(a) = 0, \\] from the constant-length tangent-line geometry, then solve it for $y(x)$ using the substitution $x = a\\sin\\theta$.",
+      "A dog at the origin always runs directly toward its owner, who walks along $x = c$ at speed $v_m$. The dog runs at speed $v_d > v_m$ with $k = v_m/v_d$. Derive $x\\,y'' = k\\sqrt{1+(y')^2}$, $y(c) = 0$, $y'(c) = 0$. Set $p = y'$, solve the separable equation in $p$, integrate to find $y(x)$, and state the finite capture height $y(0)$.",
+      "Solve $\\mu\\,u''(y) = -G$, $u(0) = u(h) = 0$ for the velocity profile $u(y)$. State the location and value of the maximum velocity.",
+      "Given $u = x^2 - y^2$ for a 2D incompressible steady flow, find the most general $v(x,y)$ consistent with $\\partial u/\\partial x + \\partial v/\\partial y = 0$. For $g(x) = 0$, determine the stream function $\\psi(x,y)$ and write the streamline equation.",
+      "Price obeys $dp/dt = k(D - S)$ with $D = a - bp$, $S = -c + dp$ ($a,b,c,d,k > 0$). Write the ODE, solve via integrating factor with $p(0) = p_0$, find $p^*$, and state the convergence condition.",
+      "For $\\dot{x} = ax - bxy$, $\\dot{y} = -cy + dxy$ ($a,b,c,d > 0$): interpret each parameter; find both equilibria; derive the conserved quantity $H(x,y) = dx - c\\ln x + by - a\\ln y$; verify $H$ is minimized at $(c/d, a/b)$.",
+      "For the competition system with parameters $r_1, r_2, K_1, K_2, \\alpha, \\beta$: find all four equilibria; write the nullclines; state the inequalities governing stable coexistence, bistable exclusion, and single-species dominance; derive $(x^*, y^*)$ explicitly.",
+      "Classify and solve completely: (a) $dy/dx = x(1+y^2)/(1+x^2)$;\\; (b) $dy/dx + (2/x)y = x^3$;\\; (c) $dy/dx + y = xy^3$;\\; (d) $(2xy + \\cos x)\\,dx + (x^2 - \\sin y)\\,dy = 0$."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quad\nSet $p = y'$. The Clairaut equation is $y = xp + p^2$.\n\nDifferentiate both sides with respect to $x$:\n\\[\n  \\textcolor{workpurple}{p = p + x\\,\\frac{dp}{dx} + 2p\\,\\frac{dp}{dx}\n  = p + (x + 2p)\\,\\frac{dp}{dx}.}\n\\]\nCancel $p$:\n\\[\n  \\textcolor{workpurple}{(x + 2p)\\,\\frac{dp}{dx} = 0.}\n\\]\n\n\\textit{Case A:} $dp/dx = 0 \\Rightarrow p = C$.\n\\textbf{General solution:} $y = Cx + C^2$.\n\n\\textit{Case B:} $x + 2p = 0 \\Rightarrow p = -x/2$. Substitute:\n\\[\n  \\textcolor{workpurple}{y = x\\!\\left(-\\frac{x}{2}\\right)\n  + \\left(-\\frac{x}{2}\\right)^2\n  = -\\frac{x^2}{2} + \\frac{x^2}{4} = -\\frac{x^2}{4}.}\n\\]\n\nEnvelope check: $F = y - Cx - C^2$; $\\partial F/\\partial C = -x - 2C = 0$,\nso $C = -x/2$. Substituting:\n\\[\n  \\textcolor{workpurple}{y + \\frac{x^2}{2} - \\frac{x^2}{4}\n  = y + \\frac{x^2}{4} = 0 \\;\\Longrightarrow\\; y = -\\frac{x^2}{4}.}\n\\]\nDirect check: $y' = -x/2$, $(y')^2 = x^2/4$,\n$xy' + (y')^2 = -x^2/2 + x^2/4 = -x^2/4 = y$. \\checkmark\n\n\\medskip",
+      "\\noindent\\textbf{Solution 2.}\\quad\nSet $p = y' > 0$. The equation is $y = xp - \\ln p$.\n\nDifferentiate:\n\\[\n  \\textcolor{workpurple}{p = p + \\!\\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx}\n  \\quad\\Longrightarrow\\quad\n  \\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx} = 0.}\n\\]\n\n\\textit{Case A:} $p = C$.\n\\textbf{General solution:} $y = Cx - \\ln C$.\n\n\\textit{Case B:} $p = 1/x$. Substitute:\n\\[\n  \\textcolor{workpurple}{y = x\\cdot\\frac{1}{x} - \\ln\\!\\frac{1}{x} = 1 + \\ln x.}\n\\]\n\\textbf{Singular solution:} $y = 1 + \\ln x$.\n\nEnvelope: $F = y - Cx + \\ln C$; $\\partial F/\\partial C = -x + 1/C = 0$,\nso $C = 1/x$. Then $y - 1 - \\ln x = 0$. \\checkmark\n\nDirect check: $y' = 1/x$; $xy' - \\ln y' = 1 + \\ln x = y$. \\checkmark\n\n\\medskip",
+      "\\noindent\\textbf{Solution 3.}\\quad\nAt $(x,y)$ the string has horizontal leg $x$ and hypotenuse $a$, so vertical\nleg $= \\sqrt{a^2 - x^2}$. Since $x$ decreases as the pursuer is dragged:\n\\[\n  \\textcolor{workpurple}{\\frac{dy}{dx} = -\\frac{\\sqrt{a^2 - x^2}}{x}.}\n\\]\n\nSubstitute $x = a\\sin\\theta$, $dx = a\\cos\\theta\\,d\\theta$,\n$\\sqrt{a^2 - x^2} = a\\cos\\theta$:\n\\[\n  \\textcolor{workpurple}{\\int\\frac{\\sqrt{a^2-x^2}}{x}\\,dx\n  = a\\int\\frac{\\cos^2\\theta}{\\sin\\theta}\\,d\\theta\n  = a\\int(\\csc\\theta - \\sin\\theta)\\,d\\theta\n  = a\\bigl[\\ln|\\csc\\theta - \\cot\\theta| + \\cos\\theta\\bigr].}\n\\]\nBack-substitute ($\\csc\\theta = a/x$, $\\cot\\theta = \\sqrt{a^2-x^2}/x$,\n$\\cos\\theta = \\sqrt{a^2-x^2}/a$):\n\\[\n  \\textcolor{workpurple}{= a\\ln\\!\\left(\\frac{a - \\sqrt{a^2-x^2}}{x}\\right)\n  + \\sqrt{a^2-x^2}.}\n\\]\nSo $y = -a\\ln\\!\\bigl((a-\\sqrt{a^2-x^2})/x\\bigr) - \\sqrt{a^2-x^2} + K$.\nApplying $y(a) = 0$ gives $K = 0$. Rationalizing:\n\\[\n  \\textcolor{workpurple}{y(x) = a\\ln\\!\\left(\\frac{a + \\sqrt{a^2-x^2}}{x}\\right)\n  - \\sqrt{a^2-x^2}.}\n\\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 4.}\\quad\nTangency condition at dog position $(x,y)$ with owner at $(c,Y)$:\n$Y - y = (c-x)y'$. Differentiate in $x$: $dY/dx = (c-x)y''$.\nSpeed ratio: $dY/dx = k\\sqrt{1+(y')^2}$.\nEquating: $(c-x)y'' = k\\sqrt{1+(y')^2}$, i.e.\\ $xy'' = k\\sqrt{1+(y')^2}$\n(after shifting).\n\nLet $p = y'$; separate $dp/\\sqrt{1+p^2} = k\\,dx/x$:\n\\[\n  \\textcolor{workpurple}{\\operatorname{arcsinh}(p) = k\\ln x + C_1\n  \\;\\Longrightarrow\\;\n  p + \\sqrt{1+p^2} = A\\,x^k.}\n\\]\n$y'(c) = 0$: $A = c^{-k}$. Using $(\\sqrt{1+p^2}+p)(\\sqrt{1+p^2}-p) = 1$:\n\\[\n  \\textcolor{workpurple}{2p = (x/c)^k - (x/c)^{-k}\n  \\;\\Longrightarrow\\;\n  y' = \\frac{1}{2}\\!\\left[(x/c)^k - (x/c)^{-k}\\right].}\n\\]\nIntegrate ($k \\ne 1$):\n\\[\n  \\textcolor{workpurple}{y = \\frac{1}{2}\\!\\left[\\frac{x^{k+1}}{(k+1)c^k}\n  - \\frac{c^k x^{1-k}}{1-k}\\right] + C_2.}\n\\]\n$y(c) = 0$: $C_2 = ck/(1-k^2)$.\n\n\\textbf{Solution:}\n$y(x) = \\tfrac{1}{2}\\bigl[x^{k+1}/((k+1)c^k) - c^k x^{1-k}/(1-k)\\bigr] + ck/(1-k^2)$.\nCapture height: $\\textcolor{workpurple}{y(0) = ck/(1-k^2)}$.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 5.}\\quad\nIntegrate $\\mu u'' = -G$ twice:\n\\[\n  \\textcolor{workpurple}{\\mu u'(y) = -Gy + C_1,\n  \\qquad\n  \\mu u(y) = -\\frac{G}{2}y^2 + C_1 y + C_2.}\n\\]\n$u(0) = 0 \\Rightarrow C_2 = 0$.\\quad\n$u(h) = 0 \\Rightarrow C_1 = Gh/2$.\n\\[\n  \\textcolor{workpurple}{u(y) = \\frac{G}{2\\mu}\\,y(h-y).}\n\\]\n$u'(y) = (G/2\\mu)(h-2y) = 0$ at $y = h/2$:\n\\[\n  \\textcolor{workpurple}{u_{\\max} = \\frac{G}{2\\mu}\\cdot\\frac{h}{2}\\cdot\\frac{h}{2}\n  = \\frac{Gh^2}{8\\mu}.}\n\\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 6.}\\quad\n$\\partial u/\\partial x = 2x$, so $\\partial v/\\partial y = -2x$.\nIntegrate in $y$:\n\\[\n  \\textcolor{workpurple}{v(x,y) = -2xy + g(x).}\n\\]\nWith $g = 0$, find $\\psi$ from $\\partial\\psi/\\partial y = x^2 - y^2$:\n\\[\n  \\textcolor{workpurple}{\\psi = x^2 y - \\frac{y^3}{3} + h(x).}\n\\]\nCheck $-\\partial\\psi/\\partial x = -2xy - h'(x) = v = -2xy$,\nso $h' = 0$, $h = \\text{const}$. Streamlines:\n\\[\n  \\textcolor{workpurple}{x^2 y - \\frac{y^3}{3} = k.}\n\\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 7.}\\quad\n\\[\n  \\textcolor{workpurple}{\\frac{dp}{dt} = k\\bigl[(a+c)-(b+d)p\\bigr]\n  \\;\\Longrightarrow\\;\n  \\frac{dp}{dt} + k(b+d)p = k(a+c).}\n\\]\n$\\mu = e^{k(b+d)t}$; integrate:\n\\[\n  \\textcolor{workpurple}{p(t) = \\frac{a+c}{b+d}\n  + \\!\\left(p_0 - \\frac{a+c}{b+d}\\right)e^{-k(b+d)t}.}\n\\]\n$p^* = (a+c)/(b+d)$. Convergence: $k(b+d) > 0$ (automatic). \\checkmark\n\n\\medskip",
+      "\\noindent\\textbf{Solution 8.}\\quad\n\\textit{Parameters:} $a$ = prey growth rate; $b$ = predation coefficient;\n$c$ = predator death rate; $d$ = conversion efficiency.\n\n\\textit{Equilibria:} $\\dot{x} = 0 \\Rightarrow x = 0$ or $y = a/b$;\n$\\dot{y} = 0 \\Rightarrow y = 0$ or $x = c/d$:\n\\[\n  \\textcolor{workpurple}{E_0 = (0,0), \\qquad E^* = (c/d,\\; a/b).}\n\\]\n\n\\textit{Conserved quantity.} $dy/dx = y(-c+dx)/[x(a-by)]$; separate:\n\\[\n  \\textcolor{workpurple}{\\left(\\frac{a}{y}-b\\right)dy = \\left(-\\frac{c}{x}+d\\right)dx.}\n\\]\nIntegrate:\n\\[\n  \\textcolor{workpurple}{a\\ln y - by = -c\\ln x + dx + \\text{const}\n  \\;\\Longrightarrow\\;\n  H = dx - c\\ln x + by - a\\ln y = \\text{const}.}\n\\]\n$\\partial H/\\partial x = d - c/x = 0 \\Rightarrow x = c/d$;\n$\\partial H/\\partial y = b - a/y = 0 \\Rightarrow y = a/b$.\nHessian: $\\partial^2 H/\\partial x^2 = c/x^2 > 0$,\n$\\partial^2 H/\\partial y^2 = a/y^2 > 0$, cross term $= 0$: positive\ndefinite. $E^*$ is the unique minimum of $H$.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 9.}\\quad\n\\textit{Equilibria:}\n$(0,0)$, $(K_1, 0)$, $(0, K_2)$, and\n\\[\n  \\textcolor{workpurple}{(x^*,y^*) = \\!\\left(\\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta},\\;\n  \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta}\\right).}\n\\]\nDerivation: $x + \\alpha y = K_1$ and $\\beta x + y = K_2$; substitute\n$x = K_1 - \\alpha y$ into the second:\n\\[\n  \\textcolor{workpurple}{\\beta K_1 + y(1-\\alpha\\beta) = K_2\n  \\;\\Longrightarrow\\;\n  y^* = \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta},\n  \\quad\n  x^* = \\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta}.}\n\\]\n\n\\textit{Nullclines:}\n$x + \\alpha y = K_1$ (axes intercepts $(K_1,0)$ and $(0,K_1/\\alpha)$);\n$\\beta x + y = K_2$ (axes intercepts $(K_2/\\beta,0)$ and $(0,K_2)$).\n\n\\textit{Outcome inequalities:}\n\\[\n  \\textcolor{workpurple}{\\text{Coexistence}:\\;K_1 < K_2/\\beta\\;\\text{and}\\;K_2 < K_1/\\alpha\n  \\;\\;(\\alpha\\beta < 1).}\n\\]\n\\[\n  \\textcolor{workpurple}{\\text{Bistable exclusion}:\\;K_1 > K_2/\\beta\\;\\text{and}\\;K_2 > K_1/\\alpha\n  \\;\\;(\\alpha\\beta > 1).}\n\\]\n\\[\n  \\textcolor{workpurple}{x\\text{ wins}:\\;K_1 > K_2/\\beta\\;\\text{and}\\;K_2 < K_1/\\alpha.\n  \\qquad\n  y\\text{ wins}:\\;K_1 < K_2/\\beta\\;\\text{and}\\;K_2 > K_1/\\alpha.}\n\\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 10.}\\quad\n\n\\noindent\\textit{(a) Separable.}\n\\[\n  \\textcolor{workpurple}{\\frac{dy}{1+y^2} = \\frac{x\\,dx}{1+x^2}\n  \\;\\Longrightarrow\\;\n  \\arctan y = \\frac{1}{2}\\ln(1+x^2) + C\n  \\;\\Longrightarrow\\;\n  y = \\tan\\!\\left(\\tfrac{1}{2}\\ln(1+x^2)+C\\right).}\n\\]\n\n\\noindent\\textit{(b) Linear, integrating factor.}\n$\\mu = x^2$; $d(x^2 y)/dx = x^5$; integrate:\n\\[\n  \\textcolor{workpurple}{x^2 y = \\frac{x^6}{6} + C\n  \\;\\Longrightarrow\\;\n  y = \\frac{x^4}{6} + \\frac{C}{x^2}.}\n\\]\n\n\\noindent\\textit{(c) Bernoulli, $n = 3$.}\nLet $v = y^{-2}$: $v' - 2v = -2x$. $\\mu = e^{-2x}$:\n\\[\n  \\textcolor{workpurple}{\\frac{d}{dx}(v\\,e^{-2x}) = -2x\\,e^{-2x}.}\n\\]\nIntegrate by parts: $\\int -2x e^{-2x}\\,dx = xe^{-2x} + e^{-2x}/2$:\n\\[\n  \\textcolor{workpurple}{v = x + \\tfrac{1}{2} + Ce^{2x}\n  \\;\\Longrightarrow\\;\n  y^2 = \\frac{1}{x + \\tfrac{1}{2} + Ce^{2x}}.}\n\\]\n\n\\noindent\\textit{(d) Exact.}\n$M_y = 2x = N_x$. Integrate $M$ in $x$:\n\\[\n  \\textcolor{workpurple}{F = x^2 y + \\sin x + g(y);\\quad\n  F_y = x^2 + g'(y) = x^2 - \\sin y\n  \\;\\Longrightarrow\\; g(y) = \\cos y.}\n\\]\n\\[\n  \\textcolor{workpurple}{x^2 y + \\sin x + \\cos y = C.}\n\\]\n\n\\vspace{0.8em}"
+    ],
+    "takeaway": {
+      "title": "Unit 8 Key Takeaway",
+      "body": "Every Clairaut equation $y = xy' + f(y')$ yields a\n\\textcolor{accentorange}{general line family $y = Cx + f(C)$} and a\n\\textcolor{accentorange}{singular envelope} obtained by eliminating $p$ from\n$x + f'(p) = 0$. Pursuit geometry converts tangency and speed constraints\ninto separable second-order ODEs. The Poiseuille profile\n\\textcolor{accentorange}{$u = (G/2\\mu)\\,y(h-y)$} and the price path\n\\textcolor{accentorange}{$p(t) = p^* + (p_0 - p^*)e^{-k(b+d)t}$} both follow\nfrom linear BVPs. In Lotka--Volterra dynamics the\n\\textcolor{accentorange}{conserved quantity $H = dx - c\\ln x + by - a\\ln y$}\norganizes all phase-plane orbits as closed curves around the coexistence\nequilibrium $(c/d, a/b)$; in two-species competition the entire outcome is\ndecided by \\textcolor{accentorange}{$\\alpha\\beta < 1$ (stable coexistence) versus\n$\\alpha\\beta > 1$ (competitive exclusion)}."
+    }
+  }
+}

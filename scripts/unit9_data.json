@@ -1,0 +1,184 @@
+{
+  "unit": "Unit 9: Second-Order Linear Equations, Theory and Structure",
+  "unitNumber": 9,
+  "title": "Second-Order Linear Equations, Theory and Structure",
+  "subtitle": "Superposition, linear independence, the Wronskian, Abel's identity, and the constant coefficient solution machine.",
+  "cheatSubtitle": "Condensed Cheat Sheet: Second-Order Linear Equations, Theory and Structure",
+  "description": "Superposition, linear independence, the Wronskian, Abel's identity, and the constant coefficient solution machine.",
+  "atAGlance": {
+    "title": "Unit 9 at a Glance: Core Sub-Topics",
+    "summary": "A second-order linear equation reads $a(x)y'' + b(x)y' + c(x)y = g(x)$; this unit builds the homogeneous theory and the constant-coefficient solution machine.",
+    "bullets": [
+      "\\textbf{Existence, uniqueness, superposition} --- two side conditions pin a unique solution; linear combinations of solutions are solutions.",
+      "\\textbf{The Wronskian} --- $W(y_1,y_2)=y_1y_2'-y_2y_1'$ tests linear independence and certifies a fundamental set.",
+      "\\textbf{Abel's identity} --- the Wronskian itself solves a first-order ODE, so it is either never zero or identically zero.",
+      "\\textbf{Reduction of order} --- one known solution $y_1$ manufactures a second, independent $y_2$.",
+      "\\textbf{Constant-coefficient roots} --- the characteristic equation $ar^2+br+c=0$ splits into real-distinct, repeated, and complex cases.",
+      "\\textbf{Cauchy--Euler and higher order} --- the $x^m$ trick and the degree-$n$ characteristic polynomial."
+    ]
+  },
+  "modules": [
+    {
+      "id": "9.1",
+      "title": "Introduction to Second-Order Equations",
+      "topics": "The general linear second-order equation is $a(x)y'' + b(x)y' + c(x)y = g(x)$. It is \\textbf{homogeneous} when $g(x)=0$ and \\textbf{nonhomogeneous} otherwise; its general solution carries \\emph{two} arbitrary constants.",
+      "formulas": [
+        {
+          "title": "Standard and Normalized Forms",
+          "body": "\\[ a(x)y'' + b(x)y' + c(x)y = g(x), \\qquad\n   y'' + p(x)y' + q(x)y = r(x), \\]\nwith $p=b/a$, $q=c/a$, $r=g/a$ where $a(x)\\neq 0$. Linearity means $y$, $y'$, $y''$\neach appear to the first power and are never multiplied together."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.2",
+      "title": "Existence, Uniqueness, Superposition, and Independence",
+      "topics": "On any interval where $p$, $q$, and $r$ are continuous, the initial value problem with $y(x_0)=y_0$, $y'(x_0)=y_0'$ has a \\emph{unique} solution.",
+      "formulas": [
+        {
+          "title": "Superposition Principle",
+          "body": "If $y_1$ and $y_2$ each solve the homogeneous equation\n$y''+p\\,y'+q\\,y=0$, then for \\emph{any} constants $c_1,c_2$,\n\\[ y = c_1 y_1 + c_2 y_2 \\]\nis also a solution. The general solution is this two-parameter family precisely\nwhen $y_1,y_2$ are linearly independent."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.3",
+      "title": "Linear Independence and the Wronskian",
+      "topics": "Two solutions form a \\textbf{fundamental set} exactly when they are linearly independent, and the Wronskian is the determinant that tests it.",
+      "formulas": [
+        {
+          "title": "The Wronskian",
+          "body": "\\[ W(y_1,y_2)(x) = \\begin{vmatrix} y_1 & y_2 \\\\ y_1' & y_2' \\end{vmatrix}\n   = y_1 y_2' - y_2 y_1'. \\]\nIf $W(x_0)\\neq 0$ at any point, $y_1,y_2$ are \\textbf{linearly independent} on the\ninterval and $\\{y_1,y_2\\}$ is a fundamental set."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.4",
+      "title": "Abel's Identity",
+      "topics": "Abel's identity says the Wronskian of two solutions of $y''+p(x)y'+q(x)y=0$ itself satisfies a first-order ODE, so its sign can never change.",
+      "formulas": [],
+      "methodology": {
+        "title": "Abel's Formula",
+        "steps": [
+          "For $y'' + p(x)\\,y' + q(x)\\,y = 0$, \\[ W(x) = W(x_0)\\,\\exp\\!\\left(-\\int_{x_0}^{x} p(t)\\,dt\\right). \\] Because the exponential is never zero, $W$ is \\textbf{either identically zero} (dependent solutions) \\textbf{or never zero} (independent) --- there is no middle ground."
+        ]
+      },
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.5",
+      "title": "Reduction of Order",
+      "topics": "Given one nonzero solution $y_1$ of the homogeneous equation, reduction of order substitutes $y_2 = v(x)\\,y_1$ and solves for $v$, producing a second independent solution.",
+      "formulas": [],
+      "methodology": {
+        "title": "Reduction of Order Formula",
+        "steps": [
+          "For $y'' + p(x)\\,y' + q(x)\\,y = 0$ with a known solution $y_1$, \\[ y_2 = y_1(x)\\int \\frac{e^{-\\int p(x)\\,dx}}{y_1(x)^2}\\,dx. \\] The substitution $y_2=v y_1$ collapses the second-order equation to a \\emph{first-order} equation in $v'$, which the integral above solves directly."
+        ]
+      },
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.6",
+      "title": "Constant Coefficient Homogeneous Equations",
+      "topics": "For $ay'' + by' + cy = 0$ with constants $a,b,c$, try $y=e^{rx}$ to get the \\textbf{characteristic equation} $ar^2 + br + c = 0$. The discriminant $b^2-4ac$ selects one of three cases.",
+      "formulas": [
+        {
+          "title": "The Three Root Cases",
+          "body": "\\[ ar^2 + br + c = 0, \\qquad r = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=3pt]\n    \\item \\textbf{Real distinct} ($b^2-4ac>0$), roots $r_1\\neq r_2$:\n          \\[ y = c_1 e^{r_1 x} + c_2 e^{r_2 x}. \\]\n    \\item \\textbf{Repeated} ($b^2-4ac=0$), one root $r$:\n          \\[ y = (c_1 + c_2 x)\\,e^{r x}. \\]\n    \\item \\textbf{Complex conjugate} ($b^2-4ac<0$), $r=\\alpha\\pm\\beta i$:\n          \\[ y = e^{\\alpha x}\\big(c_1\\cos\\beta x + c_2\\sin\\beta x\\big). \\]\n\\end{itemize}"
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: The Repeated-Root Boundary",
+        "body": "The repeated case ($b^2-4ac=0$) is the boundary between real and complex roots.\nDo \\emph{not} write $y=(c_1+c_2)e^{rx}$ --- that is a single constant; the second\nsolution carries the factor $x$, giving $y=(c_1+c_2 x)e^{rx}$. For complex roots,\n$\\alpha$ is the \\emph{real} part (in the exponential) and $\\beta$ the\n\\emph{imaginary} part (inside the sine and cosine); swapping them is the classic\nsign trap."
+      }
+    },
+    {
+      "id": "9.7",
+      "title": "The Cauchy--Euler Equation",
+      "topics": "The Cauchy--Euler (equidimensional) equation $ax^2y'' + bxy' + cy = 0$ has powers of $x$ matching derivative orders. Try $y=x^m$.",
+      "formulas": [
+        {
+          "title": "Cauchy--Euler Root Cases",
+          "body": "Substituting $y=x^m$ gives the indicial equation $am(m-1)+bm+c=0$:\n\\begin{itemize}[leftmargin=1.4em, itemsep=3pt]\n    \\item \\textbf{Distinct} $m_1\\neq m_2$: \\quad $y = c_1 x^{m_1} + c_2 x^{m_2}$.\n    \\item \\textbf{Repeated} $m$: \\quad $y = (c_1 + c_2\\ln x)\\,x^{m}$.\n    \\item \\textbf{Complex} $m=\\alpha\\pm\\beta i$:\n          \\[ y = x^{\\alpha}\\big(c_1\\cos(\\beta\\ln x) + c_2\\sin(\\beta\\ln x)\\big). \\]\n\\end{itemize}"
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "9.8",
+      "title": "Higher-Order Linear Equations",
+      "topics": "An $n$th-order constant-coefficient equation has a degree-$n$ characteristic polynomial; each real root contributes an exponential, and a root of \\textbf{multiplicity} $k$ contributes $k$ independent terms.",
+      "formulas": [
+        {
+          "title": "Repeated Roots at Higher Order",
+          "body": "A root $r$ of multiplicity $k$ contributes\n\\[ e^{r x},\\; x e^{r x},\\; x^2 e^{r x},\\; \\ldots,\\; x^{k-1} e^{r x}, \\]\nand a complex pair $\\alpha\\pm\\beta i$ of multiplicity $k$ contributes the analogous\n$x^j e^{\\alpha x}\\cos\\beta x$ and $x^j e^{\\alpha x}\\sin\\beta x$ for $j=0,\\ldots,k-1$."
+        }
+      ],
+      "methodology": null,
+      "examples": [],
+      "concept": {
+        "title": "Unit 9 Key Takeaway",
+        "body": "The general solution of a homogeneous second-order linear equation is\n$\\textcolor{accentorange}{c_1 y_1 + c_2 y_2}$ for any\n\\textcolor{accentorange}{linearly independent} pair, which the\n\\textcolor{accentorange}{Wronskian} certifies and \\textcolor{accentorange}{Abel's\nidentity} guards. For constant coefficients the\n\\textcolor{accentorange}{characteristic roots} dictate the form ---\n\\textcolor{accentorange}{real-distinct}, \\textcolor{accentorange}{repeated}\n(carry the $x$), or \\textcolor{accentorange}{complex} ($e^{\\alpha x}$ times sines\nand cosines) --- and \\textcolor{accentorange}{reduction of order} recovers a second\nsolution from a first."
+      },
+      "warning": null
+    }
+  ],
+  "cheatTakeaway": {
+    "title": "Unit 9 Key Takeaway",
+    "body": "Every constant-coefficient solution is read straight off the\n\\textcolor{accentorange}{characteristic roots}: real-distinct roots give\n\\textcolor{accentorange}{$c_1 e^{r_1 x} + c_2 e^{r_2 x}$}, a repeated root carries\nthe factor $x$ as \\textcolor{accentorange}{$(c_1 + c_2 x)e^{rx}$}, and a complex\npair gives \\textcolor{accentorange}{$e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$}.\nThe \\textcolor{accentorange}{Wronskian} confirms independence,\n\\textcolor{accentorange}{Abel's identity} predicts it, and\n\\textcolor{accentorange}{reduction of order} recovers the missing partner ---\nexactly the $x^2\\ln x$ that the repeated Cauchy--Euler root demands."
+  },
+  "practice": {
+    "subtitle": "Practice Set: Problems and Complete Solutions",
+    "intro": "Work the following ten problems in order. They climb through the three characteristic-root cases --- real distinct, repeated, and complex conjugate --- then exercise the Wronskian, Abel's identity, reduction of order, the Cauchy--Euler equation, and a higher-order capstone. Solutions follow in Part III.",
+    "problems": [
+      "\\textbf{(Real distinct roots)} Solve $y'' - 5y' + 6y = 0$. Write the characteristic equation, factor it, and give the general solution.",
+      "\\textbf{(Repeated root)} Solve $y'' - 6y' + 9y = 0$. Identify the double root and explain why the factor $x$ appears in the second solution.",
+      "\\textbf{(Complex conjugate roots)} Solve $y'' + 4y' + 13y = 0$. Report the complex roots $\\alpha\\pm\\beta i$ and the real general solution.",
+      "\\textbf{(Real-root IVP)} Solve the initial value problem $y'' - y' - 2y = 0$, $y(0) = 1$, $y'(0) = 0$.",
+      "\\textbf{(Wronskian)} Compute the Wronskian of $y_1 = e^{2x}$ and $y_2 = e^{3x}$, and state what it certifies.",
+      "\\textbf{(Abel's identity)} For $y'' + 3y' + 2y = 0$, use Abel's formula to find the Wronskian up to a constant, then verify it directly from the fundamental solutions.",
+      "\\textbf{(Reduction of order)} The equation $x^2 y'' - 3x y' + 4y = 0$ has the solution $y_1 = x^2$. Use reduction of order to find a second, independent solution $y_2$.",
+      "\\textbf{(Cauchy--Euler)} Solve $x^2 y'' + 2x y' - 6y = 0$ for $x>0$.",
+      "\\textbf{(Repeated-root IVP)} Solve $y'' - 4y' + 4y = 0$, $y(0) = 1$, $y'(0) = 1$.",
+      "\\textbf{(Capstone, higher order)} Solve $y''' - 3y'' + 3y' - y = 0$. Identify the multiplicity of the characteristic root and write the general solution."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quad Try $y=e^{rx}$ to get the characteristic\nequation, then factor:\n\\[ \\textcolor{workpurple}{r^2 - 5r + 6 = (r-2)(r-3) = 0 \\;\\Rightarrow\\; r_1 = 2,\\; r_2 = 3.} \\]\nThe roots are real and distinct, so\n\\[ \\textcolor{workpurple}{y = c_1 e^{2x} + c_2 e^{3x}.} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 2.}\\quad The characteristic equation is a perfect\nsquare:\n\\[ \\textcolor{workpurple}{r^2 - 6r + 9 = (r-3)^2 = 0 \\;\\Rightarrow\\; r = 3 \\text{ (double)}.} \\]\nA double root supplies only one exponential $e^{3x}$; reduction of order furnishes\nthe second solution $x e^{3x}$, so\n\\[ \\textcolor{workpurple}{y = (c_1 + c_2 x)\\,e^{3x}.} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 3.}\\quad Complete the discriminant:\n\\[ \\textcolor{workpurple}{r = \\frac{-4 \\pm \\sqrt{16 - 52}}{2} = \\frac{-4 \\pm \\sqrt{-36}}{2} = -2 \\pm 3i.} \\]\nWith $\\alpha=-2$ and $\\beta=3$,\n\\[ \\textcolor{workpurple}{y = e^{-2x}\\big(c_1\\cos 3x + c_2\\sin 3x\\big).} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 4.}\\quad Characteristic equation\n$r^2 - r - 2 = (r-2)(r+1)=0$ gives $r=2,-1$, so\n$y = c_1 e^{2x} + c_2 e^{-x}$. Apply the initial conditions:\n\\[ \\textcolor{workpurple}{y(0) = c_1 + c_2 = 1, \\qquad y'(0) = 2c_1 - c_2 = 0.} \\]\nAdding the equations, $3c_1 = 1$, so\n\\[ \\textcolor{workpurple}{c_1 = \\tfrac{1}{3},\\quad c_2 = \\tfrac{2}{3}, \\qquad\n   y = \\tfrac{1}{3} e^{2x} + \\tfrac{2}{3} e^{-x}.} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 5.}\\quad With $y_1=e^{2x}$, $y_2=e^{3x}$:\n\\[ \\textcolor{workpurple}{W = y_1 y_2' - y_2 y_1' = e^{2x}\\cdot 3e^{3x} - e^{3x}\\cdot 2e^{2x} = (3-2)e^{5x} = e^{5x}.} \\]\nSince $e^{5x}\\neq 0$ for all $x$, the two solutions are \\textbf{linearly\nindependent} and $\\{e^{2x},e^{3x}\\}$ is a fundamental set.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 6.}\\quad Here $p(x)=3$, so Abel's formula gives\n\\[ \\textcolor{workpurple}{W(x) = C\\,\\exp\\!\\left(-\\int 3\\,dx\\right) = C\\,e^{-3x}.} \\]\nCheck directly: the roots of $r^2+3r+2=(r+1)(r+2)=0$ are $r=-1,-2$, so\n$y_1=e^{-x}$, $y_2=e^{-2x}$ and\n\\[ \\textcolor{workpurple}{W = e^{-x}(-2e^{-2x}) - e^{-2x}(-e^{-x}) = (-2+1)e^{-3x} = -e^{-3x},} \\]\nwhich matches $C e^{-3x}$ with $C=-1$.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 7.}\\quad Normalize to $y'' - \\tfrac{3}{x}y' + \\tfrac{4}{x^2}y = 0$,\nso $p(x) = -3/x$ and $e^{-\\int p\\,dx} = e^{\\int (3/x)\\,dx} = e^{3\\ln x} = x^3$. With\n$y_1=x^2$,\n\\[ \\textcolor{workpurple}{y_2 = y_1\\int \\frac{e^{-\\int p\\,dx}}{y_1^2}\\,dx\n   = x^2\\int \\frac{x^3}{x^4}\\,dx = x^2\\int \\frac{1}{x}\\,dx = x^2\\ln x.} \\]\nThe second independent solution is $y_2 = x^2\\ln x$ (the repeated-root\nCauchy--Euler form).\n\n\\medskip",
+      "\\noindent\\textbf{Solution 8.}\\quad Try $y=x^m$ in $x^2y''+2xy'-6y=0$. The indicial\nequation is\n\\[ \\textcolor{workpurple}{m(m-1) + 2m - 6 = m^2 + m - 6 = (m+3)(m-2) = 0 \\;\\Rightarrow\\; m = 2,\\,-3.} \\]\nThe roots are real and distinct, so for $x>0$\n\\[ \\textcolor{workpurple}{y = c_1 x^2 + c_2 x^{-3}.} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 9.}\\quad The characteristic equation\n$r^2 - 4r + 4 = (r-2)^2 = 0$ has the double root $r=2$, so\n$y = (c_1 + c_2 x)e^{2x}$. Differentiate:\n$y' = \\big(c_2 + 2(c_1 + c_2 x)\\big)e^{2x}$. Apply the conditions:\n\\[ \\textcolor{workpurple}{y(0) = c_1 = 1, \\qquad y'(0) = c_2 + 2c_1 = 1 \\;\\Rightarrow\\; c_2 = -1.} \\]\nTherefore\n\\[ \\textcolor{workpurple}{y = (1 - x)\\,e^{2x}.} \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution (Capstone).}\\quad The characteristic equation is a\nperfect cube:\n\\[ \\textcolor{workpurple}{r^3 - 3r^2 + 3r - 1 = (r-1)^3 = 0 \\;\\Rightarrow\\; r = 1 \\text{ (multiplicity 3)}.} \\]\nA triple root contributes $e^{x}$, $x e^{x}$, and $x^2 e^{x}$, so\n\\[ \\textcolor{workpurple}{y = (c_1 + c_2 x + c_3 x^2)\\,e^{x}.} \\]\n\n\\vspace{0.8em}"
+    ],
+    "takeaway": {
+      "title": "Unit 9 Key Takeaway",
+      "body": "Every constant-coefficient solution is read straight off the\n\\textcolor{accentorange}{characteristic roots}: real-distinct roots give\n\\textcolor{accentorange}{$c_1 e^{r_1 x} + c_2 e^{r_2 x}$}, a repeated root carries\nthe factor $x$ as \\textcolor{accentorange}{$(c_1 + c_2 x)e^{rx}$}, and a complex\npair gives \\textcolor{accentorange}{$e^{\\alpha x}(c_1\\cos\\beta x + c_2\\sin\\beta x)$}.\nThe \\textcolor{accentorange}{Wronskian} confirms independence,\n\\textcolor{accentorange}{Abel's identity} predicts it, and\n\\textcolor{accentorange}{reduction of order} recovers the missing partner ---\nexactly the $x^2\\ln x$ that the repeated Cauchy--Euler root demands."
+    }
+  }
+}

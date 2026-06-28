@@ -1,0 +1,154 @@
+{
+  "unit": "Unit 0: What are Differential Equations",
+  "unitNumber": 0,
+  "title": "What are Differential Equations",
+  "subtitle": "Builds the core mental model: equations whose unknowns are functions, and why they describe the changing world.",
+  "cheatSubtitle": "Condensed Cheat Sheet: What are Differential Equations",
+  "description": "Builds the core mental model: equations whose unknowns are functions, and why they describe the changing world.",
+  "atAGlance": {
+    "title": "Unit 0 at a Glance: Core Sub-Topics",
+    "summary": "This opening unit builds the core mental model of the whole course: a differential equation is an equation whose unknown is a \\emph{function}, tied to its own rates of change. Each sub-topic below sharpens that idea, moving from raw definition toward why these equations describe the changing world.",
+    "bullets": [
+      "\\textbf{What are Differential Equations} --- the unknown is a function, and the equation relates it to its own derivatives.",
+      "\\textbf{How Differential Equations Work} --- what it means for a function to be a solution, and why one equation yields a whole family of curves.",
+      "\\textbf{A Tourist's Guide} --- the vocabulary of order, linearity, ODE versus PDE, and the slope-field picture of a rate law.",
+      "\\textbf{Why You Are Learning Them} --- how laws about rates and forces become equations we can analyze, from growth to cooling."
+    ]
+  },
+  "modules": [
+    {
+      "id": "0.1",
+      "title": "What are Differential Equations",
+      "topics": "A \\emph{differential equation} is an equation whose unknown is a function and which relates that function to one or more of its own derivatives. This is the one structural fact that separates it from algebra --- in algebra you solve for a number, but here you solve for a whole function. The \\emph{order} of the equation is simply the highest derivative that appears.",
+      "formulas": [
+        {
+          "title": "Definition and Order",
+          "body": "A differential equation links an unknown function $y(x)$ to its derivatives:\n\\[\n    F\\!\\left(x,\\; y,\\; \\frac{dy}{dx},\\; \\frac{d^{2}y}{dx^{2}},\\; \\dots\\right) = 0.\n\\]\nThe \\textbf{order} is the highest derivative present. For example,\n$\\dfrac{dy}{dx} = 3y$ is \\emph{first order}, while $\\dfrac{d^{2}y}{dx^{2}} + 4y = 0$\nis \\emph{second order}."
+        }
+      ],
+      "methodology": null,
+      "examples": [
+        {
+          "title": "Worked Example 0.1: Read $\\frac{dy}{dx} = 3y$",
+          "setup": "\\textbf{Unknown.} The function $y(x)$, not the constant $3$ and not the input $x$.\\\\\n\\textbf{Order.} The highest derivative is the first derivative, so the equation\nis first order.\\\\\n\\textbf{Reading.} It says: find every function whose rate of change equals three\ntimes its own current value.",
+          "steps": []
+        }
+      ],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: The Unknown Is a Function, Not a Number",
+        "body": "The most common first-week mistake is hunting for a single number, as in\nalgebra. The unknown here is an entire function $y(x)$ --- a rule defined across\nits whole domain. A solution is satisfied at \\emph{every} point, not at one\nisolated value."
+      }
+    },
+    {
+      "id": "0.2",
+      "title": "How Differential Equations Work",
+      "topics": "To \\emph{solve} a differential equation is to find the function --- or family of functions --- that satisfies it for all inputs. You \\emph{check} a candidate by substituting it and its derivatives back in and confirming both sides agree everywhere. Because a first-order equation fixes only the slope at each point and not the starting height, its general solution carries one arbitrary constant, and an initial condition selects one curve from that family.",
+      "formulas": [
+        {
+          "title": "Solution, General versus Particular",
+          "body": "A function is a solution when substitution makes the equation hold for all $x$.\nThe \\textbf{general solution} of a first-order equation carries one free\nconstant; an \\textbf{initial condition} $y(x_0) = y_0$ pins it down:\n\\[\n    y = F(x) + C\n    \\;\\;\\xrightarrow{\\;y(x_0)=y_0\\;}\\;\\;\n    \\text{one particular curve.}\n\\]"
+        }
+      ],
+      "methodology": {
+        "title": "Algorithm: Verifying a Candidate Solution",
+        "steps": [
+          "Compute the derivatives of the candidate that the equation requires.",
+          "Substitute the candidate and those derivatives into the equation.",
+          "Simplify the left-hand side and the right-hand side independently.",
+          "Confirm the two sides are equal as an identity in $x$ --- true for every input, not just one point."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example 0.2: Verify $y = e^{2x}$ solves $\\frac{dy}{dx} = 2y$",
+          "setup": "\\textbf{Step 1.} Differentiate the candidate:\n\\[ \\frac{dy}{dx} = 2e^{2x}. \\]\n\\textbf{Step 2.} Compute the right side from the candidate:\n\\[ 2y = 2e^{2x}. \\]\n\\textbf{Step 3.} Both sides equal $2e^{2x}$ for all $x$, so $y = e^{2x}$ is a\nsolution.",
+          "steps": []
+        }
+      ],
+      "concept": null,
+      "warning": null
+    },
+    {
+      "id": "0.3",
+      "title": "A Tourist's Guide to Differential Equations",
+      "topics": "Before solving anything, you learn to classify. An equation is an \\emph{ordinary} differential equation (ODE) when its unknown depends on a single independent variable, and \\emph{partial} (PDE) when it depends on several. It is \\emph{linear} when the unknown and its derivatives appear only to the first power and are never multiplied together. Geometrically, a first-order equation is a \\emph{slope field} --- a direction mark at every point that solution curves must follow.",
+      "formulas": [
+        {
+          "title": "Classification Vocabulary",
+          "body": "\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item \\textbf{Order} --- the highest derivative present.\n    \\item \\textbf{ODE vs PDE} --- one independent variable versus several.\n    \\item \\textbf{Linear} --- $y$ and its derivatives appear to the first power\n          only, with no products such as $y\\,y'$ and no terms like $\\sin y$.\n    \\item \\textbf{Slope field} --- the picture $\\dfrac{dy}{dx} = f(x,y)$ paints,\n          assigning a direction to every point of the plane.\n\\end{itemize}"
+        }
+      ],
+      "methodology": null,
+      "examples": [
+        {
+          "title": "Worked Example 0.3: Classify three equations",
+          "setup": "\\textbf{(a)} $\\dfrac{dy}{dx} + y = x$ --- first order, linear, ODE.\\\\\n\\textbf{(b)} $\\dfrac{d^{2}\\theta}{dt^{2}} + \\sin\\theta = 0$ --- second order,\n\\emph{nonlinear} (the $\\sin\\theta$ term), ODE.\\\\\n\\textbf{(c)} $\\dfrac{\\partial u}{\\partial t} = \\dfrac{\\partial^{2} u}{\\partial x^{2}}$\n--- a PDE, since $u$ depends on both $t$ and $x$.",
+          "steps": []
+        }
+      ],
+      "concept": null,
+      "warning": {
+        "title": "Common Pitfall: Order Is Not Term Count or Degree",
+        "body": "The order is set \\emph{only} by the highest derivative --- not by the number of\nterms, the size of the coefficients, or the power to which the function is\nraised. The equation $\\left(\\dfrac{dy}{dx}\\right)^{3} = y$ is still\n\\emph{first order}; the cube is a degree, not an order."
+      }
+    },
+    {
+      "id": "0.4",
+      "title": "Why You Are Learning Differential Equations",
+      "topics": "Differential equations are the language of science because most physical laws describe \\emph{how} a quantity changes, which is exactly what a derivative measures. To model a phenomenon you identify the changing quantity and what its rate of change depends on. The same handful of rate laws --- a rate proportional to an amount, or to a difference --- reappear across growth, decay, and cooling.",
+      "formulas": [
+        {
+          "title": "Standard Models",
+          "body": "A rate proportional to the current amount gives exponential behavior:\n\\[\n    \\frac{dP}{dt} = kP \\;\\Longrightarrow\\; P(t) = P_{0}e^{kt}\n    \\qquad (k>0 \\text{ grows},\\; k<0 \\text{ decays}).\n\\]\nRadioactive decay and Newton's law of cooling share the structure:\n\\[\n    \\frac{dN}{dt} = -\\lambda N,\n    \\qquad\n    \\frac{dT}{dt} = -k\\,(T - T_{s}).\n\\]\nNewton's second law writes acceleration as a second derivative of position:\n$F = m\\dfrac{d^{2}x}{dt^{2}}$."
+        }
+      ],
+      "methodology": null,
+      "examples": [
+        {
+          "title": "Worked Example 0.4: Set up a growth model",
+          "setup": "\\textbf{Step 1.} A population whose growth rate is proportional to its size\nobeys\n\\[ \\frac{dP}{dt} = kP. \\]\n\\textbf{Step 2.} Check that $P(t) = P_{0}e^{kt}$ fits: its derivative is\n$kP_{0}e^{kt} = kP$, matching the equation, and $P(0) = P_{0}$ sets the initial\nsize. The single rate law captures the whole exponential family.",
+          "steps": []
+        }
+      ],
+      "concept": null,
+      "warning": null
+    }
+  ],
+  "cheatTakeaway": {
+    "title": "Unit 0 Key Takeaway",
+    "body": "The whole unit rests on one shift in viewpoint --- the unknown is a\n\\textcolor{accentorange}{function}, and the equation pins down its\n\\textcolor{accentorange}{rate of change}. You \\textcolor{accentorange}{verify} a\ncandidate by substituting it and its derivatives and checking both sides agree\nfor all $x$, and you pass from the \\textcolor{accentorange}{general solution} to\none particular curve with an \\textcolor{accentorange}{initial condition}. Read\nthe structure first --- order, linearity, and what is changing --- and every\nlater technique in the course has a place to land."
+  },
+  "practice": {
+    "subtitle": "Practice Set: Problems and Complete Solutions",
+    "intro": "Work the following ten problems in order. They are graded from reading and classifying an equation, through verifying candidate solutions and applying initial conditions, up to two full physical models. Complete solutions follow in Part III.",
+    "problems": [
+      "Verify that $y = e^{3x}$ is a solution of $\\dfrac{dy}{dx} = 3y$.",
+      "State the order of each equation: \\textbf{(a)} $\\dfrac{dy}{dx} + y^{2} = x$, \\quad \\textbf{(b)} $\\dfrac{d^{2}y}{dx^{2}} + 3\\dfrac{dy}{dx} + 2y = 0$, \\quad \\textbf{(c)} $\\dfrac{d^{3}y}{dx^{3}} + \\left(\\dfrac{dy}{dx}\\right)^{5} = \\sin x$.",
+      "Classify each equation as linear or nonlinear, and name the offending term when it is nonlinear: \\textbf{(a)} $\\dfrac{dy}{dx} + x^{2}y = e^{x}$, \\quad \\textbf{(b)} $\\dfrac{dy}{dx} = y^{2}$, \\quad \\textbf{(c)} $\\dfrac{d^{2}y}{dx^{2}} + \\sin y = 0$.",
+      "The general solution of $\\dfrac{dy}{dx} = 2x$ is $y = x^{2} + C$. Verify it, then find the particular solution satisfying $y(1) = 5$.",
+      "Show that $y = Ce^{-2x}$ satisfies $\\dfrac{dy}{dx} + 2y = 0$ for every constant $C$, then find the $C$ for which $y(0) = 4$.",
+      "Verify that $y = \\cos 2x$ is a solution of the second-order equation $\\dfrac{d^{2}y}{dx^{2}} + 4y = 0$.",
+      "Classify each as an ordinary or a partial differential equation: \\textbf{(a)} $\\dfrac{dy}{dt} = ky$, \\quad \\textbf{(b)} $\\dfrac{\\partial u}{\\partial t} = \\dfrac{\\partial^{2}u}{\\partial x^{2}}$, \\quad \\textbf{(c)} $\\dfrac{d^{2}x}{dt^{2}} + x = 0$.",
+      "The general solution of $\\dfrac{dy}{dx} = x + y$ is $y = Ce^{x} - x - 1$. Verify it, then find the particular solution with $y(0) = 2$.",
+      "\\textbf{(Application)} A population grows at a rate proportional to its size, $\\dfrac{dP}{dt} = kP$, with $P(0) = 500$. If the population doubles in $4$ hours, find $k$ and write $P(t)$ explicitly.",
+      "\\textbf{(Application)} A radioactive sample obeys $\\dfrac{dN}{dt} = -\\lambda N$ with $N(0) = N_{0}$. Verify that $N(t) = N_{0}e^{-\\lambda t}$ is a solution, then find $\\lambda$ given a half-life of $10$ years."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quad Differentiate the candidate and compare both\nsides.\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} = 3e^{3x}} \\qquad\\text{and}\\qquad\n   \\textcolor{workpurple}{3y = 3e^{3x}}. \\]\nBoth sides equal $\\textcolor{workpurple}{3e^{3x}}$ for all $x$, so $y = e^{3x}$\nsatisfies the equation.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 2.}\\quad The order is the highest derivative present.\n\\[ \\textcolor{workpurple}{\\text{(a) first order}}, \\quad\n   \\textcolor{workpurple}{\\text{(b) second order}}, \\quad\n   \\textcolor{workpurple}{\\text{(c) third order}}. \\]\nIn (c) the fifth \\emph{power} on $\\frac{dy}{dx}$ is a degree, not an order ---\nthe highest derivative is still the third.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 3.}\\quad An equation is linear when $y$ and its\nderivatives appear only to the first power and are never composed inside another\nfunction.\n\\[ \\textcolor{workpurple}{\\text{(a) linear}}, \\quad\n   \\textcolor{workpurple}{\\text{(b) nonlinear: the term } y^{2}}, \\quad\n   \\textcolor{workpurple}{\\text{(c) nonlinear: the term } \\sin y}. \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 4.}\\quad Differentiate to verify, then apply the\ncondition.\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big(x^{2} + C\\big) = 2x} \\qquad\\checkmark \\]\nApply $y(1) = 5$:\n\\[ \\textcolor{workpurple}{5 = (1)^{2} + C \\;\\Longrightarrow\\; C = 4}. \\]\nThe particular solution is $\\textcolor{workpurple}{y = x^{2} + 4}$.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 5.}\\quad Differentiate $y = Ce^{-2x}$ and substitute.\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} = -2Ce^{-2x}} \\]\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} + 2y = -2Ce^{-2x} + 2Ce^{-2x} = 0} \\qquad\\checkmark \\]\nThe equation holds for every $C$. Apply $y(0) = 4$:\n\\[ \\textcolor{workpurple}{y(0) = C = 4 \\;\\Longrightarrow\\; y = 4e^{-2x}}. \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 6.}\\quad Differentiate twice and substitute.\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} = -2\\sin 2x}, \\qquad\n   \\textcolor{workpurple}{\\frac{d^{2}y}{dx^{2}} = -4\\cos 2x} \\]\n\\[ \\textcolor{workpurple}{\\frac{d^{2}y}{dx^{2}} + 4y = -4\\cos 2x + 4\\cos 2x = 0} \\qquad\\checkmark \\]\nSo $y = \\cos 2x$ is a solution of the second-order equation.\n\n\\medskip",
+      "\\noindent\\textbf{Solution 7.}\\quad An ordinary equation has a single independent\nvariable; a partial equation has several.\n\\[ \\textcolor{workpurple}{\\text{(a) ODE (only } t)}, \\quad\n   \\textcolor{workpurple}{\\text{(b) PDE (}t \\text{ and } x)}, \\quad\n   \\textcolor{workpurple}{\\text{(c) ODE (only } t)}. \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 8.}\\quad Differentiate $y = Ce^{x} - x - 1$ and check\nagainst $x + y$.\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} = Ce^{x} - 1} \\]\n\\[ \\textcolor{workpurple}{x + y = x + \\big(Ce^{x} - x - 1\\big) = Ce^{x} - 1} \\qquad\\checkmark \\]\nThe two agree, so the family solves the equation. Apply $y(0) = 2$:\n\\[ \\textcolor{workpurple}{2 = Ce^{0} - 0 - 1 = C - 1 \\;\\Longrightarrow\\; C = 3} \\]\n\\[ \\textcolor{workpurple}{y = 3e^{x} - x - 1}. \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 9.}\\quad A rate proportional to size gives exponential\ngrowth, $\\textcolor{workpurple}{P(t) = P_{0}e^{kt}}$, and here $P_{0} = 500$:\n\\[ \\textcolor{workpurple}{P(t) = 500\\,e^{kt}}. \\]\nDoubling in $4$ hours means $P(4) = 1000$:\n\\[ \\textcolor{workpurple}{1000 = 500\\,e^{4k} \\;\\Longrightarrow\\; e^{4k} = 2 \\;\\Longrightarrow\\; 4k = \\ln 2} \\]\n\\[ \\textcolor{workpurple}{k = \\frac{\\ln 2}{4}}. \\]\nHence\n\\[ \\textcolor{workpurple}{P(t) = 500\\,e^{(\\ln 2 / 4)\\,t} = 500\\cdot 2^{\\,t/4}}. \\]\n\n\\medskip",
+      "\\noindent\\textbf{Solution 10.}\\quad First verify the candidate by\ndifferentiating:\n\\[ \\textcolor{workpurple}{\\frac{dN}{dt} = -\\lambda N_{0}e^{-\\lambda t} = -\\lambda N} \\qquad\\checkmark \\]\nso $N(t) = N_{0}e^{-\\lambda t}$ solves the decay law. A half-life of $10$ years\nmeans $N(10) = \\tfrac{1}{2}N_{0}$:\n\\[ \\textcolor{workpurple}{\\tfrac{1}{2}N_{0} = N_{0}e^{-10\\lambda} \\;\\Longrightarrow\\; e^{-10\\lambda} = \\tfrac{1}{2}} \\]\n\\[ \\textcolor{workpurple}{-10\\lambda = -\\ln 2 \\;\\Longrightarrow\\; \\lambda = \\frac{\\ln 2}{10} \\text{ per year}}. \\]\n\n\\vspace{0.8em}"
+    ],
+    "takeaway": {
+      "title": "Unit 0 Key Takeaway",
+      "body": "The whole unit rests on one shift in viewpoint --- the unknown is a\n\\textcolor{accentorange}{function}, and the equation pins down its\n\\textcolor{accentorange}{rate of change}. You \\textcolor{accentorange}{verify} a\ncandidate by substituting it and its derivatives and checking both sides agree\nfor all $x$, and you pass from the \\textcolor{accentorange}{general solution} to\none particular curve with an \\textcolor{accentorange}{initial condition}. Read\nthe structure first --- order, linearity, and what is changing --- and every\nlater technique in the course has a place to land."
+    }
+  }
+}
