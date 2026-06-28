@@ -251,7 +251,7 @@
   ],
   "practice": {
     "subtitle": "Practice Set: Problems and Complete Solutions",
-    "intro": "Work the following ten problems in order. They climb through linear combinations and bases, the matrix of a transformation, the determinant and its geometric meaning, the similarity transform, the characteristic equation and the trace/determinant shortcut, eigenvectors, the eigen-ansatz, and a capstone that solves a coupled system $\\mathbf{x}'=A\\mathbf{x}$ end to end. Solutions follow in Part III.",
+    "intro": "Work the following ten problems in order. They climb through linear combinations and bases, the matrix of a transformation, the determinant and its geometric meaning, the similarity transform, the characteristic equation and the trace/determinant shortcut, eigenvectors, the eigen-ansatz, and a capstone that solves a coupled system $\\mathbf{x}'=A\\mathbf{x}$ end to end.",
     "problems": [
       "\\textbf{(Linear combination)} Compute the linear combination $2(1,0) + 3(0,1)$.",
       "\\textbf{(Basis test)} State the two conditions a set must meet to be a basis, then decide whether $(1,0)$ and $(2,0)$ form a basis of $\\mathbb{R}^2$.",

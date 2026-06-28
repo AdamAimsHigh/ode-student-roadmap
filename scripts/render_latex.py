@@ -190,11 +190,21 @@ def render_module_condensed(module: dict) -> str:
 # ---------------------------------------------------------------------------
 # Practice blocks (shared by the standalone Practice Set and the master guide)
 # ---------------------------------------------------------------------------
-def render_practice_problems(practice: dict) -> list[str]:
-    """The intro paragraph plus the numbered list of practice problems."""
+def render_practice_problems(practice: dict, mode: str) -> list[str]:
+    """The intro paragraph plus the numbered list of practice problems.
+
+    The pointer to the solutions is mode-dependent: the standalone Practice Set
+    has a labeled ``Part III`` solutions section, whereas the merged Reference
+    Guide (``master``) does not, so it must not name a "Part III" that isn't there.
+    """
     out = []
     if practice.get("intro"):
-        out.append(practice["intro"])
+        solutions_pointer = (
+            "Solutions follow in Part III."
+            if mode == "practice"
+            else "Complete solutions for all problems follow."
+        )
+        out.append(f"{practice['intro']} {solutions_pointer}")
         out.append("")
     out.append("\\begin{enumerate}[leftmargin=2em]")
     for problem in practice["problems"]:
@@ -252,7 +262,7 @@ def render_master(data: dict) -> str:
         out.append("\\addcontentsline{toc}{section}{Practice Problems}")
         out.append("\\section*{Practice Problems}")
         out.append("")
-        out += render_practice_problems(practice)
+        out += render_practice_problems(practice, "master")
         out.append("\\clearpage")
         out.append("\\phantomsection")
         out.append("\\addcontentsline{toc}{section}{Complete Solutions}")
@@ -311,7 +321,7 @@ def render_practice(data: dict) -> str:
     out.append("\\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}")
     out.append("\\section*{Part II --- Review Guide: Practice Problems}")
     out.append("")
-    out += render_practice_problems(practice)
+    out += render_practice_problems(practice, "practice")
     # Part III --- solutions.
     out.append("\\clearpage")
     out.append("\\phantomsection")
