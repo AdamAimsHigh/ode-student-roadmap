@@ -462,6 +462,22 @@ const UNIT_0_SANDBOXES = [
         title: "The ODE vs. PDE Independent Variable Sandbox",
         blurb: "Contrast total derivatives along a 2D line against multi-dimensional surface gradients to visually grasp independent variable scaling.",
         render: renderVariableSpaceSandbox
+    },
+    {
+        id: "unit_0_vector_grid_tracer",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The Primitive Vector Grid Tracer",
+        blurb: "Probe a blank coordinate field to sample localized derivative vectors and drop custom tracer particles to observe continuous trajectory paths.",
+        render: renderVectorGridTracerSandbox
+    },
+    {
+        id: "unit_0_state_space_topology",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "State Space Topology Mapper",
+        blurb: "Manipulate the inner system coefficients of a first-order state machine to watch global parameter coordinates warp in real time.",
+        render: renderStateSpaceTopologySandbox
     }
 ];
 
@@ -1419,6 +1435,371 @@ function renderVariableSpaceSandbox(body) {
         requestAnimationFrame(u0_s3_frame);
     }
     requestAnimationFrame(u0_s3_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 4 - The Primitive Vector Grid Tracer (u0_s4_)
+
+   A deliberately blank coordinate field for dy/dx = f(x, y). The slope field is
+   NOT pre-drawn: the student probes it. Hovering anywhere shows the live local
+   derivative vector and its numeric slope at that exact point; clicking drops a
+   tracer seed whose streamline is integrated both backward and forward along the
+   field (arc-length stepping, so vertical slopes never blow up), letting students
+   lay down multiple distinct trajectories and map the field by hand. A small
+   selector swaps f, and every existing tracer re-integrates under the new field.
+   --------------------------------------------------------------------------- */
+function renderVectorGridTracerSandbox(body) {
+    const u0_s4_fields = [
+        { value: "xmy", label: "x − y", fn: function (x, y) { return x - y; } },
+        { value: "negy", label: "−y", fn: function (x, y) { return -y; } },
+        { value: "circ", label: "−x ⁄ y", fn: function (x, y) { return -x / y; } },
+        { value: "xy", label: "x·y ⁄ 4", fn: function (x, y) { return x * y / 4; } }
+    ];
+    const u0_s4_state = {
+        fKey: "xmy",
+        seeds: [],          // dropped tracer origins, in world coordinates
+        hover: null         // {x, y} world coordinates of the cursor, or null
+    };
+
+    function u0_s4_f(x, y) {
+        for (let i = 0; i < u0_s4_fields.length; i++) {
+            if (u0_s4_fields[i].value === u0_s4_state.fKey) return u0_s4_fields[i].fn(x, y);
+        }
+        return 0;
+    }
+
+    const u0_s4_intro = document.createElement("p");
+    u0_s4_intro.className = "checkpoint-intro";
+    u0_s4_intro.textContent = "Hover to sample the local slope vector dy/dx = f(x, y). Click to drop a tracer that flows along the field in both directions; drop several to map the field by hand.";
+    body.appendChild(u0_s4_intro);
+
+    // Field selector.
+    u0SandboxToggleGroup(body, "Field  dy/dx = f(x, y)",
+        u0_s4_fields.map(function (f) { return { value: f.value, label: f.label }; }),
+        function () { return u0_s4_state.fKey; },
+        function (val) { u0_s4_state.fKey = val; });
+
+    const u0_s4_canvas = document.createElement("canvas");
+    u0_s4_canvas.width = 480;
+    u0_s4_canvas.height = 480;
+    u0_s4_canvas.className = "math-canvas";
+    u0_s4_canvas.style.cursor = "crosshair";
+    body.appendChild(u0_s4_canvas);
+    const u0_s4_ctx = u0_s4_canvas.getContext("2d");
+
+    const u0_s4_clearBtn = document.createElement("button");
+    u0_s4_clearBtn.type = "button";
+    u0_s4_clearBtn.className = "checkpoint-begin-btn";
+    u0_s4_clearBtn.textContent = "Clear tracers";
+    u0_s4_clearBtn.addEventListener("click", function () { u0_s4_state.seeds = []; });
+    body.appendChild(u0_s4_clearBtn);
+
+    const u0_s4_xMin = -6, u0_s4_xMax = 6, u0_s4_yMin = -6, u0_s4_yMax = 6;
+    function u0_s4_pxX(x) { return (x - u0_s4_xMin) / (u0_s4_xMax - u0_s4_xMin) * u0_s4_canvas.width; }
+    function u0_s4_pyY(y) { return u0_s4_canvas.height - (y - u0_s4_yMin) / (u0_s4_yMax - u0_s4_yMin) * u0_s4_canvas.height; }
+    function u0_s4_worldX(px) { return u0_s4_xMin + px / u0_s4_canvas.width * (u0_s4_xMax - u0_s4_xMin); }
+    function u0_s4_worldY(py) { return u0_s4_yMin + (u0_s4_canvas.height - py) / u0_s4_canvas.height * (u0_s4_yMax - u0_s4_yMin); }
+
+    // Integrate the streamline through a seed by arc length, both directions, so a
+    // steep or infinite slope is handled gracefully via the normalized tangent.
+    function u0_s4_streamline(seed) {
+        function march(dir) {
+            const out = [];
+            let x = seed.x, y = seed.y;
+            const ds = 0.06 * dir;
+            for (let i = 0; i < 800; i++) {
+                const m = u0_s4_f(x, y);
+                if (!isFinite(m)) break;
+                const inv = 1 / Math.sqrt(1 + m * m);
+                x += ds * inv;
+                y += ds * m * inv;
+                if (!isFinite(x) || !isFinite(y)) break;
+                if (x < u0_s4_xMin || x > u0_s4_xMax || y < u0_s4_yMin || y > u0_s4_yMax) break;
+                out.push({ x: x, y: y });
+            }
+            return out;
+        }
+        return march(-1).reverse().concat([{ x: seed.x, y: seed.y }], march(1));
+    }
+
+    function u0_s4_draw() {
+        const ctx = u0_s4_ctx;
+        const W = u0_s4_canvas.width, H = u0_s4_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const alt = u0SandboxColor("--success-color", "#1b7a43");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Unit grid (blank field: no slope marks, just the coordinate lattice).
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        for (let gx = u0_s4_xMin; gx <= u0_s4_xMax; gx++) {
+            const X = u0_s4_pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, 0); ctx.lineTo(X, H); ctx.stroke();
+        }
+        for (let gy = u0_s4_yMin; gy <= u0_s4_yMax; gy++) {
+            const Y = u0_s4_pyY(gy);
+            ctx.beginPath(); ctx.moveTo(0, Y); ctx.lineTo(W, Y); ctx.stroke();
+        }
+        // Axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(0, u0_s4_pyY(0)); ctx.lineTo(W, u0_s4_pyY(0));
+        ctx.moveTo(u0_s4_pxX(0), 0); ctx.lineTo(u0_s4_pxX(0), H);
+        ctx.stroke();
+
+        // Tracers: each seed's streamline under the current field. Alternate two
+        // theme colours so distinct paths stay legible.
+        u0_s4_state.seeds.forEach(function (seed, i) {
+            const line = u0_s4_streamline(seed);
+            ctx.strokeStyle = (i % 2 === 0) ? accent : alt;
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            let started = false;
+            line.forEach(function (p) {
+                const sx = u0_s4_pxX(p.x), sy = u0_s4_pyY(p.y);
+                if (started) ctx.lineTo(sx, sy); else { ctx.moveTo(sx, sy); started = true; }
+            });
+            ctx.stroke();
+            // Mark the seed itself.
+            ctx.fillStyle = (i % 2 === 0) ? accent : alt;
+            ctx.beginPath();
+            ctx.arc(u0_s4_pxX(seed.x), u0_s4_pyY(seed.y), 4, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+
+        // Hover probe: the live local derivative vector and its readout.
+        if (u0_s4_state.hover) {
+            const wx = u0_s4_state.hover.x, wy = u0_s4_state.hover.y;
+            const m = u0_s4_f(wx, wy);
+            const sx = u0_s4_pxX(wx), sy = u0_s4_pyY(wy);
+            if (isFinite(m)) {
+                const inv = 1 / Math.sqrt(1 + m * m);
+                const len = 34; // pixels each side of the cursor
+                const dxp = len * inv;
+                const dyp = -len * m * inv; // screen y is inverted
+                u0SandboxArrow(ctx, sx - dxp, sy - dyp, sx + dxp, sy + dyp, warm, 2.5);
+            }
+            ctx.fillStyle = text;
+            ctx.beginPath();
+            ctx.arc(sx, sy, 3.5, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.font = "13px sans-serif";
+            ctx.textAlign = "left";
+            const label = "dy/dx = " + (isFinite(m) ? m.toFixed(2) : "∞")
+                + "   at (" + wx.toFixed(1) + ", " + wy.toFixed(1) + ")";
+            let tx = sx + 12, ty = sy - 12;
+            if (tx > W - 200) tx = sx - 200;
+            if (ty < 16) ty = sy + 22;
+            ctx.fillStyle = bg;
+            ctx.fillRect(tx - 4, ty - 13, 196, 18);
+            ctx.fillStyle = warm;
+            ctx.fillText(label, tx, ty);
+        }
+
+        // Count badge.
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(u0_s4_state.seeds.length + " tracer" + (u0_s4_state.seeds.length === 1 ? "" : "s"), 12, H - 12);
+    }
+
+    // Map a pointer event onto canvas-internal pixels (the element is scaled to
+    // 100% width by .math-canvas, so the rect and the bitmap differ).
+    function u0_s4_eventWorld(evt) {
+        const rect = u0_s4_canvas.getBoundingClientRect();
+        const px = (evt.clientX - rect.left) * (u0_s4_canvas.width / rect.width);
+        const py = (evt.clientY - rect.top) * (u0_s4_canvas.height / rect.height);
+        return { x: u0_s4_worldX(px), y: u0_s4_worldY(py) };
+    }
+
+    u0_s4_canvas.addEventListener("mousemove", function (evt) {
+        u0_s4_state.hover = u0_s4_eventWorld(evt);
+    });
+    u0_s4_canvas.addEventListener("mouseleave", function () {
+        u0_s4_state.hover = null;
+    });
+    u0_s4_canvas.addEventListener("click", function (evt) {
+        u0_s4_state.seeds.push(u0_s4_eventWorld(evt));
+    });
+
+    function u0_s4_frame() {
+        if (!document.body.contains(u0_s4_canvas)) return; // stop after navigation
+        u0_s4_draw();
+        requestAnimationFrame(u0_s4_frame);
+    }
+    requestAnimationFrame(u0_s4_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 5 - State Space Topology Mapper (u0_s5_)
+
+   A 2D phase portrait of the linear first-order system
+       x' = k·x − y
+       y' = x + k·y
+   whose eigenvalues k ± i make the parameter dial k a direct topology control:
+   k < 0 is a stable inward spiral, k = 0 is a closed-orbit centre, k > 0 is an
+   unstable outward spiral. Dragging the dial rescales and reorients every grid
+   vector live, and a cloud of flowing tracer particles makes the global warp of
+   the state space visible in motion.
+   --------------------------------------------------------------------------- */
+function renderStateSpaceTopologySandbox(body) {
+    const u0_s5_state = { k: -0.3, particles: [] };
+
+    const u0_s5_intro = document.createElement("p");
+    u0_s5_intro.className = "checkpoint-intro";
+    u0_s5_intro.textContent = "Turn the k dial to warp the whole state space of x' = k·x − y, y' = x + k·y. Watch the vectors and the drifting particles switch between an inward spiral, a closed orbit, and an outward spiral.";
+    body.appendChild(u0_s5_intro);
+
+    const u0_s5_canvas = document.createElement("canvas");
+    u0_s5_canvas.width = 480;
+    u0_s5_canvas.height = 480;
+    u0_s5_canvas.className = "math-canvas";
+    body.appendChild(u0_s5_canvas);
+    const u0_s5_ctx = u0_s5_canvas.getContext("2d");
+
+    // Regime readout chip.
+    const u0_s5_regime = document.createElement("div");
+    u0_s5_regime.style.fontFamily = "Consolas, Monaco, monospace";
+    u0_s5_regime.style.fontSize = "0.95rem";
+    u0_s5_regime.style.fontWeight = "700";
+    u0_s5_regime.style.padding = "0.55rem 0.8rem";
+    u0_s5_regime.style.margin = "0 0 0.6rem";
+    u0_s5_regime.style.background = "var(--bg-color)";
+    u0_s5_regime.style.border = "1px solid var(--panel-border)";
+    u0_s5_regime.style.borderRadius = "8px";
+    u0_s5_regime.style.color = "var(--accent-color)";
+    body.appendChild(u0_s5_regime);
+
+    // The k dial.
+    const u0_s5_sliderRow = document.createElement("div");
+    u0_s5_sliderRow.className = "slider-row";
+    const u0_s5_sliderLabel = document.createElement("span");
+    u0_s5_sliderLabel.className = "slider-label";
+    u0_s5_sliderLabel.textContent = "k =";
+    const u0_s5_sliderInput = document.createElement("input");
+    u0_s5_sliderInput.type = "range";
+    u0_s5_sliderInput.min = "-1.5";
+    u0_s5_sliderInput.max = "1.5";
+    u0_s5_sliderInput.step = "0.01";
+    u0_s5_sliderInput.value = String(u0_s5_state.k);
+    const u0_s5_sliderReadout = document.createElement("span");
+    u0_s5_sliderReadout.className = "slider-readout";
+    u0_s5_sliderReadout.textContent = u0_s5_state.k.toFixed(2);
+    u0_s5_sliderInput.addEventListener("input", function () {
+        u0_s5_state.k = parseFloat(u0_s5_sliderInput.value);
+        u0_s5_sliderReadout.textContent = u0_s5_state.k.toFixed(2);
+    });
+    u0_s5_sliderRow.appendChild(u0_s5_sliderLabel);
+    u0_s5_sliderRow.appendChild(u0_s5_sliderInput);
+    u0_s5_sliderRow.appendChild(u0_s5_sliderReadout);
+    body.appendChild(u0_s5_sliderRow);
+
+    const u0_s5_R = 4; // world half-extent in x and y
+    function u0_s5_pxX(x) { return (x + u0_s5_R) / (2 * u0_s5_R) * u0_s5_canvas.width; }
+    function u0_s5_pyY(y) { return u0_s5_canvas.height - (y + u0_s5_R) / (2 * u0_s5_R) * u0_s5_canvas.height; }
+
+    function u0_s5_vel(x, y) {
+        const k = u0_s5_state.k;
+        return { u: k * x - y, v: x + k * y };
+    }
+
+    // Seed the drifting particle cloud across the field.
+    function u0_s5_spawn() {
+        return {
+            x: (Math.random() * 2 - 1) * u0_s5_R,
+            y: (Math.random() * 2 - 1) * u0_s5_R,
+            age: Math.random() * 120
+        };
+    }
+    for (let i = 0; i < 90; i++) u0_s5_state.particles.push(u0_s5_spawn());
+
+    function u0_s5_regimeText() {
+        const k = u0_s5_state.k;
+        if (k < -0.04) return "Stable spiral · trajectories spiral inward (k < 0)";
+        if (k > 0.04) return "Unstable spiral · trajectories spiral outward (k > 0)";
+        return "Centre · closed orbits, neither growing nor decaying (k ≈ 0)";
+    }
+
+    function u0_s5_draw() {
+        const ctx = u0_s5_ctx;
+        const W = u0_s5_canvas.width, H = u0_s5_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, u0_s5_pyY(0)); ctx.lineTo(W, u0_s5_pyY(0));
+        ctx.moveTo(u0_s5_pxX(0), 0); ctx.lineTo(u0_s5_pxX(0), H);
+        ctx.stroke();
+
+        // Grid of field vectors, length scaled by local magnitude (clamped),
+        // opacity rising with magnitude so the warp reads at a glance.
+        const step = 1.0;
+        const pxPerWorld = W / (2 * u0_s5_R);
+        for (let gx = -u0_s5_R + 0.5; gx <= u0_s5_R; gx += step) {
+            for (let gy = -u0_s5_R + 0.5; gy <= u0_s5_R; gy += step) {
+                const f = u0_s5_vel(gx, gy);
+                const mag = Math.sqrt(f.u * f.u + f.v * f.v);
+                if (mag < 1e-4) continue;
+                const draw = Math.min(mag, 2.2) * 0.42 * pxPerWorld; // clamp visual length
+                const ux = f.u / mag, uy = f.v / mag;
+                const x0 = u0_s5_pxX(gx), y0 = u0_s5_pyY(gy);
+                const x1 = x0 + ux * draw, y1 = y0 - uy * draw;
+                ctx.globalAlpha = 0.25 + 0.55 * Math.min(mag / 3, 1);
+                u0SandboxArrow(ctx, x0, y0, x1, y1, accent, 1.8);
+            }
+        }
+        ctx.globalAlpha = 1;
+
+        // Drifting tracer particles integrate the system, fading with age and
+        // respawning, so the topology is alive rather than static.
+        const dt = 0.03;
+        u0_s5_state.particles.forEach(function (p) {
+            const f = u0_s5_vel(p.x, p.y);
+            p.x += f.u * dt;
+            p.y += f.v * dt;
+            p.age += 1;
+            if (p.age > 220 || Math.abs(p.x) > u0_s5_R || Math.abs(p.y) > u0_s5_R) {
+                const fresh = u0_s5_spawn();
+                p.x = fresh.x; p.y = fresh.y; p.age = 0;
+            }
+            ctx.globalAlpha = 0.85;
+            ctx.fillStyle = warm;
+            ctx.beginPath();
+            ctx.arc(u0_s5_pxX(p.x), u0_s5_pyY(p.y), 2.4, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("x' = k·x − y,   y' = x + k·y", 12, H - 12);
+    }
+
+    function u0_s5_frame() {
+        if (!document.body.contains(u0_s5_canvas)) return; // stop after navigation
+        u0_s5_regime.textContent = u0_s5_regimeText();
+        u0_s5_draw();
+        requestAnimationFrame(u0_s5_frame);
+    }
+    requestAnimationFrame(u0_s5_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
