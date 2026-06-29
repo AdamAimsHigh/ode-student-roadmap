@@ -1,0 +1,980 @@
+% Review Guide for Parametric, Polar, and Infinite Series
+% Staples Education Unit Reference Assets style.
+% Self-contained: this file carries its own preamble (no \input dependency) so
+% it compiles as a single raw LaTeX document, while reusing the shared palette
+% and six-box system of the Staples Education reference-asset family.
+% Prepared by Staples Education.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\tcbuselibrary{skins}
+
+% ---------------------------------------------------------------------------
+% Style-guide palette
+% ---------------------------------------------------------------------------
+\definecolor{headerblue}{HTML}{1C569E}   % structural headers / hyperlinks
+\definecolor{accentgreen}{HTML}{008000}  % algorithms / verification
+\definecolor{accentorange}{HTML}{E27A1E} % formulas / concept takeaways
+\definecolor{workpurple}{HTML}{A020F0}   % live worked-solution tracking
+\definecolor{warnred}{HTML}{C0392B}      % crimson pitfall / warning
+
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+
+% ---------------------------------------------------------------------------
+% Subsection typography: headerblue numbered sub-module titles
+% ---------------------------------------------------------------------------
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------------------------
+% Six core custom boxes
+% ---------------------------------------------------------------------------
+
+% 1. Blue overview capsule for the topics summary.
+\newtcolorbox{topicsbox}[1][Unit at a Glance: Core Sub-Topics]{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 2. Orange formula container for standard forms and master formulas.
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 3. Green algorithm block for explicitly laid-out procedures.
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 4. Purple west-bordered worked example for step-by-step solutions.
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 5. Orange thin-bordered concept takeaway.
+\newtcolorbox{conceptbox}[1][Unit Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+% 6. Crimson west-bordered warning box for common pitfalls.
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Review Guide for Parametric, Polar, and Infinite Series}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape A University-Level Mastery Review --- Parametric Calculus,
+    Polar Calculus, and the Convergence and Representation of Infinite Series}
+\end{center}
+
+\vspace{0.4em}
+\tableofcontents
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[At a Glance: Three Pillars of Second-Semester Calculus]
+This guide closes the second-semester calculus loop by extending the derivative
+and integral past the single Cartesian graph $y=f(x)$ and then asking the deepest
+question of all --- when does an infinite sum of numbers, or of functions, actually
+mean something.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Parametric calculus} --- curves traced by a parameter $t$:
+          slope and concavity from $dy/dt$ and $dx/dt$, arc length, and the
+          velocity--speed--acceleration trio of planar motion.
+    \item \textbf{Polar calculus} --- the $(r,\theta)$ coordinate system:
+          conversion to and from Cartesian form, the tangent slope of a polar
+          curve, and area swept by a radius.
+    \item \textbf{Infinite series} --- convergence tests (Ratio, Root,
+          Comparison, Integral), alternating series and their error bounds,
+          power series with radius and interval of convergence, and the
+          Taylor/Maclaurin machinery that turns functions into polynomials.
+\end{itemize}
+The throughline: parametric and polar both relax the ``one $y$ per $x$''
+restriction, while series make precise the idea of an \emph{infinite} version of
+the algebra and approximation you already trust.
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: PARAMETRIC CALCULUS
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Parametric Calculus}
+\section*{Part I --- Parametric Calculus}
+\setcounter{section}{1}
+
+A parametric curve is given by a pair of functions $x=x(t)$, $y=y(t)$ for $t$ in
+some interval; as $t$ advances, the point $(x(t),y(t))$ traces a path in the plane.
+This frees a curve from the ``one output per input'' straitjacket of $y=f(x)$:
+circles, loops, and self-crossing paths all become routine.
+
+\subsection{Derivatives of Parametric Equations}
+
+The slope of the tangent line is still $dy/dx$, but it must be assembled from the
+two separate $t$-derivatives by the chain rule.
+
+\begin{formulabox}[First and Second Parametric Derivatives]
+\[ \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{y'(t)}{x'(t)}, \qquad x'(t)\ne 0. \]
+The second derivative is \emph{not} $y''(t)/x''(t)$. Differentiate the slope with
+respect to $t$, then divide by $dx/dt$ again:
+\[ \frac{d^2y}{dx^2} = \frac{\dfrac{d}{dt}\!\left(\dfrac{dy}{dx}\right)}{dx/dt}. \]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Second Derivative Trap]
+The single most common error in parametric calculus is writing
+$\dfrac{d^2y}{dx^2} = \dfrac{y''(t)}{x''(t)}$. It is wrong. You must differentiate
+the \emph{quotient} $dy/dx$ with respect to $t$ and then divide by $x'(t)$ one more
+time. The extra division by $x'(t)$ is exactly what the chain rule demands.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: Tangents to a Loop]
+For $x=t^2,\ y=t^3-3t$, find the slope and locate horizontal and vertical tangents.
+Differentiate each component:
+\[ \textcolor{workpurple}{\frac{dy}{dx} = \frac{y'(t)}{x'(t)}
+   = \frac{3t^2-3}{2t} = \frac{3(t^2-1)}{2t}.} \]
+A \textbf{horizontal} tangent needs $y'(t)=0$ with $x'(t)\ne0$:
+\[ \textcolor{workpurple}{3t^2-3=0 \;\Rightarrow\; t=\pm 1,} \]
+giving the points $(1,-2)$ and $(1,2)$. A \textbf{vertical} tangent needs
+$x'(t)=0$ with $y'(t)\ne0$:
+\[ \textcolor{workpurple}{2t=0 \;\Rightarrow\; t=0,} \]
+the point $(0,0)$, where the curve crosses itself.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Concavity via the Second Derivative]
+For the same curve $x=t^2,\ y=t^3-3t$, determine where it is concave up. First
+rewrite the slope to differentiate cleanly:
+\[ \textcolor{workpurple}{\frac{dy}{dx} = \frac{3(t^2-1)}{2t}
+   = \frac{3}{2}\!\left(t - \frac{1}{t}\right).} \]
+Differentiate with respect to $t$:
+\[ \textcolor{workpurple}{\frac{d}{dt}\!\left(\frac{dy}{dx}\right)
+   = \frac{3}{2}\!\left(1 + \frac{1}{t^2}\right).} \]
+Divide by $dx/dt=2t$:
+\[ \textcolor{workpurple}{\frac{d^2y}{dx^2}
+   = \frac{\frac{3}{2}\!\left(1+\frac1{t^2}\right)}{2t}
+   = \frac{3(t^2+1)}{4t^3}.} \]
+Since $t^2+1>0$ always, the sign is governed by $t^3$: the curve is
+\textbf{concave up for $t>0$} and concave down for $t<0$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Tangent Line to a Cycloid]
+The cycloid $x=t-\sin t,\ y=1-\cos t$ describes a point on a rolling wheel. Find the
+equation of the tangent line at $t=\tfrac{\pi}{2}$. The slope is
+\[ \textcolor{workpurple}{\frac{dy}{dx} = \frac{\sin t}{1-\cos t}.} \]
+At $t=\tfrac{\pi}{2}$: $\sin t = 1$ and $1-\cos t = 1$, so
+\[ \textcolor{workpurple}{\left.\frac{dy}{dx}\right|_{t=\pi/2}
+   = \frac{1}{1} = 1.} \]
+The point of tangency is
+$\big(\tfrac{\pi}{2}-1,\ 1\big)$, so the tangent line is
+\[ \textcolor{workpurple}{y - 1 = 1\cdot\!\left(x - \left(\tfrac{\pi}{2}-1\right)\right)
+   \;\Longrightarrow\; y = x - \tfrac{\pi}{2} + 2.} \]
+At the cusps $t=2\pi n$ both derivatives vanish and the slope is an indeterminate
+$0/0$ --- the geometric signature of the sharp points where the wheel momentarily
+stops.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Parametric slope is a \textcolor{accentorange}{ratio of rates},
+$\dfrac{dy/dt}{dx/dt}$, and the second derivative requires
+\textcolor{accentorange}{differentiating that ratio in $t$ and dividing by
+$x'(t)$ again}. Horizontal tangents come from $y'(t)=0$, vertical tangents from
+$x'(t)=0$, and a simultaneous $x'(t)=y'(t)=0$ flags a possible
+\textcolor{accentorange}{cusp or self-intersection}.
+\end{conceptbox}
+
+\subsection{Arc Length of Parametric Curves}
+
+Length is accumulated from the Pythagorean ``speed'' of the parameter: an
+infinitesimal step contributes $ds=\sqrt{(dx)^2+(dy)^2}$.
+
+\begin{formulabox}[Parametric Arc Length and Surface Area]
+For $\alpha\le t\le\beta$ with the curve traced once,
+\[ L = \int_{\alpha}^{\beta} \sqrt{\left(\frac{dx}{dt}\right)^2
+   + \left(\frac{dy}{dt}\right)^2}\,dt. \]
+Revolving the curve about the $x$-axis generates a surface of area
+\[ S = \int_{\alpha}^{\beta} 2\pi\, y(t)\,
+   \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2}\,dt. \]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Tracing the Curve More Than Once]
+The arc-length formula counts every time the point retraces the path. Before
+integrating, confirm the parameter interval traces the curve \emph{exactly once};
+otherwise a closed curve like $x=\cos t,\ y=\sin t$ over $[0,4\pi]$ will report
+double its true length.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: A Polynomial Curve]
+Find the length of $x=t^2,\ y=t^3$ for $0\le t\le 1$. The component derivatives are
+$x'(t)=2t$ and $y'(t)=3t^2$, so
+\[ \textcolor{workpurple}{L = \int_0^1 \sqrt{(2t)^2+(3t^2)^2}\,dt
+   = \int_0^1 \sqrt{4t^2+9t^4}\,dt
+   = \int_0^1 t\sqrt{4+9t^2}\,dt,} \]
+using $t\ge0$. Substitute $u=4+9t^2$, $du=18t\,dt$:
+\[ \textcolor{workpurple}{L = \frac{1}{18}\int_{4}^{13}\sqrt{u}\,du
+   = \frac{1}{18}\cdot\frac{2}{3}\Big[u^{3/2}\Big]_{4}^{13}
+   = \frac{1}{27}\big(13^{3/2}-8\big) = \frac{13\sqrt{13}-8}{27}.} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: The Logarithmic Spiral]
+Find the length of the spiral $x=e^{t}\cos t,\ y=e^{t}\sin t$ for $0\le t\le\pi$.
+Differentiate each component with the product rule:
+\[ \textcolor{workpurple}{x'(t)=e^{t}(\cos t-\sin t), \qquad
+   y'(t)=e^{t}(\sin t+\cos t).} \]
+Add the squares; the cross terms cancel and $\cos^2+\sin^2=1$ twice over:
+\[ \textcolor{workpurple}{(x')^2+(y')^2
+   = e^{2t}\big[(\cos t-\sin t)^2+(\sin t+\cos t)^2\big]
+   = e^{2t}\cdot 2 = 2e^{2t}.} \]
+Therefore
+\[ \textcolor{workpurple}{L = \int_0^{\pi}\sqrt{2e^{2t}}\,dt
+   = \sqrt{2}\int_0^{\pi} e^{t}\,dt
+   = \sqrt{2}\,(e^{\pi}-1).} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Perimeter of the Astroid]
+Find the total length of the astroid $x=\cos^3 t,\ y=\sin^3 t$, $0\le t\le 2\pi$.
+Differentiate:
+\[ \textcolor{workpurple}{x'(t)=-3\cos^2 t\,\sin t, \qquad
+   y'(t)=3\sin^2 t\,\cos t.} \]
+The squared speed factors beautifully:
+\[ \textcolor{workpurple}{(x')^2+(y')^2
+   = 9\cos^2 t\,\sin^2 t\,(\cos^2 t+\sin^2 t)
+   = 9\sin^2 t\,\cos^2 t,} \]
+so $\sqrt{(x')^2+(y')^2}=3\,|\sin t\cos t|=\tfrac{3}{2}|\sin 2t|$. By symmetry,
+integrate one quarter ($0\le t\le\tfrac{\pi}{2}$, where $\sin 2t\ge0$) and multiply
+by $4$:
+\[ \textcolor{workpurple}{L = 4\int_0^{\pi/2}\frac{3}{2}\sin 2t\,dt
+   = 6\left[-\frac{\cos 2t}{2}\right]_0^{\pi/2}
+   = 6\!\left(\frac12+\frac12\right) = 6.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Arc length integrates the \textcolor{accentorange}{parametric speed}
+$\sqrt{(x')^2+(y')^2}$ over $t$. The hard part is rarely the formula --- it is the
+algebra of \textcolor{accentorange}{simplifying the radicand} (factor, use a Pythagorean
+identity, complete a perfect square) so the integral becomes elementary, and
+confirming the curve is \textcolor{accentorange}{traced exactly once}.
+\end{conceptbox}
+
+\subsection{Motion Along a Parametric Curve}
+
+When $t$ is time, the curve is the trajectory of a moving particle, and calculus
+reads off its kinematics directly.
+
+\begin{formulabox}[Velocity, Speed, and Acceleration]
+For a position $\mathbf{r}(t)=\big(x(t),\,y(t)\big)$,
+\[ \mathbf{v}(t)=\big(x'(t),\,y'(t)\big), \qquad
+   \text{speed}=\|\mathbf{v}(t)\|=\sqrt{x'(t)^2+y'(t)^2}, \qquad
+   \mathbf{a}(t)=\big(x''(t),\,y''(t)\big). \]
+The \textbf{distance travelled} over $[\alpha,\beta]$ is the speed integral
+$\displaystyle\int_\alpha^\beta\|\mathbf{v}(t)\|\,dt$ --- identical to arc length.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Speed Is Not the Derivative of Each Coordinate]
+Speed is the \emph{magnitude} of the velocity vector, $\sqrt{x'^2+y'^2}$, a single
+nonnegative scalar --- not the pair $(x',y')$ and not $x'+y'$. Likewise, total
+distance travelled (the speed integral) generally exceeds the straight-line
+\emph{displacement} $\|\mathbf{r}(\beta)-\mathbf{r}(\alpha)\|$ whenever the path
+curves or doubles back.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: Velocity, Speed, Acceleration at an Instant]
+A particle moves along $\mathbf{r}(t)=(t^2,\ t^3)$. At $t=1$:
+\[ \textcolor{workpurple}{\mathbf{v}(t)=(2t,\ 3t^2)\ \Rightarrow\ \mathbf{v}(1)=(2,3),
+   \qquad \mathbf{a}(t)=(2,\ 6t)\ \Rightarrow\ \mathbf{a}(1)=(2,6).} \]
+The instantaneous speed is
+\[ \textcolor{workpurple}{\|\mathbf{v}(1)\|=\sqrt{2^2+3^2}=\sqrt{13}.} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Where the Particle Comes to Rest]
+A particle follows the cycloid $\mathbf{r}(t)=(t-\sin t,\ 1-\cos t)$. Find its speed
+and the instants when it is momentarily at rest. The velocity is
+$\mathbf{v}(t)=(1-\cos t,\ \sin t)$, so
+\[ \textcolor{workpurple}{\|\mathbf{v}(t)\|^2 = (1-\cos t)^2+\sin^2 t
+   = 1-2\cos t+\cos^2 t+\sin^2 t = 2-2\cos t.} \]
+Apply the half-angle identity $1-\cos t=2\sin^2(t/2)$:
+\[ \textcolor{workpurple}{\|\mathbf{v}(t)\| = \sqrt{2-2\cos t}
+   = \sqrt{4\sin^2(t/2)} = 2\,\big|\sin(t/2)\big|.} \]
+The speed is zero exactly when $\sin(t/2)=0$, i.e.
+\[ \textcolor{workpurple}{t = 2\pi n,\quad n\in\mathbb{Z}.} \]
+These are the cusps, where the rolling point touches the ground and instantaneously
+halts.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Distance Travelled vs.\ Displacement]
+The same cycloid particle moves over one full arch, $0\le t\le 2\pi$. The
+\textbf{distance travelled} is the speed integral:
+\[ \textcolor{workpurple}{D = \int_0^{2\pi} 2\sin(t/2)\,dt
+   = 2\Big[-2\cos(t/2)\Big]_0^{2\pi}
+   = -4\big(\cos\pi-\cos 0\big) = -4(-1-1) = 8.} \]
+(We dropped the absolute value because $\sin(t/2)\ge0$ on $[0,2\pi]$.) The
+\textbf{displacement}, by contrast, connects the endpoints
+$\mathbf{r}(0)=(0,0)$ and $\mathbf{r}(2\pi)=(2\pi,0)$:
+\[ \textcolor{workpurple}{\|\mathbf{r}(2\pi)-\mathbf{r}(0)\| = 2\pi \approx 6.28.} \]
+The particle travels a path of length $8$ to achieve a net displacement of only
+$2\pi$ --- the curvature of the arch accounts for the difference.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Velocity is the \textcolor{accentorange}{vector} $(x',y')$, speed is its
+\textcolor{accentorange}{scalar magnitude} $\sqrt{x'^2+y'^2}$, and acceleration is
+$(x'',y'')$. Integrating speed gives \textcolor{accentorange}{distance travelled},
+which equals arc length and generally exceeds the straight-line displacement; a
+particle is momentarily \textcolor{accentorange}{at rest} only where both $x'(t)=0$
+and $y'(t)=0$.
+\end{conceptbox}
+
+% ===========================================================================
+% PART II: POLAR CALCULUS
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Polar Calculus}
+\section*{Part II --- Polar Calculus}
+\setcounter{section}{2}
+
+Polar coordinates locate a point by a directed distance $r$ from the origin and an
+angle $\theta$ from the positive $x$-axis. Curves that are awkward in $x$ and $y$ ---
+circles through the origin, roses, spirals, cardioids --- become single tidy
+equations $r=f(\theta)$.
+
+\subsection{Converting Between Polar and Cartesian Coordinates}
+
+The two systems are linked by basic right-triangle trigonometry.
+
+\begin{formulabox}[The Conversion Identities]
+\[ x = r\cos\theta, \qquad y = r\sin\theta, \]
+\[ r^2 = x^2+y^2, \qquad \tan\theta = \frac{y}{x}\ (x\ne 0). \]
+To convert an equation, substitute these relations and simplify; multiplying a
+polar equation through by $r$ is often the key move, since it manufactures the
+$r^2=x^2+y^2$ and $r\cos\theta=x$, $r\sin\theta=y$ pieces.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: $\tan\theta=y/x$ Loses the Quadrant]
+Recovering $\theta$ from $\arctan(y/x)$ alone places every point in quadrants I or
+IV, because $\arctan$ returns values in $(-\tfrac{\pi}{2},\tfrac{\pi}{2})$. Always
+check the actual signs of $x$ and $y$ and add $\pi$ when the point lies in quadrant
+II or III. A point may also have many representations: $(r,\theta)$,
+$(r,\theta+2\pi)$, and $(-r,\theta+\pi)$ are all the same point.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: A Polar Circle to Cartesian Form]
+Convert $r=2\sin\theta$ to a Cartesian equation and identify the curve. Multiply
+both sides by $r$ to set up the substitutions:
+\[ \textcolor{workpurple}{r^2 = 2r\sin\theta
+   \;\Longrightarrow\; x^2+y^2 = 2y.} \]
+Move everything to one side and complete the square in $y$:
+\[ \textcolor{workpurple}{x^2 + y^2 - 2y = 0
+   \;\Longrightarrow\; x^2 + (y-1)^2 = 1.} \]
+This is a circle of radius $1$ centered at $(0,1)$ --- tangent to the $x$-axis at the
+origin.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: A Conic in Disguise]
+Convert $r = \dfrac{1}{1-\cos\theta}$ to Cartesian form. Clear the denominator:
+\[ \textcolor{workpurple}{r(1-\cos\theta) = 1
+   \;\Longrightarrow\; r - r\cos\theta = 1
+   \;\Longrightarrow\; r = 1 + r\cos\theta.} \]
+Substitute $r\cos\theta = x$ and then $r=\sqrt{x^2+y^2}$:
+\[ \textcolor{workpurple}{\sqrt{x^2+y^2} = 1 + x.} \]
+Square both sides and cancel the $x^2$ terms:
+\[ \textcolor{workpurple}{x^2+y^2 = 1 + 2x + x^2
+   \;\Longrightarrow\; y^2 = 2x + 1.} \]
+A parabola opening rightward --- the eccentricity-$1$ member of the polar conic
+family $r=\dfrac{\ell}{1-e\cos\theta}$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: A Cartesian Line into Polar Form]
+Convert the line $x+y=2$ into a single polar equation $r=f(\theta)$. Substitute
+$x=r\cos\theta$ and $y=r\sin\theta$:
+\[ \textcolor{workpurple}{r\cos\theta + r\sin\theta = 2
+   \;\Longrightarrow\; r(\cos\theta+\sin\theta) = 2.} \]
+Solve for $r$:
+\[ \textcolor{workpurple}{r = \frac{2}{\cos\theta+\sin\theta}.} \]
+Optionally, the amplitude identity $\cos\theta+\sin\theta=\sqrt{2}\,\sin(\theta+\tfrac{\pi}{4})$
+rewrites it as $r=\sqrt{2}\,\csc\!\big(\theta+\tfrac{\pi}{4}\big)$ --- a reminder that
+every straight line not through the origin is a cosecant curve in polar form.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Conversion rests on $x=r\cos\theta$, $y=r\sin\theta$, and $r^2=x^2+y^2$. Going
+\textcolor{accentorange}{polar $\to$ Cartesian}, the trick is usually to
+\textcolor{accentorange}{multiply by $r$} so $r^2$, $r\cos\theta$, and $r\sin\theta$
+appear; going \textcolor{accentorange}{Cartesian $\to$ polar}, substitute and solve
+for $r$. Always respect the \textcolor{accentorange}{quadrant} and the non-uniqueness
+of polar coordinates.
+\end{conceptbox}
+
+\subsection{Derivatives and Tangent Lines in Polar Form}
+
+A polar curve $r=f(\theta)$ is secretly parametric, with $\theta$ as the parameter:
+$x=f(\theta)\cos\theta$ and $y=f(\theta)\sin\theta$. The slope follows from the
+parametric rule.
+
+\begin{formulabox}[Slope of a Polar Curve]
+With $x=r\cos\theta$ and $y=r\sin\theta$ and $r=f(\theta)$,
+\[ \frac{dy}{dx}
+   = \frac{dy/d\theta}{dx/d\theta}
+   = \frac{\dfrac{dr}{d\theta}\sin\theta + r\cos\theta}
+          {\dfrac{dr}{d\theta}\cos\theta - r\sin\theta}. \]
+Horizontal tangents occur where the numerator is $0$ (and the denominator is not);
+vertical tangents where the denominator is $0$ (and the numerator is not).
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: $dy/dx \ne dr/d\theta$]
+The derivative $\dfrac{dr}{d\theta}$ measures how fast the \emph{radius} changes; it
+is \textbf{not} the slope of the tangent line. The geometric slope $dy/dx$ requires
+the full quotient above, because both $r$ \emph{and} the direction $\theta$ are
+changing as the point moves.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: Slope on a Cardioid]
+Find the slope of $r = 1+\cos\theta$ at $\theta=\tfrac{\pi}{2}$. Here
+$\dfrac{dr}{d\theta} = -\sin\theta$, and at $\theta=\tfrac{\pi}{2}$:
+$r=1$, $\dfrac{dr}{d\theta}=-1$. Substitute into the slope formula:
+\[ \textcolor{workpurple}{\frac{dy}{dx}
+   = \frac{(-1)\sin\tfrac{\pi}{2} + (1)\cos\tfrac{\pi}{2}}
+          {(-1)\cos\tfrac{\pi}{2} - (1)\sin\tfrac{\pi}{2}}
+   = \frac{(-1)(1) + (1)(0)}{(-1)(0) - (1)(1)}
+   = \frac{-1}{-1} = 1.} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Horizontal Tangents of a Cardioid]
+Locate the horizontal tangents of $r=1+\cos\theta$. We need the numerator of
+$dy/dx$ to vanish. With $y = (1+\cos\theta)\sin\theta$,
+\[ \textcolor{workpurple}{\frac{dy}{d\theta}
+   = \frac{dr}{d\theta}\sin\theta + r\cos\theta
+   = -\sin^2\theta + (1+\cos\theta)\cos\theta.} \]
+Use $\sin^2\theta = 1-\cos^2\theta$ and expand:
+\[ \textcolor{workpurple}{\frac{dy}{d\theta}
+   = -(1-\cos^2\theta) + \cos\theta + \cos^2\theta
+   = 2\cos^2\theta + \cos\theta - 1.} \]
+Factor the quadratic in $\cos\theta$:
+\[ \textcolor{workpurple}{2\cos^2\theta+\cos\theta-1
+   = (2\cos\theta-1)(\cos\theta+1) = 0.} \]
+So $\cos\theta=\tfrac12$ ($\theta=\tfrac{\pi}{3},\tfrac{5\pi}{3}$) or
+$\cos\theta=-1$ ($\theta=\pi$). At $\theta=\pi$ the denominator also vanishes (the
+cusp at the origin), so the genuine horizontal tangents occur at
+\[ \textcolor{workpurple}{\theta = \tfrac{\pi}{3} \text{ and } \theta=\tfrac{5\pi}{3}.} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Tangent at the Pole of a Rose]
+For the four-petal rose $r=\cos 2\theta$, find the slope as the curve passes through
+the origin on the petal centered on the polar axis. The curve reaches the pole when
+$r=0$: $\cos 2\theta = 0 \Rightarrow \theta = \tfrac{\pi}{4}$. A useful fact: when
+$r=0$ and $\dfrac{dr}{d\theta}\ne0$, the tangent line \emph{at the pole} is simply
+the line $\theta=$ that value. Confirm with the slope formula, where $r=0$ collapses
+both terms:
+\[ \textcolor{workpurple}{\left.\frac{dy}{dx}\right|_{r=0}
+   = \frac{\frac{dr}{d\theta}\sin\theta + 0}
+          {\frac{dr}{d\theta}\cos\theta - 0}
+   = \frac{\sin\theta}{\cos\theta} = \tan\theta.} \]
+At $\theta=\tfrac{\pi}{4}$ this gives
+\[ \textcolor{workpurple}{\frac{dy}{dx} = \tan\tfrac{\pi}{4} = 1,} \]
+so the petal enters the origin along the line $y=x$.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+A polar curve is a \textcolor{accentorange}{parametric curve in $\theta$}, so its
+slope is the full quotient $\dfrac{r'\sin\theta+r\cos\theta}{r'\cos\theta-r\sin\theta}$
+--- \textcolor{accentorange}{never} just $dr/d\theta$. Tangents \emph{at the pole}
+($r=0$) are read off directly as the lines $\theta=\theta_0$, where $\theta_0$ solves
+$f(\theta)=0$.
+\end{conceptbox}
+
+\subsection{Area in Polar Coordinates}
+
+Area is swept by the radius vector. The basic element is a thin circular sector of
+radius $r$ and angle $d\theta$, of area $\tfrac12 r^2\,d\theta$ --- not a rectangle.
+
+\begin{formulabox}[Area Enclosed by a Polar Curve]
+\[ A = \frac{1}{2}\int_{\alpha}^{\beta} \big[\,r(\theta)\,\big]^2\,d\theta. \]
+The area between an \textbf{outer} curve $r_{\text{out}}(\theta)$ and an
+\textbf{inner} curve $r_{\text{in}}(\theta)$ over the same angular range is
+\[ A = \frac{1}{2}\int_{\alpha}^{\beta}
+   \Big[\,r_{\text{out}}^2 - r_{\text{in}}^2\,\Big]\,d\theta. \]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Wrong Limits and Squaring the Difference]
+Two classic errors. First, the limits must cover the curve \emph{once}; for a single
+rose petal you integrate only over the $\theta$-range of that petal, not $0$ to
+$2\pi$. Second, for a region between curves the integrand is
+$r_{\text{out}}^2-r_{\text{in}}^2$, \textbf{not} $(r_{\text{out}}-r_{\text{in}})^2$.
+The squares are subtracted, not the radii.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: Area Inside a Circle]
+Find the area enclosed by $r=3\cos\theta$. This circle is traced once as $\theta$
+runs over $\big[-\tfrac{\pi}{2},\tfrac{\pi}{2}\big]$, so
+\[ \textcolor{workpurple}{A = \frac{1}{2}\int_{-\pi/2}^{\pi/2}(3\cos\theta)^2\,d\theta
+   = \frac{9}{2}\int_{-\pi/2}^{\pi/2}\cos^2\theta\,d\theta.} \]
+Use $\cos^2\theta=\tfrac12(1+\cos 2\theta)$:
+\[ \textcolor{workpurple}{A = \frac{9}{4}\int_{-\pi/2}^{\pi/2}(1+\cos 2\theta)\,d\theta
+   = \frac{9}{4}\Big[\theta+\tfrac12\sin 2\theta\Big]_{-\pi/2}^{\pi/2}
+   = \frac{9}{4}\cdot\pi = \frac{9\pi}{4}.} \]
+This checks against the geometric circle: $r=3\cos\theta$ has radius $\tfrac32$, so
+area $=\pi(\tfrac32)^2=\tfrac{9\pi}{4}$. \textcolor{accentgreen}{Verified.}
+\end{examplebox}
+
+\begin{examplebox}[Challenging: One Petal of a Rose]
+Find the area of a single petal of $r=\cos 3\theta$. One petal is traced as
+$3\theta$ sweeps from $-\tfrac{\pi}{2}$ to $\tfrac{\pi}{2}$, i.e.
+$\theta\in\big[-\tfrac{\pi}{6},\tfrac{\pi}{6}\big]$:
+\[ \textcolor{workpurple}{A = \frac{1}{2}\int_{-\pi/6}^{\pi/6}\cos^2 3\theta\,d\theta
+   = \frac{1}{4}\int_{-\pi/6}^{\pi/6}(1+\cos 6\theta)\,d\theta.} \]
+Integrate:
+\[ \textcolor{workpurple}{A = \frac{1}{4}\Big[\theta + \tfrac16\sin 6\theta\Big]_{-\pi/6}^{\pi/6}.} \]
+At the limits $\sin 6\theta = \sin(\pm\pi) = 0$, so only the $\theta$ term survives:
+\[ \textcolor{workpurple}{A = \frac{1}{4}\!\left(\frac{\pi}{6}+\frac{\pi}{6}\right)
+   = \frac{1}{4}\cdot\frac{\pi}{3} = \frac{\pi}{12}.} \]
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Area Inside One Curve and Outside Another]
+Find the area inside $r=3\sin\theta$ and outside $r=1+\sin\theta$. First find the
+intersections by equating the radii:
+\[ \textcolor{workpurple}{3\sin\theta = 1+\sin\theta
+   \;\Longrightarrow\; 2\sin\theta = 1
+   \;\Longrightarrow\; \sin\theta=\tfrac12
+   \;\Longrightarrow\; \theta=\tfrac{\pi}{6},\ \tfrac{5\pi}{6}.} \]
+On this range $3\sin\theta$ is the outer curve, so
+\[ \textcolor{workpurple}{A = \frac{1}{2}\int_{\pi/6}^{5\pi/6}
+   \Big[(3\sin\theta)^2 - (1+\sin\theta)^2\Big]\,d\theta.} \]
+Expand the integrand and convert with $\sin^2\theta=\tfrac12(1-\cos 2\theta)$:
+\[ \textcolor{workpurple}{9\sin^2\theta-(1+2\sin\theta+\sin^2\theta)
+   = 8\sin^2\theta - 2\sin\theta - 1
+   = 3 - 4\cos 2\theta - 2\sin\theta.} \]
+Antidifferentiate:
+\[ \textcolor{workpurple}{\int\big(3-4\cos 2\theta-2\sin\theta\big)\,d\theta
+   = 3\theta - 2\sin 2\theta + 2\cos\theta = F(\theta).} \]
+Evaluate at the limits:
+\[ \textcolor{workpurple}{F\!\left(\tfrac{5\pi}{6}\right) = \tfrac{5\pi}{2} + \sqrt{3} - \sqrt{3} = \tfrac{5\pi}{2},
+   \qquad
+   F\!\left(\tfrac{\pi}{6}\right) = \tfrac{\pi}{2} - \sqrt{3} + \sqrt{3} = \tfrac{\pi}{2}.} \]
+Therefore
+\[ \textcolor{workpurple}{A = \frac{1}{2}\!\left(\frac{5\pi}{2}-\frac{\pi}{2}\right)
+   = \frac{1}{2}\cdot 2\pi = \pi.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Polar area accumulates \textcolor{accentorange}{circular sectors}
+$\tfrac12 r^2\,d\theta$, so the integrand is always $r^2$, never $r$. For a region
+between curves use $\tfrac12\int(r_{\text{out}}^2-r_{\text{in}}^2)\,d\theta$ ---
+\textcolor{accentorange}{subtract the squares}, and find the limits from the
+\textcolor{accentorange}{intersection angles} where $r_{\text{out}}=r_{\text{in}}$.
+\end{conceptbox}
+
+% ===========================================================================
+% PART III: INFINITE SERIES
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Infinite Series}
+\section*{Part III --- Infinite Series}
+\setcounter{section}{3}
+
+An infinite series $\sum_{n=1}^{\infty} a_n$ is the limit of its partial sums
+$s_N=\sum_{n=1}^{N} a_n$. It \emph{converges} to $S$ if $s_N\to S$, and diverges
+otherwise. The central project is deciding convergence, then --- for series of
+functions --- using that to represent functions as ``infinite polynomials.''
+
+\subsection{Convergence Tests: Ratio, Root, Comparison, Integral}
+
+Before any test, recall the gatekeeper: the \textbf{$n$th-Term Test}. If
+$\lim_{n\to\infty} a_n \ne 0$, the series diverges immediately. (The converse fails:
+$a_n\to0$ does \emph{not} guarantee convergence --- the harmonic series is the
+standing counterexample.)
+
+\begin{formulabox}[The Four Workhorse Tests]
+\textbf{Ratio Test.} With $L=\displaystyle\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|$:
+converges (absolutely) if $L<1$, diverges if $L>1$, inconclusive if $L=1$.
+
+\smallskip
+\textbf{Root Test.} With $L=\displaystyle\lim_{n\to\infty}\sqrt[n]{|a_n|}$: same
+verdicts as the Ratio Test.
+
+\smallskip
+\textbf{(Limit) Comparison Test.} For positive terms, if
+$\displaystyle\lim_{n\to\infty}\frac{a_n}{b_n}=c$ with $0<c<\infty$, then
+$\sum a_n$ and $\sum b_n$ share the same fate.
+
+\smallskip
+\textbf{Integral Test.} If $f$ is positive, continuous, and decreasing with
+$f(n)=a_n$, then $\sum a_n$ and $\displaystyle\int_1^\infty f(x)\,dx$ converge or
+diverge together.
+\end{formulabox}
+
+\begin{methodbox}[Choosing a Test]
+\begin{enumerate}
+    \item \textbf{Factorials or $n$th powers} ($n!$, $c^n$): reach for the
+          \textbf{Ratio Test} (factorials) or \textbf{Root Test} (whole expression
+          to the $n$th power).
+    \item \textbf{Looks like a $p$-series or rational in $n$}: use \textbf{Limit
+          Comparison} against $\sum 1/n^p$. Recall $\sum 1/n^p$ converges iff $p>1$.
+    \item \textbf{$a_n=f(n)$ with an easy antiderivative} (e.g.\ $1/(n\ln n)$): use
+          the \textbf{Integral Test}.
+    \item \textbf{Always first}: if $a_n\not\to0$, stop --- it diverges by the
+          $n$th-Term Test.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}[Intermediate: Ratio Test]
+Test $\displaystyle\sum_{n=1}^{\infty}\frac{n}{2^n}$. Form the ratio of consecutive
+terms:
+\[ \textcolor{workpurple}{\left|\frac{a_{n+1}}{a_n}\right|
+   = \frac{n+1}{2^{n+1}}\cdot\frac{2^n}{n}
+   = \frac{1}{2}\cdot\frac{n+1}{n}.} \]
+Take the limit:
+\[ \textcolor{workpurple}{L = \lim_{n\to\infty}\frac{1}{2}\cdot\frac{n+1}{n}
+   = \frac{1}{2} < 1.} \]
+By the Ratio Test the series \textbf{converges} (absolutely).
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Root Test with the Number $e$]
+Test $\displaystyle\sum_{n=1}^{\infty}\frac{n!}{n^n}$. The factorial-over-power form
+suits the Ratio Test:
+\[ \textcolor{workpurple}{\frac{a_{n+1}}{a_n}
+   = \frac{(n+1)!}{(n+1)^{n+1}}\cdot\frac{n^n}{n!}
+   = (n+1)\cdot\frac{n^n}{(n+1)^{n+1}}
+   = \frac{n^n}{(n+1)^n} = \left(\frac{n}{n+1}\right)^n.} \]
+Rewrite and take the limit using $\lim(1+1/n)^n=e$:
+\[ \textcolor{workpurple}{L = \lim_{n\to\infty}\frac{1}{\left(1+\frac1n\right)^n}
+   = \frac{1}{e} < 1.} \]
+Since $L=1/e\approx0.368<1$, the series \textbf{converges}.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Integral Test on a Subtle Divergence]
+Test $\displaystyle\sum_{n=2}^{\infty}\frac{1}{n\ln n}$. The terms shrink to $0$, so
+the $n$th-Term Test is silent. The function $f(x)=\dfrac{1}{x\ln x}$ is positive,
+continuous, and decreasing for $x\ge2$, so apply the Integral Test with the
+substitution $u=\ln x$, $du=\tfrac1x\,dx$:
+\[ \textcolor{workpurple}{\int_2^{\infty}\frac{dx}{x\ln x}
+   = \int_{\ln 2}^{\infty}\frac{du}{u}
+   = \Big[\ln u\Big]_{\ln 2}^{\infty} = \infty.} \]
+The integral diverges, so the series \textbf{diverges} --- a hair slower than the
+harmonic series, yet still without bound.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Match the structure to the test: \textcolor{accentorange}{factorials/powers $\to$
+Ratio or Root}, \textcolor{accentorange}{rational-in-$n$ $\to$ Limit Comparison with a
+$p$-series}, \textcolor{accentorange}{integrable $f(n)$ $\to$ Integral Test}. And never
+forget the gate: if $a_n\not\to0$ the series \textcolor{accentorange}{diverges}, but
+$a_n\to0$ alone proves \textbf{nothing}.
+\end{conceptbox}
+
+\subsection{Alternating Series}
+
+An alternating series $\sum(-1)^{n}b_n$ (with $b_n>0$) flips sign every term. These
+converge under remarkably mild conditions, and they come with a uniquely clean error
+bound.
+
+\begin{formulabox}[Alternating Series Test and Error Bound]
+\textbf{Test (Leibniz).} If $b_n$ is eventually decreasing and $b_n\to0$, then
+$\sum(-1)^n b_n$ converges.
+
+\smallskip
+\textbf{Error bound.} If $S$ is the sum and $s_N$ the $N$th partial sum, the
+truncation error is bounded by the first omitted term:
+\[ |S - s_N| \le b_{N+1}. \]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Conditional vs.\ Absolute Convergence]
+A series is \textbf{absolutely convergent} if $\sum|a_n|$ converges, and
+\textbf{conditionally convergent} if $\sum a_n$ converges but $\sum|a_n|$ diverges.
+The distinction is not academic: rearranging a conditionally convergent series can
+change its sum to \emph{any} value (Riemann's theorem). Always test the
+absolute-value series separately before declaring how a series converges.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: The Alternating Harmonic Series]
+Classify $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{n}$. With $b_n=\tfrac1n$:
+the terms decrease and $b_n\to0$, so by the Alternating Series Test it
+\textbf{converges}. But the absolute series is the harmonic series,
+\[ \textcolor{workpurple}{\sum_{n=1}^{\infty}\left|\frac{(-1)^{n-1}}{n}\right|
+   = \sum_{n=1}^{\infty}\frac{1}{n} = \infty,} \]
+which diverges. Hence the series is \textbf{conditionally convergent} (its value is
+$\ln 2$).
+\end{examplebox}
+
+\begin{examplebox}[Challenging: How Many Terms for a Target Accuracy]
+For $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{n^2}$, how many terms
+guarantee an error below $0.001$? The series converges (it is even absolutely
+convergent, since $\sum 1/n^2$ converges), so the alternating error bound applies:
+\[ \textcolor{workpurple}{|S-s_N| \le b_{N+1} = \frac{1}{(N+1)^2}.} \]
+Require this to be at most $0.001$:
+\[ \textcolor{workpurple}{\frac{1}{(N+1)^2} \le \frac{1}{1000}
+   \;\Longrightarrow\; (N+1)^2 \ge 1000
+   \;\Longrightarrow\; N+1 \ge \sqrt{1000}\approx 31.6.} \]
+So $N+1\ge 32$, i.e.\ \textbf{$N=31$ terms} suffice to pin the sum to within $0.001$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Verifying the Hypotheses Carefully]
+Classify $\displaystyle\sum_{n=2}^{\infty}\frac{(-1)^n \ln n}{n}$. First, absolute
+convergence: compare $\dfrac{\ln n}{n}$ against $\dfrac1n$. Since $\ln n\ge1$ for
+$n\ge3$,
+\[ \textcolor{workpurple}{\frac{\ln n}{n} \ge \frac{1}{n},} \]
+and $\sum \tfrac1n$ diverges, so $\sum\tfrac{\ln n}{n}$ diverges --- \emph{not}
+absolutely convergent. Now the alternating test needs $b_n=\tfrac{\ln n}{n}\to0$
+(true, by L'Hôpital) and eventually decreasing. Check the sign of
+$g(x)=\tfrac{\ln x}{x}$:
+\[ \textcolor{workpurple}{g'(x) = \frac{1-\ln x}{x^2} < 0 \quad\text{for } x>e.} \]
+So $b_n$ decreases for $n\ge3$ and tends to $0$: the series \textbf{converges}, and
+therefore \textbf{conditionally}.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+The \textcolor{accentorange}{Alternating Series Test} needs only $b_n\downarrow0$, and
+it hands you a free \textcolor{accentorange}{error bound $|S-s_N|\le b_{N+1}$} --- the
+first term you drop. Then settle the \emph{type}: test $\sum|a_n|$ to decide between
+\textcolor{accentorange}{absolute} and \textcolor{accentorange}{conditional}
+convergence, because only absolute convergence is safe under rearrangement.
+\end{conceptbox}
+
+\subsection{Power Series: Radius and Interval of Convergence}
+
+A power series $\sum_{n=0}^{\infty} c_n (x-a)^n$ is a ``polynomial of infinite
+degree.'' For each fixed $x$ it is just a numerical series, so the question becomes:
+\emph{for which $x$ does it converge?} The answer is always an interval centered at
+$a$.
+
+\begin{formulabox}[Radius and Interval of Convergence]
+There is a \textbf{radius of convergence} $R\in[0,\infty]$ such that the series
+converges for $|x-a|<R$ and diverges for $|x-a|>R$. Find $R$ with the Ratio (or
+Root) Test on the terms including $(x-a)^n$:
+\[ \lim_{n\to\infty}\left|\frac{c_{n+1}(x-a)^{n+1}}{c_n(x-a)^n}\right|<1. \]
+The \textbf{interval of convergence} is $(a-R,\,a+R)$ \emph{plus} whichever
+endpoints pass a separate test.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Forgetting to Test the Endpoints]
+The Ratio Test gives the open interval but is \textbf{always inconclusive at the
+endpoints} (there $L=1$). You must substitute $x=a-R$ and $x=a+R$ individually and
+test each resulting numerical series by hand. The interval may be open, closed, or
+half-open --- only the endpoint checks tell you which.
+\end{warningbox}
+
+\begin{examplebox}[Intermediate: A Half-Open Interval]
+Find the interval of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{x^n}{n}$.
+Apply the Ratio Test:
+\[ \textcolor{workpurple}{\lim_{n\to\infty}\left|\frac{x^{n+1}}{n+1}\cdot\frac{n}{x^n}\right|
+   = |x|\lim_{n\to\infty}\frac{n}{n+1} = |x| < 1,} \]
+so $R=1$ and the open interval is $(-1,1)$. Test the endpoints:
+\[ \textcolor{workpurple}{x=1:\ \sum\frac{1}{n}\ \text{(harmonic) diverges}; \qquad
+   x=-1:\ \sum\frac{(-1)^n}{n}\ \text{converges.}} \]
+The interval of convergence is $\textcolor{workpurple}{[-1,\,1)}$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: A Series Centered at $a=2$]
+Find the interval of convergence of
+$\displaystyle\sum_{n=1}^{\infty}\frac{(x-2)^n}{n\,3^n}$. Ratio Test:
+\[ \textcolor{workpurple}{\lim_{n\to\infty}
+   \left|\frac{(x-2)^{n+1}}{(n+1)3^{n+1}}\cdot\frac{n\,3^n}{(x-2)^n}\right|
+   = \frac{|x-2|}{3}\lim_{n\to\infty}\frac{n}{n+1}
+   = \frac{|x-2|}{3} < 1.} \]
+So $|x-2|<3$, giving $R=3$ and the open interval $(-1,5)$. Endpoints:
+\[ \textcolor{workpurple}{x=5:\ \sum\frac{3^n}{n3^n}=\sum\frac1n\ \text{diverges}; \quad
+   x=-1:\ \sum\frac{(-3)^n}{n3^n}=\sum\frac{(-1)^n}{n}\ \text{converges.}} \]
+The interval of convergence is $\textcolor{workpurple}{[-1,\,5)}$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Endpoints That Both Fail]
+Find the interval of convergence of
+$\displaystyle\sum_{n=1}^{\infty}\frac{n\,(x+1)^n}{4^n}$. Ratio Test:
+\[ \textcolor{workpurple}{\lim_{n\to\infty}
+   \left|\frac{(n+1)(x+1)^{n+1}}{4^{n+1}}\cdot\frac{4^n}{n(x+1)^n}\right|
+   = \frac{|x+1|}{4}\lim_{n\to\infty}\frac{n+1}{n}
+   = \frac{|x+1|}{4} < 1.} \]
+So $|x+1|<4$, $R=4$, open interval $(-5,3)$. At each endpoint the general term is
+$\pm n$, which does not tend to $0$:
+\[ \textcolor{workpurple}{x=3:\ \sum n\ \text{diverges}; \qquad
+   x=-5:\ \sum n(-1)^n\ \text{diverges (terms }\not\to0).} \]
+The interval of convergence is the open interval $\textcolor{workpurple}{(-5,\,3)}$.
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+Every power series has a \textcolor{accentorange}{radius $R$} found by the Ratio/Root
+Test, converging on $(a-R,a+R)$. The Ratio Test is \textcolor{accentorange}{blind at
+the endpoints} --- you must substitute $x=a\pm R$ and test each tail series
+separately to learn whether the interval is open, closed, or
+\textcolor{accentorange}{half-open}.
+\end{conceptbox}
+
+\subsection{Taylor and Maclaurin Series}
+
+A Taylor series rebuilds a function from its derivatives at a single point. When that
+point is $a=0$ it is called a Maclaurin series. Within its interval of convergence,
+the function and its series are interchangeable.
+
+\begin{formulabox}[Taylor / Maclaurin Series and the Lagrange Remainder]
+\[ f(x) = \sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n
+   \quad(\text{Taylor at }a), \qquad
+   f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n \quad(\text{Maclaurin}). \]
+The error of the degree-$N$ Taylor polynomial $T_N$ is the \textbf{Lagrange
+remainder}: for some $c$ between $a$ and $x$,
+\[ R_N(x) = \frac{f^{(N+1)}(c)}{(N+1)!}(x-a)^{N+1}, \qquad
+   |R_N(x)| \le \frac{M}{(N+1)!}|x-a|^{N+1}, \]
+where $M$ bounds $|f^{(N+1)}|$ on the interval.
+\end{formulabox}
+
+\begin{formulabox}[Essential Maclaurin Series to Memorize]
+\[ e^x = \sum_{n=0}^{\infty}\frac{x^n}{n!}, \qquad
+   \sin x = \sum_{n=0}^{\infty}\frac{(-1)^n x^{2n+1}}{(2n+1)!}, \qquad
+   \cos x = \sum_{n=0}^{\infty}\frac{(-1)^n x^{2n}}{(2n)!}, \]
+\[ \frac{1}{1-x} = \sum_{n=0}^{\infty}x^n\ (|x|<1), \qquad
+   \ln(1+x) = \sum_{n=1}^{\infty}\frac{(-1)^{n-1}x^n}{n}\ (|x|\le 1,\ x\ne-1). \]
+The exponential and trig series converge for all $x$; the last two are the
+geometric series and its integral.
+\end{formulabox}
+
+\begin{examplebox}[Intermediate: Building a Series from Derivatives]
+Derive the Maclaurin series of $f(x)=\cos x$ from the definition. The derivatives
+cycle: $f=\cos x$, $f'=-\sin x$, $f''=-\cos x$, $f'''=\sin x$, then repeat. Evaluate
+at $0$:
+\[ \textcolor{workpurple}{f(0)=1,\ f'(0)=0,\ f''(0)=-1,\ f'''(0)=0,\ f^{(4)}(0)=1,\dots} \]
+Only the even derivatives survive, alternating in sign:
+\[ \textcolor{workpurple}{\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots
+   = \sum_{n=0}^{\infty}\frac{(-1)^n x^{2n}}{(2n)!}.} \]
+A quick Ratio Test shows $R=\infty$: the series converges for every real $x$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Series of a Composite, Then Integrate]
+Find a Maclaurin series for $\displaystyle\int_0^x e^{-t^2}\,dt$ (the error function,
+which has no elementary antiderivative). Start from $e^u=\sum u^n/n!$ and substitute
+$u=-t^2$:
+\[ \textcolor{workpurple}{e^{-t^2} = \sum_{n=0}^{\infty}\frac{(-t^2)^n}{n!}
+   = \sum_{n=0}^{\infty}\frac{(-1)^n t^{2n}}{n!}.} \]
+Integrate term by term from $0$ to $x$ (legal inside the interval of convergence):
+\[ \textcolor{workpurple}{\int_0^x e^{-t^2}\,dt
+   = \sum_{n=0}^{\infty}\frac{(-1)^n}{n!}\int_0^x t^{2n}\,dt
+   = \sum_{n=0}^{\infty}\frac{(-1)^n x^{2n+1}}{n!\,(2n+1)}.} \]
+Explicitly, $\textcolor{workpurple}{x - \dfrac{x^3}{3} + \dfrac{x^5}{10}
+- \dfrac{x^7}{42} + \cdots}$, valid for all $x$.
+\end{examplebox}
+
+\begin{examplebox}[Challenging: Approximation with a Lagrange Error Bound]
+Approximate $\sqrt{e}=e^{1/2}$ using the Maclaurin polynomial of $e^x$ through degree
+$3$, and bound the error. The polynomial is $T_3(x)=1+x+\tfrac{x^2}{2}+\tfrac{x^3}{6}$,
+so at $x=\tfrac12$:
+\[ \textcolor{workpurple}{T_3\!\left(\tfrac12\right)
+   = 1 + \frac12 + \frac{1}{8} + \frac{1}{48}
+   = \frac{48+24+6+1}{48} = \frac{79}{48} \approx 1.6458.} \]
+For the error, $f^{(4)}(x)=e^x$, and on $[0,\tfrac12]$ it is bounded by
+$M=e^{1/2}<2$. The Lagrange remainder gives
+\[ \textcolor{workpurple}{|R_3| \le \frac{M}{4!}\left(\frac12\right)^4
+   < \frac{2}{24}\cdot\frac{1}{16}
+   = \frac{2}{384} = \frac{1}{192} \approx 0.0052.} \]
+So $\sqrt{e}\approx 1.6458$ with error under $0.0052$; the true value $1.6487$ sits
+comfortably inside that bound. \textcolor{accentgreen}{Verified.}
+\end{examplebox}
+
+\begin{conceptbox}[Unit Key Takeaway]
+A Taylor series is a function rewritten through its \textcolor{accentorange}{derivatives
+at a point}; memorizing the five core Maclaurin series lets you build most others by
+\textcolor{accentorange}{substitution, differentiation, or integration} instead of
+grinding out derivatives. The \textcolor{accentorange}{Lagrange remainder} converts a
+truncated polynomial into a \emph{rigorous} approximation with a guaranteed error
+bound.
+\end{conceptbox}
+
+% ===========================================================================
+% MASTER REFERENCE
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Master Reference Summary}
+\section*{Master Reference Summary}
+
+\begin{formulabox}[Parametric \& Polar Master Formulas]
+\renewcommand{\arraystretch}{1.7}
+\[
+\begin{array}{ll}
+\text{Parametric slope} & \dfrac{dy}{dx} = \dfrac{y'(t)}{x'(t)} \\
+\text{Parametric concavity} & \dfrac{d^2y}{dx^2} = \dfrac{\frac{d}{dt}(dy/dx)}{x'(t)} \\
+\text{Parametric arc length} & L = \displaystyle\int_\alpha^\beta \sqrt{x'(t)^2+y'(t)^2}\,dt \\
+\text{Speed} & \|\mathbf{v}\| = \sqrt{x'(t)^2+y'(t)^2} \\
+\text{Polar} \leftrightarrow \text{Cartesian} & x=r\cos\theta,\ y=r\sin\theta,\ r^2=x^2+y^2 \\
+\text{Polar slope} & \dfrac{dy}{dx} = \dfrac{r'\sin\theta+r\cos\theta}{r'\cos\theta-r\sin\theta} \\
+\text{Polar area} & A=\dfrac12\displaystyle\int_\alpha^\beta r^2\,d\theta \quad(\text{between: } r_{\text{out}}^2-r_{\text{in}}^2)\\
+\end{array}
+\]
+\end{formulabox}
+
+\begin{formulabox}[Series Tests at a Glance]
+\renewcommand{\arraystretch}{1.6}
+\[
+\begin{array}{ll}
+\text{$n$th-Term} & a_n\not\to0 \Rightarrow \text{diverges} \\
+\text{Geometric } \sum ar^n & \text{converges} \Leftrightarrow |r|<1,\ \text{sum } \dfrac{a}{1-r} \\
+\text{$p$-series } \sum 1/n^p & \text{converges} \Leftrightarrow p>1 \\
+\text{Ratio / Root} & L<1 \text{ conv.},\ L>1 \text{ div.},\ L=1 \text{ inconclusive} \\
+\text{Alternating} & b_n\downarrow0 \Rightarrow \text{conv.},\quad |S-s_N|\le b_{N+1} \\
+\text{Power series} & |x-a|<R \text{ conv.; test endpoints separately} \\
+\end{array}
+\]
+\end{formulabox}
+
+\begin{conceptbox}[Master Key Takeaway]
+The three pillars share one mindset. Parametric and polar calculus reuse the
+\textcolor{accentorange}{chain rule and the integral} on curves that escape $y=f(x)$,
+so the formulas are recombinations of derivatives you already own. Infinite series
+replace ``compute the answer'' with \textcolor{accentorange}{``does the answer
+exist''} (convergence tests) and ``how good is my approximation'' (error bounds) ---
+and power/Taylor series fuse both stories, turning a function into an
+\textcolor{accentorange}{infinite polynomial} that is valid precisely on its interval
+of convergence.
+\end{conceptbox}
+
+\end{document}

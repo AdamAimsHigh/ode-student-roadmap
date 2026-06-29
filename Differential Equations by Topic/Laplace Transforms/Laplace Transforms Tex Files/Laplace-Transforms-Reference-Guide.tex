@@ -1,0 +1,997 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\definecolor{headerblue}{HTML}{1C569E}
+\definecolor{accentgreen}{HTML}{2E7D32}
+\definecolor{accentorange}{HTML}{E27A1E}
+\definecolor{workpurple}{HTML}{A020F0}
+\definecolor{warnred}{HTML}{C0392B}
+
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+\tcbuselibrary{skins}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{headerblue}}{\thesubsection}{1em}{}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+
+% --- Custom Boxes Definition ---
+\newtcolorbox{topicsbox}{
+    enhanced,
+    colback=headerblue!6!white, colframe=headerblue,
+    coltitle=white, fonttitle=\bfseries,
+    title={Laplace Transforms at a Glance: Core Sub-Topics},
+    boxrule=0.6pt, arc=2mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{formulabox}[1][Master Formula]{
+    enhanced,
+    colback=accentorange!8!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{methodbox}[1][Method]{
+    enhanced,
+    colback=accentgreen!6!white, colframe=accentgreen,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.6pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{examplebox}[1][Worked Example]{
+    enhanced,
+    colback=workpurple!4!white, colframe=workpurple,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{workpurple},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{conceptbox}[1][Key Takeaway]{
+    enhanced,
+    colback=accentorange!5!white, colframe=accentorange,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.3pt, arc=1mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\newtcolorbox{warningbox}[1][Common Pitfall]{
+    enhanced,
+    colback=red!3!white, colframe=warnred,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, sharp corners,
+    borderline west={3pt}{0pt}{warnred},
+    left=5mm, right=3mm, top=2mm, bottom=2mm
+}
+
+\title{\textbf{\color{headerblue}Laplace Transforms}\\ \large A Self-Study Reference \& Master Guide}
+\author{Staples Education Unit Reference Assets}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{topicsbox}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item \textbf{Part I --- Foundations:} the definition, existence, uniqueness, linearity, and the power-series analogy.
+  \item \textbf{Part II --- The Transform Toolkit:} shifting properties, Heaviside, Dirac delta, transforms of derivatives and integrals.
+  \item \textbf{Part III --- Solving ODEs:} the five-step method, worked examples, discontinuous and impulse forcing, linear systems.
+  \item \textbf{Part IV --- Convolution \& Systems:} the convolution theorem, Duhamel's principle, Volterra equations, transfer functions, poles.
+  \item \textbf{Part V --- Advanced Applications:} PDEs via Laplace, beam bending, Abel's tautochrone, real-integral tricks, resonance.
+  \item \textbf{Part VI --- Reference, Examples \& Closing:} master transform tables, encyclopedic worked examples, historical sketches, cheat-sheet.
+\end{itemize}
+\end{topicsbox}
+
+\tableofcontents
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Foundations}
+\section*{Part I --- Foundations}
+\setcounter{section}{1}
+\setcounter{subsection}{0}
+
+\subsection{Why Laplace? Two Domains and a Black Box}
+
+The \textbf{pain point.} Classical ODE methods --- undetermined coefficients, variation of parameters --- require continuity of the forcing function $f(t)$. Many physical inputs are discontinuous or impulsive: switch flips, hammer blows, voltage spikes, and point loads. Stitching piecewise solutions together by hand is tedious.
+
+\begin{methodbox}[The Laplace Strategy]
+Transform the IVP from the time domain $t$ to the frequency domain $s$. The derivative $d/dt$ becomes multiplication by $s$. Solve the resulting algebraic equation for $Y(s)$. Invert the transform to recover $y(t)$.
+\[
+\underbrace{f(t),\,y(t)}_{\text{time domain: differential equation}}
+\;\xrightarrow{\ \mathcal{L}\ }\;
+\underbrace{F(s),\,Y(s)}_{\text{frequency domain: algebraic equation}}
+\;\xrightarrow{\ \mathcal{L}^{-1}\ }\;
+\underbrace{y(t)}_{\text{solution}}
+\]
+\end{methodbox}
+
+\begin{conceptbox}[The Takeaway]
+A \textcolor{accentorange}{differential equation becomes an algebraic equation} --- initial conditions are absorbed automatically, and \textcolor{accentorange}{discontinuous forcing is handled natively}.
+\end{conceptbox}
+
+\subsection{The Laplace Transform --- Definition and Notation}
+
+\begin{formulabox}[Definition of the Laplace Transform]
+\[
+\mathcal{L}\{f(t)\} = F(s) = \int_0^{\infty} e^{-st} f(t)\, dt
+\]
+\end{formulabox}
+
+\noindent\textbf{Notation conventions.}
+\begin{itemize}[leftmargin=*, itemsep=1pt]
+  \item Lowercase $f, g, y$ for time-domain functions.
+  \item Uppercase $F, G, Y$ for their Laplace transforms.
+  \item $s$ is generally complex: $s = \sigma + i\omega$.
+  \item The lower limit $0^{-}$ captures impulses $\delta(t)$ at the origin.
+\end{itemize}
+
+\begin{warningbox}[The $0^{-}$ Subtlety]
+When the integrand includes $\delta(t)$, the lower limit must be $0^{-}$ so the impulse is captured. Without it, $\mathcal{L}\{\delta(t)\} = 1$ would fail. The integral converges absolutely for $s$ large enough: $\mathrm{Re}(s) > \alpha$, where $\alpha$ is the exponential-order bound on $f$.
+\end{warningbox}
+
+\subsection{The Starter Transforms}
+
+\begin{formulabox}[Six Transform Pairs to Know]
+\renewcommand{\arraystretch}{1.6}
+\begin{center}
+\begin{tabular}{>{$}c<{$} >{$}c<{$} >{$}c<{$}}
+\toprule
+f(t) & F(s) = \mathcal{L}\{f(t)\} & \text{Valid for} \\
+\midrule
+1 & \dfrac{1}{s} & s > 0 \\
+t & \dfrac{1}{s^2} & s > 0 \\
+t^n,\ n\in\mathbb{N} & \dfrac{n!}{s^{n+1}} & s > 0 \\
+e^{at} & \dfrac{1}{s-a} & s > a \\
+\sin(at) & \dfrac{a}{s^2+a^2} & s > 0 \\
+\cos(at) & \dfrac{s}{s^2+a^2} & s > 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+\begin{examplebox}[Deriving $\mathcal{L}\{1\}$ and $\mathcal{L}\{e^{at}\}$]
+For the constant function:
+\[ \textcolor{workpurple}{\mathcal{L}\{1\} = \int_0^{\infty} e^{-st}\, dt = \left[-\tfrac{1}{s}e^{-st}\right]_0^{\infty} = \frac{1}{s}} \]
+For $s > 0$, the boundary term at $\infty$ vanishes. For the exponential, the same pattern applies with $s \to s-a$:
+\[ \textcolor{workpurple}{\mathcal{L}\{e^{at}\} = \int_0^{\infty} e^{-(s-a)t}\, dt = \frac{1}{s-a}}, \qquad s > a. \]
+\end{examplebox}
+
+\subsection{The Euler Trick --- $\sin$ and $\cos$ from $e^{ibt}$}
+
+\begin{examplebox}[Sines and Cosines as Projections of $e^{ibt}$]
+\textbf{Step 1.} From the table, $\mathcal{L}\{e^{at}\} = \frac{1}{s-a}$ for $s > a$. Substitute $a = ib$ (with $b$ real):
+\[ \textcolor{workpurple}{\mathcal{L}\{e^{ibt}\} = \frac{1}{s - ib}} \]
+\textbf{Step 2.} Multiply numerator and denominator by the conjugate $s + ib$:
+\[ \textcolor{workpurple}{\mathcal{L}\{e^{ibt}\} = \frac{s + ib}{s^2 + b^2}} \]
+\textbf{Step 3.} Apply Euler's formula $e^{ibt} = \cos(bt) + i\sin(bt)$ and use linearity:
+\[ \textcolor{workpurple}{\mathcal{L}\{\cos(bt) + i\sin(bt)\} = \frac{s}{s^2+b^2} + i\,\frac{b}{s^2+b^2}} \]
+\textbf{Step 4.} Equate real and imaginary parts:
+\[ \textcolor{workpurple}{\mathcal{L}\{\cos(bt)\} = \frac{s}{s^2+b^2}, \qquad \mathcal{L}\{\sin(bt)\} = \frac{b}{s^2+b^2}} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Complex $s$ is not a complication --- it is a \textcolor{accentorange}{unification}. Sines and cosines are projections of complex exponentials, so their transforms follow immediately from $\textcolor{accentorange}{\mathcal{L}\{e^{at}\} = \tfrac{1}{s-a}}$.
+\end{conceptbox}
+
+\subsection{When Does $\mathcal{L}\{f\}$ Exist?}
+
+\noindent\textbf{Two sufficient conditions.}
+\begin{enumerate}[label=(\alph*), leftmargin=*, itemsep=1pt]
+  \item $f$ is piecewise continuous on every finite $[0,b]$: finitely many jumps, with one-sided limits existing.
+  \item $f$ is of exponential order: $\exists\, M, \alpha, t_0$ such that $|f(t)| \le M e^{\alpha t}$ for $t > t_0$.
+\end{enumerate}
+
+\begin{formulabox}[Existence Theorem]
+If $f$ is piecewise continuous on every $[0,b]$ and of exponential order $e^{\alpha t}$, then $\mathcal{L}\{f\}$ exists for $s > \alpha$.
+\end{formulabox}
+
+\begin{methodbox}[Proof Sketch (Comparison Test)]
+\textbf{Step 1.} Split $\int_0^{\infty} = \int_0^{t_0} + \int_{t_0}^{\infty}$. The first piece exists by piecewise continuity.
+
+\textbf{Step 2.} For the tail, use exponential order: $|e^{-st}f(t)| \le M e^{-(s-\alpha)t}$.
+
+\textbf{Step 3.} The dominating integral converges for $s > \alpha$:
+\[ \int_{t_0}^{\infty} M e^{-(s-\alpha)t}\, dt = \frac{M}{s-\alpha}\, e^{-(s-\alpha)t_0}. \]
+
+\textbf{Step 4.} Apply the comparison test $\Rightarrow$ $\mathcal{L}\{f\}$ converges absolutely.
+\end{methodbox}
+
+\begin{warningbox}[Sufficient, Not Necessary]
+The conditions are sufficient but not necessary: $f(t) = t^{-1/2}$ is \emph{not} piecewise continuous at $t = 0$, yet $\mathcal{L}\{t^{-1/2}\} = \sqrt{\pi/s}$ exists (via the substitution $t = u^2$).
+\end{warningbox}
+
+\subsection{When Is $\mathcal{L}^{-1}\{F\}$ Unique?}
+
+\begin{formulabox}[Uniqueness Theorem]
+If $f$ and $g$ are continuous on $[0,\infty)$ and of exponential order, and $\mathcal{L}\{f\} = \mathcal{L}\{g\}$ for all $s > C$, then $f(t) = g(t)$ for all $t \ge 0$.
+\end{formulabox}
+
+\noindent\textbf{Why we require continuity.} The Laplace integral cannot distinguish functions that differ only at finitely many points. Uniqueness holds only for continuous inverses --- which is fine, since solutions of ODEs are continuous.
+
+\begin{examplebox}[Counterexample at a Single Point]
+Define
+\[ \textcolor{workpurple}{g(t) = \begin{cases} 1, & 0 < t < 3 \\ 2, & t = 3 \\ 1, & t > 3 \end{cases}} \]
+Then $\textcolor{workpurple}{\mathcal{L}\{g\} = \tfrac{1}{s}}$ for $s > 0$, which equals $\mathcal{L}\{1\}$. Yet $g(t) \ne 1$ at $t = 3$. The continuous inverse of $1/s$ is $f(t) = 1$.
+\end{examplebox}
+
+\begin{warningbox}[Heaviside at Zero]
+The choices $u(0) = 0$, $u(0) = \tfrac{1}{2}$, and $u(0) = 1$ all give the same transform $1/s$. The value at the discontinuity is invisible to $\mathcal{L}$.
+\end{warningbox}
+
+\subsection{Laplace Transforms as Continuous Power Series}
+
+\begin{formulabox}[The Analogy]
+A power series $\displaystyle\sum_{n=0}^{\infty} a(n)\, x^n$ has the natural continuous analog $\displaystyle\int_0^{\infty} a(t)\, x^t\, dt$. Substituting $x = e^{-p}$:
+\[ \int_0^{\infty} a(t)\, e^{-pt}\, dt = \mathcal{L}\{a(t)\}. \]
+\end{formulabox}
+
+\noindent\textbf{Why the analogy matters.}
+\begin{itemize}[leftmargin=*, itemsep=1pt]
+  \item \textit{Convergence theory.} Power series converge inside a radius; Laplace transforms converge in a half-plane $\mathrm{Re}(s) > \alpha$. The half-plane is the continuous analog of the radius.
+  \item \textit{Operations.} Term-by-term differentiation of a power series corresponds to differentiation under the integral sign of a Laplace transform.
+  \item \textit{Inversion.} A power series is recovered from its coefficients; a Laplace transform is recovered via the Bromwich inversion integral.
+\end{itemize}
+
+\begin{conceptbox}[Key Takeaway]
+The Laplace transform is the \textcolor{accentorange}{natural continuous counterpart of the power series} --- the most useful discrete representation in analysis.
+\end{conceptbox}
+
+\subsection{Linearity and the Product Warning}
+
+\begin{formulabox}[Linearity Theorem]
+If $\mathcal{L}\{f\}$ and $\mathcal{L}\{g\}$ exist, then for any constants $\alpha, \beta$:
+\[ \mathcal{L}\{\alpha f + \beta g\} = \alpha\,\mathcal{L}\{f\} + \beta\,\mathcal{L}\{g\}. \]
+The inverse $\mathcal{L}^{-1}$ inherits linearity.
+\end{formulabox}
+
+\begin{examplebox}[Combining Transforms by Table Lookup]
+No integration required --- pure table lookup plus linearity:
+\[ \textcolor{workpurple}{\mathcal{L}\{2 + 5t + 9e^{-2t}\} = \frac{2}{s} + \frac{5}{s^2} + \frac{9}{s+2}.} \]
+\end{examplebox}
+
+\begin{warningbox}[Critical: $\mathcal{L}\{f \cdot g\} \ne \mathcal{L}\{f\} \cdot \mathcal{L}\{g\}$]
+A product in the time domain does \emph{not} transform into a product in the frequency domain. The correct product rule is the convolution theorem: $\mathcal{L}\{f * g\} = \mathcal{L}\{f\}\cdot\mathcal{L}\{g\}$, where $*$ denotes convolution.
+
+\medskip
+\textbf{Wrong:} $\mathcal{L}\{t\sin t\} \ne \dfrac{1}{s^2}\cdot\dfrac{1}{s^2+1}$. \quad
+\textbf{Right} (use $\mathcal{L}\{t f(t)\} = -F'(s)$):
+\[ \mathcal{L}\{t\sin t\} = -\frac{d}{ds}\!\left[\frac{1}{s^2+1}\right] = \frac{2s}{(s^2+1)^2}. \]
+\end{warningbox}
+
+\begin{conceptbox}[Key Takeaway]
+Linearity is a friend; naive multiplication is an enemy. The transform converts \textcolor{accentorange}{sums into sums} --- but converts \textcolor{accentorange}{convolutions into products}.
+\end{conceptbox}
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- The Transform Toolkit}
+\section*{Part II --- The Transform Toolkit}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
+
+\subsection{First Shifting Property (Translation in $s$)}
+
+\begin{formulabox}[First Shifting Property]
+\[ \mathcal{L}\{e^{at} f(t)\} = F(s - a) \quad\Longleftrightarrow\quad \mathcal{L}^{-1}\{F(s-a)\} = e^{at} f(t), \]
+where $F(s) = \mathcal{L}\{f(t)\}$. A denominator like $(s-a)^2 + b^2$ is recognized as $s^2 + b^2$ shifted by $a$; the inverse is $e^{at}\sin(bt)$. Similarly $(s-a)^{n+1} \to e^{at} t^n / n!$.
+\end{formulabox}
+
+\begin{examplebox}[Two Applications of the First Shift]
+\textbf{(i)} Finding $\mathcal{L}\{e^{at}\sin(bt)\}$. Since $\mathcal{L}\{\sin(bt)\} = \tfrac{b}{s^2+b^2}$:
+\[ \textcolor{workpurple}{\mathcal{L}\{e^{at}\sin(bt)\} = \frac{b}{(s-a)^2 + b^2}}, \qquad s > a. \]
+\textbf{(ii)} Evaluating $\mathcal{L}^{-1}\!\left\{\frac{1}{s^2+4s+8}\right\}$. Complete the square:
+\[ \textcolor{workpurple}{s^2+4s+8 = (s+2)^2 + 4 = (s+2)^2 + 2^2.} \]
+Matching $\tfrac{b}{(s-a)^2+b^2}$ with $b=2,\ a=-2$ (supplying the missing factor of $2$):
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\!\left\{\frac{1}{(s+2)^2+4}\right\} = \frac{1}{2}\,e^{-2t}\sin(2t).} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Whenever a denominator has the form \textcolor{accentorange}{$(s-a)^2 + b^2$} or \textcolor{accentorange}{$(s-a)^{n+1}$}, the first shifting property gives the inverse immediately --- no partial fractions needed.
+\end{conceptbox}
+
+\subsection{Second Shifting Property (Translation in $t$)}
+
+\begin{formulabox}[Second Shifting Property]
+\[ \mathcal{L}\{u_a(t)\, f(t-a)\} = e^{-as}\, F(s) \quad\Longleftrightarrow\quad \mathcal{L}^{-1}\{e^{-as} F(s)\} = u_a(t)\, f(t-a), \]
+where $u_a(t) = u(t-a)$ is the Heaviside step at $t = a$. An $e^{-as}$ factor in the $s$-domain corresponds to a \emph{time delay} of $a$ in the $t$-domain.
+\end{formulabox}
+
+\begin{examplebox}[Inverting a Delayed Transform]
+Evaluate $\mathcal{L}^{-1}\!\left\{e^{-4s}\!\left(\frac{2}{s^2}+\frac{5}{s}\right)\right\}$. The un-shifted inverse of $F(s) = 2/s^2 + 5/s$ is
+\[ \textcolor{workpurple}{f(t) = 2t + 5.} \]
+Apply the second shifting property with $a = 4$:
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\{e^{-4s} F(s)\} = u_4(t)\, f(t-4) = u_4(t)\,[2(t-4)+5] = u_4(t)\,(2t-3).} \]
+This is $0$ for $t < 4$ and $2t - 3$ for $t > 4$.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+$e^{-as}$ in the $s$-domain is a \textcolor{accentorange}{time delay $a$} in the $t$-domain. This is the foundation for switched circuits, delayed forcing, and piecewise inputs.
+\end{conceptbox}
+
+\subsection{The Unit Step Function as a Building Block}
+
+\begin{formulabox}[Heaviside Unit Step]
+\[ u_a(t) = u(t-a) = \begin{cases} 0, & t < a \\ 1, & t \ge a \end{cases} \]
+A jump discontinuity of size $+1$ at $t = a$; its value at the jump is invisible to $\mathcal{L}$. Three primary uses: \emph{switched inputs} $V_0\, u_a(t)$; \emph{box functions} $M[u_a(t) - u_b(t)]$ ($M$ on $[a,b]$, $0$ elsewhere); and \emph{piecewise functions} $\sum_k u_{a_k}(t)\, f_k(t - a_k)$.
+\end{formulabox}
+
+\begin{examplebox}[A Box Function]
+Take $f(t) = 3$ on $[2,5]$ and $0$ elsewhere, i.e.\ $f(t) = 3u_2(t) - 3u_5(t)$:
+\[ \textcolor{workpurple}{\mathcal{L}\{f\} = \frac{3(e^{-2s} - e^{-5s})}{s}.} \]
+\end{examplebox}
+
+\subsection{Encoding Piecewise Functions with Heaviside}
+
+\begin{examplebox}[Three Piecewise Encodings]
+\textbf{Single step.} $f(t) = 5$ for $t<2$, $0$ for $t>2$, written $5(1 - u_2(t))$:
+\[ \textcolor{workpurple}{\mathcal{L}\{f\} = \frac{5(1-e^{-2s})}{s}.} \]
+\textbf{Box pulse.} $f(t) = 3$ on $2<t<5$, $0$ elsewhere, written $3u_2(t) - 3u_5(t)$:
+\[ \textcolor{workpurple}{\mathcal{L}\{f\} = \frac{3(e^{-2s}-e^{-5s})}{s}.} \]
+\textbf{Triangular pulse.} $f(t) = t$ on $[0,1]$, $-t+2$ on $[1,2]$, $0$ elsewhere, written $f(t) = t - 2(t-1)u_1(t) + (t-2)u_2(t)$:
+\[ \textcolor{workpurple}{\mathcal{L}\{f\} = \frac{1 - 2e^{-s} + e^{-2s}}{s^2}.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Pattern Takeaway]
+Each piecewise function is a \textcolor{accentorange}{linear combination of $u_a(t)$ terms}. The second shifting property then gives each term's transform as $e^{-as}$ times the transform of the shifted function.
+\end{conceptbox}
+
+\subsection{The Dirac Delta Function}
+
+\begin{formulabox}[The Dirac Delta as a Limit]
+\[ \delta(t - t_0) = \lim_{\alpha \to 0} \frac{1}{2\alpha}\,[u_{t_0-\alpha}(t) - u_{t_0+\alpha}(t)] \]
+A rectangular pulse of width $2\alpha$ and height $1/(2\alpha)$ --- area always $1$. Defining properties:
+\[ \delta(t - t_0) = 0 \text{ for } t \ne t_0, \qquad \int_{-\infty}^{\infty} \delta(t-t_0)\,dt = 1. \]
+It models an idealized impulse: hammer blow, lightning strike, voltage spike, point load.
+\end{formulabox}
+
+\begin{warningbox}[$\delta$ Is Not a Classical Function]
+$\delta(t)$ is not a function in the classical sense (informally $\delta(0) = \infty$, zero elsewhere, total integral $1$). Its rigorous foundation is the theory of distributions (Schwartz, 1940s).
+\end{warningbox}
+
+\subsection{The Sifting Property and $\mathcal{L}\{\delta\}$}
+
+\begin{formulabox}[Sifting Property and the Delta Transform]
+For any bounded continuous $g$,
+\[ \int_{-\infty}^{\infty} \delta(t-t_0)\, g(t)\, dt = g(t_0). \]
+Substituting $g(t) = e^{-st}$ yields $\mathcal{L}\{\delta(t-t_0)\} = e^{-st_0}$; the special case $t_0 = 0$ gives $\mathcal{L}\{\delta(t)\} = 1$. Moreover $\delta$ is the identity for convolution: $(f * \delta)(t) = f(t)$, even though $f * 1 \ne f$.
+\end{formulabox}
+
+\begin{examplebox}[Impulse Forcing --- Damped Oscillator Struck at $t=4$]
+Solve $y'' + 2y' + 26y = \delta(t-4)$, $y(0)=1,\ y'(0)=0$. Transform:
+\[ \textcolor{workpurple}{[s^2Y - s] + 2[sY - 1] + 26Y = e^{-4s}.} \]
+Solve for $Y$, completing the square with $(s+1)^2 + 25$:
+\[ \textcolor{workpurple}{Y(s) = \frac{s+2}{(s+1)^2+5^2} + \frac{e^{-4s}}{(s+1)^2+5^2}.} \]
+Invert (the first term splits as $\tfrac{s+1}{(s+1)^2+5^2} + \tfrac15\cdot\tfrac{5}{(s+1)^2+5^2}$):
+\[ \textcolor{workpurple}{y(t) = e^{-t}\cos(5t) + \tfrac{1}{5}e^{-t}\sin(5t) + u_4(t)\cdot\tfrac{1}{5}e^{-(t-4)}\sin(5(t - 4)).} \]
+\end{examplebox}
+
+\subsection{Transforms of Derivatives --- The ODE Engine}
+
+\begin{formulabox}[Derivative Operational Rules]
+\begin{align*}
+\mathcal{L}\{f'(t)\} &= sF(s) - f(0), \\
+\mathcal{L}\{f''(t)\} &= s^2 F(s) - s f(0) - f'(0), \\
+\mathcal{L}\{f^{(n)}(t)\} &= s^n F(s) - \sum_{k=0}^{n-1} s^{n-1-k} f^{(k)}(0).
+\end{align*}
+\end{formulabox}
+
+\begin{methodbox}[Proof Sketch (Integration by Parts)]
+\[ \mathcal{L}\{f'\} = \int_0^{\infty} e^{-st} f'(t)\,dt = \big[e^{-st}f(t)\big]_0^{\infty} + s\!\int_0^{\infty}\! e^{-st}f(t)\,dt = -f(0) + sF(s). \]
+The boundary term at $\infty$ vanishes by exponential order.
+\end{methodbox}
+
+\begin{examplebox}[The Engine in Action]
+Solve $y'' + 7y' + 10y = 0$, $y(0)=1,\ y'(0)=1$.
+
+\textbf{Step 1 --- Transform:} $\textcolor{workpurple}{[s^2Y - s - 1] + 7[sY - 1] + 10Y = 0.}$
+
+\textbf{Step 2 --- Solve algebraically:}
+\[ \textcolor{workpurple}{Y(s) = \frac{s+8}{s^2+7s+10} = \frac{2}{s+2} - \frac{1}{s+5}.} \]
+
+\textbf{Step 3 --- Invert:} $\textcolor{workpurple}{y(t) = 2e^{-2t} - e^{-5t}.}$ The initial conditions are baked in --- no separate solve for $c_1, c_2$.
+\end{examplebox}
+
+\begin{warningbox}[The $0^{-}$ Convention]
+When impulses $\delta(t)$ are present at the origin, write $f(0^{-})$ instead of $f(0)$ --- the pre-initial condition.
+\end{warningbox}
+
+\begin{conceptbox}[Key Takeaway]
+Differentiation in $t$ becomes \textcolor{accentorange}{multiplication by $s$}. A linear constant-coefficient ODE becomes a purely algebraic equation for $Y(s)$.
+\end{conceptbox}
+
+\subsection{Transforms of Integrals --- and Integral Equations}
+
+\begin{formulabox}[Integral Operational Rule]
+\[ \mathcal{L}\!\left\{\int_0^t f(\tau)\,d\tau\right\} = \frac{F(s)}{s} \quad\Longleftrightarrow\quad \mathcal{L}^{-1}\!\left\{\frac{F(s)}{s}\right\} = \int_0^t f(\tau)\,d\tau. \]
+A $1/s$ factor represents a time-domain integration.
+\end{formulabox}
+
+\begin{methodbox}[Proof]
+Let $g(t) = \int_0^t f(\tau)\,d\tau$. Then $g'(t) = f(t)$ and $g(0) = 0$. The derivative rule gives $\mathcal{L}\{g'\} = sG(s) - g(0) = sG(s)$. But $\mathcal{L}\{g'\} = F(s)$, so $G(s) = F(s)/s$.
+\end{methodbox}
+
+\begin{examplebox}[A Volterra Integral Equation]
+Solve $x(t) - t = \int_0^t x(\tau)\,d\tau$. Transform both sides (integral rule on the right):
+\[ \textcolor{workpurple}{X(s) - \frac{1}{s^2} = \frac{X(s)}{s} \;\Rightarrow\; X(s)\!\left(1 - \frac{1}{s}\right) = \frac{1}{s^2} \;\Rightarrow\; X(s) = \frac{1}{s(s-1)} = \frac{1}{s-1} - \frac{1}{s}.} \]
+Invert: $\textcolor{workpurple}{x(t) = e^t - 1.}$ A differential equation and an integral equation become the same algebraic equation in the $s$-domain.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Integration in $t$ becomes \textcolor{accentorange}{division by $s$}. Integral equations become algebraic equations just as cleanly as differential equations.
+\end{conceptbox}
+
+\subsection{Differentiation and Integration of Transforms}
+
+\begin{formulabox}[Operational Calculus Extensions]
+\[ \mathcal{L}\{t^n f(t)\} = (-1)^n F^{(n)}(s) \qquad\text{(differentiation in $s$)}, \]
+\[ \mathcal{L}\!\left\{\frac{f(t)}{t}\right\} = \int_s^{\infty} F(u)\,du \qquad\text{(integration in $s$)}. \]
+For instance $\mathcal{L}\{t\sin(at)\} = -\frac{d}{ds}\!\left[\frac{a}{s^2+a^2}\right] = \frac{2as}{(s^2+a^2)^2}$.
+\end{formulabox}
+
+\begin{examplebox}[Showcase --- Bessel $J_0(x)$ via Laplace]
+Bessel's equation of order zero: $xy'' + y' + xy = 0$, $y(0)=1$. Transform using $\mathcal{L}\{xy''\} = -\frac{d}{ds}[s^2Y - sy(0)]$ and $\mathcal{L}\{xy\} = -Y'(s)$:
+\[ \textcolor{workpurple}{-\frac{d}{ds}[s^2Y - s] + (sY - 1) - Y' = 0 \;\Longrightarrow\; (s^2+1)\,Y' = -sY.} \]
+Separate and integrate:
+\[ \textcolor{workpurple}{Y(s) = \frac{c}{\sqrt{s^2+1}}, \qquad y(0)=1 \Rightarrow c=1 \Rightarrow \mathcal{L}\{J_0\} = \frac{1}{\sqrt{s^2+1}}.} \]
+Expanding by the binomial series and inverting term-by-term:
+\[ \textcolor{workpurple}{J_0(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{(n!)^2}\left(\frac{x}{2}\right)^{2n}.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+The rules \textcolor{accentorange}{$\mathcal{L}\{t^n f\} = (-1)^n F^{(n)}$} and \textcolor{accentorange}{$\mathcal{L}\{f/t\} = \int_s^\infty F$} extend the transform's reach to functions multiplied or divided by powers of $t$ --- including Bessel functions and many special functions of mathematical physics.
+\end{conceptbox}
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Solving ODEs}
+\section*{Part III --- Solving ODEs}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+
+\subsection{The Five-Step Laplace Method}
+
+\begin{methodbox}[The Five Steps]
+\textbf{Step 1 --- Transform.} Take $\mathcal{L}$ of both sides. Each $y^{(k)}$ becomes $s^k Y(s) - s^{k-1}y(0) - \cdots - y^{(k-1)}(0)$.
+
+\textbf{Step 2 --- Substitute ICs.} Plug in the initial conditions; they enter the algebraic equation directly.
+
+\textbf{Step 3 --- Solve algebraically.} Collect $Y(s)$ terms and divide.
+
+\textbf{Step 4 --- Decompose $Y(s)$.} Use partial fractions, completing the square, shifting properties, or convolution to break $Y(s)$ into table-recognizable pieces.
+
+\textbf{Step 5 --- Invert.} Look up each piece in the transform table to recover $y(t)$.
+\end{methodbox}
+
+\begin{conceptbox}[Why This Beats Classical Methods]
+\textcolor{accentorange}{Initial conditions are absorbed automatically}; \textcolor{accentorange}{discontinuous and impulsive forcing are handled natively}; and the $s$-domain form exposes the structure of the solution.
+\end{conceptbox}
+
+\subsection{Homogeneous ODEs --- Three Root Types}
+
+\begin{examplebox}[Distinct Real, Repeated, and Complex Roots]
+\textbf{Distinct real roots.} $y'' - 5y' + 6y = 0$, $y(0)=1,\ y'(0)=3$:
+\[ \textcolor{workpurple}{(s^2-5s+6)Y = s-2 \;\Rightarrow\; Y = \frac{s-2}{(s-2)(s-3)} = \frac{1}{s-3} \;\Rightarrow\; y(t) = e^{3t}.} \]
+\textbf{Repeated roots.} $y'' + 2y' + y = 0$, $y(0)=1,\ y'(0)=0$:
+\[ \textcolor{workpurple}{(s+1)^2 Y = s + 2 \;\Rightarrow\; Y = \frac{s+2}{(s+1)^2} = \frac{1}{s+1} + \frac{1}{(s+1)^2} \;\Rightarrow\; y(t) = (1+t)e^{-t}.} \]
+\textbf{Complex roots.} $y'' + 4y = 0$, $y(0)=2,\ y'(0)=3$:
+\[ \textcolor{workpurple}{(s^2+4)Y = 2s+3 \;\Rightarrow\; Y = \frac{2s}{s^2+4} + \frac{3}{s^2+4} \;\Rightarrow\; y(t) = 2\cos(2t) + \tfrac{3}{2}\sin(2t).} \]
+\end{examplebox}
+
+\begin{conceptbox}[Pattern Takeaway]
+Each case reduces to \textcolor{accentorange}{factoring the characteristic polynomial in $s$, partial fractions, and table lookup}. The Laplace method handles all three root types uniformly.
+\end{conceptbox}
+
+\subsection{Forced Oscillation --- Two Examples}
+
+\begin{examplebox}[Sinusoidal and Exponential Forcing]
+\textbf{Sinusoidal forcing.} $y'' + 4y = 3\cos t$, $y(0)=y'(0)=0$:
+\[ \textcolor{workpurple}{(s^2+4)Y = \frac{3s}{s^2+1} \;\Rightarrow\; Y = \frac{3s}{(s^2+1)(s^2+4)} = \frac{s}{s^2+1} - \frac{s}{s^2+4} \;\Rightarrow\; y(t) = \cos t - \cos(2t).} \]
+\textbf{Exponential forcing.} $y' - 2y = e^{5t}$, $y(0)=3$:
+\[ \textcolor{workpurple}{(s-2)Y - 3 = \frac{1}{s-5} \;\Rightarrow\; Y = \frac{3s-14}{(s-5)(s-2)} = \frac{1/3}{s-5} + \frac{8/3}{s-2} \;\Rightarrow\; y(t) = \tfrac{1}{3}e^{5t} + \tfrac{8}{3}e^{2t}.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Both examples reduce to factoring a polynomial in $s$, partial fractions, and table lookup. The Laplace method sidesteps the classical \textcolor{accentorange}{``particular + homogeneous''} decomposition.
+\end{conceptbox}
+
+\subsection{Discontinuous Forcing --- Heaviside in Action}
+
+\begin{examplebox}[A Mass-Spring Switched Off at $t = 7$]
+Solve $y'' + 2y' + 5y = h(t)$, $y(0)=y'(0)=0$, where $h(t) = 5$ for $t < 7$ and $0$ for $t > 7$, i.e.\ $h(t) = 5(1 - u_7(t))$.
+
+\textbf{Step 1 --- Transform:} $\textcolor{workpurple}{(s^2 + 2s + 5)\,Y = \dfrac{5}{s} - \dfrac{5e^{-7s}}{s}.}$
+
+\textbf{Step 2 --- Solve:} $\textcolor{workpurple}{Y(s) = \dfrac{5}{s(s^2+2s+5)} - \dfrac{5e^{-7s}}{s(s^2+2s+5)}.}$
+
+\textbf{Step 3 --- Decompose} the unshifted term and complete the square $(s+1)^2+2^2$:
+\[ \textcolor{workpurple}{\frac{5}{s(s^2+2s+5)} = \frac{1}{s} - \frac{s+2}{(s+1)^2+4},} \]
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\!\left\{\frac{s+2}{(s+1)^2+4}\right\} = e^{-t}\cos(2t) + \tfrac{1}{2}e^{-t}\sin(2t).} \]
+
+\textbf{Step 4 --- Invert with delay} (second shift on the $e^{-7s}$ term):
+\[ \textcolor{workpurple}{\begin{aligned} y(t) = {}&1 - e^{-t}\cos(2t) - \tfrac{1}{2}e^{-t}\sin(2t) \\ &- u_7(t)\Big[1 - e^{-(t-7)}\cos(2(t-7)) - \tfrac{1}{2}e^{-(t-7)}\sin(2(t-7))\Big]. \end{aligned}} \]
+A single algebraic expression handled both regimes of the forcing at once.
+\end{examplebox}
+
+\begin{warningbox}[Forgetting the $u_a$ Factor]
+When applying the second shifting property to $e^{-7s}F(s)$, the inverse $f(t)$ must be expressed in terms of $t$, then replaced by $t \to t-7$ \emph{and} multiplied by $u_7(t)$. Dropping the $u_7$ factor is the most common mistake.
+\end{warningbox}
+
+\subsection{Impulse Forcing --- A Hammer Strike at $t = 4$}
+
+\begin{examplebox}[Damped Oscillator with an Impulse]
+Solve $y'' + 2y' + 26y = \delta(t-4)$, $y(0)=1,\ y'(0)=0$.
+
+\textbf{Step 1 --- Transform:} $\textcolor{workpurple}{[s^2Y - s] + 2[sY - 1] + 26Y = e^{-4s}.}$
+
+\textbf{Step 2 --- Solve:} $\textcolor{workpurple}{Y(s) = \dfrac{s+2}{(s+1)^2+25} + \dfrac{e^{-4s}}{(s+1)^2+25}.}$
+
+\textbf{Step 3 --- Split and invert} the first term:
+\[ \textcolor{workpurple}{\frac{s+2}{(s+1)^2+25} = \frac{s+1}{(s+1)^2+5^2} + \frac{1}{5}\cdot\frac{5}{(s+1)^2+5^2} \to e^{-t}\cos(5t) + \tfrac{1}{5}e^{-t}\sin(5t).} \]
+
+\textbf{Step 4 --- Apply the shift} to the impulse term:
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\!\left\{\frac{e^{-4s}}{(s+1)^2+25}\right\} = u_4(t)\cdot\tfrac{1}{5}e^{-(t-4)}\sin(5(t-4)).} \]
+\[ \textcolor{workpurple}{y(t) = e^{-t}\cos(5t) + \tfrac{1}{5}e^{-t}\sin(5t) + u_4(t)\cdot\tfrac{1}{5}e^{-(t-4)}\sin(5(t-4)).} \]
+The third term is a new oscillation that switches on at $t=4$ --- the impulse response.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+An impulse $\delta_a(t)$ produces \textcolor{accentorange}{$e^{-as}H(s)$} in $Y(s)$, which inverts to $u_a(t)\,h(t-a)$ --- the impulse response delayed by $a$. The system ``remembers'' the impulse forever.
+\end{conceptbox}
+
+\subsection{Periodic Functions and Their Transforms}
+
+\begin{formulabox}[Periodic Function Transform]
+If $f$ has period $P$ (so $f(t+P)=f(t)$), the transform is computed over a single cycle:
+\[ \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-Ps}} \int_0^P e^{-st}\, f(t)\, dt. \]
+\end{formulabox}
+
+\begin{examplebox}[Square Wave]
+For $f(t) = +1$ on $[0,2)$ and $-1$ on $[2,4)$ with period $P=4$:
+\[ \textcolor{workpurple}{\int_0^4 e^{-st}f(t)\,dt = \int_0^2 e^{-st}\,dt - \int_2^4 e^{-st}\,dt = \frac{(1-e^{-2s})^2}{s}.} \]
+Using $1-e^{-4s} = (1-e^{-2s})(1+e^{-2s})$:
+\[ \textcolor{workpurple}{F(s) = \frac{(1-e^{-2s})^2}{s(1-e^{-4s})} = \frac{1-e^{-2s}}{s(1+e^{-2s})}.} \]
+\end{examplebox}
+
+\subsection{Solving Linear Systems with Laplace}
+
+\begin{methodbox}[The Method for Systems]
+For a $2\times2$ first-order system, transform each equation via $x' \to sX - x(0)$, $y' \to sY - y(0)$, $x \to X$, $y \to Y$. The result is a $2\times2$ linear algebraic system in $X(s), Y(s)$; solve by elimination or Cramer's rule, then apply partial fractions and invert.
+\end{methodbox}
+
+\begin{examplebox}[A Coupled System]
+Solve $x' - 6x + 3y = 8e^t$, $y' - 2x - y = 4e^t$, with $x(0)=-1,\ y(0)=0$. Transform and rearrange:
+\[ \textcolor{workpurple}{\begin{cases} (s-6)X + 3Y = \dfrac{-s+9}{s-1} \\[2mm] -2X + (s-1)Y = \dfrac{4}{s-1} \end{cases}} \]
+Solve by Cramer's rule:
+\[ \textcolor{workpurple}{X(s) = \frac{-s+7}{(s-1)(s-4)}, \qquad Y(s) = \frac{2}{(s-1)(s-4)}.} \]
+Partial fractions and invert:
+\[ \textcolor{workpurple}{x(t) = -2e^t + e^{4t}, \qquad y(t) = -\tfrac{2}{3}e^t + \tfrac{2}{3}e^{4t}.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+The Laplace method scales effortlessly to systems --- the algebraic structure in $s$ is what diagonalizing the coefficient matrix would yield, but \textcolor{accentorange}{the initial conditions are incorporated from the start}.
+\end{conceptbox}
+
+\subsection{Inverse Laplace --- The Four Techniques}
+
+\begin{methodbox}[Four Inversion Techniques]
+\textbf{1 --- Table lookup.} Memorize the six starter transforms; add shifting properties for $(s-a)$ patterns. Example: $\mathcal{L}^{-1}\{3/(s^2+9)\} = \sin(3t)$.
+
+\textbf{2 --- Partial fractions.} For $F = N/D$ with $\deg N < \deg D$, factor $D$ and decompose. Example: $\frac{3s-14}{(s-5)(s-2)} = \frac{1/3}{s-5} + \frac{8/3}{s-2} \to \tfrac13 e^{5t} + \tfrac83 e^{2t}$.
+
+\textbf{3 --- Complete the square.} For irreducible $s^2+bs+c$, write $(s+b/2)^2 + (c-b^2/4)$ and match the shifted sine/cosine forms. Example: $\frac{1}{s^2+6s+13} = \frac{1}{(s+3)^2+4} \to \tfrac12 e^{-3t}\sin(2t)$.
+
+\textbf{4 --- Convolution.} For products $F(s)G(s)$: $\mathcal{L}^{-1}\{FG\} = f * g$. Example: $\mathcal{L}^{-1}\{\frac{1}{s^2(s+1)}\} = t * e^{-t} = t + e^{-t} - 1$.
+\end{methodbox}
+
+\subsection{The Mass-Spring-Dashpot System}
+
+\begin{formulabox}[General Solution via Laplace]
+For $mx'' + bx' + kx = f(t)$, $x(0)=x_0,\ x'(0)=v_0$:
+\[ X(s) = \frac{F(s) + m(x_0 s + v_0) + b\,x_0}{ms^2 + bs + k}. \]
+The denominator $ms^2 + bs + k$ is the characteristic polynomial; its roots set the homogeneous behavior (overdamped, critically damped, underdamped).
+\end{formulabox}
+
+\begin{examplebox}[Forced Undamped Motion]
+$x'' + 4x = \sin(3t)$, $x(0)=x'(0)=0$:
+\[ \textcolor{workpurple}{(s^2+4)X = \frac{3}{s^2+9} \;\Rightarrow\; X = \frac{3}{(s^2+4)(s^2+9)} = \frac{3/5}{s^2+4} - \frac{3/5}{s^2+9}.} \]
+\[ \textcolor{workpurple}{x(t) = \tfrac{3}{10}\sin(2t) - \tfrac{1}{5}\sin(3t).} \]
+A superposition of two oscillations --- natural frequency $2$ and forcing frequency $3$. No resonance.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+The Laplace method gives the full solution --- \textcolor{accentorange}{homogeneous + particular + ICs} --- in one algebraic equation. The denominator reveals the natural frequencies; the numerator reveals the forcing response.
+\end{conceptbox}
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part IV --- Convolution \& Systems}
+\section*{Part IV --- Convolution \& Systems}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+
+\subsection{The Convolution Theorem}
+
+\begin{formulabox}[Convolution and Its Transform]
+\[ (f * g)(t) = \int_0^t f(\tau)\,g(t-\tau)\,d\tau = \int_0^t f(t-\tau)\,g(\tau)\,d\tau \]
+(the two forms equal via $u = t-\tau$), and
+\[ \mathcal{L}\{f * g\} = F(s)\,G(s) \quad\Longleftrightarrow\quad \mathcal{L}^{-1}\{F(s)\,G(s)\} = (f * g)(t). \]
+\end{formulabox}
+
+\begin{methodbox}[Proof Sketch (Geometric)]
+Write the product as a double integral over the first quadrant:
+\[ F(s)\,G(s) = \int_0^{\infty}\!\!\int_0^{\infty} e^{-s(u+v)} f(u)\,g(v)\,du\,dv. \]
+Change variables $t = u+v,\ \tau = v$ (Jacobian $=1$); the first quadrant becomes the wedge $0 \le \tau \le t < \infty$. Swapping the order of integration:
+\[ F(s)\,G(s) = \int_0^{\infty} e^{-st}\!\left[\int_0^t f(t-\tau)\,g(\tau)\,d\tau\right]dt = \mathcal{L}\{f * g\}. \]
+\end{methodbox}
+
+\begin{conceptbox}[Key Takeaway]
+The convolution theorem is the \textcolor{accentorange}{product rule for Laplace transforms}: products in the $s$-domain become convolutions in the $t$-domain. This is the foundation for transfer functions and Duhamel's principle.
+\end{conceptbox}
+
+\subsection{Convolution --- Properties and Pitfalls}
+
+\begin{formulabox}[Algebraic Properties]
+For piecewise-continuous, exponentially-bounded functions and constant $c$: convolution is \emph{commutative} ($f*g = g*f$), \emph{associative} ($f*(g*h) = (f*g)*h$), \emph{distributive} ($f*(g+h) = f*g + f*h$), \emph{scalar-linear} ($(cf)*g = c(f*g)$), and \emph{annihilated by zero} ($0*f = 0$).
+\end{formulabox}
+
+\begin{examplebox}[$(\cos t) * (\cos t)$]
+Use $\cos(t-\tau)\cos\tau = \tfrac{1}{2}[\cos(t-2\tau) + \cos t]$:
+\[ \textcolor{workpurple}{(\cos * \cos)(t) = \int_0^t \cos(t-\tau)\cos\tau\,d\tau = \tfrac{1}{2}\int_0^t [\cos(t-2\tau)+\cos t]\,d\tau = \tfrac{1}{2}[\sin t + t\cos t].} \]
+\end{examplebox}
+
+\begin{warningbox}[No Multiplicative Identity; $f*f$ Can Be Negative]
+$f * 1 \ne f$: the constant $1$ is \emph{not} the convolution identity. For example $(\cos t) * 1 = \sin t \ne \cos t$. The identity is the Dirac delta: $(f * \delta)(t) = f(t)$. Also, unlike $f(t)^2$, the convolution $f*f$ can be negative --- e.g.\ $(\sin t)*(\sin t) = \tfrac{1}{2}(\sin t - t\cos t)$, negative on certain intervals.
+\end{warningbox}
+
+\subsection{Duhamel's Principle --- Solution for Arbitrary Input}
+
+\begin{examplebox}[The Killer Application]
+Solve $x'' + \omega_0^2\, x = f(t)$, $x(0)=x'(0)=0$, for arbitrary $f$.
+
+\textbf{Step 1 --- Transform:} $\textcolor{workpurple}{s^2 X + \omega_0^2 X = F(s) \;\Rightarrow\; X(s) = \dfrac{F(s)}{s^2 + \omega_0^2}.}$
+
+\textbf{Step 2 --- Identify} the transfer function $\textcolor{workpurple}{H(s) = \dfrac{1}{s^2+\omega_0^2}}$ with inverse $\textcolor{workpurple}{h(t) = \dfrac{\sin(\omega_0 t)}{\omega_0}.}$
+
+\textbf{Step 3 --- Convolve:} $X(s) = H(s)F(s)$ implies
+\[ \textcolor{workpurple}{x(t) = (h * f)(t) = \int_0^t \frac{\sin(\omega_0(t-\tau))}{\omega_0}\, f(\tau)\,d\tau.} \]
+
+\textbf{Step 4 --- Resonance check:} if $f(t) = \cos(\omega_0 t)$ the convolution gives $\textcolor{workpurple}{x(t) = \dfrac{t\,\sin(\omega_0 t)}{2\omega_0}}$ --- the linearly-growing amplitude that defines resonance.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Once the \textcolor{accentorange}{impulse response $h(t)$} is known, the system's response to any input is the convolution with $h$. The system is fully characterized by $h$.
+\end{conceptbox}
+
+\subsection{Volterra Integral Equations}
+
+\begin{formulabox}[Solving by Algebra in $s$]
+For $x(t) = f(t) + \int_0^t g(t-\tau)\, x(\tau)\, d\tau$, the integral is the convolution $(g * x)(t)$, so applying $\mathcal{L}$:
+\[ X(s) = F(s) + G(s)\,X(s) \quad\Longrightarrow\quad X(s) = \frac{F(s)}{1 - G(s)}. \]
+\end{formulabox}
+
+\begin{examplebox}[A Worked Volterra Equation]
+Solve $x(t) = e^{-t} + \int_0^t \sinh(t-\tau)\, x(\tau)\, d\tau$. Transform with $\mathcal{L}\{e^{-t}\} = \tfrac{1}{s+1}$ and $\mathcal{L}\{\sinh t\} = \tfrac{1}{s^2-1}$:
+\[ \textcolor{workpurple}{X = \frac{1}{s+1} + \frac{1}{s^2-1}\,X \;\Rightarrow\; X\!\left(\frac{s^2-2}{s^2-1}\right) = \frac{1}{s+1}.} \]
+\[ \textcolor{workpurple}{X = \frac{s^2-1}{(s+1)(s^2-2)} = \frac{s-1}{s^2-2} = \frac{s}{s^2-2} - \frac{1}{s^2-2}.} \]
+Invert:
+\[ \textcolor{workpurple}{x(t) = \cosh(\sqrt{2}\,t) - \tfrac{1}{\sqrt{2}}\sinh(\sqrt{2}\,t).} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Integral equations arise in physics problems with \textcolor{accentorange}{memory} (viscoelastic materials, age-structured populations, radiative transfer). Laplace transforms solve them as cleanly as differential equations.
+\end{conceptbox}
+
+\subsection{Transfer Functions, Impulse Responses, and Stability}
+
+\begin{formulabox}[Transfer Function $H(s)$]
+For a linear constant-coefficient ODE $P(D)\,x = N(D)\,E(t)$ with rest initial conditions:
+\[ H(s) = \frac{\mathcal{L}\{x\}}{\mathcal{L}\{E\}} = \frac{N(s)}{P(s)}. \]
+$H(s)$ depends only on the system, not the input; the output for any input is $X(s) = H(s)\,E(s)$. The impulse response is $h(t) = \mathcal{L}^{-1}\{H(s)\}$, and since $\mathcal{L}\{\delta\}=1$, the response to $\delta(t)$ is exactly $x(t) = h(t)$.
+\end{formulabox}
+
+\begin{methodbox}[Poles, Zeros, and the Stability Criterion]
+\textbf{Poles} are the roots of $P(s)$ (where $H \to \infty$) --- they dictate natural frequencies. \textbf{Zeros} are the roots of $N(s)$ (where $H = 0$) --- they determine which inputs are absorbed.
+
+\smallskip
+\textbf{Stability.} If $\mathrm{Re}(s_i) < 0$ for all poles $\Rightarrow$ stable ($x_h \to 0$). If $\mathrm{Re}(s_i) > 0$ for any pole $\Rightarrow$ unstable (exponential growth). If $\mathrm{Im}(s_i) \ne 0$ $\Rightarrow$ oscillations are present.
+\end{methodbox}
+
+\begin{conceptbox}[Key Takeaway]
+\textcolor{accentorange}{A system is its transfer function.} Two systems with the same $H(s)$ are indistinguishable from their input-output behavior, even if their internal structures differ. Poles in the open left half-plane mean stability.
+\end{conceptbox}
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part V --- Advanced Applications}
+\section*{Part V --- Advanced Applications}
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+
+\subsection{The Transport Equation via Laplace}
+
+\begin{examplebox}[River Pollution --- Wavefront at Speed $\alpha$]
+PDE $y_t = -\alpha\, y_x$ for $x>0,\ t>0$, with $y(0,t) = C$, $y(x,0) = 0$.
+
+\textbf{Step 1 --- Transform in $t$} (treat $x$ as a parameter); the PDE becomes a spatial ODE:
+\[ \textcolor{workpurple}{s\, Y(x) = -\alpha\, Y'(x).} \]
+\textbf{Step 2 --- Transform the BC:} $\textcolor{workpurple}{y(0,t) = C \to Y(0) = C/s.}$
+
+\textbf{Step 3 --- Solve the ODE:} $\textcolor{workpurple}{Y(x) = \dfrac{C}{s}\, e^{-sx/\alpha}.}$
+
+\textbf{Step 4 --- Invert via the second shift} ($\mathcal{L}^{-1}\{\tfrac1s e^{-as}\} = u_a(t)$, $a = x/\alpha$):
+\[ \textcolor{workpurple}{y(x,t) = C \cdot u\!\left(t - \frac{x}{\alpha}\right).} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+The Laplace transform reduces a \textcolor{accentorange}{PDE in two variables to an ODE in one} by transforming one variable. The boundary condition becomes the ODE's initial condition.
+\end{conceptbox}
+
+\subsection{The Heat Equation on a Half-Line}
+
+\begin{examplebox}[Half-Line with Prescribed Flux]
+PDE $y_t = y_{xx}$ for $x>0$, with $y_x(0,t) = f(t)$, $y(x,0) = 0$, $y$ bounded as $x \to \infty$.
+
+\textbf{Step 1 --- Transform in $t$:} $\textcolor{workpurple}{sY = Y''}$ --- an ODE in $x$.
+
+\textbf{Step 2 --- General solution:} $\textcolor{workpurple}{Y(x) = A e^{\sqrt{s}\,x} + B e^{-\sqrt{s}\,x}}$; boundedness forces $A = 0$, so $\textcolor{workpurple}{Y(x) = B\, e^{-\sqrt{s}\,x}.}$
+
+\textbf{Step 3 --- Apply the flux BC:} $\textcolor{workpurple}{Y'(0) = -\sqrt{s}\, B = F(s) \Rightarrow B = -F(s)/\sqrt{s}}$, hence $\textcolor{workpurple}{Y(x) = -\dfrac{F(s)}{\sqrt{s}}\, e^{-\sqrt{s}\,x}.}$
+
+\textbf{Step 4 --- Invert} with the heat kernel $\mathcal{L}^{-1}\{\tfrac{1}{\sqrt{s}} e^{-\sqrt{s}\,x}\} = \tfrac{1}{\sqrt{\pi t}} e^{-x^2/(4t)}$. By linearity:
+\[ \textcolor{workpurple}{y(x,t) = -\int_0^t \frac{1}{\sqrt{\pi(t-\tau)}}\, e^{-x^2/(4(t-\tau))}\, f(\tau)\, d\tau.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+The Laplace transform handles \textcolor{accentorange}{nonhomogeneous boundary conditions natively} where separation of variables struggles. The price is a convolution integral rather than a closed form.
+\end{conceptbox}
+
+\subsection{Three-Point Beam Bending with $\delta$}
+
+\begin{examplebox}[Euler-Bernoulli Beam under a Point Load]
+$EI\,y'''' = -F\,\delta(x-a)$ on $0<x<L$, simply supported: $y(0)=y(L)=0$, $y''(0)=y''(L)=0$. Take $L=2,\ EI=1,\ F=1,\ a=1$, so $y'''' = -\delta(x-1)$.
+
+\textbf{Step 1 --- Transform in $x$} with $y(0)=0,\ y''(0)=0$, and $C_1 = y'(0),\ C_2 = y'''(0)$:
+\[ \textcolor{workpurple}{s^4 Y - s\,y''(0) - y'''(0) = -e^{-s} \;\Rightarrow\; Y(s) = \frac{-e^{-s}}{s^4} + \frac{C_1}{s^2} + \frac{C_2}{s^4}.} \]
+\textbf{Step 2 --- Invert:} $\textcolor{workpurple}{y(x) = -\dfrac{(x-1)^3}{6}\, u(x-1) + C_1\, x + \dfrac{C_2\, x^3}{6}.}$
+
+\textbf{Step 3 --- Match right BCs} $y(2)=0,\ y''(2)=0$:
+\[ \textcolor{workpurple}{y''(2) = -1 + 2C_2 = 0 \Rightarrow C_2 = \tfrac{1}{2}, \qquad y(2) = -\tfrac{1}{6} + 2C_1 + \tfrac{4C_2}{3} = 0 \Rightarrow C_1 = -\tfrac{1}{4}.} \]
+\[ \textcolor{workpurple}{y(x) = -\frac{(x-1)^3}{6}\, u(x-1) - \frac{x}{4} + \frac{x^3}{12}.} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Point loads on beams are naturally modeled by \textcolor{accentorange}{$\delta(x-a)$}. The Laplace transform (in the spatial variable) handles them exactly --- no need to split the beam into segments and match conditions at the load point.
+\end{conceptbox}
+
+\subsection{Abel's Problem and the Cycloid}
+
+\begin{examplebox}[The Tautochrone --- A Historical Jewel]
+A bead slides frictionlessly down a wire from height $y$ to the origin. Energy conservation gives a convolution integral equation for the descent time:
+\[ \textcolor{workpurple}{T(y) = \frac{1}{\sqrt{2g}} \int_0^y \frac{f(v)}{\sqrt{y - v}}\, dv = \frac{1}{\sqrt{2g}}\,(y^{-1/2} * f),} \]
+where $f(v) = \sqrt{1 + (dx/dy)^2}$. Apply $\mathcal{L}$ with $\mathcal{L}\{y^{-1/2}\} = \sqrt{\pi/s}$:
+\[ \textcolor{workpurple}{\mathcal{L}\{T\} = \frac{1}{\sqrt{2g}}\sqrt{\frac{\pi}{s}}\,\mathcal{L}\{f\} \;\Rightarrow\; \mathcal{L}\{f\} = \sqrt{\frac{2g}{\pi}}\, s^{-1/2}\,\mathcal{L}\{T\}.} \]
+\textbf{Tautochrone condition.} Set $T(y) = T_0$ (constant). Then $\textcolor{workpurple}{\mathcal{L}\{f\} = \sqrt{2g/\pi}\, T_0\, s^{-3/2}}$, which inverts to $\textcolor{workpurple}{f(y) = b/\sqrt{y}}$ with $b = \sqrt{2g}\,T_0/\pi$. Solving $(dx/dy)^2 = (b-y)/y$ by $y = b\sin^2\phi$, with $a = b/2,\ \theta = 2\phi$:
+\[ \textcolor{workpurple}{x = a(\theta + \sin\theta), \qquad y = a(1 - \cos\theta)} \quad\text{(a cycloid).} \]
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Abel's problem reduces to a \textcolor{accentorange}{convolution integral equation} solved algebraically by the Laplace transform. The tautochrone is a \textcolor{accentorange}{cycloid} --- found geometrically by Huygens (1673), analytically by Abel (1826).
+\end{conceptbox}
+
+\subsection{Evaluating Real Integrals via Laplace}
+
+\begin{formulabox}[The $1/t$ Trick]
+From $\mathcal{L}\{f(t)/t\} = \int_s^{\infty} F(u)\, du$, taking $s \to 0^{+}$:
+\[ \int_0^{\infty} \frac{f(t)}{t}\, dt = \int_0^{\infty} F(u)\, du. \]
+\end{formulabox}
+
+\begin{examplebox}[Dirichlet, Frullani, and Damped-Sine Integrals]
+\textbf{Dirichlet} (use $\mathcal{L}\{\sin t\} = \tfrac{1}{s^2+1}$):
+\[ \textcolor{workpurple}{\int_0^{\infty} \frac{\sin t}{t}\, dt = \int_0^{\infty} \frac{1}{u^2+1}\, du = \arctan(u)\Big|_0^{\infty} = \frac{\pi}{2}.} \]
+\textbf{Frullani} (use $\mathcal{L}\{e^{-at}\} = \tfrac{1}{s+a}$):
+\[ \textcolor{workpurple}{\int_0^{\infty} \frac{e^{-at} - e^{-bt}}{t}\, dt = \int_0^{\infty}\!\left[\frac{1}{u+a} - \frac{1}{u+b}\right]du = \ln\frac{b}{a}.} \]
+\textbf{Damped sine} (use $\mathcal{L}\{e^{-at}\sin(bt)\} = \tfrac{b}{(s+a)^2+b^2}$):
+\[ \textcolor{workpurple}{\int_0^{\infty} \frac{e^{-at}\sin(bt)}{t}\, dt = \arctan\frac{b}{a}.} \]
+\end{examplebox}
+
+\subsection{Resonance Emerges Naturally from Convolution}
+
+\begin{examplebox}[Driving at the Natural Frequency]
+Solve $x'' + \omega_0^2 x = \cos(\omega_0 t)$, $x(0)=x'(0)=0$. Duhamel's principle gives
+\[ \textcolor{workpurple}{x(t) = \int_0^t \frac{\sin(\omega_0(t-\tau))}{\omega_0}\, \cos(\omega_0 \tau)\, d\tau.} \]
+Use $\sin A \cos B = \tfrac{1}{2}[\sin(A+B) + \sin(A-B)]$:
+\[ \textcolor{workpurple}{x(t) = \frac{1}{2\omega_0}\int_0^t [\sin(\omega_0 t) + \sin(\omega_0(t-2\tau))]\, d\tau = \frac{t\,\sin(\omega_0 t)}{2\omega_0}.} \]
+The boundary cosine terms cancel because $\cos(-\theta) = \cos\theta$.
+\end{examplebox}
+
+\begin{conceptbox}[Key Takeaway]
+Resonance is not an independent edge case. It falls out of the convolution integral naturally when the \textcolor{accentorange}{forcing frequency matches a natural frequency} --- marked by the linear growth factor $t$.
+\end{conceptbox}
+
+%======================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part VI --- Reference, Examples \& Closing}
+\section*{Part VI --- Reference, Examples \& Closing}
+\setcounter{section}{6}
+\setcounter{subsection}{0}
+
+\subsection{Master Table of Laplace Transforms}
+
+\renewcommand{\arraystretch}{1.7}
+\begin{center}\small
+\begin{tabular}{>{$}c<{$} >{$}c<{$} >{$}c<{$} @{\hspace{5mm}} >{$}c<{$} >{$}c<{$} >{$}c<{$}}
+\toprule
+f(t) & F(s) & \text{Valid} & f(t) & F(s) & \text{Valid} \\
+\midrule
+1 & \tfrac{1}{s} & s>0 & u_a(t) & \tfrac{e^{-as}}{s} & s>0 \\
+t & \tfrac{1}{s^2} & s>0 & u_a(t)f(t-a) & e^{-as}F(s) & s>\alpha \\
+t^n & \tfrac{n!}{s^{n+1}} & s>0 & e^{at}f(t) & F(s-a) & s>\alpha+a \\
+t^\alpha & \tfrac{\Gamma(\alpha+1)}{s^{\alpha+1}} & s>0 & f(ct) & \tfrac{1}{c}F(s/c) & c>0 \\
+e^{at} & \tfrac{1}{s-a} & s>a & \delta(t-t_0) & e^{-st_0} & \text{all } s \\
+\sin(at) & \tfrac{a}{s^2+a^2} & s>0 & f'(t) & sF - f(0) & s>\alpha \\
+\cos(at) & \tfrac{s}{s^2+a^2} & s>0 & f''(t) & s^2F - sf(0) - f'(0) & s>\alpha \\
+\sinh(at) & \tfrac{a}{s^2-a^2} & s>|a| & f^{(n)}(t) & s^nF - \sum s^{n-1-k}f^{(k)}(0) & s>\alpha \\
+\cosh(at) & \tfrac{s}{s^2-a^2} & s>|a| & \int_0^t f\,d\tau & \tfrac{F(s)}{s} & s>\alpha \\
+e^{at}\sin(bt) & \tfrac{b}{(s-a)^2+b^2} & s>a & (f*g)(t) & F(s)\,G(s) & s>\max(\alpha,\beta) \\
+e^{at}\cos(bt) & \tfrac{s-a}{(s-a)^2+b^2} & s>a & t\sin(at) & \tfrac{2as}{(s^2+a^2)^2} & s>0 \\
+t^n e^{at} & \tfrac{n!}{(s-a)^{n+1}} & s>a & t\cos(at) & \tfrac{s^2-a^2}{(s^2+a^2)^2} & s>0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Master Table of Inverse Laplace Transforms}
+
+\renewcommand{\arraystretch}{1.7}
+\begin{center}\small
+\begin{tabular}{>{$}c<{$} >{$}c<{$} l @{\hspace{4mm}} >{$}c<{$} >{$}c<{$} l}
+\toprule
+F(s) & f(t) & Technique & F(s) & f(t) & Technique \\
+\midrule
+\tfrac{1}{s} & 1 & Direct & \tfrac{e^{-as}}{s} & u_a(t) & 2nd shift \\
+\tfrac{1}{s^n} & \tfrac{t^{n-1}}{(n-1)!} & Direct & \tfrac{e^{-as}}{s-a} & u_a(t)e^{a(t-a)} & 2nd shift \\
+\tfrac{1}{s-a} & e^{at} & Direct & \tfrac{b\,e^{-as}}{(s-a)^2+b^2} & u_a e^{a(t-a)}\sin b(t-a) & 2nd shift \\
+\tfrac{a}{s^2+a^2} & \sin(at) & Direct & e^{-as}F(s) & u_a(t)f(t-a) & 2nd shift \\
+\tfrac{s}{s^2+a^2} & \cos(at) & Direct & \tfrac{F(s)}{s} & \int_0^t f\,d\tau & Integration \\
+\tfrac{a}{s^2-a^2} & \sinh(at) & Direct & F(s)\,G(s) & (f*g)(t) & Convolution \\
+\tfrac{s}{s^2-a^2} & \cosh(at) & Direct & 1 & \delta(t) & Delta \\
+\tfrac{n!}{(s-a)^{n+1}} & t^n e^{at} & Direct & e^{-as} & \delta(t-a) & Delta \\
+\tfrac{b}{(s-a)^2+b^2} & e^{at}\sin(bt) & 1st shift & -F'(s) & t\,f(t) & Diff.\ in $s$ \\
+\tfrac{s-a}{(s-a)^2+b^2} & e^{at}\cos(bt) & 1st shift & \int_s^\infty F\,du & \tfrac{f(t)}{t} & Integ.\ in $s$ \\
+\tfrac{1}{(s-a)(s-b)} & \tfrac{e^{at}-e^{bt}}{a-b} & Partial frac. & \tfrac{1}{\sqrt{s^2+a^2}} & J_0(at) & Bessel \\
+\tfrac{1}{(s-a)^2} & t\,e^{at} & Partial frac. & \tfrac{As+B}{(s-a)^2+b^2} & e^{at}[C_1\sin bt + C_2\cos bt] & Comp.\ square \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Worked Reference Examples --- Forward Transforms}
+
+\begin{examplebox}[Four Forward Transforms]
+\textbf{Polynomial $\times$ exponential.} $\mathcal{L}\{t^2 e^{-3t}\}$ via $\mathcal{L}\{t^n e^{at}\} = \tfrac{n!}{(s-a)^{n+1}}$ with $n=2,\,a=-3$:
+\[ \textcolor{workpurple}{\mathcal{L}\{t^2 e^{-3t}\} = \frac{2!}{(s+3)^3} = \frac{2}{(s+3)^3}, \quad s > -3.} \]
+\textbf{Trig product identity.} $\sin(3t)\cos(5t) = \tfrac{1}{2}[\sin(8t) - \sin(2t)]$:
+\[ \textcolor{workpurple}{\mathcal{L}\{\sin(3t)\cos(5t)\} = \frac{1}{2}\!\left[\frac{8}{s^2+64} - \frac{2}{s^2+4}\right].} \]
+\textbf{Hyperbolic via linearity.} $\cosh(at) = \tfrac{e^{at}+e^{-at}}{2}$:
+\[ \textcolor{workpurple}{\mathcal{L}\{\cosh(at)\} = \frac{1}{2}\!\left[\frac{1}{s-a} + \frac{1}{s+a}\right] = \frac{s}{s^2-a^2}, \quad s > |a|.} \]
+\textbf{Piecewise discontinuity.} $f(t) = 0$ for $t<1$, $t-1$ for $1<t<3$, $2$ for $t>3$, written $(t-1)u_1(t) - (t-3)u_3(t)$:
+\[ \textcolor{workpurple}{\mathcal{L}\{f\} = \frac{e^{-s}}{s^2} - \frac{e^{-3s}}{s^2} = \frac{e^{-s}-e^{-3s}}{s^2}.} \]
+\end{examplebox}
+
+\subsection{Worked Reference Examples --- Inverse Transforms}
+
+\begin{examplebox}[Four Inverse Transforms]
+\textbf{Distinct linear factors.} $\mathcal{L}^{-1}\{\tfrac{3s-14}{(s-5)(s-2)}\}$ with $A=\tfrac13,\,B=\tfrac83$:
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\{\cdots\} = \tfrac{1}{3}e^{5t} + \tfrac{8}{3}e^{2t}.} \]
+\textbf{Delayed (Heaviside).} $\mathcal{L}^{-1}\{\tfrac{e^{-4s}}{s^2+9}\}$: un-shifted inverse is $\tfrac13\sin(3t)$, so
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\{\cdots\} = u_4(t)\cdot\tfrac{1}{3}\sin(3(t-4)).} \]
+\textbf{Irreducible quadratic.} $\mathcal{L}^{-1}\{\tfrac{2s+3}{s^2+2s+5}\}$: complete the square $(s+1)^2+4$ and split $2s+3 = 2(s+1)+1$:
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\{\cdots\} = 2e^{-t}\cos(2t) + \tfrac{1}{2}e^{-t}\sin(2t).} \]
+\textbf{Convolution.} $\mathcal{L}^{-1}\{\tfrac{1}{s^2(s+1)}\} = t * e^{-t}$:
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\{\cdots\} = \int_0^t (t-\tau)e^{-\tau}\,d\tau = t + e^{-t} - 1.} \]
+\end{examplebox}
+
+\subsection{Analytical Validation via Value Theorems}
+
+\begin{formulabox}[Initial and Final Value Theorems]
+\[ \text{IVT:}\quad \lim_{t \to 0^+} f(t) = \lim_{s \to \infty} sF(s), \qquad \text{FVT:}\quad \lim_{t \to \infty} f(t) = \lim_{s \to 0} sF(s). \]
+The FVT is valid \emph{only} if all poles of $sF(s)$ lie in the open left half-plane.
+\end{formulabox}
+
+\begin{examplebox}[Sanity-Checking $\mathcal{L}^{-1}\{2/(s^2+4)\} = \sin(2t)$]
+\textbf{IVT:} $\textcolor{workpurple}{\lim_{s \to \infty} \tfrac{2s}{s^2+4} = 0 = \sin(0).}$ \checkmark
+
+\textbf{FVT:} $\textcolor{workpurple}{\lim_{s \to 0} \tfrac{2s}{s^2+4} = 0}$, but $sF(s)$ has poles at $\textcolor{workpurple}{s = \pm 2i}$ on the imaginary axis, violating the stability criterion. The FVT is invalid here: $\lim_{t\to\infty}\sin(2t)$ oscillates and does not equal $0$.
+\end{examplebox}
+
+\subsection{First-Order Application: Series RL Circuit}
+
+\begin{examplebox}[Step Response of an RL Circuit]
+$L\,i' + R\,i = V_0\,u(t)$, $i(0)=0$.
+
+\textbf{Transform:} $\textcolor{workpurple}{Ls\,I(s) + R\,I(s) = \dfrac{V_0}{s}.}$
+
+\textbf{Isolate:} $\textcolor{workpurple}{I(s) = \dfrac{V_0}{s(Ls+R)} = \dfrac{V_0}{L}\dfrac{1}{s(s+R/L)}.}$
+
+\textbf{Expand and invert:}
+\[ \textcolor{workpurple}{I(s) = \frac{V_0}{R}\!\left[\frac{1}{s} - \frac{1}{s+R/L}\right] \;\Rightarrow\; i(t) = \frac{V_0}{R}\!\left(1 - e^{-\frac{R}{L}t}\right).} \]
+\end{examplebox}
+
+\subsection{Advanced Inverse: Repeated Quadratics in Disguise}
+
+\begin{examplebox}[Inverting $s/(s^2+4)^2$]
+Map against frequency differentiation. With $F(s) = \tfrac{2}{s^2+4} = \mathcal{L}\{\sin(2t)\}$:
+\[ \textcolor{workpurple}{\mathcal{L}\{t\sin(2t)\} = -F'(s) = \frac{4s}{(s^2+4)^2} \;\Rightarrow\; \frac{s}{(s^2+4)^2} = \frac{1}{4}\,\mathcal{L}\{t\sin(2t)\}.} \]
+\[ \textcolor{workpurple}{\mathcal{L}^{-1}\!\left\{\frac{s}{(s^2+4)^2}\right\} = \frac{1}{4}\,t\sin(2t).} \]
+\end{examplebox}
+
+\begin{warningbox}[Reading Repeated Quadratics]
+A repeated quadratic $(s^2+a^2)^2$ in a denominator signals \emph{time multiplication by $t$} --- expect $t\sin(at)$ or $t\cos(at)$, not unweighted sines and cosines.
+\end{warningbox}
+
+\subsection{Control Theory: Steady-State Error Analysis}
+
+\begin{examplebox}[Tracking Error of a Unity-Feedback Loop]
+For unity feedback with $E(s) = \tfrac{1}{1+G(s)}R(s)$, plant $G(s) = \tfrac{K}{s(s+1)}$, and step input $R(s) = \tfrac{1}{s}$:
+\[ \textcolor{workpurple}{E(s) = \frac{1}{1 + \frac{K}{s(s+1)}}\cdot\frac{1}{s} = \frac{s+1}{s^2+s+K}.} \]
+The steady-state error follows from the FVT:
+\[ \textcolor{workpurple}{e_{ss} = \lim_{s \to 0} sE(s) = \lim_{s \to 0} \frac{s(s+1)}{s^2+s+K} = \frac{1}{K}.} \]
+\end{examplebox}
+
+\subsection{One-Page Cheat-Sheet Summary}
+
+\begin{formulabox}[All the Rules at a Glance]
+\textbf{Definition.} $F(s) = \int_0^{\infty} e^{-st} f(t)\, dt$ (piecewise continuity + exponential order).
+
+\smallskip
+\textbf{Linearity.} $\mathcal{L}\{\alpha f + \beta g\} = \alpha F + \beta G$.
+
+\smallskip
+\textbf{Shifts.} $\mathcal{L}\{e^{at}f(t)\} = F(s-a)$ and $\mathcal{L}\{u_a(t)f(t-a)\} = e^{-as}F(s)$.
+
+\smallskip
+\textbf{Calculus map.} $\mathcal{L}\{f'\} = sF - f(0)$; $\mathcal{L}\{f''\} = s^2F - sf(0) - f'(0)$; $\mathcal{L}\{\int f\} = F(s)/s$.
+
+\smallskip
+\textbf{Special functions.} $\mathcal{L}\{u_a(t)\} = \tfrac{e^{-as}}{s}$, $\mathcal{L}\{\delta(t-a)\} = e^{-as}$, $\mathcal{L}\{\sin(at)\} = \tfrac{a}{s^2+a^2}$, $\mathcal{L}\{\cos(at)\} = \tfrac{s}{s^2+a^2}$.
+
+\smallskip
+\textbf{Convolution \& transfer.} $(f*g)(t) = \int_0^t f(\tau)g(t-\tau)\,d\tau \to \mathcal{L}\{f*g\} = F(s)G(s)$; $H(s) = \tfrac{X(s)}{F(s)} = \tfrac{N(s)}{P(s)}$, $h(t) = \mathcal{L}^{-1}\{H(s)\}$. Poles in the left half-plane $\Rightarrow$ stable.
+\end{formulabox}
+
+\begin{conceptbox}[Three Big Ideas]
+\textbf{One:} differentiation in $t$ becomes \textcolor{accentorange}{multiplication by $s$} --- the entire operational calculus follows from this single transformation.
+
+\smallskip
+\textbf{Two:} the \textcolor{accentorange}{convolution theorem} is the product rule for Laplace transforms --- it delivers Duhamel's principle, transfer functions, and the impulse-response framework natively.
+
+\smallskip
+\textbf{Three:} \textcolor{accentorange}{poles in the left half-plane} dictate system stability --- a single geometric interpretation that underpins classical control theory.
+\end{conceptbox}
+
+\end{document}

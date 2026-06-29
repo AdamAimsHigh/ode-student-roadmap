@@ -29,6 +29,9 @@ __pycache__/
 .playwright-mcp/
 quiz-modal-verify.png
 
+# Local AI chat logs (keep on PC, never track)
+Gemini Chats ODE-Manager-Local/
+
 # Data Caches and Heavy Files (TOKEN PROTECTION)
 *.csv
 

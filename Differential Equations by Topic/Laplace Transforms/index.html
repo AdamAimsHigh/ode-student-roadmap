@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staples Education | Diagnostic Protocol</title>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #1e40af;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --correct: #10b981;
+            --incorrect: #ef4444;
+            --border: #e2e8f0;
+            --hint-bg: #fffbeb;
+            --hint-border: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #setup-section, #quiz-section, #stats-section {
+            display: none;
+        }
+
+        #setup-section.active, #quiz-section.active, #stats-section.active {
+            display: block;
+        }
+
+        .file-upload-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            background-color: #eff6ff;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Hint System Styles */
+        .hint-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding: 0;
+            display: none;
+            transition: color 0.2s;
+        }
+
+        .hint-btn:hover {
+            color: var(--primary-hover);
+        }
+
+        .hint-box {
+            background-color: var(--hint-bg);
+            border-left: 4px solid var(--hint-border);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 6px 6px 0;
+            display: none;
+            font-size: 0.95rem;
+            color: #92400e;
+        }
+
+        .hint-box.visible {
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            color: var(--text-main);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background-color: #f1f5f9;
+        }
+
+        .option-btn.correct {
+            border-color: var(--correct);
+            background-color: #d1fae5;
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--incorrect);
+            background-color: #fee2e2;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        .rationale-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary);
+        }
+
+        .rationale-box.visible {
+            display: block;
+        }
+
+        .rationale-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Navigation Layout */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            visibility: hidden; /* Keeps layout spacing intact when hidden */
+            transition: background-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .action-btn.secondary {
+            background-color: var(--text-muted);
+        }
+
+        .action-btn.secondary:hover {
+            background-color: #475569;
+        }
+
+        .action-btn.visible {
+            visibility: visible;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .review-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .review-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--incorrect);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-rationale {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 id="main-title">Staples Education</h1>
+        <div class="subtitle" id="main-subtitle">Diagnostic Protocol</div>
+    </header>
+
+    <div id="setup-section" class="active">
+        <div class="file-upload-wrapper">
+            <h3>Load Diagnostic Matrix</h3>
+            <p>Select your quiz <code>.json</code> file to inject the questions into the runtime environment.</p>
+            <input type="file" id="jsonFileInput" accept=".json">
+        </div>
+    </div>
+
+    <div id="quiz-section">
+        <div class="question-header">
+            <div class="progress" id="progress-indicator">Question 1 of X</div>
+            <div class="timer" id="timer-display">00:00</div>
+        </div>
+        
+        <div class="question-text" id="question-text"></div>
+        
+        <button class="hint-btn" id="hint-btn" onclick="showHint()">Need a hint?</button>
+        <div class="hint-box" id="hint-box"></div>
+
+        <div class="options-container" id="options-container"></div>
+        
+        <div class="rationale-box" id="rationale-box">
+            <div class="rationale-title" id="rationale-title">Analysis:</div>
+            <div id="rationale-text"></div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="action-btn secondary" id="prev-btn" onclick="prevQuestion()">Previous</button>
+            <button class="action-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+    </div>
+
+    <div id="stats-section">
+        <h2>Diagnostic STATS Analysis</h2>
+        <p>Review your performance across the curriculum.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-score">0/0</div>
+                <div class="stat-label">Total Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-accuracy">0%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-time">00:00</div>
+                <div class="stat-label">Time Elapsed</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; color: var(--primary);">Areas for Review</h3>
+        <ul class="review-list" id="review-list">
+            </ul>
+        
+        <button class="action-btn visible" style="margin-top: 2rem; width: 100%;" onclick="location.reload()">Load New Diagnostic</button>
+    </div>
+
+</div>
+
+<script>
+    let quizData = null;
+    let currentIndex = 0;
+    let startTime = 0;
+    let timerInterval = null;
+    
+    // Memory Array: Stores the user's answers to track state when going back and forth
+    let userAnswers = [];
+
+    document.getElementById('jsonFileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    quizData = JSON.parse(e.target.result);
+                    if(quizData.title) {
+                        document.getElementById('main-subtitle').innerText = quizData.title;
+                    }
+                    startQuiz();
+                } catch (err) {
+                    alert('Data Injection Failed. Ensure you uploaded a valid quiz .json file.');
+                }
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    function startQuiz() {
+        document.getElementById('setup-section').classList.remove('active');
+        document.getElementById('quiz-section').classList.add('active');
+        
+        currentIndex = 0;
+        userAnswers = new Array(quizData.questions.length).fill(null); // Initialize empty memory array
+        startTime = Date.now();
+        
+        timerInterval = setInterval(updateTimer, 1000);
+        renderQuestion();
+    }
+
+    function updateTimer() {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const secs = String(elapsed % 60).padStart(2, '0');
+        document.getElementById('timer-display').innerText = `${mins}:${secs}`;
+    }
+
+    function renderQuestion() {
+        const currentQ = quizData.questions[currentIndex];
+        const savedAnswer = userAnswers[currentIndex]; // Check if user already answered this
+        
+        document.getElementById('progress-indicator').innerText = `Question ${currentIndex + 1} of ${quizData.questions.length}`;
+        document.getElementById('question-text').innerHTML = currentQ.question;
+        
+        // Reset and populate Hint System
+        const hintBtn = document.getElementById('hint-btn');
+        const hintBox = document.getElementById('hint-box');
+        hintBox.classList.remove('visible');
+        
+        // Only show the hint button if the JSON file actually possesses the "hint" string
+        if (currentQ.hint && currentQ.hint.trim() !== "") {
+            hintBtn.style.display = 'inline-block';
+            hintBox.innerHTML = `<strong>Hint:</strong> ${currentQ.hint}`;
+        } else {
+            hintBtn.style.display = 'none';
+        }
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        // Render Options and check against saved state
+        currentQ.answerOptions.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = option.text;
+            btn.onclick = () => selectAnswer(index, currentQ);
+            optionsContainer.appendChild(btn);
+
+            // If the user already answered this question previously, re-apply the locked CSS states
+            if (savedAnswer) {
+                btn.disabled = true;
+                if (option.isCorrect) {
+                    btn.classList.add('correct');
+                }
+                if (savedAnswer.selectedIndex === index && !option.isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            }
+        });
+
+        const rationaleBox = document.getElementById('rationale-box');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+
+        // Manage Rationale based on saved state
+        if (savedAnswer) {
+            document.getElementById('rationale-title').innerText = savedAnswer.isCorrect ? "Correct Analysis:" : "Incorrect Analysis:";
+            document.getElementById('rationale-title').style.color = savedAnswer.isCorrect ? "var(--correct)" : "var(--incorrect)";
+            document.getElementById('rationale-text').innerHTML = savedAnswer.displayRationale;
+            rationaleBox.classList.add('visible');
+        } else {
+            rationaleBox.classList.remove('visible');
+        }
+
+        // Navigation Buttons Logic - ALWAYS display Next, conditionally display Previous
+        nextBtn.innerText = (currentIndex === quizData.questions.length - 1) ? "Generate STATS Analysis" : "Next Question";
+        nextBtn.classList.add('visible');
+
+        if (currentIndex > 0) {
+            prevBtn.classList.add('visible');
+        } else {
+            prevBtn.classList.remove('visible');
+        }
+        
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    }
+
+    function showHint() {
+        document.getElementById('hint-box').classList.add('visible');
+        document.getElementById('hint-btn').style.display = 'none';
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    }
+
+    function selectAnswer(selectedIndex, currentQ) {
+        const optionData = currentQ.answerOptions[selectedIndex];
+        
+        // Failsafe for missing rationale
+        const fallbackRationale = "No specific analysis provided in the matrix.";
+        const displayRationale = optionData.rationale || currentQ.rationale || fallbackRationale;
+
+        const correctOption = currentQ.answerOptions.find(o => o.isCorrect);
+        const correctRationale = correctOption ? correctOption.rationale : fallbackRationale;
+
+        // Save the user's choice to the memory array
+        userAnswers[currentIndex] = {
+            selectedIndex: selectedIndex,
+            isCorrect: optionData.isCorrect,
+            displayRationale: displayRationale,
+            correctRationale: correctRationale // Stored for the final stats screen
+        };
+
+        // Instantly re-render the exact same question to trigger the locked UI states
+        renderQuestion();
+    }
+
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+        }
+    }
+
+    function nextQuestion() {
+        if (currentIndex < quizData.questions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        } else {
+            showStats();
+        }
+    }
+
+    function showStats() {
+        clearInterval(timerInterval);
+        document.getElementById('quiz-section').classList.remove('active');
+        document.getElementById('stats-section').classList.add('active');
+
+        // Calculate score from the memory array
+        let finalScore = 0;
+        let incorrectLog = [];
+
+        userAnswers.forEach((ans, idx) => {
+            const q = quizData.questions[idx];
+            
+            if (!ans) {
+                // Handle questions the user skipped entirely
+                incorrectLog.push({
+                    qNum: q.questionNumber || (idx + 1),
+                    question: q.question,
+                    rationale: "Question skipped. No answer was selected."
+                });
+            } else if (ans.isCorrect) {
+                finalScore++;
+            } else {
+                incorrectLog.push({
+                    qNum: q.questionNumber || (idx + 1),
+                    question: q.question,
+                    rationale: ans.displayRationale !== "No specific analysis provided in the matrix." ? ans.displayRationale : ans.correctRationale
+                });
+            }
+        });
+
+        const totalQ = quizData.questions.length;
+        const accuracy = Math.round((finalScore / totalQ) * 100);
+        
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const secs = String(elapsed % 60).padStart(2, '0');
+
+        document.getElementById('stat-score').innerText = `${finalScore}/${totalQ}`;
+        document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('stat-time').innerText = `${mins}:${secs}`;
+
+        const reviewList = document.getElementById('review-list');
+        if (incorrectLog.length === 0) {
+            reviewList.innerHTML = `<li class="review-item" style="border-left-color: var(--correct);">
+                <div class="review-question">Flawless Execution!</div>
+                <div class="review-rationale">No mathematical errors detected across the matrix.</div>
+            </li>`;
+        } else {
+            incorrectLog.forEach(log => {
+                const li = document.createElement('li');
+                li.className = 'review-item';
+                li.innerHTML = `
+                    <div class="review-question">Q${log.qNum}: ${log.question}</div>
+                    <div class="review-rationale"><strong>Rule/Rationale:</strong> ${log.rationale}</div>
+                `;
+                reviewList.appendChild(li);
+            });
+        }
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    }
+</script>
+
+</body>
+</html>

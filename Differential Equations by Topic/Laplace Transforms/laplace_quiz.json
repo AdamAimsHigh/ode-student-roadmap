@@ -1,0 +1,555 @@
+{
+  "title": "Laplace Transforms & Volterra Equations Master Quiz",
+  "questions": [
+    {
+      "questionNumber": 1,
+      "question": "What is the formal definition of the one-sided Laplace Transform of a function $f(t)$?",
+      "hint": "Think of the transform as taking an improper integral over all positive time with an exponentially decaying kernel.",
+      "answerOptions": [
+        {"text": "$\\int_{0}^{\\infty} e^{-st} f(t) dt$", "rationale": "This integral projects a time-domain function into the continuous complex frequency domain.", "isCorrect": true},
+        {"text": "$\\int_{-\\infty}^{\\infty} e^{-st} f(t) dt$", "rationale": "This is the two-sided (bilateral) Laplace transform, not the standard one-sided version.", "isCorrect": false},
+        {"text": "$\\int_{0}^{\\infty} e^{st} f(t) dt$", "rationale": "The kernel must have a negative exponent to ensure convergence for $t > 0$.", "isCorrect": false},
+        {"text": "$\\int_{0}^{t} e^{-s\\tau} f(\\tau) d\\tau$", "rationale": "This represents a running integral, not the complete transform over all future time.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 2,
+      "question": "Which of the following functions does NOT have a Laplace transform due to failing the exponential order requirement?",
+      "hint": "Look for a function whose growth accelerates so violently that a standard $e^{-st}$ decay term cannot suppress it at infinity.",
+      "answerOptions": [
+        {"text": "$e^{t^2}$", "rationale": "This function grows faster than any exponential $e^{st}$, meaning the transform integral diverges.", "isCorrect": true},
+        {"text": "$t^{100}$", "rationale": "Polynomials grow slower than exponentials, so they remain bounded by $Me^{ct}$.", "isCorrect": false},
+        {"text": "$\\sin(e^t)$", "rationale": "The sine function is bounded between -1 and 1, regardless of its argument.", "isCorrect": false},
+        {"text": "$e^{500t}$", "rationale": "This has a massive growth rate, but it is still of exponential order $c=500$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 3,
+      "question": "Evaluate $\\mathcal{L}\\{1\\}$.",
+      "hint": "Substitute $f(t)=1$ into the integral definition and evaluate at the upper and lower limits.",
+      "answerOptions": [
+        {"text": "$\\frac{1}{s}$", "rationale": "Integrating $e^{-st}$ from $0$ to $\\infty$ yields this standard result.", "isCorrect": true},
+        {"text": "$1$", "rationale": "This is the transform of the Dirac delta impulse at $t=0$.", "isCorrect": false},
+        {"text": "$\\frac{1}{s^2}$", "rationale": "This is the transform of the linear function $t$.", "isCorrect": false},
+        {"text": "$s$", "rationale": "This represents the operator for differentiation, not the transform of a constant.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 4,
+      "question": "What is the Laplace transform of $e^{at}$?",
+      "hint": "Multiply the kernel $e^{-st}$ by $e^{at}$, combine the exponents, and integrate.",
+      "answerOptions": [
+        {"text": "$\\frac{1}{s-a}$", "rationale": "Combining the exponents gives $e^{-(s-a)t}$, which integrates directly to this rational function.", "isCorrect": true},
+        {"text": "$\\frac{1}{s+a}$", "rationale": "This is the transform for exponential decay, $e^{-at}$.", "isCorrect": false},
+        {"text": "$\\frac{a}{s^2+a^2}$", "rationale": "This represents the transform of a sine wave.", "isCorrect": false},
+        {"text": "$\\frac{s}{s^2-a^2}$", "rationale": "This is the transform of the hyperbolic cosine function.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 5,
+      "question": "Find $\\mathcal{L}\\{t^3\\}$.",
+      "hint": "Recall the general power rule: $\\mathcal{L}\\{t^n\\} = \\frac{n!}{s^{n+1}}$.",
+      "answerOptions": [
+        {"text": "$\\frac{6}{s^4}$", "rationale": "The formula for $t^n$ is $n! / s^{n+1}$. Here, $3! = 6$.", "isCorrect": true},
+        {"text": "$\\frac{3}{s^4}$", "rationale": "Remember to use the factorial of the exponent, not just the exponent itself.", "isCorrect": false},
+        {"text": "$\\frac{6}{s^3}$", "rationale": "The denominator must be raised to the power of $n+1$.", "isCorrect": false},
+        {"text": "$\\frac{3}{s^3}$", "rationale": "Both the numerator factorial and the denominator power are incorrect here.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 6,
+      "question": "What is $\\mathcal{L}\\{\\sin(\\omega t)\\}$?",
+      "hint": "Sine starts at zero, and its transform does not have an $s$ in the numerator.",
+      "answerOptions": [
+        {"text": "$\\frac{\\omega}{s^2 + \\omega^2}$", "rationale": "The sine transform places the frequency constant $\\omega$ in the numerator.", "isCorrect": true},
+        {"text": "$\\frac{s}{s^2 + \\omega^2}$", "rationale": "This is the transform of the cosine function.", "isCorrect": false},
+        {"text": "$\\frac{\\omega}{s^2 - \\omega^2}$", "rationale": "A negative sign in the denominator indicates a hyperbolic sine function.", "isCorrect": false},
+        {"text": "$\\frac{1}{s^2 + \\omega^2}$", "rationale": "The numerator must account for the inner derivative of the argument.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 7,
+      "question": "Evaluate $\\mathcal{L}\\{\\cos(3t)\\}$.",
+      "hint": "Cosine is non-zero at $t=0$, which correlates with having $s$ in the numerator.",
+      "answerOptions": [
+        {"text": "$\\frac{s}{s^2 + 9}$", "rationale": "Cosine places the $s$ variable in the numerator and squares the frequency in the denominator.", "isCorrect": true},
+        {"text": "$\\frac{3}{s^2 + 9}$", "rationale": "This would be the transform for $\\sin(3t)$.", "isCorrect": false},
+        {"text": "$\\frac{s}{s^2 - 9}$", "rationale": "This maps to the hyperbolic cosine function.", "isCorrect": false},
+        {"text": "$\\frac{9}{s^2 + 9}$", "rationale": "The numerator for cosine is purely algebraic in $s$, not a constant.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 8,
+      "question": "Using the linearity property, determine $\\mathcal{L}\\{4 + 2t - 5e^{-t}\\}$.",
+      "hint": "Break the expression into three separate transforms and apply the standard rules to each.",
+      "answerOptions": [
+        {"text": "$\\frac{4}{s} + \\frac{2}{s^2} - \\frac{5}{s+1}$", "rationale": "Linearity allows us to transform each term independently and sum the results.", "isCorrect": true},
+        {"text": "$\\frac{4}{s} + \\frac{2}{s} - \\frac{5}{s-1}$", "rationale": "Watch the denominator power for $t$ and the sign on the exponential shift.", "isCorrect": false},
+        {"text": "$\\frac{4}{s^2} + \\frac{2}{s^2} - \\frac{5}{s+1}$", "rationale": "The constant $4$ transforms to $4/s$, not $4/s^2$.", "isCorrect": false},
+        {"text": "$\\frac{1}{s} + \\frac{1}{s^2} - \\frac{1}{s+1}$", "rationale": "The original scalar coefficients must carry over to the transformed domain.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 9,
+      "question": "What is the First Shifting Theorem?",
+      "hint": "Consider what happens to the integral $\\int e^{-st} e^{at} f(t) dt$ when you group the exponents.",
+      "answerOptions": [
+        {"text": "$\\mathcal{L}\\{e^{at}f(t)\\} = F(s-a)$", "rationale": "Multiplying by an exponential in the time domain translates the signal in the $s$-domain.", "isCorrect": true},
+        {"text": "$\\mathcal{L}\\{f(t-a)\\} = e^{-as}F(s)$", "rationale": "This is the Second Shifting Theorem, dealing with time delays.", "isCorrect": false},
+        {"text": "$\\mathcal{L}\\{t f(t)\\} = -F'(s)$", "rationale": "Multiplication by $t$ corresponds to differentiation in the $s$-domain.", "isCorrect": false},
+        {"text": "$\\mathcal{L}\\{f'(t)\\} = sF(s) - f(0)$", "rationale": "This is the operational rule for the first derivative.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 10,
+      "question": "Find the Laplace transform of $e^{-2t}\\cos(4t)$.",
+      "hint": "Identify the base transform $F(s)$ for the trigonometric part, then replace all instances of $s$ with $(s-a)$.",
+      "answerOptions": [
+        {"text": "$\\frac{s+2}{(s+2)^2 + 16}$", "rationale": "The base transform is $s/(s^2+16)$, and the $e^{-2t}$ multiplier shifts every $s$ to $(s+2)$.", "isCorrect": true},
+        {"text": "$\\frac{s-2}{(s-2)^2 + 16}$", "rationale": "The shift for $e^{-2t}$ requires replacing $s$ with $s - (-2)$, which is $s+2$.", "isCorrect": false},
+        {"text": "$\\frac{s+2}{(s+2)^2 + 4}$", "rationale": "The frequency $\\omega=4$ must be squared in the denominator.", "isCorrect": false},
+        {"text": "$\\frac{4}{(s+2)^2 + 16}$", "rationale": "This would be the transform for an exponentially decaying sine wave.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 11,
+      "question": "Compute the inverse transform: $\\mathcal{L}^{-1} \\left\\{ \\frac{1}{s-5} \\right\\}$.",
+      "hint": "Match the expression directly to the standard exponential lookup table.",
+      "answerOptions": [
+        {"text": "$e^{5t}$", "rationale": "The form $1/(s-a)$ directly corresponds to the growing exponential $e^{at}$.", "isCorrect": true},
+        {"text": "$e^{-5t}$", "rationale": "A negative exponent would require a positive sign in the denominator: $s+5$.", "isCorrect": false},
+        {"text": "$\\sin(5t)$", "rationale": "Trigonometric functions require a quadratic term $s^2$ in the denominator.", "isCorrect": false},
+        {"text": "$1$", "rationale": "The inverse of $1/s$ is $1$; the offset of 5 changes the fundamental function.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 12,
+      "question": "Compute the inverse transform: $\\mathcal{L}^{-1} \\left\\{ \\frac{3}{s^2 + 25} \\right\\}$.",
+      "hint": "Factor out the 3, and determine what constant $\\omega$ is needed in the numerator to match the $s^2+\\omega^2$ denominator.",
+      "answerOptions": [
+        {"text": "$\\frac{3}{5}\\sin(5t)$", "rationale": "We need a $5$ in the numerator for a perfect sine form. Multiplying and dividing by 5 yields this result.", "isCorrect": true},
+        {"text": "$3\\sin(5t)$", "rationale": "This would require a $15$ in the numerator ($3 \\times 5$).", "isCorrect": false},
+        {"text": "$\\frac{3}{5}\\cos(5t)$", "rationale": "Cosine functions require an $s$ variable in the numerator.", "isCorrect": false},
+        {"text": "$\\frac{5}{3}\\sin(5t)$", "rationale": "The scaling fraction is inverted; you must divide by the required $\\omega$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 13,
+      "question": "Invert $\\frac{1}{s^3}$.",
+      "hint": "The formula requires $n!$ on top. What is $n$ here, and how do you compensate for its absence?",
+      "answerOptions": [
+        {"text": "$\\frac{t^2}{2}$", "rationale": "Since $n+1 = 3$, $n=2$. The numerator must be $2!$. We divide by 2 to balance the missing factorial.", "isCorrect": true},
+        {"text": "$t^2$", "rationale": "This transforms to $2/s^3$, which is twice the value of our target.", "isCorrect": false},
+        {"text": "$\\frac{t^3}{6}$", "rationale": "This would result from taking the inverse of $1/s^4$.", "isCorrect": false},
+        {"text": "$t^3$", "rationale": "The power in the time domain is always one less than the exponent of $s$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 14,
+      "question": "Which algebraic technique is critical when inverting an $s$-domain expression with an irreducible quadratic denominator like $s^2 + 4s + 13$?",
+      "hint": "You need to rewrite the quadratic so it perfectly matches the shifted sine or cosine templates.",
+      "answerOptions": [
+        {"text": "Completing the square", "rationale": "This shapes the denominator into $(s-a)^2 + \\omega^2$, unlocking the First Shifting Theorem for exponentially damped waves.", "isCorrect": true},
+        {"text": "Integration by parts", "rationale": "This is a calculus technique for the time domain, not algebraic manipulation in $s$.", "isCorrect": false},
+        {"text": "Synthetic division", "rationale": "This is useful for factoring higher-order polynomials with known roots, not irreducible quadratics.", "isCorrect": false},
+        {"text": "The Quadratic Formula", "rationale": "While it finds complex roots, it does not directly format the expression for inverse transform lookup.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 15,
+      "question": "Invert $F(s) = \\frac{1}{(s-3)^2 + 16}$.",
+      "hint": "Identify the frequency $\\omega$ from the square term, and balance the missing constant in the numerator.",
+      "answerOptions": [
+        {"text": "$\\frac{1}{4}e^{3t}\\sin(4t)$", "rationale": "The denominator indicates $\\omega=4$ and a shift $a=3$. Multiplying and dividing by 4 balances the sine template.", "isCorrect": true},
+        {"text": "$e^{3t}\\sin(4t)$", "rationale": "This lacks the scaling factor of $1/4$ required to balance the missing $\\omega$ in the numerator.", "isCorrect": false},
+        {"text": "$\\frac{1}{4}e^{-3t}\\sin(4t)$", "rationale": "The shift is $(s-3)$, which corresponds to a positive exponential $e^{3t}$.", "isCorrect": false},
+        {"text": "$e^{3t}\\cos(4t)$", "rationale": "Cosine requires an $(s-3)$ term in the numerator.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 16,
+      "question": "What is the fundamental \"t=0 Trap\" associated with Laplace transforms and differential equations?",
+      "hint": "Look at the formula $\\mathcal{L}\\{y'\\} = sY - y(0)$. What specific data point is demanded?",
+      "answerOptions": [
+        {"text": "The derivative operational rules are hardwired to require initial conditions at exactly $t=0$.", "rationale": "Because the Laplace integral limits begin strictly at 0, conditions given at any other time cannot enter the transform directly.", "isCorrect": true},
+        {"text": "The transform approaches zero as $s$ approaches infinity.", "rationale": "While true for strictly proper transforms, this describes behavior at infinite frequency, not a $t=0$ boundary constraint.", "isCorrect": false},
+        {"text": "You cannot transform a function that is zero at $t=0$.", "rationale": "Functions like $\\sin(t)$ are zero at the origin but possess standard transforms.", "isCorrect": false},
+        {"text": "The integration diverges if the function does not start at zero.", "rationale": "The integral simply ignores any signal behavior prior to $t=0$; it does not inherently diverge.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 17,
+      "question": "According to the operational rules, what is $\\mathcal{L}\\{y''(t)\\}$?",
+      "hint": "Applying integration by parts twice yields a squared $s$ term and two boundary value subtractions.",
+      "answerOptions": [
+        {"text": "$s^2Y(s) - sy(0) - y'(0)$", "rationale": "Each level of differentiation multiplies by $s$ and subtracts the next sequential initial condition.", "isCorrect": true},
+        {"text": "$s^2Y(s) - y(0)$", "rationale": "This misses the required initial velocity term, $y'(0)$.", "isCorrect": false},
+        {"text": "$sY(s) - s^2y(0) - y'(0)$", "rationale": "The powers of $s$ attached to the initial conditions must descend sequentially.", "isCorrect": false},
+        {"text": "$s^2Y(s) + sy(0) + y'(0)$", "rationale": "Initial conditions are subtracted from the system's algebraic structure, representing initial stored energy.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 18,
+      "question": "To avoid the $t=0$ trap when dealing with Shifted Initial Value Problems (conditions given at $t=a$), which substitution is used?",
+      "hint": "Think about physically shifting the timeline backwards so the event happens right at the starting line.",
+      "answerOptions": [
+        {"text": "The \"Clock Reset\" substitution $\\tau = t - a$.", "rationale": "Sliding the time axis forces the conditions to align with $\\tau=0$, where the Laplace machinery can process them.", "isCorrect": true},
+        {"text": "The Heaviside substitution $u_a(t)$.", "rationale": "The step function turns forcing functions on and off; it doesn't relocate boundary conditions.", "isCorrect": false},
+        {"text": "The Convolution integral.", "rationale": "This handles arbitrary system inputs, not boundary condition misalignment.", "isCorrect": false},
+        {"text": "The $s$-domain translation.", "rationale": "This is the First Shifting Theorem, which pairs with time-domain exponentials, not shifted boundaries.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 19,
+      "question": "When solving Boundary Value Problems (BVPs) with Laplace, what strategy is used for the missing $y'(0)$ data?",
+      "hint": "If you don't know a required number, treat it like an algebraic placeholder until you have enough data to reveal it.",
+      "answerOptions": [
+        {"text": "Parameterize it as an unknown constant $c$, solve the ODE, and use the far boundary to find $c$.", "rationale": "Since the $s$-domain equation requires $y'(0)$, carrying it as a symbol allows you to solve forward and pin it down later.", "isCorrect": true},
+        {"text": "Assume $y'(0) = 0$ to simplify the equation.", "rationale": "This arbitrary assumption will yield a completely incorrect system response.", "isCorrect": false},
+        {"text": "Use the First Shifting Theorem to move the far boundary.", "rationale": "Shifting theorems manipulate forcing inputs, not isolated boundary data points.", "isCorrect": false},
+        {"text": "Laplace transforms cannot be used for BVPs.", "rationale": "They absolutely can, provided you leverage symbolic constants for the missing initial data.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 20,
+      "question": "Transform the differential equation: $y' + 3y = 1$, with $y(0) = 2$.",
+      "hint": "Transform term by term: What is $\\mathcal{L}\\{y'\\}$? What is $\\mathcal{L}\\{1\\}$?",
+      "answerOptions": [
+        {"text": "$sY - 2 + 3Y = \\frac{1}{s}$", "rationale": "Applying the derivative rule $sY - y(0)$ and transforming the constant $1$ yields this exact algebraic equation.", "isCorrect": true},
+        {"text": "$sY + 2 + 3Y = 1$", "rationale": "Initial conditions must be subtracted, and constants must be transformed to $1/s$.", "isCorrect": false},
+        {"text": "$s^2Y - 2 + 3Y = \\frac{1}{s}$", "rationale": "A first derivative only generates an $s^1$ term, not $s^2$.", "isCorrect": false},
+        {"text": "$Y - 2 + 3sY = \\frac{1}{s}$", "rationale": "The $s$ multiplier attaches to the derivative part $y'$, not the baseline state $y$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 21,
+      "question": "What is the Heaviside Step Function $u_a(t)$ effectively used for in modeling?",
+      "hint": "Consider a light switch flipping at a specific moment in time.",
+      "answerOptions": [
+        {"text": "Acting as a mathematical \"switch\" to turn forcing functions on or off at a chosen instant.", "rationale": "Its value is 0 before time $a$ and 1 after, making it perfect for piecewise discontinuities.", "isCorrect": true},
+        {"text": "Representing a sudden, infinite spike of energy.", "rationale": "This describes the Dirac Delta function, not the Heaviside step.", "isCorrect": false},
+        {"text": "Shifting poles in the frequency domain.", "rationale": "Poles are shifted by multiplying by exponential decay in the time domain, not step functions.", "isCorrect": false},
+        {"text": "Solving homogeneous systems.", "rationale": "Homogeneous systems have zero external forcing, negating the need for step functions.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 22,
+      "question": "Evaluate the transform of an isolated switch: $\\mathcal{L}\\{u_a(t)\\}$.",
+      "hint": "Treat it as transforming the constant $1$, but delaying its start until time $a$ via the Second Shifting Theorem.",
+      "answerOptions": [
+        {"text": "$\\frac{e^{-as}}{s}$", "rationale": "Integrating $e^{-st}(1)$ from $a$ to $\\infty$ naturally generates the $1/s$ form scaled by an exponential delay factor.", "isCorrect": true},
+        {"text": "$e^{-as}$", "rationale": "This is the transform of the Dirac Delta impulse $\\delta(t-a)$.", "isCorrect": false},
+        {"text": "$\\frac{1}{s-a}$", "rationale": "This represents the standard exponential function $e^{at}$, not a delayed step.", "isCorrect": false},
+        {"text": "$\\frac{e^{-as}}{s^2}$", "rationale": "This would represent a ramp function starting at time $t=a$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 23,
+      "question": "What is the Second Shifting Theorem, which moves signals through the transform with step functions?",
+      "hint": "Look for the rule that pairs a time-domain Heaviside switch with an $s$-domain exponential multiplier.",
+      "answerOptions": [
+        {"text": "$\\mathcal{L}\\{u_a(t) f(t-a)\\} = e^{-as}F(s)$", "rationale": "A delayed step multiplied by a congruently delayed function maps to the original transform multiplied by a delay exponent.", "isCorrect": true},
+        {"text": "$\\mathcal{L}\\{e^{at} f(t)\\} = F(s-a)$", "rationale": "This is the First Shifting Theorem for exponent multipliers.", "isCorrect": false},
+        {"text": "$\\mathcal{L}\\{u_a(t) f(t)\\} = e^{-as}F(s-a)$", "rationale": "The function must be shifted in time by the same amount $a$ to apply the simple exponent delay.", "isCorrect": false},
+        {"text": "$\\mathcal{L}\\{f(t-a)\\} = sF(s) - e^{-a}$", "rationale": "Time delays do not map to derivative operations.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 24,
+      "question": "Invert $Y(s) = \\frac{e^{-3s}}{s^2}$.",
+      "hint": "Identify the inverse of $1/s^2$, then apply a switch and a delay of 3 seconds to the result.",
+      "answerOptions": [
+        {"text": "$u_3(t) (t-3)$", "rationale": "The $1/s^2$ implies a base function of $t$. The $e^{-3s}$ indicates a delay switch at $t=3$, requiring a congruent shift $(t-3)$.", "isCorrect": true},
+        {"text": "$u_3(t) t$", "rationale": "The base function must also be shifted to match the switch delay.", "isCorrect": false},
+        {"text": "$e^{3t} t$", "rationale": "An $s$-domain exponential indicates a time-domain delay, not a time-domain exponential.", "isCorrect": false},
+        {"text": "$u_3(t) t^2$", "rationale": "The base function is linear $t$, not quadratic.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 25,
+      "question": "Express the piecewise function $f(t) = 0$ for $t < 2$, and $f(t) = 5$ for $t \\ge 2$ using Heaviside notation.",
+      "hint": "You need a function that flips from 0 to 1 at time 2, multiplied by the desired amplitude.",
+      "answerOptions": [
+        {"text": "$5 u_2(t)$", "rationale": "The switch $u_2(t)$ activates at $t=2$, and the multiplier 5 scales the output to the desired level.", "isCorrect": true},
+        {"text": "$u_5(t-2)$", "rationale": "The subscript denotes the activation time, and the scaling factor goes in front.", "isCorrect": false},
+        {"text": "$u_2(t) - 5$", "rationale": "This would result in an output of -5 before $t=2$ and -4 after.", "isCorrect": false},
+        {"text": "$5 u_0(t-2)$", "rationale": "Standard convention places the activation time in the subscript, though $u(t-2)$ is also an acceptable alternative.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 26,
+      "question": "What physical scenario is best modeled by the Dirac Delta function $\\delta(t-t_0)$?",
+      "hint": "Think of a profound transfer of energy in a timeframe so short it appears instantaneous.",
+      "answerOptions": [
+        {"text": "An instantaneous kick, such as a hammer blow or voltage spike.", "rationale": "The delta represents an idealized infinite force acting over zero time, transferring exactly 1 unit of momentum or area.", "isCorrect": true},
+        {"text": "A gradually increasing load.", "rationale": "This is modeled by a ramp function, not an impulse.", "isCorrect": false},
+        {"text": "A continuous oscillating vibration.", "rationale": "This is modeled by sine or cosine waves.", "isCorrect": false},
+        {"text": "A switch that turns on and stays on.", "rationale": "This describes the Heaviside Step Function, which is the integral of the delta.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 27,
+      "question": "What is the Laplace transform of the impulse spike $\\delta(t-a)$?",
+      "hint": "The integral of $f(t)\\delta(t-a)$ evaluates to simply $f(a)$. Apply this to the transform kernel.",
+      "answerOptions": [
+        {"text": "$e^{-as}$", "rationale": "The sifting property of the delta extracts the value of the kernel $e^{-st}$ at exactly $t=a$.", "isCorrect": true},
+        {"text": "$\\frac{e^{-as}}{s}$", "rationale": "This is the transform of the Heaviside step switch.", "isCorrect": false},
+        {"text": "$1$", "rationale": "This is only true if the impulse occurs at $t=0$.", "isCorrect": false},
+        {"text": "$\\frac{1}{s-a}$", "rationale": "This maps to the continuous exponential $e^{at}$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 28,
+      "question": "When solving an ODE driven by a Dirac Delta, why is the Laplace transform specifically superior to classical guessing methods ($y = e^{rt}$)?",
+      "hint": "How do you guess the particular solution for a function that is zero everywhere except at one infinite point?",
+      "answerOptions": [
+        {"text": "Classical guessing requires a continuous right-hand side, whereas Laplace seamlessly integrates the delta mathematically.", "rationale": "The delta spike has no continuous classical form to guess, but its clean Laplace transform $e^{-as}$ turns it into pure algebra.", "isCorrect": true},
+        {"text": "Laplace transforms avoid finding roots of the characteristic equation.", "rationale": "You still must factor the denominator (the characteristic polynomial) during inversion.", "isCorrect": false},
+        {"text": "Classical methods cannot handle initial conditions.", "rationale": "Classical methods use initial conditions to solve for arbitrary constants $C_1, C_2$.", "isCorrect": false},
+        {"text": "Dirac Deltas cause the Laplace integral to diverge.", "rationale": "The integral converges cleanly to an exponential term due to the delta's sifting property.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 29,
+      "question": "Evaluate the time-domain sifting integral: $\\int_{0}^{\\infty} \\cos(2t) \\delta(t-\\pi) dt$.",
+      "hint": "The delta function acts like a mathematical sniper, picking out the value of the companion function at precisely the trigger point.",
+      "answerOptions": [
+        {"text": "$1$", "rationale": "The delta sifts out the value of $\\cos(2t)$ at exactly $t=\\pi$, and $\\cos(2\\pi) = 1$.", "isCorrect": true},
+        {"text": "$0$", "rationale": "The value of cosine at $2\\pi$ is at its peak, not the zero crossing.", "isCorrect": false},
+        {"text": "$-1$", "rationale": "This would be the result if it sifted out an odd multiple of $\\pi$.", "isCorrect": false},
+        {"text": "$\\sin(2\\pi)$", "rationale": "The sifting property pulls the function's value, it doesn't integrate the function.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 30,
+      "question": "If you divide polynomials in the $s$-domain and find a constant left over (a non-proper transform like $Y(s) = 3 + \\frac{1}{s}$), what does that constant invert to?",
+      "hint": "What standard function transforms to exactly $1$?",
+      "answerOptions": [
+        {"text": "An impulse at the origin, $3\\delta(t)$.", "rationale": "A polynomial quotient component signifies infinite initial energy, manifesting as a Dirac Delta kick at $t=0$.", "isCorrect": true},
+        {"text": "A step function $3u_0(t)$.", "rationale": "A step function corresponds to $3/s$, not a bare constant.", "isCorrect": false},
+        {"text": "A constant value of 3 for all time.", "rationale": "Constants in the time domain map to $1/s$ forms, not constant $s$-domain values.", "isCorrect": false},
+        {"text": "An exponential growth term.", "rationale": "This requires a denominator like $s-a$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 31,
+      "question": "Define the Convolution of two functions $f$ and $g$ in the time domain, $(f*g)(t)$.",
+      "hint": "It measures how the past history of an input $f$ weights against the system's memory $g$ up to the current moment $t$.",
+      "answerOptions": [
+        {"text": "$\\int_{0}^{t} f(\\tau)g(t-\\tau) d\\tau$", "rationale": "This integral folds one function over the other, calculating the overlapping area as it slides forward in time.", "isCorrect": true},
+        {"text": "$f(t) \\cdot g(t)$", "rationale": "Standard pointwise multiplication in time does not map cleanly across the Laplace barrier.", "isCorrect": false},
+        {"text": "$\\int_{0}^{\\infty} f(\\tau)g(t+\\tau) d\\tau$", "rationale": "This resembles a cross-correlation, not causal convolution.", "isCorrect": false},
+        {"text": "$F(s) \\cdot G(s)$", "rationale": "This is the result of transforming the convolution, not the time-domain definition itself.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 32,
+      "question": "The Convolution Theorem states that multiplication in the complex $s$-domain ($F(s)G(s)$) maps to what in the time domain?",
+      "hint": "If you multiply the building blocks of two systems together in the frequency world, their outputs combine through a sliding integral in the time world.",
+      "answerOptions": [
+        {"text": "The convolution product $(f*g)(t)$", "rationale": "This master theorem bridges pure algebraic multiplication to dynamic system memory in time.", "isCorrect": true},
+        {"text": "Standard multiplication $f(t)g(t)$", "rationale": "This is a dangerous and common pitfall; they are distinctly unequal operations.", "isCorrect": false},
+        {"text": "Addition $f(t) + g(t)$", "rationale": "Addition in $s$ corresponds directly to addition in $t$ due to linearity.", "isCorrect": false},
+        {"text": "Differentiation $f'(t)g'(t)$", "rationale": "Derivatives require multiplying by $s$, not multiplying transforms together.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 33,
+      "question": "In Duhamel's Principle, if $h(t)$ is the system's response to a unit impulse (Dirac delta), how do you find the response to an arbitrary input force $f(t)$?",
+      "hint": "If you know how a bell rings when struck once, you can predict how it rings during a drumroll by blending the individual strikes over time.",
+      "answerOptions": [
+        {"text": "By convolving the input with the impulse response: $(h*f)(t)$", "rationale": "Any continuous input can be viewed as an infinite sum of tiny impulses, making the output the convolution of those inputs against the unit response.", "isCorrect": true},
+        {"text": "By multiplying the input and impulse response: $h(t)f(t)$", "rationale": "Direct multiplication does not account for the system's ongoing memory of past inputs.", "isCorrect": false},
+        {"text": "By taking the derivative of $f(t)$.", "rationale": "This loses information about the system's unique physical characteristics.", "isCorrect": false},
+        {"text": "By evaluating $f(t)$ at $t=0$.", "rationale": "This only captures a single instant, ignoring the evolving force.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 34,
+      "question": "Which of these is a dangerous algebraic pitfall of the convolution operator?",
+      "hint": "Think about what happens if you take the convolution formula and substitute $g(t) = 1$ into it.",
+      "answerOptions": [
+        {"text": "Convolving a function with 1 does not leave it unchanged: $f*1 \\ne f$.", "rationale": "In convolution, multiplying by 1 actually acts as a running integral accumulating the function over time, rather than preserving its current state.", "isCorrect": true},
+        {"text": "It is not commutative: $f*g \\ne g*f$.", "rationale": "Convolution is perfectly commutative; you can swap the order without changing the result.", "isCorrect": false},
+        {"text": "It is not distributive: $f*(g+h) \\ne f*g + f*h$.", "rationale": "Like standard multiplication, convolution is fully distributive.", "isCorrect": false},
+        {"text": "Convolving with zero produces infinity.", "rationale": "Convolution with the zero function strictly yields zero.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 35,
+      "question": "Calculate the convolution of $1 * 1$.",
+      "hint": "Set up the integral $\\int_{0}^{t} 1 \\cdot 1 d\\tau$ and solve.",
+      "answerOptions": [
+        {"text": "$t$", "rationale": "The integral of $1 \\cdot 1$ from $0$ to $t$ simply evaluates to $t$.", "isCorrect": true},
+        {"text": "$1$", "rationale": "This would be the case for standard pointwise multiplication, but convolution accumulates area.", "isCorrect": false},
+        {"text": "$\\frac{t^2}{2}$", "rationale": "This is the result of convolving $t * 1$, not $1 * 1$.", "isCorrect": false},
+        {"text": "$0$", "rationale": "A non-zero constant accumulating over time will not yield zero.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 36,
+      "question": "What defines a Volterra Integral Equation?",
+      "hint": "Look at the core structure: $x(t) = f(t) + \\int K(t-\\tau)x(\\tau) d\\tau$. Where is the unknown?",
+      "answerOptions": [
+        {"text": "The unknown function $x(t)$ appears trapped inside a running convolution integral.", "rationale": "This models systems with memory, where the present state depends on the accumulated history of the unknown variable.", "isCorrect": true},
+        {"text": "The equation contains multiple spatial derivatives.", "rationale": "This describes a Partial Differential Equation (PDE), not an integral equation.", "isCorrect": false},
+        {"text": "The forcing function is strictly periodic.", "rationale": "Volterra equations can accommodate any forcing function.", "isCorrect": false},
+        {"text": "It only accepts initial conditions at infinity.", "rationale": "Volterra equations naturally embed their starting state at $t=0$ through the integral limits.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 37,
+      "question": "Transform the Volterra equation: $x(t) = t + \\int_{0}^{t} \\sin(t-\\tau)x(\\tau) d\\tau$.",
+      "hint": "Apply the transform line-by-line, treating the integral as a direct product of transforms via the Convolution Theorem.",
+      "answerOptions": [
+        {"text": "$X(s) = \\frac{1}{s^2} + \\frac{1}{s^2+1} X(s)$", "rationale": "The integral is recognized as the convolution $(\\sin * x)$, transforming cleanly into an $s$-domain product.", "isCorrect": true},
+        {"text": "$X(s) = \\frac{1}{s^2} + \\frac{s}{s^2+1} X(s)$", "rationale": "The transform of sine does not contain $s$ in the numerator.", "isCorrect": false},
+        {"text": "$X(s) = \\frac{1}{s} + \\frac{1}{s^2+1} X(s)$", "rationale": "The forcing function $t$ transforms to $1/s^2$, not $1/s$.", "isCorrect": false},
+        {"text": "$sX(s) - x(0) = \\frac{1}{s^2} + X(s)$", "rationale": "There is no derivative present, so the operational rules for derivatives do not apply.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 38,
+      "question": "What is the Integral Operational Rule $\\mathcal{L} \\left\\{ \\int_{0}^{t} f(\\tau) d\\tau \\right\\}$?",
+      "hint": "Since differentiation involves multiplying by $s$, its inverse operation (integration) should involve the inverse algebraic action.",
+      "answerOptions": [
+        {"text": "$\\frac{F(s)}{s}$", "rationale": "Accumulating area in the time domain corresponds directly to a single division by $s$ in the frequency domain.", "isCorrect": true},
+        {"text": "$sF(s)$", "rationale": "This is the mirror opposite: multiplication by $s$ corresponds to taking the derivative.", "isCorrect": false},
+        {"text": "$-F'(s)$", "rationale": "Taking the derivative with respect to $s$ maps to multiplying by $t$ in the time domain.", "isCorrect": false},
+        {"text": "$F(s-a)$", "rationale": "This indicates exponential shifting, not integration.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 39,
+      "question": "Viewing integration as a convolution, computing $\\int_{0}^{t} f(\\tau) d\\tau$ is mathematically identical to computing $(f * g)(t)$ where $g(t)$ is what function?",
+      "hint": "What standard function $g(t)$ has the transform $1/s$?",
+      "answerOptions": [
+        {"text": "The constant $1$ (or the unit step $u_0(t)$).", "rationale": "Because the transform of $1$ is $1/s$, the convolution product becomes $F(s) \\cdot (1/s)$, proving the integration rule.", "isCorrect": true},
+        {"text": "The Dirac delta $\\delta(t)$.", "rationale": "Convolving with the delta leaves the function completely unchanged; it does not accumulate it.", "isCorrect": false},
+        {"text": "The linear ramp $t$.", "rationale": "Convolving with $t$ corresponds to dividing by $s^2$, meaning double integration.", "isCorrect": false},
+        {"text": "The exponential $e^{-t}$.", "rationale": "This would correspond to dividing by $(s+1)$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 40,
+      "question": "How do you calculate the transform of a function multiplied by time, $\\mathcal{L}\\{t f(t)\\}$?",
+      "hint": "Look for the rule that turns variable multiplication in one domain into calculus differentiation in the other.",
+      "answerOptions": [
+        {"text": "$-F'(s)$", "rationale": "Scaling by time in the physical world relates directly to taking the negative derivative in the frequency domain.", "isCorrect": true},
+        {"text": "$sF(s)$", "rationale": "This applies to taking the time derivative of the function, $f'(t)$.", "isCorrect": false},
+        {"text": "$\\frac{F(s)}{s}$", "rationale": "This applies to integrating the function over time.", "isCorrect": false},
+        {"text": "$\\int_{s}^{\\infty} F(u) du$", "rationale": "This maps to dividing the function by $t$ in the time domain.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 41,
+      "question": "Apply the derivative-in-$s$ rule to find $\\mathcal{L}\\{t \\sin(\\omega t)\\}$.",
+      "hint": "Set $F(s) = \\frac{\\omega}{s^2+\\omega^2}$ and compute $-\\frac{d}{ds}F(s)$.",
+      "answerOptions": [
+        {"text": "$\\frac{2\\omega s}{(s^2 + \\omega^2)^2}$", "rationale": "Taking the negative derivative of $\\omega/(s^2+\\omega^2)$ using the quotient rule yields this result, representing linear resonance.", "isCorrect": true},
+        {"text": "$\\frac{\\omega}{(s^2 + \\omega^2)^2}$", "rationale": "This misses the $2s$ term generated by the chain rule derivative of the denominator.", "isCorrect": false},
+        {"text": "$\\frac{s^2 - \\omega^2}{(s^2 + \\omega^2)^2}$", "rationale": "This is the transform for $t \\cos(\\omega t)$.", "isCorrect": false},
+        {"text": "$\\frac{1}{s^2 + \\omega^2}$", "rationale": "This is the base transform; it hasn't been differentiated.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 42,
+      "question": "What is the specialized transform formula for a repeating periodic function $f(t)$ with period $P$?",
+      "hint": "Compress infinite work down to one cycle, and divide by the infinite geometric sequence factor $(1 - e^{-Ps})$.",
+      "answerOptions": [
+        {"text": "$\\frac{1}{1 - e^{-Ps}} \\int_{0}^{P} e^{-st} f(t) dt$", "rationale": "It evaluates the transform over just a single cycle, then multiplies by a geometric series factor to duplicate it to infinity.", "isCorrect": true},
+        {"text": "$\\int_{0}^{P} e^{-st} f(t) dt$", "rationale": "This only transforms the very first cycle and ignores the rest of the signal's infinite future.", "isCorrect": false},
+        {"text": "$\\frac{1}{1 + e^{-Ps}} \\int_{0}^{\\infty} e^{-st} f(t) dt$", "rationale": "The integral must be bounded to a single period $P$, and the denominator sign must be negative.", "isCorrect": false},
+        {"text": "$\\frac{1}{s} \\int_{0}^{P} f(t) dt$", "rationale": "This merely scales the average static area; it doesn't preserve the dynamic frequency profile.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 43,
+      "question": "In the context of the Initial Value Theorem (IVT), the behavior of $f(t)$ as $t \\to 0$ is found by taking the limit of what expression?",
+      "hint": "To see the beginning of time ($t=0$), look at the extreme end of the frequency spectrum ($s \\to \\infty$), scaled by $s$.",
+      "answerOptions": [
+        {"text": "$\\lim_{s \\to \\infty} s F(s)$", "rationale": "Because $s$ and $t$ are inversely related (high frequency equals short time), checking infinite $s$ reveals behavior near $t=0$.", "isCorrect": true},
+        {"text": "$\\lim_{s \\to 0} s F(s)$", "rationale": "This explores the system as $t$ approaches infinity (Final Value Theorem).", "isCorrect": false},
+        {"text": "$\\lim_{s \\to \\infty} F(s)$", "rationale": "For any valid proper transform, this simply equals 0, providing no useful specific data.", "isCorrect": false},
+        {"text": "$\\lim_{s \\to 0} F(s)$", "rationale": "This equates to the total infinite area under the curve, not the initial starting value.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 44,
+      "question": "Applying the Final Value Theorem (FVT) to $F(s) = \\frac{1}{s(s+2)}$, calculate the steady state $\\lim_{t \\to \\infty} f(t)$.",
+      "hint": "Multiply the entire transform by $s$ to kill the origin pole, then evaluate at $s=0$.",
+      "answerOptions": [
+        {"text": "$1/2$", "rationale": "Multiplying by $s$ cancels the pole at the origin. Evaluating $\\lim_{s \\to 0} 1/(s+2)$ gives $1/2$.", "isCorrect": true},
+        {"text": "$0$", "rationale": "If you don't scale by $s$ first, the limit calculation will be incorrect.", "isCorrect": false},
+        {"text": "$\\infty$", "rationale": "The system is stable (poles at $0, -2$), so it converges to a finite constant.", "isCorrect": false},
+        {"text": "$2$", "rationale": "Check the fraction evaluation when plugging in $s=0$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 45,
+      "question": "What strict condition MUST be verified before trusting a result from the Final Value Theorem?",
+      "hint": "A system cannot have a definitive \"final resting value\" if it is blowing up to infinity or vibrating violently forever.",
+      "answerOptions": [
+        {"text": "All non-zero poles of $sF(s)$ must lie strictly in the left half of the complex plane (real parts $< 0$).", "rationale": "If poles exist on the right, the system is exponentially unstable. If poles exist on the imaginary axis, the system oscillates forever without settling.", "isCorrect": true},
+        {"text": "The transform must be non-proper.", "rationale": "Non-proper transforms contain impulse spikes, which do not relate to steady-state settling.", "isCorrect": false},
+        {"text": "The original function must be a polynomial.", "rationale": "The theorem applies to any stable system, regardless of its original composition.", "isCorrect": false},
+        {"text": "The Initial Value Theorem must equal zero.", "rationale": "A system's final resting state is entirely independent of where it started.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 46,
+      "question": "Transform the constant forcing ODE: $x''(t) + \\omega^2 x(t) = 1$, assuming zero initial conditions.",
+      "hint": "Remember that constants on the right-hand side transform to $1/s$ formats, not pure integer constants.",
+      "answerOptions": [
+        {"text": "$X(s) = \\frac{1}{s(s^2 + \\omega^2)}$", "rationale": "Transforming yields $(s^2+\\omega^2)X(s) = 1/s$. Dividing by the characteristic term isolates the transfer function response.", "isCorrect": true},
+        {"text": "$X(s) = \\frac{1}{s^2 + \\omega^2}$", "rationale": "This missing the $1/s$ scaling factor from the transformed constant $1$.", "isCorrect": false},
+        {"text": "$X(s) = \\frac{s}{s^2 + \\omega^2}$", "rationale": "This would correspond to impulsive forcing, not constant forcing.", "isCorrect": false},
+        {"text": "$X(s) = \\frac{1}{s^2(s^2 + \\omega^2)}$", "rationale": "This indicates ramp forcing ($t$), rather than constant forcing ($1$).", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 47,
+      "question": "What is the theoretical significance of the expression $\\frac{1}{s^2 + \\omega^2}$ appearing in a system's transform?",
+      "hint": "Look at the roots. They are pure imaginary numbers, corresponding to pure trigonometric waves.",
+      "answerOptions": [
+        {"text": "It indicates an undamped harmonic oscillator that will ring indefinitely.", "rationale": "The pure imaginary poles $\\pm i\\omega$ translate to persistent sine/cosine waves in the time domain without any exponential decay.", "isCorrect": true},
+        {"text": "It indicates heavy structural damping.", "rationale": "Damping requires an $s$ term in the denominator (like $s^2 + cs + k$) to generate the shifting $e^{-at}$ decay factor.", "isCorrect": false},
+        {"text": "It guarantees the system will reach a steady static state.", "rationale": "Undamped oscillators never reach a static limit; they violate the FVT preconditions.", "isCorrect": false},
+        {"text": "It represents an unstable exponential runaway.", "rationale": "Runaways are generated by roots with positive real parts, like $(s-a)$.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 48,
+      "question": "If a transformed transfer function has a pole at $s = 0$, what does this imply physically?",
+      "hint": "Consider the integral operational rule: $\\mathcal{L}\\{\\int f(t) dt\\} = F(s)/s$.",
+      "answerOptions": [
+        {"text": "The system acts as an integrator, accumulating input forever.", "rationale": "Division by $s$ is the operational equivalent of the integration integral, leading to ramp-like unbounded growth.", "isCorrect": true},
+        {"text": "The system has a rigid delay.", "rationale": "Delays are mapped via exponential numerators ($e^{-as}$), not denominator origin poles.", "isCorrect": false},
+        {"text": "The system dissipates energy perfectly.", "rationale": "Dissipation is linked to poles shifted deeply into the left half plane.", "isCorrect": false},
+        {"text": "The system cannot be stimulated.", "rationale": "Integrators are highly sensitive; even tiny constant inputs will eventually cause massive outputs.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 49,
+      "question": "How do you invert a complex response like $Y(s) = \\frac{s}{(s^2+1)(s^2+4)}$ without doing lengthy partial fraction decomposition?",
+      "hint": "If a difficult fraction is just two easy fractions multiplied together, utilize Duhamel's strategy.",
+      "answerOptions": [
+        {"text": "Use the Convolution Theorem to invert $\\cos(t) * \\sin(2t)$.", "rationale": "Factoring it as $s/(s^2+1) \\cdot 1/(s^2+4)$ allows you to bypass algebra and let the integration handle the inversion natively.", "isCorrect": true},
+        {"text": "Apply the Initial Value Theorem.", "rationale": "The IVT only provides the starting number, not the full time-domain function.", "isCorrect": false},
+        {"text": "Use synthetic division to clear the denominator.", "rationale": "The denominator degree is larger than the numerator, meaning it is strictly proper and cannot be simplified via long division.", "isCorrect": false},
+        {"text": "Substitute $s = 0$ everywhere.", "rationale": "This would just give you the steady state integral area, not the time function.", "isCorrect": false}
+      ]
+    },
+    {
+      "questionNumber": 50,
+      "question": "According to your Staples Education reference guide, why is the Laplace Transform considered a 'dictionary'?",
+      "hint": "Consider how taking a derivative turns into multiplying by $s$, while taking an integral turns into dividing by $s$.",
+      "answerOptions": [
+        {"text": "It translates the inverse operations of calculus (differentiation/integration) directly into the inverse operations of algebra (multiplication/division).", "rationale": "This elegantly replaces complex differential system modeling with straightforward algebraic symbol manipulation.", "isCorrect": true},
+        {"text": "It spells out the definitions of trigonometric identities.", "rationale": "While it utilizes Euler's tricks occasionally, its core identity is operational replacement, not trigonometric definition.", "isCorrect": false},
+        {"text": "It catalogs the physical properties of spring materials.", "rationale": "The mathematics apply uniformly whether it is a spring, a circuit, or an economy.", "isCorrect": false},
+        {"text": "It translates time directly into spatial dimensions.", "rationale": "It translates time into complex frequency, not spatial coordinates.", "isCorrect": false}
+      ]
+    }
+  ]
+}
