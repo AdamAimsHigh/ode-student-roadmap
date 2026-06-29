@@ -413,8 +413,12 @@ function moduleSortKey(moduleTitle) {
    renderSandboxPlayground). Units 1, 2, 3, and 5 already carry graded visualizers
    in INTERACTIVE_VISUALIZERS, so this set fills every remaining unit, completing a
    0..18 map that is ready for content. The bodies are intentionally empty
-   placeholders, the slot each unit's open-ended tool will drop into. */
-const INTERACTIVE_SANDBOX_UNITS = [0, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+   placeholders, the slot each unit's open-ended tool will drop into.
+
+   Unit 0 is deliberately absent from this list: it ships the first cluster of
+   fully built sandbox engines below (UNIT_0_SANDBOXES), so it is served three
+   live tools instead of a single placeholder. */
+const INTERACTIVE_SANDBOX_UNITS = [4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 const INTERACTIVE_SANDBOXES = INTERACTIVE_SANDBOX_UNITS.map(function (unitNumber) {
     return {
         unitNumber: unitNumber,
@@ -423,6 +427,43 @@ const INTERACTIVE_SANDBOXES = INTERACTIVE_SANDBOX_UNITS.map(function (unitNumber
         isSandbox: true
     };
 });
+
+/* Cluster I: the first three fully built, open-ended Unit 0 sandbox engines.
+   Unlike the generic placeholders above, each entry carries a stable string id
+   (used to key the mounted host element so the engine's own inner ids can never
+   collide with another card's) and a render(body) function that builds its live,
+   ungraded surface. Every engine namespaces its DOM ids and internal state under
+   a strict u0_s1_ / u0_s2_ / u0_s3_ prefix, paints onto canvases whose colors are
+   read live from the active theme's CSS custom properties (so Light and Dark both
+   render natively), and issues zero network calls, so each runs unchanged under
+   the file:// protocol. The render functions are declared lower in this file;
+   function declarations hoist, so referencing them here is safe. */
+const UNIT_0_SANDBOXES = [
+    {
+        id: "unit_0_equation_translator",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The Dynamic Equation Translator",
+        blurb: "Assemble component calculus symbols to construct formal rate constraints and drive real-time graphical particle physics simulations.",
+        render: renderEquationTranslatorSandbox
+    },
+    {
+        id: "unit_0_constant_explorer",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The Arbitrary Constant Solution Curve Explorer",
+        blurb: "Manipulate the integration constant C as an active spatial parameter to witness how an initial condition locks a singular trajectory out of an infinite family.",
+        render: renderConstantExplorerSandbox
+    },
+    {
+        id: "unit_0_variable_space_sandbox",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The ODE vs. PDE Independent Variable Sandbox",
+        blurb: "Contrast total derivatives along a 2D line against multi-dimensional surface gradients to visually grasp independent variable scaling.",
+        render: renderVariableSpaceSandbox
+    }
+];
 
 /* The Interactives route, now a unified visualizers dashboard. Instead of one
    card per unit duplicating the curriculum index, it gathers every standalone
@@ -471,6 +512,20 @@ function renderInteractives(container) {
             unitNumber: vis.unitNumber,
             moduleLabel: "Sandbox",
             sortKey: vis.unitNumber * 1000 + 999
+        });
+    });
+
+    // Unit 0's three fully built Cluster I engines. They sort within Unit 0 in
+    // declared order (900 + index), ahead of the generic placeholder tail (999),
+    // so the catalog reads them as the leading sandbox cluster.
+    UNIT_0_SANDBOXES.forEach(function (vis, idx) {
+        items.push({
+            vis: vis,
+            isSandbox: true,
+            home: null,
+            unitNumber: vis.unitNumber,
+            moduleLabel: "Sandbox",
+            sortKey: vis.unitNumber * 1000 + 900 + idx
         });
     });
 
@@ -566,7 +621,14 @@ function mountVisualizer(container, item) {
     // unit number instead.
     const host = document.createElement("div");
     host.className = "interactive-workspace-card interactive-host";
-    host.id = "interactive-host-" + (item.isSandbox ? "sandbox-unit-" + item.unitNumber : vis.id);
+    // A built sandbox engine carries its own stable id (e.g.
+    // "unit_0_equation_translator"), so the host keys off that; generic sandbox
+    // placeholders have no id and fall back to their unit number. Either way the
+    // mounted engine is the only one on the page, so its inner ids stay isolated.
+    const hostKey = item.isSandbox
+        ? (vis.id ? vis.id : "sandbox-unit-" + item.unitNumber)
+        : vis.id;
+    host.id = "interactive-host-" + hostKey;
     container.appendChild(host);
 
     if (item.isSandbox) {
@@ -605,14 +667,758 @@ function renderSandboxPlayground(host, item) {
 
         const body = document.createElement("div");
         body.className = "checkpoint-body";
-
-        const note = document.createElement("p");
-        note.className = "checkpoint-placeholder";
-        note.textContent = "This open-ended sandbox is under construction. It will let you drag sliders, retype expressions, and explore the graph freely, with nothing to grade.";
-        body.appendChild(note);
-
         host.appendChild(body);
+
+        // A built engine (Cluster I and onward) supplies its own render(body);
+        // units still awaiting a tool fall back to the construction placeholder.
+        if (typeof item.vis.render === "function") {
+            item.vis.render(body, item);
+        } else {
+            const note = document.createElement("p");
+            note.className = "checkpoint-placeholder";
+            note.textContent = "This open-ended sandbox is under construction. It will let you drag sliders, retype expressions, and explore the graph freely, with nothing to grade.";
+            body.appendChild(note);
+        }
     });
+}
+
+/* ============================================================================
+   Unit 0 Cluster I sandbox engines
+
+   Three self-contained, ungraded exploration surfaces mounted by
+   renderSandboxPlayground. Shared rules across all three:
+     - Every DOM id and the meaningful internal state is namespaced under a
+       strict u0_s1_ / u0_s2_ / u0_s3_ prefix, so nothing they create can collide
+       in global memory with another engine or another card.
+     - All canvas colors are read live from the document's theme custom
+       properties (--bg-color, --accent-color, ...) at draw time, so Light and
+       Dark both look native and toggling the theme mid-session repaints in place.
+     - No fetch, CDN, or remote script loading: each engine runs unchanged from
+       the file:// protocol.
+     - Animation loops self-terminate once their canvas leaves the DOM (the back
+       action empties the container), so navigating away leaves no orphan frames.
+   ============================================================================ */
+
+/* Reads a CSS custom property off the document root, resolved against whichever
+   light/dark theme is active right now. Called inside draw loops so a theme
+   toggle is reflected on the very next frame. */
+function u0SandboxColor(varName, fallback) {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(varName);
+    return (v && v.trim()) || fallback;
+}
+
+/* Draws a filled-head vector arrow from (x0,y0) to (x1,y1) on a 2D context. */
+function u0SandboxArrow(ctx, x0, y0, x1, y1, color, width) {
+    const dx = x1 - x0, dy = y1 - y0;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = width || 2.5;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+    if (len < 2) return; // too short to carry a readable head
+    const ux = dx / len, uy = dy / len;
+    const head = 9;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - head * ux + head * 0.5 * uy, y1 - head * uy - head * 0.5 * ux);
+    ctx.lineTo(x1 - head * ux - head * 0.5 * uy, y1 - head * uy + head * 0.5 * ux);
+    ctx.closePath();
+    ctx.fill();
+}
+
+/* A labelled toggle-button group for a sandbox control panel. Builds a titled
+   row of mutually exclusive buttons; clicking one marks it active (accent fill)
+   and fires onPick with its value. Returns a repaint() that re-syncs the active
+   styling to an externally changed value. Theme-bound via inline var() styles. */
+function u0SandboxToggleGroup(parent, title, options, getValue, onPick) {
+    const wrap = document.createElement("div");
+    wrap.style.marginBottom = "0.85rem";
+
+    const heading = document.createElement("div");
+    heading.textContent = title;
+    heading.style.fontSize = "0.78rem";
+    heading.style.fontWeight = "700";
+    heading.style.textTransform = "uppercase";
+    heading.style.letterSpacing = "0.04em";
+    heading.style.color = "var(--text-secondary)";
+    heading.style.marginBottom = "0.4rem";
+    wrap.appendChild(heading);
+
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.flexWrap = "wrap";
+    row.style.gap = "0.4rem";
+    wrap.appendChild(row);
+
+    const buttons = [];
+    options.forEach(function (opt) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = opt.label;
+        btn.style.font = "inherit";
+        btn.style.fontSize = "0.9rem";
+        btn.style.padding = "0.35rem 0.7rem";
+        btn.style.borderRadius = "8px";
+        btn.style.cursor = "pointer";
+        btn.style.border = "1px solid var(--panel-border)";
+        btn.addEventListener("click", function () {
+            onPick(opt.value);
+            repaint();
+        });
+        row.appendChild(btn);
+        buttons.push({ btn: btn, value: opt.value });
+    });
+
+    function repaint() {
+        const active = getValue();
+        buttons.forEach(function (b) {
+            const on = b.value === active;
+            b.btn.style.background = on ? "var(--accent-color)" : "var(--accent-soft)";
+            b.btn.style.color = on ? "var(--bg-color)" : "var(--text-color)";
+            b.btn.style.borderColor = on ? "var(--accent-color)" : "var(--panel-border)";
+            b.btn.style.fontWeight = on ? "700" : "500";
+        });
+    }
+
+    parent.appendChild(wrap);
+    repaint();
+    return repaint;
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 1 - The Dynamic Equation Translator (u0_s1_)
+
+   Left: a syntax selector where the student assembles a rate constraint by
+   picking the derivative order (the rate being constrained) and the right-hand
+   side it equals, plus a k slider. Right: a live canvas where a particle moves
+   on a 1D track under that exact law, its velocity and acceleration drawn as
+   theme-coloured vectors. Re-selecting any token instantly rebuilds the law and
+   restarts the integration, so the vectors recompute on the spot.
+   --------------------------------------------------------------------------- */
+function renderEquationTranslatorSandbox(body) {
+    // A non-zero start displacement (x0 = 2) matters: the restoring law -k·x and
+    // the second-order oscillator both sit dead still at the origin, so seeding a
+    // displacement makes every assembled law produce visible motion from frame one.
+    const u0_s1_X0 = 2.0;
+    const u0_s1_state = {
+        order: 1,        // 1 -> dx/dt (velocity law), 2 -> d2x/dt2 (acceleration law)
+        rhs: "const",    // const | sine | restoring
+        k: 1.2,
+        x: u0_s1_X0, v: 0, a: 0, t: 0
+    };
+
+    // The right-hand side the chosen tokens evaluate to, in world units.
+    function u0_s1_rhsValue() {
+        const s = u0_s1_state;
+        switch (s.rhs) {
+            case "sine": return s.k * Math.sin(s.t);
+            case "restoring": return -s.k * s.x;
+            default: return s.k; // "const"
+        }
+    }
+
+    function u0_s1_rhsText() {
+        switch (u0_s1_state.rhs) {
+            case "sine": return "k·sin t";
+            case "restoring": return "−k·x";
+            default: return "k";
+        }
+    }
+
+    function u0_s1_lhsText() {
+        return u0_s1_state.order === 1 ? "dx/dt" : "d²x/dt²";
+    }
+
+    // Restart the integration from the origin whenever the law changes, so the
+    // newly assembled constraint is what drives the vectors from frame one.
+    function u0_s1_reset() {
+        u0_s1_state.x = u0_s1_X0;
+        u0_s1_state.v = 0;
+        u0_s1_state.a = 0;
+        u0_s1_state.t = 0;
+        u0_s1_syncEquation();
+    }
+
+    // --- Split layout shell ---
+    const u0_s1_wrap = document.createElement("div");
+    u0_s1_wrap.style.display = "flex";
+    u0_s1_wrap.style.flexWrap = "wrap";
+    u0_s1_wrap.style.gap = "1rem";
+    u0_s1_wrap.style.alignItems = "stretch";
+
+    const u0_s1_controls = document.createElement("div");
+    u0_s1_controls.style.flex = "1 1 240px";
+    u0_s1_controls.style.minWidth = "240px";
+    u0_s1_controls.style.padding = "1rem";
+    u0_s1_controls.style.background = "var(--panel-bg)";
+    u0_s1_controls.style.border = "1px solid var(--panel-border)";
+    u0_s1_controls.style.borderRadius = "10px";
+
+    const u0_s1_stage = document.createElement("div");
+    u0_s1_stage.style.flex = "2 1 340px";
+    u0_s1_stage.style.minWidth = "300px";
+
+    u0_s1_wrap.appendChild(u0_s1_controls);
+    u0_s1_wrap.appendChild(u0_s1_stage);
+    body.appendChild(u0_s1_wrap);
+
+    // --- Selector interface ---
+    const u0_s1_blurb = document.createElement("p");
+    u0_s1_blurb.className = "checkpoint-intro";
+    u0_s1_blurb.textContent = "Pick the rate being constrained and what it equals, then watch the particle obey the law you built.";
+    u0_s1_controls.appendChild(u0_s1_blurb);
+
+    u0SandboxToggleGroup(u0_s1_controls, "Rate being constrained",
+        [{ value: 1, label: "dx/dt" }, { value: 2, label: "d²x/dt²" }],
+        function () { return u0_s1_state.order; },
+        function (val) { u0_s1_state.order = val; u0_s1_reset(); });
+
+    u0SandboxToggleGroup(u0_s1_controls, "Equals",
+        [{ value: "const", label: "k" }, { value: "sine", label: "k·sin t" }, { value: "restoring", label: "−k·x" }],
+        function () { return u0_s1_state.rhs; },
+        function (val) { u0_s1_state.rhs = val; u0_s1_reset(); });
+
+    // k slider, built locally so its value drives the law live without a reset.
+    const u0_s1_sliderRow = document.createElement("div");
+    u0_s1_sliderRow.className = "slider-row";
+    const u0_s1_sliderLabel = document.createElement("span");
+    u0_s1_sliderLabel.className = "slider-label";
+    u0_s1_sliderLabel.textContent = "k =";
+    const u0_s1_sliderInput = document.createElement("input");
+    u0_s1_sliderInput.type = "range";
+    u0_s1_sliderInput.min = "-3";
+    u0_s1_sliderInput.max = "3";
+    u0_s1_sliderInput.step = "0.1";
+    u0_s1_sliderInput.value = String(u0_s1_state.k);
+    const u0_s1_sliderReadout = document.createElement("span");
+    u0_s1_sliderReadout.className = "slider-readout";
+    u0_s1_sliderReadout.textContent = u0_s1_state.k.toFixed(1);
+    u0_s1_sliderInput.addEventListener("input", function () {
+        u0_s1_state.k = parseFloat(u0_s1_sliderInput.value);
+        u0_s1_sliderReadout.textContent = u0_s1_state.k.toFixed(1);
+        u0_s1_syncEquation();
+    });
+    u0_s1_sliderRow.appendChild(u0_s1_sliderLabel);
+    u0_s1_sliderRow.appendChild(u0_s1_sliderInput);
+    u0_s1_sliderRow.appendChild(u0_s1_sliderReadout);
+    u0_s1_controls.appendChild(u0_s1_sliderRow);
+
+    // Assembled-equation readout, in a monospace chip.
+    const u0_s1_equation = document.createElement("div");
+    u0_s1_equation.style.fontFamily = "Consolas, Monaco, monospace";
+    u0_s1_equation.style.fontSize = "1.05rem";
+    u0_s1_equation.style.fontWeight = "700";
+    u0_s1_equation.style.padding = "0.6rem 0.8rem";
+    u0_s1_equation.style.marginTop = "0.4rem";
+    u0_s1_equation.style.background = "var(--bg-color)";
+    u0_s1_equation.style.border = "1px solid var(--panel-border)";
+    u0_s1_equation.style.borderRadius = "8px";
+    u0_s1_equation.style.color = "var(--accent-color)";
+    u0_s1_controls.appendChild(u0_s1_equation);
+
+    function u0_s1_syncEquation() {
+        u0_s1_equation.textContent = u0_s1_lhsText() + " = " + u0_s1_rhsText()
+            + "   (k = " + u0_s1_state.k.toFixed(1) + ")";
+    }
+
+    // Reset button to recentre the particle without changing the law.
+    const u0_s1_resetBtn = document.createElement("button");
+    u0_s1_resetBtn.type = "button";
+    u0_s1_resetBtn.className = "checkpoint-begin-btn";
+    u0_s1_resetBtn.style.marginTop = "0.85rem";
+    u0_s1_resetBtn.textContent = "Reset particle to origin";
+    u0_s1_resetBtn.addEventListener("click", u0_s1_reset);
+    u0_s1_controls.appendChild(u0_s1_resetBtn);
+
+    // --- Canvas stage ---
+    const u0_s1_canvas = document.createElement("canvas");
+    u0_s1_canvas.width = 560;
+    u0_s1_canvas.height = 300;
+    u0_s1_canvas.className = "math-canvas";
+    u0_s1_stage.appendChild(u0_s1_canvas);
+
+    const u0_s1_ctx = u0_s1_canvas.getContext("2d");
+    const u0_s1_LIM = 5; // world half-width of the track
+
+    function u0_s1_step(dt) {
+        const s = u0_s1_state;
+        s.t += dt;
+        if (s.order === 1) {
+            // First-order law: dx/dt is the right-hand side directly.
+            const rate = u0_s1_rhsValue();
+            const prevV = s.v;
+            s.v = rate;
+            s.x += rate * dt;
+            s.a = (s.v - prevV) / dt; // numerical acceleration of the velocity law
+        } else {
+            // Second-order law: the right-hand side is the acceleration.
+            const acc = u0_s1_rhsValue();
+            s.a = acc;
+            s.v += acc * dt;
+            s.x += s.v * dt;
+        }
+        // Keep the particle on the visible track with an inelastic bounce so a
+        // constant-velocity or growing law stays watchable instead of escaping.
+        if (s.x > u0_s1_LIM) { s.x = u0_s1_LIM; s.v = -Math.abs(s.v) * 0.6; }
+        if (s.x < -u0_s1_LIM) { s.x = -u0_s1_LIM; s.v = Math.abs(s.v) * 0.6; }
+    }
+
+    function u0_s1_draw() {
+        const ctx = u0_s1_ctx;
+        const W = u0_s1_canvas.width, H = u0_s1_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const pad = 44;
+        const midY = H * 0.52;
+        function pxX(x) { return pad + (x + u0_s1_LIM) / (2 * u0_s1_LIM) * (W - 2 * pad); }
+
+        // Track and ticks.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pad, midY);
+        ctx.lineTo(W - pad, midY);
+        ctx.stroke();
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = -u0_s1_LIM; gx <= u0_s1_LIM; gx++) {
+            const X = pxX(gx);
+            ctx.strokeStyle = border;
+            ctx.beginPath();
+            ctx.moveTo(X, midY - 4);
+            ctx.lineTo(X, midY + 4);
+            ctx.stroke();
+            ctx.fillText(String(gx), X, midY + 18);
+        }
+
+        const cx = pxX(u0_s1_state.x);
+
+        // Velocity vector (accent) above the particle, acceleration (warm) below.
+        const vScale = 22, aScale = 16;
+        u0SandboxArrow(ctx, cx, midY - 16, cx + u0_s1_state.v * vScale, midY - 16, accent, 3);
+        u0SandboxArrow(ctx, cx, midY + 16, cx + u0_s1_state.a * aScale, midY + 16, warm, 3);
+
+        // The particle.
+        ctx.fillStyle = text;
+        ctx.beginPath();
+        ctx.arc(cx, midY, 9, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Legend + live readouts.
+        ctx.textAlign = "left";
+        ctx.font = "13px sans-serif";
+        ctx.fillStyle = accent;
+        ctx.fillText("velocity  v = " + u0_s1_state.v.toFixed(2), 16, 24);
+        ctx.fillStyle = warm;
+        ctx.fillText("acceleration  a = " + u0_s1_state.a.toFixed(2), 16, 44);
+        ctx.fillStyle = sub;
+        ctx.fillText("position  x = " + u0_s1_state.x.toFixed(2), 16, H - 16);
+    }
+
+    u0_s1_syncEquation();
+
+    function u0_s1_frame() {
+        // Self-terminate once the back action removes the canvas from the page.
+        if (!document.body.contains(u0_s1_canvas)) return;
+        u0_s1_step(0.016);
+        u0_s1_draw();
+        requestAnimationFrame(u0_s1_frame);
+    }
+    requestAnimationFrame(u0_s1_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 2 - The Arbitrary Constant Solution Curve Explorer (u0_s2_)
+
+   A coordinate matrix graphs the family y = C e^x. A faint backdrop of family
+   members shows the infinite family; the active member, set by the C slider,
+   is painted boldly over it. Clicking anywhere computes the single C whose curve
+   threads that (x, y) point, snaps the slider to it, and marks the locked
+   trajectory - an initial condition selecting one solution from the family.
+   --------------------------------------------------------------------------- */
+function renderConstantExplorerSandbox(body) {
+    const u0_s2_state = { C: 1.0, pick: null }; // pick = {x, y} of the clicked node
+
+    const u0_s2_C_MIN = -6, u0_s2_C_MAX = 6;
+    const u0_s2_xMin = -3, u0_s2_xMax = 3, u0_s2_yMin = -8, u0_s2_yMax = 8;
+
+    const u0_s2_intro = document.createElement("p");
+    u0_s2_intro.className = "checkpoint-intro";
+    u0_s2_intro.textContent = "Slide C to sweep the family y = C·e^x, or click any point on the grid to lock the one curve that passes through it.";
+    body.appendChild(u0_s2_intro);
+
+    const u0_s2_canvas = document.createElement("canvas");
+    u0_s2_canvas.width = 600;
+    u0_s2_canvas.height = 380;
+    u0_s2_canvas.className = "math-canvas";
+    u0_s2_canvas.style.cursor = "crosshair";
+    body.appendChild(u0_s2_canvas);
+    const u0_s2_ctx = u0_s2_canvas.getContext("2d");
+
+    // C slider, built locally so a click can drive its position programmatically.
+    const u0_s2_sliderRow = document.createElement("div");
+    u0_s2_sliderRow.className = "slider-row";
+    const u0_s2_sliderLabel = document.createElement("span");
+    u0_s2_sliderLabel.className = "slider-label";
+    u0_s2_sliderLabel.textContent = "C =";
+    const u0_s2_sliderInput = document.createElement("input");
+    u0_s2_sliderInput.type = "range";
+    u0_s2_sliderInput.min = String(u0_s2_C_MIN);
+    u0_s2_sliderInput.max = String(u0_s2_C_MAX);
+    u0_s2_sliderInput.step = "0.01";
+    u0_s2_sliderInput.value = String(u0_s2_state.C);
+    const u0_s2_sliderReadout = document.createElement("span");
+    u0_s2_sliderReadout.className = "slider-readout";
+    u0_s2_sliderReadout.textContent = u0_s2_state.C.toFixed(2);
+    u0_s2_sliderInput.addEventListener("input", function () {
+        u0_s2_state.C = parseFloat(u0_s2_sliderInput.value);
+        u0_s2_state.pick = null; // a manual sweep releases the locked point
+        u0_s2_sliderReadout.textContent = u0_s2_state.C.toFixed(2);
+        u0_s2_draw();
+    });
+    u0_s2_sliderRow.appendChild(u0_s2_sliderLabel);
+    u0_s2_sliderRow.appendChild(u0_s2_sliderInput);
+    u0_s2_sliderRow.appendChild(u0_s2_sliderReadout);
+    body.appendChild(u0_s2_sliderRow);
+
+    function u0_s2_pxX(x) { return (x - u0_s2_xMin) / (u0_s2_xMax - u0_s2_xMin) * u0_s2_canvas.width; }
+    function u0_s2_pyY(y) { return u0_s2_canvas.height - (y - u0_s2_yMin) / (u0_s2_yMax - u0_s2_yMin) * u0_s2_canvas.height; }
+    function u0_s2_worldX(px) { return u0_s2_xMin + px / u0_s2_canvas.width * (u0_s2_xMax - u0_s2_xMin); }
+    function u0_s2_worldY(py) { return u0_s2_yMin + (u0_s2_canvas.height - py) / u0_s2_canvas.height * (u0_s2_yMax - u0_s2_yMin); }
+
+    function u0_s2_drawCurve(C, color, width) {
+        const ctx = u0_s2_ctx;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        let started = false;
+        for (let px = 0; px <= u0_s2_canvas.width; px += 2) {
+            const x = u0_s2_worldX(px);
+            const y = C * Math.exp(x);
+            if (!isFinite(y) || Math.abs(y) > 1e5) { started = false; continue; }
+            const sy = u0_s2_pyY(y);
+            if (started) ctx.lineTo(px, sy); else { ctx.moveTo(px, sy); started = true; }
+        }
+        ctx.stroke();
+    }
+
+    function u0_s2_draw() {
+        const ctx = u0_s2_ctx;
+        const W = u0_s2_canvas.width, H = u0_s2_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Coordinate matrix: unit grid lines.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        for (let gx = Math.ceil(u0_s2_xMin); gx <= u0_s2_xMax; gx++) {
+            const X = u0_s2_pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, 0); ctx.lineTo(X, H); ctx.stroke();
+        }
+        for (let gy = Math.ceil(u0_s2_yMin); gy <= u0_s2_yMax; gy += 2) {
+            const Y = u0_s2_pyY(gy);
+            ctx.beginPath(); ctx.moveTo(0, Y); ctx.lineTo(W, Y); ctx.stroke();
+        }
+        // Axes, drawn darker.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(0, u0_s2_pyY(0)); ctx.lineTo(W, u0_s2_pyY(0));
+        ctx.moveTo(u0_s2_pxX(0), 0); ctx.lineTo(u0_s2_pxX(0), H);
+        ctx.stroke();
+
+        // The infinite family, as faint ghosts.
+        const ghosts = [-4, -2, -1, -0.5, 0.5, 1, 2, 4];
+        ctx.globalAlpha = 0.28;
+        ghosts.forEach(function (C) { u0_s2_drawCurve(C, sub, 1.5); });
+        ctx.globalAlpha = 1;
+
+        // The active member.
+        u0_s2_drawCurve(u0_s2_state.C, accent, 3);
+
+        // The locked point and its guide lines.
+        if (u0_s2_state.pick) {
+            const px = u0_s2_pxX(u0_s2_state.pick.x);
+            const py = u0_s2_pyY(u0_s2_state.pick.y);
+            ctx.strokeStyle = accent;
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(px, u0_s2_pyY(0)); ctx.lineTo(px, py);
+            ctx.moveTo(u0_s2_pxX(0), py); ctx.lineTo(px, py);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = accent;
+            ctx.beginPath();
+            ctx.arc(px, py, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.fillStyle = text;
+            ctx.font = "13px sans-serif";
+            ctx.textAlign = "left";
+            ctx.fillText("initial condition locks C = " + u0_s2_state.C.toFixed(2),
+                Math.min(px + 10, W - 230), Math.max(py - 10, 16));
+        }
+
+        // Family label.
+        ctx.fillStyle = accent;
+        ctx.font = "14px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("y = C·e^x", 12, 20);
+    }
+
+    u0_s2_canvas.addEventListener("click", function (evt) {
+        // Map the click into world coordinates, then solve C = y / e^x for the
+        // single family member through that point. Clamp into the slider's range.
+        const rect = u0_s2_canvas.getBoundingClientRect();
+        const px = (evt.clientX - rect.left) * (u0_s2_canvas.width / rect.width);
+        const py = (evt.clientY - rect.top) * (u0_s2_canvas.height / rect.height);
+        const wx = u0_s2_worldX(px);
+        const wy = u0_s2_worldY(py);
+        let C = wy / Math.exp(wx);
+        C = Math.max(u0_s2_C_MIN, Math.min(u0_s2_C_MAX, C));
+        u0_s2_state.C = C;
+        u0_s2_state.pick = { x: wx, y: wy };
+        u0_s2_sliderInput.value = String(C);
+        u0_s2_sliderReadout.textContent = C.toFixed(2);
+        u0_s2_draw();
+    });
+
+    // This engine is event-driven, but a one-shot rAF guarded on DOM presence
+    // lets a mid-session theme toggle repaint without any persistent loop.
+    function u0_s2_themeWatch() {
+        if (!document.body.contains(u0_s2_canvas)) return;
+        u0_s2_draw();
+        requestAnimationFrame(u0_s2_themeWatch);
+    }
+    requestAnimationFrame(u0_s2_themeWatch);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 3 - The ODE vs. PDE Independent Variable Sandbox (u0_s3_)
+
+   Left: an ODE world - a point whose coordinate depends purely on t, traced as
+   x(t) scrolls across a 2D time plot (one independent variable, a total
+   derivative along a line). Right: a PDE world - an animated wireframe sheet
+   u(x, y, t) projected isometrically, rippling across two spatial variables at
+   once (a surface gradient). A shared frequency slider and play toggle drive
+   both, making the dimensional contrast immediate.
+   --------------------------------------------------------------------------- */
+function renderVariableSpaceSandbox(body) {
+    const u0_s3_state = { t: 0, freq: 1.0, playing: true };
+
+    const u0_s3_intro = document.createElement("p");
+    u0_s3_intro.className = "checkpoint-intro";
+    u0_s3_intro.textContent = "Left: a point moving purely as a function of t (an ODE, one independent variable). Right: a sheet rippling across both x and y at once (a PDE, two independent variables).";
+    body.appendChild(u0_s3_intro);
+
+    const u0_s3_wrap = document.createElement("div");
+    u0_s3_wrap.style.display = "flex";
+    u0_s3_wrap.style.flexWrap = "wrap";
+    u0_s3_wrap.style.gap = "1rem";
+    body.appendChild(u0_s3_wrap);
+
+    // Left pane.
+    const u0_s3_leftCol = document.createElement("div");
+    u0_s3_leftCol.style.flex = "1 1 280px";
+    u0_s3_leftCol.style.minWidth = "260px";
+    const u0_s3_leftTitle = document.createElement("div");
+    u0_s3_leftTitle.className = "checkpoint-prompt";
+    u0_s3_leftTitle.textContent = "ODE world · x(t)";
+    u0_s3_leftCol.appendChild(u0_s3_leftTitle);
+    const u0_s3_left = document.createElement("canvas");
+    u0_s3_left.width = 360;
+    u0_s3_left.height = 300;
+    u0_s3_left.className = "math-canvas";
+    u0_s3_leftCol.appendChild(u0_s3_left);
+    u0_s3_wrap.appendChild(u0_s3_leftCol);
+
+    // Right pane.
+    const u0_s3_rightCol = document.createElement("div");
+    u0_s3_rightCol.style.flex = "1 1 280px";
+    u0_s3_rightCol.style.minWidth = "260px";
+    const u0_s3_rightTitle = document.createElement("div");
+    u0_s3_rightTitle.className = "checkpoint-prompt";
+    u0_s3_rightTitle.textContent = "PDE world · u(x, y, t)";
+    u0_s3_rightCol.appendChild(u0_s3_rightTitle);
+    const u0_s3_right = document.createElement("canvas");
+    u0_s3_right.width = 360;
+    u0_s3_right.height = 300;
+    u0_s3_right.className = "math-canvas";
+    u0_s3_rightCol.appendChild(u0_s3_right);
+    u0_s3_wrap.appendChild(u0_s3_rightCol);
+
+    // Shared controls: a frequency slider and a play/pause toggle.
+    const u0_s3_sliderRow = document.createElement("div");
+    u0_s3_sliderRow.className = "slider-row";
+    const u0_s3_sliderLabel = document.createElement("span");
+    u0_s3_sliderLabel.className = "slider-label";
+    u0_s3_sliderLabel.textContent = "freq";
+    const u0_s3_sliderInput = document.createElement("input");
+    u0_s3_sliderInput.type = "range";
+    u0_s3_sliderInput.min = "0.3";
+    u0_s3_sliderInput.max = "2.5";
+    u0_s3_sliderInput.step = "0.1";
+    u0_s3_sliderInput.value = String(u0_s3_state.freq);
+    const u0_s3_sliderReadout = document.createElement("span");
+    u0_s3_sliderReadout.className = "slider-readout";
+    u0_s3_sliderReadout.textContent = u0_s3_state.freq.toFixed(1);
+    u0_s3_sliderInput.addEventListener("input", function () {
+        u0_s3_state.freq = parseFloat(u0_s3_sliderInput.value);
+        u0_s3_sliderReadout.textContent = u0_s3_state.freq.toFixed(1);
+    });
+    u0_s3_sliderRow.appendChild(u0_s3_sliderLabel);
+    u0_s3_sliderRow.appendChild(u0_s3_sliderInput);
+    u0_s3_sliderRow.appendChild(u0_s3_sliderReadout);
+    body.appendChild(u0_s3_sliderRow);
+
+    const u0_s3_toggle = document.createElement("button");
+    u0_s3_toggle.type = "button";
+    u0_s3_toggle.className = "checkpoint-begin-btn";
+    u0_s3_toggle.textContent = "Pause";
+    u0_s3_toggle.addEventListener("click", function () {
+        u0_s3_state.playing = !u0_s3_state.playing;
+        u0_s3_toggle.textContent = u0_s3_state.playing ? "Pause" : "Play";
+    });
+    body.appendChild(u0_s3_toggle);
+
+    const u0_s3_lctx = u0_s3_left.getContext("2d");
+    const u0_s3_rctx = u0_s3_right.getContext("2d");
+
+    // Left: scroll the curve x(tau) = sin(freq*tau) across a window ending at the
+    // current time, with a leading dot. One independent variable: t.
+    function u0_s3_drawLeft() {
+        const ctx = u0_s3_lctx;
+        const W = u0_s3_left.width, H = u0_s3_left.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const midY = H / 2;
+        const amp = H * 0.32;
+        const span = 4 * Math.PI; // visible time window
+        function pxT(tau) { return (tau - (u0_s3_state.t - span)) / span * W; }
+        function pyX(x) { return midY - x * amp; }
+
+        // Axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, midY); ctx.lineTo(W, midY);
+        ctx.stroke();
+
+        // The traced curve.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        let started = false;
+        const steps = 240;
+        for (let i = 0; i <= steps; i++) {
+            const tau = (u0_s3_state.t - span) + span * i / steps;
+            const x = Math.sin(u0_s3_state.freq * tau);
+            const sx = pxT(tau), sy = pyX(x);
+            if (started) ctx.lineTo(sx, sy); else { ctx.moveTo(sx, sy); started = true; }
+        }
+        ctx.stroke();
+
+        // Leading point at the current t.
+        const xn = Math.sin(u0_s3_state.freq * u0_s3_state.t);
+        ctx.fillStyle = accent;
+        ctx.beginPath();
+        ctx.arc(pxT(u0_s3_state.t), pyX(xn), 7, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("depends on t alone", 12, H - 14);
+    }
+
+    // Right: an isometric wireframe of u(x,y,t) = sin(freq*x + t)*cos(freq*y + t),
+    // line opacity rising with height. Two independent variables: x and y.
+    function u0_s3_drawRight() {
+        const ctx = u0_s3_rctx;
+        const W = u0_s3_right.width, H = u0_s3_right.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const N = 14;            // grid resolution per axis
+        const range = 2.2;       // world half-extent in x and y
+        const cx = W / 2, cy = H * 0.42;
+        const ux = 12, uy = 7, uz = 30; // isometric projection scales
+
+        function node(i, j) {
+            const x = -range + 2 * range * i / N;
+            const y = -range + 2 * range * j / N;
+            const z = Math.sin(u0_s3_state.freq * x + u0_s3_state.t) *
+                      Math.cos(u0_s3_state.freq * y + u0_s3_state.t);
+            const gx = (i - N / 2), gy = (j - N / 2);
+            return {
+                sx: cx + (gx - gy) * ux,
+                sy: cy + (gx + gy) * uy - z * uz,
+                z: z
+            };
+        }
+
+        ctx.lineWidth = 1.4;
+        for (let i = 0; i <= N; i++) {
+            for (let j = 0; j <= N; j++) {
+                const p = node(i, j);
+                if (i < N) {
+                    const q = node(i + 1, j);
+                    ctx.globalAlpha = 0.30 + 0.55 * ((p.z + q.z) / 2 + 1) / 2;
+                    ctx.strokeStyle = accent;
+                    ctx.beginPath(); ctx.moveTo(p.sx, p.sy); ctx.lineTo(q.sx, q.sy); ctx.stroke();
+                }
+                if (j < N) {
+                    const q = node(i, j + 1);
+                    ctx.globalAlpha = 0.30 + 0.55 * ((p.z + q.z) / 2 + 1) / 2;
+                    ctx.strokeStyle = accent;
+                    ctx.beginPath(); ctx.moveTo(p.sx, p.sy); ctx.lineTo(q.sx, q.sy); ctx.stroke();
+                }
+            }
+        }
+        ctx.globalAlpha = 1;
+
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("depends on x and y", 12, H - 14);
+    }
+
+    function u0_s3_frame() {
+        if (!document.body.contains(u0_s3_left)) return; // stop after navigation
+        if (u0_s3_state.playing) u0_s3_state.t += 0.03;
+        u0_s3_drawLeft();
+        u0_s3_drawRight();
+        requestAnimationFrame(u0_s3_frame);
+    }
+    requestAnimationFrame(u0_s3_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
