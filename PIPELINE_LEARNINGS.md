@@ -45,3 +45,8 @@
 - **`grep`/`tail` gotcha:** the first compile pass only showed one overfull per file because the check used `tail -5`; the warnings were always there. Always `grep -iE "Overfull" | sort -u` across the full Tectonic stderr to see the true count (Tectonic runs multiple passes, so each warning repeats per pass).
 - **Source extraction:** modules 18.1–18.6 mined from `app/data/curriculum.json`; mastery quiz IDs `um_18_1` … `um_18_30` confirmed present in `app/data/quizzes.json` (30 occurrences) and used to seed the 10-problem practice set.
 
+## Architectural Governance & Living Blueprint Rule
+- **The Manifest Invariant:** `WEBSITE_BLUEPRINT.md` is the definitive master architecture blueprint for this vanilla-JS SPA framework. It decouples core layout systems from mathematical data layers.
+- **The Update Contract:** Every future session that introduces a structural modification to our global web shell (e.g., changes to `index.html` scripts, theme variables, routing mechanics, or persistence keys) MUST update the corresponding pillar in `WEBSITE_BLUEPRINT.md` before concluding the sprint.
+- **Verification:** Changes to system layouts are incomplete unless synchronized with the living blueprint file.
+
