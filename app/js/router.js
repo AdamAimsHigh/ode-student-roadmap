@@ -399,6 +399,31 @@ function moduleNumber(moduleTitle) {
     return match ? match[1] : moduleTitle;
 }
 
+/* A single sortable integer for a module title, so "5.1" orders before "5.4" and
+   both order after "1.2". The major number is weighted well above any plausible
+   minor count; titles with no leading number sort first. */
+function moduleSortKey(moduleTitle) {
+    const match = /^(\d+)\.(\d+)/.exec(moduleTitle);
+    return match ? parseInt(match[1], 10) * 1000 + parseInt(match[2], 10) : 0;
+}
+
+/* Open-ended sandbox playgrounds for the units that do not yet ship a graded
+   interactive checkpoint. Each entry is an ungraded exploration surface: when it
+   mounts, it opens straight into free play with no answer checking (see
+   renderSandboxPlayground). Units 1, 2, 3, and 5 already carry graded visualizers
+   in INTERACTIVE_VISUALIZERS, so this set fills every remaining unit, completing a
+   0..18 map that is ready for content. The bodies are intentionally empty
+   placeholders, the slot each unit's open-ended tool will drop into. */
+const INTERACTIVE_SANDBOX_UNITS = [0, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+const INTERACTIVE_SANDBOXES = INTERACTIVE_SANDBOX_UNITS.map(function (unitNumber) {
+    return {
+        unitNumber: unitNumber,
+        title: "Unit " + unitNumber + " Exploration Sandbox",
+        blurb: "An open-ended math playground for this unit, coming soon. Drag sliders, retype expressions, and explore the graph freely, with nothing to grade.",
+        isSandbox: true
+    };
+});
+
 /* The Interactives route, now a unified visualizers dashboard. Instead of one
    card per unit duplicating the curriculum index, it gathers every standalone
    math visualization engine in the course into a single grid. Each card derives
@@ -418,34 +443,69 @@ function renderInteractives(container) {
     const grid = document.createElement("div");
     grid.className = "interactives-grid";
 
+    // Normalize every card, graded engine and sandbox placeholder alike, into one
+    // render model so a single sort and a single render loop cover both. Graded
+    // engines resolve their unit and module from the curriculum (and drop out if
+    // the checkpoint is gone); sandbox cards carry their unit number directly and
+    // sort to the tail of their unit, behind any graded module.
+    const items = [];
+
     INTERACTIVE_VISUALIZERS.forEach(function (vis) {
         const home = findModuleByCheckpoint(vis.id);
         if (!home) return; // engine no longer in the curriculum, skip its card
+        items.push({
+            vis: vis,
+            isSandbox: false,
+            home: home,
+            unitNumber: home.unitIndex,
+            moduleLabel: moduleNumber(home.moduleData.module),
+            sortKey: moduleSortKey(home.moduleData.module)
+        });
+    });
 
+    INTERACTIVE_SANDBOXES.forEach(function (vis) {
+        items.push({
+            vis: vis,
+            isSandbox: true,
+            home: null,
+            unitNumber: vis.unitNumber,
+            moduleLabel: "Sandbox",
+            sortKey: vis.unitNumber * 1000 + 999
+        });
+    });
+
+    // Chronological order: Unit 0 before Unit 1 before Unit 2 ..., and within a
+    // unit, ascending module number, with the unit's sandbox last.
+    items.sort(function (a, b) {
+        if (a.unitNumber !== b.unitNumber) return a.unitNumber - b.unitNumber;
+        return a.sortKey - b.sortKey;
+    });
+
+    items.forEach(function (item) {
         const card = document.createElement("div");
         card.className = "materials-card interactive-card";
 
         const badge = document.createElement("span");
         badge.className = "interactive-badge";
-        badge.textContent = "Unit " + home.unitIndex + " · " + moduleNumber(home.moduleData.module);
+        badge.textContent = "Unit " + item.unitNumber + " · " + item.moduleLabel;
         card.appendChild(badge);
 
         const title = document.createElement("h3");
         title.className = "materials-card-title";
-        title.textContent = vis.title;
+        title.textContent = item.vis.title;
         card.appendChild(title);
 
         const desc = document.createElement("p");
         desc.className = "materials-card-desc";
-        desc.textContent = vis.blurb;
+        desc.textContent = item.vis.blurb;
         card.appendChild(desc);
 
         const launch = document.createElement("button");
         launch.type = "button";
         launch.className = "pdf-download-btn";
-        launch.textContent = "Launch Visualizer";
+        launch.textContent = item.isSandbox ? "Open Sandbox" : "Launch Visualizer";
         launch.addEventListener("click", function () {
-            mountVisualizer(container, vis, home);
+            mountVisualizer(container, item);
         });
         card.appendChild(launch);
 
@@ -455,13 +515,15 @@ function renderInteractives(container) {
     container.appendChild(grid);
 }
 
-/* Mounts a single visualization engine into the main view, replacing the
-   dashboard grid with a focused workspace and a back action. The live widget
-   builds inside a uniquely identified host that is the only checkpoint host on
-   the page while it is open, so any element ids the engine creates cannot collide
-   with another visualizer's. */
-function mountVisualizer(container, vis, home) {
+/* Mounts a single card into the main view, replacing the dashboard grid with a
+   focused workspace and a back action. A graded engine delegates to its
+   registered checkpoint widget; a sandbox card opens an ungraded playground
+   instead (see renderSandboxPlayground). Either way the content builds inside a
+   uniquely identified host that is the only one on the page while it is open, so
+   any element ids the engine creates cannot collide with another card's. */
+function mountVisualizer(container, item) {
     container.innerHTML = "";
+    const vis = item.vis;
 
     const nav = document.createElement("div");
     nav.className = "unit-detail-nav";
@@ -480,12 +542,15 @@ function mountVisualizer(container, vis, home) {
     const intro = document.createElement("div");
     intro.className = "toc-intro";
 
-    // A compact "Unit N · Module N.M" badge. The full unit title already reads
-    // out in the heading and the source module, so appending it here only crowded
-    // the line and risked overlap on narrow viewports.
+    // A compact badge. For graded engines this reads "Unit N · Module N.M"; the
+    // full unit title already shows in the heading, so appending it here only
+    // crowded the line. Sandbox cards have no module, so they read "Unit N ·
+    // Sandbox".
     const badge = document.createElement("span");
     badge.className = "interactive-badge";
-    badge.textContent = "Unit " + home.unitIndex + " · Module " + moduleNumber(home.moduleData.module);
+    badge.textContent = item.isSandbox
+        ? "Unit " + item.unitNumber + " · Sandbox"
+        : "Unit " + item.unitNumber + " · Module " + item.moduleLabel;
     intro.appendChild(badge);
 
     const heading = document.createElement("h1");
@@ -495,15 +560,59 @@ function mountVisualizer(container, vis, home) {
 
     container.appendChild(intro);
 
-    // Isolated, uniquely identified host. Only one visualizer is mounted at a
-    // time, so the checkpoint widget's own canvases and Desmos frames never share
-    // DOM ids with another engine.
+    // Isolated, uniquely identified host. Only one card is mounted at a time, so
+    // the widget's own canvases and Desmos frames never share DOM ids with
+    // another card's. Sandbox cards have no checkpoint id, so they key off their
+    // unit number instead.
     const host = document.createElement("div");
     host.className = "interactive-workspace-card interactive-host";
-    host.id = "interactive-host-" + vis.id;
+    host.id = "interactive-host-" + (item.isSandbox ? "sandbox-unit-" + item.unitNumber : vis.id);
     container.appendChild(host);
 
-    CheckpointRegistry.render(home.moduleData.interactive_checkpoint, host, home.moduleData);
+    if (item.isSandbox) {
+        renderSandboxPlayground(host, item);
+    } else {
+        CheckpointRegistry.render(item.home.moduleData.interactive_checkpoint, host, item.home.moduleData);
+    }
+}
+
+/* Renders an ungraded sandbox playground into the mounted host. It mirrors the
+   chrome of a graded checkpoint, heading, intro, and a begin button, but carries
+   no answer checking: the begin action reads "Open Sandbox Playground" and
+   reveals a free-exploration body with no check steps or feedback. The body is an
+   empty placeholder for now, the slot each unit's open-ended tool will fill, so
+   students will eventually tweak variables, drag sliders, and explore graphs with
+   nothing to grade. */
+function renderSandboxPlayground(host, item) {
+    const heading = document.createElement("div");
+    heading.className = "checkpoint-heading";
+    heading.textContent = item.vis.title;
+    host.appendChild(heading);
+
+    const intro = document.createElement("p");
+    intro.className = "checkpoint-intro";
+    intro.textContent = item.vis.blurb;
+    host.appendChild(intro);
+
+    const openBtn = document.createElement("button");
+    openBtn.type = "button";
+    openBtn.className = "checkpoint-begin-btn";
+    openBtn.textContent = "Open Sandbox Playground";
+    host.appendChild(openBtn);
+
+    openBtn.addEventListener("click", function () {
+        openBtn.remove();
+
+        const body = document.createElement("div");
+        body.className = "checkpoint-body";
+
+        const note = document.createElement("p");
+        note.className = "checkpoint-placeholder";
+        note.textContent = "This open-ended sandbox is under construction. It will let you drag sliders, retype expressions, and explore the graph freely, with nothing to grade.";
+        body.appendChild(note);
+
+        host.appendChild(body);
+    });
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
