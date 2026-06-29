@@ -329,43 +329,171 @@ function renderPracticeSets(container) {
     container.appendChild(grid);
 }
 
-/* The Interactives route, a data driven hub matching the other materials pages.
-   One card per unit, each opening that unit's detail view where the interactive
-   checkpoints live, with the unit's Topic guides rendered as plain text labels. */
+/* The curated catalog of standalone visualization engines, keyed by the
+   interactive checkpoint id that implements each one. Titles and blurbs are
+   dashboard copy; the target unit and module badge are NOT stored here, they are
+   derived live from the curriculum (see findModuleByCheckpoint), so a badge can
+   never drift from where its engine actually lives. Every id below maps to a
+   real graphing or canvas widget registered in app/js/checkpoints/. */
+const INTERACTIVE_VISUALIZERS = [
+    {
+        id: "euler_method_stepper",
+        title: "Euler's Method Visualizer",
+        blurb: "Step along the tangent line of y' = y and watch the systematic error build, the foundational numerical integrator."
+    },
+    {
+        id: "desmos_interactive_slope_field",
+        title: "Slope Field Generator",
+        blurb: "Render the direction field of dy/dx = x - y on a live canvas, then thread a solution curve through it."
+    },
+    {
+        id: "rk4_stage_builder",
+        title: "Runge-Kutta (RK4) Stage Builder",
+        blurb: "Assemble the four weighted slope samples of a single RK4 step and land within a whisker of e."
+    },
+    {
+        id: "desmos_e_limit_explorer",
+        title: "The Number e Limit Explorer",
+        blurb: "Pan and zoom the Desmos graph of (1 + 1/x)^x to discover the constant the curve settles toward."
+    },
+    {
+        id: "complex_rotation_visualizer",
+        title: "Euler's Formula Rotation Visualizer",
+        blurb: "Steer e^(i t) around the unit circle in the complex plane and witness Euler's identity as half a turn."
+    },
+    {
+        id: "desmos_ivp_curve_selector",
+        title: "IVP Curve Selector",
+        blurb: "Pick the member of a solution family that satisfies a given initial condition, live on a Desmos graph."
+    },
+    {
+        id: "desmos_cooling_curve_fitter",
+        title: "Newton's Cooling Curve Fitter",
+        blurb: "Fit an exponential cooling model to data and read the decay constant straight off the graph."
+    }
+];
+
+/* Walks the curriculum to find the module that owns a given interactive
+   checkpoint id, returning its unit index, unit title, and the module data the
+   checkpoint renderer needs. Returns null when no module declares the checkpoint,
+   so a renamed or retired engine simply drops out of the dashboard instead of
+   rendering a broken card. */
+function findModuleByCheckpoint(checkpointId) {
+    for (let unitIndex = 0; unitIndex < CURRICULUM.length; unitIndex++) {
+        const unitData = CURRICULUM[unitIndex];
+        const modules = unitData.modules || [];
+        for (let m = 0; m < modules.length; m++) {
+            if (modules[m].interactive_checkpoint === checkpointId) {
+                return { unitIndex: unitIndex, unitTitle: unitData.unit, moduleData: modules[m] };
+            }
+        }
+    }
+    return null;
+}
+
+/* The module number prefix, for example "5.1", pulled from a module title so the
+   context badge can show it beside the unit. Falls back to the whole title when
+   no leading number is present. */
+function moduleNumber(moduleTitle) {
+    const match = /^(\d+\.\d+)/.exec(moduleTitle);
+    return match ? match[1] : moduleTitle;
+}
+
+/* The Interactives route, now a unified visualizers dashboard. Instead of one
+   card per unit duplicating the curriculum index, it gathers every standalone
+   math visualization engine in the course into a single grid. Each card derives
+   its context badge from the engine's home module and offers a launch action that
+   mounts the live widget into the main view (see mountVisualizer). */
 function renderInteractives(container) {
-    buildIndexShell(container, "Interactives",
-        "Open a unit to work through its interactive checkpoints. Each card lists the topics that unit covers.");
+    buildIndexShell(container, "Interactive Visualizers",
+        "Every standalone math visualization engine in the course, gathered into one grid. Launch any tool to mount it right here in the workspace.");
 
     const grid = document.createElement("div");
-    grid.className = "toc-grid";
+    grid.className = "interactives-grid";
 
-    CURRICULUM.forEach(function (unitData, index) {
+    INTERACTIVE_VISUALIZERS.forEach(function (vis) {
+        const home = findModuleByCheckpoint(vis.id);
+        if (!home) return; // engine no longer in the curriculum, skip its card
+
         const card = document.createElement("div");
-        card.className = "materials-card";
+        card.className = "materials-card interactive-card";
+
+        const badge = document.createElement("span");
+        badge.className = "interactive-badge";
+        badge.textContent = "Unit " + home.unitIndex + " · " + moduleNumber(home.moduleData.module);
+        card.appendChild(badge);
 
         const title = document.createElement("h3");
         title.className = "materials-card-title";
-        title.textContent = unitData.unit;
+        title.textContent = vis.title;
         card.appendChild(title);
 
         const desc = document.createElement("p");
         desc.className = "materials-card-desc";
-        desc.textContent = unitData.description;
+        desc.textContent = vis.blurb;
         card.appendChild(desc);
 
-        const open = document.createElement("a");
-        open.className = "pdf-download-btn";
-        open.href = "#unit-" + index;
-        open.textContent = "Open Unit " + index + " Interactives";
-        card.appendChild(open);
-
-        // Topic guides as plain text labels, no PDF links in the Interactives hub.
-        appendSubtopics(card, index, false);
+        const launch = document.createElement("button");
+        launch.type = "button";
+        launch.className = "pdf-download-btn";
+        launch.textContent = "Launch Visualizer";
+        launch.addEventListener("click", function () {
+            mountVisualizer(container, vis, home);
+        });
+        card.appendChild(launch);
 
         grid.appendChild(card);
     });
 
     container.appendChild(grid);
+}
+
+/* Mounts a single visualization engine into the main view, replacing the
+   dashboard grid with a focused workspace and a back action. The live widget
+   builds inside a uniquely identified host that is the only checkpoint host on
+   the page while it is open, so any element ids the engine creates cannot collide
+   with another visualizer's. */
+function mountVisualizer(container, vis, home) {
+    container.innerHTML = "";
+
+    const nav = document.createElement("div");
+    nav.className = "unit-detail-nav";
+
+    const backBtn = document.createElement("button");
+    backBtn.type = "button";
+    backBtn.className = "back-to-toc-btn";
+    backBtn.textContent = "Back to Interactive Visualizers";
+    backBtn.addEventListener("click", function () {
+        renderInteractives(container);
+        window.scrollTo(0, 0);
+    });
+    nav.appendChild(backBtn);
+    container.appendChild(nav);
+
+    const intro = document.createElement("div");
+    intro.className = "toc-intro";
+
+    const badge = document.createElement("span");
+    badge.className = "interactive-badge";
+    badge.textContent = "Unit " + home.unitIndex + " · " + moduleNumber(home.moduleData.module) + " · " + home.unitTitle;
+    intro.appendChild(badge);
+
+    const heading = document.createElement("h1");
+    heading.className = "toc-heading";
+    heading.textContent = vis.title;
+    intro.appendChild(heading);
+
+    container.appendChild(intro);
+
+    // Isolated, uniquely identified host. Only one visualizer is mounted at a
+    // time, so the checkpoint widget's own canvases and Desmos frames never share
+    // DOM ids with another engine.
+    const host = document.createElement("div");
+    host.className = "checkpoint-panel interactive-host";
+    host.id = "interactive-host-" + vis.id;
+    container.appendChild(host);
+
+    CheckpointRegistry.render(home.moduleData.interactive_checkpoint, host, home.moduleData);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint

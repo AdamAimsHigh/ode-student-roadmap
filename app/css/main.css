@@ -508,6 +508,42 @@ body {
     gap: 1.25rem;
 }
 
+/* The Interactive Visualizers dashboard, rendered by router.js. The grid mirrors
+   the responsive layout of the curriculum cards; the cards reuse .materials-card
+   chrome and add a context badge plus a launch action. Every color resolves
+   through the theme custom properties, so light and dark modes both stay on
+   palette. */
+
+.interactives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+}
+
+.interactive-badge {
+    align-self: flex-start;
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.interactive-card .pdf-download-btn {
+    align-self: flex-start;
+}
+
+/* The focused mount that replaces the grid when a visualizer launches. It reuses
+   the dashed .checkpoint-panel frame so the embedded engine sits in the same
+   chrome it wears inside a unit, and breathes a little more above the grid. */
+.interactive-host {
+    margin-top: 1.25rem;
+}
+
 .toc-card {
     display: flex;
     flex-direction: column;
