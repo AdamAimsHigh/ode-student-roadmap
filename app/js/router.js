@@ -478,6 +478,38 @@ const UNIT_0_SANDBOXES = [
         title: "State Space Topology Mapper",
         blurb: "Manipulate the inner system coefficients of a first-order state machine to watch global parameter coordinates warp in real time.",
         render: renderStateSpaceTopologySandbox
+    },
+    {
+        id: "unit_0_cooling_simulator",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "Newton’s Law of Cooling Simulator",
+        blurb: "Adjust ambient temperatures and thermal insulation constants to trace how a physical system tracks toward terminal thermal equilibrium.",
+        render: renderCoolingSimulatorSandbox
+    },
+    {
+        id: "unit_0_decay_dial",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "Population & Radioactive Decay Half-Life Dial",
+        blurb: "Flip structural parameters between unbounded growth and proportional decay to map uniform half-life geometric intervals.",
+        render: renderDecayDialSandbox
+    },
+    {
+        id: "unit_0_integro_differential_ledger",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The Integro-Differential Ledger Sandbox",
+        blurb: "Balance instantaneous fluid valve changes against total accumulated histories within a live dynamic rate ledger.",
+        render: renderIntegroDifferentialLedgerSandbox
+    },
+    {
+        id: "unit_0_spring_workbench",
+        unitNumber: 0,
+        isSandbox: true,
+        title: "The Mechanical Spring Parameter Workbench",
+        blurb: "Tune mass, damping coefficients, and stiffness restoration to observe how physical system parameters dictate harmonic wave geometry.",
+        render: renderSpringWorkbenchSandbox
     }
 ];
 
@@ -802,6 +834,51 @@ function u0SandboxToggleGroup(parent, title, options, getValue, onPick) {
     parent.appendChild(wrap);
     repaint();
     return repaint;
+}
+
+/* A labelled range slider with a live numeric readout, built from the shared
+   .slider-row theme classes. Returns a holder whose .value tracks the current
+   number, plus setValue() to drive it programmatically (e.g. a coupled control).
+   The readout is formatted to opts.decimals places. */
+function u0SandboxSlider(parent, opts) {
+    const decimals = (opts.decimals === undefined) ? 2 : opts.decimals;
+    const row = document.createElement("div");
+    row.className = "slider-row";
+
+    const label = document.createElement("span");
+    label.className = "slider-label";
+    label.textContent = opts.label;
+
+    const input = document.createElement("input");
+    input.type = "range";
+    input.min = String(opts.min);
+    input.max = String(opts.max);
+    input.step = String(opts.step);
+    input.value = String(opts.value);
+
+    const readout = document.createElement("span");
+    readout.className = "slider-readout";
+
+    const holder = { value: opts.value, input: input };
+    function format(v) { return v.toFixed(decimals) + (opts.suffix || ""); }
+    readout.textContent = format(opts.value);
+
+    input.addEventListener("input", function () {
+        holder.value = parseFloat(input.value);
+        readout.textContent = format(holder.value);
+        if (opts.onChange) opts.onChange(holder.value);
+    });
+    holder.setValue = function (v) {
+        holder.value = v;
+        input.value = String(v);
+        readout.textContent = format(v);
+    };
+
+    row.appendChild(label);
+    row.appendChild(input);
+    row.appendChild(readout);
+    parent.appendChild(row);
+    return holder;
 }
 
 /* ---------------------------------------------------------------------------
@@ -1800,6 +1877,604 @@ function renderStateSpaceTopologySandbox(body) {
         requestAnimationFrame(u0_s5_frame);
     }
     requestAnimationFrame(u0_s5_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 6 - Newton's Law of Cooling Simulator (u0_s6_)
+
+   Graphs the closed-form solution of dT/dt = -k(T - Tm),
+       T(t) = Tm + (T0 - Tm) e^(-k t),
+   with sliders for ambient temperature Tm, initial temperature T0, and cooling
+   rate k. A dashed asymptote anchors at Tm; dragging Tm slides that equilibrium
+   line (and the whole curve) up or down live, while a sweeping marker traces the
+   body's temperature toward thermal equilibrium.
+   --------------------------------------------------------------------------- */
+function renderCoolingSimulatorSandbox(body) {
+    const u0_s6_state = { Tm: 20, T0: 90, k: 0.25, t: 0 };
+    const u0_s6_tMax = 20;
+
+    const u0_s6_intro = document.createElement("p");
+    u0_s6_intro.className = "checkpoint-intro";
+    u0_s6_intro.textContent = "T(t) = Tm + (T0 − Tm)·e^(−k·t). Slide the ambient line Tm to watch the asymptote and the whole cooling curve shift instantly toward a new equilibrium.";
+    body.appendChild(u0_s6_intro);
+
+    const u0_s6_canvas = document.createElement("canvas");
+    u0_s6_canvas.width = 600;
+    u0_s6_canvas.height = 360;
+    u0_s6_canvas.className = "math-canvas";
+    body.appendChild(u0_s6_canvas);
+    const u0_s6_ctx = u0_s6_canvas.getContext("2d");
+
+    u0SandboxSlider(body, { label: "Tm", min: 0, max: 100, step: 1, value: u0_s6_state.Tm, decimals: 0, suffix: "°",
+        onChange: function (v) { u0_s6_state.Tm = v; } });
+    u0SandboxSlider(body, { label: "T0", min: 0, max: 100, step: 1, value: u0_s6_state.T0, decimals: 0, suffix: "°",
+        onChange: function (v) { u0_s6_state.T0 = v; } });
+    u0SandboxSlider(body, { label: "k", min: 0.05, max: 1.0, step: 0.01, value: u0_s6_state.k, decimals: 2,
+        onChange: function (v) { u0_s6_state.k = v; } });
+
+    const u0_s6_pad = 42;
+    function u0_s6_pxX(t) { return u0_s6_pad + t / u0_s6_tMax * (u0_s6_canvas.width - 2 * u0_s6_pad); }
+    function u0_s6_pyY(T) { return (u0_s6_canvas.height - u0_s6_pad) - (T / 100) * (u0_s6_canvas.height - 2 * u0_s6_pad); }
+    function u0_s6_T(t) { return u0_s6_state.Tm + (u0_s6_state.T0 - u0_s6_state.Tm) * Math.exp(-u0_s6_state.k * t); }
+
+    function u0_s6_draw() {
+        const ctx = u0_s6_ctx;
+        const W = u0_s6_canvas.width, H = u0_s6_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(u0_s6_pad, u0_s6_pyY(0)); ctx.lineTo(W - u0_s6_pad, u0_s6_pyY(0));
+        ctx.moveTo(u0_s6_pad, u0_s6_pyY(0)); ctx.lineTo(u0_s6_pad, u0_s6_pyY(100));
+        ctx.stroke();
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "right";
+        for (let T = 0; T <= 100; T += 20) {
+            ctx.fillText(String(T), u0_s6_pad - 6, u0_s6_pyY(T) + 4);
+            ctx.strokeStyle = border;
+            ctx.beginPath(); ctx.moveTo(u0_s6_pad, u0_s6_pyY(T)); ctx.lineTo(W - u0_s6_pad, u0_s6_pyY(T)); ctx.stroke();
+        }
+        ctx.textAlign = "center";
+        ctx.fillText("time t", W / 2, H - 8);
+
+        // Ambient asymptote (dashed) - the equilibrium the body cools toward.
+        ctx.strokeStyle = warm;
+        ctx.setLineDash([6, 5]);
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(u0_s6_pad, u0_s6_pyY(u0_s6_state.Tm)); ctx.lineTo(W - u0_s6_pad, u0_s6_pyY(u0_s6_state.Tm));
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = warm;
+        ctx.textAlign = "left";
+        ctx.fillText("Tm = " + u0_s6_state.Tm.toFixed(0) + "°", u0_s6_pad + 6, u0_s6_pyY(u0_s6_state.Tm) - 6);
+
+        // Cooling curve.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.8;
+        ctx.beginPath();
+        for (let i = 0; i <= 300; i++) {
+            const t = u0_s6_tMax * i / 300;
+            const sx = u0_s6_pxX(t), sy = u0_s6_pyY(u0_s6_T(t));
+            if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+
+        // Sweeping marker tracing the current temperature.
+        const tNow = u0_s6_state.t;
+        const mx = u0_s6_pxX(tNow), my = u0_s6_pyY(u0_s6_T(tNow));
+        ctx.fillStyle = text;
+        ctx.beginPath();
+        ctx.arc(mx, my, 7, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = accent;
+        ctx.textAlign = "left";
+        ctx.font = "13px sans-serif";
+        ctx.fillText("T = " + u0_s6_T(tNow).toFixed(1) + "°", 12, 22);
+    }
+
+    function u0_s6_frame() {
+        if (!document.body.contains(u0_s6_canvas)) return; // stop after navigation
+        u0_s6_state.t += 0.05;
+        if (u0_s6_state.t > u0_s6_tMax) u0_s6_state.t = 0;
+        u0_s6_draw();
+        requestAnimationFrame(u0_s6_frame);
+    }
+    requestAnimationFrame(u0_s6_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 7 - Population & Radioactive Decay Half-Life Dial (u0_s7_)
+
+   Graphs N(t) = N0 e^(r t) for dN/dt = r N, with a master toggle flipping r
+   between unbounded growth and proportional decay. In decay mode it overlays the
+   geometric half-life lattice - vertical lines at every multiple of t½ = ln2/|r|
+   and horizontal lines at N0/2, N0/4, ... - making visible that each halving
+   takes the same time no matter the starting amplitude. Growth mode mirrors this
+   with the doubling-time lattice.
+   --------------------------------------------------------------------------- */
+function renderDecayDialSandbox(body) {
+    const u0_s7_state = { mode: "decay", rate: 0.25, N0: 60, t: 0 };
+    const u0_s7_tMax = 20, u0_s7_Nmax = 100;
+
+    const u0_s7_intro = document.createElement("p");
+    u0_s7_intro.className = "checkpoint-intro";
+    u0_s7_intro.textContent = "dN/dt = r·N. Flip between growth and decay, then read the lattice: every equal time-step multiplies N by the same factor, so the half-life (or doubling time) is constant regardless of where you start.";
+    body.appendChild(u0_s7_intro);
+
+    u0SandboxToggleGroup(body, "Regime",
+        [{ value: "decay", label: "Decay (r < 0)" }, { value: "growth", label: "Growth (r > 0)" }],
+        function () { return u0_s7_state.mode; },
+        function (val) { u0_s7_state.mode = val; });
+
+    const u0_s7_canvas = document.createElement("canvas");
+    u0_s7_canvas.width = 600;
+    u0_s7_canvas.height = 360;
+    u0_s7_canvas.className = "math-canvas";
+    body.appendChild(u0_s7_canvas);
+    const u0_s7_ctx = u0_s7_canvas.getContext("2d");
+
+    u0SandboxSlider(body, { label: "|r|", min: 0.05, max: 0.6, step: 0.01, value: u0_s7_state.rate, decimals: 2,
+        onChange: function (v) { u0_s7_state.rate = v; } });
+    u0SandboxSlider(body, { label: "N0", min: 20, max: 90, step: 1, value: u0_s7_state.N0, decimals: 0,
+        onChange: function (v) { u0_s7_state.N0 = v; } });
+
+    const u0_s7_pad = 42;
+    function u0_s7_pxX(t) { return u0_s7_pad + t / u0_s7_tMax * (u0_s7_canvas.width - 2 * u0_s7_pad); }
+    function u0_s7_pyY(N) { return (u0_s7_canvas.height - u0_s7_pad) - (N / u0_s7_Nmax) * (u0_s7_canvas.height - 2 * u0_s7_pad); }
+    function u0_s7_r() { return u0_s7_state.mode === "decay" ? -u0_s7_state.rate : u0_s7_state.rate; }
+    function u0_s7_N(t) { return u0_s7_state.N0 * Math.exp(u0_s7_r() * t); }
+
+    function u0_s7_draw() {
+        const ctx = u0_s7_ctx;
+        const W = u0_s7_canvas.width, H = u0_s7_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const alt = u0SandboxColor("--success-color", "#1b7a43");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(u0_s7_pad, u0_s7_pyY(0)); ctx.lineTo(W - u0_s7_pad, u0_s7_pyY(0));
+        ctx.moveTo(u0_s7_pad, u0_s7_pyY(0)); ctx.lineTo(u0_s7_pad, u0_s7_pyY(u0_s7_Nmax));
+        ctx.stroke();
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("time t", W / 2, H - 8);
+
+        // Geometric lattice: equal-time multiplicative steps.
+        const interval = Math.log(2) / u0_s7_state.rate; // t½ or doubling time
+        const isDecay = u0_s7_state.mode === "decay";
+        ctx.font = "11px sans-serif";
+        for (let n = 1; n <= 8; n++) {
+            const tn = interval * n;
+            if (tn > u0_s7_tMax) break;
+            const Nn = isDecay ? u0_s7_state.N0 / Math.pow(2, n) : u0_s7_state.N0 * Math.pow(2, n);
+            if (Nn > u0_s7_Nmax * 1.02) break;
+            // Vertical step line.
+            ctx.strokeStyle = alt;
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(u0_s7_pxX(tn), u0_s7_pyY(0)); ctx.lineTo(u0_s7_pxX(tn), u0_s7_pyY(Nn)); ctx.stroke();
+            // Horizontal amplitude line.
+            ctx.beginPath(); ctx.moveTo(u0_s7_pad, u0_s7_pyY(Nn)); ctx.lineTo(u0_s7_pxX(tn), u0_s7_pyY(Nn)); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = alt;
+            ctx.textAlign = "center";
+            ctx.fillText((isDecay ? "t½" : "t×2") + (n > 1 ? "·" + n : ""), u0_s7_pxX(tn), u0_s7_pyY(0) + 16);
+        }
+
+        // The curve.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.8;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 300; i++) {
+            const t = u0_s7_tMax * i / 300;
+            const N = u0_s7_N(t);
+            if (N > u0_s7_Nmax * 1.05 || N < -1) { started = false; continue; }
+            const sx = u0_s7_pxX(t), sy = u0_s7_pyY(N);
+            if (started) ctx.lineTo(sx, sy); else { ctx.moveTo(sx, sy); started = true; }
+        }
+        ctx.stroke();
+
+        // Sweeping marker.
+        const mx = u0_s7_pxX(u0_s7_state.t), my = u0_s7_pyY(Math.min(u0_s7_N(u0_s7_state.t), u0_s7_Nmax));
+        ctx.fillStyle = text;
+        ctx.beginPath(); ctx.arc(mx, my, 6, 0, 2 * Math.PI); ctx.fill();
+
+        // Readout.
+        ctx.fillStyle = accent;
+        ctx.textAlign = "left";
+        ctx.font = "13px sans-serif";
+        ctx.fillText((isDecay ? "half-life t½ = " : "doubling t×2 = ") + interval.toFixed(2), 12, 22);
+    }
+
+    function u0_s7_frame() {
+        if (!document.body.contains(u0_s7_canvas)) return; // stop after navigation
+        u0_s7_state.t += 0.05;
+        if (u0_s7_state.t > u0_s7_tMax) u0_s7_state.t = 0;
+        u0_s7_draw();
+        requestAnimationFrame(u0_s7_frame);
+    }
+    requestAnimationFrame(u0_s7_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 8 - The Integro-Differential Ledger Sandbox (u0_s8_)
+
+   Splits a live fluid tank against a running ledger. The tank obeys the
+   first-order balance dV/dt = q - c·V (inflow minus a drain proportional to the
+   current volume), integrated in real time. The ledger keeps both books side by
+   side: the instantaneous derivative dV/dt right now, and the accumulated
+   integral V0 + integral of (q - c·V) dt that history has deposited into the
+   current volume, plus the equilibrium V* = q/c the system fills toward.
+   --------------------------------------------------------------------------- */
+function renderIntegroDifferentialLedgerSandbox(body) {
+    const u0_s8_state = { q: 3.0, c: 0.05, V: 20, V0: 20, accum: 0 };
+    const u0_s8_Vmax = 100;
+
+    const u0_s8_intro = document.createElement("p");
+    u0_s8_intro.className = "checkpoint-intro";
+    u0_s8_intro.textContent = "The tank balances inflow against a drain proportional to its own level: dV/dt = q − c·V. The ledger tracks the instantaneous rate and the accumulated integral that together set the current volume.";
+    body.appendChild(u0_s8_intro);
+
+    const u0_s8_wrap = document.createElement("div");
+    u0_s8_wrap.style.display = "flex";
+    u0_s8_wrap.style.flexWrap = "wrap";
+    u0_s8_wrap.style.gap = "1rem";
+    u0_s8_wrap.style.alignItems = "stretch";
+    body.appendChild(u0_s8_wrap);
+
+    const u0_s8_tankCol = document.createElement("div");
+    u0_s8_tankCol.style.flex = "0 0 200px";
+    u0_s8_tankCol.style.minWidth = "180px";
+    const u0_s8_canvas = document.createElement("canvas");
+    u0_s8_canvas.width = 200;
+    u0_s8_canvas.height = 320;
+    u0_s8_canvas.className = "math-canvas";
+    u0_s8_tankCol.appendChild(u0_s8_canvas);
+    u0_s8_wrap.appendChild(u0_s8_tankCol);
+    const u0_s8_ctx = u0_s8_canvas.getContext("2d");
+
+    // The ledger text panel.
+    const u0_s8_ledger = document.createElement("div");
+    u0_s8_ledger.style.flex = "1 1 300px";
+    u0_s8_ledger.style.minWidth = "280px";
+    u0_s8_ledger.style.fontFamily = "Consolas, Monaco, monospace";
+    u0_s8_ledger.style.fontSize = "0.92rem";
+    u0_s8_ledger.style.lineHeight = "1.5";
+    u0_s8_ledger.style.whiteSpace = "pre-wrap";
+    u0_s8_ledger.style.padding = "1rem";
+    u0_s8_ledger.style.background = "var(--bg-color)";
+    u0_s8_ledger.style.border = "1px solid var(--panel-border)";
+    u0_s8_ledger.style.borderRadius = "10px";
+    u0_s8_ledger.style.color = "var(--text-color)";
+    u0_s8_wrap.appendChild(u0_s8_ledger);
+
+    u0SandboxSlider(body, { label: "q", min: 0, max: 6, step: 0.1, value: u0_s8_state.q, decimals: 1, suffix: " L/s",
+        onChange: function (v) { u0_s8_state.q = v; } });
+    u0SandboxSlider(body, { label: "c", min: 0.01, max: 0.12, step: 0.005, value: u0_s8_state.c, decimals: 3,
+        onChange: function (v) { u0_s8_state.c = v; } });
+
+    const u0_s8_resetBtn = document.createElement("button");
+    u0_s8_resetBtn.type = "button";
+    u0_s8_resetBtn.className = "checkpoint-begin-btn";
+    u0_s8_resetBtn.textContent = "Empty the tank";
+    u0_s8_resetBtn.addEventListener("click", function () {
+        u0_s8_state.V = 0; u0_s8_state.V0 = 0; u0_s8_state.accum = 0;
+    });
+    body.appendChild(u0_s8_resetBtn);
+
+    function u0_s8_draw() {
+        const ctx = u0_s8_ctx;
+        const W = u0_s8_canvas.width, H = u0_s8_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const alt = u0SandboxColor("--success-color", "#1b7a43");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const tankX = 40, tankY = 30, tankW = W - 80, tankH = H - 70;
+
+        // Water fill (proportional to V).
+        const frac = Math.max(0, Math.min(1, u0_s8_state.V / u0_s8_Vmax));
+        const waterH = tankH * frac;
+        ctx.fillStyle = accent;
+        ctx.globalAlpha = 0.75;
+        ctx.fillRect(tankX, tankY + tankH - waterH, tankW, waterH);
+        ctx.globalAlpha = 1;
+
+        // Tank walls.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(tankX, tankY); ctx.lineTo(tankX, tankY + tankH);
+        ctx.lineTo(tankX + tankW, tankY + tankH); ctx.lineTo(tankX + tankW, tankY);
+        ctx.stroke();
+
+        // Inflow arrow (top), thickness hints at q.
+        ctx.strokeStyle = alt;
+        ctx.lineWidth = Math.max(1.5, u0_s8_state.q);
+        u0SandboxArrow(ctx, tankX + tankW / 2, 6, tankX + tankW / 2, tankY - 2, alt, Math.max(1.5, u0_s8_state.q));
+        // Outflow arrow (bottom), thickness hints at drain c·V.
+        const drain = u0_s8_state.c * u0_s8_state.V;
+        ctx.lineWidth = Math.max(1.5, drain);
+        u0SandboxArrow(ctx, tankX + tankW / 2, tankY + tankH + 2, tankX + tankW / 2, H - 8, sub, Math.max(1.5, drain));
+
+        // Level ticks.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "right";
+        for (let lv = 0; lv <= 100; lv += 25) {
+            const y = tankY + tankH - tankH * (lv / 100);
+            ctx.beginPath(); ctx.moveTo(tankX, y); ctx.lineTo(tankX + 6, y); ctx.stroke();
+            ctx.fillText(String(lv), tankX - 3, y + 3);
+        }
+    }
+
+    function u0_s8_updateLedger() {
+        const q = u0_s8_state.q, c = u0_s8_state.c, V = u0_s8_state.V;
+        const rate = q - c * V;
+        const star = c > 1e-6 ? q / c : Infinity;
+        const sign = rate >= 0 ? "+" : "−";
+        u0_s8_ledger.textContent =
+            "INSTANTANEOUS  (derivative)\n" +
+            "  dV/dt = q − c·V\n" +
+            "        = " + q.toFixed(1) + " − " + c.toFixed(3) + "·" + V.toFixed(1) + "\n" +
+            "        = " + sign + Math.abs(rate).toFixed(2) + " L/s\n\n" +
+            "ACCUMULATED  (integral)\n" +
+            "  V(t) = V0 + ∫₀ᵗ (q − c·V) dτ\n" +
+            "       = " + u0_s8_state.V0.toFixed(1) + " + " + u0_s8_state.accum.toFixed(1) + "\n" +
+            "       = " + V.toFixed(1) + " L\n\n" +
+            "EQUILIBRIUM\n" +
+            "  V* = q / c = " + (isFinite(star) ? star.toFixed(1) + " L" : "∞");
+    }
+
+    function u0_s8_frame() {
+        if (!document.body.contains(u0_s8_canvas)) return; // stop after navigation
+        const dt = 0.05;
+        const rate = u0_s8_state.q - u0_s8_state.c * u0_s8_state.V;
+        const dV = rate * dt;
+        const newV = Math.max(0, Math.min(u0_s8_Vmax, u0_s8_state.V + dV));
+        u0_s8_state.accum += (newV - u0_s8_state.V); // realised accumulation = V - V0
+        u0_s8_state.V = newV;
+        u0_s8_draw();
+        u0_s8_updateLedger();
+        requestAnimationFrame(u0_s8_frame);
+    }
+    requestAnimationFrame(u0_s8_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 9 - The Mechanical Spring Parameter Workbench (u0_s9_)
+
+   A live mass-spring-damper, m·y'' + b·y' + k·y = 0, integrated numerically with
+   sub-stepping for stability. The left canvas hangs a weight from a coil spring
+   that stretches and recoils with y; the right canvas rolls the y(t) time trace.
+   Sliders for mass, damping, and stiffness let students slide the discriminant
+   b² − 4mk across underdamped, critically damped, and overdamped regimes, with a
+   live label naming the current state. The mass auto-replucks when it settles.
+   --------------------------------------------------------------------------- */
+function renderSpringWorkbenchSandbox(body) {
+    const u0_s9_state = { m: 1.0, b: 0.4, k: 6.0, y: 2.0, v: 0, trace: [] };
+
+    const u0_s9_intro = document.createElement("p");
+    u0_s9_intro.className = "checkpoint-intro";
+    u0_s9_intro.textContent = "m·y″ + b·y′ + k·y = 0. Tune mass, damping, and stiffness to move the discriminant b² − 4mk between underdamped oscillation, critical damping, and overdamped creep.";
+    body.appendChild(u0_s9_intro);
+
+    const u0_s9_regime = document.createElement("div");
+    u0_s9_regime.style.fontFamily = "Consolas, Monaco, monospace";
+    u0_s9_regime.style.fontSize = "0.95rem";
+    u0_s9_regime.style.fontWeight = "700";
+    u0_s9_regime.style.padding = "0.55rem 0.8rem";
+    u0_s9_regime.style.margin = "0 0 0.7rem";
+    u0_s9_regime.style.background = "var(--bg-color)";
+    u0_s9_regime.style.border = "1px solid var(--panel-border)";
+    u0_s9_regime.style.borderRadius = "8px";
+    u0_s9_regime.style.color = "var(--accent-color)";
+    body.appendChild(u0_s9_regime);
+
+    const u0_s9_wrap = document.createElement("div");
+    u0_s9_wrap.style.display = "flex";
+    u0_s9_wrap.style.flexWrap = "wrap";
+    u0_s9_wrap.style.gap = "1rem";
+    body.appendChild(u0_s9_wrap);
+
+    const u0_s9_springCol = document.createElement("div");
+    u0_s9_springCol.style.flex = "0 0 180px";
+    u0_s9_springCol.style.minWidth = "160px";
+    const u0_s9_spring = document.createElement("canvas");
+    u0_s9_spring.width = 180;
+    u0_s9_spring.height = 320;
+    u0_s9_spring.className = "math-canvas";
+    u0_s9_springCol.appendChild(u0_s9_spring);
+    u0_s9_wrap.appendChild(u0_s9_springCol);
+
+    const u0_s9_plotCol = document.createElement("div");
+    u0_s9_plotCol.style.flex = "1 1 320px";
+    u0_s9_plotCol.style.minWidth = "300px";
+    const u0_s9_plot = document.createElement("canvas");
+    u0_s9_plot.width = 420;
+    u0_s9_plot.height = 320;
+    u0_s9_plot.className = "math-canvas";
+    u0_s9_plotCol.appendChild(u0_s9_plot);
+    u0_s9_wrap.appendChild(u0_s9_plotCol);
+
+    const u0_s9_sctx = u0_s9_spring.getContext("2d");
+    const u0_s9_pctx = u0_s9_plot.getContext("2d");
+
+    u0SandboxSlider(body, { label: "m", min: 0.2, max: 3.0, step: 0.1, value: u0_s9_state.m, decimals: 1,
+        onChange: function (v) { u0_s9_state.m = v; } });
+    u0SandboxSlider(body, { label: "b", min: 0.0, max: 6.0, step: 0.1, value: u0_s9_state.b, decimals: 1,
+        onChange: function (v) { u0_s9_state.b = v; } });
+    u0SandboxSlider(body, { label: "k", min: 1.0, max: 14.0, step: 0.1, value: u0_s9_state.k, decimals: 1,
+        onChange: function (v) { u0_s9_state.k = v; } });
+
+    const u0_s9_pluckBtn = document.createElement("button");
+    u0_s9_pluckBtn.type = "button";
+    u0_s9_pluckBtn.className = "checkpoint-begin-btn";
+    u0_s9_pluckBtn.textContent = "Pluck the mass";
+    u0_s9_pluckBtn.addEventListener("click", function () {
+        u0_s9_state.y = 2.0; u0_s9_state.v = 0; u0_s9_state.trace = [];
+    });
+    body.appendChild(u0_s9_pluckBtn);
+
+    function u0_s9_regimeText() {
+        const disc = u0_s9_state.b * u0_s9_state.b - 4 * u0_s9_state.m * u0_s9_state.k;
+        if (disc < -0.05) return "Underdamped · oscillates while decaying   (b² − 4mk = " + disc.toFixed(1) + " < 0)";
+        if (disc > 0.05) return "Overdamped · creeps back, no oscillation   (b² − 4mk = " + disc.toFixed(1) + " > 0)";
+        return "Critically damped · fastest non-oscillating return   (b² − 4mk ≈ 0)";
+    }
+
+    function u0_s9_drawSpring() {
+        const ctx = u0_s9_sctx;
+        const W = u0_s9_spring.width, H = u0_s9_spring.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const cx = W / 2;
+        const anchorY = 14;
+        const restLen = 150;
+        const massY = anchorY + restLen + u0_s9_state.y * 34; // y stretches downward
+        const massR = 26;
+
+        // Ceiling anchor.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(cx - 30, anchorY); ctx.lineTo(cx + 30, anchorY); ctx.stroke();
+
+        // Coil spring zig-zag from anchor to the mass.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(cx, anchorY);
+        const coils = 12;
+        const topGap = 14, springSpan = (massY - massR) - anchorY - topGap;
+        for (let i = 0; i <= coils; i++) {
+            const yy = anchorY + topGap + springSpan * i / coils;
+            const xx = cx + (i % 2 === 0 ? -16 : 16);
+            if (i === coils) ctx.lineTo(cx, yy); else ctx.lineTo(xx, yy);
+        }
+        ctx.stroke();
+
+        // Equilibrium reference line.
+        ctx.strokeStyle = sub;
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        const eqY = anchorY + restLen;
+        ctx.beginPath(); ctx.moveTo(8, eqY); ctx.lineTo(W - 8, eqY); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Mass block.
+        ctx.fillStyle = accent;
+        ctx.beginPath();
+        ctx.arc(cx, massY, massR, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = bg;
+        ctx.font = "bold 13px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("m", cx, massY + 4);
+
+        ctx.fillStyle = text;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("y = " + u0_s9_state.y.toFixed(2), 8, H - 8);
+    }
+
+    function u0_s9_drawPlot() {
+        const ctx = u0_s9_pctx;
+        const W = u0_s9_plot.width, H = u0_s9_plot.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const midY = H / 2;
+        const amp = H * 0.4 / 2.2; // y up to ~2.2 fits the half-height
+
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(0, midY); ctx.lineTo(W, midY); ctx.stroke();
+
+        // Rolling y(t) trace, newest at the right edge.
+        const tr = u0_s9_state.trace;
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        const n = tr.length;
+        for (let i = 0; i < n; i++) {
+            const sx = W - (n - 1 - i) * 2; // 2px per sample
+            const sy = midY - tr[i] * amp;
+            if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("y(t)", 8, 16);
+    }
+
+    function u0_s9_step() {
+        // Integrate m y'' + b y' + k y = 0 with sub-steps for stiff parameters.
+        const sub = 6, dt = 0.03 / sub;
+        for (let s = 0; s < sub; s++) {
+            const a = -(u0_s9_state.b * u0_s9_state.v + u0_s9_state.k * u0_s9_state.y) / u0_s9_state.m;
+            u0_s9_state.v += a * dt;
+            u0_s9_state.y += u0_s9_state.v * dt;
+        }
+        // Auto re-pluck once the motion has essentially settled, so each regime
+        // keeps demonstrating itself without the student re-clicking.
+        if (Math.abs(u0_s9_state.y) < 0.02 && Math.abs(u0_s9_state.v) < 0.05) {
+            u0_s9_state.y = 2.0; u0_s9_state.v = 0;
+        }
+        u0_s9_state.trace.push(u0_s9_state.y);
+        if (u0_s9_state.trace.length > 210) u0_s9_state.trace.shift();
+    }
+
+    function u0_s9_frame() {
+        if (!document.body.contains(u0_s9_spring)) return; // stop after navigation
+        u0_s9_step();
+        u0_s9_regime.textContent = u0_s9_regimeText();
+        u0_s9_drawSpring();
+        u0_s9_drawPlot();
+        requestAnimationFrame(u0_s9_frame);
+    }
+    requestAnimationFrame(u0_s9_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
