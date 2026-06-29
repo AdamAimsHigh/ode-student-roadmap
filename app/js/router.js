@@ -618,11 +618,31 @@ function renderInteractives(container) {
 
     const items = buildInteractiveItems();
 
+    // Two-column split: a sticky unit-navigation sidebar on the left, and the
+    // scrolling cohort of bounded unit sections on the right. The whole split is
+    // one flex row appended into the app container (which already lays its
+    // children out as a column), so it sits cleanly below the intro header.
+    const layout = document.createElement("div");
+    layout.className = "interactives-layout";
+
+    const sidebar = document.createElement("nav");
+    sidebar.className = "interactives-sidebar";
+    sidebar.setAttribute("aria-label", "Unit navigation");
+
+    const sidebarTitle = document.createElement("div");
+    sidebarTitle.className = "interactives-sidebar-title";
+    sidebarTitle.textContent = "Units";
+    sidebar.appendChild(sidebarTitle);
+
+    const content = document.createElement("div");
+    content.className = "interactives-content";
+
     // Group the sorted items into bounded per-unit sections. The list is already
     // ordered by unitNumber, so each time the unit changes we open a fresh framed
     // section (a lavender header naming the unit boundary, then that unit's card
-    // grid). Cards keep the same .interactives-grid layout, now nested one level
-    // deeper, so their column baselines stay pixel-aligned within each section.
+    // grid) and add a matching sidebar anchor. Cards keep the same
+    // .interactives-grid layout, now nested deeper, so their column baselines stay
+    // pixel-aligned within each section.
     let currentUnit = null;
     let currentGrid = null;
 
@@ -632,6 +652,9 @@ function renderInteractives(container) {
 
             const section = document.createElement("div");
             section.className = "unit-section-container";
+            // A stable scroll target id keyed by unit number, so a sidebar link
+            // can jump straight to its section.
+            section.id = "interactives-unit-" + item.unitNumber;
 
             const header = document.createElement("div");
             header.className = "unit-lavender-header";
@@ -645,7 +668,19 @@ function renderInteractives(container) {
             currentGrid.className = "interactives-grid";
             section.appendChild(currentGrid);
 
-            container.appendChild(section);
+            content.appendChild(section);
+
+            // Matching sidebar anchor. A click smooth-scrolls its section to the
+            // top of the viewport; no hash change, so deep-link routing is
+            // untouched. The closure captures this iteration's section element.
+            const link = document.createElement("button");
+            link.type = "button";
+            link.className = "interactives-sidebar-link";
+            link.textContent = "Unit " + item.unitNumber;
+            link.addEventListener("click", function () {
+                section.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+            sidebar.appendChild(link);
         }
 
         const card = document.createElement("div");
@@ -683,6 +718,10 @@ function renderInteractives(container) {
 
         currentGrid.appendChild(card);
     });
+
+    layout.appendChild(sidebar);
+    layout.appendChild(content);
+    container.appendChild(layout);
 }
 
 /* Mounts a single card into the main view, replacing the dashboard grid with a

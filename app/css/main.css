@@ -514,17 +514,95 @@ body {
    through the theme custom properties, so light and dark modes both stay on
    palette. */
 
+/* Two-column dashboard split: a sticky unit-navigation sidebar locked to the
+   left while the unit sections scroll on the right. One flex row inside the app
+   container; align-items: flex-start lets the sidebar stay short enough to
+   stick rather than stretching to the content's full height. */
+.interactives-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* The left sidebar. Sticks 2rem below the viewport top through the whole scroll,
+   reusing the framework's panel chrome (--panel-bg fill, --panel-border, 14px
+   radius). Caps its own height and scrolls internally so a tall unit list never
+   runs past the viewport. */
+.interactives-sidebar {
+    position: sticky;
+    top: 2rem;
+    flex: 0 0 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.interactives-sidebar-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    padding: 0.1rem 0.6rem 0.45rem;
+}
+
+/* A unit anchor link. Transparent until hovered/focused, when it picks up the
+   accent-soft lavender wash and accent text shared with the badges and nav
+   menus, so the active highlight is theme-aware in both modes. */
+.interactives-sidebar-link {
+    text-align: left;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.interactives-sidebar-link:hover {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    border-color: var(--panel-border);
+}
+
+.interactives-sidebar-link:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* The right content column. min-width: 0 lets the inner card grid shrink inside
+   the flex row instead of forcing horizontal overflow. */
+.interactives-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Per-unit bounded sections. Each unit's visualizer cards are framed in a
    solid-bordered container so the dashboard reads as distinct unit groups. The
    frame uses the page background (cards are --panel-bg) so the gray cards stand
    out cleanly inside the lighter/darker section, matching the 14px radius used
-   across the framework's card chrome. */
+   across the framework's card chrome. scroll-margin-top keeps a section clear of
+   the viewport top when a sidebar link scrolls to it. */
 .unit-section-container {
     background: var(--bg-color);
     border: 1px solid var(--panel-border);
     border-radius: 14px;
     padding: 1.25rem;
     margin-bottom: 1.75rem;
+    scroll-margin-top: 1rem;
 }
 
 .unit-section-container:last-child {
@@ -1562,6 +1640,28 @@ body.quiz-modal-open {
 @media (max-width: 800px) {
     .video-lesson-split {
         grid-template-columns: 1fr;
+    }
+
+    /* The dashboard collapses to a single column: the sidebar un-sticks and
+       becomes a horizontal wrap of unit chips above the content. */
+    .interactives-layout {
+        flex-direction: column;
+    }
+
+    .interactives-sidebar {
+        position: static;
+        flex-basis: auto;
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .interactives-sidebar-title {
+        flex-basis: 100%;
+        padding-bottom: 0.2rem;
     }
 }
 
