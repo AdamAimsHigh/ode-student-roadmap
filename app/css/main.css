@@ -525,21 +525,23 @@ body {
     width: 100%;
 }
 
-/* The left sidebar. Sticks 2rem below the viewport top through the whole scroll,
-   reusing the framework's panel chrome (--panel-bg fill, --panel-border, 14px
-   radius). Caps its own height and scrolls internally so a tall unit list never
-   runs past the viewport. */
+/* The left sidebar. Sticks 2rem below the viewport top through the whole scroll.
+   Its panel wears the framework's light lavender wash (--accent-soft) with the
+   --panel-border and 14px radius, so it reads as a soft violet rail in light mode
+   and a muted violet-tinted panel in dark. A touch wider than the bare-number
+   version so full unit titles wrap cleanly; height-capped and internally
+   scrollable so a tall unit list never runs past the viewport. */
 .interactives-sidebar {
     position: sticky;
     top: 2rem;
-    flex: 0 0 180px;
+    flex: 0 0 232px;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    background: var(--panel-bg);
+    background: var(--accent-soft);
     border: 1px solid var(--panel-border);
     border-radius: 14px;
-    padding: 1rem;
+    padding: 1rem 0.85rem;
     max-height: calc(100vh - 4rem);
     overflow-y: auto;
 }
@@ -549,31 +551,38 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--text-secondary);
-    padding: 0.1rem 0.6rem 0.45rem;
+    color: var(--accent-color);
+    padding: 0.1rem 0.65rem 0.5rem;
 }
 
-/* A unit anchor link. Transparent until hovered/focused, when it picks up the
-   accent-soft lavender wash and accent text shared with the badges and nav
-   menus, so the active highlight is theme-aware in both modes. */
+/* A unit anchor link carrying its full descriptive title. The brand purple
+   (--accent-color) is the resting label color; the text wraps over multiple lines
+   with relaxed line-height and generous side padding so the longer strings sit
+   beautifully. Hover/focus/active lifts it onto a clean page-background pill with
+   a purple outline while the text stays purple, so the active state reads clearly
+   against the lavender panel in both themes. */
 .interactives-sidebar-link {
     text-align: left;
     font: inherit;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-color);
+    line-height: 1.35;
+    color: var(--accent-color);
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 8px;
-    padding: 0.4rem 0.7rem;
+    border-radius: 9px;
+    padding: 0.5rem 0.75rem;
     cursor: pointer;
+    white-space: normal;
+    overflow-wrap: anywhere;
     transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.interactives-sidebar-link:hover {
-    background: var(--accent-soft);
+.interactives-sidebar-link:hover,
+.interactives-sidebar-link.active {
+    background: var(--bg-color);
     color: var(--accent-color);
-    border-color: var(--panel-border);
+    border-color: var(--accent-color);
 }
 
 .interactives-sidebar-link:focus-visible {
@@ -1642,8 +1651,10 @@ body.quiz-modal-open {
         grid-template-columns: 1fr;
     }
 
-    /* The dashboard collapses to a single column: the sidebar un-sticks and
-       becomes a horizontal wrap of unit chips above the content. */
+    /* The dashboard collapses to a single column: the sidebar un-sticks and sits
+       full-width above the content. Its links stay stacked vertically, since the
+       full descriptive titles read better as rows than as cramped horizontal
+       chips. */
     .interactives-layout {
         flex-direction: column;
     }
@@ -1654,14 +1665,6 @@ body.quiz-modal-open {
         width: 100%;
         max-height: none;
         overflow-y: visible;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-    }
-
-    .interactives-sidebar-title {
-        flex-basis: 100%;
-        padding-bottom: 0.2rem;
     }
 }
 

@@ -676,7 +676,10 @@ function renderInteractives(container) {
             const link = document.createElement("button");
             link.type = "button";
             link.className = "interactives-sidebar-link";
-            link.textContent = "Unit " + item.unitNumber;
+            // Full descriptive unit title, pulled from the same curriculum entry
+            // as the section header so the two can never drift; falls back to the
+            // bare unit number if the curriculum lacks this index.
+            link.textContent = unitData ? unitData.unit : ("Unit " + item.unitNumber);
             link.addEventListener("click", function () {
                 section.scrollIntoView({ behavior: "smooth", block: "start" });
             });
