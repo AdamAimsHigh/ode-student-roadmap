@@ -376,8 +376,13 @@ function renderPracticeMath(el) {
         renderMathInElement(el, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false }
-            ]
+                { left: "\\[", right: "\\]", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false }
+            ],
+            // Multi-unit content: never let one bad token blank the whole view;
+            // KaTeX renders the offending span in red instead of throwing.
+            throwOnError: false
         });
     }
 }
