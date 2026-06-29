@@ -408,6 +408,13 @@ function renderInteractives(container) {
     buildIndexShell(container, "Interactive Visualizers",
         "Every standalone math visualization engine in the course, gathered into one grid. Launch any tool to mount it right here in the workspace.");
 
+    // The dashboard sits one level below the curriculum root, so its back action
+    // reads "Back to Main Roadmap" rather than the shared shell default. The
+    // button still targets the empty hash (the Table of Contents); only the label
+    // changes, to keep the navigation hierarchy clean.
+    const backBtn = container.querySelector(".back-to-toc-btn");
+    if (backBtn) backBtn.textContent = "Back to Main Roadmap";
+
     const grid = document.createElement("div");
     grid.className = "interactives-grid";
 
@@ -473,9 +480,12 @@ function mountVisualizer(container, vis, home) {
     const intro = document.createElement("div");
     intro.className = "toc-intro";
 
+    // A compact "Unit N · Module N.M" badge. The full unit title already reads
+    // out in the heading and the source module, so appending it here only crowded
+    // the line and risked overlap on narrow viewports.
     const badge = document.createElement("span");
     badge.className = "interactive-badge";
-    badge.textContent = "Unit " + home.unitIndex + " · " + moduleNumber(home.moduleData.module) + " · " + home.unitTitle;
+    badge.textContent = "Unit " + home.unitIndex + " · Module " + moduleNumber(home.moduleData.module);
     intro.appendChild(badge);
 
     const heading = document.createElement("h1");
@@ -489,7 +499,7 @@ function mountVisualizer(container, vis, home) {
     // time, so the checkpoint widget's own canvases and Desmos frames never share
     // DOM ids with another engine.
     const host = document.createElement("div");
-    host.className = "checkpoint-panel interactive-host";
+    host.className = "interactive-workspace-card interactive-host";
     host.id = "interactive-host-" + vis.id;
     container.appendChild(host);
 

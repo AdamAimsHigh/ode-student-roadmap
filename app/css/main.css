@@ -533,15 +533,29 @@ body {
     letter-spacing: 0.01em;
 }
 
-.interactive-card .pdf-download-btn {
-    align-self: flex-start;
+/* Cards are flex columns (inherited from .materials-card). Pushing the launch
+   button with margin-top:auto drops it to the bottom of whichever card it lives
+   in, so every button lands on one uniform baseline no matter how long the
+   blurb above it runs. align-self keeps the button hugging its own width. */
+.interactive-card {
+    display: flex;
+    flex-direction: column;
 }
 
-/* The focused mount that replaces the grid when a visualizer launches. It reuses
-   the dashed .checkpoint-panel frame so the embedded engine sits in the same
-   chrome it wears inside a unit, and breathes a little more above the grid. */
-.interactive-host {
+.interactive-card .pdf-download-btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+/* The framed panel that holds the live visualizer once it is mounted. A solid
+   one-pixel border and rounded corners give the embedded checkpoint a clean,
+   self-contained workspace, distinct from the dashed in-unit checkpoint frame. */
+.interactive-workspace-card {
     margin-top: 1.25rem;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1.5rem;
 }
 
 .toc-card {
