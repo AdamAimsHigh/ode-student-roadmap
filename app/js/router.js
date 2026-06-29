@@ -133,6 +133,18 @@ function renderCurriculum() {
         }
     } else if (hash === "#interactives") {
         renderInteractives(container);
+    } else if (hash.indexOf("#interactives-sandbox-") === 0) {
+        // Deep-linked sandbox playground. The unique sandbox id rides in the
+        // hash (e.g. "#interactives-sandbox-unit_0_equation_translator"), so a
+        // refresh or a copied URL re-mounts the same live engine directly,
+        // skipping the grid. An unknown id falls back to the dashboard.
+        const routeId = hash.slice("#interactives-sandbox-".length);
+        const target = findSandboxByRouteId(routeId);
+        if (target) {
+            mountVisualizer(container, target);
+        } else {
+            renderInteractives(container);
+        }
     } else {
         const unitIndex = unitIndexFromHash();
         if (unitIndex === null) {
@@ -410,7 +422,7 @@ function moduleSortKey(moduleTitle) {
 /* Open-ended sandbox playgrounds for the units that do not yet ship a graded
    interactive checkpoint. Each entry is an ungraded exploration surface: when it
    mounts, it opens straight into free play with no answer checking (see
-   renderSandboxPlayground). Units 1, 2, 3, and 5 already carry graded visualizers
+   mountVisualizer). Units 1, 2, 3, and 5 already carry graded visualizers
    in INTERACTIVE_VISUALIZERS, so this set fills every remaining unit, completing a
    0..18 map that is ready for content. The bodies are intentionally empty
    placeholders, the slot each unit's open-ended tool will drop into.
@@ -513,30 +525,14 @@ const UNIT_0_SANDBOXES = [
     }
 ];
 
-/* The Interactives route, now a unified visualizers dashboard. Instead of one
-   card per unit duplicating the curriculum index, it gathers every standalone
-   math visualization engine in the course into a single grid. Each card derives
-   its context badge from the engine's home module and offers a launch action that
-   mounts the live widget into the main view (see mountVisualizer). */
-function renderInteractives(container) {
-    buildIndexShell(container, "Interactive Visualizers",
-        "Every standalone math visualization engine in the course, gathered into one grid. Launch any tool to mount it right here in the workspace.");
-
-    // The dashboard sits one level below the curriculum root, so its back action
-    // reads "Back to Main Roadmap" rather than the shared shell default. The
-    // button still targets the empty hash (the Table of Contents); only the label
-    // changes, to keep the navigation hierarchy clean.
-    const backBtn = container.querySelector(".back-to-toc-btn");
-    if (backBtn) backBtn.textContent = "Back to Main Roadmap";
-
-    const grid = document.createElement("div");
-    grid.className = "interactives-grid";
-
-    // Normalize every card, graded engine and sandbox placeholder alike, into one
-    // render model so a single sort and a single render loop cover both. Graded
-    // engines resolve their unit and module from the curriculum (and drop out if
-    // the checkpoint is gone); sandbox cards carry their unit number directly and
-    // sort to the tail of their unit, behind any graded module.
+/* Builds the normalized, sorted card model for the Interactives dashboard:
+   graded engines and sandbox cards alike collapse into one shape so a single
+   render loop (and the deep-link route resolver) can consume them. Graded
+   engines resolve their unit and module from the curriculum (and drop out if the
+   checkpoint is gone); sandbox cards carry their unit number directly and sort to
+   the tail of their unit, behind any graded module. Returned in chronological
+   order: Unit 0 before Unit 1 ..., ascending module number within a unit. */
+function buildInteractiveItems() {
     const items = [];
 
     INTERACTIVE_VISUALIZERS.forEach(function (vis) {
@@ -563,9 +559,9 @@ function renderInteractives(container) {
         });
     });
 
-    // Unit 0's three fully built Cluster I engines. They sort within Unit 0 in
-    // declared order (900 + index), ahead of the generic placeholder tail (999),
-    // so the catalog reads them as the leading sandbox cluster.
+    // Unit 0's fully built Cluster engines. They sort within Unit 0 in declared
+    // order (900 + index), ahead of the generic placeholder tail (999), so the
+    // catalog reads them as the leading sandbox cluster.
     UNIT_0_SANDBOXES.forEach(function (vis, idx) {
         items.push({
             vis: vis,
@@ -577,12 +573,53 @@ function renderInteractives(container) {
         });
     });
 
-    // Chronological order: Unit 0 before Unit 1 before Unit 2 ..., and within a
-    // unit, ascending module number, with the unit's sandbox last.
     items.sort(function (a, b) {
         if (a.unitNumber !== b.unitNumber) return a.unitNumber - b.unitNumber;
         return a.sortKey - b.sortKey;
     });
+
+    return items;
+}
+
+/* The stable route token a sandbox card deep-links under. Built engines carry
+   their own id (e.g. "unit_0_equation_translator"); generic placeholders have
+   none, so they key off their unit number ("unit-4"). Mirrors the host-id
+   fallback in mountVisualizer so the same item resolves both ways. */
+function sandboxRouteId(item) {
+    return item.vis.id ? item.vis.id : "unit-" + item.unitNumber;
+}
+
+/* Resolves a deep-link sandbox route token back to its normalized card item, or
+   null when no sandbox matches (a stale or hand-typed id). */
+function findSandboxByRouteId(routeId) {
+    const items = buildInteractiveItems();
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].isSandbox && sandboxRouteId(items[i]) === routeId) return items[i];
+    }
+    return null;
+}
+
+/* The Interactives route, now a unified visualizers dashboard. Instead of one
+   card per unit duplicating the curriculum index, it gathers every standalone
+   math visualization engine in the course into a single grid. Each card derives
+   its context badge from the engine's home module. Graded engines mount in place
+   on click; sandbox cards advance the hash to their deep-link route so the live
+   playground survives a refresh or a shared URL (see renderCurriculum). */
+function renderInteractives(container) {
+    buildIndexShell(container, "Interactive Visualizers",
+        "Every standalone math visualization engine in the course, gathered into one grid. Launch any tool to mount it right here in the workspace.");
+
+    // The dashboard sits one level below the curriculum root, so its back action
+    // reads "Back to Main Roadmap" rather than the shared shell default. The
+    // button still targets the empty hash (the Table of Contents); only the label
+    // changes, to keep the navigation hierarchy clean.
+    const backBtn = container.querySelector(".back-to-toc-btn");
+    if (backBtn) backBtn.textContent = "Back to Main Roadmap";
+
+    const grid = document.createElement("div");
+    grid.className = "interactives-grid";
+
+    const items = buildInteractiveItems();
 
     items.forEach(function (item) {
         const card = document.createElement("div");
@@ -608,7 +645,13 @@ function renderInteractives(container) {
         launch.className = "pdf-download-btn";
         launch.textContent = item.isSandbox ? "Open Sandbox" : "Launch Visualizer";
         launch.addEventListener("click", function () {
-            mountVisualizer(container, item);
+            if (item.isSandbox) {
+                // Advance the hash to the deep-link route; the hashchange handler
+                // mounts the playground, so the URL alone reproduces this view.
+                window.location.hash = "#interactives-sandbox-" + sandboxRouteId(item);
+            } else {
+                mountVisualizer(container, item);
+            }
         });
         card.appendChild(launch);
 
@@ -620,10 +663,11 @@ function renderInteractives(container) {
 
 /* Mounts a single card into the main view, replacing the dashboard grid with a
    focused workspace and a back action. A graded engine delegates to its
-   registered checkpoint widget; a sandbox card opens an ungraded playground
-   instead (see renderSandboxPlayground). Either way the content builds inside a
-   uniquely identified host that is the only one on the page while it is open, so
-   any element ids the engine creates cannot collide with another card's. */
+   registered checkpoint widget; a sandbox card mounts its live playground engine
+   directly into the workspace (no intermediate gate). Either way the content
+   builds inside a uniquely identified host that is the only one on the page while
+   it is open, so any element ids the engine creates cannot collide with
+   another card's. */
 function mountVisualizer(container, item) {
     container.innerHTML = "";
     const vis = item.vis;
@@ -636,8 +680,17 @@ function mountVisualizer(container, item) {
     backBtn.className = "back-to-toc-btn";
     backBtn.textContent = "Back to Interactive Visualizers";
     backBtn.addEventListener("click", function () {
-        renderInteractives(container);
-        window.scrollTo(0, 0);
+        // A sandbox arrived via its deep-link hash, so stepping back to the
+        // dashboard is a hash change (which re-renders and tears down the engine's
+        // animation loop). Graded engines mount in place with the hash still on
+        // "#interactives", so setting the same hash would be a no-op: re-render
+        // the dashboard directly instead.
+        if (item.isSandbox) {
+            window.location.hash = "#interactives";
+        } else {
+            renderInteractives(container);
+            window.scrollTo(0, 0);
+        }
     });
     nav.appendChild(backBtn);
     container.appendChild(nav);
@@ -680,39 +733,9 @@ function mountVisualizer(container, item) {
     container.appendChild(host);
 
     if (item.isSandbox) {
-        renderSandboxPlayground(host, item);
-    } else {
-        CheckpointRegistry.render(item.home.moduleData.interactive_checkpoint, host, item.home.moduleData);
-    }
-}
-
-/* Renders an ungraded sandbox playground into the mounted host. It mirrors the
-   chrome of a graded checkpoint, heading, intro, and a begin button, but carries
-   no answer checking: the begin action reads "Open Sandbox Playground" and
-   reveals a free-exploration body with no check steps or feedback. The body is an
-   empty placeholder for now, the slot each unit's open-ended tool will fill, so
-   students will eventually tweak variables, drag sliders, and explore graphs with
-   nothing to grade. */
-function renderSandboxPlayground(host, item) {
-    const heading = document.createElement("div");
-    heading.className = "checkpoint-heading";
-    heading.textContent = item.vis.title;
-    host.appendChild(heading);
-
-    const intro = document.createElement("p");
-    intro.className = "checkpoint-intro";
-    intro.textContent = item.vis.blurb;
-    host.appendChild(intro);
-
-    const openBtn = document.createElement("button");
-    openBtn.type = "button";
-    openBtn.className = "checkpoint-begin-btn";
-    openBtn.textContent = "Open Sandbox Playground";
-    host.appendChild(openBtn);
-
-    openBtn.addEventListener("click", function () {
-        openBtn.remove();
-
+        // Mount the live playground straight into the workspace - no intermediate
+        // "Open Sandbox Playground" gate. The workspace intro above already shows
+        // the title and badge; each built engine adds its own intro paragraph.
         const body = document.createElement("div");
         body.className = "checkpoint-body";
         host.appendChild(body);
@@ -727,14 +750,16 @@ function renderSandboxPlayground(host, item) {
             note.textContent = "This open-ended sandbox is under construction. It will let you drag sliders, retype expressions, and explore the graph freely, with nothing to grade.";
             body.appendChild(note);
         }
-    });
+    } else {
+        CheckpointRegistry.render(item.home.moduleData.interactive_checkpoint, host, item.home.moduleData);
+    }
 }
 
 /* ============================================================================
    Unit 0 Cluster I sandbox engines
 
    Three self-contained, ungraded exploration surfaces mounted by
-   renderSandboxPlayground. Shared rules across all three:
+   mountVisualizer. Shared rules across all three:
      - Every DOM id and the meaningful internal state is namespaced under a
        strict u0_s1_ / u0_s2_ / u0_s3_ prefix, so nothing they create can collide
        in global memory with another engine or another card.
