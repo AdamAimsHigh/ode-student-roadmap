@@ -616,12 +616,38 @@ function renderInteractives(container) {
     const backBtn = container.querySelector(".back-to-toc-btn");
     if (backBtn) backBtn.textContent = "Back to Main Roadmap";
 
-    const grid = document.createElement("div");
-    grid.className = "interactives-grid";
-
     const items = buildInteractiveItems();
 
+    // Group the sorted items into bounded per-unit sections. The list is already
+    // ordered by unitNumber, so each time the unit changes we open a fresh framed
+    // section (a lavender header naming the unit boundary, then that unit's card
+    // grid). Cards keep the same .interactives-grid layout, now nested one level
+    // deeper, so their column baselines stay pixel-aligned within each section.
+    let currentUnit = null;
+    let currentGrid = null;
+
     items.forEach(function (item) {
+        if (item.unitNumber !== currentUnit) {
+            currentUnit = item.unitNumber;
+
+            const section = document.createElement("div");
+            section.className = "unit-section-container";
+
+            const header = document.createElement("div");
+            header.className = "unit-lavender-header";
+            // Name the unit boundary from the curriculum itself so the header can
+            // never drift from the unit it frames; fall back to the bare number.
+            const unitData = CURRICULUM[item.unitNumber];
+            header.textContent = unitData ? unitData.unit : ("Unit " + item.unitNumber);
+            section.appendChild(header);
+
+            currentGrid = document.createElement("div");
+            currentGrid.className = "interactives-grid";
+            section.appendChild(currentGrid);
+
+            container.appendChild(section);
+        }
+
         const card = document.createElement("div");
         card.className = "materials-card interactive-card";
 
@@ -655,10 +681,8 @@ function renderInteractives(container) {
         });
         card.appendChild(launch);
 
-        grid.appendChild(card);
+        currentGrid.appendChild(card);
     });
-
-    container.appendChild(grid);
 }
 
 /* Mounts a single card into the main view, replacing the dashboard grid with a

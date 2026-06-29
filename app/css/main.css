@@ -514,6 +514,40 @@ body {
    through the theme custom properties, so light and dark modes both stay on
    palette. */
 
+/* Per-unit bounded sections. Each unit's visualizer cards are framed in a
+   solid-bordered container so the dashboard reads as distinct unit groups. The
+   frame uses the page background (cards are --panel-bg) so the gray cards stand
+   out cleanly inside the lighter/darker section, matching the 14px radius used
+   across the framework's card chrome. */
+.unit-section-container {
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin-bottom: 1.75rem;
+}
+
+.unit-section-container:last-child {
+    margin-bottom: 0;
+}
+
+/* The lavender header box topping each unit section. Built from the accent-soft
+   token (a soft violet tint over white in light mode, a muted violet over
+   near-black in dark mode) with bold accent-colored text, so it reads as an
+   elegant full-width lavender band with guaranteed contrast in both themes. */
+.unit-lavender-header {
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
 .interactives-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
