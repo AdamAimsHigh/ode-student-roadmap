@@ -135,6 +135,18 @@ body {
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 
+/* Transparent hover bridge spanning the 0.4rem gap below the trigger, so the
+   cursor never leaves a hoverable descendant while crossing into the panel.
+   Inherits the menu's pointer-events, so it stays inert while the menu is hidden. */
+.nav-dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+    right: 0;
+    height: 0.4rem;
+}
+
 .nav-dropdown:hover .nav-dropdown-menu,
 .nav-dropdown:focus-within .nav-dropdown-menu {
     opacity: 1;
