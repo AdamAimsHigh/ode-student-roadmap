@@ -551,14 +551,15 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--accent-color);
+    color: var(--accent-text);
     padding: 0.1rem 0.65rem 0.5rem;
 }
 
-/* A unit anchor link carrying its full descriptive title. The brand purple
-   (--accent-color) is the resting label color; the text wraps over multiple lines
-   with relaxed line-height and generous side padding so the longer strings sit
-   beautifully. Hover/focus/active lifts it onto a clean page-background pill with
+/* A unit anchor link carrying its full descriptive title. The brand purple text
+   token (--accent-text, lightened for dark mode) is the resting label color; the
+   text wraps over multiple lines with relaxed line-height and generous side
+   padding so the longer strings sit beautifully. Hover/focus/active lifts it onto
+   a clean page-background pill with
    a purple outline while the text stays purple, so the active state reads clearly
    against the lavender panel in both themes. */
 .interactives-sidebar-link {
@@ -567,7 +568,7 @@ body {
     font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.35;
-    color: var(--accent-color);
+    color: var(--accent-text);
     background: transparent;
     border: 1px solid transparent;
     border-radius: 9px;
@@ -581,7 +582,7 @@ body {
 .interactives-sidebar-link:hover,
 .interactives-sidebar-link.active {
     background: var(--bg-color);
-    color: var(--accent-color);
+    color: var(--accent-text);
     border-color: var(--accent-color);
 }
 
@@ -624,7 +625,7 @@ body {
    elegant full-width lavender band with guaranteed contrast in both themes. */
 .unit-lavender-header {
     background: var(--accent-soft);
-    color: var(--accent-color);
+    color: var(--accent-text);
     border: 1px solid var(--panel-border);
     border-radius: 10px;
     padding: 0.7rem 1rem;
@@ -645,7 +646,7 @@ body {
     align-self: flex-start;
     display: inline-block;
     background: var(--accent-soft);
-    color: var(--accent-color);
+    color: var(--accent-text);
     border: 1px solid var(--panel-border);
     border-radius: 999px;
     padding: 0.2rem 0.7rem;

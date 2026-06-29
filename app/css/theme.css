@@ -9,6 +9,11 @@
     --panel-border: rgba(0, 0, 0, 0.08);
     --accent-color: #6200ee;
     --accent-soft: rgba(98, 0, 238, 0.10);
+    /* Purple text token, used for standalone accent TEXT (sidebar links, section
+       header labels, badges) as opposed to --accent-color, which also floors the
+       solid accent buttons. In light mode it matches --accent-color (#6200ee on
+       white already clears WCAG AA at ~8.6:1); dark mode lightens it below. */
+    --accent-text: #6200ee;
     --success-color: #1b7a43;
     --error-color: #b3261e;
     --locked-color: #9b9ba8;
@@ -24,6 +29,12 @@
     --panel-border: rgba(255, 255, 255, 0.08);
     --accent-color: #bb86fc;
     --accent-soft: rgba(187, 134, 252, 0.12);
+    /* A lighter pastel violet for raw accent TEXT in dark mode. #c5a3ff lands
+       ~8.9:1 against the #121212 surface (and stays above 4.5:1 on --panel-bg and
+       the --accent-soft wash), comfortably clearing WCAG AA. --accent-color
+       (#bb86fc) stays the button-background floor so dark text on a purple button
+       is untouched. */
+    --accent-text: #c5a3ff;
     --success-color: #38c172;
     --error-color: #f2746b;
     --locked-color: #5c5c6a;
