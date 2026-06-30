@@ -651,6 +651,30 @@ const UNIT_2_SANDBOXES = [
         title: "Transient vs. Steady-State Decomposition Matrix",
         blurb: "Slide the constant of integration C across a live graph to decouple static steady-state solutions from vanishing transient behaviors.",
         render: renderGeneralParticularDecompositionSandbox
+    },
+    {
+        id: "unit_2_exact_differential_surfaces",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Exact Equations & Conservative Vector Fields",
+        blurb: "Map out the total differential grid of M(x,y)dx + N(x,y)dy = 0 to visualize how the test for exactness forces cross-partials to form a conservative potential surface.",
+        render: renderExactDifferentialSurfacesSandbox
+    },
+    {
+        id: "unit_2_substitution_transformation_warp",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Non-Linear Substitution & Transformation Warp",
+        blurb: "Watch complex nonlinear curves (Bernoulli/Homogeneous) collapse into standard linear trajectories via live algebraic variable substitutions (v = y^(1-n) or v = y/x).",
+        render: renderSubstitutionTransformationWarpSandbox
+    },
+    {
+        id: "unit_2_existence_uniqueness_breakdown",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Picard’s Theorem Existence & Uniqueness Boundary",
+        blurb: "Stress-test non-lipschitz first-order initial value conditions to witness the geometric tearing of solution curves where existence or uniqueness breaks down.",
+        render: renderExistenceUniquenessBreakdownSandbox
     }
 ];
 
@@ -6038,6 +6062,567 @@ function renderGeneralParticularDecompositionSandbox(body) {
         requestAnimationFrame(u2_s3_frame);
     }
     requestAnimationFrame(u2_s3_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 4 - Exact Equations & Conservative Vector Fields (u2_s4_)
+
+   Toggles between an exact system (2xy dx + (x²+1) dy = 0) and an inexact one
+   (2y dx + x² dy = 0). The (M, N) field is drawn as normalized arrows; the
+   cross-partials ∂M/∂y and ∂N/∂x are computed and compared live. On a match a
+   success badge lights and the potential's level curves F(x,y) = y(x²+1) = C are
+   contoured; on a clash an error badge shows and contour tracking is blocked.
+   --------------------------------------------------------------------------- */
+function renderExactDifferentialSurfacesSandbox(body) {
+    // Each system carries its M, N, the symbolic cross-partials, whether it is
+    // exact, and (when exact) the potential F whose level sets y = C/(x²+1) are
+    // the solution contours.
+    const u2_s4_SYSTEMS = {
+        exact: {
+            label: "Exact:  2xy dx + (x²+1) dy = 0",
+            M: function (x, y) { return 2 * x * y; },
+            N: function (x, y) { return x * x + 1; },
+            dMdy: "∂M/∂y = 2x",
+            dNdx: "∂N/∂x = 2x",
+            exact: true,
+            potential: "F(x,y) = y(x² + 1) = C",
+            level: function (C, x) { return C / (x * x + 1); }
+        },
+        inexact: {
+            label: "Inexact:  2y dx + x² dy = 0",
+            M: function (x, y) { return 2 * y; },
+            N: function (x, y) { return x * x; },
+            dMdy: "∂M/∂y = 2",
+            dNdx: "∂N/∂x = 2x",
+            exact: false,
+            potential: null,
+            level: null
+        }
+    };
+    const u2_s4_state = { key: "exact" };
+    function u2_s4_sys() { return u2_s4_SYSTEMS[u2_s4_state.key]; }
+
+    const u2_s4_intro = document.createElement("p");
+    u2_s4_intro.className = "checkpoint-intro";
+    u2_s4_intro.textContent = "An equation M dx + N dy = 0 is exact when it is the total differential of a potential F, which happens exactly when ∂M/∂y = ∂N/∂x. Toggle the system: when the cross-partials match, the field is conservative and its solutions are the level curves F = C; when they clash, no potential exists and the contours are blocked.";
+    body.appendChild(u2_s4_intro);
+
+    u0SandboxToggleGroup(body, "Choose the system", [
+        { label: "Exact", value: "exact" },
+        { label: "Inexact", value: "inexact" }
+    ], function () { return u2_s4_state.key; }, function (v) { u2_s4_state.key = v; });
+
+    const u2_s4_canvas = document.createElement("canvas");
+    u2_s4_canvas.width = 560;
+    u2_s4_canvas.height = 440;
+    u2_s4_canvas.className = "math-canvas";
+    body.appendChild(u2_s4_canvas);
+    const u2_s4_ctx = u2_s4_canvas.getContext("2d");
+
+    // The cross-partial readout: two symbolic rows plus a verdict badge.
+    const u2_s4_partials = document.createElement("div");
+    u2_s4_partials.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s4_partials.style.fontSize = "0.98rem";
+    u2_s4_partials.style.fontWeight = "700";
+    u2_s4_partials.style.padding = "0.6rem 0.8rem";
+    u2_s4_partials.style.marginTop = "0.4rem";
+    u2_s4_partials.style.background = "var(--panel-bg)";
+    u2_s4_partials.style.border = "1px solid var(--panel-border)";
+    u2_s4_partials.style.borderRadius = "8px";
+    u2_s4_partials.style.color = "var(--text-color)";
+    body.appendChild(u2_s4_partials);
+
+    const u2_s4_badge = document.createElement("div");
+    u2_s4_badge.style.fontWeight = "700";
+    u2_s4_badge.style.textAlign = "center";
+    u2_s4_badge.style.padding = "0.55rem 0.7rem";
+    u2_s4_badge.style.marginTop = "0.5rem";
+    u2_s4_badge.style.borderRadius = "8px";
+    u2_s4_badge.style.border = "1px solid var(--panel-border)";
+    body.appendChild(u2_s4_badge);
+
+    const u2_s4_X0 = -3, u2_s4_X1 = 3, u2_s4_Y0 = -3, u2_s4_Y1 = 3;
+    const u2_s4_pad = { L: 38, R: 16, T: 16, B: 30 };
+    function u2_s4_plotW() { return u2_s4_canvas.width - u2_s4_pad.L - u2_s4_pad.R; }
+    function u2_s4_plotH() { return u2_s4_canvas.height - u2_s4_pad.T - u2_s4_pad.B; }
+    function u2_s4_pxX(x) { return u2_s4_pad.L + (x - u2_s4_X0) / (u2_s4_X1 - u2_s4_X0) * u2_s4_plotW(); }
+    function u2_s4_pxY(y) { return u2_s4_pad.T + (u2_s4_Y1 - y) / (u2_s4_Y1 - u2_s4_Y0) * u2_s4_plotH(); }
+
+    function u2_s4_syncReadout() {
+        const s = u2_s4_sys();
+        u2_s4_partials.innerHTML = "";
+        const r1 = document.createElement("div");
+        r1.textContent = s.dMdy;
+        r1.style.color = "var(--accent-text)";
+        const r2 = document.createElement("div");
+        r2.textContent = s.dNdx;
+        r2.style.color = "var(--accent-text)";
+        r2.style.marginTop = "0.15rem";
+        u2_s4_partials.appendChild(r1);
+        u2_s4_partials.appendChild(r2);
+        if (s.exact) {
+            u2_s4_badge.textContent = "EXACT  ✓  ∂M/∂y = ∂N/∂x  →  " + s.potential;
+            u2_s4_badge.style.background = "var(--success-color)";
+            u2_s4_badge.style.color = "var(--bg-color)";
+            u2_s4_badge.style.borderColor = "var(--success-color)";
+        } else {
+            u2_s4_badge.textContent = "NOT EXACT  ✗  ∂M/∂y ≠ ∂N/∂x  →  no potential, contours blocked";
+            u2_s4_badge.style.background = "var(--error-color)";
+            u2_s4_badge.style.color = "var(--bg-color)";
+            u2_s4_badge.style.borderColor = "var(--error-color)";
+        }
+    }
+
+    function u2_s4_draw() {
+        const ctx = u2_s4_ctx;
+        const W = u2_s4_canvas.width, H = u2_s4_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s4_pad.L, u2_s4_pad.T, u2_s4_plotW(), u2_s4_plotH());
+
+        // Axes through the origin.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        const ay = u2_s4_pxY(0), ax = u2_s4_pxX(0);
+        ctx.beginPath(); ctx.moveTo(u2_s4_pad.L, ay); ctx.lineTo(u2_s4_pad.L + u2_s4_plotW(), ay); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ax, u2_s4_pad.T); ctx.lineTo(ax, u2_s4_pad.T + u2_s4_plotH()); ctx.stroke();
+
+        const s = u2_s4_sys();
+
+        // (M, N) vector field as normalized arrows.
+        const NX = 13, NY = 13, arrowLen = 13;
+        for (let i = 0; i < NX; i++) {
+            for (let j = 0; j < NY; j++) {
+                const x = u2_s4_X0 + (u2_s4_X1 - u2_s4_X0) * (i / (NX - 1));
+                const y = u2_s4_Y0 + (u2_s4_Y1 - u2_s4_Y0) * (j / (NY - 1));
+                const vx = s.M(x, y), vy = s.N(x, y);
+                const mag = Math.sqrt(vx * vx + vy * vy);
+                if (mag < 1e-9) continue;
+                const ux = vx / mag, uy = vy / mag;
+                const cx = u2_s4_pxX(x), cy = u2_s4_pxY(y);
+                // World +y is screen -y, so flip the vertical component.
+                u0SandboxArrow(ctx, cx - arrowLen * ux, cy + arrowLen * uy, cx + arrowLen * ux, cy - arrowLen * uy, accent, 1.4);
+            }
+        }
+
+        // Level-curve contours F = C, only when the system is exact.
+        if (s.exact && s.level) {
+            ctx.strokeStyle = good;
+            ctx.lineWidth = 2.4;
+            const CS = [-4, -3, -2, -1, 1, 2, 3, 4];
+            CS.forEach(function (C) {
+                ctx.beginPath();
+                let started = false;
+                const STEPS = 200;
+                for (let k = 0; k <= STEPS; k++) {
+                    const x = u2_s4_X0 + (u2_s4_X1 - u2_s4_X0) * (k / STEPS);
+                    const y = s.level(C, x);
+                    if (y < u2_s4_Y0 || y > u2_s4_Y1) { started = false; continue; }
+                    const X = u2_s4_pxX(x), Y = u2_s4_pxY(y);
+                    if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+                }
+                ctx.stroke();
+            });
+        }
+
+        // Caption: which system, and the contour status.
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(s.label, u2_s4_pad.L + 6, u2_s4_pad.T + 14);
+        ctx.fillStyle = s.exact ? good : sub;
+        ctx.fillText(s.exact ? "level curves F = C drawn" : "contours blocked (not conservative)", u2_s4_pad.L + 6, u2_s4_pad.T + 32);
+    }
+
+    function u2_s4_frame() {
+        if (!document.body.contains(u2_s4_canvas)) return; // stop after navigation
+        u2_s4_draw();
+        u2_s4_syncReadout();
+        requestAnimationFrame(u2_s4_frame);
+    }
+    requestAnimationFrame(u2_s4_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 5 - Non-Linear Substitution & Transformation Warp (u2_s5_)
+
+   A single canvas split into two plots. Left: the Bernoulli family
+   y = 1/(1 + A e^x) solving y' + y = y². Right: the linear family v = 1 + A e^x
+   solving the substituted v' - v = -1, where v = y^(1-n) = y^(-1) (n = 2). An x
+   slider rides a cursor along the highlighted curve in both panes; a tracking
+   arrow bridges the gutter, annotating the map v = 1/y point by point.
+   --------------------------------------------------------------------------- */
+function renderSubstitutionTransformationWarpSandbox(body) {
+    const u2_s5_XA = -3, u2_s5_XB = 2;             // shared x-domain for both panes
+    const u2_s5_A = [0.5, 1, 2];                   // the family constants
+    const u2_s5_HILITE = 1;                        // index of the highlighted (A = 1) curve
+    const u2_s5_state = { cursorX: -0.5 };
+
+    function u2_s5_yBern(A, x) { return 1 / (1 + A * Math.exp(x)); }   // y = 1/(1 + A e^x)
+    function u2_s5_vLin(A, x) { return 1 + A * Math.exp(x); }          // v = 1/y = 1 + A e^x
+
+    const u2_s5_intro = document.createElement("p");
+    u2_s5_intro.className = "checkpoint-intro";
+    u2_s5_intro.textContent = "A Bernoulli equation y' + y = y² is nonlinear, but the substitution v = y^(1−n) = y^(−1) turns it into the linear equation v' − v = −1. Left is the tangled nonlinear family; right is the straightened linear family. Drag the x slider to watch a single point map across the warp by v = 1/y.";
+    body.appendChild(u2_s5_intro);
+
+    // The substitution badge: the algebraic bridge spelled out.
+    const u2_s5_badge = document.createElement("div");
+    u2_s5_badge.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s5_badge.style.fontSize = "0.95rem";
+    u2_s5_badge.style.fontWeight = "700";
+    u2_s5_badge.style.textAlign = "center";
+    u2_s5_badge.style.padding = "0.55rem 0.7rem";
+    u2_s5_badge.style.marginBottom = "0.6rem";
+    u2_s5_badge.style.borderRadius = "8px";
+    u2_s5_badge.style.background = "var(--accent-soft)";
+    u2_s5_badge.style.color = "var(--accent-text)";
+    u2_s5_badge.style.border = "1px solid var(--panel-border)";
+    u2_s5_badge.textContent = "y' + y = y²   →   v = y^(1−n) = y^(−1)   →   v' − v = −1";
+    body.appendChild(u2_s5_badge);
+
+    const u2_s5_canvas = document.createElement("canvas");
+    u2_s5_canvas.width = 640;
+    u2_s5_canvas.height = 360;
+    u2_s5_canvas.className = "math-canvas";
+    body.appendChild(u2_s5_canvas);
+    const u2_s5_ctx = u2_s5_canvas.getContext("2d");
+
+    const u2_s5_panel = document.createElement("div");
+    u2_s5_panel.className = "slider-panel";
+    body.appendChild(u2_s5_panel);
+    u0SandboxSlider(u2_s5_panel, {
+        label: "x  (evaluation coordinate)", min: u2_s5_XA, max: u2_s5_XB, step: 0.02, value: -0.5, decimals: 2,
+        onChange: function (v) { u2_s5_state.cursorX = v; }
+    });
+
+    const u2_s5_readout = document.createElement("div");
+    u2_s5_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s5_readout.style.fontSize = "0.95rem";
+    u2_s5_readout.style.fontWeight = "700";
+    u2_s5_readout.style.padding = "0.6rem 0.8rem";
+    u2_s5_readout.style.marginTop = "0.4rem";
+    u2_s5_readout.style.background = "var(--panel-bg)";
+    u2_s5_readout.style.border = "1px solid var(--panel-border)";
+    u2_s5_readout.style.borderRadius = "8px";
+    u2_s5_readout.style.color = "var(--text-color)";
+    body.appendChild(u2_s5_readout);
+
+    // Two plot regions sharing the canvas, split by a central gutter.
+    const u2_s5_pad = { T: 30, B: 26 };
+    const u2_s5_LX0 = 40, u2_s5_LX1 = 290;       // left pane pixel x-extent
+    const u2_s5_RX0 = 350, u2_s5_RX1 = 624;      // right pane pixel x-extent
+    const u2_s5_YL0 = 0, u2_s5_YL1 = 1.05;        // left pane (y) value range
+    const u2_s5_YR0 = 0, u2_s5_YR1 = 17;          // right pane (v) value range
+    function u2_s5_plotTop() { return u2_s5_pad.T; }
+    function u2_s5_plotBot() { return u2_s5_canvas.height - u2_s5_pad.B; }
+    function u2_s5_LpxX(x) { return u2_s5_LX0 + (x - u2_s5_XA) / (u2_s5_XB - u2_s5_XA) * (u2_s5_LX1 - u2_s5_LX0); }
+    function u2_s5_LpxY(y) { return u2_s5_plotTop() + (u2_s5_YL1 - y) / (u2_s5_YL1 - u2_s5_YL0) * (u2_s5_plotBot() - u2_s5_plotTop()); }
+    function u2_s5_RpxX(x) { return u2_s5_RX0 + (x - u2_s5_XA) / (u2_s5_XB - u2_s5_XA) * (u2_s5_RX1 - u2_s5_RX0); }
+    function u2_s5_RpxY(v) { return u2_s5_plotTop() + (u2_s5_YR1 - v) / (u2_s5_YR1 - u2_s5_YR0) * (u2_s5_plotBot() - u2_s5_plotTop()); }
+
+    function u2_s5_draw() {
+        const ctx = u2_s5_ctx;
+        const W = u2_s5_canvas.width, H = u2_s5_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Pane frames + titles.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s5_LX0, u2_s5_plotTop(), u2_s5_LX1 - u2_s5_LX0, u2_s5_plotBot() - u2_s5_plotTop());
+        ctx.strokeRect(u2_s5_RX0, u2_s5_plotTop(), u2_s5_RX1 - u2_s5_RX0, u2_s5_plotBot() - u2_s5_plotTop());
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Nonlinear  y = 1/(1 + A e^x)", (u2_s5_LX0 + u2_s5_LX1) / 2, u2_s5_plotTop() - 12);
+        ctx.fillText("Linear  v = 1 + A e^x", (u2_s5_RX0 + u2_s5_RX1) / 2, u2_s5_plotTop() - 12);
+
+        // The two families. The highlighted A = 1 curve is bold; the others faint.
+        const STEPS = 160;
+        u2_s5_A.forEach(function (A, idx) {
+            const hot = idx === u2_s5_HILITE;
+            // Left (Bernoulli).
+            ctx.strokeStyle = hot ? accent : border;
+            ctx.lineWidth = hot ? 2.8 : 1.4;
+            ctx.beginPath();
+            for (let k = 0; k <= STEPS; k++) {
+                const x = u2_s5_XA + (u2_s5_XB - u2_s5_XA) * (k / STEPS);
+                const X = u2_s5_LpxX(x), Y = u2_s5_LpxY(u2_s5_yBern(A, x));
+                if (k === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+            }
+            ctx.stroke();
+            // Right (linear), clipped to the pane's v range.
+            ctx.strokeStyle = hot ? good : border;
+            ctx.lineWidth = hot ? 2.8 : 1.4;
+            ctx.beginPath();
+            let started = false;
+            for (let k = 0; k <= STEPS; k++) {
+                const x = u2_s5_XA + (u2_s5_XB - u2_s5_XA) * (k / STEPS);
+                const v = u2_s5_vLin(A, x);
+                if (v > u2_s5_YR1) { started = false; continue; }
+                const X = u2_s5_RpxX(x), Y = u2_s5_RpxY(v);
+                if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+            }
+            ctx.stroke();
+        });
+
+        // The cursor point on the highlighted curve in both panes.
+        const A = u2_s5_A[u2_s5_HILITE];
+        const cx = u2_s5_state.cursorX;
+        const yv = u2_s5_yBern(A, cx), vv = u2_s5_vLin(A, cx);
+        const lpx = u2_s5_LpxX(cx), lpy = u2_s5_LpxY(yv);
+        const rpx = u2_s5_RpxX(cx), rpy = u2_s5_RpxY(Math.min(vv, u2_s5_YR1));
+
+        // Tracking arrow bridging the gutter: the v = 1/y map made visible.
+        u0SandboxArrow(ctx, lpx, lpy, rpx, rpy, text, 2);
+        ctx.fillStyle = text;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("v = 1/y", (lpx + rpx) / 2, (lpy + rpy) / 2 - 8);
+
+        [[lpx, lpy, accent], [rpx, rpy, good]].forEach(function (d) {
+            ctx.fillStyle = d[2];
+            ctx.beginPath(); ctx.arc(d[0], d[1], 5.5, 0, 2 * Math.PI); ctx.fill();
+            ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+        });
+    }
+
+    function u2_s5_syncReadout() {
+        const A = u2_s5_A[u2_s5_HILITE];
+        const cx = u2_s5_state.cursorX;
+        const yv = u2_s5_yBern(A, cx), vv = u2_s5_vLin(A, cx);
+        u2_s5_readout.textContent = "x = " + cx.toFixed(2) + "    y = " + yv.toFixed(4) + "    →    v = y^(−1) = 1/y = " + vv.toFixed(4);
+    }
+
+    function u2_s5_frame() {
+        if (!document.body.contains(u2_s5_canvas)) return; // stop after navigation
+        u2_s5_draw();
+        u2_s5_syncReadout();
+        requestAnimationFrame(u2_s5_frame);
+    }
+    requestAnimationFrame(u2_s5_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 6 - Picard's Theorem Existence & Uniqueness Boundary (u2_s6_)
+
+   Slope field for y' = y^(1/3), whose right side is not Lipschitz at y = 0, so
+   Picard-Lindelöf cannot guarantee a unique solution there. Click to place the
+   initial-condition node. Away from y = 0 the field has one well-defined curve;
+   on the y = 0 boundary the engine animates the branching family - the zero
+   solution and the delayed-departure power-law solutions y = ((2/3)(x - x1))^(3/2)
+   that all pass through the same node, proving non-uniqueness.
+   --------------------------------------------------------------------------- */
+function renderExistenceUniquenessBreakdownSandbox(body) {
+    const u2_s6_X0 = -4, u2_s6_X1 = 4, u2_s6_Y0 = -3, u2_s6_Y1 = 3;
+    const u2_s6_BOUNDARY = 0.22;                  // |y0| under this counts as "on the boundary"
+    const u2_s6_state = { x0: -1, y0: 0, grow: 0 };
+
+    function u2_s6_slope(x, y) { return Math.cbrt(y); }   // y' = y^(1/3)
+
+    const u2_s6_intro = document.createElement("p");
+    u2_s6_intro.className = "checkpoint-intro";
+    u2_s6_intro.textContent = "Picard-Lindelof guarantees a unique solution only where the right side is Lipschitz in y. For y' = y^(1/3) that fails at y = 0: the slope flattens but the derivative of the right side blows up. Click to place the initial condition. On the y = 0 line, watch infinitely many solution curves branch from one node - existence holds, uniqueness shatters.";
+    body.appendChild(u2_s6_intro);
+
+    const u2_s6_canvas = document.createElement("canvas");
+    u2_s6_canvas.width = 600;
+    u2_s6_canvas.height = 400;
+    u2_s6_canvas.className = "math-canvas";
+    u2_s6_canvas.style.cursor = "crosshair";
+    body.appendChild(u2_s6_canvas);
+    const u2_s6_ctx = u2_s6_canvas.getContext("2d");
+
+    const u2_s6_badge = document.createElement("div");
+    u2_s6_badge.style.fontWeight = "700";
+    u2_s6_badge.style.textAlign = "center";
+    u2_s6_badge.style.padding = "0.55rem 0.7rem";
+    u2_s6_badge.style.marginTop = "0.4rem";
+    u2_s6_badge.style.borderRadius = "8px";
+    u2_s6_badge.style.border = "1px solid var(--panel-border)";
+    body.appendChild(u2_s6_badge);
+
+    const u2_s6_pad = { L: 38, R: 16, T: 16, B: 30 };
+    function u2_s6_plotW() { return u2_s6_canvas.width - u2_s6_pad.L - u2_s6_pad.R; }
+    function u2_s6_plotH() { return u2_s6_canvas.height - u2_s6_pad.T - u2_s6_pad.B; }
+    function u2_s6_pxX(x) { return u2_s6_pad.L + (x - u2_s6_X0) / (u2_s6_X1 - u2_s6_X0) * u2_s6_plotW(); }
+    function u2_s6_pxY(y) { return u2_s6_pad.T + (u2_s6_Y1 - y) / (u2_s6_Y1 - u2_s6_Y0) * u2_s6_plotH(); }
+    function u2_s6_worldX(px) { return u2_s6_X0 + (px - u2_s6_pad.L) / u2_s6_plotW() * (u2_s6_X1 - u2_s6_X0); }
+    function u2_s6_worldY(py) { return u2_s6_Y1 - (py - u2_s6_pad.T) / u2_s6_plotH() * (u2_s6_Y1 - u2_s6_Y0); }
+
+    // Click drops the IC node at the world coordinate, restarting the branch grow.
+    u2_s6_canvas.addEventListener("click", function (e) {
+        const rect = u2_s6_canvas.getBoundingClientRect();
+        const bx = (e.clientX - rect.left) * (u2_s6_canvas.width / rect.width);
+        const by = (e.clientY - rect.top) * (u2_s6_canvas.height / rect.height);
+        const wx = u2_s6_worldX(bx), wy = u2_s6_worldY(by);
+        if (wx < u2_s6_X0 || wx > u2_s6_X1 || wy < u2_s6_Y0 || wy > u2_s6_Y1) return;
+        u2_s6_state.x0 = wx;
+        u2_s6_state.y0 = wy;
+        u2_s6_state.grow = 0;     // re-animate the branches growing out
+    });
+
+    // RK4 in x for the generic field-following solution through the node.
+    function u2_s6_integrate(dir) {
+        const h = 0.04 * dir, MAX = 400;
+        const pts = [{ x: u2_s6_state.x0, y: u2_s6_state.y0 }];
+        let x = u2_s6_state.x0, y = u2_s6_state.y0;
+        for (let i = 0; i < MAX; i++) {
+            const k1 = u2_s6_slope(x, y);
+            const k2 = u2_s6_slope(x + h / 2, y + h / 2 * k1);
+            const k3 = u2_s6_slope(x + h / 2, y + h / 2 * k2);
+            const k4 = u2_s6_slope(x + h, y + h * k3);
+            y += h / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
+            x += h;
+            if (x < u2_s6_X0 || x > u2_s6_X1 || y < u2_s6_Y0 - 1 || y > u2_s6_Y1 + 1) break;
+            pts.push({ x: x, y: y });
+        }
+        return pts;
+    }
+
+    function u2_s6_plotPoints(pts, color, width) {
+        const ctx = u2_s6_ctx;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i < pts.length; i++) {
+            if (pts[i].y < u2_s6_Y0 || pts[i].y > u2_s6_Y1) { started = false; continue; }
+            const X = u2_s6_pxX(pts[i].x), Y = u2_s6_pxY(pts[i].y);
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+    }
+
+    function u2_s6_draw() {
+        const ctx = u2_s6_ctx;
+        const W = u2_s6_canvas.width, H = u2_s6_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const err = u0SandboxColor("--error-color", "#b00020");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s6_pad.L, u2_s6_pad.T, u2_s6_plotW(), u2_s6_plotH());
+
+        // The y = 0 failure line, dashed, called out as the boundary.
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = err;
+        ctx.lineWidth = 1.6;
+        const yb = u2_s6_pxY(0);
+        ctx.beginPath(); ctx.moveTo(u2_s6_pad.L, yb); ctx.lineTo(u2_s6_pad.L + u2_s6_plotW(), yb); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = err;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("y = 0  (Lipschitz fails)", u2_s6_pad.L + 6, yb - 5);
+
+        // Slope field for y' = cbrt(y): short segments coloured by direction.
+        const NX = 25, NY = 17, seg = 9;
+        for (let i = 0; i < NX; i++) {
+            for (let j = 0; j < NY; j++) {
+                const x = u2_s6_X0 + (u2_s6_X1 - u2_s6_X0) * (i / (NX - 1));
+                const y = u2_s6_Y0 + (u2_s6_Y1 - u2_s6_Y0) * (j / (NY - 1));
+                const m = u2_s6_slope(x, y);
+                const inv = 1 / Math.sqrt(1 + m * m);
+                const cx = u2_s6_pxX(x), cy = u2_s6_pxY(y);
+                ctx.strokeStyle = border;
+                ctx.lineWidth = 1.3;
+                ctx.beginPath();
+                ctx.moveTo(cx - seg * inv, cy + seg * m * inv);
+                ctx.lineTo(cx + seg * inv, cy - seg * m * inv);
+                ctx.stroke();
+            }
+        }
+
+        const onBoundary = Math.abs(u2_s6_state.y0) < u2_s6_BOUNDARY;
+        const span = (u2_s6_X1 - u2_s6_state.x0) * u2_s6_state.grow;   // how far branches have grown
+
+        if (onBoundary) {
+            // Non-uniqueness: the zero solution plus delayed-departure power laws,
+            // each leaving y = 0 at a later x1 and rising as ((2/3)(x - x1))^{3/2}.
+            const x0 = u2_s6_state.x0;
+            // The flat zero solution.
+            u2_s6_plotPoints([{ x: u2_s6_X0, y: 0 }, { x: u2_s6_X1, y: 0 }], accent, 2.6);
+            const departures = [0, 1.1, 2.2, 3.3];
+            departures.forEach(function (d) {
+                const x1 = x0 + d;
+                const pts = [];
+                const STEPS = 160;
+                for (let k = 0; k <= STEPS; k++) {
+                    const x = x0 + span * (k / STEPS);
+                    let y = 0;
+                    if (x > x1) { const s = (2 / 3) * (x - x1); y = Math.pow(s, 1.5); }
+                    pts.push({ x: x, y: y });
+                }
+                u2_s6_plotPoints(pts, accent, 2.6);
+                // The mirror (negative) branch for the first departure, to show both signs.
+                if (d === 0) {
+                    u2_s6_plotPoints(pts.map(function (p) { return { x: p.x, y: -p.y }; }), accent, 2.6);
+                }
+            });
+            u2_s6_badge.textContent = "NON-UNIQUE  ✗  infinitely many solution curves through this node";
+            u2_s6_badge.style.background = "var(--error-color)";
+            u2_s6_badge.style.color = "var(--bg-color)";
+            u2_s6_badge.style.borderColor = "var(--error-color)";
+        } else {
+            // Lipschitz away from y = 0: one curve, integrated both directions.
+            const fwd = u2_s6_integrate(1), back = u2_s6_integrate(-1);
+            // Trim the forward branch to the animated growth for visual parity.
+            const shown = Math.max(2, Math.floor(fwd.length * u2_s6_state.grow));
+            u2_s6_plotPoints(back, good, 2.8);
+            u2_s6_plotPoints(fwd.slice(0, shown), good, 2.8);
+            u2_s6_badge.textContent = "UNIQUE  ✓  Lipschitz here, exactly one solution through this node";
+            u2_s6_badge.style.background = "var(--success-color)";
+            u2_s6_badge.style.color = "var(--bg-color)";
+            u2_s6_badge.style.borderColor = "var(--success-color)";
+        }
+
+        // The IC node marker.
+        ctx.fillStyle = onBoundary ? err : good;
+        ctx.beginPath();
+        ctx.arc(u2_s6_pxX(u2_s6_state.x0), u2_s6_pxY(u2_s6_state.y0), 6, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.strokeStyle = bg;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "right";
+        ctx.fillText("(x0, y0) = (" + u2_s6_state.x0.toFixed(2) + ", " + u2_s6_state.y0.toFixed(2) + ")", u2_s6_pad.L + u2_s6_plotW() - 6, u2_s6_pad.T + 16);
+    }
+
+    function u2_s6_frame() {
+        if (!document.body.contains(u2_s6_canvas)) return; // stop after navigation
+        // Ease the branch growth toward full extent so paths sweep out on placement.
+        u2_s6_state.grow += (1 - u2_s6_state.grow) * 0.05;
+        u2_s6_draw();
+        requestAnimationFrame(u2_s6_frame);
+    }
+    requestAnimationFrame(u2_s6_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
