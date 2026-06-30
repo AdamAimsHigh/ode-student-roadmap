@@ -559,6 +559,30 @@ const UNIT_1_SANDBOXES = [
         title: "The Log-Linear Scaling Matrix",
         blurb: "Toggle coordinate space between Cartesian, semi-log, and log-log configurations to uncover the hidden linear architectures of transcendental behaviors.",
         render: renderLogLinearWarpSandbox
+    },
+    {
+        id: "unit_1_piecewise_continuity",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Piecewise Transition & Continuity Lab",
+        blurb: "Manipulate the boundaries and coefficients of piecewise functions to manually stitch discontinuous lines into smooth, differentiable tracks.",
+        render: renderPiecewiseContinuitySandbox
+    },
+    {
+        id: "unit_1_taylor_polynomial_machinery",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Taylor Series Convergence Engine",
+        blurb: "Dial up the polynomial order of a Maclaurin/Taylor expansion to watch static power series morph and snap to local transcendental curves.",
+        render: renderTaylorMachinerySandbox
+    },
+    {
+        id: "unit_1_inverse_operator_boundaries",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Operator & Inverse Function Constraint Matrix",
+        blurb: "Probe input-output mappings across non-monotonic functions to visualize why domain restrictions are required to establish valid algebraic inverses.",
+        render: renderInverseOperatorSandbox
     }
 ];
 
@@ -3397,6 +3421,781 @@ function renderLogLinearWarpSandbox(body) {
         u1_s3_draw();
     });
     u1_s3_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 4 - The Piecewise Transition & Continuity Lab (u1_s4_)
+
+   A fixed quadratic branch q(x) = 0.5·x² holds the right side (x ≥ c). The
+   student drives the left linear branch L(x) = m·x + b and the boundary c to
+   stitch the two together. Two conditions are checked live at the seam:
+     value continuity   L(c) = q(c)
+     differentiability  L'(c) = q'(c)  ->  m = c   (since q'(x) = x)
+   The junction is painted green when smooth, accent when it is a continuous
+   corner, and warm red when the branches leave a jump. No animation loop runs;
+   the surface repaints on input and on a Light/Dark toggle.
+   --------------------------------------------------------------------------- */
+function renderPiecewiseContinuitySandbox(body) {
+    const u1_s4_Q = 0.5;               // fixed quadratic coefficient, q(x) = 0.5 x^2
+    const u1_s4_TOL = 0.05;            // seam tolerance for the continuity checks
+    const u1_s4_state = { m: 1.0, b: -0.5, c: 1.0 };
+    const u1_s4_xMin = -4, u1_s4_xMax = 4, u1_s4_yMin = -3, u1_s4_yMax = 9;
+
+    function u1_s4_lin(x) { return u1_s4_state.m * x + u1_s4_state.b; }
+    function u1_s4_quad(x) { return u1_s4_Q * x * x; }
+
+    const u1_s4_wrap = document.createElement("div");
+    u1_s4_wrap.style.display = "flex";
+    u1_s4_wrap.style.flexWrap = "wrap";
+    u1_s4_wrap.style.gap = "1rem";
+    u1_s4_wrap.style.alignItems = "stretch";
+
+    const u1_s4_controls = document.createElement("div");
+    u1_s4_controls.style.flex = "1 1 240px";
+    u1_s4_controls.style.minWidth = "240px";
+    u1_s4_controls.style.padding = "1rem";
+    u1_s4_controls.style.background = "var(--panel-bg)";
+    u1_s4_controls.style.border = "1px solid var(--panel-border)";
+    u1_s4_controls.style.borderRadius = "10px";
+
+    const u1_s4_stage = document.createElement("div");
+    u1_s4_stage.style.flex = "2 1 340px";
+    u1_s4_stage.style.minWidth = "300px";
+
+    u1_s4_wrap.appendChild(u1_s4_controls);
+    u1_s4_wrap.appendChild(u1_s4_stage);
+    body.appendChild(u1_s4_wrap);
+
+    const u1_s4_intro = document.createElement("p");
+    u1_s4_intro.className = "checkpoint-intro";
+    u1_s4_intro.textContent = "The right branch is fixed at q(x) = ½x². Move the line L(x) = m·x + b and the boundary c to stitch it onto the curve — first close the gap (continuity), then match the slopes (differentiability).";
+    u1_s4_controls.appendChild(u1_s4_intro);
+
+    const u1_s4_mSlider = u0SandboxSlider(u1_s4_controls, {
+        label: "slope  m =", min: -3, max: 3, step: 0.05, value: u1_s4_state.m, decimals: 2,
+        onChange: function (v) { u1_s4_state.m = v; u1_s4_draw(); }
+    });
+    const u1_s4_bSlider = u0SandboxSlider(u1_s4_controls, {
+        label: "shift  b =", min: -4, max: 4, step: 0.05, value: u1_s4_state.b, decimals: 2,
+        onChange: function (v) { u1_s4_state.b = v; u1_s4_draw(); }
+    });
+    const u1_s4_cSlider = u0SandboxSlider(u1_s4_controls, {
+        label: "boundary  c =", min: -3, max: 3, step: 0.05, value: u1_s4_state.c, decimals: 2,
+        onChange: function (v) { u1_s4_state.c = v; u1_s4_draw(); }
+    });
+
+    // One-tap solve: for the current c, the smooth fit is m = c, b = −½c².
+    const u1_s4_snap = document.createElement("button");
+    u1_s4_snap.type = "button";
+    u1_s4_snap.className = "checkpoint-begin-btn";
+    u1_s4_snap.style.marginTop = "0.6rem";
+    u1_s4_snap.textContent = "Snap line to a smooth seam";
+    u1_s4_snap.addEventListener("click", function () {
+        const c = u1_s4_state.c;
+        u1_s4_state.m = c;
+        u1_s4_state.b = -u1_s4_Q * c * c;
+        u1_s4_mSlider.setValue(Math.round(u1_s4_state.m * 20) / 20);
+        u1_s4_bSlider.setValue(Math.round(u1_s4_state.b * 20) / 20);
+        u1_s4_draw();
+    });
+    u1_s4_controls.appendChild(u1_s4_snap);
+
+    const u1_s4_readout = document.createElement("div");
+    u1_s4_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s4_readout.style.fontSize = "0.88rem";
+    u1_s4_readout.style.fontWeight = "700";
+    u1_s4_readout.style.padding = "0.6rem 0.8rem";
+    u1_s4_readout.style.marginTop = "0.85rem";
+    u1_s4_readout.style.background = "var(--bg-color)";
+    u1_s4_readout.style.border = "1px solid var(--panel-border)";
+    u1_s4_readout.style.borderRadius = "8px";
+    u1_s4_controls.appendChild(u1_s4_readout);
+
+    const u1_s4_canvas = document.createElement("canvas");
+    u1_s4_canvas.width = 600;
+    u1_s4_canvas.height = 420;
+    u1_s4_canvas.className = "math-canvas";
+    u1_s4_stage.appendChild(u1_s4_canvas);
+    const u1_s4_ctx = u1_s4_canvas.getContext("2d");
+
+    // Continuity / differentiability test at the current seam.
+    function u1_s4_test() {
+        const c = u1_s4_state.c;
+        const Lc = u1_s4_lin(c), Qc = u1_s4_quad(c);
+        const dVal = Lc - Qc;
+        const m1 = u1_s4_state.m, m2 = c; // q'(c) = c
+        const dSlope = m1 - m2;
+        const continuous = Math.abs(dVal) < u1_s4_TOL;
+        const differentiable = continuous && Math.abs(dSlope) < u1_s4_TOL;
+        return { c: c, Lc: Lc, Qc: Qc, dVal: dVal, m1: m1, m2: m2, dSlope: dSlope, continuous: continuous, differentiable: differentiable };
+    }
+
+    function u1_s4_draw() {
+        const ctx = u1_s4_ctx;
+        const W = u1_s4_canvas.width, H = u1_s4_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 44, padR = 18, padT = 16, padB = 30;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        function pxX(x) { return padL + (x - u1_s4_xMin) / (u1_s4_xMax - u1_s4_xMin) * plotW; }
+        function pxY(y) { return padT + (u1_s4_yMax - y) / (u1_s4_yMax - u1_s4_yMin) * plotH; }
+
+        // Grid + axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = u1_s4_xMin; gx <= u1_s4_xMax; gx++) {
+            const X = pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+            if (gx !== 0) ctx.fillText(String(gx), X, pxY(0) + 12);
+        }
+        ctx.textAlign = "right";
+        for (let gy = -2; gy <= 8; gy += 2) {
+            const Y = pxY(gy);
+            ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+            ctx.fillText(String(gy), padL - 6, Y + 3);
+        }
+        // Bold axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(padL, pxY(0)); ctx.lineTo(W - padR, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pxX(0), padT); ctx.lineTo(pxX(0), H - padB); ctx.stroke();
+
+        const c = u1_s4_state.c;
+        // Boundary line at x = c (dashed accent).
+        ctx.save();
+        ctx.setLineDash([5, 5]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(pxX(c), padT); ctx.lineTo(pxX(c), H - padB); ctx.stroke();
+        ctx.restore();
+
+        // Linear branch, x < c.
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 240; i++) {
+            const x = u1_s4_xMin + (c - u1_s4_xMin) * (i / 240);
+            const X = pxX(x), Y = pxY(u1_s4_lin(x));
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Quadratic branch, x >= c (drawn in accent so the two pieces read apart).
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        started = false;
+        for (let i = 0; i <= 240; i++) {
+            const x = c + (u1_s4_xMax - c) * (i / 240);
+            const X = pxX(x), Y = pxY(u1_s4_quad(x));
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Junction marker(s).
+        const t = u1_s4_test();
+        const seamColor = t.differentiable ? good : (t.continuous ? accent : warm);
+        if (!t.continuous) {
+            // A visible jump: mark both branch endpoints and a dashed gap between.
+            ctx.save();
+            ctx.setLineDash([3, 3]);
+            ctx.strokeStyle = warm;
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(pxX(c), pxY(t.Lc)); ctx.lineTo(pxX(c), pxY(t.Qc)); ctx.stroke();
+            ctx.restore();
+            [t.Lc, t.Qc].forEach(function (yv) {
+                ctx.fillStyle = warm;
+                ctx.beginPath(); ctx.arc(pxX(c), pxY(yv), 5.5, 0, 2 * Math.PI); ctx.fill();
+            });
+        } else {
+            ctx.fillStyle = seamColor;
+            ctx.beginPath(); ctx.arc(pxX(c), pxY(t.Qc), 7, 0, 2 * Math.PI); ctx.fill();
+            ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+        }
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = text;
+        ctx.fillText("L(x) = m·x + b   (x < c)", padL + 6, padT + 14);
+        ctx.fillStyle = accent;
+        ctx.fillText("q(x) = ½x²   (x ≥ c)", padL + 6, padT + 30);
+
+        u1_s4_syncReadout(t);
+    }
+
+    function u1_s4_syncReadout(t) {
+        u1_s4_readout.innerHTML = "";
+        function line(txt, ok) {
+            const d = document.createElement("div");
+            d.textContent = txt;
+            d.style.color = ok ? "var(--success-color)" : "var(--error-color)";
+            d.style.marginTop = "0.18rem";
+            return d;
+        }
+        const head = document.createElement("div");
+        head.textContent = t.differentiable ? "✓ Smooth (differentiable)"
+            : (t.continuous ? "△ Continuous, but a corner" : "✕ Discontinuous (jump)");
+        head.style.color = t.differentiable ? "var(--success-color)"
+            : (t.continuous ? "var(--accent-color)" : "var(--error-color)");
+        head.style.marginBottom = "0.3rem";
+        u1_s4_readout.appendChild(head);
+        u1_s4_readout.appendChild(line("value:  L(c)=" + t.Lc.toFixed(2) + "  q(c)=" + t.Qc.toFixed(2) + "  Δ=" + t.dVal.toFixed(2), t.continuous));
+        u1_s4_readout.appendChild(line("slope:  m₁=" + t.m1.toFixed(2) + "  m₂=" + t.m2.toFixed(2) + "  Δ=" + t.dSlope.toFixed(2), t.differentiable));
+    }
+
+    u1_s4_draw();
+
+    // No animation loop here; repaint on a Light/Dark toggle so idle colours stay
+    // current. The observer disconnects once the canvas leaves the DOM.
+    const u1_s4_themeWatch = new MutationObserver(function () {
+        if (!document.body.contains(u1_s4_canvas)) { u1_s4_themeWatch.disconnect(); return; }
+        u1_s4_draw();
+    });
+    u1_s4_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 5 - The Taylor Series Convergence Engine (u1_s5_)
+
+   Graphs a transcendental base (sin, cos, or eˣ) and its Maclaurin polynomial
+   (centre 0) up to a slider-set degree. When the degree changes, the new term's
+   coefficients ease in from zero, so the partial sum visibly grows and snaps onto
+   the curve. A shaded band on the x-axis marks the interval where the polynomial
+   stays within tolerance of the true function, widening as the order climbs.
+   --------------------------------------------------------------------------- */
+function renderTaylorMachinerySandbox(body) {
+    const u1_s5_MAXDEG = 10;
+    const u1_s5_xMin = -6, u1_s5_xMax = 6, u1_s5_yMin = -4, u1_s5_yMax = 4;
+    const u1_s5_state = {
+        kind: "sin",
+        degree: 3,
+        target: [],   // target Maclaurin coefficients for the current kind+degree
+        disp: []      // eased display coefficients the curve is drawn from
+    };
+
+    // Factorials 0..MAXDEG, computed once.
+    const u1_s5_FACT = (function () {
+        const f = [1];
+        for (let k = 1; k <= u1_s5_MAXDEG; k++) f.push(f[k - 1] * k);
+        return f;
+    })();
+
+    function u1_s5_base(x) {
+        if (u1_s5_state.kind === "exp") return Math.exp(x);
+        if (u1_s5_state.kind === "cos") return Math.cos(x);
+        return Math.sin(x);
+    }
+
+    // Maclaurin coefficients (index = power of x) for the active base up to deg.
+    function u1_s5_targetCoeffs(deg) {
+        const c = [];
+        for (let k = 0; k <= u1_s5_MAXDEG; k++) c.push(0);
+        for (let k = 0; k <= deg; k++) {
+            if (u1_s5_state.kind === "exp") {
+                c[k] = 1 / u1_s5_FACT[k];
+            } else if (u1_s5_state.kind === "sin") {
+                if (k % 2 === 1) { const j = (k - 1) / 2; c[k] = Math.pow(-1, j) / u1_s5_FACT[k]; }
+            } else { // cos
+                if (k % 2 === 0) { const j = k / 2; c[k] = Math.pow(-1, j) / u1_s5_FACT[k]; }
+            }
+        }
+        return c;
+    }
+
+    function u1_s5_poly(x) {
+        // Horner over the eased display coefficients.
+        let acc = 0;
+        for (let k = u1_s5_MAXDEG; k >= 0; k--) acc = acc * x + u1_s5_state.disp[k];
+        return acc;
+    }
+
+    function u1_s5_retarget() { u1_s5_state.target = u1_s5_targetCoeffs(u1_s5_state.degree); }
+
+    const u1_s5_wrap = document.createElement("div");
+    u1_s5_wrap.style.display = "flex";
+    u1_s5_wrap.style.flexWrap = "wrap";
+    u1_s5_wrap.style.gap = "1rem";
+    u1_s5_wrap.style.alignItems = "stretch";
+
+    const u1_s5_controls = document.createElement("div");
+    u1_s5_controls.style.flex = "1 1 240px";
+    u1_s5_controls.style.minWidth = "240px";
+    u1_s5_controls.style.padding = "1rem";
+    u1_s5_controls.style.background = "var(--panel-bg)";
+    u1_s5_controls.style.border = "1px solid var(--panel-border)";
+    u1_s5_controls.style.borderRadius = "10px";
+
+    const u1_s5_stage = document.createElement("div");
+    u1_s5_stage.style.flex = "2 1 340px";
+    u1_s5_stage.style.minWidth = "300px";
+
+    u1_s5_wrap.appendChild(u1_s5_controls);
+    u1_s5_wrap.appendChild(u1_s5_stage);
+    body.appendChild(u1_s5_wrap);
+
+    const u1_s5_intro = document.createElement("p");
+    u1_s5_intro.className = "checkpoint-intro";
+    u1_s5_intro.textContent = "Pick a base function, then raise the degree. Each new term eases into the partial sum, hugging the curve over a wider interval — the convergence window, shaded on the x-axis, expands outward from the centre at 0.";
+    u1_s5_controls.appendChild(u1_s5_intro);
+
+    u0SandboxToggleGroup(u1_s5_controls, "Base function",
+        [{ value: "sin", label: "sin x" }, { value: "cos", label: "cos x" }, { value: "exp", label: "eˣ" }],
+        function () { return u1_s5_state.kind; },
+        function (val) { u1_s5_state.kind = val; u1_s5_retarget(); });
+
+    const u1_s5_degSlider = u0SandboxSlider(u1_s5_controls, {
+        label: "degree  n =", min: 0, max: u1_s5_MAXDEG, step: 1, value: u1_s5_state.degree, decimals: 0,
+        onChange: function (v) { u1_s5_state.degree = Math.round(v); u1_s5_retarget(); }
+    });
+
+    const u1_s5_readout = document.createElement("div");
+    u1_s5_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s5_readout.style.fontSize = "0.86rem";
+    u1_s5_readout.style.fontWeight = "700";
+    u1_s5_readout.style.padding = "0.6rem 0.8rem";
+    u1_s5_readout.style.marginTop = "0.85rem";
+    u1_s5_readout.style.background = "var(--bg-color)";
+    u1_s5_readout.style.border = "1px solid var(--panel-border)";
+    u1_s5_readout.style.borderRadius = "8px";
+    u1_s5_readout.style.color = "var(--text-color)";
+    u1_s5_readout.style.lineHeight = "1.5";
+    u1_s5_controls.appendChild(u1_s5_readout);
+
+    const u1_s5_canvas = document.createElement("canvas");
+    u1_s5_canvas.width = 600;
+    u1_s5_canvas.height = 420;
+    u1_s5_canvas.className = "math-canvas";
+    u1_s5_stage.appendChild(u1_s5_canvas);
+    const u1_s5_ctx = u1_s5_canvas.getContext("2d");
+
+    // Seed both coefficient vectors at the starting degree.
+    u1_s5_retarget();
+    u1_s5_state.disp = u1_s5_state.target.slice();
+
+    // The symmetric interval about 0 where the partial sum tracks the base within
+    // tolerance - the visible "interval of convergence" for this many terms.
+    function u1_s5_convergenceEdge() {
+        const TOL = 0.3;
+        let edge = 0;
+        for (let x = 0; x <= u1_s5_xMax; x += 0.05) {
+            if (Math.abs(u1_s5_poly(x) - u1_s5_base(x)) > TOL) break;
+            edge = x;
+        }
+        return edge;
+    }
+
+    function u1_s5_draw() {
+        const ctx = u1_s5_ctx;
+        const W = u1_s5_canvas.width, H = u1_s5_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const soft = u0SandboxColor("--accent-soft", "#ece6ff");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 40, padR = 16, padT = 16, padB = 28;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        function pxX(x) { return padL + (x - u1_s5_xMin) / (u1_s5_xMax - u1_s5_xMin) * plotW; }
+        function pxY(y) { return padT + (u1_s5_yMax - y) / (u1_s5_yMax - u1_s5_yMin) * plotH; }
+        function clampY(Y) { return Math.max(padT - 200, Math.min(H - padB + 200, Y)); }
+
+        // Convergence band (shaded) behind the grid.
+        const edge = u1_s5_convergenceEdge();
+        if (edge > 0.05) {
+            ctx.fillStyle = soft;
+            ctx.globalAlpha = 0.6;
+            ctx.fillRect(pxX(-edge), padT, pxX(edge) - pxX(-edge), plotH);
+            ctx.globalAlpha = 1;
+        }
+
+        // Grid + axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = u1_s5_xMin; gx <= u1_s5_xMax; gx++) {
+            const X = pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+            if (gx !== 0) ctx.fillText(String(gx), X, pxY(0) + 12);
+        }
+        ctx.textAlign = "right";
+        for (let gy = u1_s5_yMin; gy <= u1_s5_yMax; gy++) {
+            const Y = pxY(gy);
+            ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+            if (gy !== 0) ctx.fillText(String(gy), padL - 6, Y + 3);
+        }
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(padL, pxY(0)); ctx.lineTo(W - padR, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pxX(0), padT); ctx.lineTo(pxX(0), H - padB); ctx.stroke();
+
+        // Base function (accent, dashed) for reference.
+        ctx.save();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 360; i++) {
+            const x = u1_s5_xMin + (u1_s5_xMax - u1_s5_xMin) * (i / 360);
+            const Y = clampY(pxY(u1_s5_base(x)));
+            if (!started) { ctx.moveTo(pxX(x), Y); started = true; } else ctx.lineTo(pxX(x), Y);
+        }
+        ctx.stroke();
+        ctx.restore();
+
+        // Taylor partial sum (solid, text colour) drawn from eased coefficients.
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        started = false;
+        for (let i = 0; i <= 360; i++) {
+            const x = u1_s5_xMin + (u1_s5_xMax - u1_s5_xMin) * (i / 360);
+            const yv = u1_s5_poly(x);
+            const Y = clampY(pxY(yv));
+            if (!started) { ctx.moveTo(pxX(x), Y); started = true; } else ctx.lineTo(pxX(x), Y);
+        }
+        ctx.stroke();
+
+        // Centre marker at the expansion point.
+        ctx.fillStyle = good;
+        ctx.beginPath(); ctx.arc(pxX(0), pxY(u1_s5_base(0)), 5, 0, 2 * Math.PI); ctx.fill();
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = accent;
+        ctx.fillText("base function (dashed)", padL + 6, padT + 14);
+        ctx.fillStyle = text;
+        ctx.fillText("Taylor partial sum", padL + 6, padT + 30);
+
+        u1_s5_syncReadout(edge);
+    }
+
+    function u1_s5_termsText() {
+        // Show the symbolic partial sum from the (settled) target coefficients.
+        const names = { sin: "sin x", cos: "cos x", exp: "eˣ" };
+        const parts = [];
+        for (let k = 0; k <= u1_s5_state.degree; k++) {
+            const c = u1_s5_state.target[k];
+            if (Math.abs(c) < 1e-12) continue;
+            const sign = c < 0 ? "−" : (parts.length ? "+" : "");
+            let mag;
+            if (k === 0) mag = Math.abs(c).toFixed(0);
+            else if (Math.abs(Math.abs(c) - 1) < 1e-12) mag = "x" + (k > 1 ? "^" + k : "");
+            else mag = "x" + (k > 1 ? "^" + k : "") + "/" + Math.round(1 / Math.abs(c));
+            parts.push(sign + mag);
+        }
+        return names[u1_s5_state.kind] + " ≈ " + (parts.length ? parts.join(" ") : "0");
+    }
+
+    function u1_s5_syncReadout(edge) {
+        u1_s5_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "degree n = " + u1_s5_state.degree;
+        l1.style.color = "var(--text-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = u1_s5_termsText();
+        l2.style.color = "var(--accent-color)";
+        l2.style.whiteSpace = "normal";
+        l2.style.wordBreak = "break-word";
+        const l3 = document.createElement("div");
+        l3.textContent = "convergence window ≈ [−" + edge.toFixed(2) + ", " + edge.toFixed(2) + "]";
+        l3.style.color = "var(--success-color)";
+        u1_s5_readout.appendChild(l1);
+        u1_s5_readout.appendChild(l2);
+        u1_s5_readout.appendChild(l3);
+    }
+
+    function u1_s5_frame() {
+        if (!document.body.contains(u1_s5_canvas)) return; // stop after navigation
+        // Ease each display coefficient toward its target so added terms grow in.
+        let moving = false;
+        for (let k = 0; k <= u1_s5_MAXDEG; k++) {
+            const d = u1_s5_state.target[k] - u1_s5_state.disp[k];
+            if (Math.abs(d) > 1e-9) { u1_s5_state.disp[k] += d * 0.16; moving = true; }
+            else u1_s5_state.disp[k] = u1_s5_state.target[k];
+        }
+        u1_s5_draw();
+        requestAnimationFrame(u1_s5_frame);
+        return moving;
+    }
+    requestAnimationFrame(u1_s5_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 6 - The Operator & Inverse Function Constraint Matrix (u1_s6_)
+
+   Graphs a function that fails the horizontal line test (x² or sin x). A dual
+   slider sets a restriction window [xmin, xmax]; the restricted arc is shaded and
+   tested for injectivity by sampling for strict monotonicity. When the window is
+   one-to-one, its reflection across y = x is drawn live as the valid inverse;
+   when it is not, the inverse is withheld and the seam is flagged - the reason a
+   domain restriction is required before an inverse exists.
+   --------------------------------------------------------------------------- */
+function renderInverseOperatorSandbox(body) {
+    const u1_s6_LIM = 4; // symmetric world box [-LIM, LIM] on both axes (equal aspect)
+    const u1_s6_defs = {
+        quad: { label: "y = x²", f: function (x) { return x * x; }, dom: [-2, 2], win: [0.4, 2] },
+        sin: { label: "y = sin x", f: function (x) { return Math.sin(x); }, dom: [-3.4, 3.4], win: [-1.3, 1.3] }
+    };
+    const u1_s6_state = { kind: "quad", xmin: 0.4, xmax: 2 };
+
+    function u1_s6_f(x) { return u1_s6_defs[u1_s6_state.kind].f(x); }
+
+    const u1_s6_wrap = document.createElement("div");
+    u1_s6_wrap.style.display = "flex";
+    u1_s6_wrap.style.flexWrap = "wrap";
+    u1_s6_wrap.style.gap = "1rem";
+    u1_s6_wrap.style.alignItems = "stretch";
+
+    const u1_s6_controls = document.createElement("div");
+    u1_s6_controls.style.flex = "1 1 240px";
+    u1_s6_controls.style.minWidth = "240px";
+    u1_s6_controls.style.padding = "1rem";
+    u1_s6_controls.style.background = "var(--panel-bg)";
+    u1_s6_controls.style.border = "1px solid var(--panel-border)";
+    u1_s6_controls.style.borderRadius = "10px";
+
+    const u1_s6_stage = document.createElement("div");
+    u1_s6_stage.style.flex = "1 1 360px";
+    u1_s6_stage.style.minWidth = "320px";
+
+    u1_s6_wrap.appendChild(u1_s6_controls);
+    u1_s6_wrap.appendChild(u1_s6_stage);
+    body.appendChild(u1_s6_wrap);
+
+    const u1_s6_intro = document.createElement("p");
+    u1_s6_intro.className = "checkpoint-intro";
+    u1_s6_intro.textContent = "These curves fail the horizontal line test, so they have no inverse as a whole. Slide the domain window until the shaded arc is one-to-one — only then does its mirror across y = x become a valid inverse function.";
+    u1_s6_controls.appendChild(u1_s6_intro);
+
+    // Domain-window sliders, declared before the toggle so the toggle handler can
+    // reset them to the new function's default window.
+    let u1_s6_minSlider, u1_s6_maxSlider;
+
+    u0SandboxToggleGroup(u1_s6_controls, "Function",
+        [{ value: "quad", label: "y = x²" }, { value: "sin", label: "y = sin x" }],
+        function () { return u1_s6_state.kind; },
+        function (val) {
+            u1_s6_state.kind = val;
+            const w = u1_s6_defs[val].win;
+            u1_s6_state.xmin = w[0]; u1_s6_state.xmax = w[1];
+            u1_s6_minSlider.setValue(w[0]);
+            u1_s6_maxSlider.setValue(w[1]);
+            u1_s6_draw();
+        });
+
+    u1_s6_minSlider = u0SandboxSlider(u1_s6_controls, {
+        label: "x min =", min: -u1_s6_LIM, max: u1_s6_LIM, step: 0.05, value: u1_s6_state.xmin, decimals: 2,
+        onChange: function (v) {
+            u1_s6_state.xmin = v;
+            if (u1_s6_state.xmin > u1_s6_state.xmax - 0.2) {
+                u1_s6_state.xmax = Math.min(u1_s6_LIM, u1_s6_state.xmin + 0.2);
+                u1_s6_maxSlider.setValue(u1_s6_state.xmax);
+            }
+            u1_s6_draw();
+        }
+    });
+    u1_s6_maxSlider = u0SandboxSlider(u1_s6_controls, {
+        label: "x max =", min: -u1_s6_LIM, max: u1_s6_LIM, step: 0.05, value: u1_s6_state.xmax, decimals: 2,
+        onChange: function (v) {
+            u1_s6_state.xmax = v;
+            if (u1_s6_state.xmax < u1_s6_state.xmin + 0.2) {
+                u1_s6_state.xmin = Math.max(-u1_s6_LIM, u1_s6_state.xmax - 0.2);
+                u1_s6_minSlider.setValue(u1_s6_state.xmin);
+            }
+            u1_s6_draw();
+        }
+    });
+
+    const u1_s6_readout = document.createElement("div");
+    u1_s6_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s6_readout.style.fontSize = "0.9rem";
+    u1_s6_readout.style.fontWeight = "700";
+    u1_s6_readout.style.padding = "0.6rem 0.8rem";
+    u1_s6_readout.style.marginTop = "0.85rem";
+    u1_s6_readout.style.background = "var(--bg-color)";
+    u1_s6_readout.style.border = "1px solid var(--panel-border)";
+    u1_s6_readout.style.borderRadius = "8px";
+    u1_s6_controls.appendChild(u1_s6_readout);
+
+    const u1_s6_canvas = document.createElement("canvas");
+    u1_s6_canvas.width = 460;
+    u1_s6_canvas.height = 460;
+    u1_s6_canvas.className = "math-canvas";
+    u1_s6_stage.appendChild(u1_s6_canvas);
+    const u1_s6_ctx = u1_s6_canvas.getContext("2d");
+
+    // Strict-monotonicity test over the restriction window: sample the arc and
+    // confirm every step moves the same direction. A one-to-one arc is invertible.
+    function u1_s6_injective() {
+        const N = 120;
+        let dir = 0;
+        let prev = u1_s6_f(u1_s6_state.xmin);
+        for (let i = 1; i <= N; i++) {
+            const x = u1_s6_state.xmin + (u1_s6_state.xmax - u1_s6_state.xmin) * (i / N);
+            const y = u1_s6_f(x);
+            const d = y - prev;
+            if (Math.abs(d) > 1e-7) {
+                const s = d > 0 ? 1 : -1;
+                if (dir === 0) dir = s;
+                else if (s !== dir) return false;
+            }
+            prev = y;
+        }
+        return true;
+    }
+
+    function u1_s6_draw() {
+        const ctx = u1_s6_ctx;
+        const W = u1_s6_canvas.width, H = u1_s6_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+        const soft = u0SandboxColor("--accent-soft", "#ece6ff");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const pad = 30;
+        const plot = Math.min(W, H) - 2 * pad;
+        function pxX(x) { return pad + (x + u1_s6_LIM) / (2 * u1_s6_LIM) * plot; }
+        function pxY(y) { return pad + (u1_s6_LIM - y) / (2 * u1_s6_LIM) * plot; }
+
+        // Grid.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let g = -u1_s6_LIM; g <= u1_s6_LIM; g++) {
+            ctx.beginPath(); ctx.moveTo(pxX(g), pad); ctx.lineTo(pxX(g), pad + plot); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(pad, pxY(g)); ctx.lineTo(pad + plot, pxY(g)); ctx.stroke();
+        }
+        // Axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(pad, pxY(0)); ctx.lineTo(pad + plot, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pxX(0), pad); ctx.lineTo(pxX(0), pad + plot); ctx.stroke();
+
+        // y = x mirror line (dashed).
+        ctx.save();
+        ctx.setLineDash([5, 5]);
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.moveTo(pxX(-u1_s6_LIM), pxY(-u1_s6_LIM)); ctx.lineTo(pxX(u1_s6_LIM), pxY(u1_s6_LIM)); ctx.stroke();
+        ctx.restore();
+
+        const def = u1_s6_defs[u1_s6_state.kind];
+        const valid = u1_s6_injective();
+        const arcColor = valid ? good : warm;
+
+        // Full function (faint), so the failing whole stays visible.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 360; i++) {
+            const x = def.dom[0] + (def.dom[1] - def.dom[0]) * (i / 360);
+            const X = pxX(x), Y = pxY(u1_s6_f(x));
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Shaded restriction band on the domain.
+        ctx.fillStyle = soft;
+        ctx.globalAlpha = 0.55;
+        ctx.fillRect(pxX(u1_s6_state.xmin), pad, pxX(u1_s6_state.xmax) - pxX(u1_s6_state.xmin), plot);
+        ctx.globalAlpha = 1;
+
+        // Restricted arc (bold, valid/invalid colour).
+        ctx.strokeStyle = arcColor;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        started = false;
+        for (let i = 0; i <= 240; i++) {
+            const x = u1_s6_state.xmin + (u1_s6_state.xmax - u1_s6_state.xmin) * (i / 240);
+            const X = pxX(x), Y = pxY(u1_s6_f(x));
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // The inverse: reflect the restricted arc across y = x, drawn only when the
+        // window is one-to-one (otherwise the reflection is not a function).
+        if (valid) {
+            ctx.strokeStyle = accent;
+            ctx.lineWidth = 3;
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            started = false;
+            for (let i = 0; i <= 240; i++) {
+                const x = u1_s6_state.xmin + (u1_s6_state.xmax - u1_s6_state.xmin) * (i / 240);
+                const y = u1_s6_f(x);
+                // reflection across y = x swaps the coordinates
+                const X = pxX(y), Y = pxY(x);
+                if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+            }
+            ctx.stroke();
+        }
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = arcColor;
+        ctx.fillText("restricted " + def.label, pad + 4, pad + 14);
+        if (valid) {
+            ctx.fillStyle = accent;
+            ctx.fillText("inverse (reflected over y = x)", pad + 4, pad + 30);
+        }
+
+        u1_s6_syncReadout(valid);
+    }
+
+    function u1_s6_syncReadout(valid) {
+        u1_s6_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "window  [" + u1_s6_state.xmin.toFixed(2) + ", " + u1_s6_state.xmax.toFixed(2) + "]";
+        l1.style.color = "var(--text-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = valid ? "✓ one-to-one — inverse exists" : "✕ fails horizontal line test — no inverse";
+        l2.style.color = valid ? "var(--success-color)" : "var(--error-color)";
+        l2.style.marginTop = "0.2rem";
+        u1_s6_readout.appendChild(l1);
+        u1_s6_readout.appendChild(l2);
+    }
+
+    u1_s6_draw();
+
+    const u1_s6_themeWatch = new MutationObserver(function () {
+        if (!document.body.contains(u1_s6_canvas)) { u1_s6_themeWatch.disconnect(); return; }
+        u1_s6_draw();
+    });
+    u1_s6_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
