@@ -675,6 +675,30 @@ const UNIT_2_SANDBOXES = [
         title: "Picard’s Theorem Existence & Uniqueness Boundary",
         blurb: "Stress-test non-lipschitz first-order initial value conditions to witness the geometric tearing of solution curves where existence or uniqueness breaks down.",
         render: renderExistenceUniquenessBreakdownSandbox
+    },
+    {
+        id: "unit_2_velocity_drag_terminal",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Velocity Drag & Terminal Velocity Thresholds",
+        blurb: "Adjust mass parameters and non-linear drag coefficients to track how falling bodies asymptotically converge onto their terminal physical velocity limits.",
+        render: renderVelocityDragTerminalSandbox
+    },
+    {
+        id: "unit_2_compartment_mixing_ledger",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Multi-Chamber Mixing Compartment Ledger",
+        blurb: "Balance volumetric inflow concentrations against proportional outflow rates within a live fluid ledger tracking total salt accumulation history.",
+        render: renderCompartmentMixingLedgerSandbox
+    },
+    {
+        id: "unit_2_logistic_population_saturation",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "The Logistic Population Carrying Capacity Lab",
+        blurb: "Manipulate intrinsic growth coefficients and structural carrying capacities to witness how populations stabilize or drop toward environmental equilibriums.",
+        render: renderLogisticPopulationSaturationSandbox
     }
 ];
 
@@ -6623,6 +6647,585 @@ function renderExistenceUniquenessBreakdownSandbox(body) {
         requestAnimationFrame(u2_s6_frame);
     }
     requestAnimationFrame(u2_s6_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 7 - Velocity Drag & Terminal Velocity Thresholds (u2_s7_)
+
+   Integrates m dv/dt = mg - k v^n in real time. A falling particle in a left
+   lane visualizes the speed; a rolling time-domain plot on the right traces v(t)
+   climbing toward the dashed analytical terminal velocity v_term = (mg/k)^(1/n).
+   Sliders drive m, g, k; a toggle flips the drag power n between linear (1) and
+   quadratic (2). Changing any parameter re-aims the curve at the new v_term.
+   --------------------------------------------------------------------------- */
+function renderVelocityDragTerminalSandbox(body) {
+    const u2_s7_state = { v: 0, m: 1, g: 9.8, k: 0.5, n: 1, hist: [], laneY: 0 };
+    const u2_s7_HIST_MAX = 260;
+
+    function u2_s7_terminal() {
+        // mg = k v^n  =>  v_term = (mg/k)^(1/n)
+        return Math.pow(u2_s7_state.m * u2_s7_state.g / u2_s7_state.k, 1 / u2_s7_state.n);
+    }
+
+    const u2_s7_intro = document.createElement("p");
+    u2_s7_intro.className = "checkpoint-intro";
+    u2_s7_intro.textContent = "A falling body obeys m dv/dt = mg − k vⁿ: gravity pulls down, drag pushes back, and the two balance at the terminal velocity v_term = (mg/k)^(1/n) where dv/dt = 0. Tune mass, gravity, and drag, and switch between linear and quadratic friction. The velocity curve always bends toward the dashed v_term line.";
+    body.appendChild(u2_s7_intro);
+
+    u0SandboxToggleGroup(body, "Drag power n", [
+        { label: "Linear (n = 1)", value: 1 },
+        { label: "Quadratic (n = 2)", value: 2 }
+    ], function () { return u2_s7_state.n; }, function (v) { u2_s7_state.n = v; });
+
+    // Split stage: a narrow falling-particle lane beside the rolling v(t) plot.
+    const u2_s7_stage = document.createElement("div");
+    u2_s7_stage.style.display = "flex";
+    u2_s7_stage.style.gap = "0.75rem";
+    u2_s7_stage.style.alignItems = "stretch";
+    body.appendChild(u2_s7_stage);
+
+    const u2_s7_laneWrap = document.createElement("div");
+    u2_s7_laneWrap.style.flex = "0 0 130px";
+    u2_s7_stage.appendChild(u2_s7_laneWrap);
+    const u2_s7_lane = document.createElement("canvas");
+    u2_s7_lane.width = 130;
+    u2_s7_lane.height = 360;
+    u2_s7_lane.className = "math-canvas";
+    u2_s7_laneWrap.appendChild(u2_s7_lane);
+    const u2_s7_laneCtx = u2_s7_lane.getContext("2d");
+
+    const u2_s7_plotWrap = document.createElement("div");
+    u2_s7_plotWrap.style.flex = "1 1 auto";
+    u2_s7_plotWrap.style.minWidth = "0";
+    u2_s7_stage.appendChild(u2_s7_plotWrap);
+    const u2_s7_plot = document.createElement("canvas");
+    u2_s7_plot.width = 460;
+    u2_s7_plot.height = 360;
+    u2_s7_plot.className = "math-canvas";
+    u2_s7_plotWrap.appendChild(u2_s7_plot);
+    const u2_s7_plotCtx = u2_s7_plot.getContext("2d");
+
+    const u2_s7_panel = document.createElement("div");
+    u2_s7_panel.className = "slider-panel";
+    body.appendChild(u2_s7_panel);
+    const u2_s7_mS = u0SandboxSlider(u2_s7_panel, { label: "mass m", min: 0.2, max: 5, step: 0.1, value: 1, decimals: 1, onChange: function (v) { u2_s7_state.m = v; } });
+    const u2_s7_gS = u0SandboxSlider(u2_s7_panel, { label: "gravity g", min: 1, max: 20, step: 0.1, value: 9.8, decimals: 1, onChange: function (v) { u2_s7_state.g = v; } });
+    const u2_s7_kS = u0SandboxSlider(u2_s7_panel, { label: "drag k", min: 0.05, max: 3, step: 0.05, value: 0.5, decimals: 2, onChange: function (v) { u2_s7_state.k = v; } });
+
+    const u2_s7_resetBtn = document.createElement("button");
+    u2_s7_resetBtn.type = "button";
+    u2_s7_resetBtn.textContent = "Drop again (v = 0)";
+    u2_s7_resetBtn.style.font = "inherit";
+    u2_s7_resetBtn.style.fontSize = "0.9rem";
+    u2_s7_resetBtn.style.fontWeight = "600";
+    u2_s7_resetBtn.style.marginTop = "0.6rem";
+    u2_s7_resetBtn.style.padding = "0.4rem 0.9rem";
+    u2_s7_resetBtn.style.borderRadius = "8px";
+    u2_s7_resetBtn.style.cursor = "pointer";
+    u2_s7_resetBtn.style.border = "1px solid var(--panel-border)";
+    u2_s7_resetBtn.style.background = "var(--accent-soft)";
+    u2_s7_resetBtn.style.color = "var(--accent-text)";
+    u2_s7_resetBtn.addEventListener("click", function () { u2_s7_state.v = 0; u2_s7_state.hist = []; });
+    u2_s7_panel.appendChild(u2_s7_resetBtn);
+
+    const u2_s7_readout = document.createElement("div");
+    u2_s7_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s7_readout.style.fontSize = "0.95rem";
+    u2_s7_readout.style.fontWeight = "700";
+    u2_s7_readout.style.padding = "0.6rem 0.8rem";
+    u2_s7_readout.style.marginTop = "0.4rem";
+    u2_s7_readout.style.background = "var(--panel-bg)";
+    u2_s7_readout.style.border = "1px solid var(--panel-border)";
+    u2_s7_readout.style.borderRadius = "8px";
+    u2_s7_readout.style.color = "var(--text-color)";
+    body.appendChild(u2_s7_readout);
+
+    function u2_s7_step() {
+        // Sub-stepped explicit Euler keeps the v^2 case stable at frame cadence.
+        const SUB = 8, h = 0.018;
+        for (let i = 0; i < SUB; i++) {
+            const a = u2_s7_state.g - (u2_s7_state.k / u2_s7_state.m) * Math.pow(Math.max(u2_s7_state.v, 0), u2_s7_state.n);
+            u2_s7_state.v = Math.max(0, u2_s7_state.v + a * h);
+        }
+        u2_s7_state.hist.push(u2_s7_state.v);
+        if (u2_s7_state.hist.length > u2_s7_HIST_MAX) u2_s7_state.hist.shift();
+    }
+
+    function u2_s7_drawLane() {
+        const ctx = u2_s7_laneCtx;
+        const W = u2_s7_lane.width, H = u2_s7_lane.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+
+        const vTerm = u2_s7_terminal();
+        // The particle drifts down the lane at a rate set by v, wrapping to loop.
+        u2_s7_state.laneY += Math.min(u2_s7_state.v, vTerm * 1.1) * 0.9;
+        if (u2_s7_state.laneY > H - 20) u2_s7_state.laneY = 18;
+        const px = W / 2, py = Math.max(18, u2_s7_state.laneY);
+
+        // Velocity arrow stub (down), length scaled to v / v_term.
+        const frac = vTerm > 0 ? Math.min(u2_s7_state.v / vTerm, 1) : 0;
+        u0SandboxArrow(ctx, px, py, px, py + 16 + 44 * frac, accent, 3);
+        ctx.fillStyle = accent;
+        ctx.beginPath(); ctx.arc(px, py, 8, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("falling body", W / 2, H - 8);
+    }
+
+    function u2_s7_drawPlot() {
+        const ctx = u2_s7_plotCtx;
+        const W = u2_s7_plot.width, H = u2_s7_plot.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        const padL = 44, padR = 16, padT = 18, padB = 32;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(padL, padT, plotW, plotH);
+
+        const vTerm = u2_s7_terminal();
+        const yMax = 1.3 * Math.max(vTerm, u2_s7_state.v, 0.5);
+        function pxY(v) { return padT + (yMax - v) / yMax * plotH; }
+
+        // Terminal-velocity baseline (dashed accent) with a label.
+        const tY = pxY(vTerm);
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(padL, tY); ctx.lineTo(padL + plotW, tY); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = accent;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("v_term = " + vTerm.toFixed(2), padL + 6, tY - 6);
+
+        // Axis labels.
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "right";
+        ctx.fillText(yMax.toFixed(1), padL - 6, padT + 10);
+        ctx.fillText("0", padL - 6, padT + plotH);
+        ctx.textAlign = "center";
+        ctx.fillText("time →", padL + plotW / 2, H - 8);
+        ctx.save();
+        ctx.translate(14, padT + plotH / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("velocity v(t)", 0, 0);
+        ctx.restore();
+
+        // The rolling v(t) trace.
+        const hist = u2_s7_state.hist;
+        if (hist.length > 1) {
+            ctx.strokeStyle = good;
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            for (let i = 0; i < hist.length; i++) {
+                const X = padL + (i / (u2_s7_HIST_MAX - 1)) * plotW;
+                const Y = pxY(hist[i]);
+                if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+            }
+            ctx.stroke();
+            // Leading dot.
+            const lx = padL + ((hist.length - 1) / (u2_s7_HIST_MAX - 1)) * plotW;
+            ctx.fillStyle = good;
+            ctx.beginPath(); ctx.arc(lx, pxY(hist[hist.length - 1]), 4.5, 0, 2 * Math.PI); ctx.fill();
+            ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+        }
+    }
+
+    function u2_s7_syncReadout() {
+        const vTerm = u2_s7_terminal();
+        const gap = vTerm - u2_s7_state.v;
+        u2_s7_readout.textContent = "v = " + u2_s7_state.v.toFixed(3) + "    v_term = " + vTerm.toFixed(3) +
+            "    gap = " + gap.toFixed(3) + "    (n = " + u2_s7_state.n + ")";
+    }
+
+    function u2_s7_frame() {
+        if (!document.body.contains(u2_s7_plot)) return; // stop after navigation
+        u2_s7_step();
+        u2_s7_drawLane();
+        u2_s7_drawPlot();
+        u2_s7_syncReadout();
+        requestAnimationFrame(u2_s7_frame);
+    }
+    requestAnimationFrame(u2_s7_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 8 - Multi-Chamber Mixing Compartment Ledger (u2_s8_)
+
+   A live mixing tank tracking dA/dt = r_in·C_in − r_out·A/V with the volume
+   V(t) = V0 + (r_in − r_out)t. The tank fills or drains visually, its tint set by
+   the salt concentration A/V; a ledger text box reports V(t), A(t), and the
+   concentration in real time. Sliders drive the inflow rate, inflow
+   concentration, and outflow rate; the sim holds at the volume bounds.
+   --------------------------------------------------------------------------- */
+function renderCompartmentMixingLedgerSandbox(body) {
+    const u2_s8_V0 = 100, u2_s8_VMIN = 5, u2_s8_VMAX = 195, u2_s8_VCAP = 200;
+    const u2_s8_state = { A: 0, t: 0, rin: 6, Cin: 0.5, rout: 6 };
+
+    function u2_s8_volume() { return u2_s8_V0 + (u2_s8_state.rin - u2_s8_state.rout) * u2_s8_state.t; }
+
+    const u2_s8_intro = document.createElement("p");
+    u2_s8_intro.className = "checkpoint-intro";
+    u2_s8_intro.textContent = "Salt water flows into a tank at rate r_in with concentration C_in, and the well-mixed solution drains at rate r_out. The salt mass obeys dA/dt = r_in·C_in − r_out·A/V, while the volume itself drifts as V(t) = V0 + (r_in − r_out)t. Tune the three rates and watch the tank fill or drain while the ledger tracks the salt.";
+    body.appendChild(u2_s8_intro);
+
+    const u2_s8_canvas = document.createElement("canvas");
+    u2_s8_canvas.width = 560;
+    u2_s8_canvas.height = 320;
+    u2_s8_canvas.className = "math-canvas";
+    body.appendChild(u2_s8_canvas);
+    const u2_s8_ctx = u2_s8_canvas.getContext("2d");
+
+    const u2_s8_panel = document.createElement("div");
+    u2_s8_panel.className = "slider-panel";
+    body.appendChild(u2_s8_panel);
+    u0SandboxSlider(u2_s8_panel, { label: "inflow rate r_in", min: 0, max: 12, step: 0.5, value: 6, decimals: 1, onChange: function (v) { u2_s8_state.rin = v; } });
+    u0SandboxSlider(u2_s8_panel, { label: "inflow conc. C_in", min: 0, max: 2, step: 0.05, value: 0.5, decimals: 2, onChange: function (v) { u2_s8_state.Cin = v; } });
+    u0SandboxSlider(u2_s8_panel, { label: "outflow rate r_out", min: 0, max: 12, step: 0.5, value: 6, decimals: 1, onChange: function (v) { u2_s8_state.rout = v; } });
+
+    const u2_s8_resetBtn = document.createElement("button");
+    u2_s8_resetBtn.type = "button";
+    u2_s8_resetBtn.textContent = "Reset ledger (t = 0)";
+    u2_s8_resetBtn.style.font = "inherit";
+    u2_s8_resetBtn.style.fontSize = "0.9rem";
+    u2_s8_resetBtn.style.fontWeight = "600";
+    u2_s8_resetBtn.style.marginTop = "0.6rem";
+    u2_s8_resetBtn.style.padding = "0.4rem 0.9rem";
+    u2_s8_resetBtn.style.borderRadius = "8px";
+    u2_s8_resetBtn.style.cursor = "pointer";
+    u2_s8_resetBtn.style.border = "1px solid var(--panel-border)";
+    u2_s8_resetBtn.style.background = "var(--accent-soft)";
+    u2_s8_resetBtn.style.color = "var(--accent-text)";
+    u2_s8_resetBtn.addEventListener("click", function () { u2_s8_state.A = 0; u2_s8_state.t = 0; });
+    u2_s8_panel.appendChild(u2_s8_resetBtn);
+
+    const u2_s8_ledger = document.createElement("div");
+    u2_s8_ledger.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s8_ledger.style.fontSize = "0.95rem";
+    u2_s8_ledger.style.fontWeight = "700";
+    u2_s8_ledger.style.padding = "0.6rem 0.8rem";
+    u2_s8_ledger.style.marginTop = "0.4rem";
+    u2_s8_ledger.style.background = "var(--panel-bg)";
+    u2_s8_ledger.style.border = "1px solid var(--panel-border)";
+    u2_s8_ledger.style.borderRadius = "8px";
+    u2_s8_ledger.style.color = "var(--text-color)";
+    body.appendChild(u2_s8_ledger);
+
+    function u2_s8_step() {
+        const h = 0.02, SUB = 6;
+        for (let i = 0; i < SUB; i++) {
+            // Advance time only while the volume stays inside its physical band, so
+            // the tank holds at full/empty instead of overflowing or going negative.
+            const tNext = u2_s8_state.t + h;
+            const vNext = u2_s8_V0 + (u2_s8_state.rin - u2_s8_state.rout) * tNext;
+            if (vNext >= u2_s8_VMIN && vNext <= u2_s8_VMAX) u2_s8_state.t = tNext;
+            const V = Math.max(u2_s8_VMIN, u2_s8_volume());
+            const dA = u2_s8_state.rin * u2_s8_state.Cin - u2_s8_state.rout * (u2_s8_state.A / V);
+            u2_s8_state.A = Math.max(0, u2_s8_state.A + dA * h);
+        }
+    }
+
+    function u2_s8_draw() {
+        const ctx = u2_s8_ctx;
+        const W = u2_s8_canvas.width, H = u2_s8_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Tank geometry.
+        const tankX = 200, tankY = 40, tankW = 200, tankH = 240;
+        const V = u2_s8_volume();
+        const fillFrac = Math.max(0, Math.min(1, V / u2_s8_VCAP));
+        const conc = V > 0 ? u2_s8_state.A / V : 0;
+        const concAlpha = Math.max(0.12, Math.min(0.92, conc / 1.5));
+
+        // Water fill (concentration sets the opacity of the accent tint).
+        const fillH = tankH * fillFrac;
+        ctx.globalAlpha = concAlpha;
+        ctx.fillStyle = accent;
+        ctx.fillRect(tankX, tankY + tankH - fillH, tankW, fillH);
+        ctx.globalAlpha = 1;
+        // Water surface line.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(tankX, tankY + tankH - fillH); ctx.lineTo(tankX + tankW, tankY + tankH - fillH); ctx.stroke();
+
+        // Tank walls (open top).
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(tankX, tankY);
+        ctx.lineTo(tankX, tankY + tankH);
+        ctx.lineTo(tankX + tankW, tankY + tankH);
+        ctx.lineTo(tankX + tankW, tankY);
+        ctx.stroke();
+
+        // Inflow pipe + drip (top-left), outflow pipe + drip (bottom-right).
+        ctx.fillStyle = good;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        u0SandboxArrow(ctx, tankX + 34, tankY - 28, tankX + 34, tankY - 4, good, 3);
+        ctx.fillText("r_in, C_in", tankX - 30, tankY - 30);
+        u0SandboxArrow(ctx, tankX + tankW, tankY + tankH - 14, tankX + tankW + 30, tankY + tankH - 14, sub, 3);
+        ctx.fillStyle = sub;
+        ctx.fillText("r_out", tankX + tankW + 6, tankY + tankH - 20);
+
+        // Concentration caption inside the tank.
+        ctx.fillStyle = sub;
+        ctx.textAlign = "center";
+        ctx.fillText("V = " + V.toFixed(1) + "   conc = " + conc.toFixed(3), tankX + tankW / 2, tankY + tankH + 24);
+
+        // Left-side equation reminder.
+        ctx.fillStyle = sub;
+        ctx.font = "13px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("dA/dt = r_in·C_in − r_out·A/V", 16, 60);
+        ctx.fillText("V(t) = V0 + (r_in − r_out)t", 16, 84);
+    }
+
+    function u2_s8_syncLedger() {
+        const V = u2_s8_volume();
+        const conc = V > 0 ? u2_s8_state.A / V : 0;
+        u2_s8_ledger.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "t = " + u2_s8_state.t.toFixed(2) + "    V(t) = " + V.toFixed(2) + "    (V0 = " + u2_s8_V0 + ")";
+        l1.style.color = "var(--text-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = "A(t) = " + u2_s8_state.A.toFixed(3) + " salt    concentration A/V = " + conc.toFixed(4);
+        l2.style.color = "var(--accent-text)";
+        l2.style.marginTop = "0.2rem";
+        u2_s8_ledger.appendChild(l1);
+        u2_s8_ledger.appendChild(l2);
+    }
+
+    function u2_s8_frame() {
+        if (!document.body.contains(u2_s8_canvas)) return; // stop after navigation
+        u2_s8_step();
+        u2_s8_draw();
+        u2_s8_syncLedger();
+        requestAnimationFrame(u2_s8_frame);
+    }
+    requestAnimationFrame(u2_s8_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 9 - The Logistic Population Carrying Capacity Lab (u2_s9_)
+
+   Slope field and solutions for the autonomous logistic dP/dt = rP(1 − P/K).
+   Sliders set the growth rate r and carrying capacity K (the P-axis rescales to
+   K live). Click to drop the initial state P0; the curve integrates and bends
+   per regime: it levels onto K from below (0 < P0 < K), descends onto K from
+   above (P0 > K), or sits flat on the K equilibrium when P0 = K.
+   --------------------------------------------------------------------------- */
+function renderLogisticPopulationSaturationSandbox(body) {
+    const u2_s9_T0 = 0, u2_s9_T1 = 12;
+    const u2_s9_state = { r: 0.8, K: 100, t0: 1, P0: 20 };
+
+    function u2_s9_slope(t, P) { return u2_s9_state.r * P * (1 - P / u2_s9_state.K); }
+    function u2_s9_Pmax() { return u2_s9_state.K * 1.8; }
+
+    const u2_s9_intro = document.createElement("p");
+    u2_s9_intro.className = "checkpoint-intro";
+    u2_s9_intro.textContent = "The logistic law dP/dt = rP(1 − P/K) grows a population fastest in the middle and stalls at the carrying capacity K, the stable equilibrium. Set the growth rate and K, then click to drop the starting population P0. Below K the curve rises to K; above K it falls to K; exactly at K it stays flat. K is the attractor either way.";
+    body.appendChild(u2_s9_intro);
+
+    const u2_s9_canvas = document.createElement("canvas");
+    u2_s9_canvas.width = 600;
+    u2_s9_canvas.height = 400;
+    u2_s9_canvas.className = "math-canvas";
+    u2_s9_canvas.style.cursor = "crosshair";
+    body.appendChild(u2_s9_canvas);
+    const u2_s9_ctx = u2_s9_canvas.getContext("2d");
+
+    const u2_s9_panel = document.createElement("div");
+    u2_s9_panel.className = "slider-panel";
+    body.appendChild(u2_s9_panel);
+    u0SandboxSlider(u2_s9_panel, { label: "growth rate r", min: 0.1, max: 2, step: 0.05, value: 0.8, decimals: 2, onChange: function (v) { u2_s9_state.r = v; } });
+    u0SandboxSlider(u2_s9_panel, {
+        label: "carrying capacity K", min: 20, max: 160, step: 5, value: 100, decimals: 0,
+        onChange: function (v) {
+            // Keep P0 in range as K shrinks so the node never falls off the axis.
+            u2_s9_state.K = v;
+            if (u2_s9_state.P0 > u2_s9_Pmax()) u2_s9_state.P0 = u2_s9_Pmax();
+        }
+    });
+
+    const u2_s9_badge = document.createElement("div");
+    u2_s9_badge.style.fontWeight = "700";
+    u2_s9_badge.style.textAlign = "center";
+    u2_s9_badge.style.padding = "0.55rem 0.7rem";
+    u2_s9_badge.style.marginTop = "0.4rem";
+    u2_s9_badge.style.borderRadius = "8px";
+    u2_s9_badge.style.border = "1px solid var(--panel-border)";
+    u2_s9_badge.style.background = "var(--panel-bg)";
+    u2_s9_badge.style.color = "var(--text-color)";
+    body.appendChild(u2_s9_badge);
+
+    const u2_s9_pad = { L: 46, R: 16, T: 16, B: 32 };
+    function u2_s9_plotW() { return u2_s9_canvas.width - u2_s9_pad.L - u2_s9_pad.R; }
+    function u2_s9_plotH() { return u2_s9_canvas.height - u2_s9_pad.T - u2_s9_pad.B; }
+    function u2_s9_pxX(t) { return u2_s9_pad.L + (t - u2_s9_T0) / (u2_s9_T1 - u2_s9_T0) * u2_s9_plotW(); }
+    function u2_s9_pxY(P) { return u2_s9_pad.T + (u2_s9_Pmax() - P) / u2_s9_Pmax() * u2_s9_plotH(); }
+    function u2_s9_worldT(px) { return u2_s9_T0 + (px - u2_s9_pad.L) / u2_s9_plotW() * (u2_s9_T1 - u2_s9_T0); }
+    function u2_s9_worldP(py) { return u2_s9_Pmax() - (py - u2_s9_pad.T) / u2_s9_plotH() * u2_s9_Pmax(); }
+
+    u2_s9_canvas.addEventListener("click", function (e) {
+        const rect = u2_s9_canvas.getBoundingClientRect();
+        const bx = (e.clientX - rect.left) * (u2_s9_canvas.width / rect.width);
+        const by = (e.clientY - rect.top) * (u2_s9_canvas.height / rect.height);
+        const t = u2_s9_worldT(bx), P = u2_s9_worldP(by);
+        if (t < u2_s9_T0 || t > u2_s9_T1 || P < 0 || P > u2_s9_Pmax()) return;
+        u2_s9_state.t0 = t;
+        u2_s9_state.P0 = P;
+    });
+
+    // RK4 in t for the logistic solution through the node, one direction.
+    function u2_s9_integrate(dir) {
+        const h = 0.05 * dir, MAX = 400;
+        const pts = [{ t: u2_s9_state.t0, P: u2_s9_state.P0 }];
+        let t = u2_s9_state.t0, P = u2_s9_state.P0;
+        for (let i = 0; i < MAX; i++) {
+            const k1 = u2_s9_slope(t, P);
+            const k2 = u2_s9_slope(t + h / 2, P + h / 2 * k1);
+            const k3 = u2_s9_slope(t + h / 2, P + h / 2 * k2);
+            const k4 = u2_s9_slope(t + h, P + h * k3);
+            P += h / 6 * (k1 + 2 * k2 + 2 * k3 + k4);
+            t += h;
+            if (t < u2_s9_T0 || t > u2_s9_T1) break;
+            pts.push({ t: t, P: P });
+        }
+        return pts;
+    }
+
+    function u2_s9_plotPoints(pts, color, width) {
+        const ctx = u2_s9_ctx;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i < pts.length; i++) {
+            if (pts[i].P < 0 || pts[i].P > u2_s9_Pmax()) { started = false; continue; }
+            const X = u2_s9_pxX(pts[i].t), Y = u2_s9_pxY(pts[i].P);
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+    }
+
+    function u2_s9_draw() {
+        const ctx = u2_s9_ctx;
+        const W = u2_s9_canvas.width, H = u2_s9_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s9_pad.L, u2_s9_pad.T, u2_s9_plotW(), u2_s9_plotH());
+
+        // P-axis ticks (0, K, Pmax).
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "right";
+        ctx.fillText("0", u2_s9_pad.L - 6, u2_s9_pad.T + u2_s9_plotH());
+        ctx.fillText(u2_s9_state.K.toFixed(0), u2_s9_pad.L - 6, u2_s9_pxY(u2_s9_state.K) + 4);
+        ctx.fillText(u2_s9_Pmax().toFixed(0), u2_s9_pad.L - 6, u2_s9_pad.T + 8);
+        ctx.textAlign = "center";
+        ctx.fillText("time t →", u2_s9_pad.L + u2_s9_plotW() / 2, H - 8);
+
+        // Slope field for dP/dt = rP(1 - P/K).
+        const NT = 22, NP = 16, seg = 9;
+        for (let i = 0; i < NT; i++) {
+            for (let j = 0; j < NP; j++) {
+                const t = u2_s9_T0 + (u2_s9_T1 - u2_s9_T0) * (i / (NT - 1));
+                const P = u2_s9_Pmax() * (j / (NP - 1));
+                // Slope in screen space: scale dP/dt by the axis aspect ratio.
+                const m = u2_s9_slope(t, P);
+                const dtScreen = u2_s9_plotW() / (u2_s9_T1 - u2_s9_T0);
+                const dpScreen = -u2_s9_plotH() / u2_s9_Pmax() * m;
+                const norm = Math.sqrt(dtScreen * dtScreen + dpScreen * dpScreen) || 1;
+                const ux = dtScreen / norm, uy = dpScreen / norm;
+                const cx = u2_s9_pxX(t), cy = u2_s9_pxY(P);
+                ctx.strokeStyle = border;
+                ctx.lineWidth = 1.3;
+                ctx.beginPath();
+                ctx.moveTo(cx - seg * ux, cy - seg * uy);
+                ctx.lineTo(cx + seg * ux, cy + seg * uy);
+                ctx.stroke();
+            }
+        }
+
+        // The carrying-capacity equilibrium line P = K (dashed accent).
+        ctx.save();
+        ctx.setLineDash([7, 5]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        const kY = u2_s9_pxY(u2_s9_state.K);
+        ctx.beginPath(); ctx.moveTo(u2_s9_pad.L, kY); ctx.lineTo(u2_s9_pad.L + u2_s9_plotW(), kY); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = accent;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("P = K  (carrying capacity)", u2_s9_pad.L + 6, kY - 6);
+
+        // The solution through the node, both directions.
+        u2_s9_plotPoints(u2_s9_integrate(-1), good, 2.8);
+        u2_s9_plotPoints(u2_s9_integrate(1), good, 2.8);
+
+        // The initial-state node.
+        ctx.fillStyle = good;
+        ctx.beginPath();
+        ctx.arc(u2_s9_pxX(u2_s9_state.t0), u2_s9_pxY(u2_s9_state.P0), 6, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+    }
+
+    function u2_s9_syncBadge() {
+        const P0 = u2_s9_state.P0, K = u2_s9_state.K;
+        const near = Math.abs(P0 - K) < K * 0.04;
+        let msg;
+        if (near) msg = "P0 ≈ K  →  flat: the population sits at the stable equilibrium";
+        else if (P0 < K) msg = "0 < P0 < K  →  rising: the curve levels onto K from below";
+        else msg = "P0 > K  →  falling: the curve descends onto K from above";
+        u2_s9_badge.textContent = "P0 = " + P0.toFixed(1) + ",  K = " + K.toFixed(0) + "   |   " + msg;
+    }
+
+    function u2_s9_frame() {
+        if (!document.body.contains(u2_s9_canvas)) return; // stop after navigation
+        u2_s9_draw();
+        u2_s9_syncBadge();
+        requestAnimationFrame(u2_s9_frame);
+    }
+    requestAnimationFrame(u2_s9_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
