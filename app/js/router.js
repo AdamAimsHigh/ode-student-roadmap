@@ -525,6 +525,43 @@ const UNIT_0_SANDBOXES = [
     }
 ];
 
+/* Cluster II: the first three fully built Unit 1 sandbox engines. Same contract
+   as UNIT_0_SANDBOXES - each carries a stable string id (keys the mounted host so
+   inner ids never collide), a render(body) that builds a live ungraded surface,
+   and a strict u1_s1_ / u1_s2_ / u1_s3_ DOM-and-state namespace. They read every
+   colour live from the active theme's CSS custom properties (Light and Dark both
+   render natively), issue zero network calls (file:// safe), and their animation
+   loops self-terminate once their canvas leaves the DOM. Unit 1 already ships
+   graded visualizers in INTERACTIVE_VISUALIZERS; these sit behind them in the
+   catalog as the unit's open-ended exploration cluster. Render functions are
+   declared lower in the file; function declarations hoist, so this is safe. */
+const UNIT_1_SANDBOXES = [
+    {
+        id: "unit_1_e_limit_explorer",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Euler’s Number Limit Explorer",
+        blurb: "Drive the limit definition of e dynamically to witness how compounding interest intervals converge onto an absolute mathematical horizon.",
+        render: renderELimitExplorerSandbox
+    },
+    {
+        id: "unit_1_complex_rotation_plane",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "Complex Rotation & Euler’s Identity Sandbox",
+        blurb: "Manipulate imaginary exponents on a live geometric grid to visualize how e^iθ wraps real coordinates into continuous circular trajectories.",
+        render: renderComplexRotationPlaneSandbox
+    },
+    {
+        id: "unit_1_log_linear_warp",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Log-Linear Scaling Matrix",
+        blurb: "Toggle coordinate space between Cartesian, semi-log, and log-log configurations to uncover the hidden linear architectures of transcendental behaviors.",
+        render: renderLogLinearWarpSandbox
+    }
+];
+
 /* Builds the normalized, sorted card model for the Interactives dashboard:
    graded engines and sandbox cards alike collapse into one shape so a single
    render loop (and the deep-link route resolver) can consume them. Graded
@@ -563,6 +600,21 @@ function buildInteractiveItems() {
     // order (900 + index), ahead of the generic placeholder tail (999), so the
     // catalog reads them as the leading sandbox cluster.
     UNIT_0_SANDBOXES.forEach(function (vis, idx) {
+        items.push({
+            vis: vis,
+            isSandbox: true,
+            home: null,
+            unitNumber: vis.unitNumber,
+            moduleLabel: "Sandbox",
+            sortKey: vis.unitNumber * 1000 + 900 + idx
+        });
+    });
+
+    // Unit 1's fully built Cluster II engines. Same 900 + index sandbox band as
+    // Unit 0's cluster, so they sort within Unit 1 behind the graded modules and
+    // ahead of any generic placeholder tail (999), reading as the unit's leading
+    // open-ended cluster.
+    UNIT_1_SANDBOXES.forEach(function (vis, idx) {
         items.push({
             vis: vis,
             isSandbox: true,
@@ -2566,6 +2618,785 @@ function renderSpringWorkbenchSandbox(body) {
         requestAnimationFrame(u0_s9_frame);
     }
     requestAnimationFrame(u0_s9_frame);
+}
+
+/* ============================================================================
+   Unit 1 Cluster II sandbox engines
+
+   Three self-contained, ungraded exploration surfaces mounted by
+   mountVisualizer, following the exact rules of the Unit 0 cluster above:
+     - Every DOM id and the meaningful internal state is namespaced under a
+       strict u1_s1_ / u1_s2_ / u1_s3_ prefix, so nothing they create can collide
+       in global memory with another engine or another card.
+     - All canvas colours are read live from the document's theme custom
+       properties via u0SandboxColor at draw time, so Light and Dark both render
+       natively and a theme toggle mid-session repaints in place.
+     - No fetch, CDN, or remote script loading: each engine runs unchanged from
+       the file:// protocol.
+     - Animation loops self-terminate once their canvas leaves the DOM (the back
+       action empties the container), so navigating away leaves no orphan frames.
+   They reuse the shared u0Sandbox* helpers (colour, arrow, toggle group); those
+   are generic despite the u0 name, so borrowing them keeps the cluster DRY.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   Sandbox 1 - The Euler's Number Limit Explorer (u1_s1_)
+
+   Graphs (1 + 1/n)^n against n on a logarithmic n-axis spanning five orders of
+   magnitude. A horizontal asymptote is drawn at e; the n slider drives a cursor
+   that eases along the curve toward that horizon, and live readouts report the
+   current value and its shrinking gap to e - the limit made visible.
+   --------------------------------------------------------------------------- */
+function renderELimitExplorerSandbox(body) {
+    const u1_s1_E = Math.E; // 2.718281828...
+    const u1_s1_LOG_MIN = 0;    // n = 10^0 = 1
+    const u1_s1_LOG_MAX = 5.3;  // n = 10^5.3 ≈ 199526, comfortably past 100,000
+    const u1_s1_Y_MIN = 1.9, u1_s1_Y_MAX = 2.82; // brackets 2.0 (n=1) up past e
+    const u1_s1_state = {
+        targetLog: 0.6,  // slider target, in log10(n)
+        dispLog: 0.6     // eased display value the cursor chases toward target
+    };
+
+    function u1_s1_value(n) { return Math.pow(1 + 1 / n, n); }
+
+    const u1_s1_intro = document.createElement("p");
+    u1_s1_intro.className = "checkpoint-intro";
+    u1_s1_intro.textContent = "Slide n across five orders of magnitude to compound ever more finely. Each step pushes (1 + 1/n)^n closer to the horizon line at e ≈ 2.71828 — the absolute limit the value approaches but never reaches.";
+    body.appendChild(u1_s1_intro);
+
+    // --- Canvas stage ---
+    const u1_s1_canvas = document.createElement("canvas");
+    u1_s1_canvas.width = 620;
+    u1_s1_canvas.height = 380;
+    u1_s1_canvas.className = "math-canvas";
+    body.appendChild(u1_s1_canvas);
+    const u1_s1_ctx = u1_s1_canvas.getContext("2d");
+
+    // --- n slider (logarithmic), built locally so the readout shows n itself,
+    // not the raw log10 the slider rides on. ---
+    const u1_s1_sliderRow = document.createElement("div");
+    u1_s1_sliderRow.className = "slider-row";
+    const u1_s1_sliderLabel = document.createElement("span");
+    u1_s1_sliderLabel.className = "slider-label";
+    u1_s1_sliderLabel.textContent = "n =";
+    const u1_s1_sliderInput = document.createElement("input");
+    u1_s1_sliderInput.type = "range";
+    u1_s1_sliderInput.min = String(u1_s1_LOG_MIN);
+    u1_s1_sliderInput.max = String(u1_s1_LOG_MAX);
+    u1_s1_sliderInput.step = "0.01";
+    u1_s1_sliderInput.value = String(u1_s1_state.targetLog);
+    const u1_s1_sliderReadout = document.createElement("span");
+    u1_s1_sliderReadout.className = "slider-readout";
+    function u1_s1_fmtN(n) {
+        return n >= 1000 ? Math.round(n).toLocaleString() : n.toFixed(n < 10 ? 2 : 0);
+    }
+    u1_s1_sliderReadout.textContent = u1_s1_fmtN(Math.pow(10, u1_s1_state.targetLog));
+    u1_s1_sliderInput.addEventListener("input", function () {
+        u1_s1_state.targetLog = parseFloat(u1_s1_sliderInput.value);
+        u1_s1_sliderReadout.textContent = u1_s1_fmtN(Math.pow(10, u1_s1_state.targetLog));
+    });
+    u1_s1_sliderRow.appendChild(u1_s1_sliderLabel);
+    u1_s1_sliderRow.appendChild(u1_s1_sliderInput);
+    u1_s1_sliderRow.appendChild(u1_s1_sliderReadout);
+    body.appendChild(u1_s1_sliderRow);
+
+    // --- Live readout chips: current value, target e, and the closing gap. ---
+    const u1_s1_readout = document.createElement("div");
+    u1_s1_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s1_readout.style.fontSize = "0.98rem";
+    u1_s1_readout.style.fontWeight = "700";
+    u1_s1_readout.style.padding = "0.6rem 0.8rem";
+    u1_s1_readout.style.marginTop = "0.6rem";
+    u1_s1_readout.style.background = "var(--panel-bg)";
+    u1_s1_readout.style.border = "1px solid var(--panel-border)";
+    u1_s1_readout.style.borderRadius = "8px";
+    u1_s1_readout.style.color = "var(--text-color)";
+    body.appendChild(u1_s1_readout);
+
+    // --- A small static benchmark table anchoring a few decades of n. ---
+    const u1_s1_table = document.createElement("table");
+    u1_s1_table.style.width = "100%";
+    u1_s1_table.style.marginTop = "0.85rem";
+    u1_s1_table.style.borderCollapse = "collapse";
+    u1_s1_table.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s1_table.style.fontSize = "0.85rem";
+    (function () {
+        const head = document.createElement("tr");
+        ["n", "(1 + 1/n)^n", "gap to e"].forEach(function (h) {
+            const th = document.createElement("th");
+            th.textContent = h;
+            th.style.textAlign = "left";
+            th.style.padding = "0.3rem 0.5rem";
+            th.style.borderBottom = "1px solid var(--panel-border)";
+            th.style.color = "var(--text-secondary)";
+            head.appendChild(th);
+        });
+        u1_s1_table.appendChild(head);
+        [1, 10, 100, 1000, 10000, 100000].forEach(function (n) {
+            const v = u1_s1_value(n);
+            const tr = document.createElement("tr");
+            [n.toLocaleString(), v.toFixed(6), (u1_s1_E - v).toFixed(6)].forEach(function (cell, i) {
+                const td = document.createElement("td");
+                td.textContent = cell;
+                td.style.padding = "0.25rem 0.5rem";
+                td.style.borderBottom = "1px solid var(--panel-border)";
+                td.style.color = i === 0 ? "var(--accent-color)" : "var(--text-color)";
+                tr.appendChild(td);
+            });
+            u1_s1_table.appendChild(tr);
+        });
+    })();
+    body.appendChild(u1_s1_table);
+
+    // --- Drawing ---
+    function u1_s1_draw() {
+        const ctx = u1_s1_ctx;
+        const W = u1_s1_canvas.width, H = u1_s1_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 52, padR = 24, padT = 22, padB = 40;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        function pxX(L) { return padL + (L - u1_s1_LOG_MIN) / (u1_s1_LOG_MAX - u1_s1_LOG_MIN) * plotW; }
+        function pxY(v) { return padT + (u1_s1_Y_MAX - v) / (u1_s1_Y_MAX - u1_s1_Y_MIN) * plotH; }
+
+        // Horizontal value gridlines + labels.
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "right";
+        for (let gy = 2.0; gy <= 2.8; gy += 0.2) {
+            const Y = pxY(gy);
+            ctx.strokeStyle = border;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padL, Y);
+            ctx.lineTo(W - padR, Y);
+            ctx.stroke();
+            ctx.fillStyle = sub;
+            ctx.fillText(gy.toFixed(1), padL - 8, Y + 4);
+        }
+
+        // Vertical decade gridlines + labels (n = 1, 10, 100, ...).
+        ctx.textAlign = "center";
+        const decadeLabels = ["1", "10", "100", "1k", "10k", "100k"];
+        for (let d = 0; d <= 5; d++) {
+            const X = pxX(d);
+            ctx.strokeStyle = border;
+            ctx.beginPath();
+            ctx.moveTo(X, padT);
+            ctx.lineTo(X, H - padB);
+            ctx.stroke();
+            ctx.fillStyle = sub;
+            ctx.fillText(decadeLabels[d], X, H - padB + 16);
+        }
+        ctx.fillStyle = sub;
+        ctx.fillText("n  (logarithmic)", padL + plotW / 2, H - 6);
+
+        // The asymptote line at e (dashed accent) with a label.
+        const eY = pxY(u1_s1_E);
+        ctx.save();
+        ctx.setLineDash([6, 5]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(padL, eY);
+        ctx.lineTo(W - padR, eY);
+        ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = accent;
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillText("e ≈ 2.71828", padL + 6, eY - 6);
+
+        // The curve (1 + 1/n)^n sampled across the log axis.
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        const STEPS = 240;
+        for (let i = 0; i <= STEPS; i++) {
+            const L = u1_s1_LOG_MIN + (u1_s1_LOG_MAX - u1_s1_LOG_MIN) * (i / STEPS);
+            const v = u1_s1_value(Math.pow(10, L));
+            const X = pxX(L), Y = pxY(v);
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // The eased cursor: a vertical guide plus a dot on the curve.
+        const curN = Math.pow(10, u1_s1_state.dispLog);
+        const curV = u1_s1_value(curN);
+        const cx = pxX(u1_s1_state.dispLog), cy = pxY(curV);
+        ctx.save();
+        ctx.setLineDash([3, 4]);
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx, padT);
+        ctx.lineTo(cx, H - padB);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.fillStyle = good;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 6.5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.strokeStyle = bg;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    function u1_s1_syncReadout() {
+        const n = Math.pow(10, u1_s1_state.dispLog);
+        const v = u1_s1_value(n);
+        u1_s1_readout.innerHTML = "";
+        const line1 = document.createElement("div");
+        line1.textContent = "(1 + 1/" + u1_s1_fmtN(n) + ")^" + u1_s1_fmtN(n) + "  =  " + v.toFixed(6);
+        line1.style.color = "var(--text-color)";
+        const line2 = document.createElement("div");
+        line2.textContent = "gap to e  =  " + (u1_s1_E - v).toFixed(6);
+        line2.style.color = "var(--accent-color)";
+        line2.style.marginTop = "0.2rem";
+        u1_s1_readout.appendChild(line1);
+        u1_s1_readout.appendChild(line2);
+    }
+
+    function u1_s1_frame() {
+        if (!document.body.contains(u1_s1_canvas)) return; // stop after navigation
+        // Ease the display value toward the slider target so the cursor visibly
+        // travels toward the horizon rather than snapping.
+        u1_s1_state.dispLog += (u1_s1_state.targetLog - u1_s1_state.dispLog) * 0.12;
+        u1_s1_draw();
+        u1_s1_syncReadout();
+        requestAnimationFrame(u1_s1_frame);
+    }
+    requestAnimationFrame(u1_s1_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 2 - Complex Rotation & Euler's Identity Sandbox (u1_s2_)
+
+   A complex plane with a unit circle. A θ slider (or a click on the plane) sets
+   the angle; the engine eases a vector from the origin to e^(iθ) = cos θ + i sin θ
+   on the circle, dropping dashed projections onto the real and imaginary axes so
+   the live cosine and sine readouts map straight onto Euler's formula. A play
+   toggle rotates θ continuously to trace the full wrap.
+   --------------------------------------------------------------------------- */
+function renderComplexRotationPlaneSandbox(body) {
+    const u1_s2_TWO_PI = Math.PI * 2;
+    const u1_s2_state = {
+        targetTheta: Math.PI / 4,
+        dispTheta: Math.PI / 4,
+        playing: false
+    };
+
+    // Keep an angle in [0, 2π) for clean readouts.
+    function u1_s2_norm(a) {
+        a = a % u1_s2_TWO_PI;
+        return a < 0 ? a + u1_s2_TWO_PI : a;
+    }
+
+    const u1_s2_wrap = document.createElement("div");
+    u1_s2_wrap.style.display = "flex";
+    u1_s2_wrap.style.flexWrap = "wrap";
+    u1_s2_wrap.style.gap = "1rem";
+    u1_s2_wrap.style.alignItems = "stretch";
+
+    const u1_s2_controls = document.createElement("div");
+    u1_s2_controls.style.flex = "1 1 240px";
+    u1_s2_controls.style.minWidth = "240px";
+    u1_s2_controls.style.padding = "1rem";
+    u1_s2_controls.style.background = "var(--panel-bg)";
+    u1_s2_controls.style.border = "1px solid var(--panel-border)";
+    u1_s2_controls.style.borderRadius = "10px";
+
+    const u1_s2_stage = document.createElement("div");
+    u1_s2_stage.style.flex = "1 1 320px";
+    u1_s2_stage.style.minWidth = "300px";
+
+    u1_s2_wrap.appendChild(u1_s2_controls);
+    u1_s2_wrap.appendChild(u1_s2_stage);
+    body.appendChild(u1_s2_wrap);
+
+    const u1_s2_intro = document.createElement("p");
+    u1_s2_intro.className = "checkpoint-intro";
+    u1_s2_intro.textContent = "Set the angle θ with the slider, or click anywhere on the plane. The vector tracks e^(iθ) around the unit circle while its shadows on the axes read off cos θ (real) and sin θ (imaginary).";
+    u1_s2_controls.appendChild(u1_s2_intro);
+
+    // θ slider, built locally so the readout reports radians directly.
+    const u1_s2_sliderRow = document.createElement("div");
+    u1_s2_sliderRow.className = "slider-row";
+    const u1_s2_sliderLabel = document.createElement("span");
+    u1_s2_sliderLabel.className = "slider-label";
+    u1_s2_sliderLabel.textContent = "θ =";
+    const u1_s2_sliderInput = document.createElement("input");
+    u1_s2_sliderInput.type = "range";
+    u1_s2_sliderInput.min = "0";
+    u1_s2_sliderInput.max = String(u1_s2_TWO_PI);
+    u1_s2_sliderInput.step = "0.01";
+    u1_s2_sliderInput.value = String(u1_s2_state.targetTheta);
+    const u1_s2_sliderReadout = document.createElement("span");
+    u1_s2_sliderReadout.className = "slider-readout";
+    u1_s2_sliderReadout.textContent = u1_s2_state.targetTheta.toFixed(2) + " rad";
+    u1_s2_sliderInput.addEventListener("input", function () {
+        u1_s2_state.targetTheta = parseFloat(u1_s2_sliderInput.value);
+        u1_s2_sliderReadout.textContent = u1_s2_state.targetTheta.toFixed(2) + " rad";
+    });
+    u1_s2_sliderRow.appendChild(u1_s2_sliderLabel);
+    u1_s2_sliderRow.appendChild(u1_s2_sliderInput);
+    u1_s2_sliderRow.appendChild(u1_s2_sliderReadout);
+    u1_s2_controls.appendChild(u1_s2_sliderRow);
+
+    // Play/pause auto-rotation.
+    const u1_s2_playBtn = document.createElement("button");
+    u1_s2_playBtn.type = "button";
+    u1_s2_playBtn.className = "checkpoint-begin-btn";
+    u1_s2_playBtn.style.marginTop = "0.6rem";
+    u1_s2_playBtn.textContent = "Play rotation";
+    u1_s2_playBtn.addEventListener("click", function () {
+        u1_s2_state.playing = !u1_s2_state.playing;
+        u1_s2_playBtn.textContent = u1_s2_state.playing ? "Pause rotation" : "Play rotation";
+    });
+    u1_s2_controls.appendChild(u1_s2_playBtn);
+
+    // Live e^(iθ) readout chip.
+    const u1_s2_readout = document.createElement("div");
+    u1_s2_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s2_readout.style.fontSize = "0.95rem";
+    u1_s2_readout.style.fontWeight = "700";
+    u1_s2_readout.style.padding = "0.6rem 0.8rem";
+    u1_s2_readout.style.marginTop = "0.85rem";
+    u1_s2_readout.style.background = "var(--bg-color)";
+    u1_s2_readout.style.border = "1px solid var(--panel-border)";
+    u1_s2_readout.style.borderRadius = "8px";
+    u1_s2_controls.appendChild(u1_s2_readout);
+
+    // Euler's identity callout, highlighted as θ passes π.
+    const u1_s2_identity = document.createElement("div");
+    u1_s2_identity.style.fontSize = "0.86rem";
+    u1_s2_identity.style.marginTop = "0.6rem";
+    u1_s2_identity.style.color = "var(--text-secondary)";
+    u1_s2_identity.textContent = "At θ = π the vector lands on −1: e^(iπ) + 1 = 0, Euler's identity.";
+    u1_s2_controls.appendChild(u1_s2_identity);
+
+    // --- Square canvas stage ---
+    const u1_s2_canvas = document.createElement("canvas");
+    u1_s2_canvas.width = 460;
+    u1_s2_canvas.height = 460;
+    u1_s2_canvas.className = "math-canvas";
+    u1_s2_canvas.style.cursor = "crosshair";
+    u1_s2_stage.appendChild(u1_s2_canvas);
+    const u1_s2_ctx = u1_s2_canvas.getContext("2d");
+
+    // A click sets θ from the angle of the pointer about the centre.
+    u1_s2_canvas.addEventListener("click", function (ev) {
+        const rect = u1_s2_canvas.getBoundingClientRect();
+        const mx = (ev.clientX - rect.left) * (u1_s2_canvas.width / rect.width);
+        const my = (ev.clientY - rect.top) * (u1_s2_canvas.height / rect.height);
+        const cx = u1_s2_canvas.width / 2, cy = u1_s2_canvas.height / 2;
+        // Canvas y grows downward, so negate to get the math-plane angle.
+        const ang = u1_s2_norm(Math.atan2(-(my - cy), mx - cx));
+        u1_s2_state.targetTheta = ang;
+        u1_s2_state.playing = false;
+        u1_s2_playBtn.textContent = "Play rotation";
+        u1_s2_sliderInput.value = String(ang);
+        u1_s2_sliderReadout.textContent = ang.toFixed(2) + " rad";
+    });
+
+    function u1_s2_draw() {
+        const ctx = u1_s2_ctx;
+        const W = u1_s2_canvas.width, H = u1_s2_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const cx = W / 2, cy = H / 2;
+        const R = Math.min(W, H) * 0.36; // unit-circle radius in pixels
+
+        // Axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(20, cy); ctx.lineTo(W - 20, cy);
+        ctx.moveTo(cx, 20); ctx.lineTo(cx, H - 20);
+        ctx.stroke();
+
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("Real", W - 44, cy - 8);
+        ctx.textAlign = "center";
+        ctx.fillText("Imaginary", cx + 44, 22);
+        // Unit ticks at ±1 on both axes.
+        ctx.textAlign = "center";
+        ctx.fillText("1", cx + R, cy + 16);
+        ctx.fillText("−1", cx - R, cy + 16);
+        ctx.textAlign = "right";
+        ctx.fillText("i", cx - 8, cy - R + 4);
+        ctx.fillText("−i", cx - 8, cy + R + 4);
+
+        // Unit circle.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        const th = u1_s2_state.dispTheta;
+        const c = Math.cos(th), s = Math.sin(th);
+        const px = cx + c * R, py = cy - s * R;
+
+        // Swept-angle arc from the positive real axis.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 0.28, 0, -u1_s2_norm(th), true);
+        ctx.stroke();
+
+        // Dashed projections onto the axes.
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = good;            // cosine -> real axis
+        ctx.beginPath();
+        ctx.moveTo(px, py); ctx.lineTo(px, cy);
+        ctx.stroke();
+        ctx.strokeStyle = warm;            // sine -> imaginary axis
+        ctx.beginPath();
+        ctx.moveTo(px, py); ctx.lineTo(cx, py);
+        ctx.stroke();
+        ctx.restore();
+
+        // Component markers on the axes.
+        ctx.fillStyle = good;
+        ctx.beginPath(); ctx.arc(px, cy, 4, 0, 2 * Math.PI); ctx.fill();
+        ctx.fillStyle = warm;
+        ctx.beginPath(); ctx.arc(cx, py, 4, 0, 2 * Math.PI); ctx.fill();
+
+        // The e^(iθ) vector and its tip.
+        u0SandboxArrow(ctx, cx, cy, px, py, accent, 3);
+        ctx.fillStyle = text;
+        ctx.beginPath();
+        ctx.arc(px, py, 6, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.strokeStyle = bg;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    function u1_s2_syncReadout() {
+        const th = u1_s2_norm(u1_s2_state.dispTheta);
+        const c = Math.cos(th), s = Math.sin(th);
+        u1_s2_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "e^(iθ) = cos θ + i·sin θ";
+        l1.style.color = "var(--accent-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = "= " + c.toFixed(3) + " + " + s.toFixed(3) + " i";
+        l2.style.color = "var(--text-color)";
+        l2.style.marginTop = "0.2rem";
+        const l3 = document.createElement("div");
+        l3.textContent = "θ = " + th.toFixed(3) + " rad  (" + (th * 180 / Math.PI).toFixed(1) + "°)";
+        l3.style.color = "var(--text-secondary)";
+        l3.style.marginTop = "0.2rem";
+        u1_s2_readout.appendChild(l1);
+        u1_s2_readout.appendChild(l2);
+        u1_s2_readout.appendChild(l3);
+
+        // Highlight the identity callout when the vector is near −1.
+        const nearPi = Math.abs(u1_s2_norm(th) - Math.PI) < 0.06;
+        u1_s2_identity.style.color = nearPi ? "var(--accent-color)" : "var(--text-secondary)";
+        u1_s2_identity.style.fontWeight = nearPi ? "700" : "400";
+    }
+
+    function u1_s2_frame() {
+        if (!document.body.contains(u1_s2_canvas)) return; // stop after navigation
+        if (u1_s2_state.playing) {
+            u1_s2_state.targetTheta = u1_s2_norm(u1_s2_state.targetTheta + 0.012);
+            u1_s2_state.dispTheta = u1_s2_state.targetTheta;
+            u1_s2_sliderInput.value = String(u1_s2_state.targetTheta);
+            u1_s2_sliderReadout.textContent = u1_s2_state.targetTheta.toFixed(2) + " rad";
+        } else {
+            // Ease toward the target along the shorter arc.
+            let diff = u1_s2_state.targetTheta - u1_s2_state.dispTheta;
+            while (diff > Math.PI) diff -= u1_s2_TWO_PI;
+            while (diff < -Math.PI) diff += u1_s2_TWO_PI;
+            u1_s2_state.dispTheta += diff * 0.15;
+        }
+        u1_s2_draw();
+        u1_s2_syncReadout();
+        requestAnimationFrame(u1_s2_frame);
+    }
+    requestAnimationFrame(u1_s2_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 3 - The Log-Linear Scaling Matrix (u1_s3_)
+
+   Plots four benchmark growth laws - linear, quadratic, exponential, and
+   logarithmic - over a shared positive domain, then lets a toggle group switch
+   the coordinate space between Cartesian, semi-log (log y), and log-log (log x
+   and y). The exponential straightens on semi-log; the power law straightens on
+   log-log: each scaling law reveals its signature line. No animation loop runs;
+   the surface repaints on demand, so it is inherently file:// and teardown safe.
+   --------------------------------------------------------------------------- */
+function renderLogLinearWarpSandbox(body) {
+    const u1_s3_X_MIN = 0.1, u1_s3_X_MAX = 10;
+    const u1_s3_state = { mode: "cartesian" };
+    const u1_s3_funcs = [
+        { key: "linear", label: "y = x", color: "--accent-color", on: true, f: function (x) { return x; } },
+        { key: "quad", label: "y = x²", color: "--success-color", on: true, f: function (x) { return x * x; } },
+        { key: "exp", label: "y = 2ˣ", color: "--error-color", on: true, f: function (x) { return Math.pow(2, x); } },
+        { key: "log", label: "y = ln x", color: "--locked-color", on: true, f: function (x) { return Math.log(x); } }
+    ];
+
+    const u1_s3_modeText = {
+        cartesian: "Linear axes. The exponential 2ˣ rockets off the top while the power law x² curves upward; only y = x is straight.",
+        semilog: "Log y-axis. The exponential 2ˣ straightens into a line — equal ratios become equal steps — while the power law and the line bend.",
+        loglog: "Log–log axes. The power law x² straightens into a line of slope 2; the exponential now curves away. Each law shows its signature."
+    };
+
+    const u1_s3_wrap = document.createElement("div");
+    u1_s3_wrap.style.display = "flex";
+    u1_s3_wrap.style.flexWrap = "wrap";
+    u1_s3_wrap.style.gap = "1rem";
+    u1_s3_wrap.style.alignItems = "stretch";
+
+    const u1_s3_controls = document.createElement("div");
+    u1_s3_controls.style.flex = "1 1 240px";
+    u1_s3_controls.style.minWidth = "240px";
+    u1_s3_controls.style.padding = "1rem";
+    u1_s3_controls.style.background = "var(--panel-bg)";
+    u1_s3_controls.style.border = "1px solid var(--panel-border)";
+    u1_s3_controls.style.borderRadius = "10px";
+
+    const u1_s3_stage = document.createElement("div");
+    u1_s3_stage.style.flex = "2 1 340px";
+    u1_s3_stage.style.minWidth = "300px";
+
+    u1_s3_wrap.appendChild(u1_s3_controls);
+    u1_s3_wrap.appendChild(u1_s3_stage);
+    body.appendChild(u1_s3_wrap);
+
+    const u1_s3_intro = document.createElement("p");
+    u1_s3_intro.className = "checkpoint-intro";
+    u1_s3_intro.textContent = "Switch the coordinate space and watch each growth law re-resolve. A straight line on the right axis exposes the hidden architecture of a transcendental curve.";
+    u1_s3_controls.appendChild(u1_s3_intro);
+
+    // Coordinate-space toggle (reuses the shared theme-bound toggle group).
+    u0SandboxToggleGroup(u1_s3_controls, "Coordinate space",
+        [{ value: "cartesian", label: "Cartesian" }, { value: "semilog", label: "Semi-Log" }, { value: "loglog", label: "Log-Log" }],
+        function () { return u1_s3_state.mode; },
+        function (val) { u1_s3_state.mode = val; u1_s3_syncNote(); u1_s3_draw(); });
+
+    // Per-function visibility legend with colour swatches.
+    const u1_s3_legendTitle = document.createElement("div");
+    u1_s3_legendTitle.textContent = "Curves";
+    u1_s3_legendTitle.style.fontSize = "0.78rem";
+    u1_s3_legendTitle.style.fontWeight = "700";
+    u1_s3_legendTitle.style.textTransform = "uppercase";
+    u1_s3_legendTitle.style.letterSpacing = "0.04em";
+    u1_s3_legendTitle.style.color = "var(--text-secondary)";
+    u1_s3_legendTitle.style.margin = "0.4rem 0";
+    u1_s3_controls.appendChild(u1_s3_legendTitle);
+
+    u1_s3_funcs.forEach(function (fn) {
+        const rowL = document.createElement("label");
+        rowL.style.display = "flex";
+        rowL.style.alignItems = "center";
+        rowL.style.gap = "0.5rem";
+        rowL.style.padding = "0.25rem 0";
+        rowL.style.cursor = "pointer";
+
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = fn.on;
+        cb.addEventListener("change", function () { fn.on = cb.checked; u1_s3_draw(); });
+
+        const swatch = document.createElement("span");
+        swatch.style.display = "inline-block";
+        swatch.style.width = "18px";
+        swatch.style.height = "3px";
+        swatch.style.borderRadius = "2px";
+        swatch.style.background = "var(" + fn.color + ")";
+
+        const txt = document.createElement("span");
+        txt.textContent = fn.label;
+        txt.style.fontFamily = "Consolas, Monaco, monospace";
+        txt.style.color = "var(--text-color)";
+
+        rowL.appendChild(cb);
+        rowL.appendChild(swatch);
+        rowL.appendChild(txt);
+        u1_s3_controls.appendChild(rowL);
+    });
+
+    const u1_s3_note = document.createElement("div");
+    u1_s3_note.style.fontSize = "0.86rem";
+    u1_s3_note.style.marginTop = "0.85rem";
+    u1_s3_note.style.color = "var(--text-secondary)";
+    u1_s3_controls.appendChild(u1_s3_note);
+    function u1_s3_syncNote() { u1_s3_note.textContent = u1_s3_modeText[u1_s3_state.mode]; }
+    u1_s3_syncNote();
+
+    const u1_s3_canvas = document.createElement("canvas");
+    u1_s3_canvas.width = 600;
+    u1_s3_canvas.height = 460;
+    u1_s3_canvas.className = "math-canvas";
+    u1_s3_stage.appendChild(u1_s3_canvas);
+    const u1_s3_ctx = u1_s3_canvas.getContext("2d");
+
+    function u1_s3_draw() {
+        const ctx = u1_s3_ctx;
+        const W = u1_s3_canvas.width, H = u1_s3_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 50, padR = 20, padT = 20, padB = 38;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        const mode = u1_s3_state.mode;
+        const logX = (mode === "loglog");
+        const logY = (mode === "semilog" || mode === "loglog");
+
+        // World ranges depend on the active space.
+        const xMin = logX ? 0.1 : 0, xMax = u1_s3_X_MAX;
+        const yMin = logY ? 0.1 : 0, yMax = logY ? 2000 : 25;
+        const lxMin = Math.log10(0.1), lxMax = Math.log10(xMax);
+        const lyMin = Math.log10(yMin), lyMax = Math.log10(yMax);
+
+        function pxX(x) {
+            const t = logX
+                ? (Math.log10(x) - lxMin) / (lxMax - lxMin)
+                : (x - xMin) / (xMax - xMin);
+            return padL + t * plotW;
+        }
+        function pxY(y) {
+            const t = logY
+                ? (Math.log10(y) - lyMin) / (lyMax - lyMin)
+                : (y - yMin) / (yMax - yMin);
+            return padT + (1 - t) * plotH;
+        }
+
+        // --- Gridlines + axis labels ---
+        ctx.font = "11px sans-serif";
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+
+        // X gridlines.
+        ctx.textAlign = "center";
+        if (logX) {
+            for (let d = -1; d <= 1; d++) {            // decades 0.1, 1, 10
+                const base = Math.pow(10, d);
+                for (let m = 1; m <= 9; m++) {
+                    const x = base * m;
+                    if (x < 0.1 - 1e-9 || x > xMax + 1e-9) continue;
+                    const X = pxX(x);
+                    ctx.strokeStyle = (m === 1) ? border : u0SandboxColor("--accent-soft", "#eee");
+                    ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+                    if (m === 1) { ctx.fillStyle = sub; ctx.fillText(String(x), X, H - padB + 16); }
+                }
+            }
+        } else {
+            for (let x = 0; x <= xMax + 1e-9; x += 2) {
+                const X = pxX(x);
+                ctx.strokeStyle = border;
+                ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+                ctx.fillStyle = sub; ctx.fillText(String(x), X, H - padB + 16);
+            }
+        }
+
+        // Y gridlines.
+        ctx.textAlign = "right";
+        if (logY) {
+            for (let d = -1; d <= 3; d++) {            // decades 0.1 .. 1000
+                const base = Math.pow(10, d);
+                for (let m = 1; m <= 9; m++) {
+                    const y = base * m;
+                    if (y < yMin - 1e-9 || y > yMax + 1e-9) continue;
+                    const Y = pxY(y);
+                    ctx.strokeStyle = (m === 1) ? border : u0SandboxColor("--accent-soft", "#eee");
+                    ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+                    if (m === 1) { ctx.fillStyle = sub; ctx.fillText(String(y), padL - 8, Y + 4); }
+                }
+            }
+        } else {
+            for (let y = 0; y <= yMax + 1e-9; y += 5) {
+                const Y = pxY(y);
+                ctx.strokeStyle = border;
+                ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+                ctx.fillStyle = sub; ctx.fillText(String(y), padL - 8, Y + 4);
+            }
+        }
+
+        // Axis titles.
+        ctx.fillStyle = sub;
+        ctx.textAlign = "center";
+        ctx.fillText("x" + (logX ? "  (log)" : ""), padL + plotW / 2, H - 4);
+        ctx.save();
+        ctx.translate(12, padT + plotH / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("y" + (logY ? "  (log)" : ""), 0, 0);
+        ctx.restore();
+
+        // --- Curves ---
+        const STEPS = 300;
+        u1_s3_funcs.forEach(function (fn) {
+            if (!fn.on) return;
+            ctx.strokeStyle = u0SandboxColor(fn.color, "#888");
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            let drawing = false;
+            for (let i = 0; i <= STEPS; i++) {
+                // Sample evenly in screen-x: log-spaced when the x-axis is log.
+                const t = i / STEPS;
+                const x = logX
+                    ? Math.pow(10, lxMin + t * (lxMax - lxMin))
+                    : xMin + t * (xMax - xMin);
+                if (x <= 0) { drawing = false; continue; }
+                const y = fn.f(x);
+                // A log axis can only show positive values; break the path on any
+                // sample that falls outside the drawable range so the curve simply
+                // begins where it becomes representable.
+                if (!isFinite(y) || (logY && y <= 0)) { drawing = false; continue; }
+                const X = pxX(x), Y = pxY(y);
+                if (Y < padT - 4000 || Y > H - padB + 4000) { drawing = false; continue; }
+                if (!drawing) { ctx.moveTo(X, Y); drawing = true; } else { ctx.lineTo(X, Y); }
+            }
+            ctx.stroke();
+        });
+
+        // Clip overflow outside the plot box so steep linear-mode curves stay tidy.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(padL, padT, plotW, plotH);
+    }
+
+    u1_s3_draw();
+
+    // This surface has no animation loop (it repaints only on user input), so a
+    // Light/Dark toggle made while it sits idle would otherwise keep stale colours
+    // until the next interaction. Watch the root theme attribute and repaint in
+    // place; disconnect once the canvas leaves the DOM so nothing lingers.
+    const u1_s3_themeWatch = new MutationObserver(function () {
+        if (!document.body.contains(u1_s3_canvas)) { u1_s3_themeWatch.disconnect(); return; }
+        u1_s3_draw();
+    });
+    u1_s3_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
