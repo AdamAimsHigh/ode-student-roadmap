@@ -583,6 +583,30 @@ const UNIT_1_SANDBOXES = [
         title: "The Operator & Inverse Function Constraint Matrix",
         blurb: "Probe input-output mappings across non-monotonic functions to visualize why domain restrictions are required to establish valid algebraic inverses.",
         render: renderInverseOperatorSandbox
+    },
+    {
+        id: "unit_1_exponential_growth_ceiling",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Exponential Growth Ceiling Lab",
+        blurb: "Compare the growth rates of polynomial power terms against dominant exponential functions to track how e^x outpaces any algebraic bound.",
+        render: renderExponentialCeilingSandbox
+    },
+    {
+        id: "unit_1_logarithmic_bounds",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Logarithmic Domain & Growth Barrier",
+        blurb: "Visualize the severe horizontal slowing of ln(x) alongside its vertical asymptotic drop at the origin to ground domain-safety constraints.",
+        render: renderLogarithmicBoundsSandbox
+    },
+    {
+        id: "unit_1_difference_quotient_geometry",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Secant-to-Tangent Difference Quotient Matrix",
+        blurb: "Drive a secant interval width Δx down to absolute zero to witness the geometric crystallization of a local instantaneous derivative vector.",
+        render: renderDifferenceQuotientSandbox
     }
 ];
 
@@ -4196,6 +4220,740 @@ function renderInverseOperatorSandbox(body) {
         u1_s6_draw();
     });
     u1_s6_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* A range slider that rides on log10(value) so a single drag can sweep several
+   orders of magnitude with even control (e.g. Δx from 1 down to 0.001, or a zoom
+   window from 8 out to 600). opts.min/max/value are the actual values (all > 0);
+   the readout prints the real value to opts.decimals places. Returns a holder
+   tracking .value with setValue() to drive it programmatically, mirroring
+   u0SandboxSlider's shape. */
+function u1SandboxLogSlider(parent, opts) {
+    const dec = (opts.decimals === undefined) ? 3 : opts.decimals;
+    const lmin = Math.log10(opts.min), lmax = Math.log10(opts.max);
+    const row = document.createElement("div");
+    row.className = "slider-row";
+
+    const label = document.createElement("span");
+    label.className = "slider-label";
+    label.textContent = opts.label;
+
+    const input = document.createElement("input");
+    input.type = "range";
+    input.min = String(lmin);
+    input.max = String(lmax);
+    input.step = String((lmax - lmin) / 1000);
+    input.value = String(Math.log10(opts.value));
+
+    const readout = document.createElement("span");
+    readout.className = "slider-readout";
+
+    const holder = { value: opts.value, input: input };
+    function fmt(v) { return v.toFixed(dec) + (opts.suffix || ""); }
+    readout.textContent = fmt(opts.value);
+
+    input.addEventListener("input", function () {
+        holder.value = Math.pow(10, parseFloat(input.value));
+        readout.textContent = fmt(holder.value);
+        if (opts.onChange) opts.onChange(holder.value);
+    });
+    holder.setValue = function (v) {
+        holder.value = v;
+        input.value = String(Math.log10(v));
+        readout.textContent = fmt(v);
+    };
+
+    row.appendChild(label);
+    row.appendChild(input);
+    row.appendChild(readout);
+    parent.appendChild(row);
+    return holder;
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 7 - The Exponential Growth Ceiling Lab (u1_s7_)
+
+   Plots y = xⁿ against y = aˣ on a viewport whose width is a log-scaled zoom
+   slider. The y-window auto-fits the polynomial (yMax = xMaxⁿ), so the power term
+   fills the frame to the top-right while the exponential, once it overtakes,
+   shoots straight off the top. Sliders set the power n and base a; the engine
+   scans for the crossover where aˣ permanently overtakes xⁿ and reports whether
+   it sits inside the current window - so zooming out reveals the ceiling crossing
+   no matter how large n is.
+   --------------------------------------------------------------------------- */
+function renderExponentialCeilingSandbox(body) {
+    const u1_s7_state = { n: 3, a: 2.0, xMax: 12 };
+
+    function u1_s7_pow(x) { return Math.pow(x, u1_s7_state.n); }
+    function u1_s7_exp(x) { return Math.pow(u1_s7_state.a, x); }
+
+    const u1_s7_wrap = document.createElement("div");
+    u1_s7_wrap.style.display = "flex";
+    u1_s7_wrap.style.flexWrap = "wrap";
+    u1_s7_wrap.style.gap = "1rem";
+    u1_s7_wrap.style.alignItems = "stretch";
+
+    const u1_s7_controls = document.createElement("div");
+    u1_s7_controls.style.flex = "1 1 240px";
+    u1_s7_controls.style.minWidth = "240px";
+    u1_s7_controls.style.padding = "1rem";
+    u1_s7_controls.style.background = "var(--panel-bg)";
+    u1_s7_controls.style.border = "1px solid var(--panel-border)";
+    u1_s7_controls.style.borderRadius = "10px";
+
+    const u1_s7_stage = document.createElement("div");
+    u1_s7_stage.style.flex = "2 1 340px";
+    u1_s7_stage.style.minWidth = "300px";
+
+    u1_s7_wrap.appendChild(u1_s7_controls);
+    u1_s7_wrap.appendChild(u1_s7_stage);
+    body.appendChild(u1_s7_wrap);
+
+    const u1_s7_intro = document.createElement("p");
+    u1_s7_intro.className = "checkpoint-intro";
+    u1_s7_intro.textContent = "Raise the power n as high as you like — then zoom the window out. The exponential aˣ always finds the crossover and pulls away for good, off the top of the frame, while the polynomial is still climbing.";
+    u1_s7_controls.appendChild(u1_s7_intro);
+
+    const u1_s7_nSlider = u0SandboxSlider(u1_s7_controls, {
+        label: "power  n =", min: 1, max: 6, step: 1, value: u1_s7_state.n, decimals: 0,
+        onChange: function (v) { u1_s7_state.n = Math.round(v); u1_s7_draw(); }
+    });
+    const u1_s7_aSlider = u0SandboxSlider(u1_s7_controls, {
+        label: "base  a =", min: 1.1, max: 3, step: 0.05, value: u1_s7_state.a, decimals: 2,
+        onChange: function (v) { u1_s7_state.a = v; u1_s7_draw(); }
+    });
+    u1SandboxLogSlider(u1_s7_controls, {
+        label: "zoom  xₘₐₓ =", min: 8, max: 600, value: u1_s7_state.xMax, decimals: 0,
+        onChange: function (v) { u1_s7_state.xMax = v; u1_s7_draw(); }
+    });
+
+    const u1_s7_readout = document.createElement("div");
+    u1_s7_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s7_readout.style.fontSize = "0.86rem";
+    u1_s7_readout.style.fontWeight = "700";
+    u1_s7_readout.style.padding = "0.6rem 0.8rem";
+    u1_s7_readout.style.marginTop = "0.85rem";
+    u1_s7_readout.style.background = "var(--bg-color)";
+    u1_s7_readout.style.border = "1px solid var(--panel-border)";
+    u1_s7_readout.style.borderRadius = "8px";
+    u1_s7_readout.style.lineHeight = "1.5";
+    u1_s7_controls.appendChild(u1_s7_readout);
+
+    const u1_s7_canvas = document.createElement("canvas");
+    u1_s7_canvas.width = 600;
+    u1_s7_canvas.height = 420;
+    u1_s7_canvas.className = "math-canvas";
+    u1_s7_stage.appendChild(u1_s7_canvas);
+    const u1_s7_ctx = u1_s7_canvas.getContext("2d");
+
+    // Largest x in the window where aˣ overtakes xⁿ for good (h: − -> +).
+    function u1_s7_crossover() {
+        const xMax = u1_s7_state.xMax;
+        const steps = 3000;
+        let last = null;
+        let prev = u1_s7_exp(0.5) - u1_s7_pow(0.5);
+        for (let i = 1; i <= steps; i++) {
+            const x = 0.5 + (xMax - 0.5) * (i / steps);
+            const h = u1_s7_exp(x) - u1_s7_pow(x);
+            if (prev < 0 && h >= 0) last = x;
+            prev = h;
+        }
+        return last;
+    }
+
+    function u1_s7_draw() {
+        const ctx = u1_s7_ctx;
+        const W = u1_s7_canvas.width, H = u1_s7_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 46, padR = 16, padT = 16, padB = 28;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        const xMax = u1_s7_state.xMax;
+        const yMax = Math.pow(xMax, u1_s7_state.n); // frame fits the polynomial exactly
+        function pxX(x) { return padL + (x / xMax) * plotW; }
+        function pxY(y) { return padT + (1 - y / yMax) * plotH; }
+        function clampY(Y) { return Math.max(padT - 300, Math.min(H - padB + 300, Y)); }
+
+        // Grid: a handful of vertical / horizontal references with end labels.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let g = 0; g <= 5; g++) {
+            const x = xMax * g / 5;
+            const X = pxX(x);
+            ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+            ctx.fillText(x.toFixed(x < 10 ? 1 : 0), X, H - padB + 14);
+        }
+        ctx.textAlign = "right";
+        for (let g = 0; g <= 4; g++) {
+            const y = yMax * g / 4;
+            const Y = pxY(y);
+            ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+            ctx.fillText(y >= 1000 ? y.toExponential(0) : y.toFixed(0), padL - 6, Y + 3);
+        }
+
+        // Polynomial xⁿ (text colour).
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        for (let i = 0; i <= 480; i++) {
+            const x = xMax * (i / 480);
+            const X = pxX(x), Y = clampY(pxY(u1_s7_pow(x)));
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Exponential aˣ (accent) - clipped as it leaves the top.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        for (let i = 0; i <= 480; i++) {
+            const x = xMax * (i / 480);
+            const X = pxX(x), Y = clampY(pxY(u1_s7_exp(x)));
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Crossover marker.
+        const xc = u1_s7_crossover();
+        if (xc !== null) {
+            const yc = u1_s7_pow(xc);
+            ctx.save();
+            ctx.setLineDash([5, 4]);
+            ctx.strokeStyle = good;
+            ctx.lineWidth = 1.4;
+            ctx.beginPath(); ctx.moveTo(pxX(xc), padT); ctx.lineTo(pxX(xc), H - padB); ctx.stroke();
+            ctx.restore();
+            ctx.fillStyle = good;
+            ctx.beginPath(); ctx.arc(pxX(xc), clampY(pxY(yc)), 6, 0, 2 * Math.PI); ctx.fill();
+            ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+        }
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = text;
+        ctx.fillText("y = xⁿ", padL + 6, padT + 14);
+        ctx.fillStyle = accent;
+        ctx.fillText("y = aˣ", padL + 6, padT + 30);
+
+        u1_s7_syncReadout(xc);
+    }
+
+    function u1_s7_syncReadout(xc) {
+        u1_s7_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "y = x^" + u1_s7_state.n + "   vs   y = " + u1_s7_state.a.toFixed(2) + "^x";
+        l1.style.color = "var(--text-color)";
+        const l2 = document.createElement("div");
+        l2.style.marginTop = "0.2rem";
+        if (xc !== null) {
+            l2.textContent = "✓ aˣ overtakes xⁿ at x ≈ " + xc.toFixed(2) + " — and dominates forever after.";
+            l2.style.color = "var(--success-color)";
+        } else if (u1_s7_exp(u1_s7_state.xMax) >= u1_s7_pow(u1_s7_state.xMax)) {
+            l2.textContent = "aˣ already leads across the whole window.";
+            l2.style.color = "var(--accent-color)";
+        } else {
+            l2.textContent = "xⁿ still leads here — zoom xₘₐₓ out to find the ceiling crossover.";
+            l2.style.color = "var(--text-secondary)";
+        }
+        u1_s7_readout.appendChild(l1);
+        u1_s7_readout.appendChild(l2);
+    }
+
+    u1_s7_draw();
+
+    const u1_s7_themeWatch = new MutationObserver(function () {
+        if (!document.body.contains(u1_s7_canvas)) { u1_s7_themeWatch.disconnect(); return; }
+        u1_s7_draw();
+    });
+    u1_s7_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 8 - The Logarithmic Domain & Growth Barrier (u1_s8_)
+
+   Graphs y = ln x with the x ≤ 0 half-plane shaded as the forbidden domain. A
+   log-scaled probe x = c (slider or click) drops a marker on the curve; as c → 0⁺
+   a red asymptote banner fades in and the readout plunges toward −∞. A toggle
+   overlays the derivative 1/x, correlating the curve's gentle horizontal crawl
+   for large x with its explosive slope near the origin.
+   --------------------------------------------------------------------------- */
+function renderLogarithmicBoundsSandbox(body) {
+    const u1_s8_state = { c: 1.0, showDeriv: false };
+    const u1_s8_xMin = -1.2, u1_s8_xMax = 8, u1_s8_yMin = -5, u1_s8_yMax = 3;
+
+    const u1_s8_wrap = document.createElement("div");
+    u1_s8_wrap.style.display = "flex";
+    u1_s8_wrap.style.flexWrap = "wrap";
+    u1_s8_wrap.style.gap = "1rem";
+    u1_s8_wrap.style.alignItems = "stretch";
+
+    const u1_s8_controls = document.createElement("div");
+    u1_s8_controls.style.flex = "1 1 240px";
+    u1_s8_controls.style.minWidth = "240px";
+    u1_s8_controls.style.padding = "1rem";
+    u1_s8_controls.style.background = "var(--panel-bg)";
+    u1_s8_controls.style.border = "1px solid var(--panel-border)";
+    u1_s8_controls.style.borderRadius = "10px";
+
+    const u1_s8_stage = document.createElement("div");
+    u1_s8_stage.style.flex = "2 1 340px";
+    u1_s8_stage.style.minWidth = "300px";
+
+    u1_s8_wrap.appendChild(u1_s8_controls);
+    u1_s8_wrap.appendChild(u1_s8_stage);
+    body.appendChild(u1_s8_wrap);
+
+    const u1_s8_intro = document.createElement("p");
+    u1_s8_intro.className = "checkpoint-intro";
+    u1_s8_intro.textContent = "ln x is defined only for x > 0. Drive the probe c toward zero to watch the value fall off a cliff toward −∞, and toggle the 1/x slope to see why: the derivative blows up exactly where the domain runs out.";
+    u1_s8_controls.appendChild(u1_s8_intro);
+
+    const u1_s8_cSlider = u1SandboxLogSlider(u1_s8_controls, {
+        label: "probe  c =", min: 0.02, max: 8, value: u1_s8_state.c, decimals: 3,
+        onChange: function (v) { u1_s8_state.c = v; u1_s8_draw(); }
+    });
+
+    // Derivative overlay toggle.
+    const u1_s8_derivBtn = document.createElement("button");
+    u1_s8_derivBtn.type = "button";
+    u1_s8_derivBtn.className = "checkpoint-begin-btn";
+    u1_s8_derivBtn.style.marginTop = "0.6rem";
+    function u1_s8_syncBtn() {
+        u1_s8_derivBtn.textContent = "Overlay slope 1/x: " + (u1_s8_state.showDeriv ? "on" : "off");
+    }
+    u1_s8_syncBtn();
+    u1_s8_derivBtn.addEventListener("click", function () {
+        u1_s8_state.showDeriv = !u1_s8_state.showDeriv;
+        u1_s8_syncBtn();
+        u1_s8_draw();
+    });
+    u1_s8_controls.appendChild(u1_s8_derivBtn);
+
+    const u1_s8_readout = document.createElement("div");
+    u1_s8_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s8_readout.style.fontSize = "0.9rem";
+    u1_s8_readout.style.fontWeight = "700";
+    u1_s8_readout.style.padding = "0.6rem 0.8rem";
+    u1_s8_readout.style.marginTop = "0.85rem";
+    u1_s8_readout.style.background = "var(--bg-color)";
+    u1_s8_readout.style.border = "1px solid var(--panel-border)";
+    u1_s8_readout.style.borderRadius = "8px";
+    u1_s8_readout.style.lineHeight = "1.5";
+    u1_s8_controls.appendChild(u1_s8_readout);
+
+    const u1_s8_canvas = document.createElement("canvas");
+    u1_s8_canvas.width = 600;
+    u1_s8_canvas.height = 420;
+    u1_s8_canvas.className = "math-canvas";
+    u1_s8_canvas.style.cursor = "crosshair";
+    u1_s8_stage.appendChild(u1_s8_canvas);
+    const u1_s8_ctx = u1_s8_canvas.getContext("2d");
+
+    // A click sets the probe to the x under the pointer (positive domain only).
+    u1_s8_canvas.addEventListener("click", function (ev) {
+        const rect = u1_s8_canvas.getBoundingClientRect();
+        const mx = (ev.clientX - rect.left) * (u1_s8_canvas.width / rect.width);
+        const padL = 46, padR = 16;
+        const plotW = u1_s8_canvas.width - padL - padR;
+        const x = u1_s8_xMin + (mx - padL) / plotW * (u1_s8_xMax - u1_s8_xMin);
+        if (x > 0.02 && x <= u1_s8_xMax) {
+            u1_s8_state.c = Math.min(8, x);
+            u1_s8_cSlider.setValue(u1_s8_state.c);
+            u1_s8_draw();
+        }
+    });
+
+    function u1_s8_draw() {
+        const ctx = u1_s8_ctx;
+        const W = u1_s8_canvas.width, H = u1_s8_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const warm = u0SandboxColor("--error-color", "#b3261e");
+        const locked = u0SandboxColor("--locked-color", "#9aa0b4");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 46, padR = 16, padT = 16, padB = 28;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        function pxX(x) { return padL + (x - u1_s8_xMin) / (u1_s8_xMax - u1_s8_xMin) * plotW; }
+        function pxY(y) { return padT + (u1_s8_yMax - y) / (u1_s8_yMax - u1_s8_yMin) * plotH; }
+        function clampY(Y) { return Math.max(padT - 300, Math.min(H - padB + 300, Y)); }
+
+        // Forbidden domain x <= 0 (locked-colour wash).
+        ctx.fillStyle = locked;
+        ctx.globalAlpha = 0.18;
+        ctx.fillRect(pxX(u1_s8_xMin), padT, pxX(0) - pxX(u1_s8_xMin), plotH);
+        ctx.globalAlpha = 1;
+
+        // Grid + axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = -1; gx <= u1_s8_xMax; gx++) {
+            const X = pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+            if (gx !== 0) ctx.fillText(String(gx), X, pxY(0) + 12);
+        }
+        ctx.textAlign = "right";
+        for (let gy = u1_s8_yMin; gy <= u1_s8_yMax; gy++) {
+            const Y = pxY(gy);
+            ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+            if (gy !== 0) ctx.fillText(String(gy), padL - 6, Y + 3);
+        }
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(padL, pxY(0)); ctx.lineTo(W - padR, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pxX(0), padT); ctx.lineTo(pxX(0), H - padB); ctx.stroke();
+
+        // Vertical asymptote at x = 0, intensifying as c shrinks.
+        const proximity = Math.max(0, Math.min(1, (0.5 - u1_s8_state.c) / 0.5));
+        ctx.save();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = warm;
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.25 + 0.65 * proximity;
+        ctx.beginPath(); ctx.moveTo(pxX(0), padT); ctx.lineTo(pxX(0), H - padB); ctx.stroke();
+        ctx.restore();
+
+        // Derivative 1/x overlay (success colour), drawn behind the main curve.
+        if (u1_s8_state.showDeriv) {
+            ctx.strokeStyle = good;
+            ctx.lineWidth = 2;
+            ctx.save();
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath();
+            let started = false;
+            for (let i = 0; i <= 480; i++) {
+                const x = 0.02 + (u1_s8_xMax - 0.02) * (i / 480);
+                const Y = clampY(pxY(1 / x));
+                if (!started) { ctx.moveTo(pxX(x), Y); started = true; } else ctx.lineTo(pxX(x), Y);
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // ln x curve (accent).
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 480; i++) {
+            const x = 0.01 + (u1_s8_xMax - 0.01) * (i / 480);
+            const Y = clampY(pxY(Math.log(x)));
+            if (!started) { ctx.moveTo(pxX(x), Y); started = true; } else ctx.lineTo(pxX(x), Y);
+        }
+        ctx.stroke();
+
+        // Probe line + marker at x = c.
+        const c = u1_s8_state.c;
+        ctx.save();
+        ctx.setLineDash([3, 3]);
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(pxX(c), padT); ctx.lineTo(pxX(c), H - padB); ctx.stroke();
+        ctx.restore();
+        ctx.fillStyle = accent;
+        ctx.beginPath(); ctx.arc(pxX(c), clampY(pxY(Math.log(c))), 6, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+
+        // Fading red asymptote banner when the probe is near the origin.
+        if (proximity > 0.02) {
+            const bw = 232, bh = 30;
+            ctx.save();
+            ctx.globalAlpha = 0.12 + 0.5 * proximity;
+            ctx.fillStyle = warm;
+            ctx.fillRect(padL + 8, padT + 8, bw, bh);
+            ctx.globalAlpha = 0.4 + 0.6 * proximity;
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 13px sans-serif";
+            ctx.textAlign = "left";
+            ctx.fillText("ln x → −∞   as x → 0⁺", padL + 18, padT + 28);
+            ctx.restore();
+        }
+
+        u1_s8_syncReadout();
+    }
+
+    function u1_s8_syncReadout() {
+        const c = u1_s8_state.c;
+        u1_s8_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "ln(" + c.toFixed(3) + ") = " + Math.log(c).toFixed(3);
+        l1.style.color = Math.log(c) < -1.5 ? "var(--error-color)" : "var(--text-color)";
+        u1_s8_readout.appendChild(l1);
+        if (u1_s8_state.showDeriv) {
+            const l2 = document.createElement("div");
+            l2.textContent = "slope 1/x = " + (1 / c).toFixed(3);
+            l2.style.color = "var(--success-color)";
+            l2.style.marginTop = "0.2rem";
+            u1_s8_readout.appendChild(l2);
+        }
+        const l3 = document.createElement("div");
+        l3.textContent = c < 0.1 ? "domain edge: value plunging, slope exploding" : "domain: x > 0 only";
+        l3.style.color = "var(--text-secondary)";
+        l3.style.marginTop = "0.2rem";
+        u1_s8_readout.appendChild(l3);
+    }
+
+    u1_s8_draw();
+
+    const u1_s8_themeWatch = new MutationObserver(function () {
+        if (!document.body.contains(u1_s8_canvas)) { u1_s8_themeWatch.disconnect(); return; }
+        u1_s8_draw();
+    });
+    u1_s8_themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 9 - The Secant-to-Tangent Difference Quotient Matrix (u1_s9_)
+
+   Graphs y = x³ − 3x with a fixed base point x₀ and a second point x₀ + Δx. A
+   dashed secant joins them; the solid analytic tangent f'(x₀) = 3x₀² − 3 is drawn
+   for comparison. A log-scaled Δx slider (1 down to 0.001), plus a "shrink Δx → 0"
+   animation, drives the secant slope onto the tangent slope, with live readouts of
+   both and their closing error. A single requestAnimationFrame loop both runs the
+   shrink animation and keeps colours live; it self-terminates on DOM eviction.
+   --------------------------------------------------------------------------- */
+function renderDifferenceQuotientSandbox(body) {
+    const u1_s9_state = { x0: 1.0, dx: 0.7, animating: false };
+    const u1_s9_xMin = -2.4, u1_s9_xMax = 2.4, u1_s9_yMin = -4, u1_s9_yMax = 4;
+    const u1_s9_DX_MIN = 0.001;
+
+    function u1_s9_f(x) { return x * x * x - 3 * x; }
+    function u1_s9_df(x) { return 3 * x * x - 3; }
+
+    const u1_s9_wrap = document.createElement("div");
+    u1_s9_wrap.style.display = "flex";
+    u1_s9_wrap.style.flexWrap = "wrap";
+    u1_s9_wrap.style.gap = "1rem";
+    u1_s9_wrap.style.alignItems = "stretch";
+
+    const u1_s9_controls = document.createElement("div");
+    u1_s9_controls.style.flex = "1 1 240px";
+    u1_s9_controls.style.minWidth = "240px";
+    u1_s9_controls.style.padding = "1rem";
+    u1_s9_controls.style.background = "var(--panel-bg)";
+    u1_s9_controls.style.border = "1px solid var(--panel-border)";
+    u1_s9_controls.style.borderRadius = "10px";
+
+    const u1_s9_stage = document.createElement("div");
+    u1_s9_stage.style.flex = "2 1 340px";
+    u1_s9_stage.style.minWidth = "300px";
+
+    u1_s9_wrap.appendChild(u1_s9_controls);
+    u1_s9_wrap.appendChild(u1_s9_stage);
+    body.appendChild(u1_s9_wrap);
+
+    const u1_s9_intro = document.createElement("p");
+    u1_s9_intro.className = "checkpoint-intro";
+    u1_s9_intro.textContent = "The dashed secant joins x₀ and x₀ + Δx. Shrink Δx toward zero and watch its slope crystallize onto the solid tangent — the difference quotient becoming the instantaneous derivative f′(x₀) = 3x₀² − 3.";
+    u1_s9_controls.appendChild(u1_s9_intro);
+
+    const u1_s9_x0Slider = u0SandboxSlider(u1_s9_controls, {
+        label: "base  x₀ =", min: -2, max: 2, step: 0.05, value: u1_s9_state.x0, decimals: 2,
+        onChange: function (v) { u1_s9_state.x0 = v; }
+    });
+    const u1_s9_dxSlider = u1SandboxLogSlider(u1_s9_controls, {
+        label: "interval  Δx =", min: u1_s9_DX_MIN, max: 1, value: u1_s9_state.dx, decimals: 3,
+        onChange: function (v) { u1_s9_state.dx = v; u1_s9_state.animating = false; u1_s9_syncBtn(); }
+    });
+
+    const u1_s9_animBtn = document.createElement("button");
+    u1_s9_animBtn.type = "button";
+    u1_s9_animBtn.className = "checkpoint-begin-btn";
+    u1_s9_animBtn.style.marginTop = "0.6rem";
+    function u1_s9_syncBtn() {
+        u1_s9_animBtn.textContent = u1_s9_state.animating ? "Shrinking Δx → 0 …" : "Shrink Δx → 0";
+    }
+    u1_s9_syncBtn();
+    u1_s9_animBtn.addEventListener("click", function () {
+        if (u1_s9_state.animating) {
+            u1_s9_state.animating = false;
+        } else {
+            // Restart from a wide gap if we are already collapsed, so the lock-on
+            // is visible every time the button is pressed.
+            if (u1_s9_state.dx <= u1_s9_DX_MIN * 4) {
+                u1_s9_state.dx = 1;
+                u1_s9_dxSlider.setValue(u1_s9_state.dx);
+            }
+            u1_s9_state.animating = true;
+        }
+        u1_s9_syncBtn();
+    });
+    u1_s9_controls.appendChild(u1_s9_animBtn);
+
+    const u1_s9_readout = document.createElement("div");
+    u1_s9_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s9_readout.style.fontSize = "0.86rem";
+    u1_s9_readout.style.fontWeight = "700";
+    u1_s9_readout.style.padding = "0.6rem 0.8rem";
+    u1_s9_readout.style.marginTop = "0.85rem";
+    u1_s9_readout.style.background = "var(--bg-color)";
+    u1_s9_readout.style.border = "1px solid var(--panel-border)";
+    u1_s9_readout.style.borderRadius = "8px";
+    u1_s9_readout.style.lineHeight = "1.5";
+    u1_s9_controls.appendChild(u1_s9_readout);
+
+    const u1_s9_canvas = document.createElement("canvas");
+    u1_s9_canvas.width = 600;
+    u1_s9_canvas.height = 420;
+    u1_s9_canvas.className = "math-canvas";
+    u1_s9_stage.appendChild(u1_s9_canvas);
+    const u1_s9_ctx = u1_s9_canvas.getContext("2d");
+
+    function u1_s9_draw() {
+        const ctx = u1_s9_ctx;
+        const W = u1_s9_canvas.width, H = u1_s9_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const padL = 40, padR = 16, padT = 16, padB = 28;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+        function pxX(x) { return padL + (x - u1_s9_xMin) / (u1_s9_xMax - u1_s9_xMin) * plotW; }
+        function pxY(y) { return padT + (u1_s9_yMax - y) / (u1_s9_yMax - u1_s9_yMin) * plotH; }
+        function clampY(Y) { return Math.max(padT - 200, Math.min(H - padB + 200, Y)); }
+
+        // Grid + axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = -2; gx <= 2; gx++) {
+            const X = pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, padT); ctx.lineTo(X, H - padB); ctx.stroke();
+            if (gx !== 0) ctx.fillText(String(gx), X, pxY(0) + 12);
+        }
+        ctx.textAlign = "right";
+        for (let gy = u1_s9_yMin; gy <= u1_s9_yMax; gy++) {
+            const Y = pxY(gy);
+            ctx.beginPath(); ctx.moveTo(padL, Y); ctx.lineTo(W - padR, Y); ctx.stroke();
+            if (gy !== 0) ctx.fillText(String(gy), padL - 6, Y + 3);
+        }
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(padL, pxY(0)); ctx.lineTo(W - padR, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(pxX(0), padT); ctx.lineTo(pxX(0), H - padB); ctx.stroke();
+
+        // The curve.
+        ctx.strokeStyle = text;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        for (let i = 0; i <= 360; i++) {
+            const x = u1_s9_xMin + (u1_s9_xMax - u1_s9_xMin) * (i / 360);
+            const X = pxX(x), Y = clampY(pxY(u1_s9_f(x)));
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        const x0 = u1_s9_state.x0;
+        const x1 = x0 + u1_s9_state.dx;
+        const f0 = u1_s9_f(x0), f1 = u1_s9_f(x1);
+        const mSec = (f1 - f0) / u1_s9_state.dx;
+        const mTan = u1_s9_df(x0);
+
+        // Tangent line (solid, success) spanning the frame.
+        ctx.strokeStyle = good;
+        ctx.lineWidth = 2;
+        const tanL = f0 + mTan * (u1_s9_xMin - x0);
+        const tanR = f0 + mTan * (u1_s9_xMax - x0);
+        ctx.beginPath();
+        ctx.moveTo(pxX(u1_s9_xMin), clampY(pxY(tanL)));
+        ctx.lineTo(pxX(u1_s9_xMax), clampY(pxY(tanR)));
+        ctx.stroke();
+
+        // Secant line (dashed, accent) spanning the frame.
+        ctx.save();
+        ctx.setLineDash([7, 5]);
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2;
+        const secL = f0 + mSec * (u1_s9_xMin - x0);
+        const secR = f0 + mSec * (u1_s9_xMax - x0);
+        ctx.beginPath();
+        ctx.moveTo(pxX(u1_s9_xMin), clampY(pxY(secL)));
+        ctx.lineTo(pxX(u1_s9_xMax), clampY(pxY(secR)));
+        ctx.stroke();
+        ctx.restore();
+
+        // The two sample points.
+        ctx.fillStyle = text;
+        ctx.beginPath(); ctx.arc(pxX(x0), pxY(f0), 6, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = accent;
+        ctx.beginPath(); ctx.arc(pxX(x1), clampY(pxY(f1)), 5, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = good;
+        ctx.fillText("tangent  f′(x₀)", padL + 6, padT + 14);
+        ctx.fillStyle = accent;
+        ctx.fillText("secant (Δx)", padL + 6, padT + 30);
+
+        u1_s9_syncReadout(mSec, mTan);
+    }
+
+    function u1_s9_syncReadout(mSec, mTan) {
+        const err = Math.abs(mSec - mTan);
+        u1_s9_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "secant slope  = " + mSec.toFixed(4);
+        l1.style.color = "var(--accent-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = "tangent f′(x₀) = " + mTan.toFixed(4);
+        l2.style.color = "var(--success-color)";
+        l2.style.marginTop = "0.2rem";
+        const l3 = document.createElement("div");
+        l3.textContent = "|error| = " + err.toFixed(4);
+        l3.style.color = err < 0.05 ? "var(--success-color)" : "var(--text-secondary)";
+        l3.style.marginTop = "0.2rem";
+        u1_s9_readout.appendChild(l1);
+        u1_s9_readout.appendChild(l2);
+        u1_s9_readout.appendChild(l3);
+    }
+
+    function u1_s9_frame() {
+        if (!document.body.contains(u1_s9_canvas)) return; // stop after navigation
+        if (u1_s9_state.animating) {
+            u1_s9_state.dx *= 0.95;
+            if (u1_s9_state.dx <= u1_s9_DX_MIN) {
+                u1_s9_state.dx = u1_s9_DX_MIN;
+                u1_s9_state.animating = false;
+                u1_s9_syncBtn();
+            }
+            u1_s9_dxSlider.setValue(u1_s9_state.dx);
+        }
+        u1_s9_draw();
+        requestAnimationFrame(u1_s9_frame);
+    }
+    requestAnimationFrame(u1_s9_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
