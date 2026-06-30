@@ -699,6 +699,14 @@ const UNIT_2_SANDBOXES = [
         title: "The Logistic Population Carrying Capacity Lab",
         blurb: "Manipulate intrinsic growth coefficients and structural carrying capacities to witness how populations stabilize or drop toward environmental equilibriums.",
         render: renderLogisticPopulationSaturationSandbox
+    },
+    {
+        id: "unit_2_master_differential_matrix",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "The First-Order Differential Equation Matrix",
+        blurb: "An advanced operational workbench to select, configure, and visualize the slope fields, solution curves, and phase properties of any first-order differential model.",
+        render: renderMasterDifferentialMatrixSandbox
     }
 ];
 
@@ -7226,6 +7234,321 @@ function renderLogisticPopulationSaturationSandbox(body) {
         requestAnimationFrame(u2_s9_frame);
     }
     requestAnimationFrame(u2_s9_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 10 - The First-Order Differential Equation Matrix (u2_s10_)
+
+   The capstone workbench: a split dashboard whose left rail switches between
+   three first-order archetypes (Linear, Separable, Autonomous Logistic) and
+   exposes a parameter block tailored to the active model, while the right
+   viewport repaints the matching slope field over a shared window. Clicking
+   drops multi-coloured tracer seeds, each threaded forward and backward by
+   arc-length RK4. A floating overlay reports the model, the live probe point
+   (x0, y0) under the cursor, and the local slope y' = f(x0, y0).
+   --------------------------------------------------------------------------- */
+function renderMasterDifferentialMatrixSandbox(body) {
+    const u2_s10_X0 = -4, u2_s10_X1 = 4, u2_s10_Y0 = -3, u2_s10_Y1 = 3;
+    const u2_s10_MAX_SEEDS = 6;
+    // Per-model parameter stores, so switching models and returning restores values.
+    const u2_s10_params = {
+        linear: { p: 1, q0: 1, q1: 0 },
+        separable: { a: 1, w: 1 },
+        logistic: { r: 1, K: 2 }
+    };
+    const u2_s10_state = { model: "linear", seeds: [], cursor: { x: 0, y: 0, inside: false } };
+
+    // The dispatched right-hand side y' = f(x, y) for the active archetype.
+    function u2_s10_f(x, y) {
+        if (u2_s10_state.model === "linear") {
+            const P = u2_s10_params.linear;
+            return (P.q0 + P.q1 * x) - P.p * y;
+        }
+        if (u2_s10_state.model === "separable") {
+            const P = u2_s10_params.separable;
+            return P.a * Math.cos(P.w * x) * (1 - y * y);
+        }
+        const P = u2_s10_params.logistic;
+        return P.r * y * (1 - y / P.K);
+    }
+    function u2_s10_modelLabel() {
+        if (u2_s10_state.model === "linear") return "Linear:  y′ = Q(x) − P(x)y";
+        if (u2_s10_state.model === "separable") return "Separable:  y′ = a·cos(wx)(1 − y²)";
+        return "Autonomous Logistic:  y′ = r·y(1 − y/K)";
+    }
+
+    const u2_s10_intro = document.createElement("p");
+    u2_s10_intro.className = "checkpoint-intro";
+    u2_s10_intro.textContent = "The master workbench for first-order equations. Pick an archetype on the left and its parameters appear beneath it; the viewport repaints that system's slope field. Click anywhere to drop a coloured tracer, integrated both ways by arc-length RK4, and read the live model, probe point, and local slope in the floating overlay.";
+    body.appendChild(u2_s10_intro);
+
+    // Split dashboard: control rail (left) and master viewport (right), wrapping
+    // to a single column on narrow viewports.
+    const u2_s10_cols = document.createElement("div");
+    u2_s10_cols.style.display = "flex";
+    u2_s10_cols.style.flexWrap = "wrap";
+    u2_s10_cols.style.gap = "1rem";
+    u2_s10_cols.style.alignItems = "flex-start";
+    body.appendChild(u2_s10_cols);
+
+    const u2_s10_rail = document.createElement("div");
+    u2_s10_rail.style.flex = "1 1 220px";
+    u2_s10_rail.style.minWidth = "210px";
+    u2_s10_cols.appendChild(u2_s10_rail);
+
+    const u2_s10_viewWrap = document.createElement("div");
+    u2_s10_viewWrap.style.flex = "2 1 360px";
+    u2_s10_viewWrap.style.minWidth = "320px";
+    u2_s10_viewWrap.style.position = "relative";   // anchor for the floating overlay
+    u2_s10_cols.appendChild(u2_s10_viewWrap);
+
+    // Left rail: the model switcher.
+    u0SandboxToggleGroup(u2_s10_rail, "Model archetype", [
+        { label: "Linear", value: "linear" },
+        { label: "Separable", value: "separable" },
+        { label: "Logistic", value: "logistic" }
+    ], function () { return u2_s10_state.model; }, function (v) {
+        u2_s10_state.model = v;
+        u2_s10_buildParams();
+    });
+
+    // Left rail: the parameter block, rebuilt per archetype.
+    const u2_s10_paramBox = document.createElement("div");
+    u2_s10_rail.appendChild(u2_s10_paramBox);
+
+    function u2_s10_buildParams() {
+        u2_s10_paramBox.innerHTML = "";
+        const m = u2_s10_state.model;
+        if (m === "linear") {
+            const P = u2_s10_params.linear;
+            u0SandboxSlider(u2_s10_paramBox, { label: "p  (P(x) = p)", min: -1.5, max: 2.5, step: 0.1, value: P.p, decimals: 1, onChange: function (v) { P.p = v; } });
+            u0SandboxSlider(u2_s10_paramBox, { label: "q0  (const of Q)", min: -3, max: 3, step: 0.1, value: P.q0, decimals: 1, onChange: function (v) { P.q0 = v; } });
+            u0SandboxSlider(u2_s10_paramBox, { label: "q1  (slope of Q)", min: -2, max: 2, step: 0.1, value: P.q1, decimals: 1, onChange: function (v) { P.q1 = v; } });
+        } else if (m === "separable") {
+            const P = u2_s10_params.separable;
+            u0SandboxSlider(u2_s10_paramBox, { label: "a  (amplitude)", min: -2, max: 2, step: 0.1, value: P.a, decimals: 1, onChange: function (v) { P.a = v; } });
+            u0SandboxSlider(u2_s10_paramBox, { label: "w  (x frequency)", min: 0.2, max: 3, step: 0.1, value: P.w, decimals: 1, onChange: function (v) { P.w = v; } });
+        } else {
+            const P = u2_s10_params.logistic;
+            u0SandboxSlider(u2_s10_paramBox, { label: "r  (growth rate)", min: 0.2, max: 2, step: 0.05, value: P.r, decimals: 2, onChange: function (v) { P.r = v; } });
+            u0SandboxSlider(u2_s10_paramBox, { label: "K  (carrying capacity)", min: 0.5, max: 2.5, step: 0.1, value: P.K, decimals: 1, onChange: function (v) { P.K = v; } });
+        }
+    }
+    u2_s10_buildParams();
+
+    const u2_s10_clearBtn = document.createElement("button");
+    u2_s10_clearBtn.type = "button";
+    u2_s10_clearBtn.textContent = "Clear tracers";
+    u2_s10_clearBtn.style.font = "inherit";
+    u2_s10_clearBtn.style.fontSize = "0.9rem";
+    u2_s10_clearBtn.style.fontWeight = "600";
+    u2_s10_clearBtn.style.marginTop = "0.6rem";
+    u2_s10_clearBtn.style.padding = "0.4rem 0.9rem";
+    u2_s10_clearBtn.style.borderRadius = "8px";
+    u2_s10_clearBtn.style.cursor = "pointer";
+    u2_s10_clearBtn.style.border = "1px solid var(--panel-border)";
+    u2_s10_clearBtn.style.background = "var(--accent-soft)";
+    u2_s10_clearBtn.style.color = "var(--accent-text)";
+    u2_s10_clearBtn.addEventListener("click", function () { u2_s10_state.seeds.length = 0; });
+    u2_s10_rail.appendChild(u2_s10_clearBtn);
+
+    // Right viewport: the canvas, plus the floating metric overlay above it.
+    const u2_s10_canvas = document.createElement("canvas");
+    u2_s10_canvas.width = 600;
+    u2_s10_canvas.height = 440;
+    u2_s10_canvas.className = "math-canvas";
+    u2_s10_canvas.style.cursor = "crosshair";
+    u2_s10_viewWrap.appendChild(u2_s10_canvas);
+    const u2_s10_ctx = u2_s10_canvas.getContext("2d");
+
+    const u2_s10_overlay = document.createElement("div");
+    u2_s10_overlay.style.position = "absolute";
+    u2_s10_overlay.style.top = "12px";
+    u2_s10_overlay.style.right = "12px";
+    u2_s10_overlay.style.maxWidth = "62%";
+    u2_s10_overlay.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s10_overlay.style.fontSize = "0.8rem";
+    u2_s10_overlay.style.fontWeight = "700";
+    u2_s10_overlay.style.lineHeight = "1.5";
+    u2_s10_overlay.style.padding = "0.5rem 0.7rem";
+    u2_s10_overlay.style.borderRadius = "8px";
+    u2_s10_overlay.style.background = "var(--panel-bg)";
+    u2_s10_overlay.style.border = "1px solid var(--panel-border)";
+    u2_s10_overlay.style.color = "var(--text-color)";
+    u2_s10_overlay.style.opacity = "0.94";
+    u2_s10_overlay.style.pointerEvents = "none";   // never swallow viewport clicks
+    u2_s10_viewWrap.appendChild(u2_s10_overlay);
+
+    // The multi-colour tracer palette, all bound to live theme tokens so each
+    // seed stays legible under both frames.
+    const u2_s10_PALETTE = ["--accent-color", "--success-color", "--error-color", "--text-color", "--text-secondary"];
+
+    const u2_s10_pad = { L: 40, R: 16, T: 16, B: 30 };
+    function u2_s10_plotW() { return u2_s10_canvas.width - u2_s10_pad.L - u2_s10_pad.R; }
+    function u2_s10_plotH() { return u2_s10_canvas.height - u2_s10_pad.T - u2_s10_pad.B; }
+    function u2_s10_pxX(x) { return u2_s10_pad.L + (x - u2_s10_X0) / (u2_s10_X1 - u2_s10_X0) * u2_s10_plotW(); }
+    function u2_s10_pxY(y) { return u2_s10_pad.T + (u2_s10_Y1 - y) / (u2_s10_Y1 - u2_s10_Y0) * u2_s10_plotH(); }
+    function u2_s10_worldX(px) { return u2_s10_X0 + (px - u2_s10_pad.L) / u2_s10_plotW() * (u2_s10_X1 - u2_s10_X0); }
+    function u2_s10_worldY(py) { return u2_s10_Y1 - (py - u2_s10_pad.T) / u2_s10_plotH() * (u2_s10_Y1 - u2_s10_Y0); }
+
+    function u2_s10_evtWorld(e) {
+        const rect = u2_s10_canvas.getBoundingClientRect();
+        const bx = (e.clientX - rect.left) * (u2_s10_canvas.width / rect.width);
+        const by = (e.clientY - rect.top) * (u2_s10_canvas.height / rect.height);
+        return { x: u2_s10_worldX(bx), y: u2_s10_worldY(by) };
+    }
+
+    u2_s10_canvas.addEventListener("click", function (e) {
+        const w = u2_s10_evtWorld(e);
+        if (w.x < u2_s10_X0 || w.x > u2_s10_X1 || w.y < u2_s10_Y0 || w.y > u2_s10_Y1) return;
+        u2_s10_state.seeds.push({ x: w.x, y: w.y, c: u2_s10_state.seeds.length % u2_s10_PALETTE.length });
+        if (u2_s10_state.seeds.length > u2_s10_MAX_SEEDS) u2_s10_state.seeds.shift();
+    });
+    u2_s10_canvas.addEventListener("mousemove", function (e) {
+        const w = u2_s10_evtWorld(e);
+        u2_s10_state.cursor.x = w.x;
+        u2_s10_state.cursor.y = w.y;
+        u2_s10_state.cursor.inside = (w.x >= u2_s10_X0 && w.x <= u2_s10_X1 && w.y >= u2_s10_Y0 && w.y <= u2_s10_Y1);
+    });
+    u2_s10_canvas.addEventListener("mouseleave", function () { u2_s10_state.cursor.inside = false; });
+
+    // Unit-tangent of the solution curve; dir = +1 forward, -1 backward.
+    function u2_s10_tangent(x, y, dir) {
+        const m = u2_s10_f(x, y);
+        const inv = 1 / Math.sqrt(1 + m * m);
+        return { dx: dir * inv, dy: dir * m * inv };
+    }
+    function u2_s10_integrate(seed, dir) {
+        const ds = 0.05, MAX = 650;
+        const pts = [{ x: seed.x, y: seed.y }];
+        let x = seed.x, y = seed.y;
+        for (let i = 0; i < MAX; i++) {
+            const k1 = u2_s10_tangent(x, y, dir);
+            const k2 = u2_s10_tangent(x + 0.5 * ds * k1.dx, y + 0.5 * ds * k1.dy, dir);
+            const k3 = u2_s10_tangent(x + 0.5 * ds * k2.dx, y + 0.5 * ds * k2.dy, dir);
+            const k4 = u2_s10_tangent(x + ds * k3.dx, y + ds * k3.dy, dir);
+            x += ds / 6 * (k1.dx + 2 * k2.dx + 2 * k3.dx + k4.dx);
+            y += ds / 6 * (k1.dy + 2 * k2.dy + 2 * k3.dy + k4.dy);
+            pts.push({ x: x, y: y });
+            if (x < u2_s10_X0 || x > u2_s10_X1 || y < u2_s10_Y0 || y > u2_s10_Y1) break;
+        }
+        return pts;
+    }
+
+    function u2_s10_draw() {
+        const ctx = u2_s10_ctx;
+        const W = u2_s10_canvas.width, H = u2_s10_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s10_pad.L, u2_s10_pad.T, u2_s10_plotW(), u2_s10_plotH());
+
+        // Axes through the origin.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.1;
+        const ay = u2_s10_pxY(0), ax = u2_s10_pxX(0);
+        ctx.beginPath(); ctx.moveTo(u2_s10_pad.L, ay); ctx.lineTo(u2_s10_pad.L + u2_s10_plotW(), ay); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ax, u2_s10_pad.T); ctx.lineTo(ax, u2_s10_pad.T + u2_s10_plotH()); ctx.stroke();
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("x", u2_s10_pad.L + u2_s10_plotW() - 6, ay - 6);
+        ctx.textAlign = "left";
+        ctx.fillText("y", ax + 6, u2_s10_pad.T + 12);
+
+        // The slope field for the active model.
+        const NX = 25, NY = 17, seg = 9;
+        for (let i = 0; i < NX; i++) {
+            for (let j = 0; j < NY; j++) {
+                const x = u2_s10_X0 + (u2_s10_X1 - u2_s10_X0) * (i / (NX - 1));
+                const y = u2_s10_Y0 + (u2_s10_Y1 - u2_s10_Y0) * (j / (NY - 1));
+                const m = u2_s10_f(x, y);
+                const inv = 1 / Math.sqrt(1 + m * m);
+                const cx = u2_s10_pxX(x), cy = u2_s10_pxY(y);
+                ctx.strokeStyle = border;
+                ctx.lineWidth = 1.3;
+                ctx.beginPath();
+                ctx.moveTo(cx - seg * inv, cy + seg * m * inv);
+                ctx.lineTo(cx + seg * inv, cy - seg * m * inv);
+                ctx.stroke();
+            }
+        }
+
+        // Each tracer's threaded solution, in its palette colour.
+        u2_s10_state.seeds.forEach(function (seed) {
+            const col = u0SandboxColor(u2_s10_PALETTE[seed.c], "#6200ee");
+            const back = u2_s10_integrate(seed, -1);
+            const fwd = u2_s10_integrate(seed, 1);
+            ctx.strokeStyle = col;
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            let started = false;
+            for (let k = back.length - 1; k >= 0; k--) {
+                const X = u2_s10_pxX(back[k].x), Y = u2_s10_pxY(back[k].y);
+                if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+            }
+            for (let k = 1; k < fwd.length; k++) {
+                ctx.lineTo(u2_s10_pxX(fwd[k].x), u2_s10_pxY(fwd[k].y));
+            }
+            ctx.stroke();
+            ctx.fillStyle = col;
+            ctx.beginPath();
+            ctx.arc(u2_s10_pxX(seed.x), u2_s10_pxY(seed.y), 4.5, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = bg; ctx.lineWidth = 1.5; ctx.stroke();
+        });
+
+        // The cursor crosshair, drawn only while the pointer is over the field.
+        if (u2_s10_state.cursor.inside) {
+            const cx = u2_s10_pxX(u2_s10_state.cursor.x), cy = u2_s10_pxY(u2_s10_state.cursor.y);
+            const accent = u0SandboxColor("--accent-color", "#6200ee");
+            ctx.save();
+            ctx.setLineDash([3, 3]);
+            ctx.strokeStyle = accent;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(cx, u2_s10_pad.T); ctx.lineTo(cx, u2_s10_pad.T + u2_s10_plotH()); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(u2_s10_pad.L, cy); ctx.lineTo(u2_s10_pad.L + u2_s10_plotW(), cy); ctx.stroke();
+            ctx.restore();
+            ctx.fillStyle = accent;
+            ctx.beginPath(); ctx.arc(cx, cy, 3.5, 0, 2 * Math.PI); ctx.fill();
+        }
+
+        // Model caption at the foot of the field.
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText(u2_s10_modelLabel(), u2_s10_pad.L + 6, u2_s10_pad.T + u2_s10_plotH() - 8);
+    }
+
+    function u2_s10_syncOverlay() {
+        const c = u2_s10_state.cursor;
+        const ptLine = c.inside
+            ? "(x0, y0) = (" + c.x.toFixed(2) + ", " + c.y.toFixed(2) + ")"
+            : "(x0, y0) = hover the field";
+        const slopeLine = c.inside
+            ? "y′ = f(x0, y0) = " + u2_s10_f(c.x, c.y).toFixed(3)
+            : "y′ = f(x0, y0) = —";
+        u2_s10_overlay.innerHTML = "";
+        [["Model: " + u2_s10_state.model, "var(--accent-text)"], [ptLine, "var(--text-color)"], [slopeLine, "var(--text-color)"], ["tracers: " + u2_s10_state.seeds.length + " / " + u2_s10_MAX_SEEDS, "var(--text-secondary)"]].forEach(function (row) {
+            const d = document.createElement("div");
+            d.textContent = row[0];
+            d.style.color = row[1];
+            u2_s10_overlay.appendChild(d);
+        });
+    }
+
+    function u2_s10_frame() {
+        if (!document.body.contains(u2_s10_canvas)) return; // stop after navigation
+        u2_s10_draw();
+        u2_s10_syncOverlay();
+        requestAnimationFrame(u2_s10_frame);
+    }
+    requestAnimationFrame(u2_s10_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
