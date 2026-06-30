@@ -607,6 +607,14 @@ const UNIT_1_SANDBOXES = [
         title: "The Secant-to-Tangent Difference Quotient Matrix",
         blurb: "Drive a secant interval width Δx down to absolute zero to witness the geometric crystallization of a local instantaneous derivative vector.",
         render: renderDifferenceQuotientSandbox
+    },
+    {
+        id: "unit_1_prerequisite_matrix",
+        unitNumber: 1,
+        isSandbox: true,
+        title: "The Prerequisite Function Reference Matrix",
+        blurb: "A unified operational dashboard to audit, compare, and visualize the domain restrictions, ranges, and derivative fields of all core benchmark functions.",
+        render: renderPrerequisiteMatrixSandbox
     }
 ];
 
@@ -4954,6 +4962,425 @@ function renderDifferenceQuotientSandbox(body) {
         requestAnimationFrame(u1_s9_frame);
     }
     requestAnimationFrame(u1_s9_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 10 - The Prerequisite Function Reference Matrix (u1_s10_)
+
+   The capstone of the Unit 1 cluster: a single dashboard that audits every core
+   prerequisite function. A button group on the left selects the active function;
+   an information desk below it prints its domain, range, derivative, and inverse
+   criteria; the canvas on the right graphs it with a node that tracks the cursor
+   along the curve, a floating badge reading the live (x, f(x)) and the local slope
+   f'(x). Polynomial, exponential, logarithmic, a piecewise step, and sine all
+   render as y = f(x); the complex case e^{iθ} switches the canvas to the unit
+   circle, the node riding the angle with the rotational derivative i·e^{iθ}.
+
+   One requestAnimationFrame loop drives the redraw (so a theme toggle repaints
+   live) and self-terminates the moment the canvas leaves the DOM; the cursor
+   listeners live on that same canvas, so they are collected with it on route
+   change. Every colour is read live from the theme, file:// safe, no network.
+   --------------------------------------------------------------------------- */
+function renderPrerequisiteMatrixSandbox(body) {
+    // The function catalogue. Graph-mode entries expose f, df and a viewport; the
+    // complex entry is flagged so the canvas swaps to a unit-circle parameterisation.
+    const u1_s10_CATALOG = {
+        poly: {
+            label: "Polynomial xⁿ", mode: "graph",
+            f: function (x) { return x * x * x; }, df: function (x) { return 3 * x * x; },
+            domain: "all real x  ∈ (−∞, ∞)",
+            range: "all real y  ∈ (−∞, ∞)   (odd power)",
+            deriv: "d/dx xⁿ = n·xⁿ⁻¹    →    d/dx x³ = 3x²",
+            inverse: "One-to-one for odd powers (x³ ↔ ∛x). Even powers need a domain restriction such as x ≥ 0.",
+            xMin: -3, xMax: 3, yMin: -6, yMax: 6, node: 1.2
+        },
+        exp: {
+            label: "Exponential eˣ", mode: "graph",
+            f: function (x) { return Math.exp(x); }, df: function (x) { return Math.exp(x); },
+            domain: "all real x  ∈ (−∞, ∞)",
+            range: "y > 0  ∈ (0, ∞)",
+            deriv: "d/dx eˣ = eˣ    (equals its own derivative)",
+            inverse: "Bijective ℝ → (0, ∞); the inverse is ln x.",
+            xMin: -3, xMax: 3, yMin: -1, yMax: 8, node: 1.0
+        },
+        log: {
+            label: "Logarithmic ln x", mode: "graph",
+            f: function (x) { return Math.log(x); }, df: function (x) { return 1 / x; },
+            domain: "x > 0  ∈ (0, ∞)   (left half forbidden)",
+            range: "all real y  ∈ (−∞, ∞)",
+            deriv: "d/dx ln x = 1/x    (explodes as x → 0⁺)",
+            inverse: "Bijective (0, ∞) → ℝ; the inverse is eˣ.",
+            xMin: -1, xMax: 7, yMin: -4, yMax: 3, node: 2.0, domLow: 0.01
+        },
+        step: {
+            label: "Piecewise Step ⌊x⌋", mode: "graph", step: true,
+            f: function (x) { return Math.floor(x); }, df: function () { return 0; },
+            domain: "all real x  ∈ (−∞, ∞)",
+            range: "integers  y ∈ ℤ",
+            deriv: "f′(x) = 0 on each tread; undefined at the integer jumps",
+            inverse: "Not one-to-one (constant on each step) — no inverse exists.",
+            xMin: -3, xMax: 3, yMin: -4, yMax: 4, node: 1.5
+        },
+        trig: {
+            label: "Trigonometric sin x", mode: "graph",
+            f: function (x) { return Math.sin(x); }, df: function (x) { return Math.cos(x); },
+            domain: "all real x  ∈ (−∞, ∞)",
+            range: "−1 ≤ y ≤ 1  ∈ [−1, 1]",
+            deriv: "d/dx sin x = cos x",
+            inverse: "Invertible only on [−π/2, π/2]; the inverse is arcsin x.",
+            xMin: -6.5, xMax: 6.5, yMin: -2, yMax: 2, node: 0.8
+        },
+        complex: {
+            label: "Complex e^{iθ}", mode: "complex",
+            domain: "all real θ  ∈ (−∞, ∞)",
+            range: "the unit circle  |z| = 1",
+            deriv: "d/dθ e^{iθ} = i·e^{iθ}    (tangent, 90° ahead)",
+            inverse: "Multivalued — the complex logarithm, fixed by choosing a 2π branch.",
+            node: Math.PI / 4
+        }
+    };
+    const u1_s10_state = { key: "poly", t: 1.2 }; // t = world-x (graph) or θ (complex)
+
+    // --- Split dashboard shell ---
+    const u1_s10_wrap = document.createElement("div");
+    u1_s10_wrap.style.display = "flex";
+    u1_s10_wrap.style.flexWrap = "wrap";
+    u1_s10_wrap.style.gap = "1rem";
+    u1_s10_wrap.style.alignItems = "stretch";
+
+    const u1_s10_controls = document.createElement("div");
+    u1_s10_controls.style.flex = "1 1 250px";
+    u1_s10_controls.style.minWidth = "250px";
+    u1_s10_controls.style.padding = "1rem";
+    u1_s10_controls.style.background = "var(--panel-bg)";
+    u1_s10_controls.style.border = "1px solid var(--panel-border)";
+    u1_s10_controls.style.borderRadius = "10px";
+
+    const u1_s10_stage = document.createElement("div");
+    u1_s10_stage.style.flex = "2 1 340px";
+    u1_s10_stage.style.minWidth = "300px";
+    u1_s10_stage.style.position = "relative"; // anchors the floating badge
+
+    u1_s10_wrap.appendChild(u1_s10_controls);
+    u1_s10_wrap.appendChild(u1_s10_stage);
+    body.appendChild(u1_s10_wrap);
+
+    const u1_s10_intro = document.createElement("p");
+    u1_s10_intro.className = "checkpoint-intro";
+    u1_s10_intro.textContent = "Pick a benchmark function to audit it. The desk lists its domain, range, derivative, and inverse rule; sweep the graph to ride the node along the curve and read the live value and instantaneous slope.";
+    u1_s10_controls.appendChild(u1_s10_intro);
+
+    // --- Control hub: the function selector button group ---
+    u0SandboxToggleGroup(u1_s10_controls, "Core prerequisite functions",
+        [
+            { value: "poly", label: "xⁿ" },
+            { value: "exp", label: "eˣ" },
+            { value: "log", label: "ln x" },
+            { value: "step", label: "Step" },
+            { value: "trig", label: "sin x" },
+            { value: "complex", label: "e^{iθ}" }
+        ],
+        function () { return u1_s10_state.key; },
+        function (val) {
+            u1_s10_state.key = val;
+            u1_s10_state.t = u1_s10_CATALOG[val].node; // reset node to the function's default
+            u1_s10_syncDesk();
+        });
+
+    // --- Information desk: properties of the active function ---
+    const u1_s10_desk = document.createElement("div");
+    u1_s10_desk.style.marginTop = "0.85rem";
+    u1_s10_desk.style.padding = "0.75rem 0.85rem";
+    u1_s10_desk.style.background = "var(--bg-color)";
+    u1_s10_desk.style.border = "1px solid var(--panel-border)";
+    u1_s10_desk.style.borderRadius = "8px";
+    u1_s10_controls.appendChild(u1_s10_desk);
+
+    function u1_s10_deskRow(term, value, accentValue) {
+        const row = document.createElement("div");
+        row.style.marginBottom = "0.55rem";
+        const t = document.createElement("div");
+        t.textContent = term;
+        t.style.fontSize = "0.72rem";
+        t.style.fontWeight = "700";
+        t.style.textTransform = "uppercase";
+        t.style.letterSpacing = "0.04em";
+        t.style.color = "var(--text-secondary)";
+        const v = document.createElement("div");
+        v.textContent = value;
+        v.style.fontSize = "0.92rem";
+        v.style.fontFamily = "Consolas, Monaco, monospace";
+        v.style.color = accentValue ? "var(--accent-color)" : "var(--text-color)";
+        v.style.marginTop = "0.1rem";
+        v.style.wordBreak = "break-word";
+        row.appendChild(t);
+        row.appendChild(v);
+        return row;
+    }
+
+    function u1_s10_syncDesk() {
+        const cfg = u1_s10_CATALOG[u1_s10_state.key];
+        u1_s10_desk.innerHTML = "";
+        const head = document.createElement("div");
+        head.textContent = cfg.label;
+        head.style.fontSize = "1.05rem";
+        head.style.fontWeight = "700";
+        head.style.color = "var(--accent-text)";
+        head.style.marginBottom = "0.6rem";
+        u1_s10_desk.appendChild(head);
+        u1_s10_desk.appendChild(u1_s10_deskRow("Domain", cfg.domain));
+        u1_s10_desk.appendChild(u1_s10_deskRow("Range", cfg.range));
+        u1_s10_desk.appendChild(u1_s10_deskRow("Derivative", cfg.deriv, true));
+        u1_s10_desk.appendChild(u1_s10_deskRow("Inverse existence", cfg.inverse));
+    }
+    u1_s10_syncDesk();
+
+    // --- Interactive sheet: canvas + floating badge ---
+    const u1_s10_canvas = document.createElement("canvas");
+    u1_s10_canvas.width = 640;
+    u1_s10_canvas.height = 440;
+    u1_s10_canvas.className = "math-canvas";
+    u1_s10_canvas.style.cursor = "crosshair";
+    u1_s10_canvas.style.display = "block";
+    u1_s10_stage.appendChild(u1_s10_canvas);
+    const u1_s10_ctx = u1_s10_canvas.getContext("2d");
+
+    const u1_s10_badge = document.createElement("div");
+    u1_s10_badge.style.position = "absolute";
+    u1_s10_badge.style.pointerEvents = "none";
+    u1_s10_badge.style.padding = "0.35rem 0.55rem";
+    u1_s10_badge.style.fontFamily = "Consolas, Monaco, monospace";
+    u1_s10_badge.style.fontSize = "0.8rem";
+    u1_s10_badge.style.fontWeight = "700";
+    u1_s10_badge.style.lineHeight = "1.4";
+    u1_s10_badge.style.whiteSpace = "nowrap";
+    u1_s10_badge.style.background = "var(--panel-bg)";
+    u1_s10_badge.style.color = "var(--text-color)";
+    u1_s10_badge.style.border = "1px solid var(--accent-color)";
+    u1_s10_badge.style.borderRadius = "7px";
+    u1_s10_badge.style.boxShadow = "0 2px 8px var(--shadow-color)";
+    u1_s10_badge.style.transform = "translate(-50%, -130%)";
+    u1_s10_stage.appendChild(u1_s10_badge);
+
+    // Shared plot padding so the draw loop and the cursor mapping agree.
+    const u1_s10_pad = { L: 46, R: 18, T: 18, B: 30 };
+
+    // Current viewport for the active function (graph mode).
+    function u1_s10_view() {
+        const cfg = u1_s10_CATALOG[u1_s10_state.key];
+        return { xMin: cfg.xMin, xMax: cfg.xMax, yMin: cfg.yMin, yMax: cfg.yMax };
+    }
+
+    // Cursor -> node. Graph mode maps pointer-x to world-x (clamped to domain);
+    // complex mode maps the pointer's angle about the centre to θ.
+    u1_s10_canvas.addEventListener("mousemove", function (ev) {
+        const rect = u1_s10_canvas.getBoundingClientRect();
+        const cx = (ev.clientX - rect.left) * (u1_s10_canvas.width / rect.width);
+        const cy = (ev.clientY - rect.top) * (u1_s10_canvas.height / rect.height);
+        const cfg = u1_s10_CATALOG[u1_s10_state.key];
+        if (cfg.mode === "complex") {
+            const W = u1_s10_canvas.width, H = u1_s10_canvas.height;
+            u1_s10_state.t = Math.atan2(-(cy - H / 2), cx - W / 2);
+        } else {
+            const v = u1_s10_view();
+            const plotW = u1_s10_canvas.width - u1_s10_pad.L - u1_s10_pad.R;
+            let x = v.xMin + (cx - u1_s10_pad.L) / plotW * (v.xMax - v.xMin);
+            x = Math.max(v.xMin, Math.min(v.xMax, x));
+            if (cfg.domLow !== undefined) x = Math.max(cfg.domLow, x);
+            u1_s10_state.t = x;
+        }
+    });
+
+    function u1_s10_drawGraph(cfg) {
+        const ctx = u1_s10_ctx;
+        const W = u1_s10_canvas.width, H = u1_s10_canvas.height;
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const locked = u0SandboxColor("--locked-color", "#9aa0b4");
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+
+        const v = u1_s10_view();
+        const plotW = W - u1_s10_pad.L - u1_s10_pad.R, plotH = H - u1_s10_pad.T - u1_s10_pad.B;
+        function pxX(x) { return u1_s10_pad.L + (x - v.xMin) / (v.xMax - v.xMin) * plotW; }
+        function pxY(y) { return u1_s10_pad.T + (v.yMax - y) / (v.yMax - v.yMin) * plotH; }
+        function clampY(Y) { return Math.max(u1_s10_pad.T - 240, Math.min(H - u1_s10_pad.B + 240, Y)); }
+
+        // Forbidden-domain wash for ln x (x <= 0).
+        if (cfg.domLow !== undefined && v.xMin < 0) {
+            ctx.fillStyle = locked;
+            ctx.globalAlpha = 0.16;
+            ctx.fillRect(pxX(v.xMin), u1_s10_pad.T, pxX(0) - pxX(v.xMin), plotH);
+            ctx.globalAlpha = 1;
+        }
+
+        // Grid + numeric labels.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.fillStyle = sub;
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "center";
+        for (let gx = Math.ceil(v.xMin); gx <= v.xMax; gx++) {
+            const X = pxX(gx);
+            ctx.beginPath(); ctx.moveTo(X, u1_s10_pad.T); ctx.lineTo(X, H - u1_s10_pad.B); ctx.stroke();
+            if (gx !== 0) ctx.fillText(String(gx), X, pxY(0) + 12);
+        }
+        ctx.textAlign = "right";
+        for (let gy = Math.ceil(v.yMin); gy <= v.yMax; gy++) {
+            const Y = pxY(gy);
+            ctx.beginPath(); ctx.moveTo(u1_s10_pad.L, Y); ctx.lineTo(W - u1_s10_pad.R, Y); ctx.stroke();
+            if (gy !== 0) ctx.fillText(String(gy), u1_s10_pad.L - 6, Y + 3);
+        }
+        // Axes.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.4;
+        if (v.yMin < 0 && v.yMax > 0) { ctx.beginPath(); ctx.moveTo(u1_s10_pad.L, pxY(0)); ctx.lineTo(W - u1_s10_pad.R, pxY(0)); ctx.stroke(); }
+        if (v.xMin < 0 && v.xMax > 0) { ctx.beginPath(); ctx.moveTo(pxX(0), u1_s10_pad.T); ctx.lineTo(pxX(0), H - u1_s10_pad.B); ctx.stroke(); }
+
+        // The function curve. The step function draws as flat treads so the jumps
+        // read as genuine discontinuities rather than a connected ramp.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.6;
+        if (cfg.step) {
+            for (let k = Math.floor(v.xMin); k <= v.xMax; k++) {
+                const x0 = Math.max(v.xMin, k), x1 = Math.min(v.xMax, k + 1);
+                if (x1 <= x0) continue;
+                const Y = clampY(pxY(cfg.f(x0 + 0.001)));
+                ctx.beginPath();
+                ctx.moveTo(pxX(x0), Y);
+                ctx.lineTo(pxX(x1), Y);
+                ctx.stroke();
+            }
+        } else {
+            ctx.beginPath();
+            let started = false;
+            const STEPS = 480;
+            for (let i = 0; i <= STEPS; i++) {
+                const x = v.xMin + (v.xMax - v.xMin) * (i / STEPS);
+                if (cfg.domLow !== undefined && x <= cfg.domLow) { started = false; continue; }
+                const Y = clampY(pxY(cfg.f(x)));
+                if (!started) { ctx.moveTo(pxX(x), Y); started = true; } else ctx.lineTo(pxX(x), Y);
+            }
+            ctx.stroke();
+        }
+
+        // Node at (t, f(t)).
+        const x = u1_s10_state.t;
+        const y = cfg.f(x), slope = cfg.df(x);
+        const nx = pxX(x), ny = clampY(pxY(y));
+
+        // Crosshair down to the axes.
+        ctx.save();
+        ctx.setLineDash([3, 3]);
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(nx, pxY(0)); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(pxX(0) < u1_s10_pad.L ? u1_s10_pad.L : pxX(0), ny); ctx.stroke();
+        ctx.restore();
+
+        // Local tangent indicator (slope f'(x)) - skipped for the step's flat treads
+        // would still be valid (slope 0), so we draw it for every graph function.
+        const dxw = (v.xMax - v.xMin) * 0.12;
+        ctx.strokeStyle = good;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(pxX(x - dxw), clampY(pxY(y - slope * dxw)));
+        ctx.lineTo(pxX(x + dxw), clampY(pxY(y + slope * dxw)));
+        ctx.stroke();
+
+        // Node dot.
+        ctx.fillStyle = text;
+        ctx.beginPath(); ctx.arc(nx, ny, 6, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+
+        // Floating badge.
+        const slopeText = cfg.step
+            ? (Math.abs(x - Math.round(x)) < 0.02 ? "undef (jump)" : "0")
+            : slope.toFixed(3);
+        u1_s10_badge.innerHTML = "x = " + x.toFixed(3) + "<br>f(x) = " + y.toFixed(3) + "<br>f′(x) = " + slopeText;
+        u1_s10_placeBadge(nx, ny);
+    }
+
+    function u1_s10_drawComplex(cfg) {
+        const ctx = u1_s10_ctx;
+        const W = u1_s10_canvas.width, H = u1_s10_canvas.height;
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+
+        const cxC = W / 2, cyC = H / 2;
+        const R = Math.min(W, H) * 0.36;
+
+        // Axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(20, cyC); ctx.lineTo(W - 20, cyC); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cxC, 20); ctx.lineTo(cxC, H - 20); ctx.stroke();
+        ctx.fillStyle = sub;
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "left";
+        ctx.fillText("Real", W - 44, cyC - 8);
+        ctx.textAlign = "center";
+        ctx.fillText("Imaginary", cxC + 46, 22);
+
+        // Unit circle.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath(); ctx.arc(cxC, cyC, R, 0, 2 * Math.PI); ctx.stroke();
+
+        const th = u1_s10_state.t;
+        const c = Math.cos(th), s = Math.sin(th);
+        const px = cxC + c * R, py = cyC - s * R;
+
+        // Tangent (rotational derivative i·e^{iθ}) at the node.
+        ctx.strokeStyle = good;
+        ctx.lineWidth = 2;
+        const tlen = R * 0.5;
+        u0SandboxArrow(ctx, px, py, px + (-s) * tlen, py - (c) * tlen, good, 2.5);
+
+        // Radius vector + node.
+        u0SandboxArrow(ctx, cxC, cyC, px, py, accent, 3);
+        ctx.fillStyle = text;
+        ctx.beginPath(); ctx.arc(px, py, 6, 0, 2 * Math.PI); ctx.fill();
+        ctx.strokeStyle = bg; ctx.lineWidth = 2; ctx.stroke();
+
+        const norm = (th < 0 ? th + 2 * Math.PI : th);
+        u1_s10_badge.innerHTML = "θ = " + norm.toFixed(3) + " rad<br>e^{iθ} = " + c.toFixed(3) + " + " + s.toFixed(3) + "i<br>d/dθ = i·e^{iθ}";
+        u1_s10_placeBadge(px, py);
+    }
+
+    // Position the floating badge over the node, in CSS pixels, clamped to the stage.
+    function u1_s10_placeBadge(nodeCanvasX, nodeCanvasY) {
+        const scaleX = u1_s10_canvas.clientWidth / u1_s10_canvas.width;
+        const scaleY = u1_s10_canvas.clientHeight / u1_s10_canvas.height;
+        let left = nodeCanvasX * scaleX;
+        let top = nodeCanvasY * scaleY;
+        left = Math.max(60, Math.min(u1_s10_canvas.clientWidth - 60, left));
+        top = Math.max(34, top);
+        u1_s10_badge.style.left = left + "px";
+        u1_s10_badge.style.top = top + "px";
+    }
+
+    function u1_s10_draw() {
+        const ctx = u1_s10_ctx;
+        const W = u1_s10_canvas.width, H = u1_s10_canvas.height;
+        ctx.fillStyle = u0SandboxColor("--bg-color", "#ffffff");
+        ctx.fillRect(0, 0, W, H);
+        const cfg = u1_s10_CATALOG[u1_s10_state.key];
+        if (cfg.mode === "complex") u1_s10_drawComplex(cfg); else u1_s10_drawGraph(cfg);
+    }
+
+    function u1_s10_frame() {
+        if (!document.body.contains(u1_s10_canvas)) return; // self-terminate on route change
+        u1_s10_draw();
+        requestAnimationFrame(u1_s10_frame);
+    }
+    requestAnimationFrame(u1_s10_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
