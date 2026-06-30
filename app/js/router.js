@@ -618,6 +618,42 @@ const UNIT_1_SANDBOXES = [
     }
 ];
 
+/* Cluster III: the first three fully built Unit 2 sandbox engines, mapping the
+   first-order linear toolkit. Same contract as the Unit 0/1 clusters - each
+   carries a stable string id (keys the mounted host so inner ids never collide),
+   a render(body) that builds a live ungraded surface, and a strict
+   u2_s1_ / u2_s2_ / u2_s3_ DOM-and-state namespace. They read every colour live
+   from the active theme's CSS custom properties (Light and Dark both render
+   natively), issue zero network calls (file:// safe), and their animation loops
+   self-terminate once their canvas leaves the DOM. Render functions are declared
+   lower in the file; function declarations hoist, so this is safe. */
+const UNIT_2_SANDBOXES = [
+    {
+        id: "unit_2_integrating_factor_builder",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "The Integrating Factor Product Engine",
+        blurb: "Visualize how multiplying a linear equation by μ(x) collapses an un-solvable differential sum into a pristine, integrable Product Rule derivative.",
+        render: renderIntegratingFactorBuilderSandbox
+    },
+    {
+        id: "unit_2_linear_slope_threader",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Linear Slope Field & Solution Threader",
+        blurb: "Probe a dynamic slope field for y' + P(x)y = Q(x) and drop interactive tracer seeds to map particular solution trajectories.",
+        render: renderLinearSlopeThreaderSandbox
+    },
+    {
+        id: "unit_2_general_particular_decomposition",
+        unitNumber: 2,
+        isSandbox: true,
+        title: "Transient vs. Steady-State Decomposition Matrix",
+        blurb: "Slide the constant of integration C across a live graph to decouple static steady-state solutions from vanishing transient behaviors.",
+        render: renderGeneralParticularDecompositionSandbox
+    }
+];
+
 /* Builds the normalized, sorted card model for the Interactives dashboard:
    graded engines and sandbox cards alike collapse into one shape so a single
    render loop (and the deep-link route resolver) can consume them. Graded
@@ -671,6 +707,21 @@ function buildInteractiveItems() {
     // ahead of any generic placeholder tail (999), reading as the unit's leading
     // open-ended cluster.
     UNIT_1_SANDBOXES.forEach(function (vis, idx) {
+        items.push({
+            vis: vis,
+            isSandbox: true,
+            home: null,
+            unitNumber: vis.unitNumber,
+            moduleLabel: "Sandbox",
+            sortKey: vis.unitNumber * 1000 + 900 + idx
+        });
+    });
+
+    // Unit 2's fully built Cluster III engines. Same 900 + index sandbox band as
+    // the Unit 0/1 clusters, so they sort within Unit 2 behind the graded modules
+    // and ahead of any generic placeholder tail (999), reading as the unit's
+    // leading open-ended cluster.
+    UNIT_2_SANDBOXES.forEach(function (vis, idx) {
         items.push({
             vis: vis,
             isSandbox: true,
@@ -5381,6 +5432,612 @@ function renderPrerequisiteMatrixSandbox(body) {
         requestAnimationFrame(u1_s10_frame);
     }
     requestAnimationFrame(u1_s10_frame);
+}
+
+/* ============================================================================
+   Unit 2 Cluster III sandbox engines
+
+   Three self-contained, ungraded exploration surfaces for the first-order linear
+   toolkit, mounted by mountVisualizer. Shared rules (identical to the Unit 0/1
+   clusters):
+     - Every DOM id and the meaningful internal state is namespaced under a strict
+       u2_s1_ / u2_s2_ / u2_s3_ prefix, so nothing they create can collide in
+       global memory with another engine or another card.
+     - All canvas colours are read live from the document's theme custom
+       properties (--bg-color, --accent-color, ...) at draw time, so Light and
+       Dark both look native and a mid-session theme toggle repaints in place.
+     - No fetch, CDN, or remote script loading: each engine runs unchanged from
+       the file:// protocol.
+     - Animation loops self-terminate once their canvas leaves the DOM (the back
+       action empties the container), so navigating away leaves no orphan frames.
+   They reuse the shared u0Sandbox* helpers (colour, arrow, toggle group, slider);
+   those are generic despite the u0 name, so borrowing them keeps the cluster DRY.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   Sandbox 1 - The Integrating Factor Product Engine (u2_s1_)
+
+   Left: pick P(x) from {2, 1/x, 2x}; a canvas graphs P(x) (accent) against its
+   antiderivative ∫P dx (success), the exponent that builds μ. Right: a live
+   algebra ribbon that walks y' + P y = Q through multiplication by
+   μ(x) = e^{∫P dx} and the reverse product rule, with a highlight that cycles to
+   the collapse step d/dx[μ·y] = μ·Q so the condensation reads as a motion.
+   --------------------------------------------------------------------------- */
+function renderIntegratingFactorBuilderSandbox(body) {
+    // Each option carries P(x), its antiderivative (the exponent of μ), and the
+    // pre-simplified μ label so no symbolic engine is needed at draw time.
+    const u2_s1_OPTIONS = [
+        { key: "2",   P: function (x) { return 2; },     I: function (x) { return 2 * x; },         pLabel: "P(x) = 2",    iLabel: "∫P dx = 2x",      muLabel: "μ(x) = e^{2x}" },
+        { key: "1/x", P: function (x) { return 1 / x; }, I: function (x) { return Math.log(x); },   pLabel: "P(x) = 1/x",  iLabel: "∫P dx = ln|x|",   muLabel: "μ(x) = e^{ln x} = x" },
+        { key: "2x",  P: function (x) { return 2 * x; }, I: function (x) { return x * x; },         pLabel: "P(x) = 2x",   iLabel: "∫P dx = x²",  muLabel: "μ(x) = e^{x²}" }
+    ];
+    const u2_s1_state = { optKey: "2", phase: 0, tick: 0 };
+    function u2_s1_opt() {
+        for (let i = 0; i < u2_s1_OPTIONS.length; i++) {
+            if (u2_s1_OPTIONS[i].key === u2_s1_state.optKey) return u2_s1_OPTIONS[i];
+        }
+        return u2_s1_OPTIONS[0];
+    }
+
+    const u2_s1_intro = document.createElement("p");
+    u2_s1_intro.className = "checkpoint-intro";
+    u2_s1_intro.textContent = "A first-order linear equation y' + P(x)y = Q(x) is not directly integrable: the left side is a sum, not a derivative. Multiply through by the integrating factor μ(x) = e^{∫P dx} and the sum collapses into one clean product-rule derivative, d/dx[μ·y]. Pick a P(x) and watch the factor build.";
+    body.appendChild(u2_s1_intro);
+
+    // Two-column workspace: graph on the left, algebra ribbon on the right. Wraps
+    // to a single column on narrow viewports via flex-wrap.
+    const u2_s1_cols = document.createElement("div");
+    u2_s1_cols.style.display = "flex";
+    u2_s1_cols.style.flexWrap = "wrap";
+    u2_s1_cols.style.gap = "1rem";
+    u2_s1_cols.style.alignItems = "flex-start";
+    body.appendChild(u2_s1_cols);
+
+    const u2_s1_left = document.createElement("div");
+    u2_s1_left.style.flex = "1 1 320px";
+    u2_s1_left.style.minWidth = "300px";
+    u2_s1_cols.appendChild(u2_s1_left);
+
+    const u2_s1_right = document.createElement("div");
+    u2_s1_right.style.flex = "1 1 320px";
+    u2_s1_right.style.minWidth = "300px";
+    u2_s1_cols.appendChild(u2_s1_right);
+
+    // Left: the P(x) chooser, then the dual-curve canvas.
+    u0SandboxToggleGroup(u2_s1_left, "Choose P(x)", [
+        { label: "2", value: "2" },
+        { label: "1/x", value: "1/x" },
+        { label: "2x", value: "2x" }
+    ], function () { return u2_s1_state.optKey; }, function (v) {
+        u2_s1_state.optKey = v;
+        u2_s1_state.phase = 0;
+        u2_s1_state.tick = 0;
+        u2_s1_refreshSteps();
+    });
+
+    const u2_s1_canvas = document.createElement("canvas");
+    u2_s1_canvas.width = 560;
+    u2_s1_canvas.height = 340;
+    u2_s1_canvas.className = "math-canvas";
+    u2_s1_left.appendChild(u2_s1_canvas);
+    const u2_s1_ctx = u2_s1_canvas.getContext("2d");
+
+    // The μ badge: the headline result, recomputed when P changes.
+    const u2_s1_muBadge = document.createElement("div");
+    u2_s1_muBadge.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s1_muBadge.style.fontSize = "1.05rem";
+    u2_s1_muBadge.style.fontWeight = "700";
+    u2_s1_muBadge.style.textAlign = "center";
+    u2_s1_muBadge.style.padding = "0.55rem 0.7rem";
+    u2_s1_muBadge.style.borderRadius = "8px";
+    u2_s1_muBadge.style.background = "var(--accent-soft)";
+    u2_s1_muBadge.style.color = "var(--accent-text)";
+    u2_s1_muBadge.style.border = "1px solid var(--panel-border)";
+    u2_s1_left.appendChild(u2_s1_muBadge);
+
+    // Right: the algebra ribbon. Each step is a row; a cycling highlight marks
+    // the active line so the collapse reads as a progression.
+    const u2_s1_ribbonTitle = document.createElement("div");
+    u2_s1_ribbonTitle.textContent = "The collapse, step by step";
+    u2_s1_ribbonTitle.style.fontSize = "0.78rem";
+    u2_s1_ribbonTitle.style.fontWeight = "700";
+    u2_s1_ribbonTitle.style.textTransform = "uppercase";
+    u2_s1_ribbonTitle.style.letterSpacing = "0.04em";
+    u2_s1_ribbonTitle.style.color = "var(--text-secondary)";
+    u2_s1_ribbonTitle.style.marginBottom = "0.5rem";
+    u2_s1_right.appendChild(u2_s1_ribbonTitle);
+
+    const u2_s1_stepRows = [];
+    const u2_s1_stepBox = document.createElement("div");
+    u2_s1_stepBox.style.display = "flex";
+    u2_s1_stepBox.style.flexDirection = "column";
+    u2_s1_stepBox.style.gap = "0.45rem";
+    u2_s1_right.appendChild(u2_s1_stepBox);
+
+    for (let i = 0; i < 5; i++) {
+        const row = document.createElement("div");
+        row.style.fontFamily = "Consolas, Monaco, monospace";
+        row.style.fontSize = "0.95rem";
+        row.style.padding = "0.55rem 0.7rem";
+        row.style.borderRadius = "8px";
+        row.style.border = "1px solid var(--panel-border)";
+        row.style.background = "var(--panel-bg)";
+        row.style.color = "var(--text-color)";
+        row.style.transition = "background 0.25s, border-color 0.25s";
+        u2_s1_stepBox.appendChild(row);
+        u2_s1_stepRows.push(row);
+    }
+
+    // Rebuilds step text (and the μ badge) for the current P, and resets the
+    // highlight. Step 3 (index 3) is the product-rule collapse - the payoff line.
+    function u2_s1_refreshSteps() {
+        const o = u2_s1_opt();
+        u2_s1_muBadge.textContent = o.muLabel;
+        const lines = [
+            "y′ + P(x)·y = Q(x)",
+            "μ·y′ + μ·P(x)·y = μ·Q(x)      (× μ)",
+            "since μ′ = μ·P(x):   μ·y′ + μ′·y = μ·Q(x)",
+            "⇒  d/dx[ μ·y ] = μ·Q(x)",
+            "y = (1/μ) ∫ μ·Q(x) dx     with " + o.muLabel
+        ];
+        for (let i = 0; i < u2_s1_stepRows.length; i++) {
+            u2_s1_stepRows[i].textContent = lines[i];
+        }
+    }
+    u2_s1_refreshSteps();
+
+    function u2_s1_paintHighlight() {
+        for (let i = 0; i < u2_s1_stepRows.length; i++) {
+            const on = i === u2_s1_state.phase;
+            const collapse = i === 3;
+            u2_s1_stepRows[i].style.background = on
+                ? (collapse ? "var(--accent-color)" : "var(--accent-soft)")
+                : "var(--panel-bg)";
+            u2_s1_stepRows[i].style.color = on && collapse ? "var(--bg-color)" : "var(--text-color)";
+            u2_s1_stepRows[i].style.borderColor = on ? "var(--accent-color)" : "var(--panel-border)";
+            u2_s1_stepRows[i].style.fontWeight = on ? "700" : "500";
+        }
+    }
+
+    function u2_s1_draw() {
+        const ctx = u2_s1_ctx;
+        const W = u2_s1_canvas.width, H = u2_s1_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        const o = u2_s1_opt();
+        const X0 = 0.25, X1 = 3.0;          // positive domain so 1/x and ln stay real
+        const padL = 46, padR = 18, padT = 18, padB = 34;
+        const plotW = W - padL - padR, plotH = H - padT - padB;
+
+        // Autoscale Y across both sampled curves with a small pad.
+        let yMin = Infinity, yMax = -Infinity;
+        const SAMPLES = 200;
+        for (let i = 0; i <= SAMPLES; i++) {
+            const x = X0 + (X1 - X0) * (i / SAMPLES);
+            const pv = o.P(x), iv = o.I(x);
+            if (isFinite(pv)) { yMin = Math.min(yMin, pv); yMax = Math.max(yMax, pv); }
+            if (isFinite(iv)) { yMin = Math.min(yMin, iv); yMax = Math.max(yMax, iv); }
+        }
+        if (!isFinite(yMin) || !isFinite(yMax)) { yMin = -1; yMax = 1; }
+        const padY = (yMax - yMin) * 0.12 || 1;
+        yMin -= padY; yMax += padY;
+        if (yMin > 0) yMin = 0;             // always show the y = 0 baseline
+
+        function pxX(x) { return padL + (x - X0) / (X1 - X0) * plotW; }
+        function pxY(y) { return padT + (yMax - y) / (yMax - yMin) * plotH; }
+
+        // Axes + zero baseline.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(padL, padT, plotW, plotH);
+        const y0 = pxY(0);
+        if (y0 >= padT && y0 <= padT + plotH) {
+            ctx.strokeStyle = sub;
+            ctx.beginPath(); ctx.moveTo(padL, y0); ctx.lineTo(padL + plotW, y0); ctx.stroke();
+        }
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("x", padL + plotW / 2, H - 8);
+
+        // ∫P dx (the exponent) in success colour.
+        ctx.strokeStyle = good;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        for (let i = 0; i <= SAMPLES; i++) {
+            const x = X0 + (X1 - X0) * (i / SAMPLES);
+            const v = o.I(x);
+            const X = pxX(x), Y = pxY(v);
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // P(x) in accent.
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.6;
+        ctx.beginPath();
+        for (let i = 0; i <= SAMPLES; i++) {
+            const x = X0 + (X1 - X0) * (i / SAMPLES);
+            const v = o.P(x);
+            const X = pxX(x), Y = pxY(v);
+            if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = accent;
+        ctx.fillText(o.pLabel, padL + 8, padT + 16);
+        ctx.fillStyle = good;
+        ctx.fillText(o.iLabel, padL + 8, padT + 34);
+    }
+
+    function u2_s1_frame() {
+        if (!document.body.contains(u2_s1_canvas)) return; // stop after navigation
+        u2_s1_state.tick++;
+        // Advance the highlight roughly every 0.8s (48 frames at ~60fps).
+        if (u2_s1_state.tick % 48 === 0) {
+            u2_s1_state.phase = (u2_s1_state.phase + 1) % u2_s1_stepRows.length;
+        }
+        u2_s1_draw();
+        u2_s1_paintHighlight();
+        requestAnimationFrame(u2_s1_frame);
+    }
+    requestAnimationFrame(u2_s1_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 2 - Linear Slope Field & Solution Threader (u2_s2_)
+
+   A canvas slope field for y' = Q(x) - P(x)y with P(x) = p and Q(x) = q0 + q1 x,
+   each on a slider. Clicking the grid drops a tracer seed that integrates both
+   forward and backward by arc-length-parameterized RK4 (unit-tangent stepping,
+   so steep regions thread cleanly), drawing a bold particular solution through
+   the field. Seeds and field both repaint live as the sliders move.
+   --------------------------------------------------------------------------- */
+function renderLinearSlopeThreaderSandbox(body) {
+    const u2_s2_X0 = -4, u2_s2_X1 = 4, u2_s2_Y0 = -4, u2_s2_Y1 = 4;
+    const u2_s2_MAX_SEEDS = 8;
+    const u2_s2_state = { seeds: [] };
+
+    const u2_s2_intro = document.createElement("p");
+    u2_s2_intro.className = "checkpoint-intro";
+    u2_s2_intro.textContent = "The slope field draws y' = Q(x) − P(x)y at every grid point: the local direction a solution must follow. Set P(x) = p and Q(x) = q0 + q1·x with the sliders, then click anywhere to drop a tracer seed. It integrates forward and backward along the field to thread one particular solution curve.";
+    body.appendChild(u2_s2_intro);
+
+    const u2_s2_canvas = document.createElement("canvas");
+    u2_s2_canvas.width = 560;
+    u2_s2_canvas.height = 460;
+    u2_s2_canvas.className = "math-canvas";
+    u2_s2_canvas.style.cursor = "crosshair";
+    body.appendChild(u2_s2_canvas);
+    const u2_s2_ctx = u2_s2_canvas.getContext("2d");
+
+    const u2_s2_pad = { L: 40, R: 16, T: 16, B: 30 };
+    function u2_s2_plotW() { return u2_s2_canvas.width - u2_s2_pad.L - u2_s2_pad.R; }
+    function u2_s2_plotH() { return u2_s2_canvas.height - u2_s2_pad.T - u2_s2_pad.B; }
+    function u2_s2_pxX(x) { return u2_s2_pad.L + (x - u2_s2_X0) / (u2_s2_X1 - u2_s2_X0) * u2_s2_plotW(); }
+    function u2_s2_pxY(y) { return u2_s2_pad.T + (u2_s2_Y1 - y) / (u2_s2_Y1 - u2_s2_Y0) * u2_s2_plotH(); }
+    function u2_s2_worldX(px) { return u2_s2_X0 + (px - u2_s2_pad.L) / u2_s2_plotW() * (u2_s2_X1 - u2_s2_X0); }
+    function u2_s2_worldY(py) { return u2_s2_Y1 - (py - u2_s2_pad.T) / u2_s2_plotH() * (u2_s2_Y1 - u2_s2_Y0); }
+
+    // Control panel: P(x)=p, and Q(x)=q0+q1 x. Holders are read live each draw.
+    const u2_s2_panel = document.createElement("div");
+    u2_s2_panel.className = "slider-panel";
+    body.appendChild(u2_s2_panel);
+    const u2_s2_pS = u0SandboxSlider(u2_s2_panel, { label: "p  (in P(x) = p)", min: -1.5, max: 2.5, step: 0.1, value: 1, decimals: 1 });
+    const u2_s2_q0S = u0SandboxSlider(u2_s2_panel, { label: "q0  (constant of Q)", min: -3, max: 3, step: 0.1, value: 1, decimals: 1 });
+    const u2_s2_q1S = u0SandboxSlider(u2_s2_panel, { label: "q1  (slope of Q)", min: -2, max: 2, step: 0.1, value: 0, decimals: 1 });
+
+    const u2_s2_clearBtn = document.createElement("button");
+    u2_s2_clearBtn.type = "button";
+    u2_s2_clearBtn.textContent = "Clear tracer seeds";
+    u2_s2_clearBtn.style.font = "inherit";
+    u2_s2_clearBtn.style.fontSize = "0.9rem";
+    u2_s2_clearBtn.style.fontWeight = "600";
+    u2_s2_clearBtn.style.marginTop = "0.6rem";
+    u2_s2_clearBtn.style.padding = "0.4rem 0.9rem";
+    u2_s2_clearBtn.style.borderRadius = "8px";
+    u2_s2_clearBtn.style.cursor = "pointer";
+    u2_s2_clearBtn.style.border = "1px solid var(--panel-border)";
+    u2_s2_clearBtn.style.background = "var(--accent-soft)";
+    u2_s2_clearBtn.style.color = "var(--accent-text)";
+    u2_s2_clearBtn.addEventListener("click", function () { u2_s2_state.seeds.length = 0; });
+    u2_s2_panel.appendChild(u2_s2_clearBtn);
+
+    function u2_s2_slope(x, y) {
+        return (u2_s2_q0S.value + u2_s2_q1S.value * x) - u2_s2_pS.value * y;
+    }
+
+    // Click drops a seed at the world coordinate under the pointer. The canvas
+    // buffer and its CSS display size differ (width:100%), so scale the pointer
+    // offset by buffer/displayed ratio before inverting to world space.
+    u2_s2_canvas.addEventListener("click", function (e) {
+        const rect = u2_s2_canvas.getBoundingClientRect();
+        const bx = (e.clientX - rect.left) * (u2_s2_canvas.width / rect.width);
+        const by = (e.clientY - rect.top) * (u2_s2_canvas.height / rect.height);
+        const wx = u2_s2_worldX(bx), wy = u2_s2_worldY(by);
+        if (wx < u2_s2_X0 || wx > u2_s2_X1 || wy < u2_s2_Y0 || wy > u2_s2_Y1) return;
+        u2_s2_state.seeds.push({ x: wx, y: wy });
+        if (u2_s2_state.seeds.length > u2_s2_MAX_SEEDS) u2_s2_state.seeds.shift();
+    });
+
+    // Unit-tangent of the solution curve at (x,y); dir = +1 forward, -1 backward.
+    function u2_s2_tangent(x, y, dir) {
+        const m = u2_s2_slope(x, y);
+        const inv = 1 / Math.sqrt(1 + m * m);
+        return { dx: dir * inv, dy: dir * m * inv };
+    }
+
+    // Integrates one direction from a seed by arc-length RK4 (ds fixed), returning
+    // the polyline of world points until it leaves the plotted window.
+    function u2_s2_integrate(seed, dir) {
+        const ds = 0.05, MAX = 700;
+        const pts = [{ x: seed.x, y: seed.y }];
+        let x = seed.x, y = seed.y;
+        for (let i = 0; i < MAX; i++) {
+            const k1 = u2_s2_tangent(x, y, dir);
+            const k2 = u2_s2_tangent(x + 0.5 * ds * k1.dx, y + 0.5 * ds * k1.dy, dir);
+            const k3 = u2_s2_tangent(x + 0.5 * ds * k2.dx, y + 0.5 * ds * k2.dy, dir);
+            const k4 = u2_s2_tangent(x + ds * k3.dx, y + ds * k3.dy, dir);
+            x += ds / 6 * (k1.dx + 2 * k2.dx + 2 * k3.dx + k4.dx);
+            y += ds / 6 * (k1.dy + 2 * k2.dy + 2 * k3.dy + k4.dy);
+            if (x < u2_s2_X0 || x > u2_s2_X1 || y < u2_s2_Y0 || y > u2_s2_Y1) { pts.push({ x: x, y: y }); break; }
+            pts.push({ x: x, y: y });
+        }
+        return pts;
+    }
+
+    function u2_s2_draw() {
+        const ctx = u2_s2_ctx;
+        const W = u2_s2_canvas.width, H = u2_s2_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Plot frame + axes.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s2_pad.L, u2_s2_pad.T, u2_s2_plotW(), u2_s2_plotH());
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        const ax0 = u2_s2_pxY(0), ay0 = u2_s2_pxX(0);
+        ctx.beginPath(); ctx.moveTo(u2_s2_pad.L, ax0); ctx.lineTo(u2_s2_pad.L + u2_s2_plotW(), ax0); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ay0, u2_s2_pad.T); ctx.lineTo(ay0, u2_s2_pad.T + u2_s2_plotH()); ctx.stroke();
+
+        // Slope field: short unit segments coloured by the local direction.
+        const NX = 21, NY = 17, segLen = 11;
+        for (let i = 0; i < NX; i++) {
+            for (let j = 0; j < NY; j++) {
+                const x = u2_s2_X0 + (u2_s2_X1 - u2_s2_X0) * (i / (NX - 1));
+                const y = u2_s2_Y0 + (u2_s2_Y1 - u2_s2_Y0) * (j / (NY - 1));
+                const m = u2_s2_slope(x, y);
+                const inv = 1 / Math.sqrt(1 + m * m);
+                const ux = inv, uy = m * inv;
+                const cx = u2_s2_pxX(x), cy = u2_s2_pxY(y);
+                // Pixel-space tangent: +x world is +px, +y world is -px.
+                const hx = segLen * ux, hy = -segLen * uy;
+                ctx.strokeStyle = border;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(cx - hx, cy - hy);
+                ctx.lineTo(cx + hx, cy + hy);
+                ctx.stroke();
+            }
+        }
+
+        // Each seed's threaded particular solution: backward + forward, bold.
+        u2_s2_state.seeds.forEach(function (seed) {
+            const back = u2_s2_integrate(seed, -1);
+            const fwd = u2_s2_integrate(seed, 1);
+            ctx.strokeStyle = accent;
+            ctx.lineWidth = 2.8;
+            ctx.beginPath();
+            let started = false;
+            // Backward half, drawn from its far end in toward the seed.
+            for (let k = back.length - 1; k >= 0; k--) {
+                const X = u2_s2_pxX(back[k].x), Y = u2_s2_pxY(back[k].y);
+                if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+            }
+            for (let k = 1; k < fwd.length; k++) {
+                const X = u2_s2_pxX(fwd[k].x), Y = u2_s2_pxY(fwd[k].y);
+                ctx.lineTo(X, Y);
+            }
+            ctx.stroke();
+            // The seed marker.
+            ctx.fillStyle = good;
+            ctx.beginPath();
+            ctx.arc(u2_s2_pxX(seed.x), u2_s2_pxY(seed.y), 4.5, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = bg;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+        });
+
+        // Axis ticks / labels at the integer extents.
+        ctx.fillStyle = sub;
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("x", u2_s2_pad.L + u2_s2_plotW() - 6, ax0 - 6);
+        ctx.textAlign = "left";
+        ctx.fillText("y", ay0 + 6, u2_s2_pad.T + 12);
+
+        if (u2_s2_state.seeds.length === 0) {
+            ctx.fillStyle = sub;
+            ctx.font = "13px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("Click the field to drop a tracer seed", u2_s2_pad.L + u2_s2_plotW() / 2, u2_s2_pad.T + u2_s2_plotH() / 2);
+        }
+    }
+
+    function u2_s2_frame() {
+        if (!document.body.contains(u2_s2_canvas)) return; // stop after navigation
+        u2_s2_draw();
+        requestAnimationFrame(u2_s2_frame);
+    }
+    requestAnimationFrame(u2_s2_frame);
+}
+
+/* ---------------------------------------------------------------------------
+   Sandbox 3 - Transient vs. Steady-State Decomposition Matrix (u2_s3_)
+
+   The standard linear solution y = C e^{-x} + (x - 1) decomposed live: the steady
+   state x - 1 is a fixed dashed baseline, the transient C e^{-x} is a thin curve
+   that decays to zero, and the full solution is the bold sum. A slider drives C;
+   the rendered C eases toward the target so the family visibly morphs, and a
+   readout reports the transient shrinking toward 0 as x grows.
+   --------------------------------------------------------------------------- */
+function renderGeneralParticularDecompositionSandbox(body) {
+    const u2_s3_X0 = -1, u2_s3_X1 = 6, u2_s3_Y0 = -6, u2_s3_Y1 = 8;
+    const u2_s3_state = { targetC: 2, dispC: 2 };
+
+    function u2_s3_steady(x) { return x - 1; }
+    function u2_s3_transient(C, x) { return C * Math.exp(-x); }
+    function u2_s3_full(C, x) { return u2_s3_transient(C, x) + u2_s3_steady(x); }
+
+    const u2_s3_intro = document.createElement("p");
+    u2_s3_intro.className = "checkpoint-intro";
+    u2_s3_intro.textContent = "Every solution of y' + y = x is y = C e^{−x} + (x − 1): one fixed steady state x − 1 plus a transient C e^{−x} that the initial condition picks. Slide C to sweep the whole family. The dashed line is the steady state; notice every curve collapses onto it as x grows, because the transient term vanishes.";
+    body.appendChild(u2_s3_intro);
+
+    const u2_s3_canvas = document.createElement("canvas");
+    u2_s3_canvas.width = 600;
+    u2_s3_canvas.height = 380;
+    u2_s3_canvas.className = "math-canvas";
+    body.appendChild(u2_s3_canvas);
+    const u2_s3_ctx = u2_s3_canvas.getContext("2d");
+
+    const u2_s3_panel = document.createElement("div");
+    u2_s3_panel.className = "slider-panel";
+    body.appendChild(u2_s3_panel);
+    u0SandboxSlider(u2_s3_panel, {
+        label: "C  (constant of integration)", min: -5, max: 5, step: 0.1, value: 2, decimals: 1,
+        onChange: function (v) { u2_s3_state.targetC = v; }
+    });
+
+    const u2_s3_readout = document.createElement("div");
+    u2_s3_readout.style.fontFamily = "Consolas, Monaco, monospace";
+    u2_s3_readout.style.fontSize = "0.95rem";
+    u2_s3_readout.style.fontWeight = "700";
+    u2_s3_readout.style.padding = "0.6rem 0.8rem";
+    u2_s3_readout.style.marginTop = "0.4rem";
+    u2_s3_readout.style.background = "var(--panel-bg)";
+    u2_s3_readout.style.border = "1px solid var(--panel-border)";
+    u2_s3_readout.style.borderRadius = "8px";
+    u2_s3_readout.style.color = "var(--text-color)";
+    body.appendChild(u2_s3_readout);
+
+    const u2_s3_pad = { L: 44, R: 18, T: 18, B: 32 };
+    function u2_s3_plotW() { return u2_s3_canvas.width - u2_s3_pad.L - u2_s3_pad.R; }
+    function u2_s3_plotH() { return u2_s3_canvas.height - u2_s3_pad.T - u2_s3_pad.B; }
+    function u2_s3_pxX(x) { return u2_s3_pad.L + (x - u2_s3_X0) / (u2_s3_X1 - u2_s3_X0) * u2_s3_plotW(); }
+    function u2_s3_pxY(y) { return u2_s3_pad.T + (u2_s3_Y1 - y) / (u2_s3_Y1 - u2_s3_Y0) * u2_s3_plotH(); }
+
+    function u2_s3_plotCurve(fn, color, width, dashed) {
+        const ctx = u2_s3_ctx;
+        ctx.save();
+        if (dashed) ctx.setLineDash([7, 5]);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        const STEPS = 300;
+        let started = false;
+        for (let i = 0; i <= STEPS; i++) {
+            const x = u2_s3_X0 + (u2_s3_X1 - u2_s3_X0) * (i / STEPS);
+            const y = fn(x);
+            if (y < u2_s3_Y0 - 2 || y > u2_s3_Y1 + 2) { started = false; continue; }
+            const X = u2_s3_pxX(x), Y = u2_s3_pxY(y);
+            if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function u2_s3_draw() {
+        const ctx = u2_s3_ctx;
+        const W = u2_s3_canvas.width, H = u2_s3_canvas.height;
+        const bg = u0SandboxColor("--bg-color", "#ffffff");
+        const border = u0SandboxColor("--panel-border", "#cccccc");
+        const sub = u0SandboxColor("--text-secondary", "#5a5a6e");
+        const accent = u0SandboxColor("--accent-color", "#6200ee");
+        const good = u0SandboxColor("--success-color", "#1b7f4b");
+        const text = u0SandboxColor("--text-color", "#1a1a1a");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, W, H);
+
+        // Frame + gridlines on integer x and even y.
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(u2_s3_pad.L, u2_s3_pad.T, u2_s3_plotW(), u2_s3_plotH());
+        ctx.font = "11px sans-serif";
+        for (let gx = 0; gx <= u2_s3_X1; gx++) {
+            const X = u2_s3_pxX(gx);
+            ctx.strokeStyle = border;
+            ctx.beginPath(); ctx.moveTo(X, u2_s3_pad.T); ctx.lineTo(X, u2_s3_pad.T + u2_s3_plotH()); ctx.stroke();
+            ctx.fillStyle = sub; ctx.textAlign = "center";
+            ctx.fillText(String(gx), X, u2_s3_pad.T + u2_s3_plotH() + 14);
+        }
+        // Zero axis.
+        ctx.strokeStyle = sub;
+        ctx.lineWidth = 1.2;
+        const yAxis = u2_s3_pxY(0);
+        ctx.beginPath(); ctx.moveTo(u2_s3_pad.L, yAxis); ctx.lineTo(u2_s3_pad.L + u2_s3_plotW(), yAxis); ctx.stroke();
+
+        const C = u2_s3_state.dispC;
+
+        // Steady state (dashed accent) - the fixed baseline.
+        u2_s3_plotCurve(u2_s3_steady, accent, 2.2, true);
+        // Transient component alone (thin, secondary) - the part that vanishes.
+        u2_s3_plotCurve(function (x) { return u2_s3_transient(C, x); }, good, 1.8, false);
+        // Full solution (bold) - the sum the student actually rides.
+        u2_s3_plotCurve(function (x) { return u2_s3_full(C, x); }, text, 3, false);
+
+        // Legend.
+        ctx.textAlign = "left";
+        ctx.font = "12px sans-serif";
+        ctx.fillStyle = text; ctx.fillText("y = C e^{−x} + (x − 1)", u2_s3_pad.L + 8, u2_s3_pad.T + 16);
+        ctx.fillStyle = accent; ctx.fillText("steady state  x − 1", u2_s3_pad.L + 8, u2_s3_pad.T + 34);
+        ctx.fillStyle = good; ctx.fillText("transient  C e^{−x}", u2_s3_pad.L + 8, u2_s3_pad.T + 52);
+    }
+
+    function u2_s3_syncReadout() {
+        const C = u2_s3_state.dispC;
+        const t3 = u2_s3_transient(C, 3), t5 = u2_s3_transient(C, 5);
+        u2_s3_readout.innerHTML = "";
+        const l1 = document.createElement("div");
+        l1.textContent = "C = " + C.toFixed(2) + "    transient at x=0:  " + C.toFixed(2);
+        l1.style.color = "var(--text-color)";
+        const l2 = document.createElement("div");
+        l2.textContent = "transient at x=3:  " + t3.toFixed(3) + "      at x=5:  " + t5.toFixed(3) + "   → 0";
+        l2.style.color = "var(--accent-text)";
+        l2.style.marginTop = "0.2rem";
+        u2_s3_readout.appendChild(l1);
+        u2_s3_readout.appendChild(l2);
+    }
+
+    function u2_s3_frame() {
+        if (!document.body.contains(u2_s3_canvas)) return; // stop after navigation
+        // Ease the rendered C toward the slider target so the family morphs.
+        u2_s3_state.dispC += (u2_s3_state.targetC - u2_s3_state.dispC) * 0.12;
+        u2_s3_draw();
+        u2_s3_syncReadout();
+        requestAnimationFrame(u2_s3_frame);
+    }
+    requestAnimationFrame(u2_s3_frame);
 }
 
 /* Renders any KaTeX inside an element, mirroring the quiz engine and checkpoint
