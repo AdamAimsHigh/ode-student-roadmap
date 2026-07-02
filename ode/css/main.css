@@ -103,13 +103,8 @@ body {
     text-decoration: underline;
 }
 
-@media (max-width: 640px) {
-    .auth-status {
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
+/* Mobile auth adjustments live in the unified 768px block at the end of this
+   sheet, alongside the rest of the header's responsive rules. */
 
 /* Learning mode is selected through the shared .nav-dropdown component (see the
    Global navigation dropdown block below), so it carries no dedicated styling. */
@@ -1704,11 +1699,83 @@ body.quiz-modal-open {
     .video-lesson-split {
         grid-template-columns: 1fr;
     }
+}
 
-    /* The dashboard collapses to a single column: the sidebar un-sticks and sits
-       full-width above the content. Its links stay stacked vertically, since the
-       full descriptive titles read better as rows than as cramped horizontal
-       chips. */
+/* The unified mobile breakpoint. Everything structural collapses here: the
+   header stacks into a single column, the control dropdowns become a wrap-ready
+   flex matrix, the interactives dashboard folds to one column with a full-width
+   navigation panel on top, and the progress banner stays bounded inside the
+   viewport. All colors keep resolving through the theme tokens, so light and
+   dark both render natively. */
+@media (max-width: 768px) {
+    .global-header {
+        padding: 1.25rem 1rem;
+    }
+
+    .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* min-width: 0 releases each stacked block from its content's min-content
+       width, so a wide child (like the sign-in chip row) can never push the
+       whole header past the viewport edge. */
+    .brand-block,
+    .header-controls,
+    .auth-controls {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .app-title {
+        font-size: 1.4rem;
+        overflow-wrap: break-word;
+    }
+
+    /* The action dropdown row (Browse, Exploration Mode, Color Theme) as a
+       wrap-ready flex matrix: triggers flow onto new lines instead of crowding
+       or overlapping. */
+    .header-controls {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* An open menu panel never extends past the phone's right edge. */
+    .nav-dropdown-menu {
+        max-width: calc(100vw - 2rem);
+    }
+
+    /* The sign-in button and the sync status chip wrap as independent rows
+       rather than forcing one wide line; the chip's text breaks normally. */
+    .auth-controls {
+        flex-wrap: wrap;
+    }
+
+    .auth-status {
+        white-space: normal;
+        max-width: 100%;
+    }
+
+    /* Progress banner: stacked metrics bounded to the viewport width. */
+    .progress-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .app-container {
+        padding: 0 1rem;
+    }
+
+    /* The interactives dashboard collapses to a single column: the sticky
+       sidebar un-sticks and sits full-width above the content, pushing it
+       beneath. Its links stay stacked vertically, since the full descriptive
+       titles read better as wrapped rows than as cramped horizontal chips. */
     .interactives-layout {
         flex-direction: column;
     }
@@ -1719,21 +1786,5 @@ body.quiz-modal-open {
         width: 100%;
         max-height: none;
         overflow-y: visible;
-    }
-}
-
-@media (max-width: 700px) {
-    .header-inner {
-        flex-direction: column;
-    }
-
-    .progress-banner {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-    }
-
-    .app-container {
-        padding: 0 1rem;
     }
 }
