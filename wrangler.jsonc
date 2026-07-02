@@ -21,6 +21,12 @@
 	"name": "differential-equations-app",
 	"compatibility_date": "2026-07-01",
 	"main": "src/worker.js",
+	// Custom Domains: Cloudflare creates the DNS records and certificates
+	// automatically on deploy (the zone's nameservers already point here).
+	"routes": [
+		{ "pattern": "stapleseducation.com", "custom_domain": true },
+		{ "pattern": "www.stapleseducation.com", "custom_domain": true }
+	],
 	"assets": {
 		"directory": ".",
 		"binding": "ASSETS",
