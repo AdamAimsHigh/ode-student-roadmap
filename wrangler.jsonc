@@ -1,8 +1,14 @@
-// Cloudflare Worker configuration — multi-app static asset deployment.
+// Cloudflare Worker configuration — multi-app static assets + sync API.
 //
-// Layout (StaplesEducation.com):
-//   /        → business landing shell (root index.html, reviews.html, style.css)
-//   /ode/    → the interactive ODE roadmap SPA (zero-dependency standalone shell)
+// Layout (stapleseducation.com):
+//   /            → business landing shell (root index.html, reviews.html, style.css)
+//   /ode/        → the interactive ODE roadmap SPA (zero-dependency standalone shell)
+//   /api/sync    → serverless progress-sync endpoint (functions/api/sync.js)
+//
+// Routing model: requests matching an uploaded asset are served directly;
+// everything else (i.e. /api/*) invokes the "main" Worker, which handles
+// /api/sync and delegates any other miss back to the ASSETS binding so
+// not_found_handling still applies.
 //
 // The asset directory is the repository root, so the allowlist in
 // .assetsignore is load-bearing: it excludes EVERYTHING by default and
@@ -14,10 +20,27 @@
 	"$schema": "https://unpkg.com/wrangler/config-schema.json",
 	"name": "differential-equations-app",
 	"compatibility_date": "2026-07-01",
+	"main": "functions/api/sync.js",
 	"assets": {
 		"directory": ".",
+		"binding": "ASSETS",
 		// Serve /foo for foo.html; trailing-slash handling stays default.
 		"html_handling": "auto-trailing-slash",
 		"not_found_handling": "404-page"
+	},
+	"kv_namespaces": [
+		{
+			// Namespace title in the dashboard: ODE_PROGRESS_KV.
+			// Create it with:  npx wrangler kv namespace create ODE_PROGRESS_KV
+			// then paste the returned id below (deploys fail until it is real).
+			"binding": "ODE_PROGRESS_KV",
+			"id": "TODO_PASTE_ODE_PROGRESS_KV_NAMESPACE_ID"
+		}
+	],
+	"vars": {
+		// OAuth 2.0 Web client ID from Google Cloud Console (APIs and Services
+		// → Credentials). Must match data-client_id in ode/index.html and list
+		// https://stapleseducation.com as an authorized JavaScript origin.
+		"GOOGLE_CLIENT_ID": "TODO_PASTE_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com"
 	}
 }

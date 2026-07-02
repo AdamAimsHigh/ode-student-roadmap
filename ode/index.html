@@ -16,6 +16,10 @@
     <!-- Desmos API for interactive checkpoint widgets -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
+    <!-- Google Identity Services for optional cloud progress sync. Loads
+         async and degrades silently on file:// or offline sessions. -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -61,6 +65,25 @@
                         <li role="none"><button id="theme-system" type="button" role="menuitem" data-theme-choice="system">System Default</button></li>
                     </ul>
                 </div>
+                <div class="auth-controls" aria-label="Account sync">
+                    <div id="g_id_onload"
+                         data-client_id="TODO_PASTE_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-auto_select="true"
+                         data-itp_support="true"
+                         data-callback="odeHandleGoogleCredential"></div>
+                    <div id="auth-signin-slot" class="g_id_signin"
+                         data-type="standard"
+                         data-shape="pill"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="medium"></div>
+                    <div id="auth-status" class="auth-status" hidden>
+                        <span class="auth-status-dot" aria-hidden="true"></span>
+                        <span id="auth-status-label" class="auth-status-label">Sync active</span>
+                        <button type="button" id="auth-signout" class="auth-signout">Sign out</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="progress-banner">
@@ -83,7 +106,7 @@
 
     <footer class="global-footer">
         <p>Staples Education, built for conceptual understanding and first-principles logic.</p>
-        <p class="footer-note">Your progress is stored locally in your browser.</p>
+        <p class="footer-note">Your progress is stored locally in your browser, and syncs to your account whenever you sign in with Google.</p>
     </footer>
 
     <!-- Modular application scripts, load order matters -->
