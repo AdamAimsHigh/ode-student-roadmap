@@ -49,3 +49,6 @@ Gemini Chats ODE-Manager-Local/
 *.toc
 *.fls
 *.fdb_latexmk
+
+# Wrangler local dev state
+.wrangler/

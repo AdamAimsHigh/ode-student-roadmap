@@ -1,6 +1,6 @@
 # Cloud Progress Sync — Configuration Guide
 
-The `/api/sync` endpoint (`functions/api/sync.js`) synchronizes student
+The `/api/sync` endpoint (`src/worker.js`) synchronizes student
 progress to Cloudflare KV, authenticated with Google Sign-In. Two values must
 be provisioned before the first deploy succeeds; everything else ships in the
 repository.
@@ -31,9 +31,10 @@ The command prints a namespace `id`. Paste it into `wrangler.jsonc`, replacing
     `ODE_PROGRESS_KV` namespace.
   - **Pages project (if ever migrated):** your Pages project → *Settings* →
     *Functions* → *KV namespace bindings* → Variable name `ODE_PROGRESS_KV` →
-    select the namespace — set it for **both Production and Preview**.
-    `functions/api/sync.js` already exports Pages-style `onRequestGet`/
-    `onRequestPost` handlers, so no code change is needed.
+    select the namespace — set it for **both Production and Preview**. A Pages
+    migration would also need `src/worker.js` re-wrapped as a
+    `functions/api/sync.js` exporting `onRequestGet`/`onRequestPost` (the
+    handler logic itself is transport-agnostic).
 - Dashboard-edited bindings are overwritten on the next `wrangler deploy`;
   keep `wrangler.jsonc` authoritative.
 

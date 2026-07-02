@@ -3,7 +3,7 @@
 // Layout (stapleseducation.com):
 //   /            → business landing shell (root index.html, reviews.html, style.css)
 //   /ode/        → the interactive ODE roadmap SPA (zero-dependency standalone shell)
-//   /api/sync    → serverless progress-sync endpoint (functions/api/sync.js)
+//   /api/sync    → serverless progress-sync endpoint (src/worker.js)
 //
 // Routing model: requests matching an uploaded asset are served directly;
 // everything else (i.e. /api/*) invokes the "main" Worker, which handles
@@ -20,7 +20,7 @@
 	"$schema": "https://unpkg.com/wrangler/config-schema.json",
 	"name": "differential-equations-app",
 	"compatibility_date": "2026-07-01",
-	"main": "functions/api/sync.js",
+	"main": "src/worker.js",
 	"assets": {
 		"directory": ".",
 		"binding": "ASSETS",

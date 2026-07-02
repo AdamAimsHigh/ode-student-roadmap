@@ -1,9 +1,8 @@
-/* /api/sync — authenticated student-progress synchronization endpoint.
+/* Worker entry point (wrangler.jsonc "main") for stapleseducation.com.
  *
- * Deployed as the Worker entry point (wrangler.jsonc "main") in front of the
- * static asset pipeline; the file also exports Cloudflare Pages Functions
- * handlers (onRequestGet/onRequestPost) so it runs unchanged if the project
- * ever migrates to a Pages project with a functions/ directory.
+ * Owns the authenticated /api/sync progress-synchronization endpoint and
+ * falls through to the static asset pipeline (env.ASSETS) for every other
+ * request: the landing page at /, the ODE roadmap SPA at /ode/.
  *
  * Auth: a Google Identity Services ID token (RS256 JWT) supplied as
  * "Authorization: Bearer <credential>". The token is verified at the edge
@@ -242,16 +241,9 @@ async function handleSync(request, env) {
     return json(200, { ok: true, updatedAt: record.updatedAt });
 }
 
-/* Cloudflare Pages Functions entry points. */
-export function onRequestGet(context) {
-    return handleSync(context.request, context.env);
-}
-export function onRequestPost(context) {
-    return handleSync(context.request, context.env);
-}
-
-/* Worker entry point: owns /api/sync, everything else falls through to the
-   static asset pipeline (landing page at /, the ODE SPA at /ode/). */
+/* Route matrix: /api/sync (GET and POST enforced inside handleSync, 405
+   otherwise) runs the auth and KV loops; every other request falls through
+   seamlessly to the static asset pipeline. */
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
