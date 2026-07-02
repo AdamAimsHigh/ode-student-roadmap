@@ -1,0 +1,18 @@
+// Cloudflare Worker configuration — static asset deployment.
+//
+// The asset directory is pinned to "app/" (the production frontend) so the
+// uploader never walks the repository root. Root-level content — node_modules/,
+// scripts/, PDFs, Python toolchain — stays local by construction because it
+// lives outside the asset directory. Defense-in-depth exclusions live in
+// app/.assetsignore (gitignore-style, read by Wrangler at upload time).
+{
+	"$schema": "https://unpkg.com/wrangler/config-schema.json",
+	"name": "differential-equations-app",
+	"compatibility_date": "2026-07-01",
+	"assets": {
+		"directory": "./app",
+		// Serve /foo for app/foo.html; trailing-slash handling stays default.
+		"html_handling": "auto-trailing-slash",
+		"not_found_handling": "404-page"
+	}
+}

@@ -1,0 +1,33 @@
+# Wrangler asset-upload exclusions (gitignore syntax).
+# Wrangler reads this file from the asset directory ("app/") at deploy time;
+# matched paths are never uploaded to Cloudflare.
+#
+# The asset directory in wrangler.jsonc already points at app/ instead of the
+# repo root, so the entries below are defense-in-depth in case any local
+# toolchain artifacts ever land inside app/.
+
+# Dependency trees and package managers
+node_modules/
+
+# Local back-end toolchains and build scripts
+scripts/
+__pycache__/
+*.py
+*.pyc
+
+# Version control and editor state
+.git/
+.gitignore
+.idea/
+.vscode/
+
+# Secrets — never ship, even by accident
+.env
+.env.*
+token.json
+client_secrets.json
+credentials.json
+
+# Test artifacts and logs
+.playwright-mcp/
+*.log

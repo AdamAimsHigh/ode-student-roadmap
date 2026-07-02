@@ -1,5 +1,15 @@
 {
+  "name": "differential-equations-app",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:dry-run": "wrangler deploy --dry-run"
+  },
   "dependencies": {
     "@playwright/test": "^1.60.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }
