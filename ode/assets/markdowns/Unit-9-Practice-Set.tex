@@ -1,0 +1,168 @@
+% Unit 9: Second-Order Linear Equations, Theory and Structure
+% Practice Set (Part II Problems and Part III Solutions, standalone)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (9.1 to 9.8) and the
+% QUIZ_DATA micro-practice items for Unit 9.
+% Shared style harness pulled from the unified preamble input.
+
+\input{ode/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 9: Second-Order Linear Equations}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Set: Problems and Complete Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They climb through the three
+characteristic-root cases --- real distinct, repeated, and complex conjugate ---
+then exercise the Wronskian, Abel's identity, reduction of order, the
+Cauchy--Euler equation, and a higher-order capstone. Solutions follow in
+Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{(Real distinct roots)} Solve $y'' - 5y' + 6y = 0$. Write the
+          characteristic equation, factor it, and give the general solution.
+
+    \item \textbf{(Repeated root)} Solve $y'' - 6y' + 9y = 0$. Identify the
+          double root and explain why the factor $x$ appears in the second
+          solution.
+
+    \item \textbf{(Complex conjugate roots)} Solve $y'' + 4y' + 13y = 0$.
+          Report the complex roots $\alpha\pm\beta i$ and the real general
+          solution.
+
+    \item \textbf{(Real-root IVP)} Solve the initial value problem
+          $y'' - y' - 2y = 0$, $y(0) = 1$, $y'(0) = 0$.
+
+    \item \textbf{(Wronskian)} Compute the Wronskian of $y_1 = e^{2x}$ and
+          $y_2 = e^{3x}$, and state what it certifies.
+
+    \item \textbf{(Abel's identity)} For $y'' + 3y' + 2y = 0$, use Abel's formula
+          to find the Wronskian up to a constant, then verify it directly from the
+          fundamental solutions.
+
+    \item \textbf{(Reduction of order)} The equation $x^2 y'' - 3x y' + 4y = 0$
+          has the solution $y_1 = x^2$. Use reduction of order to find a second,
+          independent solution $y_2$.
+
+    \item \textbf{(Cauchy--Euler)} Solve $x^2 y'' + 2x y' - 6y = 0$ for $x>0$.
+
+    \item \textbf{(Repeated-root IVP)} Solve $y'' - 4y' + 4y = 0$,
+          $y(0) = 1$, $y'(0) = 1$.
+
+    \item \textbf{(Capstone, higher order)} Solve $y''' - 3y'' + 3y' - y = 0$.
+          Identify the multiplicity of the characteristic root and write the
+          general solution.
+\end{enumerate}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Try $y=e^{rx}$ to get the characteristic
+equation, then factor:
+\[ \textcolor{workpurple}{r^2 - 5r + 6 = (r-2)(r-3) = 0 \;\Rightarrow\; r_1 = 2,\; r_2 = 3.} \]
+The roots are real and distinct, so
+\[ \textcolor{workpurple}{y = c_1 e^{2x} + c_2 e^{3x}.} \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad The characteristic equation is a perfect
+square:
+\[ \textcolor{workpurple}{r^2 - 6r + 9 = (r-3)^2 = 0 \;\Rightarrow\; r = 3 \text{ (double)}.} \]
+A double root supplies only one exponential $e^{3x}$; reduction of order furnishes
+the second solution $x e^{3x}$, so
+\[ \textcolor{workpurple}{y = (c_1 + c_2 x)\,e^{3x}.} \]
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Complete the discriminant:
+\[ \textcolor{workpurple}{r = \frac{-4 \pm \sqrt{16 - 52}}{2} = \frac{-4 \pm \sqrt{-36}}{2} = -2 \pm 3i.} \]
+With $\alpha=-2$ and $\beta=3$,
+\[ \textcolor{workpurple}{y = e^{-2x}\big(c_1\cos 3x + c_2\sin 3x\big).} \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad Characteristic equation
+$r^2 - r - 2 = (r-2)(r+1)=0$ gives $r=2,-1$, so
+$y = c_1 e^{2x} + c_2 e^{-x}$. Apply the initial conditions:
+\[ \textcolor{workpurple}{y(0) = c_1 + c_2 = 1, \qquad y'(0) = 2c_1 - c_2 = 0.} \]
+Adding the equations, $3c_1 = 1$, so
+\[ \textcolor{workpurple}{c_1 = \tfrac{1}{3},\quad c_2 = \tfrac{2}{3}, \qquad
+   y = \tfrac{1}{3} e^{2x} + \tfrac{2}{3} e^{-x}.} \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad With $y_1=e^{2x}$, $y_2=e^{3x}$:
+\[ \textcolor{workpurple}{W = y_1 y_2' - y_2 y_1' = e^{2x}\cdot 3e^{3x} - e^{3x}\cdot 2e^{2x} = (3-2)e^{5x} = e^{5x}.} \]
+Since $e^{5x}\neq 0$ for all $x$, the two solutions are \textbf{linearly
+independent} and $\{e^{2x},e^{3x}\}$ is a fundamental set.
+
+\medskip
+\noindent\textbf{Solution 6.}\quad Here $p(x)=3$, so Abel's formula gives
+\[ \textcolor{workpurple}{W(x) = C\,\exp\!\left(-\int 3\,dx\right) = C\,e^{-3x}.} \]
+Check directly: the roots of $r^2+3r+2=(r+1)(r+2)=0$ are $r=-1,-2$, so
+$y_1=e^{-x}$, $y_2=e^{-2x}$ and
+\[ \textcolor{workpurple}{W = e^{-x}(-2e^{-2x}) - e^{-2x}(-e^{-x}) = (-2+1)e^{-3x} = -e^{-3x},} \]
+which matches $C e^{-3x}$ with $C=-1$.
+
+\medskip
+\noindent\textbf{Solution 7.}\quad Normalize to $y'' - \tfrac{3}{x}y' + \tfrac{4}{x^2}y = 0$,
+so $p(x) = -3/x$ and $e^{-\int p\,dx} = e^{\int (3/x)\,dx} = e^{3\ln x} = x^3$. With
+$y_1=x^2$,
+\[ \textcolor{workpurple}{y_2 = y_1\int \frac{e^{-\int p\,dx}}{y_1^2}\,dx
+   = x^2\int \frac{x^3}{x^4}\,dx = x^2\int \frac{1}{x}\,dx = x^2\ln x.} \]
+The second independent solution is $y_2 = x^2\ln x$ (the repeated-root
+Cauchy--Euler form).
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Try $y=x^m$ in $x^2y''+2xy'-6y=0$. The indicial
+equation is
+\[ \textcolor{workpurple}{m(m-1) + 2m - 6 = m^2 + m - 6 = (m+3)(m-2) = 0 \;\Rightarrow\; m = 2,\,-3.} \]
+The roots are real and distinct, so for $x>0$
+\[ \textcolor{workpurple}{y = c_1 x^2 + c_2 x^{-3}.} \]
+
+\medskip
+\noindent\textbf{Solution 9.}\quad The characteristic equation
+$r^2 - 4r + 4 = (r-2)^2 = 0$ has the double root $r=2$, so
+$y = (c_1 + c_2 x)e^{2x}$. Differentiate:
+$y' = \big(c_2 + 2(c_1 + c_2 x)\big)e^{2x}$. Apply the conditions:
+\[ \textcolor{workpurple}{y(0) = c_1 = 1, \qquad y'(0) = c_2 + 2c_1 = 1 \;\Rightarrow\; c_2 = -1.} \]
+Therefore
+\[ \textcolor{workpurple}{y = (1 - x)\,e^{2x}.} \]
+
+\medskip
+\noindent\textbf{Solution (Capstone).}\quad The characteristic equation is a
+perfect cube:
+\[ \textcolor{workpurple}{r^3 - 3r^2 + 3r - 1 = (r-1)^3 = 0 \;\Rightarrow\; r = 1 \text{ (multiplicity 3)}.} \]
+A triple root contributes $e^{x}$, $x e^{x}$, and $x^2 e^{x}$, so
+\[ \textcolor{workpurple}{y = (c_1 + c_2 x + c_3 x^2)\,e^{x}.} \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 9 Key Takeaway]
+Every constant-coefficient solution is read straight off the
+\textcolor{accentorange}{characteristic roots}: real-distinct roots give
+\textcolor{accentorange}{$c_1 e^{r_1 x} + c_2 e^{r_2 x}$}, a repeated root carries
+the factor $x$ as \textcolor{accentorange}{$(c_1 + c_2 x)e^{rx}$}, and a complex
+pair gives \textcolor{accentorange}{$e^{\alpha x}(c_1\cos\beta x + c_2\sin\beta x)$}.
+The \textcolor{accentorange}{Wronskian} confirms independence,
+\textcolor{accentorange}{Abel's identity} predicts it, and
+\textcolor{accentorange}{reduction of order} recovers the missing partner ---
+exactly the $x^2\ln x$ that the repeated Cauchy--Euler root demands.
+\end{conceptbox}
+
+\end{document}

@@ -7,9 +7,9 @@ through Unit 18).
 
 Authors the 24 video micro-practice quizzes (five items each) and the two 30
 item unit mastery quizzes as one Python source of truth, then:
-  1. Emits JS object literal text and splices it into app/js/quiz-data.js, into
+  1. Emits JS object literal text and splices it into ode/js/quiz-data.js, into
      the existing micro_practice and unit_mastery objects (append only).
-  2. Updates the documentation mirror app/data/quizzes.json so both stay in sync.
+  2. Updates the documentation mirror ode/data/quizzes.json so both stay in sync.
 
 Canonical math strings here use SINGLE backslashes (raw strings). json.dumps
 performs the escaping, which is identical for JS source literals and JSON, so

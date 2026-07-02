@@ -1,0 +1,21 @@
+# Wrangler asset-upload allowlist (gitignore syntax, read from the asset
+# directory root — the repository root per wrangler.jsonc).
+#
+# STRATEGY: deny-by-default. Exclude every top-level entry, then re-include
+# only the production web surface. Anything not explicitly re-included below
+# (node_modules/, scripts/, .git/, PDFs, Python toolchain, caches, secrets)
+# is shielded from cloud uploads by construction. This guards the 25 MiB
+# per-asset Cloudflare limit that the original repo-root upload violated.
+
+# 1. Exclude everything at the top level.
+/*
+
+# 2. Re-include the business landing page surface (site root).
+!/index.html
+!/reviews.html
+!/style.css
+
+# 3. Re-include the ODE roadmap SPA, served under /ode/.
+# (No trailing slash: wrangler tests bare path strings, so "/ode/" would
+# fail to match the directory entry itself.)
+!/ode

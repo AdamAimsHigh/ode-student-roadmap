@@ -4,7 +4,7 @@
 This is the bridge stage of the JSON -> LaTeX -> PDF pipeline. It reads a single
 ``unit{N}_data.json`` and emits one of three asset .tex files depending on the
 ``--mode`` flag, all sharing the unified style harness pulled in via
-``\\input{app/assets/markdowns/preamble.tex}`` (palette, typography, and the six
+``\\input{ode/assets/markdowns/preamble.tex}`` (palette, typography, and the six
 custom boxes defined in LATEX_STYLE_GUIDE.md):
 
   * ``--mode cheat``    -> ``Unit-{N}-Cheat-Sheet.tex``     (Part I only: the
@@ -38,7 +38,7 @@ import os
 
 # Paths are resolved relative to the repository root (the script's parent dir).
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PREAMBLE_INPUT = "app/assets/markdowns/preamble.tex"
+PREAMBLE_INPUT = "ode/assets/markdowns/preamble.tex"
 MARKDOWNS_DIR = os.path.join(REPO_ROOT, "app", "assets", "markdowns")
 
 # Per-mode output filename suffix.

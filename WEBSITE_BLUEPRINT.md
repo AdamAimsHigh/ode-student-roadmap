@@ -47,8 +47,9 @@ Capabilities were welded directly onto the monolith; separation of concerns had 
 These five pillars are the load-bearing guarantees of the shell. **Changing any of them obligates an update to this file** (the Living Blueprint Rule).
 
 ### Pillar 1: Zero-Dependency Client Architecture
-- **`file://` executable, no server.** The app must run by opening `app/index.html` directly — **no Node, no Express, no bundler, no build step.** Deployment target is static **GitHub Pages** (ARCHITECTURE.md §2).
-- **All first-party code is plain script-injected globals**, never ES modules with `import`/`export` and never a packaged dependency tree. The single source of truth for boot order is the ordered `<script>` block at the bottom of `app/index.html`:
+- **Multi-app repository layout (2026-07-01 restructure).** The repository root is the deployed web root of **StaplesEducation.com**: the tutoring business landing page (`index.html`, `reviews.html`, `style.css`) serves at `/`, and the ODE roadmap SPA lives in the standalone directory shell **`ode/`** (renamed from `app/`), served at **`/ode/`**. Deployment target is **Cloudflare Workers static assets** (superseding the original GitHub Pages target): `wrangler.jsonc` points `assets.directory` at the repository root, and the root `.assetsignore` is a **deny-by-default allowlist** re-including only `index.html`, `reviews.html`, `style.css`, and `ode/` — everything else (`node_modules/`, `scripts/`, PDFs, the Python toolchain) is shielded from cloud uploads by construction.
+- **`file://` executable, no server.** The app must run by opening `ode/index.html` directly — **no Node, no Express, no bundler, no build step.** The `ode/` shell is fully self-contained: every internal reference is document-relative (`css/…`, `js/…`, `assets/pdfs/…`), so the same tree runs identically from `file://`, from `/ode/` in production, or from any future mount point.
+- **All first-party code is plain script-injected globals**, never ES modules with `import`/`export` and never a packaged dependency tree. The single source of truth for boot order is the ordered `<script>` block at the bottom of `ode/index.html`:
 
   ```
   curriculum-data.js   → state.js → theme.js → modes.js
@@ -61,7 +62,8 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 - **External libraries are the only network dependency**, all via CDN `<script>`/`<link>` in `<head>`: **KaTeX 0.16.8** (CSS + JS + `auto-render`), **Math.js 11.8.0** (local parsing), **Desmos v1.9** (interactive checkpoints). Local stylesheets load `theme.css` **before** `main.css` so custom properties exist before components consume them.
 
 ### Pillar 2: Centralized Hash Routing Matrix
-- **One entry point.** `app/js/router.js` exposes `renderCurriculum()`, the sole render function. Every navigation, mode toggle, and checkpoint pass funnels through it, so the view always redraws to match the URL hash.
+- **One entry point.** `ode/js/router.js` exposes `renderCurriculum()`, the sole render function. Every navigation, mode toggle, and checkpoint pass funnels through it, so the view always redraws to match the URL hash.
+- **Subpath mounting (2026-07-01 restructure).** In production the SPA mounts at `/ode/`; the hash matrix below is unchanged because every route lives *after* the `#` and every asset link is document-relative, so the router is agnostic to its mount point. Cross-app navigation is one-way by design: the landing page and `reviews.html` link **into** the SPA via the `/ode/` primary CTA in their shared navigation header; the SPA contains no root-absolute links back out, preserving its standalone `file://` contract.
 - **History interception** is wired at the bottom of `router.js`:
   - `document.addEventListener("DOMContentLoaded", renderCurriculum)` — initial paint.
   - `window.addEventListener("hashchange", …)` — re-render plus `window.scrollTo(0, 0)` on view changes.
@@ -83,7 +85,7 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 
 ### Pillar 3: The Unified Data Model Separation
 - **Layout never embeds content.** The curriculum map, checkpoint widgets, quiz strings, and practice problems are each isolated in their own script-injected global, consumed by the layout files but never authored inside them:
-  - `curriculum-data.js` → `CURRICULUM` (Unit → Module → Video → `interactive_checkpoint`), mirrored from `app/data/curriculum.json` and canonically specified in ARCHITECTURE.md §3.
+  - `curriculum-data.js` → `CURRICULUM` (Unit → Module → Video → `interactive_checkpoint`), mirrored from `ode/data/curriculum.json` and canonically specified in ARCHITECTURE.md §3.
   - `checkpoints/checkpoint-registry.js` + `widgets-unitN.js` → per-unit interactive widget definitions, resolved by the `interactive_checkpoint` key on each module.
   - `quiz-data.js` → `QUIZ_DATA` (micro-practice + mastery) **and** `PRACTICE_DATA` (the web practice store, units 0–18).
 - **The renderer is data-driven.** `router.js` reads these globals and builds DOM with shared classes (`.practice-problem-list`, `.practice-solution-list`, `.pdf-download-btn`, `.toc-grid`, …). Adding a unit's content requires no router change — only a data entry.
@@ -91,7 +93,7 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 - **The built-sandbox model is rich, not a placeholder.** Where most units fall back to the generic `INTERACTIVE_SANDBOXES` placeholders (one static "coming soon" body per unit), the leading units are served by dedicated programmatic arrays in `router.js`: `UNIT_0_SANDBOXES` (nine entries), `UNIT_1_SANDBOXES` (ten entries), and `UNIT_2_SANDBOXES` (10 entries, the complete first-order toolkit: linear-solver, geometric-transformation, applied-physics, and the master differential-matrix workbench). Each entry carries a stable, **descriptive ID slug** (`unit_0_*`, `unit_1_*`, `unit_2_*` — e.g. `unit_2_integrating_factor_builder`), dashboard copy, and an explicit `render(body)` function rather than an empty body, so the dashboard loop mounts a live, self-contained canvas engine. Every engine runs a **self-terminating `requestAnimationFrame` loop** that stops once its canvas leaves the DOM, uses strict per-card id/variable namespacing (`u0_sN_`, `u1_sN_`, and for Unit 2's cluster `u2_s1_` through `u2_s10_`) so no inner id or state can collide globally, and reads its colors live from the Pillar 4 theme tokens so Light and Dark both render natively. Registration is uniform: each array is folded into `buildInteractiveItems()` under the same `900 + index` sandbox sort band, and each card deep-links by its slug at `#interactives-sandbox-<id>`. The data-driven `isSandbox` path is unchanged — the renderer simply invokes the entry's `render` when present — keeping layout free of engine logic.
 
 ### Pillar 4: Dual-Theme Custom Property Framework
-- **Tokenized palette, single-attribute switch.** `app/css/theme.css` declares the light-default palette on `:root` and overrides the *same token names* under `[data-theme="dark"]`. Theme switching is one attribute flip on the root element — never a stylesheet swap (ARCHITECTURE.md §2).
+- **Tokenized palette, single-attribute switch.** `ode/css/theme.css` declares the light-default palette on `:root` and overrides the *same token names* under `[data-theme="dark"]`. Theme switching is one attribute flip on the root element — never a stylesheet swap (ARCHITECTURE.md §2).
 
   | Token | Light (`:root`) | Dark (`[data-theme="dark"]`) |
   |---|---|---|
@@ -105,7 +107,7 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 - **Seamless dropdown hover bridge.** The header `.nav-dropdown` menus carry a transparent `.nav-dropdown-menu::before` pseudo-element (defined in `main.css`) spanning the 0.4rem trigger-to-panel gap. Because the menu is a DOM descendant of `.nav-dropdown`, hovering the bridge keeps the ancestor `:hover` alive, so menus no longer snap shut mid-traversal. The bridge is transparent and theme-agnostic, so it composes with the token palette without per-theme rules.
 
 ### Pillar 5: Quiz Subsystem Persistence Loop
-- **All progress serializes to discrete, namespaced `localStorage` keys** through the `ODEState` IIFE in `app/js/state.js`. Every key is `ode_*`-prefixed:
+- **All progress serializes to discrete, namespaced `localStorage` keys** through the `ODEState` IIFE in `ode/js/state.js`. Every key is `ode_*`-prefixed:
 
   | Key | Holds |
   |---|---|
@@ -123,18 +125,18 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 
 ## Absorbed `ARCHITECTURE.md` Design Parameters (Dangling-Reference Reconciliation)
 
-The code comments in `app/css/theme.css` and `app/js/state.js` cite an `ARCHITECTURE.md` by section number. That document is **not at the repository root** — it lives at `ODE-Manager-Local/ARCHITECTURE.md` (alongside its `CLAUDE.md` persona file). To keep `WEBSITE_BLUEPRINT.md` the single living source of truth, its design parameters are absorbed here, and the dangling references are reconciled:
+The code comments in `ode/css/theme.css` and `ode/js/state.js` cite an `ARCHITECTURE.md` by section number. That document is **not at the repository root** — it lives at `ODE-Manager-Local/ARCHITECTURE.md` (alongside its `CLAUDE.md` persona file). To keep `WEBSITE_BLUEPRINT.md` the single living source of truth, its design parameters are absorbed here, and the dangling references are reconciled:
 
 | Code reference | Original `ARCHITECTURE.md` source | Absorbed into |
 |---|---|---|
 | `theme.css` — *"per ARCHITECTURE.md Section 2"* | §2 Technical Architecture and Integrations (theme toggle: CSS vars + `localStorage`, default light) | **Pillar 4** |
 | `state.js` — *"Exploration is the default per ARCHITECTURE.md Section 4"* | §4 Dual-Mode Progression and Interactive Checkpoints | **Pillar 5** |
-| Curriculum schema | §3 Curriculum Data Structure (Unit → Module → Video → checkpoint; mirrored in `app/data/curriculum.json` + `app/js/curriculum-data.js`) | **Pillar 3** |
+| Curriculum schema | §3 Curriculum Data Structure (Unit → Module → Video → checkpoint; mirrored in `ode/data/curriculum.json` + `ode/js/curriculum-data.js`) | **Pillar 3** |
 
 **Cross-subject design parameters carried forward from `ARCHITECTURE.md`:**
 - **§1 Pedagogy — Math Confidence Reset:** the UI prioritizes first-principles logic over rote memorization; failed checkpoints yield guiding questions, not answers.
 - **§1 Copywriting constraint (binding on all UI copy):** user-facing text, tooltips, and quiz strings must use a strictly professional tone and **must not contain em-dashes or ampersands** — use commas and the word "and". (This constraint governs *rendered UI copy and quiz content*, not internal engineering docs such as this blueprint.)
-- **§2 Stack invariants:** vanilla HTML/CSS/modular JS; Desmos for visualizations; KaTeX + Math.js for math; GNU Octave reserved for any heavy offline problem-set generation; GitHub Pages as the deploy target.
+- **§2 Stack invariants:** vanilla HTML/CSS/modular JS; Desmos for visualizations; KaTeX + Math.js for math; GNU Octave reserved for any heavy offline problem-set generation; GitHub Pages as the deploy target *(historical — superseded 2026-07-01 by Cloudflare Workers static assets, see Pillar 1)*.
 
 > **Going forward, treat `ODE-Manager-Local/ARCHITECTURE.md` as the historical project brief and this file as the authoritative living blueprint.** When the two disagree, this blueprint wins, and the divergence should be noted in a future revision.
 

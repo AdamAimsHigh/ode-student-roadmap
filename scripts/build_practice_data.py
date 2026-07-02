@@ -9,10 +9,10 @@ math in $...$ and display math in $$...$$, no document-level commands, no
 
 Sources:
   - Units 0-11, 13-18: scripts/unitN_data.json -> practice.{problems,solutions}
-  - Unit 12 (hand-authored exception, no JSON): app/assets/markdowns/Unit-12-Practice-Set.tex
+  - Unit 12 (hand-authored exception, no JSON): ode/assets/markdowns/Unit-12-Practice-Set.tex
 
 The gold-standard Unit 1 entry already in quiz-data.js is preserved verbatim.
-Output: rewrites the `const PRACTICE_DATA = { ... };` block in app/js/quiz-data.js.
+Output: rewrites the `const PRACTICE_DATA = { ... };` block in ode/js/quiz-data.js.
 
 Runtime is unaffected: the SPA loads only the generated static JS (file:// safe).
 """

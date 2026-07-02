@@ -1,0 +1,691 @@
+% Unit 8: Special Equations and Classical Models
+% Practice Set (Parts II and III only: problems then full solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (8.1 to 8.7) read from
+% curriculum-data.js and the 10-problem master practice set for Unit 8.
+% Shared style harness pulled from the unified preamble input.
+
+\input{ode/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 8: Special Equations and Classical Models}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Practice Set: Problems and Complete Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% No leading \clearpage: this standalone set opens directly on its problems.
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. Problems 1--2 develop the Clairaut
+equation: general straight-line family and singular envelope elimination
+(Module 8.1). Problems 3--4 derive and solve the tractrix ODE and the general
+pursuit equation with a speed-ratio parameter (Module 8.2). Problem 5 solves
+the plane Poiseuille velocity profile with no-slip boundary conditions, and
+Problem 6 applies 2D incompressible continuity to find the stream function
+(Module 8.3). Problem 7 solves the linear price-adjustment ODE and identifies
+the equilibrium (Module 8.4). Problem 8 analyzes the full Lotka--Volterra
+predator-prey system including the conserved quantity $H$ (Module 8.5).
+Problem 9 classifies coexistence versus competitive exclusion in a two-species
+competition model via nullcline inequalities (Module 8.6). Problem 10 closes
+with a four-part classification and solution survey (Module 8.7).
+
+\begin{enumerate}[leftmargin=2em, itemsep=8pt]
+
+    \item Find the general solution and the singular solution of the Clairaut
+          equation $y = xy' + (y')^2$. Verify that the singular solution is
+          the envelope of the general straight-line family.
+
+    \item For the Clairaut equation $y = xy' - \ln(y')$ (with $y' > 0$),
+          find the one-parameter family of straight-line solutions and the
+          singular solution. Confirm that the singular solution satisfies the
+          ODE directly.
+
+    \item A target moves from the origin up the positive $y$-axis. A pursuer
+          starts at $(a,0)$ and is always connected to the target by a taut
+          string of length $a$, with both moving at the same speed. Derive
+          the tractrix differential equation
+          \[
+            \frac{dy}{dx} = -\frac{\sqrt{a^2 - x^2}}{x},
+            \qquad y(a) = 0,
+          \]
+          from the constant-length tangent-line geometry, then solve it for
+          $y(x)$ using the trigonometric substitution $x = a\sin\theta$.
+
+    \item A dog at the origin always runs directly toward its owner, who walks
+          along the line $x = c$ in the positive $y$-direction at speed $v_m$.
+          The dog runs at constant speed $v_d > v_m$. Let $k = v_m/v_d$.
+          Derive the pursuit ODE $x\,y'' = k\sqrt{1 + (y')^2}$ with
+          $y(c) = 0$, $y'(c) = 0$. Set $p = y'$, solve the resulting
+          separable equation in $p$, then integrate to find $y(x)$ and the
+          finite capture height $y(0)$.
+
+    \item A viscous fluid occupies the channel between two fixed plates at
+          $y = 0$ and $y = h$. A constant pressure gradient $G > 0$ drives
+          the flow; the fluid has dynamic viscosity $\mu$ and satisfies
+          $\mu\,u''(y) = -G$ with $u(0) = u(h) = 0$. Solve this boundary-value
+          problem for the velocity profile $u(y)$. State the location and
+          value of the maximum velocity.
+
+    \item For a 2D incompressible steady flow the continuity equation requires
+          $\partial u/\partial x + \partial v/\partial y = 0$. Given
+          $u = x^2 - y^2$, find the most general $v(x,y)$ consistent with
+          continuity. For the simplest choice $g(x) = 0$, determine the stream
+          function $\psi(x,y)$ and write the equation of the streamlines.
+
+    \item Commodity price $p(t)$ obeys $dp/dt = k(D - S)$ with linear demand
+          $D = a - bp$ and supply $S = -c + dp$ ($a,b,c,d,k > 0$). Write the
+          ODE explicitly, solve it via integrating factor with $p(0) = p_0$,
+          identify the equilibrium price $p^*$, and state the convergence
+          condition.
+
+    \item For the Lotka--Volterra system $\dot{x} = ax - bxy$,
+          $\dot{y} = -cy + dxy$ ($a,b,c,d > 0$): interpret each parameter
+          ecologically; find all equilibria; show that the coexistence
+          equilibrium is $(c/d,\, a/b)$; derive the conserved quantity
+          $H(x,y) = dx - c\ln x + by - a\ln y$ by forming $dy/dx = \dot{y}/\dot{x}$
+          and integrating; verify that $H$ attains its minimum at $(c/d, a/b)$.
+
+    \item Two competing species obey
+          \[
+            \dot{x} = r_1 x\!\left(1 - \frac{x + \alpha y}{K_1}\right),
+            \qquad
+            \dot{y} = r_2 y\!\left(1 - \frac{y + \beta x}{K_2}\right).
+          \]
+          Find all four equilibria. Write the non-trivial nullcline equations.
+          State the complete set of inequalities on $K_1, K_2, \alpha, \beta$
+          that determine (a) stable coexistence, (b) bistable competitive
+          exclusion, (c) species $x$ always wins, and (d) species $y$ always
+          wins. Derive the interior equilibrium $(x^*, y^*)$ explicitly.
+
+    \item Classify each equation by the appropriate first-order solution method
+          and carry out the complete solution.
+          \begin{enumerate}[label=(\alph*), itemsep=4pt]
+            \item $\dfrac{dy}{dx} = \dfrac{x(1+y^2)}{1+x^2}$
+            \item $\dfrac{dy}{dx} + \dfrac{2}{x}\,y = x^3$
+            \item $\dfrac{dy}{dx} + y = xy^3$
+            \item $(2xy + \cos x)\,dx + (x^2 - \sin y)\,dy = 0$
+          \end{enumerate}
+
+\end{enumerate}
+
+\vspace{0.4em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART III: COMPLETE SOLUTIONS
+% Standalone set: single \clearpage before Part III so solutions print fresh.
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 1.}\quad
+Set $p = y'$. The Clairaut equation is $y = xp + p^2$.
+
+Differentiate both sides with respect to $x$; since $dy/dx = p$:
+\[
+  \textcolor{workpurple}{p = p + x\,\frac{dp}{dx} + 2p\,\frac{dp}{dx}
+  = p + (x + 2p)\,\frac{dp}{dx}.}
+\]
+Cancel $p$ from both sides:
+\[
+  \textcolor{workpurple}{(x + 2p)\,\frac{dp}{dx} = 0.}
+\]
+
+\textit{Case A: $dp/dx = 0$.}
+Then $p = C$ (constant). Substituting back: $y = Cx + C^2$.
+This is the \textbf{general solution}, a one-parameter family of straight lines.
+
+\textit{Case B: $x + 2p = 0$.}
+Then $p = -x/2$. Substitute into $y = xp + p^2$:
+\[
+  \textcolor{workpurple}{y = x\!\left(-\frac{x}{2}\right) + \left(-\frac{x}{2}\right)^2
+  = -\frac{x^2}{2} + \frac{x^2}{4} = -\frac{x^2}{4}.}
+\]
+
+\textit{Envelope verification via elimination.}
+Write $F(x,y,C) = y - Cx - C^2 = 0$.
+Differentiate with respect to $C$: $\partial F/\partial C = -x - 2C = 0$,
+so $C = -x/2$.
+Substitute into $F$:
+\[
+  \textcolor{workpurple}{y - \left(-\frac{x}{2}\right)x - \left(\frac{x}{2}\right)^2
+  = y + \frac{x^2}{2} - \frac{x^2}{4} = y + \frac{x^2}{4} = 0
+  \;\Longrightarrow\; y = -\frac{x^2}{4}.}
+\]
+Matches Case B. \textit{Direct check:} $y' = -x/2$, so
+$(y')^2 = x^2/4$ and
+$xy' + (y')^2 = -x^2/2 + x^2/4 = -x^2/4 = y$. \checkmark
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 2.}\quad
+Set $p = y' > 0$. The equation is $y = xp - \ln p$.
+
+Differentiate with respect to $x$:
+\[
+  \textcolor{workpurple}{p = p + x\,\frac{dp}{dx} - \frac{1}{p}\,\frac{dp}{dx}
+  = p + \left(x - \frac{1}{p}\right)\frac{dp}{dx}.}
+\]
+Cancel $p$:
+\[
+  \textcolor{workpurple}{\left(x - \frac{1}{p}\right)\frac{dp}{dx} = 0.}
+\]
+
+\textit{Case A: $dp/dx = 0$.}
+Then $p = C > 0$.
+\textbf{General solution:} $y = Cx - \ln C$ (family of lines).
+
+\textit{Case B: $x - 1/p = 0$.}
+Then $p = 1/x$. Substitute:
+\[
+  \textcolor{workpurple}{y = x\cdot\frac{1}{x} - \ln\!\left(\frac{1}{x}\right)
+  = 1 + \ln x.}
+\]
+\textbf{Singular solution:} $y = 1 + \ln x$ ($x > 0$).
+
+\textit{Envelope check.}
+$F(x,y,C) = y - Cx + \ln C = 0$; $\partial F/\partial C = -x + 1/C = 0$,
+so $C = 1/x$.
+Substitute: $y - (1/x)x + \ln(1/x) = y - 1 - \ln x = 0$, giving
+$y = 1 + \ln x$. \checkmark
+
+\textit{Direct check:} $y' = 1/x$, $\ln y' = -\ln x$, so
+$xy' - \ln y' = 1 + \ln x = y$. \checkmark
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 3.}\quad
+\textit{Geometric derivation.}
+At position $(x,y)$ the pursuer's string of length $a$ connects to the
+$y$-axis. The tangent to the path at $(x,y)$ has slope $dy/dx$; the
+horizontal distance to the $y$-axis is $x$, and by the right-triangle
+formed by the string, the horizontal leg equals $x$ and the hypotenuse
+equals $a$, so the vertical leg equals $\sqrt{a^2 - x^2}$.
+Since the pursuer is dragged \emph{toward} the $y$-axis (decreasing $x$)
+and the string pulls downward in $y$ relative to the target,
+\[
+  \textcolor{workpurple}{\frac{dy}{dx} = -\frac{\sqrt{a^2 - x^2}}{x},
+  \qquad y(a) = 0.}
+\]
+
+\textit{Integration via $x = a\sin\theta$.}
+Let $x = a\sin\theta$, $dx = a\cos\theta\,d\theta$,
+$\sqrt{a^2 - x^2} = a\cos\theta$:
+\[
+  \textcolor{workpurple}{\int\frac{\sqrt{a^2-x^2}}{x}\,dx
+  = \int\frac{a\cos\theta}{a\sin\theta}\cdot a\cos\theta\,d\theta
+  = a\int\frac{\cos^2\theta}{\sin\theta}\,d\theta.}
+\]
+Write $\cos^2\theta = 1 - \sin^2\theta$:
+\[
+  \textcolor{workpurple}{= a\int\frac{1 - \sin^2\theta}{\sin\theta}\,d\theta
+  = a\int(\csc\theta - \sin\theta)\,d\theta
+  = a\bigl[\ln|\csc\theta - \cot\theta| + \cos\theta\bigr].}
+\]
+Back-substitute using $\csc\theta = a/x$,
+$\cot\theta = \sqrt{a^2-x^2}/x$,
+$\cos\theta = \sqrt{a^2-x^2}/a$:
+\[
+  \textcolor{workpurple}{= a\ln\!\left(\frac{a - \sqrt{a^2-x^2}}{x}\right)
+  + \sqrt{a^2-x^2}.}
+\]
+Therefore:
+\[
+  \textcolor{workpurple}{y = -a\ln\!\left(\frac{a - \sqrt{a^2-x^2}}{x}\right)
+  - \sqrt{a^2-x^2} + K.}
+\]
+Apply $y(a) = 0$: at $x = a$, $\sqrt{a^2-x^2} = 0$ and $\ln(a/a) = \ln 1 = 0$,
+so $K = 0$.
+
+Rationalizing the logarithm argument
+($[a - \sqrt{a^2-x^2}]/x = x/[a + \sqrt{a^2-x^2}]$), the solution is
+\[
+  \textcolor{workpurple}{y(x) = a\ln\!\left(\frac{a + \sqrt{a^2 - x^2}}{x}\right)
+  - \sqrt{a^2 - x^2}.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 4.}\quad
+\textit{Geometric setup.}
+At dog position $(x,y)$, the owner is at $(c, Y)$ and the line from the
+dog to the owner is tangent to the path:
+\[
+  \textcolor{workpurple}{\frac{dy}{dx} = \frac{Y - y}{c - x}
+  \quad\Longrightarrow\quad Y - y = (c - x)\,y'. \tag{1}}
+\]
+Differentiate (1) with respect to $x$:
+\[
+  \textcolor{workpurple}{\frac{dY}{dx} - y' = -y' + (c-x)\,y''
+  \quad\Longrightarrow\quad \frac{dY}{dx} = (c-x)\,y''. \tag{2}}
+\]
+The owner moves at speed $v_m$ in $y$, the dog at speed $v_d$ along its arc,
+so $dY/ds = k = v_m/v_d$ and $ds/dx = \sqrt{1+(y')^2}$, giving:
+\[
+  \textcolor{workpurple}{\frac{dY}{dx} = k\sqrt{1+(y')^2}. \tag{3}}
+\]
+Combining (2) and (3): $(c-x)\,y'' = k\sqrt{1+(y')^2}$, which with origin
+shifted to the chased line reads
+\[
+  \textcolor{workpurple}{x\,y'' = k\sqrt{1+(y')^2}.}
+\]
+
+\textit{Solving with $p = y'$.}
+\[
+  \textcolor{workpurple}{x\,\frac{dp}{dx} = k\sqrt{1+p^2}
+  \quad\Longrightarrow\quad
+  \frac{dp}{\sqrt{1+p^2}} = \frac{k\,dx}{x}.}
+\]
+Integrate:
+\[
+  \textcolor{workpurple}{\operatorname{arcsinh}(p) = k\ln x + C_1
+  \quad\Longrightarrow\quad
+  p + \sqrt{1+p^2} = A\,x^k.}
+\]
+Apply $y'(c) = p = 0$: $0 + 1 = A\,c^k$, so $A = c^{-k}$.
+Hence $p + \sqrt{1+p^2} = (x/c)^k$.
+
+Since $(p + \sqrt{1+p^2})({\sqrt{1+p^2} - p}) = 1$,
+\[
+  \textcolor{workpurple}{\sqrt{1+p^2} - p = (x/c)^{-k}.}
+\]
+Subtract from the first equation:
+\[
+  \textcolor{workpurple}{2p = (x/c)^k - (x/c)^{-k}
+  \quad\Longrightarrow\quad
+  y' = \frac{1}{2}\!\left[\left(\frac{x}{c}\right)^k
+  - \left(\frac{x}{c}\right)^{-k}\right].}
+\]
+Integrate ($k \ne 1$):
+\[
+  \textcolor{workpurple}{y = \frac{1}{2}\left[\frac{x^{k+1}}{(k+1)\,c^k}
+  - \frac{c^k\,x^{1-k}}{1-k}\right] + C_2.}
+\]
+Apply $y(c) = 0$; at $x = c$ the bracket gives $c/(k+1) - c/(1-k)$, so:
+\[
+  \textcolor{workpurple}{C_2 = -\frac{1}{2}\!\left[\frac{c}{k+1} - \frac{c}{1-k}\right]
+  = \frac{c}{2}\cdot\frac{2k}{1-k^2} = \frac{ck}{1-k^2}.}
+\]
+\textbf{Solution:}
+\[
+  \textcolor{workpurple}{y(x) = \frac{1}{2}\!\left[\frac{x^{k+1}}{(k+1)c^k}
+  - \frac{c^k x^{1-k}}{1-k}\right] + \frac{ck}{1-k^2}.}
+\]
+Capture height (at $x \to 0$, since $k < 1$): $y(0) = ck/(1-k^2)$.
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 5.}\quad
+The governing BVP is $\mu\,u''(y) = -G$, $u(0) = 0$, $u(h) = 0$.
+
+Integrate once:
+\[
+  \textcolor{workpurple}{\mu\,u'(y) = -Gy + C_1.}
+\]
+Integrate again:
+\[
+  \textcolor{workpurple}{\mu\,u(y) = -\frac{G}{2}y^2 + C_1 y + C_2.}
+\]
+Apply $u(0) = 0$:
+\[
+  \textcolor{workpurple}{0 = 0 + 0 + C_2 \quad\Longrightarrow\quad C_2 = 0.}
+\]
+Apply $u(h) = 0$:
+\[
+  \textcolor{workpurple}{0 = -\frac{G}{2}h^2 + C_1 h
+  \quad\Longrightarrow\quad C_1 = \frac{Gh}{2}.}
+\]
+Substitute $C_1$ and $C_2$:
+\[
+  \textcolor{workpurple}{u(y) = \frac{1}{\mu}\!\left(-\frac{G}{2}y^2 + \frac{Gh}{2}y\right)
+  = \frac{G}{2\mu}\,y(h - y).}
+\]
+Maximum velocity: set $u'(y) = (G/2\mu)(h - 2y) = 0$:
+\[
+  \textcolor{workpurple}{y_{\max} = \frac{h}{2},
+  \qquad
+  u_{\max} = u\!\left(\frac{h}{2}\right)
+  = \frac{G}{2\mu}\cdot\frac{h}{2}\cdot\frac{h}{2}
+  = \frac{Gh^2}{8\mu}.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 6.}\quad
+Given $u = x^2 - y^2$, compute $\partial u/\partial x = 2x$.
+From continuity $\partial v/\partial y = -\partial u/\partial x = -2x$.
+Integrate in $y$:
+\[
+  \textcolor{workpurple}{v(x,y) = -2xy + g(x),}
+\]
+where $g(x)$ is an arbitrary function of $x$.
+
+\textit{Stream function (with $g = 0$).}
+Require $u = \partial\psi/\partial y = x^2 - y^2$.
+Integrate in $y$:
+\[
+  \textcolor{workpurple}{\psi(x,y) = x^2 y - \frac{y^3}{3} + h(x).}
+\]
+Check $-\partial\psi/\partial x = v = -2xy$:
+\[
+  \textcolor{workpurple}{-\frac{\partial\psi}{\partial x}
+  = -(2xy + h'(x)) = -2xy
+  \quad\Longrightarrow\quad h'(x) = 0,\quad h = \text{const}.}
+\]
+Taking $h = 0$:
+\[
+  \textcolor{workpurple}{\psi(x,y) = x^2 y - \frac{y^3}{3}.}
+\]
+Streamlines are the level curves $\psi = k$:
+\[
+  \textcolor{workpurple}{x^2 y - \frac{y^3}{3} = k.}
+\]
+Verification that $dy/dx = v/u = -2xy/(x^2 - y^2)$: differentiate
+$\psi = \text{const}$ implicitly,
+$2xy + (x^2 - y^2)\,y' = 0$, giving $y' = -2xy/(x^2 - y^2) = v/u$. \checkmark
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 7.}\quad
+Substitute $D = a - bp$ and $S = -c + dp$:
+\[
+  \textcolor{workpurple}{\frac{dp}{dt}
+  = k\bigl[(a - bp) - (-c + dp)\bigr]
+  = k\bigl[(a + c) - (b + d)p\bigr].}
+\]
+Rearrange to standard linear form with $\beta = k(b+d)$ and
+$\alpha = k(a+c)$:
+\[
+  \textcolor{workpurple}{\frac{dp}{dt} + \beta\,p = \alpha.}
+\]
+Integrating factor $\mu(t) = e^{\beta t}$:
+\[
+  \textcolor{workpurple}{\frac{d}{dt}\!\left(p\,e^{\beta t}\right) = \alpha\,e^{\beta t}.}
+\]
+Integrate:
+\[
+  \textcolor{workpurple}{p\,e^{\beta t} = \frac{\alpha}{\beta}\,e^{\beta t} + C
+  \quad\Longrightarrow\quad p(t) = \frac{\alpha}{\beta} + C\,e^{-\beta t}.}
+\]
+Apply $p(0) = p_0$:
+\[
+  \textcolor{workpurple}{C = p_0 - \frac{\alpha}{\beta}.}
+\]
+\textbf{Equilibrium price:}
+\[
+  \textcolor{workpurple}{p^* = \frac{\alpha}{\beta}
+  = \frac{k(a+c)}{k(b+d)} = \frac{a+c}{b+d}.}
+\]
+(Verify: $D = S$ gives $a - bp^* = -c + dp^*$, i.e.\ $a + c = (b+d)p^*$,
+same result.)
+
+\textbf{Solution:}
+\[
+  \textcolor{workpurple}{p(t) = \frac{a+c}{b+d}
+  + \!\left(p_0 - \frac{a+c}{b+d}\right)e^{-k(b+d)t}.}
+\]
+\textbf{Convergence condition:} $\beta = k(b+d) > 0$, which holds automatically
+for $k,b,d > 0$. Price converges monotonically to $p^*$ for any $p_0$.
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 8.}\quad
+\textit{Parameter interpretation.}
+$a$ = per-capita prey growth rate (in absence of predators);
+$b$ = predation rate coefficient (prey removed per predator per unit time);
+$c$ = per-capita predator death rate (in absence of prey);
+$d$ = conversion efficiency (prey consumed into new predators).
+
+\textit{Equilibria.}
+Set $\dot{x} = 0$: $x(a - by) = 0 \Rightarrow x = 0$ or $y = a/b$.
+Set $\dot{y} = 0$: $y(-c + dx) = 0 \Rightarrow y = 0$ or $x = c/d$.
+Cross-pairing:
+\[
+  \textcolor{workpurple}{E_0 = (0,\,0), \qquad
+  E^* = \!\left(\frac{c}{d},\;\frac{a}{b}\right).}
+\]
+
+\textit{Derivation of $H$.}
+Form $dy/dx = \dot{y}/\dot{x}$:
+\[
+  \textcolor{workpurple}{\frac{dy}{dx}
+  = \frac{y(-c + dx)}{x(a - by)}.}
+\]
+Separate variables:
+\[
+  \textcolor{workpurple}{\frac{a - by}{y}\,dy = \frac{-c + dx}{x}\,dx
+  \quad\Longrightarrow\quad
+  \left(\frac{a}{y} - b\right)dy = \left(-\frac{c}{x} + d\right)dx.}
+\]
+Integrate both sides:
+\[
+  \textcolor{workpurple}{a\ln y - by = -c\ln x + dx + \text{const}.}
+\]
+Rearrange to isolate the constant:
+\[
+  \textcolor{workpurple}{H(x,y) = dx - c\ln x + by - a\ln y = \text{const}.}
+\]
+
+\textit{$H$ is minimized at $E^*$.}
+\[
+  \textcolor{workpurple}{\frac{\partial H}{\partial x}
+  = d - \frac{c}{x} = 0 \;\Longrightarrow\; x = \frac{c}{d},
+  \qquad
+  \frac{\partial H}{\partial y}
+  = b - \frac{a}{y} = 0 \;\Longrightarrow\; y = \frac{a}{b}.}
+\]
+Since $\partial^2 H/\partial x^2 = c/x^2 > 0$ and
+$\partial^2 H/\partial y^2 = a/y^2 > 0$ with cross-partial zero, the Hessian
+is positive definite: $E^*$ is the unique interior minimum.
+Level curves of $H$ (closed) are the periodic phase-plane orbits around $E^*$.
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 9.}\quad
+\textit{Equilibria.}
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+  \item $E_0 = (0,0)$ (trivial extinction).
+  \item $E_1 = (K_1, 0)$ ($y = 0$, $x = K_1$).
+  \item $E_2 = (0, K_2)$ ($x = 0$, $y = K_2$).
+  \item $E_3 = (x^*, y^*)$: solve $x + \alpha y = K_1$ and $\beta x + y = K_2$.
+\end{itemize}
+
+From $x + \alpha y = K_1$: $x = K_1 - \alpha y$.
+Substitute into $\beta x + y = K_2$:
+\[
+  \textcolor{workpurple}{\beta(K_1 - \alpha y) + y = K_2
+  \;\Longrightarrow\;
+  \beta K_1 + y(1 - \alpha\beta) = K_2
+  \;\Longrightarrow\;
+  y^* = \frac{K_2 - \beta K_1}{1 - \alpha\beta}.}
+\]
+\[
+  \textcolor{workpurple}{x^* = \frac{K_1 - \alpha K_2}{1 - \alpha\beta}.}
+\]
+
+\textit{Non-trivial nullclines.}
+$x$-nullcline: $x + \alpha y = K_1$, meeting axes at $(K_1, 0)$ and $(0, K_1/\alpha)$.
+$y$-nullcline: $\beta x + y = K_2$, meeting axes at $(K_2/\beta, 0)$ and $(0, K_2)$.
+
+\textit{Outcome classification via axis intercepts.}
+
+\noindent(a) \textbf{Stable coexistence}: $x$-nullcline lies \emph{above} the $y$-nullcline in the
+interior, i.e.\ both species inhibit themselves more than each other:
+\[
+  \textcolor{workpurple}{K_1 < \frac{K_2}{\beta}
+  \quad\text{and}\quad
+  K_2 < \frac{K_1}{\alpha}
+  \quad(\Leftrightarrow\;\alpha\beta < 1).}
+\]
+Then $x^*, y^* > 0$ and $E_3$ is a stable node; $E_1$ and $E_2$ are saddles.
+
+\noindent(b) \textbf{Bistable competitive exclusion}: the nullclines still cross in the positive
+quadrant but $E_3$ is an unstable saddle:
+\[
+  \textcolor{workpurple}{K_1 > \frac{K_2}{\beta}
+  \quad\text{and}\quad
+  K_2 > \frac{K_1}{\alpha}
+  \quad(\Leftrightarrow\;\alpha\beta > 1).}
+\]
+Both $E_1$ and $E_2$ are stable nodes; initial conditions determine the winner.
+
+\noindent(c) \textbf{Species $x$ always wins}: $E_1 = (K_1, 0)$ globally stable:
+\[
+  \textcolor{workpurple}{K_1 > \frac{K_2}{\beta}
+  \quad\text{and}\quad
+  K_2 < \frac{K_1}{\alpha}.}
+\]
+
+\noindent(d) \textbf{Species $y$ always wins}: $E_2 = (0, K_2)$ globally stable:
+\[
+  \textcolor{workpurple}{K_1 < \frac{K_2}{\beta}
+  \quad\text{and}\quad
+  K_2 > \frac{K_1}{\alpha}.}
+\]
+
+\medskip
+
+% -------------------------------------------------------------------
+\noindent\textbf{Solution 10.}\quad
+
+\noindent\textit{(a) Separable.}
+$dy/dx = x(1+y^2)/(1+x^2)$. Separate:
+\[
+  \textcolor{workpurple}{\frac{dy}{1+y^2} = \frac{x\,dx}{1+x^2}.}
+\]
+Integrate left: $\arctan y$. Integrate right via $u = 1+x^2$,
+$du = 2x\,dx$:
+\[
+  \textcolor{workpurple}{\int\frac{x\,dx}{1+x^2} = \frac{1}{2}\ln(1+x^2).}
+\]
+Solution:
+\[
+  \textcolor{workpurple}{\arctan y = \frac{1}{2}\ln(1+x^2) + C,
+  \qquad y = \tan\!\left(\frac{1}{2}\ln(1+x^2) + C\right).}
+\]
+
+\medskip
+
+\noindent\textit{(b) Linear first order.}
+$dy/dx + (2/x)\,y = x^3$. Integrating factor:
+\[
+  \textcolor{workpurple}{\mu = \exp\!\left(\int\frac{2}{x}\,dx\right)
+  = e^{2\ln x} = x^2.}
+\]
+Multiply:
+\[
+  \textcolor{workpurple}{x^2 y' + 2x\,y = x^5
+  \quad\Longrightarrow\quad
+  \frac{d}{dx}(x^2 y) = x^5.}
+\]
+Integrate:
+\[
+  \textcolor{workpurple}{x^2 y = \frac{x^6}{6} + C
+  \quad\Longrightarrow\quad
+  y = \frac{x^4}{6} + \frac{C}{x^2}.}
+\]
+
+\medskip
+
+\noindent\textit{(c) Bernoulli, $n = 3$.}
+$dy/dx + y = xy^3$. Divide by $y^3$:
+\[
+  \textcolor{workpurple}{y^{-3}y' + y^{-2} = x.}
+\]
+Let $v = y^{-2}$; then $dv/dx = -2y^{-3}y'$, so $y^{-3}y' = -(1/2)\,dv/dx$:
+\[
+  \textcolor{workpurple}{-\frac{1}{2}\,v' + v = x
+  \quad\Longrightarrow\quad
+  v' - 2v = -2x.}
+\]
+Linear in $v$. Integrating factor $\mu = e^{-2x}$:
+\[
+  \textcolor{workpurple}{\frac{d}{dx}(v\,e^{-2x}) = -2x\,e^{-2x}.}
+\]
+Compute $\int -2x\,e^{-2x}\,dx$ by parts with $u = x$, $dv = -2e^{-2x}\,dx$:
+\[
+  \textcolor{workpurple}{\int -2x\,e^{-2x}\,dx
+  = x\,e^{-2x} - \int e^{-2x}\,dx
+  = x\,e^{-2x} + \frac{e^{-2x}}{2}.}
+\]
+Integrate both sides:
+\[
+  \textcolor{workpurple}{v\,e^{-2x} = x\,e^{-2x} + \frac{e^{-2x}}{2} + C
+  \quad\Longrightarrow\quad
+  v = x + \frac{1}{2} + C\,e^{2x}.}
+\]
+Back-substitute $v = 1/y^2$:
+\[
+  \textcolor{workpurple}{\frac{1}{y^2} = x + \frac{1}{2} + C\,e^{2x}
+  \quad\Longrightarrow\quad
+  y^2 = \frac{1}{x + \tfrac{1}{2} + C\,e^{2x}}.}
+\]
+
+\medskip
+
+\noindent\textit{(d) Exact.}
+$M = 2xy + \cos x$, $N = x^2 - \sin y$.
+Test: $\partial M/\partial y = 2x$ and $\partial N/\partial x = 2x$. Equal
+$\Rightarrow$ \textbf{exact}.
+
+Integrate $M$ with respect to $x$:
+\[
+  \textcolor{workpurple}{F(x,y)
+  = \int(2xy + \cos x)\,dx
+  = x^2 y + \sin x + g(y).}
+\]
+Differentiate $F$ with respect to $y$ and match to $N$:
+\[
+  \textcolor{workpurple}{F_y = x^2 + g'(y) = x^2 - \sin y
+  \quad\Longrightarrow\quad
+  g'(y) = -\sin y
+  \quad\Longrightarrow\quad
+  g(y) = \cos y.}
+\]
+\textbf{General solution:}
+\[
+  \textcolor{workpurple}{F(x,y) = x^2 y + \sin x + \cos y = C.}
+\]
+
+\vspace{0.8em}
+
+\begin{conceptbox}[Unit 8 Key Takeaway]
+Every Clairaut equation $y = xy' + f(y')$ yields a \textcolor{accentorange}{general
+line family $y = Cx + f(C)$} and a \textcolor{accentorange}{singular envelope}
+obtained by eliminating $p$ from $x + f'(p) = 0$. Pursuit geometry
+converts constant-length or constant-speed constraints directly into separable
+or Bernoulli-type ODEs. The Poiseuille profile
+\textcolor{accentorange}{$u = (G/2\mu)\,y(h-y)$} and the price path
+\textcolor{accentorange}{$p(t) = p^* + (p_0 - p^*)e^{-k(b+d)t}$} both follow
+from first- or second-order linear BVPs. In Lotka--Volterra dynamics the
+\textcolor{accentorange}{conserved quantity $H = dx - c\ln x + by - a\ln y$}
+organizes all phase-plane orbits; in two-species competition the outcome
+is settled by \textcolor{accentorange}{$\alpha\beta < 1$ (coexistence) versus
+$\alpha\beta > 1$ (exclusion)}.
+\end{conceptbox}
+
+\end{document}

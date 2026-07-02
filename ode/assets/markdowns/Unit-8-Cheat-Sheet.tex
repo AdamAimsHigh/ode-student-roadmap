@@ -1,0 +1,354 @@
+% Unit 8: Special Equations and Classical Models
+% Condensed Cheat Sheet (Part I only)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (8.1 to 8.7) read from
+% curriculum-data.js and the 10-problem master practice set for Unit 8.
+% Shared style harness pulled from the unified preamble input.
+
+\input{ode/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 8: Special Equations and Classical Models}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Condensed Cheat Sheet}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box (all 7 curriculum modules from curriculum-data.js)
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 8 at a Glance: Core Sub-Topics]
+Unit 8 moves from the algebraic theory of first-order ODEs into the classical
+applied models that drive physics, biology, and economics. It opens with two
+\emph{special equation types}---the Clairaut equation (singular-solution
+envelopes) and pursuit/tractrix curves---before building three major applied
+models: the Navier--Stokes-derived plane Poiseuille velocity profile, the
+supply-and-demand price-adjustment ODE, and the Lotka--Volterra predator-prey
+and competition systems. The unit closes with a structured survey of first-order
+solution methods.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{8.1 The Clairaut Equation and Singular Solutions} ---
+          general solution $y = Cx + f(C)$; singular (envelope) solution from
+          the system $\{y = xp + f(p),\; 0 = x + f'(p)\}$.
+    \item \textbf{8.2 Pursuit Curves and the Tractrix} ---
+          tractrix DE $dy/dx = -\sqrt{a^2 - x^2}/x$; general pursuit
+          $x\,y'' = k\sqrt{1+(y')^2}$ with speed ratio $k = v_m/v_d$.
+    \item \textbf{8.3 Fluid Dynamics and Viscosity} ---
+          Newtonian shear $\tau = \mu\,du/dy$; plane Poiseuille flow
+          $\mu u'' = -G$ with no-slip boundary conditions.
+    \item \textbf{8.4 Economic Models, Supply, Demand, and Price} ---
+          price ODE $dp/dt = k(D - S)$; equilibrium $p^* = (a+c)/(b+d)$;
+          convergence for $k(b+d) > 0$.
+    \item \textbf{8.5 The Lotka--Volterra Predator-Prey Model} ---
+          coexistence equilibrium $(c/d,\, a/b)$; conserved quantity
+          $H = dx - c\ln x + by - a\ln y$.
+    \item \textbf{8.6 Competition Models} ---
+          two-species carrying-capacity system; nullcline inequalities for
+          stable coexistence versus competitive exclusion.
+    \item \textbf{8.7 A Survey of Solution Methods} ---
+          decision tree: separable, linear (integrating factor), Bernoulli,
+          exact; classify by structure before solving.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{8}   % subsections auto-number as 8.1, 8.2, ...
+
+% ---------------------------------------------------------------------------
+\subsection{The Clairaut Equation and Singular Solutions}
+% ---------------------------------------------------------------------------
+
+A \emph{Clairaut equation} has the special form $y = xy' + f(y')$.
+Setting $p = y'$ and differentiating both sides with respect to $x$ yields
+$(x + f'(p))\,dp/dx = 0$, splitting into two branches whose solutions are
+the general family of straight lines and the singular envelope.
+
+\begin{formulabox}[Clairaut Equation: General and Singular Solutions]
+For $y = xp + f(p)$ with $p = y'$:
+\[
+  \textbf{General solution:}\quad y = Cx + f(C) \quad (p = C = \text{const}),
+\]
+\[
+  \textbf{Singular solution (envelope):}\quad
+  \begin{cases}
+    y = xp + f(p) \\
+    0 = x + f'(p)
+  \end{cases}
+\]
+Eliminate $p$ from this system to obtain the envelope: a curve tangent to every
+line in the general family.
+The singular solution satisfies the ODE but \emph{cannot} be obtained from the
+general solution by any choice of $C$.
+\end{formulabox}
+
+\begin{methodbox}[Envelope Elimination Procedure]
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+  \item Write the equation as $F(x,y,C) = y - Cx - f(C) = 0$.
+  \item Differentiate with respect to $C$: $\partial F/\partial C = -x - f'(C) = 0$,
+        giving $x = -f'(C)$.
+  \item Solve for $C = C(x)$ from step 2 (if invertible) and substitute back
+        into $F = 0$ to obtain the envelope curve $y = y(x)$.
+  \item Verify: the envelope must satisfy the original ODE directly.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: Singular Solution Is Not a Particular Solution]
+The singular solution is \emph{not} a member of the general family $y = Cx + f(C)$
+for any finite $C$. Do not try to match it by plugging a value of $C$ into the
+general formula; instead, derive it by the envelope elimination system. Attempting
+to recover it as a special case of the general solution will always fail.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Pursuit Curves and the Tractrix}
+% ---------------------------------------------------------------------------
+
+A \emph{pursuit curve} traces the path of a pursuer who always aims directly at
+a moving target. The tractrix is the classical limiting case in which the
+pursuer is dragged at constant distance $a$ from a target walking along a line.
+
+\begin{formulabox}[Tractrix Differential Equation and Solution]
+Target on the $y$-axis from $(0,0)$, pursuer starts at $(a,0)$, equal speeds,
+string length $a$:
+\[
+  \frac{dy}{dx} = -\frac{\sqrt{a^2 - x^2}}{x}, \qquad 0 < x \le a,\quad y(a) = 0.
+\]
+Solution (via trigonometric substitution $x = a\sin\theta$):
+\[
+  y(x) = a\ln\!\left(\frac{a + \sqrt{a^2 - x^2}}{x}\right) - \sqrt{a^2 - x^2}.
+\]
+\end{formulabox}
+
+\begin{formulabox}[General Pursuit Equation]
+Dog at origin pursues owner on line $x = c$ moving at speed $v_m$; dog speed
+$v_d > v_m$, always aimed at owner. Speed ratio $k = v_m/v_d < 1$:
+\[
+  x\,y'' = k\sqrt{1 + (y')^2}, \qquad y(c) = 0,\quad y'(c) = 0.
+\]
+Set $p = y'$, separate: $dp/\sqrt{1+p^2} = k\,dx/x$. After solving and
+back-substituting ($k \ne 1$):
+\[
+  y(x) = \frac{1}{2}\!\left[\frac{x^{k+1}}{(k+1)\,c^{k}}
+         - \frac{c^{k}\,x^{1-k}}{1-k}\right]
+         + \frac{ck}{1 - k^2}.
+\]
+The dog captures the owner at height $y(0) = ck/(1-k^2)$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Direction of the Derivative Sign]
+In the tractrix the slope $dy/dx$ is \emph{negative} because $x$ decreases as
+the pursuer is dragged toward the $y$-axis. Always verify the geometric sign:
+the string pulls the pursuer toward the target, so the $y$-component of motion
+is the signed vertical projection of the unit tangent to the path.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Fluid Dynamics and Viscosity}
+% ---------------------------------------------------------------------------
+
+Newtonian viscosity relates shear stress $\tau$ to the velocity gradient:
+$\tau = \mu\,du/dy$. In plane Poiseuille flow between parallel plates the
+momentum balance reduces to a simple second-order constant-coefficient ODE
+whose solution is a parabolic profile.
+
+\begin{formulabox}[Plane Poiseuille Velocity Profile]
+Flow between plates $y=0$ and $y=h$ driven by pressure gradient $G > 0$;
+viscosity $\mu$; no-slip: $u(0) = u(h) = 0$:
+\[
+  \mu\,u''(y) = -G \quad\Longrightarrow\quad
+  u(y) = \frac{G}{2\mu}\,y(h - y).
+\]
+Maximum velocity at the centerline:
+\[
+  y_{\max} = \tfrac{h}{2}, \qquad
+  u_{\max} = \frac{Gh^2}{8\mu}.
+\]
+Shear stress: $\tau(y) = \mu\,u'(y) = \tfrac{G}{2}(h - 2y)$, linear,
+zero at the centerline and $\pm Gh/2$ at the walls.
+\end{formulabox}
+
+\begin{formulabox}[2D Incompressible Continuity and Stream Function]
+For steady incompressible 2D flow, mass conservation requires
+\[
+  \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0.
+\]
+Given $u$, integrate $\partial v/\partial y = -\partial u/\partial x$ in $y$
+to find the most general $v(x,y) = -\int(\partial u/\partial x)\,dy + g(x)$.
+Streamlines satisfy $dy/dx = v/u$, or equivalently the stream function
+$\psi(x,y) = C$ where $u = \partial\psi/\partial y$ and
+$v = -\partial\psi/\partial x$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Applying No-Slip at Both Walls]
+The Poiseuille ODE $\mu u'' = -G$ integrates to a quadratic with \emph{two}
+free constants. Both boundary conditions ($u = 0$ at $y = 0$ and $y = h$) are
+required to pin them. Using only one wall gives a family of parabolas, not the
+physical velocity profile.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Economic Models, Supply, Demand, and Price}
+% ---------------------------------------------------------------------------
+
+A linear price-adjustment model assumes price changes at a rate proportional
+to excess demand. With linear demand and supply the governing ODE is first-order
+linear with constant coefficients, and the price converges exponentially to the
+market-clearing equilibrium.
+
+\begin{formulabox}[Price Adjustment ODE and Equilibrium]
+Demand $D = a - bp$, supply $S = -c + dp$ ($a,b,c,d > 0$).
+Walrasian adjustment:
+\[
+  \frac{dp}{dt} = k(D - S) = k\bigl[(a+c) - (b+d)p\bigr].
+\]
+Solution with $p(0) = p_0$:
+\[
+  p(t) = p^* + (p_0 - p^*)\,e^{-k(b+d)\,t},
+  \qquad p^* = \frac{a + c}{b + d}.
+\]
+Convergence: $k(b+d) > 0$ always holds, so $p(t) \to p^*$
+monotonically for any initial price $p_0$.
+\end{formulabox}
+
+\begin{methodbox}[Solving the Price ODE via Integrating Factor]
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+  \item Write $dp/dt + k(b+d)p = k(a+c)$ (linear, constant coefficients).
+  \item Integrating factor: $\mu(t) = e^{k(b+d)t}$.
+  \item Multiply and integrate: $p(t) = k(a+c)/[k(b+d)] + Ce^{-k(b+d)t}$.
+  \item Apply $p(0) = p_0$: $C = p_0 - p^*$.
+\end{enumerate}
+\end{methodbox}
+
+% ---------------------------------------------------------------------------
+\subsection{The Lotka--Volterra Predator-Prey Model}
+% ---------------------------------------------------------------------------
+
+The Lotka--Volterra system models cyclic predator-prey oscillations. Its
+trajectories are \emph{closed orbits} in the phase plane, guaranteed by a
+first integral (conserved quantity) $H(x,y)$ that is constant on every
+solution curve.
+
+\begin{formulabox}[Lotka--Volterra System and Conserved Quantity]
+Prey $x$, predator $y$; parameters $a,b,c,d > 0$:
+\[
+  \dot{x} = ax - bxy, \qquad \dot{y} = -cy + dxy.
+\]
+Equilibria: $(0,0)$ (extinction) and $(x^*, y^*) = (c/d,\; a/b)$ (coexistence).
+
+Divide $\dot{y}/\dot{x}$ to get $dy/dx$ and separate:
+\[
+  \frac{a - by}{y}\,dy = \frac{-c + dx}{x}\,dx
+  \quad\Longrightarrow\quad
+  H(x,y) = dx - c\ln x + by - a\ln y = \text{const}.
+\]
+Level curves of $H$ are closed orbits; the coexistence equilibrium is the
+unique minimum of $H$ for $x,y > 0$.
+\end{formulabox}
+
+\begin{methodbox}[Finding Equilibria and the Conserved Quantity]
+\begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+  \item Set $\dot{x} = 0$: $x(a - by) = 0 \Rightarrow x = 0$ or $y = a/b$.
+  \item Set $\dot{y} = 0$: $y(-c + dx) = 0 \Rightarrow y = 0$ or $x = c/d$.
+  \item Form $dy/dx = \dot{y}/\dot{x}$; cross-multiply to separate
+        $(a/y - b)\,dy = (-c/x + d)\,dx$.
+  \item Integrate both sides; rearrange to $H(x,y) = \text{const}$.
+  \item Verify $H$ is minimal at $(c/d, a/b)$ by computing $\partial H/\partial x$
+        and $\partial H/\partial y$.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: Confusing Equilibrium Stability]
+The coexistence equilibrium $(c/d, a/b)$ is a \emph{center} in the Lotka--Volterra
+model, not a stable spiral. Trajectories orbit it periodically but never actually
+reach it. Adding even small prey-growth saturation converts the center to a stable
+spiral; the pure Lotka--Volterra centers are structurally unstable.
+\end{warningbox}
+
+% ---------------------------------------------------------------------------
+\subsection{Competition Models}
+% ---------------------------------------------------------------------------
+
+Two-species competition extends the logistic model by letting each species reduce
+the other's effective carrying capacity. The outcome---coexistence or
+competitive exclusion---depends entirely on the relative positions of the
+$x$- and $y$-nullclines.
+
+\begin{formulabox}[Two-Species Competition System and Nullclines]
+\[
+  \dot{x} = r_1 x\!\left(1 - \frac{x + \alpha y}{K_1}\right),
+  \qquad
+  \dot{y} = r_2 y\!\left(1 - \frac{y + \beta x}{K_2}\right).
+\]
+\textbf{Four equilibria:} $(0,0)$, $(K_1, 0)$, $(0, K_2)$, and the interior
+point $(x^*, y^*)$ obtained by solving $x + \alpha y = K_1$ and
+$\beta x + y = K_2$ simultaneously:
+\[
+  x^* = \frac{K_1 - \alpha K_2}{1 - \alpha\beta}, \qquad
+  y^* = \frac{K_2 - \beta K_1}{1 - \alpha\beta}.
+\]
+$x$-nullcline (non-trivial): $x + \alpha y = K_1$
+\hfill
+$y$-nullcline (non-trivial): $\beta x + y = K_2$.
+\end{formulabox}
+
+\begin{methodbox}[Coexistence vs.\ Competitive Exclusion: Nullcline Intercept Test]
+Compare the nullcline intercepts on each axis:
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+  \item \textbf{Stable coexistence} ($E_3$ stable node, $E_1$ and $E_2$ saddles):
+        \[
+          K_1 < \frac{K_2}{\beta} \quad\text{and}\quad K_2 < \frac{K_1}{\alpha}
+          \quad (\text{equivalently } \alpha\beta < 1).
+        \]
+  \item \textbf{Bistable exclusion} ($E_3$ unstable saddle, $E_1$ and $E_2$ stable nodes):
+        \[
+          K_1 > \frac{K_2}{\beta} \quad\text{and}\quad K_2 > \frac{K_1}{\alpha}
+          \quad (\text{equivalently } \alpha\beta > 1).
+        \]
+  \item \textbf{Species $x$ always wins} ($E_1$ globally stable):
+        $K_1 > K_2/\beta$ and $K_2 < K_1/\alpha$.
+  \item \textbf{Species $y$ always wins} ($E_2$ globally stable):
+        $K_1 < K_2/\beta$ and $K_2 > K_1/\alpha$.
+\end{itemize}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: Interior Equilibrium Feasibility]
+The interior equilibrium $E_3 = (x^*, y^*)$ is biologically meaningful only
+when \emph{both} $x^* > 0$ and $y^* > 0$. Check the signs of the numerators
+\emph{and} denominator of the formulas above. When $\alpha\beta = 1$ the two
+nullclines are parallel (no interior intersection); when $\alpha\beta > 1$ the
+intersection exists but is in the positive quadrant yet is unstable---it does not
+represent a viable long-run coexistence state.
+\end{warningbox}
+
+\vspace{0.6em}
+
+\begin{conceptbox}[Unit 8 Key Takeaway]
+Clairaut equations split into a \textcolor{accentorange}{general line family
+$y = Cx + f(C)$} and a \textcolor{accentorange}{singular envelope} found by
+eliminating $p$ from $\{y = xp + f(p),\; x + f'(p) = 0\}$.
+Pursuit geometry converts geometric tangency constraints directly into ODEs.
+The Poiseuille profile \textcolor{accentorange}{$u = (G/2\mu)\,y(h-y)$} and the
+price path \textcolor{accentorange}{$p(t) = p^* + (p_0 - p^*)e^{-k(b+d)t}$} both
+follow from first- or second-order linear ODEs with boundary data.
+In Lotka--Volterra dynamics, closed orbits are level sets of
+\textcolor{accentorange}{$H = dx - c\ln x + by - a\ln y$}; in competition models
+the outcome---\textcolor{accentorange}{coexistence or exclusion}---is decided by
+whether $\alpha\beta < 1$ or $\alpha\beta > 1$.
+\end{conceptbox}
+
+\end{document}

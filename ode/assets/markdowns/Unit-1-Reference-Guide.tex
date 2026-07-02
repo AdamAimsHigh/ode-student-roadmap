@@ -1,0 +1,369 @@
+% Unit 1: Foundations and Prerequisites
+% Master Unit Reference Guide (Cheat Sheet, Problems, and Solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (1.1 to 1.6) and the
+% QUIZ_DATA micro-practice and unit-mastery items for Unit 1.
+% Shared style harness pulled from the unified preamble input.
+
+\input{ode/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 1: Foundations and Prerequisites}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Master Unit Reference Guide: Cheat Sheet, Problems, and Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Table of contents (master guide)
+% ---------------------------------------------------------------------------
+\tableofcontents
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 1 at a Glance: Core Sub-Topics]
+This unit refreshes the calculus toolkit and the vocabulary the rest of the
+course assumes. It moves from derivatives and integrals, through the number $e$
+and Euler's formula, into the precise language of order, degree, linearity, and
+what it means to be a solution.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Calculus Review} --- the power, product, and chain rules, and
+          integrating the exponential.
+    \item \textbf{The Number $e$} --- the function that is its own derivative,
+          and where it comes from.
+    \item \textbf{Euler's Formula and Identity} --- $e^{i\theta} = \cos\theta +
+          i\sin\theta$ and the geometry of rotation.
+    \item \textbf{Order, Degree, and Linearity} --- the classification words
+          that label every equation.
+    \item \textbf{What It Means to Be a Solution} --- verification by
+          substitution, general versus particular.
+    \item \textbf{Eliminating Arbitrary Constants} --- building a differential
+          equation from a family of curves.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{1}   % subsections auto-number as the unit modules 1.1, 1.2, ...
+
+\subsection{Calculus Review}
+
+Every solving technique ahead rests on fluent differentiation and integration.
+The three rules you reach for most are the power rule, the product rule, and the
+chain rule --- and reversing them is exactly what integration asks of you.
+
+\begin{formulabox}[Core Derivative and Integral Rules]
+\[
+    \frac{d}{dx}x^{n} = nx^{n-1}, \qquad
+    \frac{d}{dx}\big[f g\big] = f'g + fg', \qquad
+    \frac{d}{dx}f\big(g(x)\big) = f'\big(g(x)\big)\,g'(x).
+\]
+Integrating the exponential reverses the chain-rule factor:
+\[
+    \int e^{kx}\,dx = \frac{1}{k}e^{kx} + C.
+\]
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Missing Inner Derivative and the Lost $+C$]
+The chain rule multiplies by the derivative of the inside --- $\frac{d}{dx}e^{3x}
+= 3e^{3x}$, not $e^{3x}$. And an indefinite integral always carries the
+arbitrary constant $+C$; dropping it discards the entire family of solutions an
+initial condition is meant to select from.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 1.1: Differentiate two composites]
+\textbf{(a)} Chain rule on $e^{3x}$:
+\[ \frac{d}{dx}e^{3x} = 3e^{3x}. \]
+\textbf{(b)} Power and chain rule on $(2x+1)^{3}$:
+\[ \frac{d}{dx}(2x+1)^{3} = 3(2x+1)^{2}\cdot 2 = 6(2x+1)^{2}. \]
+\end{examplebox}
+
+\subsection{The Number $e$}
+
+The natural exponential $e^{x}$ is singled out by one property: it is its own
+derivative. That self-matching behavior is exactly what a rate proportional to
+the current amount demands, which is why $e$ governs every growth and decay
+model in the course.
+
+\begin{formulabox}[The Natural Exponential]
+\[
+    \frac{d}{dx}e^{x} = e^{x}, \qquad
+    \frac{d}{dt}e^{kt} = k\,e^{kt}.
+\]
+The constant itself arises as a limit and as a series:
+\[
+    e = \lim_{n\to\infty}\left(1 + \frac{1}{n}\right)^{n}
+      = \sum_{n=0}^{\infty}\frac{1}{n!} \approx 2.718.
+\]
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 1.2: Solve $\frac{dy}{dt} = y$]
+The equation asks for a function equal to its own derivative. The natural
+exponential matches, scaled by a free constant:
+\[ y = Ce^{t}, \qquad \frac{dy}{dt} = Ce^{t} = y. \quad\checkmark \]
+The constant $C$ supplies the whole family of solutions.
+\end{examplebox}
+
+\subsection{Euler's Formula and Identity}
+
+Euler's formula ties the exponential to rotation: feeding an imaginary number
+into $e^{x}$ traces the unit circle. This is the bridge that lets a single
+complex exponential stand in for an oscillating sine--cosine pair.
+
+\begin{formulabox}[Euler's Formula, Identity, and Polar Form]
+\[
+    e^{i\theta} = \cos\theta + i\sin\theta, \qquad
+    e^{i\pi} + 1 = 0.
+\]
+A complex number in polar form is $z = re^{i\theta}$, where $r = |z|$ is the
+distance from the origin. Every point on the unit circle has $\big|e^{i\theta}\big| = 1$,
+and products multiply moduli while adding angles.
+\end{formulabox}
+
+\begin{examplebox}[Worked Example 1.3: Evaluate by rotation]
+\textbf{(a)} A quarter-turn:
+\[ e^{i\pi/2} = \cos\tfrac{\pi}{2} + i\sin\tfrac{\pi}{2} = i. \]
+\textbf{(b)} Multiply in polar form, multiplying moduli and adding angles:
+\[ \big(2e^{i\pi/6}\big)\big(3e^{i\pi/3}\big) = 6\,e^{i(\pi/6 + \pi/3)} = 6\,e^{i\pi/2}. \]
+\end{examplebox}
+
+\subsection{Basic Definitions: Order, Degree, and Linearity}
+
+Before any technique applies, you classify the equation. The \emph{order} is the
+highest derivative present; the \emph{degree} is the power on that highest
+derivative once the equation is polynomial in its derivatives; and
+\emph{linearity} asks whether the unknown and its derivatives appear only to the
+first power.
+
+\begin{formulabox}[Classification Vocabulary]
+\begin{itemize}[leftmargin=1.4em, itemsep=2pt]
+    \item \textbf{Order} --- the highest derivative that appears.
+    \item \textbf{Degree} --- the power on the highest-order derivative.
+    \item \textbf{Linear} --- $y$ and its derivatives appear to the first power
+          only, never squared and never multiplied together.
+    \item \textbf{ODE vs PDE} --- one independent variable versus several.
+    \item An $n$-th order equation needs $n$ initial conditions to pin a unique
+          solution.
+\end{itemize}
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Order Is Not Degree]
+Order and degree are different questions. In $\left(\dfrac{dy}{dx}\right)^{3} + y
+= x$ the highest derivative is the \emph{first}, so the order is one, while the
+cube makes the degree three. And $\dfrac{dy}{dx} + y^{2} = 0$ is
+\emph{nonlinear} --- the squared $y$, not the derivative, breaks the rule.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 1.4: Classify three equations]
+\textbf{(a)} $\dfrac{d^{2}y}{dx^{2}} + 3\dfrac{dy}{dx} = 0$ --- order $2$,
+degree $1$, linear.\\
+\textbf{(b)} $\left(\dfrac{dy}{dx}\right)^{3} + y = x$ --- order $1$, degree $3$,
+nonlinear.\\
+\textbf{(c)} $\dfrac{d^{3}y}{dx^{3}} + \left(\dfrac{dy}{dx}\right)^{2} = 0$ ---
+order $3$, degree $1$ (the power sits on the first derivative, not the highest).
+\end{examplebox}
+
+\subsection{What It Means to Be a Solution}
+
+A solution is a function that makes the equation an identity --- true for every
+$x$, not at one lucky point. You confirm a candidate by substituting it and its
+derivatives and checking both sides agree. The \emph{general} solution keeps its
+arbitrary constants free; a \emph{particular} solution fixes them.
+
+\begin{methodbox}[Algorithm: Verifying a Candidate Solution]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Compute every derivative of the candidate the equation requires.
+    \item Substitute the candidate and those derivatives into the equation.
+    \item Simplify the left and right sides independently.
+    \item Confirm the two sides are equal as an identity in $x$ --- for all
+          inputs, not a single point.
+\end{enumerate}
+\end{methodbox}
+
+\begin{warningbox}[Common Pitfall: ``It Works at One Point'']
+Checking a candidate at $x = 0$ alone proves nothing --- almost any function
+agrees somewhere. A genuine solution must satisfy the equation across its
+\emph{whole} domain.
+\end{warningbox}
+
+\begin{examplebox}[Worked Example 1.5: Verify two candidates]
+\textbf{(a)} Does $y = e^{2x}$ solve $y'' - 4y = 0$? Here $y'' = 4e^{2x}$ and
+$4y = 4e^{2x}$, so $y'' - 4y = 0$. \checkmark\\
+\textbf{(b)} Does $y = \cos x$ solve $y'' + y = 0$? Here $y'' = -\cos x$, so
+$y'' + y = -\cos x + \cos x = 0$. \checkmark
+\end{examplebox}
+
+\subsection{Forming Differential Equations by Eliminating Constants}
+
+The reverse problem is just as instructive: given a family of curves with $n$
+arbitrary constants, you build the differential equation it satisfies by
+differentiating $n$ times and eliminating the constants. The resulting order
+equals the number of independent constants.
+
+\begin{methodbox}[Algorithm: Eliminating Arbitrary Constants]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Count the independent arbitrary constants; call it $n$.
+    \item Differentiate the relation $n$ times to produce $n$ new equations.
+    \item Use those equations to solve for and eliminate every constant.
+    \item The result is an $n$-th order differential equation, free of constants.
+\end{enumerate}
+\end{methodbox}
+
+\begin{examplebox}[Worked Example 1.6: Eliminate the constants]
+\textbf{(a)} From $y = Cx$: differentiate to get $y' = C$, and since $C = y/x$,
+\[ \frac{dy}{dx} = \frac{y}{x}. \]
+\textbf{(b)} From $y = A\cos x + B\sin x$ (two constants): differentiate twice,
+$y'' = -A\cos x - B\sin x = -y$, so
+\[ \frac{d^{2}y}{dx^{2}} + y = 0. \]
+\end{examplebox}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They are graded from raw calculus
+review, through the number $e$ and Euler's formula, into classifying equations,
+verifying solutions, and finally building equations by eliminating constants.
+Complete solutions follow in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item Differentiate $y = e^{3x}$ using the chain rule.
+
+    \item Evaluate the indefinite integral $\displaystyle\int e^{-2x}\,dx$.
+
+    \item Differentiate \textbf{(a)} $(2x+1)^{3}$ and \textbf{(b)} $\sin(x^{2})$.
+
+    \item Compute $\dfrac{d}{dt}e^{kt}$, then state the general solution of
+          $\dfrac{dy}{dt} = y$.
+
+    \item Use Euler's formula $e^{i\theta} = \cos\theta + i\sin\theta$ to
+          evaluate \textbf{(a)} $e^{i\pi}$ and \textbf{(b)} $e^{i\pi/2}$, and
+          write down Euler's identity.
+
+    \item For each equation, state the order and the degree, and say whether it
+          is linear:
+          \textbf{(a)} $\dfrac{d^{2}y}{dx^{2}} + 3\dfrac{dy}{dx} = 0$, \quad
+          \textbf{(b)} $\left(\dfrac{dy}{dx}\right)^{3} + y = x$, \quad
+          \textbf{(c)} $\dfrac{dy}{dx} + y^{2} = 0$.
+
+    \item Verify that $y = e^{2x}$ is a solution of $\dfrac{d^{2}y}{dx^{2}} - 4y = 0$.
+
+    \item Decide whether $y = x^{2}$ satisfies $x\dfrac{dy}{dx} = 2y$, and
+          whether $y = \cos x$ satisfies $\dfrac{d^{2}y}{dx^{2}} + y = 0$.
+
+    \item Form a differential equation by eliminating $C$ from \textbf{(a)}
+          $y = Cx^{2}$ and \textbf{(b)} $y = Ce^{x}$.
+
+    \item \textbf{(Capstone)} Eliminate both constants from
+          $y = A\cos x + B\sin x$, and separately eliminate $r$ from the circle
+          family $x^{2} + y^{2} = r^{2}$.
+\end{enumerate}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad The exponential reproduces itself, and the
+chain rule multiplies by the derivative of the inside, $3$.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = e^{3x}\cdot 3 = 3e^{3x}}. \]
+
+\medskip
+\noindent\textbf{Solution 2.}\quad Integrating an exponential divides by the
+constant in the exponent and restores the arbitrary constant.
+\[ \textcolor{workpurple}{\int e^{-2x}\,dx = \frac{1}{-2}e^{-2x} + C = -\tfrac{1}{2}e^{-2x} + C}. \]
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Apply the power-and-chain rule, then the
+chain rule on the sine.
+\[ \textcolor{workpurple}{\frac{d}{dx}(2x+1)^{3} = 3(2x+1)^{2}\cdot 2 = 6(2x+1)^{2}} \]
+\[ \textcolor{workpurple}{\frac{d}{dx}\sin(x^{2}) = \cos(x^{2})\cdot 2x = 2x\cos(x^{2})}. \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad The exponential returns itself times the
+constant from the exponent.
+\[ \textcolor{workpurple}{\frac{d}{dt}e^{kt} = k\,e^{kt}}. \]
+The equation $\frac{dy}{dt} = y$ asks for a function equal to its own derivative,
+so
+\[ \textcolor{workpurple}{y = Ce^{t}}. \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad Substitute the angles into Euler's formula.
+\[ \textcolor{workpurple}{e^{i\pi} = \cos\pi + i\sin\pi = -1 + 0 = -1} \]
+\[ \textcolor{workpurple}{e^{i\pi/2} = \cos\tfrac{\pi}{2} + i\sin\tfrac{\pi}{2} = 0 + i = i}. \]
+Rearranging the first gives Euler's identity,
+$\textcolor{workpurple}{e^{i\pi} + 1 = 0}$.
+
+\medskip
+\noindent\textbf{Solution 6.}\quad The order is the highest derivative; the
+degree is its power; linearity forbids powers above one on $y$ and its
+derivatives.
+\[ \textcolor{workpurple}{\text{(a) order } 2,\; \text{degree } 1,\; \text{linear}} \]
+\[ \textcolor{workpurple}{\text{(b) order } 1,\; \text{degree } 3,\; \text{nonlinear}} \]
+\[ \textcolor{workpurple}{\text{(c) order } 1,\; \text{degree } 1,\; \text{nonlinear (the } y^{2} \text{ term)}}. \]
+
+\medskip
+\noindent\textbf{Solution 7.}\quad Differentiate twice and substitute.
+\[ \textcolor{workpurple}{\frac{dy}{dx} = 2e^{2x}}, \qquad
+   \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} = 4e^{2x}} \]
+\[ \textcolor{workpurple}{\frac{d^{2}y}{dx^{2}} - 4y = 4e^{2x} - 4e^{2x} = 0} \qquad\checkmark \]
+so $y = e^{2x}$ is a solution.
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Test each candidate by substitution.
+\[ \textcolor{workpurple}{y = x^{2}: \quad y' = 2x, \;\; x\,y' = x\cdot 2x = 2x^{2} = 2y} \qquad\checkmark \]
+\[ \textcolor{workpurple}{y = \cos x: \quad y'' = -\cos x, \;\; y'' + y = -\cos x + \cos x = 0} \qquad\checkmark \]
+Both candidates check out.
+
+\medskip
+\noindent\textbf{Solution 9.}\quad Differentiate, then replace the constant from
+the original relation.
+\[ \textcolor{workpurple}{y = Cx^{2}: \quad y' = 2Cx, \;\; C = \frac{y}{x^{2}} \;\Longrightarrow\; y' = 2\cdot\frac{y}{x^{2}}\cdot x = \frac{2y}{x}} \]
+\[ \textcolor{workpurple}{\text{so } x\frac{dy}{dx} = 2y}. \]
+\[ \textcolor{workpurple}{y = Ce^{x}: \quad y' = Ce^{x} = y \;\Longrightarrow\; \frac{dy}{dx} = y}. \]
+
+\medskip
+\noindent\textbf{Solution 10.}\quad Each family needs differentiation to clear
+its constants. For $y = A\cos x + B\sin x$ (two constants), differentiate twice:
+\[ \textcolor{workpurple}{y'' = -A\cos x - B\sin x = -y \;\Longrightarrow\; \frac{d^{2}y}{dx^{2}} + y = 0}. \]
+For the circle $x^{2} + y^{2} = r^{2}$ (one constant), differentiate implicitly:
+\[ \textcolor{workpurple}{2x + 2y\frac{dy}{dx} = 0 \;\Longrightarrow\; \frac{dy}{dx} = -\frac{x}{y}}. \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 1 Key Takeaway]
+This unit is the vocabulary and toolkit the whole course speaks in, exercised in
+both directions. Going forward, you \textcolor{accentorange}{differentiate and
+integrate} fluently and \textcolor{accentorange}{verify a solution} by
+substituting it into the equation; going backward, you
+\textcolor{accentorange}{eliminate arbitrary constants} to build the equation a
+family satisfies. The \textcolor{accentorange}{natural exponential $e$} is the
+function equal to its own derivative, and the
+\textcolor{accentorange}{order, degree, and linearity} of an equation are the
+first labels you read off before any method is chosen.
+\end{conceptbox}
+
+\end{document}

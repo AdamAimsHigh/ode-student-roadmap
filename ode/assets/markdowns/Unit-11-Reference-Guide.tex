@@ -1,0 +1,374 @@
+% Unit 11: Mechanical Vibrations and Oscillators
+% Master Unit Reference Guide (Cheat Sheet, Problems, and Solutions)
+% Prepared by Staples Education
+% Content informed by the local curriculum modules (11.1 to 11.6) and the
+% QUIZ_DATA micro-practice items for Unit 11.
+% Shared style harness pulled from the unified preamble input.
+
+\input{ode/assets/markdowns/preamble.tex}
+
+\begin{document}
+
+% ---------------------------------------------------------------------------
+% Title block
+% ---------------------------------------------------------------------------
+\begin{center}
+    {\LARGE \bfseries Unit 11: Mechanical Vibrations and Oscillators}\\[6pt]
+    {\large Prepared by Staples Education}\\[4pt]
+    {\itshape Master Unit Reference Guide: Cheat Sheet, Problems, and Solutions}
+\end{center}
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Table of contents (master guide)
+% ---------------------------------------------------------------------------
+\tableofcontents
+
+\vspace{0.4em}
+
+% ---------------------------------------------------------------------------
+% Topics overview box
+% ---------------------------------------------------------------------------
+\begin{topicsbox}[Unit 11 at a Glance: Core Sub-Topics]
+This is the physics payoff of second-order theory. A mass on a spring obeys
+$m x'' + c x' + k x = F(t)$, and every behavior in the unit --- pure oscillation,
+decay, blow-up, and shared rhythm --- is read off that one equation by inspecting
+its mass, damping, stiffness, and forcing.
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+    \item \textbf{Simple harmonic motion} --- Hooke's law $F=-kx$ and the natural
+          frequency $\omega_0=\sqrt{k/m}$.
+    \item \textbf{Free undamped vibrations} --- $x = C\cos(\omega_0 t - \phi)$ and the
+          amplitude-phase form.
+    \item \textbf{Damped vibrations} --- the discriminant $c^2-4mk$ sorts the motion
+          into over-, critically, and underdamped.
+    \item \textbf{Forced vibrations and resonance} --- driving at $\omega_0$ produces
+          unbounded growth; driving near it produces beats.
+    \item \textbf{Coupled oscillators} --- eigenvalues of $\mathbf{x}''=A\mathbf{x}$
+          give the normal-mode frequencies.
+    \item \textbf{The harmonic oscillator} --- one equation, $x''+\omega_0^2 x=0$,
+          solved four ways and hiding inside almost every stable system.
+\end{itemize}
+\end{topicsbox}
+
+\vspace{0.6em}
+\hrule
+\vspace{0.6em}
+
+% ===========================================================================
+% PART I: CONDENSED CHEAT SHEET
+% ===========================================================================
+\phantomsection
+\addcontentsline{toc}{section}{Part I --- Condensed Cheat Sheet}
+\section*{Part I --- Condensed Cheat Sheet}
+\setcounter{section}{11}   % subsections auto-number as the unit modules 11.1, 11.2, ...
+
+\subsection{Simple Harmonic Motion and Hooke's Law}
+
+A spring resists displacement with a force proportional to how far it is stretched
+and directed back toward equilibrium. That single linear law turns Newton's second
+law into the master oscillator equation.
+
+\begin{formulabox}[Hooke's Law and the Natural Frequency]
+\[ F = -kx, \qquad m x'' + k x = 0, \qquad x'' + \omega_0^2 x = 0, \qquad \omega_0 = \sqrt{\tfrac{k}{m}}. \]
+The period and ordinary frequency follow directly from $\omega_0$:
+\[ T = \frac{2\pi}{\omega_0}, \qquad f = \frac{\omega_0}{2\pi}. \]
+A hanging mass settles where gravity balances the spring, $mg = kL$, which is how a
+measured static stretch $L$ delivers the stiffness $k = mg/L$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Angular Frequency Is Not Frequency]
+The $\omega_0$ inside $\cos(\omega_0 t)$ is the \textbf{angular} frequency in
+radians per second; the ordinary frequency $f$ in cycles per second is smaller by a
+factor of $2\pi$, $f=\omega_0/(2\pi)$. A second trap lives one step earlier: after
+dividing by the mass you read off $\omega_0^{2}$, \emph{not} $\omega_0$. For
+$2x''+18x=0$ the equation becomes $x''+9x=0$, so $\omega_0^{2}=9$ and
+$\omega_0=3$ --- never $9$.
+\end{warningbox}
+
+\subsection{Free Undamped Vibrations}
+
+With no damping and no forcing, the imaginary roots $\pm i\omega_0$ give a clean,
+everlasting sinusoid. Two initial conditions --- position and velocity --- pin down
+its two constants.
+
+\begin{formulabox}[General Solution and Amplitude-Phase Form]
+\[ x(t) = c_1 \cos(\omega_0 t) + c_2 \sin(\omega_0 t) = C\cos(\omega_0 t - \phi), \]
+\[ C = \sqrt{c_1^{2} + c_2^{2}}, \qquad \tan\phi = \frac{c_2}{c_1}. \]
+The amplitude $C$ and phase $\phi$ depend on the initial data, while $\omega_0$ is
+fixed by the physical system alone --- a stiffer spring (larger $k$) or a lighter
+mass raises $\omega_0$ and the motion runs faster.
+\end{formulabox}
+
+\begin{methodbox}[Solving a Spring-Mass IVP]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Divide by the mass to reach $x'' + \omega_0^{2}x = 0$ and read $\omega_0$.
+    \item Write $x = c_1\cos\omega_0 t + c_2\sin\omega_0 t$.
+    \item Apply $x(0)$ to fix $c_1$; differentiate and apply $x'(0)$ to fix $c_2$
+          (remember $x'(0) = \omega_0 c_2$).
+    \item Collapse to $C\cos(\omega_0 t - \phi)$ with $C=\sqrt{c_1^2+c_2^2}$ to read
+          the amplitude.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{Damped Vibrations and the Damping Discriminant}
+
+Add a dashpot and the equation gains a velocity term $c x'$. The sign of one
+discriminant decides the entire character of the motion.
+
+\begin{formulabox}[The Damping Discriminant]
+\[ m x'' + c x' + k x = 0, \qquad \Delta = c^{2} - 4mk. \]
+\[
+\begin{array}{l|l|l}
+\textbf{Sign} & \textbf{Roots} & \textbf{Regime}\\ \hline
+\Delta > 0 & \text{two distinct real} & \text{overdamped (no oscillation)}\\
+\Delta = 0 & \text{repeated real} & \text{critically damped}\\
+\Delta < 0 & \text{complex } -b \pm i\mu & \text{underdamped (decaying oscillation)}
+\end{array}
+\]
+The critical value $c = 2\sqrt{mk}$ is the boundary; it returns the system to
+equilibrium fastest \emph{without} overshooting.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: The Quasi-Frequency Is Not $\omega_0$]
+An underdamped solution $e^{-bt}(c_1\cos\mu t + c_2\sin\mu t)$ oscillates at the
+\textbf{quasi-frequency} $\mu = \sqrt{\omega_0^{2}-b^{2}}$, which is strictly
+\emph{below} the undamped natural frequency $\omega_0$. Damping always slows the
+oscillation; it never speeds it up.
+\end{warningbox}
+
+\subsection{Forced Vibrations, Beats, and Resonance}
+
+Drive the system with $F_0\cos(\omega t)$ and the steady response depends sharply on
+how the drive frequency $\omega$ compares to the natural frequency $\omega_0$.
+
+\begin{formulabox}[Steady Amplitude, Beats, and Resonance]
+For undamped forced motion $m x'' + k x = F_0\cos(\omega t)$ with $\omega\neq\omega_0$,
+\[ x_p(t) = \frac{F_0}{m(\omega_0^{2}-\omega^{2})}\cos(\omega t). \]
+As $\omega \to \omega_0$ the denominator vanishes and the amplitude blows up. At
+exact \textbf{resonance} $\omega=\omega_0$ the trial gains a factor of $t$,
+\[ x_p(t) = t\,(A\cos\omega_0 t + B\sin\omega_0 t), \]
+so the amplitude grows linearly without bound. For $\omega$ \emph{close to but not
+equal} to $\omega_0$ the two nearby frequencies interfere to produce \textbf{beats}
+--- a fast oscillation under a slow envelope whose period lengthens as
+$\omega\to\omega_0$.
+\end{formulabox}
+
+\begin{warningbox}[Common Pitfall: Resonance Versus Beats]
+Beats and resonance are not the same phenomenon. \textbf{Beats} need
+$\omega \approx \omega_0$ (close, not equal) and give a \emph{bounded}, slowly
+modulated amplitude. \textbf{Resonance} needs $\omega = \omega_0$ exactly and gives
+\emph{unbounded} growth from the resonant $t$ factor. Mistaking one for the other
+misreads whether a structure merely throbs or is being torn apart.
+\end{warningbox}
+
+\subsection{Coupled Oscillators and Normal Modes}
+
+When two masses share a spring, neither equation stands alone: each acceleration
+depends on the other's position. Writing the system as $\mathbf{x}'' = A\mathbf{x}$
+turns the physics into an eigenvalue problem.
+
+\begin{formulabox}[Normal Modes from Eigenvalues]
+\[ \mathbf{x}'' = A\,\mathbf{x}, \qquad A\mathbf{v} = \lambda\mathbf{v}, \qquad
+   \omega^{2} = -\lambda, \qquad \omega = \sqrt{-\lambda}. \]
+Each eigenvalue gives one \textbf{normal mode}: a motion in which all masses
+oscillate at a single shared frequency with a fixed amplitude ratio (the
+eigenvector). A system with $n$ degrees of freedom has exactly $n$ modes, and the
+general motion is a \textbf{superposition} of them, each with its own amplitude and
+phase.
+\end{formulabox}
+
+\begin{methodbox}[Finding the Normal Modes]
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+    \item Assemble the coupling matrix $A$ from the equations of motion.
+    \item Solve $\det(A-\lambda I)=0$ for the eigenvalues $\lambda$.
+    \item Convert each to a mode frequency $\omega = \sqrt{-\lambda}$.
+    \item Find each eigenvector for the mode shape (amplitude ratio), then superpose.
+\end{enumerate}
+\end{methodbox}
+
+\subsection{The Harmonic Oscillator Solved Four Ways}
+
+Strip away damping and forcing and one equation remains, $x''+\omega_0^{2}x=0$. It is
+worth meeting from several directions because it is the linear heartbeat of nearly
+every stable system.
+
+\begin{formulabox}[One Equation, Many Faces]
+\[ x'' + \omega_0^{2}x = 0 \;\Longrightarrow\; r^{2}+\omega_0^{2}=0 \;\Longrightarrow\;
+   r = \pm i\omega_0 \;\Longrightarrow\; x = c_1\cos\omega_0 t + c_2\sin\omega_0 t. \]
+The energy method --- multiply by $x'$ and integrate --- yields the conserved
+quantity
+\[ \tfrac{1}{2}(x')^{2} + \tfrac{1}{2}\omega_0^{2}x^{2} = \text{const}. \]
+The same equation governs an ideal $LC$ circuit $L q'' + \tfrac{1}{C}q = 0$ with
+$\omega_0 = 1/\sqrt{LC}$, because near any stable equilibrium a smooth potential
+looks quadratic and its restoring force looks linear.
+\end{formulabox}
+
+\begin{conceptbox}[Unit 11 Key Takeaway]
+Everything flows from $m x'' + c x' + k x = F(t)$. The
+\textcolor{accentorange}{natural frequency $\omega_0=\sqrt{k/m}$} sets the rhythm;
+the \textcolor{accentorange}{discriminant $c^2-4mk$} sorts damped motion into
+over-, critically, and underdamped; \textcolor{accentorange}{resonance at
+$\omega=\omega_0$} forces a $t$ factor and unbounded growth while a near-match gives
+\textcolor{accentorange}{beats}; and the \textcolor{accentorange}{eigenvalues of
+$\mathbf{x}''=A\mathbf{x}$} unlock the normal modes of coupled motion. Underneath it
+all sits the \textcolor{accentorange}{harmonic oscillator $x''+\omega_0^2 x=0$}, the
+universal linear model of a system near stable equilibrium.
+\end{conceptbox}
+
+% ===========================================================================
+% PART II: REVIEW GUIDE (PRACTICE QUESTIONS)
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part II --- Review Guide: Practice Problems}
+\section*{Part II --- Review Guide: Practice Problems}
+
+Work the following ten problems in order. They climb through simple harmonic motion
+setups, free undamped initial-value problems, the amplitude-phase collapse, Hooke's
+law calibration, the three damping regimes sorted by the discriminant, the critical
+damping coefficient, resonance identification, and a coupled-oscillator capstone.
+Solutions follow in Part III.
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{(SHM setup)} For $2x'' + 18x = 0$, find the natural angular
+          frequency $\omega_0$, the period $T$, and the ordinary frequency $f$.
+
+    \item \textbf{(Free undamped IVP)} Solve $x'' + 9x = 0$ with $x(0)=0$,
+          $x'(0)=6$.
+
+    \item \textbf{(Amplitude-phase form)} Write $x(t) = 5\cos 2t + 12\sin 2t$ as a
+          single sinusoid $C\cos(2t-\phi)$; give the amplitude $C$ and phase $\phi$.
+
+    \item \textbf{(Hooke's law calibration)} A weight of $mg = 10$ N stretches a
+          spring by $L = 0.2$ m. Find the stiffness $k$, and with $g=10\ \mathrm{m/s^2}$
+          find the resulting natural frequency $\omega_0$.
+
+    \item \textbf{(Damping --- overdamped)} Solve $x'' + 5x' + 6x = 0$, evaluate the
+          discriminant, and name the damping regime.
+
+    \item \textbf{(Damping --- critically damped)} Solve $x'' + 2x' + x = 0$ and
+          identify the regime from the discriminant.
+
+    \item \textbf{(Damping --- underdamped)} Solve $x'' + 2x' + 5x = 0$, name the
+          regime, and state the quasi-frequency.
+
+    \item \textbf{(Critical damping coefficient)} For $m=1$ and $k=9$, find the
+          damping coefficient $c$ that makes the system critically damped.
+
+    \item \textbf{(Resonance identification)} For $x'' + 25x = \cos(\omega t)$,
+          find the forcing frequency $\omega$ that produces resonance, and compute
+          the resonant particular solution at that frequency.
+
+    \item \textbf{(Coupled oscillators, capstone)} For
+          $x_1'' = -2x_1 + x_2$ and $x_2'' = x_1 - 2x_2$, find the normal-mode
+          frequencies from the eigenvalues $\lambda = -1, -3$, identify the mode
+          shapes, and write the general solution.
+\end{enumerate}
+
+% ===========================================================================
+% PART III: SOLUTIONS
+% ===========================================================================
+\clearpage
+\phantomsection
+\addcontentsline{toc}{section}{Part III --- Complete Solutions}
+\section*{Part III --- Complete Solutions}
+
+\noindent\textbf{Solution 1.}\quad Divide by the mass $2$ to reach standard form:
+\[ \textcolor{workpurple}{2x'' + 18x = 0 \;\Longrightarrow\; x'' + 9x = 0 \;\Longrightarrow\; \omega_0^{2} = 9,\ \omega_0 = 3.} \]
+Then the period and ordinary frequency follow from $\omega_0$:
+\[ \textcolor{workpurple}{T = \frac{2\pi}{\omega_0} = \frac{2\pi}{3}, \qquad f = \frac{\omega_0}{2\pi} = \frac{3}{2\pi}.} \]
+Reading $\omega_0$ off the \emph{undivided} coefficient $18$ is the classic error;
+the mass divides out first.
+
+\medskip
+\noindent\textbf{Solution 2.}\quad The roots of $r^2+9=0$ are $\pm 3i$, so
+$x = c_1\cos 3t + c_2\sin 3t$. Apply the data:
+\[ \textcolor{workpurple}{x(0) = c_1 = 0, \qquad x'(t) = 3c_2\cos 3t,\quad x'(0) = 3c_2 = 6 \;\Rightarrow\; c_2 = 2.} \]
+\[ \textcolor{workpurple}{x(t) = 2\sin 3t.} \]
+The derivative pulls down a factor of $\omega_0 = 3$, so $c_2$ is $6/3=2$, not $6$.
+
+\medskip
+\noindent\textbf{Solution 3.}\quad Combine the coefficients into one amplitude:
+\[ \textcolor{workpurple}{C = \sqrt{c_1^2 + c_2^2} = \sqrt{5^2 + 12^2} = \sqrt{169} = 13.} \]
+The phase satisfies $\tan\phi = c_2/c_1 = 12/5$ with both components positive
+(first quadrant):
+\[ \textcolor{workpurple}{\phi = \arctan\tfrac{12}{5} \approx 1.176\ \text{rad}, \qquad x(t) = 13\cos(2t - 1.176).} \]
+
+\medskip
+\noindent\textbf{Solution 4.}\quad The static balance $mg = kL$ gives the stiffness
+directly:
+\[ \textcolor{workpurple}{k = \frac{mg}{L} = \frac{10}{0.2} = 50\ \mathrm{N/m}.} \]
+With $g = 10\ \mathrm{m/s^2}$ the weight $mg = 10$ N gives mass $m = 1$ kg, so
+\[ \textcolor{workpurple}{\omega_0 = \sqrt{\frac{k}{m}} = \sqrt{\frac{50}{1}} = 5\sqrt{2} \approx 7.07\ \mathrm{rad/s}.} \]
+
+\medskip
+\noindent\textbf{Solution 5.}\quad The characteristic equation factors:
+\[ \textcolor{workpurple}{r^2 + 5r + 6 = (r+2)(r+3) = 0 \;\Rightarrow\; r = -2,\,-3.} \]
+The discriminant $\Delta = c^2 - 4mk = 25 - 24 = 1 > 0$ confirms two distinct real
+roots, so the motion is \textbf{overdamped} --- pure decay, no oscillation:
+\[ \textcolor{workpurple}{x(t) = c_1 e^{-2t} + c_2 e^{-3t}.} \]
+
+\medskip
+\noindent\textbf{Solution 6.}\quad The characteristic equation is a perfect square:
+\[ \textcolor{workpurple}{r^2 + 2r + 1 = (r+1)^2 = 0 \;\Rightarrow\; r = -1\ \text{(double)}.} \]
+Here $\Delta = 4 - 4 = 0$, the boundary case, so the system is \textbf{critically
+damped} and the repeated root carries a factor of $t$:
+\[ \textcolor{workpurple}{x(t) = (c_1 + c_2 t)\,e^{-t}.} \]
+
+\medskip
+\noindent\textbf{Solution 7.}\quad The quadratic formula on $r^2 + 2r + 5 = 0$ gives
+complex roots:
+\[ \textcolor{workpurple}{r = \frac{-2 \pm \sqrt{4 - 20}}{2} = -1 \pm 2i.} \]
+With $\Delta = 4 - 20 = -16 < 0$ the motion is \textbf{underdamped}: a decaying
+envelope times an oscillation,
+\[ \textcolor{workpurple}{x(t) = e^{-t}\big(c_1\cos 2t + c_2\sin 2t\big).} \]
+The quasi-frequency is $\mu = 2$, just below the undamped value
+$\omega_0 = \sqrt{5}\approx 2.236$.
+
+\medskip
+\noindent\textbf{Solution 8.}\quad Critical damping is the boundary $\Delta = 0$,
+i.e. $c^2 = 4mk$, so
+\[ \textcolor{workpurple}{c = 2\sqrt{mk} = 2\sqrt{(1)(9)} = 2\cdot 3 = 6.} \]
+Any $c > 6$ overdamps the system and any $c < 6$ underdamps it.
+
+\medskip
+\noindent\textbf{Solution 9.}\quad From $x'' + 25x = 0$ the natural frequency is
+$\omega_0 = \sqrt{25} = 5$, so resonance occurs at
+\[ \textcolor{workpurple}{\omega = \omega_0 = 5.} \]
+At resonance the bare trial $A\cos 5t + B\sin 5t$ already solves the homogeneous
+equation, so it gains a factor of $t$: try $x_p = t(A\cos 5t + B\sin 5t)$.
+Differentiating twice,
+\[ \textcolor{workpurple}{x_p'' = -25\,t(A\cos 5t + B\sin 5t) + 10(-A\sin 5t + B\cos 5t),} \]
+so $x_p'' + 25 x_p = 10(-A\sin 5t + B\cos 5t)$. Matching to $\cos 5t$:
+\[ \textcolor{workpurple}{10 B = 1,\ \ -10 A = 0 \;\Rightarrow\; A = 0,\ B = \tfrac{1}{10}, \qquad x_p(t) = \frac{t}{10}\sin 5t.} \]
+The $t$ out front is the signature of resonance: the amplitude grows without bound.
+
+\medskip
+\noindent\textbf{Solution 10 (Capstone).}\quad In matrix form $\mathbf{x}'' = A\mathbf{x}$ with
+\[ A = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}, \qquad \lambda = -1,\,-3. \]
+Each mode frequency comes from $\omega^2 = -\lambda$:
+\[ \textcolor{workpurple}{\omega_1 = \sqrt{-(-1)} = 1, \qquad \omega_2 = \sqrt{-(-3)} = \sqrt{3}.} \]
+The eigenvectors give the mode shapes. For $\lambda = -1$, $(A+I)\mathbf{v}=0$ yields
+$\mathbf{v}_1 = (1,1)^{\mathsf T}$, the \textbf{in-phase} mode (lower frequency); for
+$\lambda = -3$, $(A+3I)\mathbf{v}=0$ yields $\mathbf{v}_2 = (1,-1)^{\mathsf T}$, the
+\textbf{out-of-phase} mode (higher frequency, since it stretches the coupling
+spring more). The general motion is a superposition of the two modes:
+\[ \textcolor{workpurple}{\mathbf{x}(t) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\!\big(a_1\cos t + b_1\sin t\big) + \begin{pmatrix} 1 \\ -1 \end{pmatrix}\!\big(a_2\cos\sqrt{3}\,t + b_2\sin\sqrt{3}\,t\big).} \]
+
+\vspace{0.8em}
+\begin{conceptbox}[Unit 11 Key Takeaway]
+Read the motion straight off the coefficients. The
+\textcolor{accentorange}{natural frequency $\omega_0=\sqrt{k/m}$} and the collapse
+to \textcolor{accentorange}{$C\cos(\omega_0 t-\phi)$} govern free motion; the
+\textcolor{accentorange}{discriminant $c^2-4mk$} sorts damping into
+\textcolor{accentorange}{overdamped ($>0$)}, \textcolor{accentorange}{critically
+damped ($=0$, $c=2\sqrt{mk}$)}, and \textcolor{accentorange}{underdamped ($<0$)};
+\textcolor{accentorange}{resonance at $\omega=\omega_0$} injects the $t$ factor that
+drives $x_p=\tfrac{t}{10}\sin 5t$ to grow without bound; and the
+\textcolor{accentorange}{eigenvalues of $\mathbf{x}''=A\mathbf{x}$} deliver the
+normal-mode frequencies $\omega=\sqrt{-\lambda}$ whose superposition is the full
+coupled motion.
+\end{conceptbox}
+
+\end{document}

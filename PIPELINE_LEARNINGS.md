@@ -1,6 +1,7 @@
 # Pipeline Learning Log
 
 ## Global Knowledge Base
+- **Repository Restructure (2026-07-01):** the SPA directory `app/` was renamed to `ode/` and now serves at `/ode/` under the StaplesEducation.com multi-app layout (landing page at root). All toolchain paths (`render_latex.py`, `build_practice_data.py`, quiz generators, `.tex` `\input` lines) were migrated; any `app/...` path in the historical retrospectives below should be read as `ode/...` going forward (e.g. compile with `tectonic --outdir ode/assets/pdfs/`).
 - Pipeline Convention: Tectonic compiler (must run from repo root to resolve preamble).
 - Asset Strategy: All units MUST generate 3 assets (Cheat Sheet, Practice Set, Reference Guide).
 - Rendering Logic: `render_latex.py` must support '--mode cheat', '--mode practice', and '--mode master'.

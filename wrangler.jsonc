@@ -1,17 +1,22 @@
-// Cloudflare Worker configuration — static asset deployment.
+// Cloudflare Worker configuration — multi-app static asset deployment.
 //
-// The asset directory is pinned to "app/" (the production frontend) so the
-// uploader never walks the repository root. Root-level content — node_modules/,
-// scripts/, PDFs, Python toolchain — stays local by construction because it
-// lives outside the asset directory. Defense-in-depth exclusions live in
-// app/.assetsignore (gitignore-style, read by Wrangler at upload time).
+// Layout (StaplesEducation.com):
+//   /        → business landing shell (root index.html, reviews.html, style.css)
+//   /ode/    → the interactive ODE roadmap SPA (zero-dependency standalone shell)
+//
+// The asset directory is the repository root, so the allowlist in
+// .assetsignore is load-bearing: it excludes EVERYTHING by default and
+// re-includes only the production web surface. This is what keeps
+// node_modules/ (121 MiB binaries), scripts/, PDFs, and the Python
+// toolchain out of cloud uploads — the original 25 MiB asset-limit
+// failure mode. Never widen the allowlist without checking file sizes.
 {
 	"$schema": "https://unpkg.com/wrangler/config-schema.json",
 	"name": "differential-equations-app",
 	"compatibility_date": "2026-07-01",
 	"assets": {
-		"directory": "./app",
-		// Serve /foo for app/foo.html; trailing-slash handling stays default.
+		"directory": ".",
+		// Serve /foo for foo.html; trailing-slash handling stays default.
 		"html_handling": "auto-trailing-slash",
 		"not_found_handling": "404-page"
 	}
