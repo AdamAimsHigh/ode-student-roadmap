@@ -443,10 +443,41 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Stack the fixed header: brand on top, nav links wrapping below */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .navbar nav {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .navbar nav a {
+        padding: 0.25rem var(--spacing-sm);
+        text-align: center;
+    }
+
+    .navbar nav .btn-primary {
+        flex-basis: 100%;
+        max-width: 20rem;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+    }
+
     .hero {
         flex-direction: column;
         text-align: center;
-        padding-top: 8rem;
+        padding-top: 11rem; /* Clear the taller stacked fixed nav */
+    }
+
+    .reviews-section {
+        padding-top: 11rem; /* Clear the taller stacked fixed nav */
     }
     
     .hero-content {
