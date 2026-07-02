@@ -31,16 +31,14 @@
 	"kv_namespaces": [
 		{
 			// Namespace title in the dashboard: ODE_PROGRESS_KV.
-			// Create it with:  npx wrangler kv namespace create ODE_PROGRESS_KV
-			// then paste the returned id below (deploys fail until it is real).
 			"binding": "ODE_PROGRESS_KV",
-			"id": "TODO_PASTE_ODE_PROGRESS_KV_NAMESPACE_ID"
+			"id": "8a39ec9fc9504b58a04a71765b20217b"
 		}
 	],
 	"vars": {
 		// OAuth 2.0 Web client ID from Google Cloud Console (APIs and Services
 		// → Credentials). Must match data-client_id in ode/index.html and list
 		// https://stapleseducation.com as an authorized JavaScript origin.
-		"GOOGLE_CLIENT_ID": "TODO_PASTE_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com"
+		"GOOGLE_CLIENT_ID": "422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com"
 	}
 }
