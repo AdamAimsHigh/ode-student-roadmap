@@ -1,9 +1,13 @@
 /* Central state management for the ODE Roadmap.
    All persistence flows through localStorage so progress survives across
-   sessions. When a Google Identity Services credential is active, the same
-   progress additionally synchronizes to the serverless /api/sync endpoint:
-   cloud progress is defensively merged into localStorage on boot, and every
-   progress mutation dispatches a silent, debounced background POST. Cloud
+   sessions. When a Google Identity Services credential or a Worker-issued
+   edge session is active, the same progress additionally synchronizes to
+   the serverless /api/sync endpoint: cloud progress is defensively merged
+   into localStorage on boot, and every progress mutation dispatches a
+   silent, debounced background POST. Sign-in persistence is long-lived:
+   the first Google verification is exchanged by the Worker for an opaque
+   30-day session token cached in localStorage, so returning students stay
+   signed in across browser restarts on both mobile and desktop. Cloud
    calls are strictly best-effort: offline, file://, signed-out, or failing
    sessions leave the localStorage loop untouched. */
 
@@ -22,6 +26,7 @@ const ODEState = (function () {
     const SYNC_ENDPOINT = "/api/sync";
     const SYNC_DEBOUNCE_MS = 2500;
     const CREDENTIAL_KEY = "ode_google_credential";
+    const SESSION_KEY = "ode_cloud_session";
 
     let syncTimer = null;
     let syncActive = false;
@@ -57,19 +62,109 @@ const ODEState = (function () {
         }
     }
 
+    /* The raw Google ID token, persisted in localStorage (namespaced ode_*
+       key) so a still-fresh credential survives a browser restart. Google
+       tokens only live about an hour; long-term persistence comes from the
+       edge session below, with this credential as the exchange currency. */
     function getStoredCredential() {
         try {
-            const credential = sessionStorage.getItem(CREDENTIAL_KEY);
+            const credential = localStorage.getItem(CREDENTIAL_KEY);
             if (!credential) return null;
             const payload = decodeCredentialPayload(credential);
             if (!payload || !payload.exp || payload.exp * 1000 < Date.now() + 15000) {
-                sessionStorage.removeItem(CREDENTIAL_KEY);
+                localStorage.removeItem(CREDENTIAL_KEY);
                 return null;
             }
             return credential;
         } catch (err) {
             return null;
         }
+    }
+
+    /* The long-lived edge session issued by the Worker after a verified
+       Google sign-in: { token, expiresAt, email }. The Worker keeps the
+       matching hashed record in KV with a 30-day TTL and is the sole
+       authority on validity; the local expiresAt is only a hint that lets
+       the client skip a doomed request. */
+    function getStoredSession() {
+        const session = readJSON(SESSION_KEY, null);
+        if (!session || typeof session.token !== "string") return null;
+        if (session.expiresAt &&
+            Date.parse(session.expiresAt) < Date.now() + 60000) {
+            clearStoredSession();
+            return null;
+        }
+        return session;
+    }
+
+    function clearStoredSession() {
+        try {
+            localStorage.removeItem(SESSION_KEY);
+        } catch (err) { /* storage unavailable */ }
+    }
+
+    /* Whenever the Worker verifies a full Google credential it returns a
+       freshly minted session alongside the sync payload; adopt it so the
+       next thirty days of requests skip the Google token entirely. */
+    function adoptSessionFromResponse(body) {
+        if (!body || !body.session || typeof body.session.token !== "string") {
+            return;
+        }
+        const credential = getStoredCredential();
+        const payload = credential
+            ? decodeCredentialPayload(credential) || {}
+            : {};
+        const previous = readJSON(SESSION_KEY, null) || {};
+        try {
+            writeJSON(SESSION_KEY, {
+                token: body.session.token,
+                expiresAt: body.session.expiresAt || null,
+                email: payload.email || previous.email || null
+            });
+        } catch (err) { /* storage unavailable */ }
+    }
+
+    /* Prefer the long-lived edge session; fall back to a fresh Google ID
+       token, which the Worker exchanges for a new session. */
+    function pickAuthToken() {
+        const session = getStoredSession();
+        if (session) return { token: session.token, kind: "session" };
+        const credential = getStoredCredential();
+        if (credential) return { token: credential, kind: "google" };
+        return null;
+    }
+
+    /* Shared authenticated fetch. If a session token bounces with a 401
+       (expired, evicted, or revoked at the edge), it is dropped and the
+       request retries once with the Google credential when one is still
+       valid; otherwise the auth UI quietly resets and GIS auto-select
+       re-establishes the account on the next load. */
+    function syncFetch(options) {
+        const auth = pickAuthToken();
+        if (!auth) {
+            if (syncActive) {
+                syncActive = false;
+                setAuthUI(false, null);
+            }
+            return Promise.reject(new Error("signed out"));
+        }
+        if (!httpContext()) return Promise.reject(new Error("file context"));
+        const init = {
+            method: options.method,
+            headers: { "Authorization": "Bearer " + auth.token }
+        };
+        if (options.body) {
+            init.headers["Content-Type"] = "application/json";
+            init.body = options.body;
+        }
+        return fetch(SYNC_ENDPOINT, init).then(function (res) {
+            if (res.status === 401 && auth.kind === "session" && !options.retried) {
+                clearStoredSession();
+                options.retried = true;
+                return syncFetch(options);
+            }
+            return res;
+        });
     }
 
     function snapshotProgress() {
@@ -137,17 +232,17 @@ const ODEState = (function () {
     }
 
     function pushToCloud() {
-        const credential = getStoredCredential();
-        if (!credential || !httpContext()) return;
-        fetch(SYNC_ENDPOINT, {
+        syncFetch({
             method: "POST",
-            headers: {
-                "Authorization": "Bearer " + credential,
-                "Content-Type": "application/json"
-            },
             body: JSON.stringify({ progress: snapshotProgress() })
         }).then(function (res) {
-            if (!res.ok) console.debug("Cloud sync push declined:", res.status);
+            if (!res.ok) {
+                console.debug("Cloud sync push declined:", res.status);
+                return null;
+            }
+            return res.json();
+        }).then(function (body) {
+            if (body) adoptSessionFromResponse(body);
         }).catch(function (err) {
             console.debug("Cloud sync push skipped:", err);
         });
@@ -160,14 +255,11 @@ const ODEState = (function () {
     }
 
     function initCloudSync() {
-        const credential = getStoredCredential();
-        if (!credential || !httpContext()) return;
-        fetch(SYNC_ENDPOINT, {
-            headers: { "Authorization": "Bearer " + credential }
-        }).then(function (res) {
+        syncFetch({ method: "GET" }).then(function (res) {
             if (!res.ok) throw new Error("status " + res.status);
             return res.json();
         }).then(function (body) {
+            adoptSessionFromResponse(body);
             const changed = mergeCloudIntoLocal(body && body.progress);
             if (changed && typeof renderCurriculum === "function") {
                 renderCurriculum();
@@ -189,12 +281,18 @@ const ODEState = (function () {
         if (label) label.textContent = email ? "Syncing as " + email : "Sync active";
     }
 
+    /* A session activates from either credential shape: the persistent edge
+       session token (the common returning-student path) or a fresh Google
+       ID token (first sign-in, or a re-auth after session expiry). */
     function activateCloudSession() {
+        const session = getStoredSession();
         const credential = getStoredCredential();
-        if (!credential) return;
+        if (!session && !credential) return;
         syncActive = true;
-        const payload = decodeCredentialPayload(credential) || {};
-        setAuthUI(true, payload.email || null);
+        const payload = credential
+            ? decodeCredentialPayload(credential) || {}
+            : {};
+        setAuthUI(true, payload.email || (session && session.email) || null);
         initCloudSync();
     }
 
@@ -202,8 +300,9 @@ const ODEState = (function () {
         syncActive = false;
         if (syncTimer) clearTimeout(syncTimer);
         try {
-            sessionStorage.removeItem(CREDENTIAL_KEY);
+            localStorage.removeItem(CREDENTIAL_KEY);
         } catch (err) { /* storage unavailable */ }
+        clearStoredSession();
         if (window.google && google.accounts && google.accounts.id) {
             google.accounts.id.disableAutoSelect();
         }
@@ -211,11 +310,12 @@ const ODEState = (function () {
     }
 
     /* Global callback invoked by the Google Identity Services SDK
-       (data-callback on the #g_id_onload element). */
+       (data-callback on the #g_id_onload element, with data-auto_select
+       re-issuing credentials silently for returning accounts). */
     window.odeHandleGoogleCredential = function (response) {
         if (!response || !response.credential) return;
         try {
-            sessionStorage.setItem(CREDENTIAL_KEY, response.credential);
+            localStorage.setItem(CREDENTIAL_KEY, response.credential);
         } catch (err) {
             console.debug("Credential storage unavailable:", err);
             return;
@@ -223,11 +323,14 @@ const ODEState = (function () {
         activateCloudSession();
     };
 
-    /* Scripts load at the end of body, so the header exists already. */
+    /* Scripts load at the end of body, so the header exists already. The
+       boot read is defensive: any cached session or still-valid credential
+       in localStorage initializes the cloud loop immediately, and corrupt
+       or expired entries fall through to the signed-out state. */
     (function bootCloudSync() {
         const signout = document.getElementById("auth-signout");
         if (signout) signout.addEventListener("click", deactivateCloudSession);
-        if (getStoredCredential()) activateCloudSession();
+        if (getStoredSession() || getStoredCredential()) activateCloudSession();
     })();
 
     return {

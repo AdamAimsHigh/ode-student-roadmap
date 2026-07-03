@@ -4,15 +4,26 @@
  * falls through to the static asset pipeline (env.ASSETS) for every other
  * request: the landing page at /, the ODE roadmap SPA at /ode/.
  *
- * Auth: a Google Identity Services ID token (RS256 JWT) supplied as
- * "Authorization: Bearer <credential>". The token is verified at the edge
- * with the native Web Crypto API against Google's published JWKS — no
- * third-party libraries. Claims checked: signature, iss, aud (must equal
- * env.GOOGLE_CLIENT_ID), exp/nbf with clock skew, and a present sub.
+ * Auth (hybrid, two verification modes on one Bearer header):
  *
- * Storage: env.ODE_PROGRESS_KV, one record per Google account:
- *   key    "progress:<google sub>"
- *   value  { progress: <sanitized ode_* map>, email, updatedAt }
+ * 1. Google ID token (RS256 JWT). Verified at the edge with the native
+ *    Web Crypto API against Google's published JWKS — no third-party
+ *    libraries. Claims checked: signature, iss, aud (must equal
+ *    env.GOOGLE_CLIENT_ID), exp/nbf with clock skew, and a present sub.
+ *    A successful Google verification additionally mints a long-lived
+ *    opaque session token (odesess_* + 256 random bits) returned in the
+ *    response body, so the client can outlive the ~1 h Google token.
+ *
+ * 2. Edge session token (odesess_*). Validated directly against KV: the
+ *    token's SHA-256 hash keys a "session:<hash>" record holding the
+ *    Google sub/email, written with a 30-day expirationTtl. Only the
+ *    hash is stored, so a KV dump can never be replayed as a credential;
+ *    TTL expiry or eviction yields a 401 challenge and the client falls
+ *    back to a fresh Google sign-in.
+ *
+ * Storage: env.ODE_PROGRESS_KV, two record families:
+ *   "progress:<google sub>"  { progress: <sanitized ode_* map>, email, updatedAt }
+ *   "session:<sha256 hex>"   { sub, email, createdAt }  (30-day TTL)
  */
 
 const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
@@ -21,6 +32,13 @@ const CLOCK_SKEW_S = 60;
 const MAX_BODY_BYTES = 128 * 1024;
 const KV_KEY_PREFIX = "progress:";
 const JWKS_TTL_MS = 60 * 60 * 1000;
+
+const SESSION_TOKEN_PREFIX = "odesess_";
+const SESSION_KV_PREFIX = "session:";
+const SESSION_TTL_S = 30 * 24 * 60 * 60;
+/* odesess_ + base64url(32 bytes) is 51 chars; anything far past that is
+   hostile input and is rejected before it reaches a KV lookup. */
+const SESSION_TOKEN_MAX_LENGTH = 128;
 
 /* Module-scope JWKS cache; persists across requests on a warm isolate and
    falls back to a refetch when Google rotates keys (unknown kid). */
@@ -103,6 +121,62 @@ async function verifyGoogleIdToken(token, env) {
     if (!payload.sub) throw new Error("missing subject");
 
     return { sub: payload.sub, email: payload.email || null };
+}
+
+/* ---- Edge session tokens ----------------------------------------------- */
+
+function bytesToB64url(bytes) {
+    let binary = "";
+    for (const b of bytes) binary += String.fromCharCode(b);
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+async function sha256Hex(text) {
+    const digest = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(text)
+    );
+    return Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+/* Issues an opaque 256-bit session token for a Google-verified identity and
+   caches its hash in KV for 30 days. The plaintext token exists only in the
+   response to the client; KV holds the SHA-256 hash as the lookup key. */
+async function mintSession(identity, env) {
+    const raw = new Uint8Array(32);
+    crypto.getRandomValues(raw);
+    const token = SESSION_TOKEN_PREFIX + bytesToB64url(raw);
+    const record = {
+        sub: identity.sub,
+        email: identity.email,
+        createdAt: new Date().toISOString()
+    };
+    await env.ODE_PROGRESS_KV.put(
+        SESSION_KV_PREFIX + (await sha256Hex(token)),
+        JSON.stringify(record),
+        { expirationTtl: SESSION_TTL_S }
+    );
+    return {
+        token,
+        expiresAt: new Date(Date.now() + SESSION_TTL_S * 1000).toISOString()
+    };
+}
+
+/* Validates a presented session token against its hashed KV record; returns
+   { sub, email } or throws. Tampered, truncated, or expired tokens all miss
+   the hash lookup and surface as the same 401 to the caller. */
+async function verifySessionToken(token, env) {
+    if (token.length > SESSION_TOKEN_MAX_LENGTH) {
+        throw new Error("malformed session token");
+    }
+    const record = await env.ODE_PROGRESS_KV.get(
+        SESSION_KV_PREFIX + (await sha256Hex(token)),
+        "json"
+    );
+    if (!record || !record.sub) throw new Error("unknown or expired session");
+    return { sub: record.sub, email: record.email || null };
 }
 
 /* ---- Progress sanitization -------------------------------------------- */
@@ -200,9 +274,21 @@ async function handleSync(request, env) {
     if (!auth.startsWith("Bearer ")) {
         return json(401, { error: "Missing bearer credential." });
     }
+    const token = auth.slice(7).trim();
+
+    /* Extended verification: an odesess_* bearer validates directly against
+       its hashed KV session record; anything else must be a full Google ID
+       token, which — once cryptographically verified — is exchanged for a
+       fresh 30-day edge session returned alongside the sync payload. */
     let identity;
+    let mintedSession = null;
     try {
-        identity = await verifyGoogleIdToken(auth.slice(7).trim(), env);
+        if (token.startsWith(SESSION_TOKEN_PREFIX)) {
+            identity = await verifySessionToken(token, env);
+        } else {
+            identity = await verifyGoogleIdToken(token, env);
+            mintedSession = await mintSession(identity, env);
+        }
     } catch (err) {
         return json(401, { error: "Invalid credential.", detail: String(err.message || err) });
     }
@@ -211,10 +297,12 @@ async function handleSync(request, env) {
 
     if (request.method === "GET") {
         const record = await env.ODE_PROGRESS_KV.get(kvKey, "json");
-        return json(200, {
+        const body = {
             progress: (record && record.progress) || null,
             updatedAt: (record && record.updatedAt) || null
-        });
+        };
+        if (mintedSession) body.session = mintedSession;
+        return json(200, body);
     }
 
     const bodyText = await request.text();
@@ -238,7 +326,9 @@ async function handleSync(request, env) {
         updatedAt: new Date().toISOString()
     };
     await env.ODE_PROGRESS_KV.put(kvKey, JSON.stringify(record));
-    return json(200, { ok: true, updatedAt: record.updatedAt });
+    const response = { ok: true, updatedAt: record.updatedAt };
+    if (mintedSession) response.session = mintedSession;
+    return json(200, response);
 }
 
 /* Route matrix: /api/sync (GET and POST enforced inside handleSync, 405

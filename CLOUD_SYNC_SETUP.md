@@ -71,12 +71,26 @@ Verify after deploy:
 - Google ID tokens are verified **at the edge** with the native Web Crypto
   API: RS256 signature against Google's live JWKS, plus `iss`, `aud`
   (= `GOOGLE_CLIENT_ID`), `exp`/`nbf` (60 s skew), and `sub` checks.
+- **Long-lived edge sessions (2026-07-02):** the first verified Google
+  request is exchanged for an opaque `odesess_*` token (256 random bits)
+  cached in KV under `session:<sha256(token)>` with a **30-day TTL** — only
+  the hash is stored, so a KV dump can never be replayed as a credential.
+  Subsequent `GET`/`POST` sync calls validate this token directly against
+  KV before touching any progress record; tampered, truncated, or expired
+  session tokens are rejected with a 401 challenge, prompting the client to
+  fall back to a fresh Google sign-in (GIS `data-auto_select` makes that
+  silent for returning students).
 - KV records are namespaced per Google account (`progress:<sub>`); one user
   can never address another user's record.
 - POST bodies are capped at 128 KiB and sanitized against a whitelist of the
   five `ode_*` progress keys with per-entry length and count caps — foreign
-  keys, oversized blobs, and non-string ids are silently dropped (verified by
-  the 15-case end-to-end test run during development).
-- The client keeps the credential in `sessionStorage` only, and the sync loop
-  is inert on `file://`, offline, or signed-out sessions — localStorage
-  remains the authoritative store.
+  keys, oversized blobs, and non-string ids are silently dropped.
+- The whole contract is regression-locked by the committed 15-case
+  cryptographic validation suite: `npm run test:sync`
+  (`scripts/test_sync_worker.mjs`, real RS256 tokens against a mocked JWKS
+  plus a TTL-aware KV mock).
+- The client persists the Google credential (`ode_google_credential`) and
+  the edge session (`ode_cloud_session`) in namespaced `localStorage` keys
+  so sign-in survives browser restarts; the sync loop is inert on `file://`,
+  offline, or signed-out sessions — localStorage remains the authoritative
+  progress store.
