@@ -923,15 +923,6 @@ function renderInteractives(container) {
         desc.textContent = item.vis.blurb;
         card.appendChild(desc);
 
-        // A decorative launch affordance, not a nested control: the card itself
-        // owns the click, so this renders as a span wearing the button chrome
-        // (CSS also disables its pointer events, so it can never trap or
-        // double-fire the card's listener).
-        const launch = document.createElement("span");
-        launch.className = "pdf-download-btn";
-        launch.textContent = item.isSandbox ? "Open Sandbox" : "Launch Visualizer";
-        card.appendChild(launch);
-
         card.addEventListener("click", function () {
             if (item.isSandbox) {
                 // Advance the hash to the deep-link route; the hashchange handler
