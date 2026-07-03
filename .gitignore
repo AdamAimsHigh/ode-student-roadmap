@@ -37,7 +37,7 @@ Gemini Chats ODE-Manager-Local/
 
 # Ignore textbook PDFs and large media
 *.pdf
-!app/assets/pdfs/*.pdf
+!ode/assets/pdfs/*.pdf
 *.pptx
 *.ppt
 *.docx
