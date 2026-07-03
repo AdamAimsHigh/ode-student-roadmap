@@ -14,6 +14,7 @@
 !/index.html
 !/reviews.html
 !/style.css
+!/favicon.ico
 
 # 3. Re-include the ODE roadmap SPA, served under /ode/.
 # (No trailing slash: wrangler tests bare path strings, so "/ode/" would
