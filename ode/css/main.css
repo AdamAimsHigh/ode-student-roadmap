@@ -704,17 +704,43 @@ body {
 }
 
 /* Cards are flex columns (inherited from .materials-card). Pushing the launch
-   button with margin-top:auto drops it to the bottom of whichever card it lives
-   in, so every button lands on one uniform baseline no matter how long the
-   blurb above it runs. align-self keeps the button hugging its own width. */
+   affordance with margin-top:auto drops it to the bottom of whichever card it
+   lives in, so every one lands on one uniform baseline no matter how long the
+   blurb above it runs. align-self keeps it hugging its own width.
+
+   The whole card is a <button>, matching the Table of Contents unit cards:
+   clicking anywhere on the frame launches the tool. The resets neutralize the
+   user-agent button chrome so .materials-card's panel styling shows through
+   unchanged, and the hover lift mirrors .toc-card for the same instant visual
+   feedback in both themes. */
 .interactive-card {
     display: flex;
     flex-direction: column;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.interactive-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-color);
+    box-shadow: 0 6px 18px var(--shadow-color);
+}
+
+.interactive-card:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 .interactive-card .pdf-download-btn {
     align-self: flex-start;
     margin-top: auto;
+    /* The launch chip inside the card is decorative; the card owns the click.
+       Disabling its pointer events guarantees it can never trap the event or
+       double-fire the card's listener. */
+    pointer-events: none;
 }
 
 /* The framed panel that holds the live visualizer once it is mounted. A solid

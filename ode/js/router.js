@@ -901,7 +901,11 @@ function renderInteractives(container) {
             sidebar.appendChild(link);
         }
 
-        const card = document.createElement("div");
+        // The whole card is the launch control, matching the Table of Contents
+        // unit cards: a real <button> so clicks and keyboard activation anywhere
+        // on the frame advance into the tool.
+        const card = document.createElement("button");
+        card.type = "button";
         card.className = "materials-card interactive-card";
 
         const badge = document.createElement("span");
@@ -919,11 +923,16 @@ function renderInteractives(container) {
         desc.textContent = item.vis.blurb;
         card.appendChild(desc);
 
-        const launch = document.createElement("button");
-        launch.type = "button";
+        // A decorative launch affordance, not a nested control: the card itself
+        // owns the click, so this renders as a span wearing the button chrome
+        // (CSS also disables its pointer events, so it can never trap or
+        // double-fire the card's listener).
+        const launch = document.createElement("span");
         launch.className = "pdf-download-btn";
         launch.textContent = item.isSandbox ? "Open Sandbox" : "Launch Visualizer";
-        launch.addEventListener("click", function () {
+        card.appendChild(launch);
+
+        card.addEventListener("click", function () {
             if (item.isSandbox) {
                 // Advance the hash to the deep-link route; the hashchange handler
                 // mounts the playground, so the URL alone reproduces this view.
@@ -932,7 +941,6 @@ function renderInteractives(container) {
                 mountVisualizer(container, item);
             }
         });
-        card.appendChild(launch);
 
         currentGrid.appendChild(card);
     });
