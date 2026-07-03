@@ -5,15 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staples Education, ODE Study Roadmap</title>
 
-    <!-- KaTeX for LaTeX rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- KaTeX for LaTeX rendering. SRI-pinned: the sha384 hashes match the
+         official KaTeX 0.16.8 release values, so a compromised or tampered
+         CDN response is refused by the browser instead of executed. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+          integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+          crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+            integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+            integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+            crossorigin="anonymous"></script>
 
-    <!-- Math.js for local mathematical parsing -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <!-- Math.js for local mathematical parsing. SRI-pinned to the immutable
+         cdnjs 11.8.0 artifact. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"
+            integrity="sha384-2NnkIgIitZUPvVF20yEtYm3encP/kCjZ8nxchj4j7cbqmRi9jaVLYz/Pwn/ZgWQ6"
+            crossorigin="anonymous"></script>
 
-    <!-- Desmos API for interactive checkpoint widgets -->
+    <!-- Desmos API for interactive checkpoint widgets. Deliberately NOT
+         SRI-pinned: Desmos redeploys patched builds under the same v1.9
+         URL, so a pinned hash would break every checkpoint widget on their
+         next release. Same for the Google gsi/client below, which Google
+         documents as a rolling, unpinnable resource. -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <!-- Google Identity Services for optional cloud progress sync. Loads
