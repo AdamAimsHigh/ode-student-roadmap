@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v1/curriculum.schema.json",
+  "title": "content/curriculum.json — the curriculum spine (units → modules → videos → checkpoints)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["units"],
+  "properties": {
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["unitNumber", "title", "description", "modules"],
+        "properties": {
+          "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+          "title": {
+            "$ref": "common.defs.schema.json#/$defs/plainText",
+            "description": "Display heading, e.g. \"Unit 0: What are Differential Equations\". NOT a key: quizzes and progress reference unitNumber, never this string."
+          },
+          "description": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+          "modules": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "title", "videos"],
+              "properties": {
+                "id": { "$ref": "common.defs.schema.json#/$defs/moduleId" },
+                "title": {
+                  "$ref": "common.defs.schema.json#/$defs/plainText",
+                  "description": "Module heading WITHOUT the numeric prefix; compilers may re-join as \"<id> <title>\" for the legacy 'module' field."
+                },
+                "videos": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["title", "videoId"],
+                    "properties": {
+                      "title": { "type": "string", "minLength": 1 },
+                      "videoId": { "$ref": "common.defs.schema.json#/$defs/videoId" }
+                    }
+                  }
+                },
+                "checkpoint": {
+                  "$ref": "common.defs.schema.json#/$defs/checkpointId",
+                  "description": "Legacy name: interactive_checkpoint. Optional; a module without one has no gate in Guided mode."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

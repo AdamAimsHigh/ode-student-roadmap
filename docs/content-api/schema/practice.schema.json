@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v1/practice.schema.json",
+  "title": "content/units/unit-NN/practice.json — the unit's slice of the 193-problem matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unitNumber", "problems"],
+  "properties": {
+    "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+    "subtitle": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+    "intro": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+    "takeaway": { "$ref": "common.defs.schema.json#/$defs/titledBody" },
+    "problems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "problem", "solution"],
+        "properties": {
+          "id": {
+            "$ref": "common.defs.schema.json#/$defs/practiceProblemId",
+            "description": "Immutable and append-only: deep links and future per-problem progress hang off it. The validator checks the unit segment matches unitNumber."
+          },
+          "problem": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+          "solution": {
+            "$ref": "common.defs.schema.json#/$defs/mathText",
+            "description": "Complete worked solution. No 'Solution N.' label and no workpurple wrapping — print decoration is the compiler's job."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "uniqueItems": true,
+            "description": "Optional kebab-case topic tags, reserved for cross-matrix filtering and search."
+          }
+        }
+      }
+    }
+  }
+}

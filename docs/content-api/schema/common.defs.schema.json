@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v1/common.defs.schema.json",
+  "title": "Shared definitions for the Staples Education Content API v1",
+  "$defs": {
+    "plainText": {
+      "type": "string",
+      "minLength": 1,
+      "description": "No markup, no math. Copy rules apply: no em dash (U+2014), no ampersand, no LaTeX '---'.",
+      "not": { "pattern": "—|&|---" }
+    },
+    "mathText": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Prose with $...$ / $$...$$ KaTeX math. Only semantic text-mode macros (\\emph, \\strong, \\highlight) permitted; copy rules and forbidden-command scan enforced contextually by validate_content.py."
+    },
+    "mathExpr": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Bare KaTeX-renderable math body, no surrounding delimiters. Alignment & and \\\\ are legal here."
+    },
+    "unitNumber": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 99
+    },
+    "unitSlug": {
+      "type": "string",
+      "pattern": "^unit-[0-9]{2}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^[0-9]{1,2}\\.[0-9]{1,2}$",
+      "description": "\"<unitNumber>.<ordinal>\", e.g. \"13.1\". Permanent once published."
+    },
+    "videoId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{11}$",
+      "description": "YouTube video ID (external key)."
+    },
+    "checkpointId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(_[a-z0-9]+)*$",
+      "description": "snake_case slug resolved by the checkpoint registry."
+    },
+    "microPracticeItemId": {
+      "type": "string",
+      "pattern": "^mp_[A-Za-z0-9_-]{11}_[0-9]+$"
+    },
+    "masteryItemId": {
+      "type": "string",
+      "pattern": "^um_[0-9]{1,2}_[0-9]+$"
+    },
+    "practiceProblemId": {
+      "type": "string",
+      "pattern": "^ps_[0-9]{1,2}_[0-9]+$"
+    },
+    "titledBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "body"],
+      "properties": {
+        "title": { "$ref": "#/$defs/plainText" },
+        "body": { "$ref": "#/$defs/mathText" }
+      }
+    },
+    "answerOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "rationale"],
+      "properties": {
+        "text": { "$ref": "#/$defs/mathText" },
+        "correct": { "type": "boolean" },
+        "rationale": {
+          "$ref": "#/$defs/mathText",
+          "description": "Confirming when correct; a guiding question that never states the answer when incorrect (pedagogy rule, prose-reviewed)."
+        }
+      }
+    },
+    "quizItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "prompt", "hint", "answerOptions"],
+      "properties": {
+        "id": {
+          "anyOf": [
+            { "$ref": "#/$defs/microPracticeItemId" },
+            { "$ref": "#/$defs/masteryItemId" }
+          ]
+        },
+        "prompt": { "$ref": "#/$defs/mathText" },
+        "hint": { "$ref": "#/$defs/mathText" },
+        "answerOptions": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": { "$ref": "#/$defs/answerOption" },
+          "contains": {
+            "type": "object",
+            "required": ["correct"],
+            "properties": { "correct": { "const": true } }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      }
+    },
+    "flashItem": {
+      "type": "object",
+      "description": "Printed Q/A pair for the PDF guides (module flash quiz), not an interactive item.",
+      "additionalProperties": false,
+      "required": ["id", "prompt", "answer"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "prompt": { "$ref": "#/$defs/mathText" },
+        "answer": { "$ref": "#/$defs/mathText" }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v1/unit-guide.schema.json",
+  "title": "content/units/unit-NN/guide.json — rich reference content (cheat sheet + reference guide source)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unitNumber", "title", "subtitle", "description", "atAGlance", "modules"],
+  "properties": {
+    "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+    "title": {
+      "$ref": "common.defs.schema.json#/$defs/plainText",
+      "description": "Full document title, e.g. \"Series Solutions of Differential Equations\" (legacy 'title'; the legacy 'unit' heading is derived from curriculum.json)."
+    },
+    "subtitle": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+    "description": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+    "atAGlance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "summary", "bullets"],
+      "properties": {
+        "title": { "$ref": "common.defs.schema.json#/$defs/plainText" },
+        "summary": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+        "bullets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lead", "body"],
+            "properties": {
+              "lead": {
+                "$ref": "common.defs.schema.json#/$defs/mathText",
+                "description": "Bold lead-in phrase. Replaces the legacy \"\\textbf{lead} --- body\" string; renderers re-join with their own typography."
+              },
+              "body": { "$ref": "common.defs.schema.json#/$defs/mathText" }
+            }
+          }
+        }
+      }
+    },
+    "cheat": {
+      "type": "object",
+      "description": "Cheat-sheet-specific front matter (legacy cheatSubtitle + cheatTakeaway).",
+      "additionalProperties": false,
+      "properties": {
+        "subtitle": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+        "takeaway": { "$ref": "common.defs.schema.json#/$defs/titledBody" }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "topics"],
+        "properties": {
+          "id": { "$ref": "common.defs.schema.json#/$defs/moduleId" },
+          "title": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+          "topics": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+          "formulas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "body"],
+              "properties": {
+                "title": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+                "body": { "$ref": "common.defs.schema.json#/$defs/mathExpr" }
+              }
+            }
+          },
+          "methodology": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "steps"],
+            "properties": {
+              "title": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+              "steps": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "common.defs.schema.json#/$defs/mathText" }
+              }
+            }
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["title", "setup", "steps"],
+              "properties": {
+                "title": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+                "setup": { "$ref": "common.defs.schema.json#/$defs/mathText" },
+                "steps": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "$ref": "common.defs.schema.json#/$defs/mathExpr",
+                    "description": "Bare math lines; the print compiler wraps each in workpurple display math."
+                  }
+                },
+                "result": { "$ref": "common.defs.schema.json#/$defs/mathText" }
+              }
+            }
+          },
+          "concept": { "$ref": "common.defs.schema.json#/$defs/titledBody" },
+          "warning": { "$ref": "common.defs.schema.json#/$defs/titledBody" },
+          "flashQuiz": {
+            "type": "array",
+            "description": "Printed Q/A pairs for the PDF guides (legacy module 'quiz'). Not part of the interactive quiz system.",
+            "items": { "$ref": "common.defs.schema.json#/$defs/flashItem" }
+          }
+        }
+      }
+    }
+  }
+}

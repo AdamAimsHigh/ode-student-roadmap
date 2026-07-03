@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v1/quizzes.schema.json",
+  "title": "content/units/unit-NN/quizzes.json — interactive assessment (micro-practice + unit mastery)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["unitNumber", "microPractice", "unitMastery"],
+  "properties": {
+    "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+    "microPractice": {
+      "type": "object",
+      "description": "Keyed by videoId. Every key must exist in curriculum.json under this unit (validator-enforced). Target size: 5 items per video (validator warning, not an error).",
+      "propertyNames": { "pattern": "^[A-Za-z0-9_-]{11}$" },
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "$ref": "common.defs.schema.json#/$defs/quizItem" }
+      }
+    },
+    "unitMastery": {
+      "type": "array",
+      "description": "Canonically owned by unitNumber — never keyed by unit title. The web compiler emits the legacy title-keyed QUIZ_DATA.unit_mastery shape until the router migration. Target size: 30 items (validator warning).",
+      "minItems": 1,
+      "items": { "$ref": "common.defs.schema.json#/$defs/quizItem" }
+    },
+    "retiredIds": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "description": "IDs burned by retired items. An ID here may never reappear in microPractice or unitMastery (validator-enforced)."
+    }
+  }
+}
