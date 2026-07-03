@@ -81,18 +81,16 @@
                     </ul>
                 </div>
                 <div class="auth-controls" aria-label="Account sync">
-                    <div id="g_id_onload"
-                         data-client_id="422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com"
-                         data-context="signin"
-                         data-auto_select="true"
-                         data-itp_support="true"
-                         data-callback="odeHandleGoogleCredential"></div>
-                    <div id="auth-signin-slot" class="g_id_signin"
-                         data-type="standard"
-                         data-shape="pill"
-                         data-theme="outline"
-                         data-text="signin_with"
-                         data-size="medium"></div>
+                    <!-- Google Identity Services is initialized
+                         programmatically by state.js (initGoogleIdentity),
+                         never declaratively: a g_id_onload element would
+                         render the sign-in button and fire the One Tap
+                         prompt unconditionally as soon as the async SDK
+                         loads, re-showing sign-in chrome to students who
+                         already hold a valid local session. state.js renders
+                         the button into this slot and prompts One Tap only
+                         for fully anonymous visitors. -->
+                    <div id="auth-signin-slot"></div>
                     <div id="auth-status" class="auth-status" hidden>
                         <span class="auth-status-dot" aria-hidden="true"></span>
                         <span id="auth-status-label" class="auth-status-label">Sync active</span>

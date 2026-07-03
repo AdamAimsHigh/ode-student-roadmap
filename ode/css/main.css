@@ -69,6 +69,13 @@ body {
     min-height: 32px;
 }
 
+/* The hidden attribute state.js sets on the slot for signed-in students must
+   always win over any future display/flex rule that targets the slot, or the
+   GIS button iframe inside would resurface next to the sync status chip. */
+#auth-signin-slot[hidden] {
+    display: none !important;
+}
+
 .auth-status {
     display: flex;
     align-items: center;

@@ -145,6 +145,9 @@ const ODEState = (function () {
             if (syncActive) {
                 syncActive = false;
                 setAuthUI(false, null);
+                /* The session evaporated mid-flight (expired or revoked), so
+                   the visitor is anonymous again: restore sign-in surfaces. */
+                syncGoogleSurfaces();
             }
             return Promise.reject(new Error("signed out"));
         }
@@ -272,6 +275,28 @@ const ODEState = (function () {
 
     /* ---- Auth UI wiring -------------------------------------------------- */
 
+    /* GIS is initialized programmatically rather than through a declarative
+       g_id_onload element: declarative init rendered the embedded button and
+       fired the floating One Tap prompt unconditionally as soon as the async
+       SDK loaded, re-showing sign-in chrome to students who already held a
+       valid local session. This module is now the single authority over both
+       Google surfaces. */
+    const GIS_CLIENT_ID =
+        "422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com";
+
+    let gisInitialized = false;
+    let gisButtonRendered = false;
+
+    function gisApi() {
+        return (window.google && google.accounts && google.accounts.id) || null;
+    }
+
+    /* Completely anonymous means no edge session and no still-valid Google
+       credential in localStorage; only then may sign-in chrome appear. */
+    function isAnonymous() {
+        return !getStoredSession() && !getStoredCredential();
+    }
+
     function setAuthUI(signedIn, email) {
         const signinSlot = document.getElementById("auth-signin-slot");
         const status = document.getElementById("auth-status");
@@ -280,6 +305,59 @@ const ODEState = (function () {
         if (status) status.hidden = !signedIn;
         if (label) label.textContent = email ? "Syncing as " + email : "Sync active";
     }
+
+    /* Reconcile Google's sign-in surfaces with the current auth state:
+       anonymous visitors get the embedded button (rendered once into the
+       slot) and the One Tap prompt; authenticated students get neither.
+       Guarded end to end so file:// and offline sessions no-op silently. */
+    function syncGoogleSurfaces() {
+        const api = gisApi();
+        if (!api || !gisInitialized || !isAnonymous()) return;
+        const slot = document.getElementById("auth-signin-slot");
+        if (slot && !gisButtonRendered) {
+            try {
+                api.renderButton(slot, {
+                    type: "standard",
+                    shape: "pill",
+                    theme: "outline",
+                    text: "signin_with",
+                    size: "medium"
+                });
+                gisButtonRendered = true;
+            } catch (err) {
+                console.debug("GIS button render skipped:", err);
+            }
+        }
+        try {
+            api.prompt();
+        } catch (err) {
+            console.debug("GIS One Tap prompt skipped:", err);
+        }
+    }
+
+    function initGoogleIdentity() {
+        const api = gisApi();
+        if (!api || gisInitialized) return;
+        try {
+            api.initialize({
+                client_id: GIS_CLIENT_ID,
+                callback: window.odeHandleGoogleCredential,
+                auto_select: true,
+                itp_support: true,
+                context: "signin"
+            });
+            gisInitialized = true;
+        } catch (err) {
+            console.debug("GIS init skipped:", err);
+            return;
+        }
+        syncGoogleSurfaces();
+    }
+
+    /* Documented GIS hook, invoked by the SDK the moment it finishes loading.
+       The gsi/client script is async, so it always lands after this module
+       has executed; the boot call below covers the theoretical inverse. */
+    window.onGoogleLibraryLoad = initGoogleIdentity;
 
     /* A session activates from either credential shape: the persistent edge
        session token (the common returning-student path) or a fresh Google
@@ -303,15 +381,19 @@ const ODEState = (function () {
             localStorage.removeItem(CREDENTIAL_KEY);
         } catch (err) { /* storage unavailable */ }
         clearStoredSession();
-        if (window.google && google.accounts && google.accounts.id) {
-            google.accounts.id.disableAutoSelect();
-        }
+        const api = gisApi();
+        if (api) api.disableAutoSelect();
         setAuthUI(false, null);
+        /* Restore both Google surfaces for the now-anonymous visitor: the
+           embedded button is unhidden (and rendered if sign-in happened
+           before it ever drew), and One Tap re-prompts. disableAutoSelect
+           above guarantees the prompt is an account chooser, never a silent
+           re-login of the account that just signed out. */
+        syncGoogleSurfaces();
     }
 
-    /* Global callback invoked by the Google Identity Services SDK
-       (data-callback on the #g_id_onload element, with data-auto_select
-       re-issuing credentials silently for returning accounts). */
+    /* Global callback registered with google.accounts.id.initialize()
+       (auto_select re-issues credentials silently for returning accounts). */
     window.odeHandleGoogleCredential = function (response) {
         if (!response || !response.credential) return;
         try {
@@ -321,6 +403,12 @@ const ODEState = (function () {
             return;
         }
         activateCloudSession();
+        /* Dismiss any One Tap prompt still floating from the anonymous
+           state; the embedded button slot is hidden by setAuthUI above. */
+        const api = gisApi();
+        if (api && typeof api.cancel === "function") {
+            try { api.cancel(); } catch (err) { /* prompt already closed */ }
+        }
     };
 
     /* Scripts load at the end of body, so the header exists already. The
@@ -331,6 +419,9 @@ const ODEState = (function () {
         const signout = document.getElementById("auth-signout");
         if (signout) signout.addEventListener("click", deactivateCloudSession);
         if (getStoredSession() || getStoredCredential()) activateCloudSession();
+        /* Covers the edge where the GIS SDK finished loading before this
+           module ran (onGoogleLibraryLoad would then never fire for us). */
+        initGoogleIdentity();
     })();
 
     return {
