@@ -1,0 +1,2192 @@
+{
+  "unitNumber": 16,
+  "microPractice": {
+    "UO_dgXa5szg": [
+      {
+        "id": "mp_UO_dgXa5szg_1",
+        "prompt": "What does a phase portrait of $\\mathbf{x}' = A\\mathbf{x}$ display?",
+        "hint": "It shows trajectories in the plane of the dependent variables, not against time.",
+        "answerOptions": [
+          {
+            "text": "Trajectories in the $x_1 x_2$ plane, with arrows showing the direction of motion",
+            "correct": true,
+            "rationale": "Yes. A phase portrait plots solution curves in state space and indicates the flow direction."
+          },
+          {
+            "text": "Graphs of $x_1$ and $x_2$ each versus time $t$",
+            "rationale": "Those are time series, plotted against $t$. What plane does a phase portrait use instead?"
+          },
+          {
+            "text": "The eigenvalues plotted in the complex plane",
+            "rationale": "That is a spectrum plot, not a phase portrait. What curves does a phase portrait show?"
+          },
+          {
+            "text": "A bar chart of the matrix entries",
+            "rationale": "The entries of $A$ are not what is plotted. What geometric objects fill a phase portrait?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UO_dgXa5szg_2",
+        "prompt": "For a linear system $\\mathbf{x}' = A\\mathbf{x}$ with invertible $A$, where is the only equilibrium?",
+        "hint": "Solve $A\\mathbf{x} = \\mathbf{0}$.",
+        "answerOptions": [
+          {
+            "text": "At the origin",
+            "correct": true,
+            "rationale": "Yes. With $A$ invertible, $A\\mathbf{x} = \\mathbf{0}$ forces $\\mathbf{x} = \\mathbf{0}$, so the origin is the lone equilibrium."
+          },
+          {
+            "text": "At every eigenvector",
+            "rationale": "Eigenvectors set special directions, not equilibria. Where does $A\\mathbf{x} = \\mathbf{0}$ put the rest point?"
+          },
+          {
+            "text": "Along the entire $x_1$ axis",
+            "rationale": "A whole line of equilibria needs a singular $A$. For invertible $A$, what single point solves $A\\mathbf{x} = \\mathbf{0}$?"
+          },
+          {
+            "text": "There is no equilibrium",
+            "rationale": "Every linear system has the origin as an equilibrium. What point always satisfies $A\\mathbf{x} = \\mathbf{0}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UO_dgXa5szg_3",
+        "prompt": "What overall feature of the phase portrait is determined by the eigenvalues of $A$?",
+        "hint": "The eigenvalues classify the type and stability of the equilibrium.",
+        "answerOptions": [
+          {
+            "text": "The type and stability of the equilibrium (node, saddle, spiral, center)",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues decide whether the origin is a node, saddle, spiral, or center, and its stability."
+          },
+          {
+            "text": "The thickness of the drawn curves",
+            "rationale": "Drawing style is cosmetic, not set by eigenvalues. What dynamical classification do they fix?"
+          },
+          {
+            "text": "The color of each trajectory",
+            "rationale": "Color is arbitrary. What structural feature of the portrait do eigenvalues determine?"
+          },
+          {
+            "text": "The labels on the axes",
+            "rationale": "Axis labels are notation, not dynamics. What behavior near the origin do eigenvalues set?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UO_dgXa5szg_4",
+        "prompt": "For real distinct eigenvalues, the straight-line trajectories of the phase portrait lie along what?",
+        "hint": "Solutions that stay on a fixed line follow a special direction of $A$.",
+        "answerOptions": [
+          {
+            "text": "The eigenvectors of $A$",
+            "correct": true,
+            "rationale": "Yes. Along an eigenvector the motion stays on that line, giving the straight-line trajectories."
+          },
+          {
+            "text": "The coordinate axes always",
+            "rationale": "The special lines are eigenvectors, which need not be the axes. What directions stay invariant?"
+          },
+          {
+            "text": "The diagonal $x_1 = x_2$ always",
+            "rationale": "That diagonal is not generally invariant. Which directions of $A$ produce straight-line motion?"
+          },
+          {
+            "text": "Circles around the origin",
+            "rationale": "Circles are not straight lines and arise for centers. What straight directions does $A$ single out?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UO_dgXa5szg_5",
+        "prompt": "For two negative real eigenvalues, all trajectories in the phase portrait do what as $t \\to \\infty$?",
+        "hint": "Negative exponential rates shrink every mode.",
+        "answerOptions": [
+          {
+            "text": "Approach the origin (a stable node)",
+            "correct": true,
+            "rationale": "Yes. Both modes decay like $e^{\\lambda t}$ with $\\lambda < 0$, so trajectories tend to the origin."
+          },
+          {
+            "text": "Move away to infinity",
+            "rationale": "Escape to infinity needs a positive eigenvalue. What do negative rates do to the trajectories?"
+          },
+          {
+            "text": "Circle the origin forever",
+            "rationale": "Closed circling comes from imaginary eigenvalues. What do two negative reals cause?"
+          },
+          {
+            "text": "Stay fixed at their starting points",
+            "rationale": "Nonzero starting points still move under the flow. Where do decaying modes send them?"
+          }
+        ]
+      }
+    ],
+    "fsnEIYEZc3Y": [
+      {
+        "id": "mp_fsnEIYEZc3Y_1",
+        "prompt": "For real distinct eigenvalues of the same sign, what is the equilibrium called?",
+        "hint": "Same-sign real eigenvalues give a node, stable or unstable by sign.",
+        "answerOptions": [
+          {
+            "text": "A node (stable if both negative, unstable if both positive)",
+            "correct": true,
+            "rationale": "Yes. Same-sign real eigenvalues produce a node, whose stability follows the shared sign."
+          },
+          {
+            "text": "A saddle",
+            "rationale": "Saddles need opposite signs. What does the same sign on both eigenvalues give?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers require purely imaginary eigenvalues. What do two same-sign reals give?"
+          },
+          {
+            "text": "A spiral",
+            "rationale": "Spirals require complex eigenvalues. What real-eigenvalue equilibrium is this?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsnEIYEZc3Y_2",
+        "prompt": "When trajectories approach a node, they become tangent to which direction?",
+        "hint": "The slower-decaying mode dominates near the origin.",
+        "answerOptions": [
+          {
+            "text": "The eigenvector of the eigenvalue closer to zero (the slow direction)",
+            "correct": true,
+            "rationale": "Yes. The slowest mode dies last, so incoming trajectories align with its eigenvector near the origin."
+          },
+          {
+            "text": "The eigenvector of the most negative eigenvalue",
+            "rationale": "That fast mode dies first, so it does not dominate near the origin. Which eigenvalue's direction lingers?"
+          },
+          {
+            "text": "The vertical axis always",
+            "rationale": "Tangency follows an eigenvector, not a fixed axis. Which eigenvalue sets the slow direction?"
+          },
+          {
+            "text": "A direction at 45 degrees",
+            "rationale": "No fixed angle applies. Which eigenvector governs the approach near the origin?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsnEIYEZc3Y_3",
+        "prompt": "For $A$ with rows $(-1, 0)$ and $(0, -2)$, classify the origin.",
+        "hint": "Read the eigenvalues off the diagonal and check their signs.",
+        "answerOptions": [
+          {
+            "text": "A stable node",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues $-1$ and $-2$ are both negative and real, giving a stable node."
+          },
+          {
+            "text": "An unstable node",
+            "rationale": "Unstable nodes need positive eigenvalues. What does the negative sign on both indicate?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs eigenvalues of opposite sign. Are $-1$ and $-2$ opposite in sign?"
+          },
+          {
+            "text": "A spiral sink",
+            "rationale": "Spirals require complex eigenvalues. Are $-1$ and $-2$ real or complex?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsnEIYEZc3Y_4",
+        "prompt": "For $A$ with rows $(1, 0)$ and $(0, -1)$, classify the origin.",
+        "hint": "The eigenvalues are $1$ and $-1$, of opposite sign.",
+        "answerOptions": [
+          {
+            "text": "A saddle (unstable)",
+            "correct": true,
+            "rationale": "Yes. One positive and one negative eigenvalue produce a saddle, which is unstable."
+          },
+          {
+            "text": "A stable node",
+            "rationale": "A stable node needs both eigenvalues negative. What does the positive eigenvalue $1$ do?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers come from purely imaginary eigenvalues. What do real opposite-sign eigenvalues give?"
+          },
+          {
+            "text": "An unstable node",
+            "rationale": "An unstable node needs both eigenvalues positive. What does the negative eigenvalue change?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsnEIYEZc3Y_5",
+        "prompt": "In a saddle, which special trajectories separate the regions of qualitatively different motion?",
+        "hint": "They run exactly along the two eigenvector directions, in and out.",
+        "answerOptions": [
+          {
+            "text": "The separatrices along the eigenvectors (stable and unstable directions)",
+            "correct": true,
+            "rationale": "Yes. The eigenvector lines act as separatrices dividing the saddle's flow regions."
+          },
+          {
+            "text": "All circular orbits",
+            "rationale": "Saddles have no closed orbits. What straight-line trajectories divide the regions?"
+          },
+          {
+            "text": "Random trajectories chosen arbitrarily",
+            "rationale": "The dividing curves are specific, not arbitrary. Which directions define them?"
+          },
+          {
+            "text": "The coordinate axes regardless of $A$",
+            "rationale": "The dividing lines are eigenvectors, which need not be the axes. What directions are they?"
+          }
+        ]
+      }
+    ],
+    "VqXKa11IA6A": [
+      {
+        "id": "mp_VqXKa11IA6A_1",
+        "prompt": "What eigenvalue signs characterize a source (unstable node)?",
+        "hint": "A source pushes every trajectory outward.",
+        "answerOptions": [
+          {
+            "text": "Both eigenvalues real and positive",
+            "correct": true,
+            "rationale": "Yes. Two positive real eigenvalues make all trajectories flow away from the origin, a source."
+          },
+          {
+            "text": "Both eigenvalues real and negative",
+            "rationale": "Negative eigenvalues pull trajectories inward, which is a sink. What sign makes them flee?"
+          },
+          {
+            "text": "Eigenvalues of opposite sign",
+            "rationale": "Opposite signs give a saddle, not a source. What sign do both share for a source?"
+          },
+          {
+            "text": "Purely imaginary eigenvalues",
+            "rationale": "Those give a center. What real sign produces outward flow?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VqXKa11IA6A_2",
+        "prompt": "What eigenvalue signs characterize a sink (stable node)?",
+        "hint": "A sink draws every trajectory inward.",
+        "answerOptions": [
+          {
+            "text": "Both eigenvalues real and negative",
+            "correct": true,
+            "rationale": "Yes. Two negative real eigenvalues pull all trajectories toward the origin, a sink."
+          },
+          {
+            "text": "Both eigenvalues real and positive",
+            "rationale": "Positive eigenvalues push trajectories away, a source. What sign pulls them in?"
+          },
+          {
+            "text": "Eigenvalues of opposite sign",
+            "rationale": "Opposite signs give a saddle. What shared sign produces inward flow?"
+          },
+          {
+            "text": "One zero and one positive",
+            "rationale": "A zero eigenvalue gives a degenerate case, not a sink. What negative condition is needed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VqXKa11IA6A_3",
+        "prompt": "What eigenvalue configuration produces a saddle?",
+        "hint": "A saddle has one direction flowing in and one flowing out.",
+        "answerOptions": [
+          {
+            "text": "Two real eigenvalues of opposite sign",
+            "correct": true,
+            "rationale": "Yes. One positive and one negative real eigenvalue create the in-and-out flow of a saddle."
+          },
+          {
+            "text": "Two real eigenvalues of the same sign",
+            "rationale": "Same-sign eigenvalues give a node, not a saddle. What sign relation gives mixed flow?"
+          },
+          {
+            "text": "Complex conjugate eigenvalues",
+            "rationale": "Those give spirals or centers. What real configuration gives a saddle?"
+          },
+          {
+            "text": "Two equal eigenvalues",
+            "rationale": "Equal eigenvalues give a degenerate or star node. What opposite-sign condition gives a saddle?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VqXKa11IA6A_4",
+        "prompt": "Using the determinant, a saddle is detected by which simple condition on $A$?",
+        "hint": "The determinant equals the product of the eigenvalues.",
+        "answerOptions": [
+          {
+            "text": "$\\det(A) < 0$",
+            "correct": true,
+            "rationale": "Yes. A negative determinant means the eigenvalues have opposite signs, the signature of a saddle."
+          },
+          {
+            "text": "$\\det(A) > 0$",
+            "rationale": "A positive determinant means same-sign or complex eigenvalues, not a saddle. What sign signals opposite eigenvalues?"
+          },
+          {
+            "text": "$\\det(A) = 0$",
+            "rationale": "A zero determinant gives a non-isolated equilibrium, not a saddle. What sign of the determinant indicates a saddle?"
+          },
+          {
+            "text": "$\\text{tr}(A) = 0$",
+            "rationale": "Zero trace points toward a center, not a saddle. What determinant condition detects a saddle?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VqXKa11IA6A_5",
+        "prompt": "For $A$ with rows $(2, 0)$ and $(0, 3)$, which equilibrium type is the origin?",
+        "hint": "Both eigenvalues are positive reals.",
+        "answerOptions": [
+          {
+            "text": "A source (unstable node)",
+            "correct": true,
+            "rationale": "Yes. Eigenvalues $2$ and $3$ are both positive, so trajectories flee the origin in a source."
+          },
+          {
+            "text": "A sink (stable node)",
+            "rationale": "A sink needs negative eigenvalues. What do two positive eigenvalues produce?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs opposite signs. Are $2$ and $3$ opposite in sign?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers need imaginary eigenvalues. Are $2$ and $3$ real or imaginary?"
+          }
+        ]
+      }
+    ],
+    "n9H-6TQIEJc": [
+      {
+        "id": "mp_n9H-6TQIEJc_1",
+        "prompt": "What eigenvalue type produces a spiral?",
+        "hint": "Spiraling needs both rotation and growth or decay.",
+        "answerOptions": [
+          {
+            "text": "Complex eigenvalues with nonzero real part",
+            "correct": true,
+            "rationale": "Yes. The imaginary part gives rotation and the nonzero real part gives growth or decay, producing a spiral."
+          },
+          {
+            "text": "Two distinct real eigenvalues",
+            "rationale": "Real eigenvalues give straight-line nodes or saddles. What kind of eigenvalues cause rotation?"
+          },
+          {
+            "text": "Purely imaginary eigenvalues",
+            "rationale": "Those give a center with closed orbits, not a spiral. What extra ingredient makes it spiral?"
+          },
+          {
+            "text": "A repeated real eigenvalue",
+            "rationale": "Repeated reals give degenerate nodes. What complex feature creates spiraling?"
+          }
+        ]
+      },
+      {
+        "id": "mp_n9H-6TQIEJc_2",
+        "prompt": "What eigenvalue type produces a center (closed orbits)?",
+        "hint": "Closed orbits need rotation with no growth or decay.",
+        "answerOptions": [
+          {
+            "text": "Purely imaginary eigenvalues ($\\lambda = \\pm \\beta i$)",
+            "correct": true,
+            "rationale": "Yes. With zero real part there is rotation but no amplitude change, giving closed orbits."
+          },
+          {
+            "text": "Complex eigenvalues with negative real part",
+            "rationale": "A negative real part makes the orbit shrink into a spiral. What real part gives closed loops?"
+          },
+          {
+            "text": "Two negative real eigenvalues",
+            "rationale": "Those give a stable node, not closed orbits. What imaginary condition gives a center?"
+          },
+          {
+            "text": "One positive and one negative eigenvalue",
+            "rationale": "That is a saddle. What purely imaginary condition produces a center?"
+          }
+        ]
+      },
+      {
+        "id": "mp_n9H-6TQIEJc_3",
+        "prompt": "A spiral sink (stable spiral) corresponds to complex eigenvalues with which real part?",
+        "hint": "Stable means inward-shrinking amplitude.",
+        "answerOptions": [
+          {
+            "text": "Negative real part",
+            "correct": true,
+            "rationale": "Yes. A negative real part shrinks the amplitude as the trajectory rotates, spiraling inward."
+          },
+          {
+            "text": "Positive real part",
+            "rationale": "A positive real part grows the amplitude, giving an unstable spiral. What sign shrinks it?"
+          },
+          {
+            "text": "Zero real part",
+            "rationale": "Zero real part gives a center, not a spiral. What sign produces inward spiraling?"
+          },
+          {
+            "text": "Infinite real part",
+            "rationale": "Real parts are finite numbers with a sign. Which sign makes the spiral stable?"
+          }
+        ]
+      },
+      {
+        "id": "mp_n9H-6TQIEJc_4",
+        "prompt": "Using the trace and determinant, a center occurs when $\\det(A) > 0$ and the trace equals what?",
+        "hint": "The trace is the sum of the eigenvalues; a center needs purely imaginary ones.",
+        "answerOptions": [
+          {
+            "text": "$\\text{tr}(A) = 0$",
+            "correct": true,
+            "rationale": "Yes. Purely imaginary conjugate eigenvalues sum to zero, so the trace is zero with positive determinant."
+          },
+          {
+            "text": "$\\text{tr}(A) > 0$",
+            "rationale": "A positive trace means a positive real part, giving a spiral source. What trace gives pure rotation?"
+          },
+          {
+            "text": "$\\text{tr}(A) < 0$",
+            "rationale": "A negative trace gives a spiral sink, not a center. What trace value yields closed orbits?"
+          },
+          {
+            "text": "$\\text{tr}(A) = \\det(A)$",
+            "rationale": "No such relation defines a center. What specific trace value forces purely imaginary eigenvalues?"
+          }
+        ]
+      },
+      {
+        "id": "mp_n9H-6TQIEJc_5",
+        "prompt": "For $A$ with rows $(0, 1)$ and $(-1, 0)$ (trace $0$, determinant $1$), the origin is what?",
+        "hint": "The eigenvalues are $\\pm i$, purely imaginary.",
+        "answerOptions": [
+          {
+            "text": "A center (closed orbits)",
+            "correct": true,
+            "rationale": "Yes. With eigenvalues $\\pm i$, trajectories form closed orbits around the origin, a center."
+          },
+          {
+            "text": "A stable spiral",
+            "rationale": "A stable spiral needs a negative real part. What does a zero real part give instead?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs real opposite-sign eigenvalues. What do purely imaginary eigenvalues give?"
+          },
+          {
+            "text": "A stable node",
+            "rationale": "Nodes need real eigenvalues. What closed-orbit equilibrium do imaginary ones give?"
+          }
+        ]
+      }
+    ],
+    "RCWkzzLgwf0": [
+      {
+        "id": "mp_RCWkzzLgwf0_1",
+        "prompt": "To analyze a nonlinear system near an equilibrium, we approximate it with which matrix?",
+        "hint": "It collects the first partial derivatives of the right-hand sides.",
+        "answerOptions": [
+          {
+            "text": "The Jacobian matrix of partial derivatives",
+            "correct": true,
+            "rationale": "Yes. The Jacobian of the right-hand sides, evaluated at the equilibrium, gives the linear approximation."
+          },
+          {
+            "text": "The inverse of the coefficient matrix",
+            "rationale": "There is no fixed coefficient matrix for a nonlinear system. What matrix of partials is used?"
+          },
+          {
+            "text": "The identity matrix",
+            "rationale": "The identity carries no information about the system. What derivative matrix approximates it?"
+          },
+          {
+            "text": "A diagonal matrix of the equilibrium values",
+            "rationale": "The equilibrium coordinates are not the linearization. What matrix of partial derivatives is needed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RCWkzzLgwf0_2",
+        "prompt": "For the system $x' = f(x, y)$, $y' = g(x, y)$, what are the rows of the Jacobian?",
+        "hint": "Each row holds the partials of one right-hand side.",
+        "answerOptions": [
+          {
+            "text": "Row $(f_x, f_y)$ and row $(g_x, g_y)$",
+            "correct": true,
+            "rationale": "Yes. The first row holds the partials of $f$, the second the partials of $g$."
+          },
+          {
+            "text": "Row $(f_x, g_x)$ and row $(f_y, g_y)$",
+            "rationale": "Each row should come from a single function. Which partials make up the first row?"
+          },
+          {
+            "text": "Row $(f, g)$ and row $(f, g)$",
+            "rationale": "The Jacobian uses derivatives, not the functions themselves. What partials fill the rows?"
+          },
+          {
+            "text": "Row $(f_{xx}, f_{yy})$ and row $(g_{xx}, g_{yy})$",
+            "rationale": "The Jacobian uses first partials, not second. Which first derivatives appear?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RCWkzzLgwf0_3",
+        "prompt": "The first step in linearizing is to find the equilibria, which satisfy what?",
+        "hint": "At an equilibrium nothing changes in time.",
+        "answerOptions": [
+          {
+            "text": "$f(x, y) = 0$ and $g(x, y) = 0$ simultaneously",
+            "correct": true,
+            "rationale": "Yes. Equilibria are points where both right-hand sides vanish, so the state stays fixed."
+          },
+          {
+            "text": "$f(x, y) = g(x, y)$",
+            "rationale": "Equality of the two functions is not the condition. What value must each separately take?"
+          },
+          {
+            "text": "$f_x = g_y = 0$",
+            "rationale": "Those are derivative conditions, not the equilibrium condition. What must $f$ and $g$ themselves equal?"
+          },
+          {
+            "text": "$x = y$",
+            "rationale": "No coordinate relation defines equilibria in general. What must the right-hand sides equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RCWkzzLgwf0_4",
+        "prompt": "For the system $x' = y$, $y' = -\\sin x$, what is the Jacobian at the origin $(0, 0)$?",
+        "hint": "Differentiate, then substitute $x = 0$ using $\\cos 0 = 1$.",
+        "answerOptions": [
+          {
+            "text": "Rows $(0, 1)$ and $(-1, 0)$",
+            "correct": true,
+            "rationale": "Correct. The Jacobian has rows $(0, 1)$ and $(-\\cos x, 0)$; at $x = 0$, $\\cos 0 = 1$, giving $(-1, 0)$."
+          },
+          {
+            "text": "Rows $(0, 1)$ and $(0, -1)$",
+            "rationale": "The partial of $-\\sin x$ with respect to $x$ is $-\\cos x$. What does it give at $x = 0$?"
+          },
+          {
+            "text": "Rows $(1, 0)$ and $(-1, 0)$",
+            "rationale": "The partial of $x' = y$ with respect to $x$ is $0$. What is the first row?"
+          },
+          {
+            "text": "Rows $(0, 1)$ and $(1, 0)$",
+            "rationale": "The derivative of $-\\sin x$ carries a minus sign. What is $-\\cos 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RCWkzzLgwf0_5",
+        "prompt": "Why does linearization describe the local behavior near an equilibrium?",
+        "hint": "Think of the tangent-plane approximation to the nonlinear right-hand sides.",
+        "answerOptions": [
+          {
+            "text": "The Jacobian is the best linear (first-order Taylor) approximation of the dynamics near the point",
+            "correct": true,
+            "rationale": "Yes. Near the equilibrium the system behaves like its first-order Taylor expansion, which is the Jacobian."
+          },
+          {
+            "text": "It gives the exact global solution everywhere",
+            "rationale": "Linearization is only a local approximation, not global. What does it capture near the point?"
+          },
+          {
+            "text": "It removes all equilibria from the system",
+            "rationale": "The equilibrium remains; we study behavior around it. What approximation does the Jacobian provide?"
+          },
+          {
+            "text": "It replaces the system with its second derivatives",
+            "rationale": "Linearization uses first derivatives, not second. What order of Taylor approximation is it?"
+          }
+        ]
+      }
+    ],
+    "UCpMao94iFg": [
+      {
+        "id": "mp_UCpMao94iFg_1",
+        "prompt": "After computing the Jacobian at an equilibrium, how is the local stability determined?",
+        "hint": "Treat the Jacobian as the matrix of a linear system.",
+        "answerOptions": [
+          {
+            "text": "From the eigenvalues of the Jacobian",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues of the Jacobian classify the equilibrium just as for a linear system."
+          },
+          {
+            "text": "From the determinant of the original nonlinear functions",
+            "rationale": "Stability follows from the Jacobian's eigenvalues, not the raw functions. What spectral data is used?"
+          },
+          {
+            "text": "From the size of the equilibrium coordinates",
+            "rationale": "The location does not set stability. What eigenvalues govern it?"
+          },
+          {
+            "text": "From the number of equilibria",
+            "rationale": "Counting equilibria does not classify any one of them. What eigenvalues decide local stability?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UCpMao94iFg_2",
+        "prompt": "The Hartman-Grobman theorem guarantees the linearization predicts local behavior when the equilibrium is what?",
+        "hint": "It must be hyperbolic: no eigenvalue sitting on the imaginary axis.",
+        "answerOptions": [
+          {
+            "text": "Hyperbolic, with all eigenvalues having nonzero real part",
+            "correct": true,
+            "rationale": "Yes. When no eigenvalue has zero real part, the linearization faithfully captures the local phase portrait."
+          },
+          {
+            "text": "Any equilibrium without exception",
+            "rationale": "Borderline cases can fail. What restriction on the eigenvalues is required?"
+          },
+          {
+            "text": "One where an eigenvalue is purely imaginary",
+            "rationale": "That is exactly the borderline case where it can fail. What real-part condition is needed?"
+          },
+          {
+            "text": "One located at the origin only",
+            "rationale": "Location does not matter for the theorem. What eigenvalue condition does?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UCpMao94iFg_3",
+        "prompt": "In which case can linearization fail to predict the true nonlinear behavior?",
+        "hint": "The delicate case is when the linearization gives a center.",
+        "answerOptions": [
+          {
+            "text": "When the Jacobian has purely imaginary eigenvalues (a borderline center)",
+            "correct": true,
+            "rationale": "Yes. A linear center is borderline; nonlinear terms can turn it into a slow spiral, so linearization may mislead."
+          },
+          {
+            "text": "When the eigenvalues are real and distinct",
+            "rationale": "That hyperbolic case is reliably predicted. Which non-hyperbolic case is risky?"
+          },
+          {
+            "text": "When the equilibrium is a saddle",
+            "rationale": "Saddles are hyperbolic and reliably predicted. What borderline case fails?"
+          },
+          {
+            "text": "Whenever the system is two-dimensional",
+            "rationale": "Dimension alone is not the issue. What eigenvalue situation causes failure?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UCpMao94iFg_4",
+        "prompt": "If the Jacobian at an equilibrium has eigenvalues $-2$ and $-5$, the equilibrium is locally what?",
+        "hint": "Both eigenvalues are negative reals.",
+        "answerOptions": [
+          {
+            "text": "A stable node (locally attracting)",
+            "correct": true,
+            "rationale": "Yes. Two negative real eigenvalues make the equilibrium a locally stable node."
+          },
+          {
+            "text": "An unstable saddle",
+            "rationale": "A saddle needs opposite-sign eigenvalues. Are $-2$ and $-5$ opposite in sign?"
+          },
+          {
+            "text": "An unstable node",
+            "rationale": "An unstable node needs positive eigenvalues. What does the negative sign on both give?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers need purely imaginary eigenvalues. Are $-2$ and $-5$ real or imaginary?"
+          }
+        ]
+      },
+      {
+        "id": "mp_UCpMao94iFg_5",
+        "prompt": "If a Jacobian has eigenvalues $3$ and $-1$, the equilibrium is locally what?",
+        "hint": "The eigenvalues have opposite signs.",
+        "answerOptions": [
+          {
+            "text": "A saddle (unstable)",
+            "correct": true,
+            "rationale": "Yes. One positive and one negative eigenvalue make the equilibrium a saddle locally."
+          },
+          {
+            "text": "A stable node",
+            "rationale": "Stability needs both eigenvalues negative. What does the positive eigenvalue $3$ do?"
+          },
+          {
+            "text": "A spiral",
+            "rationale": "Spirals need complex eigenvalues. Are $3$ and $-1$ real or complex?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers need purely imaginary eigenvalues. What do opposite-sign reals give?"
+          }
+        ]
+      }
+    ],
+    "ifkvwzkm2Qc": [
+      {
+        "id": "mp_ifkvwzkm2Qc_1",
+        "prompt": "For the system $x' = f(x, y)$, $y' = g(x, y)$, what defines the $x$-nullcline?",
+        "hint": "It is the set where the rate of change of $x$ vanishes.",
+        "answerOptions": [
+          {
+            "text": "The curve where $x' = 0$, that is $f(x, y) = 0$",
+            "correct": true,
+            "rationale": "Yes. The $x$-nullcline is where $x' = f(x, y) = 0$."
+          },
+          {
+            "text": "The curve where $y' = 0$",
+            "rationale": "That defines the $y$-nullcline, not the $x$-nullcline. Which rate vanishes for the $x$-nullcline?"
+          },
+          {
+            "text": "The curve where $x = 0$",
+            "rationale": "Setting the variable to zero is not the same as setting its rate to zero. What must vanish?"
+          },
+          {
+            "text": "The curve where $x' = y'$",
+            "rationale": "Equality of the two rates is not a nullcline. What single rate is zero on the $x$-nullcline?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ifkvwzkm2Qc_2",
+        "prompt": "Equilibria of the system are located where which curves intersect?",
+        "hint": "At an equilibrium both rates vanish at once.",
+        "answerOptions": [
+          {
+            "text": "Where an $x$-nullcline meets a $y$-nullcline",
+            "correct": true,
+            "rationale": "Yes. At such intersections both $x' = 0$ and $y' = 0$, so the point is an equilibrium."
+          },
+          {
+            "text": "Where two $x$-nullclines meet",
+            "rationale": "Both must come from different rates. Which two kinds of nullclines must intersect?"
+          },
+          {
+            "text": "Where a nullcline meets the $x$-axis",
+            "rationale": "The axis is not generally a nullcline. Which two nullclines must cross?"
+          },
+          {
+            "text": "Anywhere a single nullcline bends",
+            "rationale": "A bend in one curve does not make both rates vanish. What intersection is required?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ifkvwzkm2Qc_3",
+        "prompt": "On the $x$-nullcline (where $x' = 0$), in which direction does the flow point?",
+        "hint": "If $x$ is momentarily not changing, only $y$ moves.",
+        "answerOptions": [
+          {
+            "text": "Purely vertically (only $y$ changes)",
+            "correct": true,
+            "rationale": "Yes. With $x' = 0$, the velocity has no horizontal component, so the flow is vertical."
+          },
+          {
+            "text": "Purely horizontally (only $x$ changes)",
+            "rationale": "With $x' = 0$ the horizontal component is zero. Which component remains?"
+          },
+          {
+            "text": "At 45 degrees always",
+            "rationale": "No fixed angle applies. What direction results when the horizontal rate is zero?"
+          },
+          {
+            "text": "There is no motion at all",
+            "rationale": "Motion stops only at equilibria, where both rates vanish. What single direction remains on the $x$-nullcline?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ifkvwzkm2Qc_4",
+        "prompt": "For $x' = x - y$, what is the equation of the $x$-nullcline?",
+        "hint": "Set $x' = 0$ and solve.",
+        "answerOptions": [
+          {
+            "text": "$y = x$",
+            "correct": true,
+            "rationale": "Correct. Setting $x - y = 0$ gives the line $y = x$."
+          },
+          {
+            "text": "$y = -x$",
+            "rationale": "Solve $x - y = 0$, not $x + y = 0$. What line results?"
+          },
+          {
+            "text": "$x = 0$",
+            "rationale": "The nullcline comes from $x' = 0$, which is $x - y = 0$, not $x = 0$. What equation is that?"
+          },
+          {
+            "text": "$y = 0$",
+            "rationale": "Setting $y = 0$ ignores the $x$ term. What does $x - y = 0$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ifkvwzkm2Qc_5",
+        "prompt": "Why are nullclines a useful first step in sketching a phase portrait?",
+        "hint": "They organize the plane by the direction of flow.",
+        "answerOptions": [
+          {
+            "text": "They locate equilibria and split the plane into regions of consistent flow direction",
+            "correct": true,
+            "rationale": "Yes. Nullclines reveal equilibria and divide the plane into regions where the flow direction is known."
+          },
+          {
+            "text": "They give the exact formula for every trajectory",
+            "rationale": "Nullclines do not solve the system explicitly. What qualitative structure do they reveal?"
+          },
+          {
+            "text": "They list the eigenvalues directly",
+            "rationale": "Eigenvalues come from the Jacobian, not nullclines. What geometric information do nullclines give?"
+          },
+          {
+            "text": "They prove the system is linear",
+            "rationale": "Nullclines apply to nonlinear systems too. What do they organize in the plane?"
+          }
+        ]
+      }
+    ],
+    "qocE0phJ4t8": [
+      {
+        "id": "mp_qocE0phJ4t8_1",
+        "prompt": "To classify the stability of a specific equilibrium of a nonlinear system, you evaluate the Jacobian where?",
+        "hint": "The linear approximation is local to each rest point.",
+        "answerOptions": [
+          {
+            "text": "At that particular equilibrium point",
+            "correct": true,
+            "rationale": "Yes. The Jacobian must be evaluated at the equilibrium being analyzed, since each can differ."
+          },
+          {
+            "text": "At the origin always",
+            "rationale": "Not every equilibrium is at the origin. Where must the Jacobian be evaluated?"
+          },
+          {
+            "text": "At an arbitrary point of your choosing",
+            "rationale": "The point matters; it must be the equilibrium. Which point is correct?"
+          },
+          {
+            "text": "Averaged over the whole plane",
+            "rationale": "Stability is local, not an average. At which point is the Jacobian taken?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qocE0phJ4t8_2",
+        "prompt": "A nonlinear system can have how many equilibria?",
+        "hint": "Unlike a generic linear system, the nullclines can cross many times.",
+        "answerOptions": [
+          {
+            "text": "Possibly several, wherever the nullclines intersect",
+            "correct": true,
+            "rationale": "Yes. Nonlinear nullclines may cross at multiple points, giving several equilibria."
+          },
+          {
+            "text": "Exactly one, always",
+            "rationale": "A single equilibrium is typical of linear systems. How many can a nonlinear system have?"
+          },
+          {
+            "text": "Never more than two",
+            "rationale": "There is no such cap. What sets the number of equilibria?"
+          },
+          {
+            "text": "Always infinitely many",
+            "rationale": "The number is finite in typical cases. What determines how many there are?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qocE0phJ4t8_3",
+        "prompt": "If the Jacobian at one equilibrium has eigenvalues with both negative real parts, that equilibrium is what?",
+        "hint": "Negative real parts mean local decay.",
+        "answerOptions": [
+          {
+            "text": "Locally asymptotically stable (attracting)",
+            "correct": true,
+            "rationale": "Yes. Eigenvalues with negative real parts pull nearby trajectories in, so the equilibrium is locally stable."
+          },
+          {
+            "text": "Unstable (repelling)",
+            "rationale": "Repelling needs a positive real part. What do negative real parts do nearby?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs real parts of opposite sign. What do two negative real parts give?"
+          },
+          {
+            "text": "Neutrally stable with closed orbits",
+            "rationale": "Closed orbits need zero real parts. What do strictly negative real parts give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qocE0phJ4t8_4",
+        "prompt": "At a saddle equilibrium of a nonlinear system, the overall stability is what?",
+        "hint": "Any direction of escape makes an equilibrium unstable.",
+        "answerOptions": [
+          {
+            "text": "Unstable, because of the outgoing (positive-eigenvalue) direction",
+            "correct": true,
+            "rationale": "Yes. A saddle has an unstable direction, so the equilibrium is unstable overall."
+          },
+          {
+            "text": "Stable, because of the incoming direction",
+            "rationale": "One incoming direction cannot overcome an outgoing one. What does the escaping direction imply?"
+          },
+          {
+            "text": "Neutrally stable",
+            "rationale": "Saddles are not neutral; they have a genuine escape direction. What is the overall verdict?"
+          },
+          {
+            "text": "Always a center",
+            "rationale": "Saddles are not centers. What does the unstable direction make the equilibrium?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qocE0phJ4t8_5",
+        "prompt": "Combining nullclines with Jacobian analysis lets you build what?",
+        "hint": "You assemble local pictures into a global one.",
+        "answerOptions": [
+          {
+            "text": "A qualitative global phase portrait of the nonlinear system",
+            "correct": true,
+            "rationale": "Yes. Nullclines and local classifications together sketch the global behavior without solving exactly."
+          },
+          {
+            "text": "An exact closed-form solution",
+            "rationale": "These tools are qualitative, not exact solvers. What kind of picture do they yield?"
+          },
+          {
+            "text": "The matrix exponential of the system",
+            "rationale": "There is no single matrix for a nonlinear system. What qualitative result emerges?"
+          },
+          {
+            "text": "A guarantee of a unique equilibrium",
+            "rationale": "Nonlinear systems may have several equilibria. What overall sketch do these tools produce?"
+          }
+        ]
+      }
+    ],
+    "BaVfVVMcxQ4": [
+      {
+        "id": "mp_BaVfVVMcxQ4_1",
+        "prompt": "What does it mean for a system $x' = f(x, y)$, $y' = g(x, y)$ to be autonomous?",
+        "hint": "Check whether time $t$ appears explicitly on the right-hand sides.",
+        "answerOptions": [
+          {
+            "text": "The right-hand sides do not depend explicitly on $t$",
+            "correct": true,
+            "rationale": "Yes. An autonomous system has right-hand sides depending only on the state, not directly on time."
+          },
+          {
+            "text": "The system is linear",
+            "rationale": "Autonomy is about time dependence, not linearity. What must be absent from the right-hand sides?"
+          },
+          {
+            "text": "The solutions are all constant",
+            "rationale": "Autonomous systems have plenty of non-constant solutions. What feature defines autonomy?"
+          },
+          {
+            "text": "The right-hand sides depend explicitly on $t$",
+            "rationale": "That is the opposite of autonomous. What dependence is excluded?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BaVfVVMcxQ4_2",
+        "prompt": "In an autonomous system, can two distinct trajectories cross each other in the phase plane?",
+        "hint": "Recall the uniqueness theorem for solutions.",
+        "answerOptions": [
+          {
+            "text": "No; uniqueness of solutions forbids trajectories from crossing",
+            "correct": true,
+            "rationale": "Yes. If they crossed, two solutions would share a point, violating uniqueness."
+          },
+          {
+            "text": "Yes; trajectories cross freely",
+            "rationale": "Crossing would break uniqueness of solutions. What does the uniqueness theorem forbid?"
+          },
+          {
+            "text": "Only at equilibria",
+            "rationale": "Trajectories approach but do not pass through equilibria in finite ways that cross. What does uniqueness imply generally?"
+          },
+          {
+            "text": "Only if the system is nonlinear",
+            "rationale": "Nonlinearity does not permit crossings either. What principle blocks them?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BaVfVVMcxQ4_3",
+        "prompt": "To analyze a nonlinear autonomous system, the standard strategy is what?",
+        "hint": "Study each rest point with its own linear approximation.",
+        "answerOptions": [
+          {
+            "text": "Find all equilibria, then linearize and classify each one",
+            "correct": true,
+            "rationale": "Yes. Locating equilibria and linearizing at each builds the local behavior throughout the plane."
+          },
+          {
+            "text": "Assume the system is globally linear",
+            "rationale": "Nonlinear systems are not globally linear. What local procedure is used at each equilibrium?"
+          },
+          {
+            "text": "Ignore the equilibria and solve directly",
+            "rationale": "Equilibria organize the whole portrait. What should be done at each one?"
+          },
+          {
+            "text": "Compute a single global eigenvalue",
+            "rationale": "There is no single global matrix. What is done equilibrium by equilibrium?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BaVfVVMcxQ4_4",
+        "prompt": "A limit cycle is which kind of phase-plane feature?",
+        "hint": "It is a closed loop that nearby trajectories spiral toward or away from.",
+        "answerOptions": [
+          {
+            "text": "An isolated closed orbit that attracts or repels nearby trajectories",
+            "correct": true,
+            "rationale": "Yes. A limit cycle is an isolated periodic orbit, a genuinely nonlinear phenomenon."
+          },
+          {
+            "text": "A straight-line trajectory through the origin",
+            "rationale": "Limit cycles are closed loops, not straight lines. What isolated periodic feature is meant?"
+          },
+          {
+            "text": "One of the infinitely many nested orbits of a center",
+            "rationale": "Center orbits are not isolated; limit cycles are. What distinguishes a limit cycle?"
+          },
+          {
+            "text": "An equilibrium point",
+            "rationale": "A limit cycle is a closed curve, not a single point. What periodic structure is it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BaVfVVMcxQ4_5",
+        "prompt": "Limit cycles can occur in which kind of system?",
+        "hint": "They are absent from simple linear systems.",
+        "answerOptions": [
+          {
+            "text": "Nonlinear systems",
+            "correct": true,
+            "rationale": "Yes. Isolated periodic orbits are a nonlinear phenomenon; linear systems cannot produce them."
+          },
+          {
+            "text": "Only linear systems",
+            "rationale": "Linear systems have centers, not isolated limit cycles. Which systems allow them?"
+          },
+          {
+            "text": "Only one-dimensional systems",
+            "rationale": "A single first-order autonomous equation cannot oscillate. Which systems support limit cycles?"
+          },
+          {
+            "text": "Any system with constant coefficients",
+            "rationale": "Constant-coefficient linear systems lack isolated cycles. What nonlinearity is needed?"
+          }
+        ]
+      }
+    ],
+    "vBwyD4JJlSs": [
+      {
+        "id": "mp_vBwyD4JJlSs_1",
+        "prompt": "When sketching a nonlinear phase portrait, what do you draw first?",
+        "hint": "Start with the curves that organize the flow and locate rest points.",
+        "answerOptions": [
+          {
+            "text": "The nullclines and the equilibria where they intersect",
+            "correct": true,
+            "rationale": "Yes. Nullclines and their intersections frame the portrait and locate the equilibria."
+          },
+          {
+            "text": "A few random trajectories",
+            "rationale": "Random curves give no structure first. What organizing curves come first?"
+          },
+          {
+            "text": "The eigenvectors of the whole plane",
+            "rationale": "There is no single global eigenvector field. What curves should be drawn first?"
+          },
+          {
+            "text": "The exact solution formula",
+            "rationale": "Nonlinear systems rarely have simple formulas. What qualitative curves start the sketch?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vBwyD4JJlSs_2",
+        "prompt": "Near each equilibrium, the local phase portrait is sketched using what?",
+        "hint": "Use the linear approximation there.",
+        "answerOptions": [
+          {
+            "text": "The eigenvalues and eigenvectors of the Jacobian at that equilibrium",
+            "correct": true,
+            "rationale": "Yes. The Jacobian's spectrum gives the local node, saddle, or spiral structure to sketch."
+          },
+          {
+            "text": "The global determinant of the system",
+            "rationale": "There is no single global determinant for a nonlinear system. What local data is used?"
+          },
+          {
+            "text": "The value of the forcing function",
+            "rationale": "Autonomous systems have no separate forcing here. What local linearization guides the sketch?"
+          },
+          {
+            "text": "The initial condition only",
+            "rationale": "Initial conditions pick one trajectory, not the local structure. What Jacobian data shapes it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vBwyD4JJlSs_3",
+        "prompt": "Direction arrows on the nullclines help because on a nullcline the flow is what?",
+        "hint": "On a nullcline one of the two rates is zero.",
+        "answerOptions": [
+          {
+            "text": "Purely horizontal or purely vertical",
+            "correct": true,
+            "rationale": "Yes. On a $y$-nullcline the flow is horizontal and on an $x$-nullcline it is vertical, fixing arrow directions."
+          },
+          {
+            "text": "Always diagonal",
+            "rationale": "With one rate zero, the flow aligns with an axis, not a diagonal. What two directions occur?"
+          },
+          {
+            "text": "Always zero (no motion)",
+            "rationale": "Motion stops only at equilibria, not all along a nullcline. What axis-aligned flow occurs?"
+          },
+          {
+            "text": "Always circular",
+            "rationale": "Circular flow is not a nullcline property. What straight directions does a nullcline force?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vBwyD4JJlSs_4",
+        "prompt": "Why must global trajectories be drawn consistently with the local pictures at the equilibria?",
+        "hint": "Trajectories obey uniqueness and must match the flow everywhere.",
+        "answerOptions": [
+          {
+            "text": "Trajectories cannot cross and must blend the local behaviors into one smooth flow",
+            "correct": true,
+            "rationale": "Yes. Because trajectories never cross, they must connect the local structures into a coherent global flow."
+          },
+          {
+            "text": "Because all trajectories are straight lines",
+            "rationale": "Nonlinear trajectories curve. What constraint forces consistency with local pictures?"
+          },
+          {
+            "text": "Because each equilibrium is independent of the rest",
+            "rationale": "The flow is one connected field, not independent pieces. What links the local pictures?"
+          },
+          {
+            "text": "Because the system is linear globally",
+            "rationale": "It is nonlinear globally. What non-crossing principle ties the sketch together?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vBwyD4JJlSs_5",
+        "prompt": "A separatrix in a nonlinear phase portrait does what?",
+        "hint": "It is a special trajectory acting as a boundary.",
+        "answerOptions": [
+          {
+            "text": "Divides the plane into regions with qualitatively different long-term behavior",
+            "correct": true,
+            "rationale": "Yes. A separatrix is a boundary trajectory separating basins of different eventual behavior."
+          },
+          {
+            "text": "Connects every equilibrium in a single loop",
+            "rationale": "It is a dividing curve, not a connector of all rest points. What does it separate?"
+          },
+          {
+            "text": "Marks where the solution is undefined",
+            "rationale": "Solutions are defined on separatrices. What boundary role does it play?"
+          },
+          {
+            "text": "Lists the eigenvalues of the system",
+            "rationale": "A separatrix is a curve, not a list of numbers. What regions does it bound?"
+          }
+        ]
+      }
+    ],
+    "ccIl0clxJpE": [
+      {
+        "id": "mp_ccIl0clxJpE_1",
+        "prompt": "In the Lotka-Volterra model $x' = ax - bxy$, $y' = -cy + dxy$, which variable is the predator?",
+        "hint": "The predator declines on its own and benefits from the interaction term.",
+        "answerOptions": [
+          {
+            "text": "$y$, since it decays as $-cy$ without prey and grows with the $+dxy$ interaction",
+            "correct": true,
+            "rationale": "Yes. The $-cy$ term is natural predator decline and $+dxy$ is the gain from eating prey."
+          },
+          {
+            "text": "$x$, since it grows as $ax$ on its own",
+            "rationale": "Self-growth without the other species is the prey's trait. Which variable declines alone?"
+          },
+          {
+            "text": "Neither; both are prey",
+            "rationale": "The model has one of each. Which variable has natural decline and interaction-driven growth?"
+          },
+          {
+            "text": "Both equally",
+            "rationale": "The roles are asymmetric. Which variable benefits from the interaction term $+dxy$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccIl0clxJpE_2",
+        "prompt": "In the absence of predators ($y = 0$), the prey equation becomes $x' = ax$. What does the prey population do?",
+        "hint": "This is simple exponential growth.",
+        "answerOptions": [
+          {
+            "text": "Grows exponentially",
+            "correct": true,
+            "rationale": "Yes. With no predators, $x' = ax$ gives unbounded exponential growth of the prey."
+          },
+          {
+            "text": "Decays to zero",
+            "rationale": "The coefficient $a$ is a positive growth rate, not decay. What does $x' = ax$ produce?"
+          },
+          {
+            "text": "Stays constant",
+            "rationale": "A nonzero $ax$ term forces change. What kind of growth does $x' = ax$ give?"
+          },
+          {
+            "text": "Oscillates periodically",
+            "rationale": "A single linear equation $x' = ax$ does not oscillate. What behavior results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccIl0clxJpE_3",
+        "prompt": "In the absence of prey ($x = 0$), the predator equation becomes $y' = -cy$. What does the predator population do?",
+        "hint": "This is exponential decay.",
+        "answerOptions": [
+          {
+            "text": "Declines exponentially to zero",
+            "correct": true,
+            "rationale": "Yes. With no prey to eat, $y' = -cy$ drives the predators to extinction exponentially."
+          },
+          {
+            "text": "Grows exponentially",
+            "rationale": "The coefficient $-c$ is negative, so it cannot grow. What does $y' = -cy$ give?"
+          },
+          {
+            "text": "Stays constant",
+            "rationale": "A nonzero $-cy$ term forces decline. What happens to the predators?"
+          },
+          {
+            "text": "Oscillates",
+            "rationale": "A single linear equation $y' = -cy$ does not oscillate. What decay results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccIl0clxJpE_4",
+        "prompt": "Besides the origin, the coexistence equilibrium of $x' = ax - bxy$, $y' = -cy + dxy$ is at which point?",
+        "hint": "Set each right-hand side to zero and factor out the nonzero population.",
+        "answerOptions": [
+          {
+            "text": "$x = c/d$, $y = a/b$",
+            "correct": true,
+            "rationale": "Correct. From $a - by = 0$ and $-c + dx = 0$ we get $y = a/b$ and $x = c/d$."
+          },
+          {
+            "text": "$x = a/b$, $y = c/d$",
+            "rationale": "The prey equation gives $y = a/b$, and the predator equation gives $x = c/d$. Which variable is which?"
+          },
+          {
+            "text": "$x = b/a$, $y = d/c$",
+            "rationale": "Solve $a - by = 0$ for $y$, giving $a/b$, not $d/c$. What does each equation yield?"
+          },
+          {
+            "text": "$x = a/c$, $y = b/d$",
+            "rationale": "Factor each equation carefully: $-c + dx = 0$ gives $x = c/d$. What is $y$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccIl0clxJpE_5",
+        "prompt": "What do the interaction terms $-bxy$ and $+dxy$ represent biologically?",
+        "hint": "They are proportional to the number of predator-prey encounters.",
+        "answerOptions": [
+          {
+            "text": "The effect of predator-prey encounters: prey lost and predators gained",
+            "correct": true,
+            "rationale": "Yes. The product $xy$ counts encounters; prey decrease ($-bxy$) and predators increase ($+dxy$)."
+          },
+          {
+            "text": "The natural birth rates of both species",
+            "rationale": "Natural rates are the $ax$ and $-cy$ terms. What do the $xy$ products model?"
+          },
+          {
+            "text": "Random migration in and out",
+            "rationale": "The model has no migration terms. What do the cross terms capture?"
+          },
+          {
+            "text": "Seasonal temperature changes",
+            "rationale": "There is no temperature in the model. What interaction does $xy$ represent?"
+          }
+        ]
+      }
+    ],
+    "Zg9k9ijiYPA": [
+      {
+        "id": "mp_Zg9k9ijiYPA_1",
+        "prompt": "In the standard Lotka-Volterra model, the trajectories around the coexistence equilibrium are what?",
+        "hint": "The populations rise and fall repeatedly without settling.",
+        "answerOptions": [
+          {
+            "text": "Closed orbits, so the populations oscillate periodically",
+            "correct": true,
+            "rationale": "Yes. The coexistence equilibrium is a center, so populations cycle periodically around it."
+          },
+          {
+            "text": "Inward spirals to a steady state",
+            "rationale": "The classic model does not damp to a steady state; it cycles. What closed shape do the orbits form?"
+          },
+          {
+            "text": "Straight lines to extinction",
+            "rationale": "Coexistence trajectories do not run to extinction. What periodic shape do they trace?"
+          },
+          {
+            "text": "A single fixed point with no motion",
+            "rationale": "Away from equilibrium the populations change. What closed curves do they follow?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zg9k9ijiYPA_2",
+        "prompt": "The predator and prey population peaks are related in time how?",
+        "hint": "Predators respond to prey abundance with a delay.",
+        "answerOptions": [
+          {
+            "text": "Out of phase: the predator peak lags behind the prey peak",
+            "correct": true,
+            "rationale": "Yes. Prey abundance feeds predator growth, so the predator peak trails the prey peak."
+          },
+          {
+            "text": "Exactly in phase, peaking together",
+            "rationale": "Predators need time to respond to prey numbers. What phase relationship results?"
+          },
+          {
+            "text": "The predator peak comes before the prey peak",
+            "rationale": "Predators rise only after prey are plentiful. Which peak comes first?"
+          },
+          {
+            "text": "They never change",
+            "rationale": "The populations do oscillate. What is the timing relation between the peaks?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zg9k9ijiYPA_3",
+        "prompt": "How many equilibria does the standard Lotka-Volterra model have?",
+        "hint": "Count the origin plus the coexistence point.",
+        "answerOptions": [
+          {
+            "text": "Two: the origin and the coexistence point",
+            "correct": true,
+            "rationale": "Yes. The model has extinction at the origin and the coexistence equilibrium."
+          },
+          {
+            "text": "One: only the coexistence point",
+            "rationale": "The origin is also an equilibrium. How many are there in total?"
+          },
+          {
+            "text": "Infinitely many",
+            "rationale": "The nullclines cross at just two points. How many equilibria result?"
+          },
+          {
+            "text": "None",
+            "rationale": "Both rates can vanish simultaneously at specific points. How many such points exist?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zg9k9ijiYPA_4",
+        "prompt": "At the origin $(0, 0)$ of the predator-prey model, the equilibrium type is what?",
+        "hint": "The linearization there has eigenvalues $a > 0$ and $-c < 0$.",
+        "answerOptions": [
+          {
+            "text": "A saddle (unstable)",
+            "correct": true,
+            "rationale": "Yes. The Jacobian at the origin has eigenvalues $a$ and $-c$ of opposite sign, a saddle."
+          },
+          {
+            "text": "A stable node",
+            "rationale": "Stability needs both eigenvalues negative, but $a > 0$. What does the positive eigenvalue give?"
+          },
+          {
+            "text": "A center",
+            "rationale": "The origin's eigenvalues are real and opposite in sign, not imaginary. What type is that?"
+          },
+          {
+            "text": "A stable spiral",
+            "rationale": "Spirals need complex eigenvalues; here they are real. What opposite-sign type results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zg9k9ijiYPA_5",
+        "prompt": "A realistic refinement adds a logistic term limiting prey growth. This typically changes the coexistence equilibrium into what?",
+        "hint": "Damping turns neutral cycles into a settling behavior.",
+        "answerOptions": [
+          {
+            "text": "A stable equilibrium that trajectories spiral into",
+            "correct": true,
+            "rationale": "Yes. Logistic self-limitation adds damping, turning the neutral center into a stable spiral or node."
+          },
+          {
+            "text": "A saddle point",
+            "rationale": "Self-limitation stabilizes rather than destabilizes coexistence. What stable type results?"
+          },
+          {
+            "text": "An unchanged neutral center",
+            "rationale": "The added damping removes the neutral cycles. What does coexistence become?"
+          },
+          {
+            "text": "A source that repels trajectories",
+            "rationale": "Damping attracts rather than repels. What stable behavior results?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_16_1",
+      "prompt": "A phase portrait of $\\mathbf{x}' = A\\mathbf{x}$ plots what?",
+      "hint": "It shows the state variables against each other, not against time.",
+      "answerOptions": [
+        {
+          "text": "Trajectories in the $x_1 x_2$ plane with arrows for the flow direction",
+          "correct": true,
+          "rationale": "Yes. A phase portrait shows solution curves in state space and the direction of motion."
+        },
+        {
+          "text": "Each variable versus time $t$",
+          "rationale": "Those are time series. What plane does a phase portrait use?"
+        },
+        {
+          "text": "The eigenvalues in the complex plane",
+          "rationale": "That is a spectrum plot. What curves fill a phase portrait?"
+        },
+        {
+          "text": "The entries of $A$ as a bar chart",
+          "rationale": "The matrix entries are not plotted. What geometric objects appear?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_2",
+      "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$ with invertible $A$, the only equilibrium is where?",
+      "hint": "Solve $A\\mathbf{x} = \\mathbf{0}$.",
+      "answerOptions": [
+        {
+          "text": "At the origin",
+          "correct": true,
+          "rationale": "Yes. With $A$ invertible, $A\\mathbf{x} = \\mathbf{0}$ forces $\\mathbf{x} = \\mathbf{0}$."
+        },
+        {
+          "text": "At every eigenvector",
+          "rationale": "Eigenvectors set directions, not equilibria. Where does $A\\mathbf{x} = \\mathbf{0}$ put it?"
+        },
+        {
+          "text": "Along an entire line",
+          "rationale": "A line of equilibria needs a singular $A$. For invertible $A$, what single point solves it?"
+        },
+        {
+          "text": "Nowhere",
+          "rationale": "The origin always satisfies $A\\mathbf{x} = \\mathbf{0}$. Where is the equilibrium?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_3",
+      "prompt": "For real distinct eigenvalues, the straight-line trajectories lie along which directions?",
+      "hint": "Solutions confined to a line follow a special direction of $A$.",
+      "answerOptions": [
+        {
+          "text": "The eigenvectors of $A$",
+          "correct": true,
+          "rationale": "Yes. Motion along an eigenvector stays on that line, giving straight-line trajectories."
+        },
+        {
+          "text": "The coordinate axes always",
+          "rationale": "The special lines are eigenvectors, not necessarily the axes. What directions stay invariant?"
+        },
+        {
+          "text": "Circles about the origin",
+          "rationale": "Circles are not straight and arise for centers. What straight directions does $A$ pick out?"
+        },
+        {
+          "text": "The line $x_1 = x_2$ always",
+          "rationale": "That line is not generally invariant. Which directions are?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_4",
+      "prompt": "As $t \\to \\infty$, trajectories of a system with two negative real eigenvalues do what?",
+      "hint": "Negative rates shrink every mode.",
+      "answerOptions": [
+        {
+          "text": "Approach the origin (stable node)",
+          "correct": true,
+          "rationale": "Yes. Both modes decay, so trajectories tend to the origin."
+        },
+        {
+          "text": "Escape to infinity",
+          "rationale": "Escape needs a positive eigenvalue. What do negative rates do?"
+        },
+        {
+          "text": "Circle the origin forever",
+          "rationale": "Closed circling comes from imaginary eigenvalues. What do negative reals give?"
+        },
+        {
+          "text": "Remain fixed in place",
+          "rationale": "Nonzero points still move. Where do decaying modes send them?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_5",
+      "prompt": "Approaching a node, trajectories become tangent to which eigenvector direction?",
+      "hint": "The mode that decays slowest dominates near the origin.",
+      "answerOptions": [
+        {
+          "text": "The eigenvector of the eigenvalue closest to zero (the slow direction)",
+          "correct": true,
+          "rationale": "Yes. The slowest mode persists longest, so trajectories align with its eigenvector near the origin."
+        },
+        {
+          "text": "The eigenvector of the most negative eigenvalue",
+          "rationale": "That fast mode dies first. Which direction lingers near the origin?"
+        },
+        {
+          "text": "The vertical axis always",
+          "rationale": "Tangency follows an eigenvector, not a fixed axis. Which one governs the approach?"
+        },
+        {
+          "text": "A 45-degree line always",
+          "rationale": "No fixed angle applies. Which eigenvalue's direction dominates?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_6",
+      "prompt": "Both eigenvalues real and positive give which equilibrium?",
+      "hint": "Positive rates push trajectories outward.",
+      "answerOptions": [
+        {
+          "text": "A source (unstable node)",
+          "correct": true,
+          "rationale": "Yes. Two positive real eigenvalues send all trajectories away from the origin."
+        },
+        {
+          "text": "A sink (stable node)",
+          "rationale": "A sink needs negative eigenvalues. What does the positive sign give?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "A saddle needs opposite signs. What does the same positive sign give?"
+        },
+        {
+          "text": "A center",
+          "rationale": "Centers need imaginary eigenvalues. What do positive reals give?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_7",
+      "prompt": "A saddle is detected by which condition on the determinant of $A$?",
+      "hint": "The determinant is the product of the eigenvalues.",
+      "answerOptions": [
+        {
+          "text": "$\\det(A) < 0$",
+          "correct": true,
+          "rationale": "Yes. A negative determinant means opposite-sign eigenvalues, the signature of a saddle."
+        },
+        {
+          "text": "$\\det(A) > 0$",
+          "rationale": "A positive determinant gives same-sign or complex eigenvalues. What sign signals a saddle?"
+        },
+        {
+          "text": "$\\det(A) = 0$",
+          "rationale": "A zero determinant gives a non-isolated equilibrium. What determinant sign indicates a saddle?"
+        },
+        {
+          "text": "$\\det(A) = 1$",
+          "rationale": "No special value of $1$ applies. What determinant sign marks a saddle?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_8",
+      "prompt": "Complex eigenvalues with nonzero real part produce which equilibrium?",
+      "hint": "Rotation plus growth or decay makes a spiral.",
+      "answerOptions": [
+        {
+          "text": "A spiral",
+          "correct": true,
+          "rationale": "Yes. The imaginary part rotates and the nonzero real part scales the amplitude, giving a spiral."
+        },
+        {
+          "text": "A node",
+          "rationale": "Nodes come from real eigenvalues. What do complex ones with nonzero real part give?"
+        },
+        {
+          "text": "A center",
+          "rationale": "A center needs zero real part. What does a nonzero real part add?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "Saddles come from real opposite-sign eigenvalues. What do complex ones give?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_9",
+      "prompt": "Using the trace and determinant, a center requires $\\det(A) > 0$ together with what?",
+      "hint": "Purely imaginary conjugate eigenvalues sum to zero.",
+      "answerOptions": [
+        {
+          "text": "$\\text{tr}(A) = 0$",
+          "correct": true,
+          "rationale": "Yes. Zero trace with positive determinant gives purely imaginary eigenvalues, a center."
+        },
+        {
+          "text": "$\\text{tr}(A) > 0$",
+          "rationale": "A positive trace gives a spiral source. What trace gives pure rotation?"
+        },
+        {
+          "text": "$\\text{tr}(A) < 0$",
+          "rationale": "A negative trace gives a spiral sink. What trace gives a center?"
+        },
+        {
+          "text": "$\\text{tr}(A) = 1$",
+          "rationale": "No special value of $1$ applies. What trace forces purely imaginary eigenvalues?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_10",
+      "prompt": "For $A$ with rows $(-1, 0)$ and $(0, -3)$, the origin is what?",
+      "hint": "Read the eigenvalues off the diagonal and check signs.",
+      "answerOptions": [
+        {
+          "text": "A stable node (sink)",
+          "correct": true,
+          "rationale": "Yes. Eigenvalues $-1$ and $-3$ are both negative reals, giving a stable node."
+        },
+        {
+          "text": "An unstable node",
+          "rationale": "An unstable node needs positive eigenvalues. What does the negative sign give?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "A saddle needs opposite signs. Are $-1$ and $-3$ opposite?"
+        },
+        {
+          "text": "A spiral",
+          "rationale": "Spirals need complex eigenvalues. Are $-1$ and $-3$ real or complex?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_11",
+      "prompt": "To approximate a nonlinear system near an equilibrium, which matrix is used?",
+      "hint": "It collects the first partial derivatives of the right-hand sides.",
+      "answerOptions": [
+        {
+          "text": "The Jacobian matrix",
+          "correct": true,
+          "rationale": "Yes. The Jacobian of the right-hand sides at the equilibrium gives the linear approximation."
+        },
+        {
+          "text": "The identity matrix",
+          "rationale": "The identity carries no system information. What derivative matrix is used?"
+        },
+        {
+          "text": "The inverse of $A$",
+          "rationale": "There is no fixed $A$ for a nonlinear system. What matrix of partials approximates it?"
+        },
+        {
+          "text": "A diagonal matrix of equilibrium coordinates",
+          "rationale": "The coordinates are not the linearization. What partial-derivative matrix is needed?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_12",
+      "prompt": "For $x' = f(x, y)$, $y' = g(x, y)$, the equilibria satisfy what?",
+      "hint": "At an equilibrium nothing changes in time.",
+      "answerOptions": [
+        {
+          "text": "$f = 0$ and $g = 0$ simultaneously",
+          "correct": true,
+          "rationale": "Yes. Both right-hand sides vanish at an equilibrium."
+        },
+        {
+          "text": "$f = g$",
+          "rationale": "Equality of the functions is not the condition. What value must each take?"
+        },
+        {
+          "text": "$f_x = g_y = 0$",
+          "rationale": "Those are derivative conditions, not the equilibrium condition. What must the functions equal?"
+        },
+        {
+          "text": "$x = y$",
+          "rationale": "No coordinate relation defines equilibria. What must $f$ and $g$ equal?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_13",
+      "prompt": "For $x' = f(x, y)$, $y' = g(x, y)$, the Jacobian has which rows?",
+      "hint": "Each row holds the partials of one right-hand side.",
+      "answerOptions": [
+        {
+          "text": "$(f_x, f_y)$ and $(g_x, g_y)$",
+          "correct": true,
+          "rationale": "Yes. The first row is the partials of $f$, the second the partials of $g$."
+        },
+        {
+          "text": "$(f_x, g_x)$ and $(f_y, g_y)$",
+          "rationale": "Each row should come from one function. What makes up the first row?"
+        },
+        {
+          "text": "$(f, g)$ and $(f, g)$",
+          "rationale": "The Jacobian uses derivatives, not the functions. What partials fill the rows?"
+        },
+        {
+          "text": "$(f_{xx}, f_{yy})$ and $(g_{xx}, g_{yy})$",
+          "rationale": "It uses first partials, not second. Which derivatives appear?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_14",
+      "prompt": "For $x' = y$, $y' = -\\sin x$, the Jacobian at the origin is which matrix?",
+      "hint": "Differentiate, then use $\\cos 0 = 1$.",
+      "answerOptions": [
+        {
+          "text": "Rows $(0, 1)$ and $(-1, 0)$",
+          "correct": true,
+          "rationale": "Correct. The rows are $(0, 1)$ and $(-\\cos x, 0)$; at $x = 0$ this is $(-1, 0)$."
+        },
+        {
+          "text": "Rows $(0, 1)$ and $(0, -1)$",
+          "rationale": "The partial of $-\\sin x$ in $x$ is $-\\cos x$. What does it give at $0$?"
+        },
+        {
+          "text": "Rows $(1, 0)$ and $(-1, 0)$",
+          "rationale": "The partial of $y$ in $x$ is $0$. What is the first row?"
+        },
+        {
+          "text": "Rows $(0, 1)$ and $(1, 0)$",
+          "rationale": "The derivative of $-\\sin x$ keeps a minus sign. What is $-\\cos 0$?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_15",
+      "prompt": "The Hartman-Grobman theorem guarantees the linearization is reliable when the equilibrium is what?",
+      "hint": "No eigenvalue may sit on the imaginary axis.",
+      "answerOptions": [
+        {
+          "text": "Hyperbolic (all eigenvalues have nonzero real part)",
+          "correct": true,
+          "rationale": "Yes. When no eigenvalue has zero real part, the linearization faithfully predicts local behavior."
+        },
+        {
+          "text": "Any equilibrium whatsoever",
+          "rationale": "Borderline cases can fail. What eigenvalue restriction is required?"
+        },
+        {
+          "text": "One with a purely imaginary eigenvalue",
+          "rationale": "That is the borderline failing case. What real-part condition is needed?"
+        },
+        {
+          "text": "One at the origin",
+          "rationale": "Location is irrelevant. What eigenvalue condition matters?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_16",
+      "prompt": "The $x$-nullcline of $x' = f(x, y)$, $y' = g(x, y)$ is the curve where what holds?",
+      "hint": "It is where the rate of change of $x$ vanishes.",
+      "answerOptions": [
+        {
+          "text": "$x' = 0$, that is $f(x, y) = 0$",
+          "correct": true,
+          "rationale": "Yes. The $x$-nullcline is where $x' = f = 0$."
+        },
+        {
+          "text": "$y' = 0$",
+          "rationale": "That is the $y$-nullcline. Which rate vanishes for the $x$-nullcline?"
+        },
+        {
+          "text": "$x = 0$",
+          "rationale": "Setting the variable to zero differs from setting its rate to zero. What must vanish?"
+        },
+        {
+          "text": "$f = g$",
+          "rationale": "Equality of rates is not a nullcline. What single rate is zero?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_17",
+      "prompt": "Equilibria are located where which curves intersect?",
+      "hint": "At an equilibrium both rates vanish at once.",
+      "answerOptions": [
+        {
+          "text": "An $x$-nullcline and a $y$-nullcline",
+          "correct": true,
+          "rationale": "Yes. There both $x' = 0$ and $y' = 0$, so the point is an equilibrium."
+        },
+        {
+          "text": "Two $x$-nullclines",
+          "rationale": "Both rates must vanish, from different nullclines. Which two kinds intersect?"
+        },
+        {
+          "text": "A nullcline and the $x$-axis",
+          "rationale": "The axis is not generally a nullcline. Which two nullclines must cross?"
+        },
+        {
+          "text": "Any two trajectories",
+          "rationale": "Trajectories do not cross. What nullcline intersection gives an equilibrium?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_18",
+      "prompt": "On the $x$-nullcline (where $x' = 0$), the flow points in which direction?",
+      "hint": "If $x$ is momentarily fixed, only $y$ changes.",
+      "answerOptions": [
+        {
+          "text": "Purely vertically",
+          "correct": true,
+          "rationale": "Yes. With $x' = 0$ there is no horizontal component, so the flow is vertical."
+        },
+        {
+          "text": "Purely horizontally",
+          "rationale": "The horizontal component is zero here. Which component remains?"
+        },
+        {
+          "text": "At 45 degrees",
+          "rationale": "No fixed angle applies. What direction results when the horizontal rate is zero?"
+        },
+        {
+          "text": "No direction (no motion)",
+          "rationale": "Motion stops only at equilibria. What single direction remains?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_19",
+      "prompt": "For $x' = x - y$, the $x$-nullcline is which line?",
+      "hint": "Set $x' = 0$ and solve.",
+      "answerOptions": [
+        {
+          "text": "$y = x$",
+          "correct": true,
+          "rationale": "Correct. Setting $x - y = 0$ gives $y = x$."
+        },
+        {
+          "text": "$y = -x$",
+          "rationale": "Solve $x - y = 0$, not $x + y = 0$. What line results?"
+        },
+        {
+          "text": "$x = 0$",
+          "rationale": "The nullcline is $x - y = 0$, not $x = 0$. What line is that?"
+        },
+        {
+          "text": "$y = 0$",
+          "rationale": "Setting $y = 0$ ignores the $x$ term. What does $x - y = 0$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_20",
+      "prompt": "To classify a particular equilibrium of a nonlinear system, the Jacobian is evaluated where, and stability read from what?",
+      "hint": "Linearization is local; eigenvalues classify it.",
+      "answerOptions": [
+        {
+          "text": "At that equilibrium, with stability from the Jacobian's eigenvalues",
+          "correct": true,
+          "rationale": "Yes. Evaluate the Jacobian at the equilibrium and read stability from its eigenvalues."
+        },
+        {
+          "text": "At the origin, from the determinant of the raw functions",
+          "rationale": "Not every equilibrium is at the origin, and stability comes from eigenvalues. What is the correct point and data?"
+        },
+        {
+          "text": "At an arbitrary point, from the trace alone",
+          "rationale": "The point must be the equilibrium and both eigenvalues matter. What is correct?"
+        },
+        {
+          "text": "Averaged over the plane, from the number of equilibria",
+          "rationale": "Stability is local and spectral, not an average count. Where and from what is it read?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_21",
+      "prompt": "What does it mean for a system to be autonomous?",
+      "hint": "Check whether $t$ appears explicitly on the right-hand sides.",
+      "answerOptions": [
+        {
+          "text": "The right-hand sides do not depend explicitly on $t$",
+          "correct": true,
+          "rationale": "Yes. An autonomous system depends only on the state, not directly on time."
+        },
+        {
+          "text": "The system is linear",
+          "rationale": "Autonomy concerns time dependence, not linearity. What must be absent?"
+        },
+        {
+          "text": "All solutions are constant",
+          "rationale": "Autonomous systems have many non-constant solutions. What defines autonomy?"
+        },
+        {
+          "text": "The right-hand sides depend on $t$ explicitly",
+          "rationale": "That is the opposite. What dependence is excluded?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_22",
+      "prompt": "Can two distinct trajectories of an autonomous system cross in the phase plane?",
+      "hint": "Recall uniqueness of solutions.",
+      "answerOptions": [
+        {
+          "text": "No; uniqueness forbids crossings",
+          "correct": true,
+          "rationale": "Yes. A crossing would make two solutions share a point, violating uniqueness."
+        },
+        {
+          "text": "Yes; they cross freely",
+          "rationale": "That would break uniqueness. What does the theorem forbid?"
+        },
+        {
+          "text": "Only if the system is nonlinear",
+          "rationale": "Nonlinearity does not permit crossings either. What principle blocks them?"
+        },
+        {
+          "text": "Only at the origin",
+          "rationale": "Crossings are forbidden everywhere. What does uniqueness imply?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_23",
+      "prompt": "A limit cycle is which kind of feature?",
+      "hint": "It is an isolated closed loop nearby trajectories approach or leave.",
+      "answerOptions": [
+        {
+          "text": "An isolated closed orbit (a nonlinear phenomenon)",
+          "correct": true,
+          "rationale": "Yes. A limit cycle is an isolated periodic orbit, possible only in nonlinear systems."
+        },
+        {
+          "text": "A straight-line trajectory",
+          "rationale": "Limit cycles are closed loops, not lines. What isolated periodic feature is meant?"
+        },
+        {
+          "text": "One of a center's nested orbits",
+          "rationale": "Center orbits are not isolated. What makes a limit cycle special?"
+        },
+        {
+          "text": "An equilibrium point",
+          "rationale": "It is a closed curve, not a point. What periodic structure is it?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_24",
+      "prompt": "The standard strategy for a nonlinear autonomous system is what?",
+      "hint": "Treat each rest point with its own linearization.",
+      "answerOptions": [
+        {
+          "text": "Find all equilibria, then linearize and classify each",
+          "correct": true,
+          "rationale": "Yes. Locating and linearizing at each equilibrium builds the local behavior throughout the plane."
+        },
+        {
+          "text": "Assume the system is globally linear",
+          "rationale": "Nonlinear systems are not globally linear. What local procedure is used?"
+        },
+        {
+          "text": "Solve it exactly in closed form",
+          "rationale": "Closed forms are rare for nonlinear systems. What qualitative procedure is standard?"
+        },
+        {
+          "text": "Compute one global eigenvalue",
+          "rationale": "There is no single global matrix. What is done at each equilibrium?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_25",
+      "prompt": "A separatrix in a nonlinear phase portrait does what?",
+      "hint": "It is a boundary trajectory.",
+      "answerOptions": [
+        {
+          "text": "Divides the plane into regions of different long-term behavior",
+          "correct": true,
+          "rationale": "Yes. A separatrix bounds basins leading to different eventual outcomes."
+        },
+        {
+          "text": "Connects all equilibria in one loop",
+          "rationale": "It is a divider, not a connector. What does it separate?"
+        },
+        {
+          "text": "Marks where solutions are undefined",
+          "rationale": "Solutions exist on separatrices. What boundary role does it play?"
+        },
+        {
+          "text": "Lists the system's eigenvalues",
+          "rationale": "It is a curve, not a list of numbers. What regions does it bound?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_26",
+      "prompt": "In $x' = ax - bxy$, $y' = -cy + dxy$, which species is the predator and why?",
+      "hint": "The predator declines on its own and gains from the interaction.",
+      "answerOptions": [
+        {
+          "text": "$y$, since it decays as $-cy$ alone and grows with $+dxy$",
+          "correct": true,
+          "rationale": "Yes. The $-cy$ term is natural decline and $+dxy$ is the gain from consuming prey."
+        },
+        {
+          "text": "$x$, since it grows as $ax$ alone",
+          "rationale": "Self-growth alone is the prey's trait. Which variable declines without the other?"
+        },
+        {
+          "text": "Both are predators",
+          "rationale": "The roles are asymmetric, one of each. Which benefits from $+dxy$?"
+        },
+        {
+          "text": "Neither; both are prey",
+          "rationale": "There is one predator. Which variable declines alone and grows by interaction?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_27",
+      "prompt": "Without predators ($y = 0$), the prey obeys $x' = ax$ and does what?",
+      "hint": "This is simple exponential growth.",
+      "answerOptions": [
+        {
+          "text": "Grows exponentially",
+          "correct": true,
+          "rationale": "Yes. With no predators, $x' = ax$ gives unbounded exponential growth."
+        },
+        {
+          "text": "Decays to zero",
+          "rationale": "The rate $a$ is positive. What does $x' = ax$ produce?"
+        },
+        {
+          "text": "Stays constant",
+          "rationale": "A nonzero $ax$ forces change. What growth results?"
+        },
+        {
+          "text": "Oscillates",
+          "rationale": "A single linear equation does not oscillate. What does $x' = ax$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_28",
+      "prompt": "The coexistence equilibrium of $x' = ax - bxy$, $y' = -cy + dxy$ is at which point?",
+      "hint": "Set each rate to zero and factor out the nonzero population.",
+      "answerOptions": [
+        {
+          "text": "$x = c/d$, $y = a/b$",
+          "correct": true,
+          "rationale": "Correct. From $a - by = 0$ and $-c + dx = 0$ we get $y = a/b$, $x = c/d$."
+        },
+        {
+          "text": "$x = a/b$, $y = c/d$",
+          "rationale": "The prey equation gives $y = a/b$ and the predator equation gives $x = c/d$. Which is which?"
+        },
+        {
+          "text": "$x = b/a$, $y = d/c$",
+          "rationale": "Solve $a - by = 0$ for $y$, getting $a/b$. What does each equation yield?"
+        },
+        {
+          "text": "$x = a/c$, $y = b/d$",
+          "rationale": "Factor each equation: $-c + dx = 0$ gives $x = c/d$. What is $y$?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_29",
+      "prompt": "In the standard Lotka-Volterra model, the trajectories around the coexistence point are what?",
+      "hint": "The populations rise and fall repeatedly.",
+      "answerOptions": [
+        {
+          "text": "Closed orbits, so populations oscillate periodically",
+          "correct": true,
+          "rationale": "Yes. The coexistence equilibrium is a center, so populations cycle periodically."
+        },
+        {
+          "text": "Inward spirals to a steady state",
+          "rationale": "The classic model does not damp out. What closed shape do the orbits form?"
+        },
+        {
+          "text": "Straight lines to extinction",
+          "rationale": "Coexistence trajectories do not run to extinction. What periodic shape results?"
+        },
+        {
+          "text": "A fixed point with no motion",
+          "rationale": "Away from equilibrium the populations change. What closed curves do they trace?"
+        }
+      ]
+    },
+    {
+      "id": "um_16_30",
+      "prompt": "At the origin of the predator-prey model, the linearization has eigenvalues $a > 0$ and $-c < 0$, so the origin is what?",
+      "hint": "The eigenvalues are real with opposite signs.",
+      "answerOptions": [
+        {
+          "text": "A saddle (unstable)",
+          "correct": true,
+          "rationale": "Yes. Opposite-sign real eigenvalues make the origin a saddle."
+        },
+        {
+          "text": "A stable node",
+          "rationale": "Stability needs both eigenvalues negative, but $a > 0$. What does the positive one give?"
+        },
+        {
+          "text": "A center",
+          "rationale": "The eigenvalues are real and opposite, not imaginary. What type is that?"
+        },
+        {
+          "text": "A stable spiral",
+          "rationale": "Spirals need complex eigenvalues; these are real. What opposite-sign type results?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

@@ -1,0 +1,148 @@
+{
+  "unitNumber": 5,
+  "richBodies": true,
+  "title": "Numerical Methods",
+  "subtitle": "From Euler's method through the Runge-Kutta family, with error analysis and adaptive stepping.",
+  "description": "From Euler's method through the Runge-Kutta family, with error analysis and adaptive stepping.",
+  "atAGlance": {
+    "title": "Unit 5 at a Glance: Core Sub-Topics",
+    "summary": "When an initial value problem $\\frac{dy}{dt}=f(t,y),\\ y(t_0)=y_0$ cannot be solved in closed form, we march the solution forward in small steps of size $h$. Every method in this unit is a recipe for turning the slope field $f$ into the next point; they differ only in how many slopes they sample per step and how they weight them.",
+    "bullets": [
+      {
+        "lead": "Euler's Method",
+        "body": "one tangent-line step $y_{n+1}=y_n+hf(t_n,y_n)$; first order, global error $O(h)$."
+      },
+      {
+        "lead": "Improved and Modified Euler",
+        "body": "two-slope averaging and the midpoint step; both second order, $O(h^{2})$."
+      },
+      {
+        "lead": "Heun's Method",
+        "body": "the predictor--corrector reading of improved Euler as a trapezoidal average of endpoint slopes."
+      },
+      {
+        "lead": "The RK4 Method",
+        "body": "four weighted stage slopes $\\tfrac{h}{6}(k_1+2k_2+2k_3+k_4)$; fourth order, $O(h^{4})$."
+      },
+      {
+        "lead": "The Runge--Kutta Family",
+        "body": "the general weighted-stage template that contains Euler, Heun, and RK4 as members."
+      },
+      {
+        "lead": "Adaptive Step Size and Comparison",
+        "body": "estimating local error to resize $h$, and ranking the methods by order of accuracy."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "5.1",
+      "title": "Euler's Method",
+      "topics": "Euler's method is the simplest numerical solver: from the current point it walks a single step along the tangent line whose slope is $f(t_n,y_n)$. It is the foundation every richer method refines.",
+      "formulas": [
+        {
+          "title": "The Euler Update",
+          "body": "\\[ y_{n+1} = y_n + h\\,f(t_n,y_n), \\qquad t_{n+1} = t_n + h. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item Each step follows the \\strong{tangent line} with slope $f(t_n,y_n)$.\n    \\item \\strong{Local} truncation error is $O(h^{2})$ (the dropped\n          $\\tfrac{h^{2}}{2}y''$ term); \\strong{global} error is $O(h)$, so Euler\n          is a \\strong{first-order} method.\n    \\item Halving $h$ roughly \\strong{halves} the global error.\n\\end{itemize}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 5.1: One Euler step for $y'=y$",
+          "setup": "With $y(0)=1$ and $h=0.1$, the slope at the start is $f(0,1)=1$:\n\\[ \\work{y_1 = 1 + 0.1\\cdot 1 = 1.1, \\qquad t_1 = 0.1.} \\]\nThe exact value is $e^{0.1}\\approx 1.10517$, so a single first-order step is\nalready low by about $0.005$.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "5.2",
+      "title": "Improved and Modified Euler Methods",
+      "topics": "Both upgrades sample a \\emph{second} slope to capture the curvature that plain Euler ignores, lifting the order from one to two. The improved method averages the slopes at the two endpoints; the modified (midpoint) method reads one slope at the interval's center.",
+      "formulas": [
+        {
+          "title": "Improved Euler (Endpoint Average) and Modified Euler (Midpoint)",
+          "body": "\\strong{Improved Euler:}\n\\[ k_1 = f(t_n,y_n), \\qquad k_2 = f\\!\\left(t_n+h,\\; y_n+h k_1\\right), \\]\n\\[ y_{n+1} = y_n + \\frac{h}{2}\\left(k_1 + k_2\\right). \\]\n\\strong{Modified Euler (midpoint):}\n\\[ k_1 = f(t_n,y_n), \\qquad k_2 = f\\!\\left(t_n+\\tfrac{h}{2},\\; y_n+\\tfrac{h}{2}k_1\\right), \\]\n\\[ y_{n+1} = y_n + h\\,k_2. \\]\nBoth are \\strong{second order}, with global error $O(h^{2})$: halving $h$ cuts the\nerror by about a factor of four."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 5.2: Improved Euler for $y'=y$",
+          "setup": "With $y(0)=1$, $h=0.1$: the predictor slope is $k_1=1$ and the corrected slope is\n$k_2=f(0.1,\\,1.1)=1.1$. Averaging,\n\\[ \\work{y_1 = 1 + \\frac{0.1}{2}\\left(1 + 1.1\\right) = 1 + 0.05\\cdot 2.1 = 1.105.} \\]\nThis already matches $e^{0.1}\\approx 1.10517$ to three decimals --- far better than\nthe plain Euler $1.1$.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "5.3",
+      "title": "Heun's Method",
+      "topics": "Heun's method is improved Euler told as a \\emph{predictor--corrector}: take a provisional Euler step to predict the endpoint, then correct with the \\emph{average} of the slopes at the two ends. That average is exactly the trapezoidal rule applied to $\\int f\\,dt$.",
+      "methodology": {
+        "title": "Heun's Predictor--Corrector",
+        "steps": [
+          "\\strong{Predict} the endpoint with a plain Euler step: \\[ \\tilde{y}_{n+1} = y_n + h\\,f(t_n,y_n). \\]",
+          "\\strong{Correct} with the trapezoidal average of the two slopes: \\[ y_{n+1} = y_n + \\frac{h}{2}\\Big[\\,f(t_n,y_n) + f(t_{n+1},\\tilde{y}_{n+1})\\,\\Big]. \\]"
+        ]
+      },
+      "warning": {
+        "title": "Common Pitfall: Unequal vs.\\ Equal Slope Weights",
+        "body": "The improved Euler / Heun corrector weights the two slopes \\emph{equally},\n$\\tfrac{h}{2}(k_1+k_2)$. Do not borrow RK4's $\\tfrac{h}{6}(k_1+2k_2+2k_3+k_4)$\nweights for a two-slope method, and do not forget the predictor uses the\n\\emph{full} step $h$ while the midpoint method uses a \\emph{half} step\n$\\tfrac{h}{2}$."
+      }
+    },
+    {
+      "id": "5.4",
+      "title": "The RK4 Method",
+      "topics": "The classical fourth-order Runge--Kutta method samples four slopes per step --- at the start, twice at the midpoint, and once at the end --- and blends them with Simpson-like weights $1,2,2,1$. It is the workhorse of practical ODE solving.",
+      "formulas": [
+        {
+          "title": "The Classical RK4 Step",
+          "body": "\\[ k_1 = f(t_n,\\,y_n), \\]\n\\[ k_2 = f\\!\\left(t_n+\\tfrac{h}{2},\\; y_n+\\tfrac{h}{2}k_1\\right), \\qquad\n   k_3 = f\\!\\left(t_n+\\tfrac{h}{2},\\; y_n+\\tfrac{h}{2}k_2\\right), \\]\n\\[ k_4 = f\\!\\left(t_n+h,\\; y_n+h k_3\\right), \\]\n\\[ y_{n+1} = y_n + \\frac{h}{6}\\left(k_1 + 2k_2 + 2k_3 + k_4\\right). \\]\nRK4 is \\strong{fourth order}, with global error $O(h^{4})$: halving $h$ shrinks the\nerror by about a factor of $\\mathbf{16}$."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 5.4: One RK4 step for $y'=y$",
+          "setup": "With $y(0)=1$, $h=0.1$:\n\\[ \\work{k_1 = 1,\\quad k_2 = 1.05,\\quad k_3 = 1.0525,\\quad k_4 = 1.10525.} \\]\n\\[ \\work{y_1 = 1 + \\frac{0.1}{6}\\big(1 + 2(1.05) + 2(1.0525) + 1.10525\\big) = 1.105171.} \\]\nAgainst $e^{0.1}=1.1051709\\ldots$ the error is below $10^{-6}$ in a single step.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "5.5",
+      "title": "The Runge--Kutta Family",
+      "topics": "Euler, the midpoint method, Heun, and RK4 are all instances of one template: take a weighted average of slopes sampled at chosen points across the step. The \\emph{number of stages} and the \\emph{weights} fix the order of accuracy.",
+      "formulas": [
+        {
+          "title": "The General Explicit Runge--Kutta Step",
+          "body": "For $s$ stages with weights $b_i$, nodes $c_i$, and coupling coefficients\n$a_{ij}$:\n\\[ k_i = f\\!\\left(t_n + c_i h,\\; y_n + h\\sum_{j<i} a_{ij}\\,k_j\\right), \\qquad\n   y_{n+1} = y_n + h\\sum_{i=1}^{s} b_i\\,k_i. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item Consistency requires $\\sum_i b_i = 1$ (the weights sum to one).\n    \\item Euler is the $1$-stage member; improved Euler, the midpoint method, and\n          Heun are $2$-stage second-order members; RK4 is the classic $4$-stage\n          fourth-order member.\n\\end{itemize}"
+        }
+      ]
+    },
+    {
+      "id": "5.6",
+      "title": "Adaptive Step Size and Method Comparison",
+      "topics": "Rather than fix $h$ in advance, adaptive solvers \\emph{estimate} the local error each step and resize $h$ to hold it under a tolerance --- small steps through sharp turns, large steps across calm stretches.",
+      "methodology": {
+        "title": "Estimating Local Error to Resize $h$",
+        "steps": [
+          "Advance the step two ways of \\emph{different order} (e.g.\\ an embedded RK4/RK5 pair, or one full step vs.\\ two half steps).",
+          "The difference of the two estimates approximates the \\strong{local error}.",
+          "If the error exceeds the tolerance, \\strong{shrink} $h$ and retry; if it is comfortably under, \\strong{grow} $h$ for the next step."
+        ]
+      },
+      "concept": {
+        "title": "Unit 5 Key Takeaway",
+        "body": "Every solver here marches $y_{n+1}=y_n+h\\,(\\text{weighted slope})$; they differ\nonly in the slope. \\highlight{Euler} samples one slope (first order,\n$O(h)$); \\highlight{improved/modified Euler and Heun} average two\n(second order, $O(h^{2})$); \\highlight{RK4} blends four with weights\n$\\highlight{1,2,2,1}$ (fourth order, $O(h^{4})$). All sit inside the\n\\highlight{Runge--Kutta family}, and \\highlight{adaptive\nstepping} tunes $h$ from an on-the-fly local-error estimate."
+      },
+      "warning": {
+        "title": "Common Pitfall: Confusing Order with Step Count",
+        "body": "A method's \\emph{order} $p$ is how fast error falls as $h\\to 0$ (global error\n$O(h^{p})$), not how many steps it takes. RK4 with a large $h$ can beat Euler with\na tiny $h$ at equal cost. And smaller $h$ is not free: too small, and accumulated\nroundoff begins to swamp the truncation gain."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Numerical Methods",
+    "takeaway": {
+      "title": "Unit 5 Key Takeaway",
+      "body": "Accuracy is bought with slopes per step. \\highlight{Euler} uses one\n(first order); \\highlight{improved/modified Euler and Heun} average\ntwo (second order); \\highlight{RK4} weights four as\n$\\highlight{\\tfrac{h}{6}(k_1+2k_2+2k_3+k_4)}$ (fourth order). On\n$y'=t+y$ over a single $h=0.2$ step, the errors fall from $\\sim 10^{-2}$ to\n$\\sim 10^{-6}$ across the ladder --- and \\highlight{adaptive stepping}\nspends that accuracy budget only where the solution demands it."
+    }
+  }
+}

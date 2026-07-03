@@ -1,0 +1,67 @@
+{
+  "unitNumber": 5,
+  "subtitle": "Practice Set: Problems and Complete Solutions",
+  "intro": "Work the following ten problems in order. They climb from a single Euler step, through the two-slope second-order methods (improved Euler, modified Euler, and Heun), into the four-stage RK4 step, and close with a method comparison and an adaptive-stepping capstone. Throughout, take $\\frac{dy}{dt}=f(t,y)$ with step size $h$. Solutions follow in Part III.",
+  "takeaway": {
+    "title": "Unit 5 Key Takeaway",
+    "body": "Accuracy is bought with slopes per step. \\highlight{Euler} uses one\n(first order); \\highlight{improved/modified Euler and Heun} average\ntwo (second order); \\highlight{RK4} weights four as\n$\\highlight{\\tfrac{h}{6}(k_1+2k_2+2k_3+k_4)}$ (fourth order). On\n$y'=t+y$ over a single $h=0.2$ step, the errors fall from $\\sim 10^{-2}$ to\n$\\sim 10^{-6}$ across the ladder --- and \\highlight{adaptive stepping}\nspends that accuracy budget only where the solution demands it."
+  },
+  "problems": [
+    {
+      "id": "ps_5_1",
+      "problem": "Write the Euler update formula, then take one Euler step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Report $y_1$ and $t_1$.",
+      "solution": " The Euler update is\n$y_{n+1} = y_n + h\\,f(t_n,y_n)$. With $f(t,y)=t+y$, the starting slope is\n$f(0,1) = 0 + 1 = 1$:\n\\[ \\work{y_1 = 1 + 0.2\\cdot 1 = 1.2, \\qquad t_1 = 0.2.} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_2",
+      "problem": "Continue from Problem 1 and take a \\emph{second} Euler step to find $y_2$ at $t_2 = 0.4$.",
+      "solution": " From $(t_1,y_1) = (0.2,\\,1.2)$ the slope is\n$f(0.2,1.2) = 0.2 + 1.2 = 1.4$:\n\\[ \\work{y_2 = 1.2 + 0.2\\cdot 1.4 = 1.48, \\qquad t_2 = 0.4.} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_3",
+      "problem": "State the local and global truncation error orders of Euler's method, and the factor by which the global error changes when $h$ is halved.",
+      "solution": " A single Euler step drops the\n$\\tfrac{h^{2}}{2}y''$ term, so the \\strong{local} truncation error is $O(h^{2})$.\nAccumulated over $\\sim 1/h$ steps, the \\strong{global} error is $O(h)$, making\nEuler a first-order method. Halving $h$ therefore\n\\[ \\work{\\text{cuts the global error by about a factor of } 2.} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_4",
+      "problem": "Take one \\emph{improved Euler} step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
+      "solution": " Improved Euler uses\n$k_1 = f(t_n,y_n)$ and $k_2 = f(t_n+h,\\,y_n+hk_1)$, then averages:\n\\[ \\work{k_1 = f(0,1) = 1, \\qquad k_2 = f(0.2,\\;1 + 0.2\\cdot 1) = f(0.2,\\,1.2) = 1.4.} \\]\n\\[ \\work{y_1 = 1 + \\frac{0.2}{2}\\left(1 + 1.4\\right) = 1 + 0.1\\cdot 2.4 = 1.24.} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_5",
+      "problem": "Take one \\emph{modified Euler} (midpoint) step for the same problem, $\\dfrac{dy}{dt} = t + y$, $y(0)=1$, $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
+      "solution": " Modified Euler reads the slope at the\nmidpoint after a half-step prediction:\n\\[ \\work{k_1 = f(0,1) = 1, \\qquad k_2 = f\\!\\left(0.1,\\; 1 + 0.1\\cdot 1\\right) = f(0.1,\\,1.1) = 1.2.} \\]\n\\[ \\work{y_1 = 1 + h\\,k_2 = 1 + 0.2\\cdot 1.2 = 1.24.} \\]\nHere both second-order methods agree to the digits shown.\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_6",
+      "problem": "Write Heun's predictor--corrector formulas and explain in one line why the method is second order.",
+      "solution": " Heun predicts with a full Euler step and\ncorrects with the trapezoidal average of the endpoint slopes:\n\\[ \\work{\\tilde{y}_{n+1} = y_n + h f(t_n,y_n), \\qquad\n   y_{n+1} = y_n + \\frac{h}{2}\\big[f(t_n,y_n) + f(t_{n+1},\\tilde{y}_{n+1})\\big].} \\]\nAveraging the two endpoint slopes restores the leading curvature term that plain\nEuler discards, so the global error is $O(h^{2})$ --- second order.\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_7",
+      "problem": "For a general $f(t,y)$, write the four RK4 stage slopes $k_1,k_2,k_3,k_4$ and the final RK4 update for $y_{n+1}$.",
+      "solution": " The classical RK4 stages and update are\n\\[ \\work{k_1 = f(t_n,y_n),} \\]\n\\[ \\work{k_2 = f\\!\\left(t_n+\\tfrac{h}{2},\\, y_n+\\tfrac{h}{2}k_1\\right),\n   \\qquad k_3 = f\\!\\left(t_n+\\tfrac{h}{2},\\, y_n+\\tfrac{h}{2}k_2\\right),} \\]\n\\[ \\work{k_4 = f\\!\\left(t_n+h,\\, y_n+h k_3\\right),} \\]\n\\[ \\work{y_{n+1} = y_n + \\frac{h}{6}\\left(k_1 + 2k_2 + 2k_3 + k_4\\right).} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_8",
+      "problem": "Take one RK4 step for $\\dfrac{dy}{dt} = y$ with $y(0) = 1$ and $h = 0.1$. Compute $y_1$ and compare it to $e^{0.1}$.",
+      "solution": " For $f(t,y)=y$ with $y(0)=1$, $h=0.1$:\n\\[ \\work{k_1 = 1, \\quad k_2 = 1 + 0.05\\cdot 1 = 1.05, \\quad\n   k_3 = 1 + 0.05\\cdot 1.05 = 1.0525,} \\]\n\\[ \\work{k_4 = 1 + 0.1\\cdot 1.0525 = 1.10525.} \\]\n\\[ \\work{y_1 = 1 + \\frac{0.1}{6}\\big(1 + 2(1.05) + 2(1.0525) + 1.10525\\big) = 1 + \\frac{0.1}{6}(6.31025) = 1.105171.} \\]\nAgainst $e^{0.1} = 1.1051709\\ldots$ the error is below $10^{-6}$.\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_9",
+      "problem": "Rank Euler, improved/modified Euler, Heun, and RK4 by order of accuracy, and give the factor by which each method's global error drops when $h$ is halved.",
+      "solution": " Ranked by order of accuracy:\n\\[\n\\work{\n\\begin{array}{lll}\n\\text{Euler} & \\text{1st order } O(h) & \\text{halving } h \\Rightarrow \\div 2\\\\\n\\text{Improved / Modified Euler} & \\text{2nd order } O(h^{2}) & \\text{halving } h \\Rightarrow \\div 4\\\\\n\\text{Heun} & \\text{2nd order } O(h^{2}) & \\text{halving } h \\Rightarrow \\div 4\\\\\n\\text{RK4} & \\text{4th order } O(h^{4}) & \\text{halving } h \\Rightarrow \\div 16\n\\end{array}}\n\\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_10",
+      "problem": "Explain how an adaptive solver uses two estimates of \\emph{different} order to decide whether to shrink or grow the step size $h$.",
+      "solution": " An adaptive solver advances each step two\nways of \\emph{different} order --- for example an embedded RK4/RK5 pair, or one\nfull step compared against two half steps. The difference between the two\nestimates approximates the local error. If that estimate \\strong{exceeds} the\ntolerance, the solver \\strong{shrinks} $h$ and retries the step; if it sits\ncomfortably \\strong{under} the tolerance, the solver \\strong{grows} $h$ for the\nnext step, so the work concentrates where the solution changes fastest.\n\n\\medskip"
+    },
+    {
+      "id": "ps_5_11",
+      "problem": "\\strong{(Capstone)} Take one RK4 step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Compute $y_1$, then compare it against the Euler result (Problem 1) and the improved Euler result (Problem 4) using the exact solution $y = 2e^{t} - t - 1$.",
+      "solution": " RK4 for $f(t,y)=t+y$, $y(0)=1$,\n$h=0.2$:\n\\[ \\work{k_1 = f(0,1) = 1, \\qquad k_2 = f(0.1,\\;1+0.1\\cdot 1) = f(0.1,\\,1.1) = 1.2,} \\]\n\\[ \\work{k_3 = f(0.1,\\;1+0.1\\cdot 1.2) = f(0.1,\\,1.12) = 1.22, \\qquad k_4 = f(0.2,\\;1+0.2\\cdot 1.22) = f(0.2,\\,1.244) = 1.444.} \\]\n\\[ \\work{y_1 = 1 + \\frac{0.2}{6}\\big(1 + 2(1.2) + 2(1.22) + 1.444\\big) = 1 + \\frac{0.2}{6}(7.284) = 1.242805.} \\]\nThe exact solution gives $y(0.2) = 2e^{0.2} - 0.2 - 1 = 1.242806$, so RK4 is\ncorrect to six figures. Compare the one-step estimates:\n\\[ \\work{\\text{Euler } 1.2 \\;(\\text{err }\\approx 4.3\\times 10^{-2}), \\quad\n   \\text{Improved } 1.24 \\;(\\text{err }\\approx 2.8\\times 10^{-3}), \\quad\n   \\text{RK4 } 1.242805 \\;(\\text{err }\\approx 10^{-6}).} \\]\n\n\\vspace{0.8em}",
+      "solutionLabel": "Solution (Capstone)."
+    }
+  ]
+}

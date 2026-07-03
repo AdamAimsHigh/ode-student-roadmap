@@ -1,0 +1,61 @@
+{
+  "unitNumber": 16,
+  "subtitle": "Practice Set: Problems and Complete Solutions",
+  "intro": "Work the following ten problems in order. They climb from classifying a linear equilibrium by trace and determinant, through building the Jacobian of a nonlinear system, finding fixed points by nullclines, and linearizing the pendulum, up to a full Lotka--Volterra predator--prey analysis with the Jacobian evaluated and the eigenvalues classified at every equilibrium.",
+  "takeaway": {
+    "title": "Unit Key Takeaway",
+    "body": "One geometric idea runs through the unit: \\highlight{classify the flow one equilibrium at a time}. For a linear system the \\highlight{trace and determinant of $A$} name the origin outright. For a nonlinear system, locate the fixed points as \\highlight{nullcline intersections}, then linearize with the \\highlight{Jacobian $J=\\left(\\begin{smallmatrix} f_x & f_y \\\\ g_x & g_y \\end{smallmatrix}\\right)$} --- the best linear approximation --- and classify each fixed point by its eigenvalues. Stitching those local portraits together along the flow arrows reconstructs the global dynamics, from the swinging pendulum to the cycling predator--prey populations."
+  },
+  "problems": [
+    {
+      "id": "ps_16_1",
+      "problem": "\\strong{(Classify a linear system)} For $A=\\begin{pmatrix} -1 & 2 \\\\ 0 & -4 \\end{pmatrix}$, compute $\\tau$ and $\\Delta$ and classify the origin of $\\mathbf{x}'=A\\mathbf{x}$.",
+      "solution": " Trace and determinant give the type directly:\n\\[ \\work{\\tau=\\operatorname{tr}A=-5,\\quad \\Delta=\\det A=(-1)(-4)-0=4>0,\\quad \\tau^2-4\\Delta=25-16=9>0.} \\]\nWith $\\Delta>0$, discriminant $>0$, and $\\tau<0$, the origin is a \\strong{stable node} (eigenvalues $-1,-4$)."
+    },
+    {
+      "id": "ps_16_2",
+      "problem": "\\strong{(Spiral or node?)} For $A=\\begin{pmatrix} 0 & -2 \\\\ 2 & 0 \\end{pmatrix}$, find the eigenvalues and classify the origin.",
+      "solution": " Here $\\tau=0$ and $\\Delta=0\\cdot 0-(-2)(2)=4>0$:\n\\[ \\work{\\det(A-\\lambda I)=\\lambda^2+4=0 \\;\\Rightarrow\\; \\lambda=\\pm 2i.} \\]\nPure imaginary eigenvalues with $\\tau=0$ make the origin a \\strong{center} --- closed orbits around the origin."
+    },
+    {
+      "id": "ps_16_3",
+      "problem": "\\strong{(Eigendirections)} For $A=\\begin{pmatrix} 1 & 1 \\\\ 4 & 1 \\end{pmatrix}$, find the eigenvalues and eigenvectors and state the equilibrium type.",
+      "solution": " Expand the characteristic polynomial and solve:\n\\[ \\work{\\det(A-\\lambda I)=(1-\\lambda)^2-4=\\lambda^2-2\\lambda-3=(\\lambda-3)(\\lambda+1) \\Rightarrow \\lambda_1=3,\\ \\lambda_2=-1.} \\]\n\\[ \\work{\\lambda_1=3:\\ \\mathbf{v}_1=(1,2); \\qquad \\lambda_2=-1:\\ \\mathbf{v}_2=(1,-2).} \\]\nOpposite signs $\\Rightarrow$ a \\strong{saddle}: out along $(1,2)$, in along $(1,-2)$."
+    },
+    {
+      "id": "ps_16_4",
+      "problem": "\\strong{(Build the Jacobian)} For the system $x'=x-xy,\\ y'=-y+xy$, write the Jacobian matrix $J(x,y)$ symbolically.",
+      "solution": " Here $f=x-xy$ and $g=-y+xy$, so the four partials are\n\\[ \\work{J(x,y)=\\begin{pmatrix} f_x & f_y \\\\ g_x & g_y \\end{pmatrix} = \\begin{pmatrix} 1-y & -x \\\\ y & -1+x \\end{pmatrix}.} \\]"
+    },
+    {
+      "id": "ps_16_5",
+      "problem": "\\strong{(Fixed points by nullclines)} Find all fixed points of $x'=x(3-x-2y),\\ y'=y(2-x-y)$.",
+      "solution": " Factor each velocity. The $x$-nullclines are $x=0$ or $3-x-2y=0$; the $y$-nullclines are $y=0$ or $2-x-y=0$. Pairing branches:\n\\[ \\work{(0,0),\\quad (0,2),\\quad (3,0),\\quad \\text{and } 3-x-2y=0,\\ 2-x-y=0 \\Rightarrow (1,1).} \\]\nFour fixed points: $(0,0),(0,2),(3,0),(1,1)$."
+    },
+    {
+      "id": "ps_16_6",
+      "problem": "\\strong{(Linearize the pendulum)} For $x'=y,\\ y'=-\\sin x$, compute $J(x,y)$ and evaluate it at the fixed points $(0,0)$ and $(\\pi,0)$.",
+      "solution": " With $f=y,\\ g=-\\sin x$:\n\\[ \\work{J(x,y)=\\begin{pmatrix} 0 & 1 \\\\ -\\cos x & 0 \\end{pmatrix}; \\quad J(0,0)=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix},\\quad J(\\pi,0)=\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}.} \\]\n(Using $\\cos 0=1$ and $\\cos\\pi=-1$.)"
+    },
+    {
+      "id": "ps_16_7",
+      "problem": "\\strong{(Classify the pendulum equilibria)} Using the matrices from Problem 6, find the eigenvalues at $(0,0)$ and $(\\pi,0)$ and classify each.",
+      "solution": " Take the characteristic polynomial of each:\n\\[ \\work{(0,0):\\ \\lambda^2+1=0 \\Rightarrow \\lambda=\\pm i \\ \\text{(center)}; \\qquad (\\pi,0):\\ \\lambda^2-1=0 \\Rightarrow \\lambda=\\pm 1 \\ \\text{(saddle)}.} \\]\nThe hanging-down equilibrium oscillates (center); the inverted equilibrium is an unstable saddle."
+    },
+    {
+      "id": "ps_16_8",
+      "problem": "\\strong{(Predator--prey fixed points)} For $x'=x(2-y),\\ y'=y(-3+x)$, find both equilibria.",
+      "solution": " Factor: $x(2-y)=0 \\Rightarrow x=0$ or $y=2$; $\\ y(-3+x)=0 \\Rightarrow y=0$ or $x=3$. Pairing the branches,\n\\[ \\work{(0,0)\\ \\text{(extinction)} \\qquad \\text{and} \\qquad (3,2)\\ \\text{(coexistence)}.} \\]"
+    },
+    {
+      "id": "ps_16_9",
+      "problem": "\\strong{(Predator--prey Jacobian)} For the system in Problem 8, evaluate the Jacobian at the coexistence equilibrium and classify it.",
+      "solution": " Here $f=2x-xy,\\ g=-3y+xy$, so $J=\\left(\\begin{smallmatrix} 2-y & -x \\\\ y & -3+x \\end{smallmatrix}\\right)$. At the coexistence point $(3,2)$,\n\\[ \\work{J(3,2)=\\begin{pmatrix} 0 & -3 \\\\ 2 & 0 \\end{pmatrix},\\quad \\det(J-\\lambda I)=\\lambda^2+6=0 \\Rightarrow \\lambda=\\pm i\\sqrt{6}.} \\]\nPure imaginary eigenvalues $\\Rightarrow$ a \\strong{center}: predator and prey populations cycle around $(3,2)$."
+    },
+    {
+      "id": "ps_16_10",
+      "problem": "\\strong{(Nonlinear capstone)} For $x'=y,\\ y'=-x+x^3$, find all fixed points, evaluate the Jacobian at each, classify them, and describe the global phase portrait.",
+      "solution": " Fixed points: $y=0$ and $-x+x^3=x(x^2-1)=0 \\Rightarrow (0,0),(\\pm 1,0)$. The Jacobian is $J=\\left(\\begin{smallmatrix} 0 & 1 \\\\ -1+3x^2 & 0 \\end{smallmatrix}\\right)$:\n\\[ \\work{J(0,0)=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm i \\ \\text{(center)}; \\quad J(\\pm 1,0)=\\begin{pmatrix} 0 & 1 \\\\ 2 & 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm\\sqrt{2} \\ \\text{(saddles)}.} \\]\nGlobally: closed orbits around the origin, hemmed in by the separatrices joining the two saddles at $(\\pm 1,0)$ --- a conservative double-well picture."
+    }
+  ]
+}

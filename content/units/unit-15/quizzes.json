@@ -1,0 +1,2436 @@
+{
+  "unitNumber": 15,
+  "microPractice": {
+    "cq3bPBePE8E": [
+      {
+        "id": "mp_cq3bPBePE8E_1",
+        "prompt": "To convert $y'' + 3y' + 2y = 0$ into a first-order system, what is the standard choice of new variables?",
+        "hint": "Name one variable for the function and one for its first derivative.",
+        "answerOptions": [
+          {
+            "text": "$x_1 = y$ and $x_2 = y'$",
+            "correct": true,
+            "rationale": "Yes. Letting $x_1 = y$ and $x_2 = y'$ turns one second-order equation into two first-order ones."
+          },
+          {
+            "text": "$x_1 = y'$ and $x_2 = y''$",
+            "rationale": "The lowest variable should be $y$ itself, not its derivative. What captures the function and its first derivative?"
+          },
+          {
+            "text": "$x_1 = y$ and $x_2 = y''$",
+            "rationale": "You skip a derivative this way, leaving a gap. Which consecutive derivatives should the variables track?"
+          },
+          {
+            "text": "$x_1 = 3y$ and $x_2 = 2y'$",
+            "rationale": "No scaling of the unknowns is needed. What are the plain choices for the function and its first derivative?"
+          }
+        ]
+      },
+      {
+        "id": "mp_cq3bPBePE8E_2",
+        "prompt": "With $x_1 = y$ and $x_2 = y'$ for $y'' + 3y' + 2y = 0$, what is $x_2'$?",
+        "hint": "Solve the original equation for $y''$ and rewrite it in the new variables.",
+        "answerOptions": [
+          {
+            "text": "$x_2' = -2x_1 - 3x_2$",
+            "correct": true,
+            "rationale": "Correct. Since $y'' = -2y - 3y'$, we get $x_2' = -2x_1 - 3x_2$."
+          },
+          {
+            "text": "$x_2' = 2x_1 + 3x_2$",
+            "rationale": "Move both terms across the equals sign from $y'' + 3y' + 2y = 0$. What signs result?"
+          },
+          {
+            "text": "$x_2' = -3x_1 - 2x_2$",
+            "rationale": "Match coefficients carefully: $2y$ goes with $x_1$ and $3y'$ with $x_2$. Which coefficient multiplies $x_1$?"
+          },
+          {
+            "text": "$x_2' = x_1$",
+            "rationale": "That ignores the original equation entirely. What does solving for $y''$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_cq3bPBePE8E_3",
+        "prompt": "An $n$-th order linear ODE converts into a first-order system of how many equations?",
+        "hint": "Each derivative up to order $n-1$ becomes its own variable.",
+        "answerOptions": [
+          {
+            "text": "$n$ equations",
+            "correct": true,
+            "rationale": "Yes. The variables $y, y', \\dots, y^{(n-1)}$ give exactly $n$ first-order equations."
+          },
+          {
+            "text": "$n - 1$ equations",
+            "rationale": "Count the variables from $y$ up through $y^{(n-1)}$. How many is that?"
+          },
+          {
+            "text": "$2n$ equations",
+            "rationale": "Each derivative becomes one variable, not two. How many derivatives below order $n$ are there, including $y$?"
+          },
+          {
+            "text": "Always $2$ equations",
+            "rationale": "Only a second-order ODE gives two. What is the count for general order $n$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_cq3bPBePE8E_4",
+        "prompt": "Writing the system for $y'' + 3y' + 2y = 0$ as $\\mathbf{x}' = A\\mathbf{x}$, what are the rows of $A$?",
+        "hint": "The first row encodes $x_1' = x_2$; the second encodes $x_2' = -2x_1 - 3x_2$.",
+        "answerOptions": [
+          {
+            "text": "Rows $(0, 1)$ and $(-2, -3)$",
+            "correct": true,
+            "rationale": "Correct. $x_1' = x_2$ gives row $(0,1)$, and $x_2' = -2x_1 - 3x_2$ gives row $(-2,-3)$."
+          },
+          {
+            "text": "Rows $(1, 0)$ and $(-2, -3)$",
+            "rationale": "The equation $x_1' = x_2$ has no $x_1$ term. What is the first row?"
+          },
+          {
+            "text": "Rows $(0, 1)$ and $(2, 3)$",
+            "rationale": "The constants move across with a sign flip. What signs do $-2$ and $-3$ carry?"
+          },
+          {
+            "text": "Rows $(0, 1)$ and $(-3, -2)$",
+            "rationale": "The coefficient of $x_1$ comes from $2y$, and of $x_2$ from $3y'$. Which goes first?"
+          }
+        ]
+      },
+      {
+        "id": "mp_cq3bPBePE8E_5",
+        "prompt": "Why do we convert higher-order equations into first-order systems?",
+        "hint": "Think about which solution machinery is built for first-order vector equations.",
+        "answerOptions": [
+          {
+            "text": "So matrix and eigenvalue methods and standard numerical solvers can be applied",
+            "correct": true,
+            "rationale": "Yes. The first-order form $\\mathbf{x}' = A\\mathbf{x}$ unlocks linear-algebra solution methods and standard solvers."
+          },
+          {
+            "text": "Because higher-order equations have no solutions",
+            "rationale": "They do have solutions; conversion is about technique, not existence. What does the system form let us use?"
+          },
+          {
+            "text": "To reduce the number of unknown functions",
+            "rationale": "Conversion increases the number of unknowns, not reduces it. What is the real benefit?"
+          },
+          {
+            "text": "Because first-order systems are always linear",
+            "rationale": "Systems can be nonlinear too. What solution tools does the first-order form enable?"
+          }
+        ]
+      }
+    ],
+    "_yXKdyjzMBI": [
+      {
+        "id": "mp__yXKdyjzMBI_1",
+        "prompt": "Convert $y'' = -y$ to a first-order system with $x_1 = y$, $x_2 = y'$. What is the system?",
+        "hint": "The first equation is always $x_1' = x_2$; substitute for $y''$ in the second.",
+        "answerOptions": [
+          {
+            "text": "$x_1' = x_2$ and $x_2' = -x_1$",
+            "correct": true,
+            "rationale": "Correct. With $y'' = -y = -x_1$, the system is $x_1' = x_2$, $x_2' = -x_1$."
+          },
+          {
+            "text": "$x_1' = x_2$ and $x_2' = x_1$",
+            "rationale": "The equation says $y'' = -y$, with a minus sign. What sign does $x_1$ carry in $x_2'$?"
+          },
+          {
+            "text": "$x_1' = -x_2$ and $x_2' = -x_1$",
+            "rationale": "The definition $x_1' = y' = x_2$ has no minus. What is the correct first equation?"
+          },
+          {
+            "text": "$x_1' = -x_1$ and $x_2' = -x_2$",
+            "rationale": "That decouples the variables incorrectly. How are $x_1'$ and $x_2'$ actually related to the other variable?"
+          }
+        ]
+      },
+      {
+        "id": "mp__yXKdyjzMBI_2",
+        "prompt": "For the third-order equation $y''' = y$, how many first-order equations does the system have?",
+        "hint": "Introduce a variable for $y$, $y'$, and $y''$.",
+        "answerOptions": [
+          {
+            "text": "Three",
+            "correct": true,
+            "rationale": "Yes. The variables $x_1 = y$, $x_2 = y'$, $x_3 = y''$ give three first-order equations."
+          },
+          {
+            "text": "Two",
+            "rationale": "A third-order equation needs variables up through $y''$. How many is that?"
+          },
+          {
+            "text": "Four",
+            "rationale": "You stop at the variable for $y''$, one below order three. How many variables is that?"
+          },
+          {
+            "text": "Six",
+            "rationale": "Each derivative becomes a single variable, not two. How many derivatives below order three are there, counting $y$?"
+          }
+        ]
+      },
+      {
+        "id": "mp__yXKdyjzMBI_3",
+        "prompt": "In the system for $y''' = y$ with $x_1 = y$, $x_2 = y'$, $x_3 = y''$, what is $x_3'$?",
+        "hint": "$x_3 = y''$, so $x_3' = y'''$; use the original equation.",
+        "answerOptions": [
+          {
+            "text": "$x_3' = x_1$",
+            "correct": true,
+            "rationale": "Correct. Since $y''' = y = x_1$, we have $x_3' = x_1$."
+          },
+          {
+            "text": "$x_3' = x_3$",
+            "rationale": "The equation is $y''' = y$, not $y''' = y''$. Which variable equals $y$?"
+          },
+          {
+            "text": "$x_3' = x_2$",
+            "rationale": "The right side is $y$, which is $x_1$, not $y' = x_2$. What does $y'''$ equal?"
+          },
+          {
+            "text": "$x_3' = -x_1$",
+            "rationale": "The equation $y''' = y$ has no minus sign. What is the sign of $x_1$ here?"
+          }
+        ]
+      },
+      {
+        "id": "mp__yXKdyjzMBI_4",
+        "prompt": "A system of two coupled second-order equations converts to a first-order system of what size?",
+        "hint": "Each second-order equation contributes two variables.",
+        "answerOptions": [
+          {
+            "text": "Four first-order equations",
+            "correct": true,
+            "rationale": "Yes. Two functions and their two first derivatives give four variables, hence four equations."
+          },
+          {
+            "text": "Two first-order equations",
+            "rationale": "That would only cover the functions, not their derivatives. How many variables total?"
+          },
+          {
+            "text": "Three first-order equations",
+            "rationale": "Each second-order equation needs two variables, and there are two of them. What is the total?"
+          },
+          {
+            "text": "Eight first-order equations",
+            "rationale": "Each function needs only two variables, not four. What is two functions times two?"
+          }
+        ]
+      },
+      {
+        "id": "mp__yXKdyjzMBI_5",
+        "prompt": "After conversion, the first-order system is written most compactly in which form?",
+        "hint": "Collect the variables into a vector and the coefficients into a matrix.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}' = A\\mathbf{x}$, a vector equation",
+            "correct": true,
+            "rationale": "Yes. Stacking the variables into $\\mathbf{x}$ and the coefficients into $A$ gives the compact form $\\mathbf{x}' = A\\mathbf{x}$."
+          },
+          {
+            "text": "$y = e^{rx}$, a single exponential",
+            "rationale": "That is a trial solution, not the system form. How are the variables and coefficients packaged?"
+          },
+          {
+            "text": "A single $n$-th order scalar equation",
+            "rationale": "Conversion goes the other way, from scalar to system. What compact vector form results?"
+          },
+          {
+            "text": "$\\det(A) = 0$, a scalar condition",
+            "rationale": "That is a determinant condition, not the system itself. What matrix-vector equation describes it?"
+          }
+        ]
+      }
+    ],
+    "Pkw8QEt0Nm4": [
+      {
+        "id": "mp_Pkw8QEt0Nm4_1",
+        "prompt": "To solve $\\mathbf{x}' = A\\mathbf{x}$, what trial solution does the eigenvalue method use?",
+        "hint": "Guess an exponential in time times a fixed direction vector.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ for a constant vector $\\mathbf{v}$",
+            "correct": true,
+            "rationale": "Yes. Trying $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ turns the system into an algebraic eigenvalue problem."
+          },
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}$, a scalar",
+            "rationale": "The unknown is a vector, so a direction is needed. What vector multiplies the exponential?"
+          },
+          {
+            "text": "$\\mathbf{x} = t^\\lambda \\mathbf{v}$",
+            "rationale": "The constant-coefficient system calls for an exponential in $t$, not a power. What is the time factor?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\lambda e^{t}\\mathbf{v}$",
+            "rationale": "The eigenvalue belongs in the exponent, not as a front coefficient. Where does $\\lambda$ appear?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Pkw8QEt0Nm4_2",
+        "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ reduces it to which equation?",
+        "hint": "Differentiate the trial, cancel the nonzero scalar $e^{\\lambda t}$.",
+        "answerOptions": [
+          {
+            "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$",
+            "correct": true,
+            "rationale": "Yes. After cancelling $e^{\\lambda t}$, the system becomes the eigenvalue equation $A\\mathbf{v} = \\lambda\\mathbf{v}$."
+          },
+          {
+            "text": "$A\\mathbf{v} = 0$",
+            "rationale": "The derivative of $e^{\\lambda t}\\mathbf{v}$ brings down a factor $\\lambda$. What does the left side become?"
+          },
+          {
+            "text": "$\\lambda A\\mathbf{v} = \\mathbf{v}$",
+            "rationale": "The factor $\\lambda$ comes from differentiating the exponential and lands on $\\mathbf{v}$. Which side carries $\\lambda$?"
+          },
+          {
+            "text": "$A\\mathbf{v} = \\lambda^2 \\mathbf{v}$",
+            "rationale": "Only one derivative is taken, so one factor of $\\lambda$ appears. What power of $\\lambda$ is correct?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Pkw8QEt0Nm4_3",
+        "prompt": "The eigenvalues of $A$ are found by solving which equation?",
+        "hint": "Nontrivial eigenvectors require the matrix $A - \\lambda I$ to be singular.",
+        "answerOptions": [
+          {
+            "text": "$\\det(A - \\lambda I) = 0$",
+            "correct": true,
+            "rationale": "Yes. A nonzero eigenvector exists only when $A - \\lambda I$ is singular, that is, $\\det(A - \\lambda I) = 0$."
+          },
+          {
+            "text": "$\\det(A) = \\lambda$",
+            "rationale": "The determinant of $A$ alone is not the characteristic equation. What matrix must be singular?"
+          },
+          {
+            "text": "$A - \\lambda I = 0$",
+            "rationale": "The matrix need not be the zero matrix, only singular. What scalar condition expresses singularity?"
+          },
+          {
+            "text": "$\\text{tr}(A) = \\lambda$",
+            "rationale": "The trace gives the sum of eigenvalues, not the defining equation. What determinant condition is solved?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Pkw8QEt0Nm4_4",
+        "prompt": "For real distinct eigenvalues $\\lambda_1, \\lambda_2$ with eigenvectors $\\mathbf{v}_1, \\mathbf{v}_2$, the general solution of $\\mathbf{x}' = A\\mathbf{x}$ is what?",
+        "hint": "Superpose the two exponential mode solutions.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$",
+            "correct": true,
+            "rationale": "Yes. Each eigenpair gives a mode, and the general solution is their linear combination."
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$",
+            "rationale": "The eigenvectors give each mode its direction. What vectors must multiply the exponentials?"
+          },
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda_1 t}\\mathbf{v}_1 \\, e^{\\lambda_2 t}\\mathbf{v}_2$",
+            "rationale": "Modes are added, not multiplied. How are the two solutions combined?"
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 \\mathbf{v}_1 + c_2 \\mathbf{v}_2$",
+            "rationale": "Without the exponentials there is no time dependence. What time factor accompanies each eigenvector?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Pkw8QEt0Nm4_5",
+        "prompt": "For the diagonal matrix $A$ with rows $(2, 0)$ and $(0, 3)$, what are the eigenvalues?",
+        "hint": "For a diagonal matrix the eigenvalues sit on the diagonal.",
+        "answerOptions": [
+          {
+            "text": "$2$ and $3$",
+            "correct": true,
+            "rationale": "Correct. A diagonal matrix has its diagonal entries as eigenvalues."
+          },
+          {
+            "text": "$0$ and $0$",
+            "rationale": "The off-diagonal zeros are not the eigenvalues. Which entries carry them?"
+          },
+          {
+            "text": "$5$ and $6$",
+            "rationale": "You need not add or multiply the entries. What are the diagonal values themselves?"
+          },
+          {
+            "text": "$2$ and $0$",
+            "rationale": "Read both diagonal entries, top-left and bottom-right. What is the second one?"
+          }
+        ]
+      }
+    ],
+    "Zwb5eiYcL8w": [
+      {
+        "id": "mp_Zwb5eiYcL8w_1",
+        "prompt": "For $A$ with rows $(0, 1)$ and $(-2, -3)$, the characteristic equation is which of these?",
+        "hint": "Compute $\\det(A - \\lambda I)$ using $\\lambda^2 - (\\text{tr})\\lambda + \\det$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda^2 + 3\\lambda + 2 = 0$",
+            "correct": true,
+            "rationale": "Correct. The trace is $-3$ and the determinant is $2$, giving $\\lambda^2 + 3\\lambda + 2 = 0$."
+          },
+          {
+            "text": "$\\lambda^2 - 3\\lambda + 2 = 0$",
+            "rationale": "The trace is $-3$, so $-(\\text{tr})$ is $+3$. What is the middle coefficient?"
+          },
+          {
+            "text": "$\\lambda^2 + 3\\lambda - 2 = 0$",
+            "rationale": "The determinant $(0)(-3) - (1)(-2)$ is positive. What constant term results?"
+          },
+          {
+            "text": "$\\lambda^2 + 2\\lambda + 3 = 0$",
+            "rationale": "The trace and determinant are swapped. Which is the coefficient of $\\lambda$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zwb5eiYcL8w_2",
+        "prompt": "The roots of $\\lambda^2 + 3\\lambda + 2 = 0$ are which eigenvalues?",
+        "hint": "Factor the quadratic.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda = -1$ and $\\lambda = -2$",
+            "correct": true,
+            "rationale": "Correct. $(\\lambda + 1)(\\lambda + 2) = 0$ gives $\\lambda = -1, -2$."
+          },
+          {
+            "text": "$\\lambda = 1$ and $\\lambda = 2$",
+            "rationale": "Both roots are negative here. What signs make $(\\lambda + 1)(\\lambda + 2) = 0$?"
+          },
+          {
+            "text": "$\\lambda = -1$ and $\\lambda = 2$",
+            "rationale": "Check the factor $(\\lambda + 2)$. What value of $\\lambda$ makes it zero?"
+          },
+          {
+            "text": "$\\lambda = -3$ and $\\lambda = -2$",
+            "rationale": "The sum of the roots equals $-3$, not each root. What pair sums to $-3$ and multiplies to $2$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zwb5eiYcL8w_3",
+        "prompt": "For the matrix with rows $(2, 1)$ and $(1, 2)$, find the eigenvector for $\\lambda = 3$.",
+        "hint": "Solve $(A - 3I)\\mathbf{v} = 0$ with rows $(-1, 1)$ and $(1, -1)$.",
+        "answerOptions": [
+          {
+            "text": "$(1, 1)$",
+            "correct": true,
+            "rationale": "Correct. The row $(-1, 1)$ gives $-v_1 + v_2 = 0$, so $v_1 = v_2$, for example $(1, 1)$."
+          },
+          {
+            "text": "$(1, -1)$",
+            "rationale": "The equation $-v_1 + v_2 = 0$ forces the components to be equal. What sign relation holds?"
+          },
+          {
+            "text": "$(0, 1)$",
+            "rationale": "Both components must satisfy $v_1 = v_2$, so neither is zero. What equal-component vector works?"
+          },
+          {
+            "text": "$(2, 1)$",
+            "rationale": "The eigenvector solves $v_1 = v_2$, not the matrix row itself. What vector has equal components?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zwb5eiYcL8w_4",
+        "prompt": "For $A$ with rows $(1, 1)$ and $(0, 2)$ (upper triangular), what are the eigenvalues?",
+        "hint": "For a triangular matrix the eigenvalues are the diagonal entries.",
+        "answerOptions": [
+          {
+            "text": "$1$ and $2$",
+            "correct": true,
+            "rationale": "Correct. A triangular matrix has its diagonal entries as eigenvalues, here $1$ and $2$."
+          },
+          {
+            "text": "$1$ and $1$",
+            "rationale": "Read both diagonal entries, not just the first. What is the bottom-right value?"
+          },
+          {
+            "text": "$0$ and $1$",
+            "rationale": "The off-diagonal entry is $0$, but the eigenvalues come from the diagonal. What are those entries?"
+          },
+          {
+            "text": "$3$ and $-1$",
+            "rationale": "No combining is needed for a triangular matrix. What sits on the diagonal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Zwb5eiYcL8w_5",
+        "prompt": "After finding eigenpairs $(\\lambda_1, \\mathbf{v}_1)$ and $(\\lambda_2, \\mathbf{v}_2)$, the constants $c_1, c_2$ are determined by what?",
+        "hint": "Use the data given at the starting time.",
+        "answerOptions": [
+          {
+            "text": "The initial condition $\\mathbf{x}(0)$",
+            "correct": true,
+            "rationale": "Yes. Substituting $t = 0$ and matching $\\mathbf{x}(0)$ fixes the constants $c_1$ and $c_2$."
+          },
+          {
+            "text": "The eigenvalues alone",
+            "rationale": "Eigenvalues set the modes, not the specific constants. What extra data pins down $c_1, c_2$?"
+          },
+          {
+            "text": "The determinant of $A$",
+            "rationale": "The determinant is a single number, not enough to fix two constants. What initial data is used?"
+          },
+          {
+            "text": "Nothing; they are always $1$",
+            "rationale": "The constants depend on the problem. What condition determines their values?"
+          }
+        ]
+      }
+    ],
+    "N8bpFOndEQU": [
+      {
+        "id": "mp_N8bpFOndEQU_1",
+        "prompt": "For $A$ with rows $(0, 1)$ and $(-1, 0)$, what are the eigenvalues?",
+        "hint": "The characteristic equation is $\\lambda^2 + 1 = 0$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda = \\pm i$",
+            "correct": true,
+            "rationale": "Correct. $\\lambda^2 + 1 = 0$ gives the pure imaginary pair $\\lambda = \\pm i$."
+          },
+          {
+            "text": "$\\lambda = \\pm 1$",
+            "rationale": "Solve $\\lambda^2 + 1 = 0$, not $\\lambda^2 - 1 = 0$. What are the roots of $\\lambda^2 = -1$?"
+          },
+          {
+            "text": "$\\lambda = 0$ (repeated)",
+            "rationale": "The constant term is $1$, not $0$, so the roots are nonzero. What solves $\\lambda^2 = -1$?"
+          },
+          {
+            "text": "$\\lambda = \\pm 2i$",
+            "rationale": "The equation is $\\lambda^2 = -1$, not $\\lambda^2 = -4$. What is the square root of $-1$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_N8bpFOndEQU_2",
+        "prompt": "Complex eigenvalues of a real matrix always occur in what configuration?",
+        "hint": "A real characteristic polynomial forces a symmetry on its complex roots.",
+        "answerOptions": [
+          {
+            "text": "In conjugate pairs $\\alpha \\pm \\beta i$",
+            "correct": true,
+            "rationale": "Yes. Real coefficients force complex roots to come in conjugate pairs."
+          },
+          {
+            "text": "As a single isolated complex number",
+            "rationale": "A real polynomial cannot have just one complex root. What partner must accompany it?"
+          },
+          {
+            "text": "As two purely real numbers",
+            "rationale": "If they are complex, they are not real. What pairing does a real polynomial require?"
+          },
+          {
+            "text": "As four roots at once",
+            "rationale": "A $2 \\times 2$ matrix has two eigenvalues. How are a complex pair related?"
+          }
+        ]
+      },
+      {
+        "id": "mp_N8bpFOndEQU_3",
+        "prompt": "Using $e^{(\\alpha + \\beta i)t}$, Euler's formula expands the time factor into which real functions?",
+        "hint": "Recall $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$.",
+        "answerOptions": [
+          {
+            "text": "$e^{\\alpha t}\\cos(\\beta t)$ and $e^{\\alpha t}\\sin(\\beta t)$",
+            "correct": true,
+            "rationale": "Yes. Euler's formula gives $e^{\\alpha t}(\\cos\\beta t + i\\sin\\beta t)$, whose parts are these real solutions."
+          },
+          {
+            "text": "$e^{\\alpha t}$ and $e^{\\beta t}$",
+            "rationale": "The imaginary part of the exponent produces oscillation, not a second real exponential. What trig functions appear?"
+          },
+          {
+            "text": "$\\cos(\\alpha t)$ and $\\sin(\\alpha t)$",
+            "rationale": "The real part $\\alpha$ sets the exponential growth, while $\\beta$ sets the oscillation. Which part goes inside the trig functions?"
+          },
+          {
+            "text": "$t\\cos(\\beta t)$ and $t\\sin(\\beta t)$",
+            "rationale": "A factor of $t$ appears only for repeated roots. What multiplies the trig functions here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_N8bpFOndEQU_4",
+        "prompt": "Two real, linearly independent solutions are built from a complex solution $\\mathbf{x}(t)$ by taking what?",
+        "hint": "A complex solution splits into two real pieces.",
+        "answerOptions": [
+          {
+            "text": "Its real part and its imaginary part",
+            "correct": true,
+            "rationale": "Yes. The real and imaginary parts of one complex solution are two independent real solutions."
+          },
+          {
+            "text": "Its magnitude and its phase",
+            "rationale": "Magnitude and phase do not separately solve the system. What two parts of a complex number are extracted?"
+          },
+          {
+            "text": "Its conjugate and its inverse",
+            "rationale": "The inverse is not a solution here. What real components come directly from a complex number?"
+          },
+          {
+            "text": "Two copies of its real part",
+            "rationale": "Two identical pieces cannot be independent. What second part supplies independence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_N8bpFOndEQU_5",
+        "prompt": "For eigenvalues $\\alpha \\pm \\beta i$ with $\\alpha < 0$, the trajectories in the phase plane do what?",
+        "hint": "The real part controls growth or decay; the imaginary part controls rotation.",
+        "answerOptions": [
+          {
+            "text": "Spiral inward toward the origin",
+            "correct": true,
+            "rationale": "Yes. A negative real part causes decay while the imaginary part rotates, so trajectories spiral inward."
+          },
+          {
+            "text": "Spiral outward away from the origin",
+            "rationale": "Outward spirals need a positive real part. What does $\\alpha < 0$ do to the amplitude?"
+          },
+          {
+            "text": "Form closed loops around the origin",
+            "rationale": "Closed loops require $\\alpha = 0$. What does a strictly negative $\\alpha$ add?"
+          },
+          {
+            "text": "Move along straight lines",
+            "rationale": "Straight-line motion comes from real eigenvalues. What does a nonzero imaginary part create?"
+          }
+        ]
+      }
+    ],
+    "TRVS5Wo9LoM": [
+      {
+        "id": "mp_TRVS5Wo9LoM_1",
+        "prompt": "For complex eigenvalues $\\alpha \\pm \\beta i$, what does the sign of the real part $\\alpha$ determine?",
+        "hint": "It controls the envelope $e^{\\alpha t}$ multiplying the oscillation.",
+        "answerOptions": [
+          {
+            "text": "Whether the spiral grows or decays in amplitude",
+            "correct": true,
+            "rationale": "Yes. The factor $e^{\\alpha t}$ grows when $\\alpha > 0$ and decays when $\\alpha < 0$."
+          },
+          {
+            "text": "The frequency of the oscillation",
+            "rationale": "Frequency is set by the imaginary part $\\beta$. What does the real part $\\alpha$ control instead?"
+          },
+          {
+            "text": "The direction of rotation",
+            "rationale": "Rotation direction comes from the eigenvector structure, not the sign of $\\alpha$. What does $\\alpha$ govern?"
+          },
+          {
+            "text": "The number of equilibria",
+            "rationale": "The number of equilibria is fixed by the system, not by $\\alpha$. What growth feature does $\\alpha$ set?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TRVS5Wo9LoM_2",
+        "prompt": "For complex eigenvalues $\\alpha \\pm \\beta i$, what does the imaginary part $\\beta$ determine?",
+        "hint": "It sits inside the cosine and sine of the solution.",
+        "answerOptions": [
+          {
+            "text": "The angular frequency of the oscillation",
+            "correct": true,
+            "rationale": "Yes. The term $\\beta$ appears in $\\cos(\\beta t)$ and $\\sin(\\beta t)$, setting the oscillation rate."
+          },
+          {
+            "text": "The rate of exponential decay",
+            "rationale": "Decay is governed by the real part $\\alpha$. What does $\\beta$ control inside the trig functions?"
+          },
+          {
+            "text": "The location of the equilibrium",
+            "rationale": "The equilibrium is the origin for $\\mathbf{x}' = A\\mathbf{x}$. What does $\\beta$ set in the solution?"
+          },
+          {
+            "text": "The size of the eigenvectors",
+            "rationale": "Eigenvectors can be scaled freely. What oscillatory feature does $\\beta$ fix?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TRVS5Wo9LoM_3",
+        "prompt": "When the eigenvalues are purely imaginary ($\\alpha = 0$, $\\lambda = \\pm \\beta i$), the trajectories are what?",
+        "hint": "With no growth or decay envelope, the oscillation neither grows nor shrinks.",
+        "answerOptions": [
+          {
+            "text": "Closed ellipses around the origin (a center)",
+            "correct": true,
+            "rationale": "Yes. With $\\alpha = 0$ the amplitude is constant, so trajectories are closed orbits forming a center."
+          },
+          {
+            "text": "Inward spirals (a stable spiral)",
+            "rationale": "Inward spirals need $\\alpha < 0$. What happens when $\\alpha$ is exactly $0$?"
+          },
+          {
+            "text": "Straight lines through the origin",
+            "rationale": "Straight lines come from real eigenvalues. What shape does pure oscillation trace?"
+          },
+          {
+            "text": "A single fixed point with no motion",
+            "rationale": "The solutions still oscillate when $\\beta \\neq 0$. What closed shape do they trace?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TRVS5Wo9LoM_4",
+        "prompt": "For $A$ with rows $(-1, -1)$ and $(1, -1)$, the eigenvalues are $-1 \\pm i$. The origin is what kind of equilibrium?",
+        "hint": "Combine the sign of the real part with the presence of an imaginary part.",
+        "answerOptions": [
+          {
+            "text": "A stable spiral (spiral sink)",
+            "correct": true,
+            "rationale": "Yes. The negative real part gives decay and the imaginary part gives rotation, so it is a stable spiral."
+          },
+          {
+            "text": "An unstable spiral (spiral source)",
+            "rationale": "Unstable spirals need a positive real part. What does the real part $-1$ indicate?"
+          },
+          {
+            "text": "A center",
+            "rationale": "A center requires zero real part. What does the nonzero real part $-1$ change?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "Saddles arise from real eigenvalues of opposite sign, not complex ones. What do complex eigenvalues with $\\alpha < 0$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_TRVS5Wo9LoM_5",
+        "prompt": "Why is only one eigenvector (for one of the two conjugate eigenvalues) needed to build the real general solution?",
+        "hint": "The two conjugate eigenpairs carry the same information.",
+        "answerOptions": [
+          {
+            "text": "The conjugate eigenpair gives no new real solutions beyond the real and imaginary parts of the first",
+            "correct": true,
+            "rationale": "Yes. The conjugate yields the same two real solutions, so one complex eigenpair suffices."
+          },
+          {
+            "text": "Because the second eigenvalue has no eigenvector",
+            "rationale": "It does have one, the conjugate vector. Why is it not needed separately?"
+          },
+          {
+            "text": "Because the second eigenvalue is always zero",
+            "rationale": "Both eigenvalues are nonzero complex conjugates. What makes the second eigenpair redundant?"
+          },
+          {
+            "text": "Because complex systems have only one solution",
+            "rationale": "A second-order system has two independent solutions. Where do both come from using one eigenpair?"
+          }
+        ]
+      }
+    ],
+    "O85OWBJ2ayo": [
+      {
+        "id": "mp_O85OWBJ2ayo_1",
+        "prompt": "How is the matrix exponential $e^{At}$ defined?",
+        "hint": "It mimics the scalar exponential power series, with $A$ in place of a number.",
+        "answerOptions": [
+          {
+            "text": "$e^{At} = I + At + \\frac{(At)^2}{2!} + \\frac{(At)^3}{3!} + \\cdots$",
+            "correct": true,
+            "rationale": "Yes. The matrix exponential is the same power series as the scalar one, summing powers of $At$ over factorials."
+          },
+          {
+            "text": "$e^{At} = I + At$",
+            "rationale": "That keeps only the first two terms. What infinite series defines the full exponential?"
+          },
+          {
+            "text": "$e^{At} = A\\,e^{t}$",
+            "rationale": "You cannot factor the matrix out of the exponential like that. What series sums powers of $At$?"
+          },
+          {
+            "text": "$e^{At} = \\det(A)\\,e^{t}$",
+            "rationale": "The determinant is not how the matrix exponential is built. What power series is used?"
+          }
+        ]
+      },
+      {
+        "id": "mp_O85OWBJ2ayo_2",
+        "prompt": "The solution of $\\mathbf{x}' = A\\mathbf{x}$ with $\\mathbf{x}(0) = \\mathbf{x}_0$ is given by what?",
+        "hint": "It mirrors the scalar solution $x = e^{at}x_0$.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}(t) = e^{At}\\mathbf{x}_0$",
+            "correct": true,
+            "rationale": "Yes. Just as $x = e^{at}x_0$ solves the scalar case, $\\mathbf{x} = e^{At}\\mathbf{x}_0$ solves the system."
+          },
+          {
+            "text": "$\\mathbf{x}(t) = e^{At} + \\mathbf{x}_0$",
+            "rationale": "The initial vector is multiplied, not added. How does $e^{At}$ act on $\\mathbf{x}_0$?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = A e^{t}\\mathbf{x}_0$",
+            "rationale": "The matrix belongs in the exponent, not as a separate factor. What is the correct form?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = e^{t}\\mathbf{x}_0$",
+            "rationale": "A scalar exponential ignores the matrix structure. What exponential carries $A$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_O85OWBJ2ayo_3",
+        "prompt": "What is $e^{At}$ evaluated at $t = 0$?",
+        "hint": "Substitute $t = 0$ into the defining series.",
+        "answerOptions": [
+          {
+            "text": "The identity matrix $I$",
+            "correct": true,
+            "rationale": "Yes. At $t = 0$ every term past the first vanishes, leaving $e^{A \\cdot 0} = I$."
+          },
+          {
+            "text": "The zero matrix",
+            "rationale": "The leading term of the series is $I$, not $0$. What remains when $t = 0$?"
+          },
+          {
+            "text": "The matrix $A$",
+            "rationale": "The first term is $I$; the $A$ term carries a factor $t$ that vanishes. What is left?"
+          },
+          {
+            "text": "$1$ (the scalar one)",
+            "rationale": "The result is a matrix, not a scalar. Which matrix does the series reduce to at $t = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_O85OWBJ2ayo_4",
+        "prompt": "What is the derivative $\\frac{d}{dt}e^{At}$?",
+        "hint": "Differentiate the power series term by term, just like the scalar case.",
+        "answerOptions": [
+          {
+            "text": "$A\\,e^{At}$",
+            "correct": true,
+            "rationale": "Yes. Term-by-term differentiation gives $\\frac{d}{dt}e^{At} = A e^{At}$, the matrix analog of $\\frac{d}{dt}e^{at} = a e^{at}$."
+          },
+          {
+            "text": "$e^{At}$",
+            "rationale": "Differentiating the scalar $e^{at}$ brings down a factor $a$; the matrix case brings down $A$. What multiplies $e^{At}$?"
+          },
+          {
+            "text": "$t\\,e^{At}$",
+            "rationale": "No extra factor of $t$ appears. What constant matrix factor results from differentiating?"
+          },
+          {
+            "text": "$A^2 e^{At}$",
+            "rationale": "Only one factor of $A$ is brought down by a single derivative. What is the coefficient?"
+          }
+        ]
+      },
+      {
+        "id": "mp_O85OWBJ2ayo_5",
+        "prompt": "For the decoupled system $x' = 2x$, $y' = 3y$ (diagonal $A$), what is $e^{At}$?",
+        "hint": "A diagonal matrix exponentiates entrywise on the diagonal.",
+        "answerOptions": [
+          {
+            "text": "The diagonal matrix with entries $e^{2t}$ and $e^{3t}$",
+            "correct": true,
+            "rationale": "Yes. For a diagonal matrix each diagonal entry $d$ becomes $e^{dt}$."
+          },
+          {
+            "text": "The diagonal matrix with entries $2e^{t}$ and $3e^{t}$",
+            "rationale": "The diagonal entries go into the exponent, not in front. What are $e^{2t}$ and $e^{3t}$?"
+          },
+          {
+            "text": "The diagonal matrix with entries $e^{2}$ and $e^{3}$",
+            "rationale": "The variable $t$ must appear in the exponent. What are the time-dependent entries?"
+          },
+          {
+            "text": "The diagonal matrix with entries $2t$ and $3t$",
+            "rationale": "Exponentiation, not multiplication, is required. What does $e^{dt}$ give for $d = 2, 3$?"
+          }
+        ]
+      }
+    ],
+    "LwSk9M5lJx4": [
+      {
+        "id": "mp_LwSk9M5lJx4_1",
+        "prompt": "If $A$ is diagonalizable as $A = PDP^{-1}$, then $e^{At}$ equals which expression?",
+        "hint": "Conjugation passes through the power series term by term.",
+        "answerOptions": [
+          {
+            "text": "$P\\,e^{Dt}\\,P^{-1}$",
+            "correct": true,
+            "rationale": "Yes. Each power $A^n = PD^nP^{-1}$, so the whole series gives $e^{At} = P e^{Dt} P^{-1}$."
+          },
+          {
+            "text": "$P^{-1} e^{Dt} P$",
+            "rationale": "The factors must match the order in $A = PDP^{-1}$. Which factor comes first?"
+          },
+          {
+            "text": "$e^{Dt}$ alone",
+            "rationale": "The change-of-basis matrices do not disappear. What surrounds $e^{Dt}$?"
+          },
+          {
+            "text": "$P\\,D\\,e^{t}\\,P^{-1}$",
+            "rationale": "The diagonal matrix belongs inside the exponential as $e^{Dt}$. What is the correct middle factor?"
+          }
+        ]
+      },
+      {
+        "id": "mp_LwSk9M5lJx4_2",
+        "prompt": "The identity $e^{(A+B)t} = e^{At}e^{Bt}$ holds under what condition?",
+        "hint": "Matrix multiplication is not generally commutative.",
+        "answerOptions": [
+          {
+            "text": "When $A$ and $B$ commute, $AB = BA$",
+            "correct": true,
+            "rationale": "Yes. The exponential product rule requires the matrices to commute."
+          },
+          {
+            "text": "For all square matrices $A$ and $B$",
+            "rationale": "Order matters for matrices in general. What commuting condition is required?"
+          },
+          {
+            "text": "Only when $A = B$",
+            "rationale": "Equality is sufficient but far too restrictive. What weaker relation between $A$ and $B$ suffices?"
+          },
+          {
+            "text": "Only when both are invertible",
+            "rationale": "Invertibility does not guarantee the splitting. What product condition must hold?"
+          }
+        ]
+      },
+      {
+        "id": "mp_LwSk9M5lJx4_3",
+        "prompt": "For a diagonal $D$ with entries $d_1, d_2$, the matrix exponential $e^{Dt}$ has which diagonal entries?",
+        "hint": "Exponentiate each diagonal entry separately.",
+        "answerOptions": [
+          {
+            "text": "$e^{d_1 t}$ and $e^{d_2 t}$",
+            "correct": true,
+            "rationale": "Yes. A diagonal matrix exponentiates entrywise, giving $e^{d_1 t}$ and $e^{d_2 t}$."
+          },
+          {
+            "text": "$d_1 e^{t}$ and $d_2 e^{t}$",
+            "rationale": "The entries belong in the exponent, not as coefficients. What are the diagonal terms?"
+          },
+          {
+            "text": "$e^{d_1} t$ and $e^{d_2} t$",
+            "rationale": "The variable $t$ multiplies the entry inside the exponent. What is $e^{d_i t}$?"
+          },
+          {
+            "text": "$d_1^t$ and $d_2^t$",
+            "rationale": "The exponential uses base $e$, not the entry as a base. What is $e^{d_i t}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_LwSk9M5lJx4_4",
+        "prompt": "The matrix exponential connects to eigenvalues because the diagonal $D$ contains what?",
+        "hint": "Diagonalization places specific numbers of $A$ on the diagonal.",
+        "answerOptions": [
+          {
+            "text": "The eigenvalues of $A$",
+            "correct": true,
+            "rationale": "Yes. In $A = PDP^{-1}$ the diagonal $D$ holds the eigenvalues, so $e^{Dt}$ holds $e^{\\lambda t}$."
+          },
+          {
+            "text": "The eigenvectors of $A$",
+            "rationale": "Eigenvectors form the columns of $P$, not the diagonal of $D$. What numbers sit on $D$?"
+          },
+          {
+            "text": "The determinant of $A$",
+            "rationale": "The determinant is a single product, not the diagonal. What entries fill $D$?"
+          },
+          {
+            "text": "The trace of $A$ in every entry",
+            "rationale": "The trace is the sum of the diagonal, not each entry. What values does $D$ list?"
+          }
+        ]
+      },
+      {
+        "id": "mp_LwSk9M5lJx4_5",
+        "prompt": "Why does $e^{At}$ give a complete picture of the solution to $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "Think about how it maps any starting vector forward in time.",
+        "answerOptions": [
+          {
+            "text": "It is the operator that propagates any initial state $\\mathbf{x}_0$ to the solution at time $t$",
+            "correct": true,
+            "rationale": "Yes. Multiplying any $\\mathbf{x}_0$ by $e^{At}$ yields the solution, so it encodes every trajectory."
+          },
+          {
+            "text": "It lists the eigenvalues but not the solutions",
+            "rationale": "It does far more than list eigenvalues; it generates the solutions. What role does it play on $\\mathbf{x}_0$?"
+          },
+          {
+            "text": "It only works for a single special initial condition",
+            "rationale": "It handles every initial condition at once. How does it act on an arbitrary $\\mathbf{x}_0$?"
+          },
+          {
+            "text": "It gives the equilibrium but not the dynamics",
+            "rationale": "It captures the full time evolution, not just equilibrium. What does it produce from $\\mathbf{x}_0$?"
+          }
+        ]
+      }
+    ],
+    "eI8k_j7v0Nk": [
+      {
+        "id": "mp_eI8k_j7v0Nk_1",
+        "prompt": "What are the columns of a fundamental matrix $\\Phi(t)$ for $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "They are assembled from a complete set of solutions.",
+        "answerOptions": [
+          {
+            "text": "A set of linearly independent solutions of the system",
+            "correct": true,
+            "rationale": "Yes. A fundamental matrix collects linearly independent solution vectors as its columns."
+          },
+          {
+            "text": "The eigenvectors of $A$ alone, without time dependence",
+            "rationale": "Columns must be full solutions, which carry time dependence. What time-dependent objects fill them?"
+          },
+          {
+            "text": "Arbitrary constant vectors",
+            "rationale": "Constant columns do not solve the system. What kind of vectors must the columns be?"
+          },
+          {
+            "text": "The rows of the matrix $A$",
+            "rationale": "The rows of $A$ are not solutions of the system. What solution objects form the columns?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eI8k_j7v0Nk_2",
+        "prompt": "A fundamental matrix $\\Phi(t)$ itself satisfies which matrix equation?",
+        "hint": "Each column solves $\\mathbf{x}' = A\\mathbf{x}$, so the whole matrix inherits the rule.",
+        "answerOptions": [
+          {
+            "text": "$\\Phi'(t) = A\\,\\Phi(t)$",
+            "correct": true,
+            "rationale": "Yes. Since every column solves $\\mathbf{x}' = A\\mathbf{x}$, the matrix obeys $\\Phi' = A\\Phi$."
+          },
+          {
+            "text": "$\\Phi'(t) = \\Phi(t)\\,A$",
+            "rationale": "The coefficient matrix multiplies on the left, matching $\\mathbf{x}' = A\\mathbf{x}$. Which side does $A$ go on?"
+          },
+          {
+            "text": "$\\Phi'(t) = A + \\Phi(t)$",
+            "rationale": "The relation is multiplicative, not additive. How does $A$ act on $\\Phi$?"
+          },
+          {
+            "text": "$\\Phi'(t) = \\det(A)\\,\\Phi(t)$",
+            "rationale": "The full matrix $A$ acts, not its determinant. What multiplies $\\Phi$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eI8k_j7v0Nk_3",
+        "prompt": "The general solution of $\\mathbf{x}' = A\\mathbf{x}$ is written using a fundamental matrix as what?",
+        "hint": "Combine the independent solution columns with a constant vector.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t)\\,\\mathbf{c}$ for a constant vector $\\mathbf{c}$",
+            "correct": true,
+            "rationale": "Yes. Multiplying the fundamental matrix by an arbitrary constant vector gives every solution."
+          },
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t) + \\mathbf{c}$",
+            "rationale": "The constants combine the columns by multiplication, not addition. How does $\\mathbf{c}$ act?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t)^{-1}\\mathbf{c}$",
+            "rationale": "The fundamental matrix itself, not its inverse, builds the solution. What product gives the general solution?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = A\\,\\Phi(t)$",
+            "rationale": "That is the derivative relation, not the solution. What does $\\Phi(t)$ multiply to form $\\mathbf{x}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eI8k_j7v0Nk_4",
+        "prompt": "Why must the columns of a fundamental matrix be linearly independent?",
+        "hint": "They must span the full solution space, not collapse onto one another.",
+        "answerOptions": [
+          {
+            "text": "So they span the whole solution space, making $\\Phi(t)$ invertible",
+            "correct": true,
+            "rationale": "Yes. Independent columns span all solutions and keep $\\det\\Phi \\neq 0$, so $\\Phi$ is invertible."
+          },
+          {
+            "text": "So the determinant of $\\Phi$ is zero",
+            "rationale": "A zero determinant would make $\\Phi$ singular and useless. What determinant value is required?"
+          },
+          {
+            "text": "So the eigenvalues are all equal",
+            "rationale": "Independence is unrelated to repeated eigenvalues. What does independence guarantee about the span?"
+          },
+          {
+            "text": "So the solution is unique without initial data",
+            "rationale": "Initial data is still needed for a specific solution. What does independence ensure about coverage?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eI8k_j7v0Nk_5",
+        "prompt": "The Wronskian of the solution columns, $\\det\\Phi(t)$, has which property for a fundamental matrix?",
+        "hint": "Independence of solutions is detected by a nonvanishing determinant.",
+        "answerOptions": [
+          {
+            "text": "It is nonzero for all $t$",
+            "correct": true,
+            "rationale": "Yes. For independent solutions the Wronskian $\\det\\Phi(t)$ never vanishes."
+          },
+          {
+            "text": "It is zero for all $t$",
+            "rationale": "A vanishing Wronskian signals dependence, the opposite of what we need. What value indicates independence?"
+          },
+          {
+            "text": "It equals the trace of $A$",
+            "rationale": "The Wronskian is a determinant, not the trace. What is true of its value for independent columns?"
+          },
+          {
+            "text": "It is zero at $t = 0$ only",
+            "rationale": "For a fundamental matrix the determinant never vanishes. What holds for all $t$?"
+          }
+        ]
+      }
+    ],
+    "Ybmb0BJ0GPc": [
+      {
+        "id": "mp_Ybmb0BJ0GPc_1",
+        "prompt": "The special fundamental matrix equal to the matrix exponential $e^{At}$ satisfies which normalization?",
+        "hint": "It reduces to the identity at the starting time.",
+        "answerOptions": [
+          {
+            "text": "$\\Phi(0) = I$",
+            "correct": true,
+            "rationale": "Yes. The matrix exponential is the fundamental matrix normalized so that $\\Phi(0) = I$."
+          },
+          {
+            "text": "$\\Phi(0) = A$",
+            "rationale": "At $t = 0$ the exponential is the identity, not $A$. What is $e^{A \\cdot 0}$?"
+          },
+          {
+            "text": "$\\Phi(0) = 0$",
+            "rationale": "A zero matrix could not be a fundamental matrix. What value does $e^{At}$ take at $t = 0$?"
+          },
+          {
+            "text": "$\\Phi(0) = A^{-1}$",
+            "rationale": "The normalization gives the identity, not an inverse. What is $\\Phi(0)$ for $e^{At}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ybmb0BJ0GPc_2",
+        "prompt": "Given any fundamental matrix $\\Phi(t)$, the matrix exponential is recovered as which product?",
+        "hint": "Renormalize $\\Phi$ so its value at $t = 0$ becomes the identity.",
+        "answerOptions": [
+          {
+            "text": "$e^{At} = \\Phi(t)\\,\\Phi(0)^{-1}$",
+            "correct": true,
+            "rationale": "Yes. Right-multiplying by $\\Phi(0)^{-1}$ forces the value at $t = 0$ to be $I$, giving $e^{At}$."
+          },
+          {
+            "text": "$e^{At} = \\Phi(0)^{-1}\\Phi(t)$",
+            "rationale": "The normalizing factor goes on the right to fix $\\Phi(0)\\Phi(0)^{-1} = I$. Which side carries $\\Phi(0)^{-1}$?"
+          },
+          {
+            "text": "$e^{At} = \\Phi(t)\\,\\Phi(0)$",
+            "rationale": "You need the inverse of $\\Phi(0)$ to normalize. What factor makes the value at $0$ equal $I$?"
+          },
+          {
+            "text": "$e^{At} = \\Phi(t) + \\Phi(0)^{-1}$",
+            "rationale": "The correction is multiplicative, not additive. What product recovers $e^{At}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ybmb0BJ0GPc_3",
+        "prompt": "Using a fundamental matrix, the solution of the IVP $\\mathbf{x}' = A\\mathbf{x}$, $\\mathbf{x}(t_0) = \\mathbf{x}_0$ is which expression?",
+        "hint": "Build the propagator that is the identity at $t_0$, then apply it to $\\mathbf{x}_0$.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t)\\,\\Phi(t_0)^{-1}\\,\\mathbf{x}_0$",
+            "correct": true,
+            "rationale": "Yes. The factor $\\Phi(t)\\Phi(t_0)^{-1}$ is the identity at $t_0$, so it carries $\\mathbf{x}_0$ forward correctly."
+          },
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t)\\,\\mathbf{x}_0$",
+            "rationale": "This fails to equal $\\mathbf{x}_0$ at $t_0$ unless $\\Phi(t_0) = I$. What extra factor fixes the initial value?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t_0)\\,\\Phi(t)^{-1}\\,\\mathbf{x}_0$",
+            "rationale": "The roles of $t$ and $t_0$ are reversed. Which argument should appear in the inverse?"
+          },
+          {
+            "text": "$\\mathbf{x}(t) = \\Phi(t)^{-1}\\,\\mathbf{x}_0$",
+            "rationale": "The plain fundamental matrix, not its inverse, evolves the state. What product is the propagator?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ybmb0BJ0GPc_4",
+        "prompt": "Is the fundamental matrix for a given system unique?",
+        "hint": "Recall that any independent combination of solutions also works.",
+        "answerOptions": [
+          {
+            "text": "No; any $\\Phi(t)C$ with an invertible constant matrix $C$ is also fundamental",
+            "correct": true,
+            "rationale": "Yes. Right-multiplying by an invertible constant matrix yields another valid fundamental matrix."
+          },
+          {
+            "text": "Yes; there is exactly one fundamental matrix",
+            "rationale": "Different independent solution sets give different fundamental matrices. What freedom exists?"
+          },
+          {
+            "text": "Yes, but only $e^{At}$ qualifies",
+            "rationale": "$e^{At}$ is one choice, normalized by $\\Phi(0) = I$, but not the only one. What other matrices work?"
+          },
+          {
+            "text": "No; it changes with every initial condition",
+            "rationale": "Initial conditions select constants, not the matrix itself. What transformation preserves the fundamental property?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ybmb0BJ0GPc_5",
+        "prompt": "For distinct real eigenvalues, one fundamental matrix has columns of which form?",
+        "hint": "Each independent solution is an exponential times its eigenvector.",
+        "answerOptions": [
+          {
+            "text": "$e^{\\lambda_1 t}\\mathbf{v}_1$ and $e^{\\lambda_2 t}\\mathbf{v}_2$",
+            "correct": true,
+            "rationale": "Yes. Each eigenpair gives a column $e^{\\lambda t}\\mathbf{v}$, and together they form a fundamental matrix."
+          },
+          {
+            "text": "$\\mathbf{v}_1$ and $\\mathbf{v}_2$, the eigenvectors alone",
+            "rationale": "Columns must be full time-dependent solutions. What exponential factor is missing?"
+          },
+          {
+            "text": "$e^{\\lambda_1 t}$ and $e^{\\lambda_2 t}$, scalars",
+            "rationale": "Each column is a vector solution, not a scalar. What vector multiplies each exponential?"
+          },
+          {
+            "text": "$t\\mathbf{v}_1$ and $t\\mathbf{v}_2$",
+            "rationale": "Polynomial factors appear only for repeated eigenvalues. What is the correct time factor for distinct ones?"
+          }
+        ]
+      }
+    ],
+    "RUpJUNjGmFI": [
+      {
+        "id": "mp_RUpJUNjGmFI_1",
+        "prompt": "For $A$ with rows $(1, 1)$ and $(4, 1)$, what is the characteristic equation?",
+        "hint": "Use $\\lambda^2 - (\\text{tr})\\lambda + \\det$ with trace $2$ and determinant $1 - 4$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda^2 - 2\\lambda - 3 = 0$",
+            "correct": true,
+            "rationale": "Correct. The trace is $2$ and the determinant is $1 - 4 = -3$, giving $\\lambda^2 - 2\\lambda - 3 = 0$."
+          },
+          {
+            "text": "$\\lambda^2 - 2\\lambda + 3 = 0$",
+            "rationale": "The determinant is $(1)(1) - (1)(4) = -3$, which is negative. What constant term results?"
+          },
+          {
+            "text": "$\\lambda^2 + 2\\lambda - 3 = 0$",
+            "rationale": "The trace is $+2$, so the middle term is $-2\\lambda$. What sign should it carry?"
+          },
+          {
+            "text": "$\\lambda^2 - 3\\lambda - 2 = 0$",
+            "rationale": "The trace and determinant are swapped. Which value is the coefficient of $\\lambda$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RUpJUNjGmFI_2",
+        "prompt": "The roots of $\\lambda^2 - 2\\lambda - 3 = 0$ are which eigenvalues?",
+        "hint": "Factor into $(\\lambda - 3)(\\lambda + 1)$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda = 3$ and $\\lambda = -1$",
+            "correct": true,
+            "rationale": "Correct. $(\\lambda - 3)(\\lambda + 1) = 0$ gives $\\lambda = 3$ and $\\lambda = -1$."
+          },
+          {
+            "text": "$\\lambda = -3$ and $\\lambda = 1$",
+            "rationale": "Check the signs of the factors $(\\lambda - 3)(\\lambda + 1)$. What roots do they give?"
+          },
+          {
+            "text": "$\\lambda = 3$ and $\\lambda = 1$",
+            "rationale": "The constant term $-3$ requires roots of opposite sign. What is the negative root?"
+          },
+          {
+            "text": "$\\lambda = 2$ and $\\lambda = -3$",
+            "rationale": "The roots must sum to the trace $2$ and multiply to $-3$. What pair fits?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RUpJUNjGmFI_3",
+        "prompt": "With eigenvalues $3$ and $-1$ of opposite sign, the origin of this system is what kind of equilibrium?",
+        "hint": "Opposite-sign real eigenvalues mean one mode grows and one decays.",
+        "answerOptions": [
+          {
+            "text": "A saddle point (unstable)",
+            "correct": true,
+            "rationale": "Yes. One positive and one negative eigenvalue produce a saddle, which is unstable."
+          },
+          {
+            "text": "A stable node (sink)",
+            "rationale": "A sink needs both eigenvalues negative. What does a positive eigenvalue do?"
+          },
+          {
+            "text": "An unstable node (source)",
+            "rationale": "A source needs both eigenvalues positive. What does the negative eigenvalue contribute?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers come from purely imaginary eigenvalues. What do two real eigenvalues of opposite sign give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RUpJUNjGmFI_4",
+        "prompt": "For $\\lambda = 3$ with $A$ rows $(1, 1)$ and $(4, 1)$, find an eigenvector from $(A - 3I)\\mathbf{v} = 0$.",
+        "hint": "The matrix $A - 3I$ has rows $(-2, 1)$ and $(4, -2)$; solve $-2v_1 + v_2 = 0$.",
+        "answerOptions": [
+          {
+            "text": "$(1, 2)$",
+            "correct": true,
+            "rationale": "Correct. From $-2v_1 + v_2 = 0$ we get $v_2 = 2v_1$, so $(1, 2)$ works."
+          },
+          {
+            "text": "$(2, 1)$",
+            "rationale": "The relation is $v_2 = 2v_1$, so the second component is the larger. Which ordering fits?"
+          },
+          {
+            "text": "$(1, -2)$",
+            "rationale": "The equation $-2v_1 + v_2 = 0$ gives a positive $v_2$. What sign should the second component have?"
+          },
+          {
+            "text": "$(1, 1)$",
+            "rationale": "Equal components do not satisfy $v_2 = 2v_1$. What second component does that relation force?"
+          }
+        ]
+      },
+      {
+        "id": "mp_RUpJUNjGmFI_5",
+        "prompt": "Once both eigenpairs are found, what is the general solution of this homogeneous system?",
+        "hint": "Superpose the two exponential mode solutions.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = c_1 e^{3t}\\mathbf{v}_1 + c_2 e^{-t}\\mathbf{v}_2$",
+            "correct": true,
+            "rationale": "Yes. Each eigenpair contributes a mode $e^{\\lambda t}\\mathbf{v}$, and the general solution superposes them."
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{3t} + c_2 e^{-t}$",
+            "rationale": "The eigenvectors give each mode a direction. What vectors must multiply the exponentials?"
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{-3t}\\mathbf{v}_1 + c_2 e^{t}\\mathbf{v}_2$",
+            "rationale": "The exponents are the eigenvalues $3$ and $-1$, not their negatives. What exponents are correct?"
+          },
+          {
+            "text": "$\\mathbf{x} = (c_1 + c_2 t)e^{3t}\\mathbf{v}_1$",
+            "rationale": "A polynomial factor appears only for a repeated eigenvalue. What form fits two distinct ones?"
+          }
+        ]
+      }
+    ],
+    "qpWV8Pd9tao": [
+      {
+        "id": "mp_qpWV8Pd9tao_1",
+        "prompt": "For $A$ with rows $(3, 1)$ and $(1, 3)$, what are the eigenvalues?",
+        "hint": "Use the trace $6$ and determinant $9 - 1 = 8$, or the symmetric trick $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda = 4$ and $\\lambda = 2$",
+            "correct": true,
+            "rationale": "Correct. Trace $6$ and determinant $8$ give $\\lambda^2 - 6\\lambda + 8 = 0$, so $\\lambda = 4, 2$."
+          },
+          {
+            "text": "$\\lambda = 3$ and $\\lambda = 3$",
+            "rationale": "The off-diagonal entries shift the eigenvalues off the diagonal value. What does $\\lambda^2 - 6\\lambda + 8 = 0$ give?"
+          },
+          {
+            "text": "$\\lambda = 6$ and $\\lambda = 8$",
+            "rationale": "Those are the trace and determinant, not the roots. What two numbers sum to $6$ and multiply to $8$?"
+          },
+          {
+            "text": "$\\lambda = 4$ and $\\lambda = -2$",
+            "rationale": "The product of the roots must be $+8$, so both are positive. What is the second root?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qpWV8Pd9tao_2",
+        "prompt": "With both eigenvalues positive ($4$ and $2$), the origin is what kind of equilibrium?",
+        "hint": "Both modes grow in time.",
+        "answerOptions": [
+          {
+            "text": "An unstable node (source)",
+            "correct": true,
+            "rationale": "Yes. Two positive real eigenvalues make every trajectory move away from the origin, a source."
+          },
+          {
+            "text": "A stable node (sink)",
+            "rationale": "A sink requires negative eigenvalues. What do positive eigenvalues do to trajectories?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs eigenvalues of opposite sign. What do two positive eigenvalues give?"
+          },
+          {
+            "text": "A center",
+            "rationale": "Centers come from purely imaginary eigenvalues. What kind of node do two positive reals give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qpWV8Pd9tao_3",
+        "prompt": "For $\\lambda = 4$ with $A$ rows $(3, 1)$ and $(1, 3)$, find an eigenvector from $(A - 4I)\\mathbf{v} = 0$.",
+        "hint": "The matrix $A - 4I$ has rows $(-1, 1)$ and $(1, -1)$; solve $-v_1 + v_2 = 0$.",
+        "answerOptions": [
+          {
+            "text": "$(1, 1)$",
+            "correct": true,
+            "rationale": "Correct. The equation $-v_1 + v_2 = 0$ forces $v_1 = v_2$, so $(1, 1)$ works."
+          },
+          {
+            "text": "$(1, -1)$",
+            "rationale": "Equal-sign components are required by $v_1 = v_2$. What sign should the second have?"
+          },
+          {
+            "text": "$(2, 1)$",
+            "rationale": "The relation $v_1 = v_2$ needs equal components. What vector satisfies that?"
+          },
+          {
+            "text": "$(0, 1)$",
+            "rationale": "A zero first component violates $v_1 = v_2$. What equal-component vector fits?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qpWV8Pd9tao_4",
+        "prompt": "For $\\lambda = 2$ with the same matrix, the eigenvector satisfies $(A - 2I)\\mathbf{v} = 0$ with rows $(1, 1)$ and $(1, 1)$. What works?",
+        "hint": "Solve $v_1 + v_2 = 0$.",
+        "answerOptions": [
+          {
+            "text": "$(1, -1)$",
+            "correct": true,
+            "rationale": "Correct. The equation $v_1 + v_2 = 0$ gives $v_2 = -v_1$, so $(1, -1)$ works."
+          },
+          {
+            "text": "$(1, 1)$",
+            "rationale": "That satisfies $v_1 = v_2$, but here $v_1 + v_2 = 0$ is required. What sign relation holds?"
+          },
+          {
+            "text": "$(2, 2)$",
+            "rationale": "Equal components give a nonzero sum, violating $v_1 + v_2 = 0$. What relation is needed?"
+          },
+          {
+            "text": "$(1, 0)$",
+            "rationale": "A zero second component leaves $v_1 + v_2 = v_1 \\neq 0$. What vector makes the sum zero?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qpWV8Pd9tao_5",
+        "prompt": "The eigenvectors $(1, 1)$ and $(1, -1)$ of this symmetric matrix have which special geometric relationship?",
+        "hint": "Compute their dot product.",
+        "answerOptions": [
+          {
+            "text": "They are orthogonal (perpendicular)",
+            "correct": true,
+            "rationale": "Yes. Their dot product $1 - 1 = 0$, so the eigenvectors are perpendicular, as expected for a symmetric matrix."
+          },
+          {
+            "text": "They are parallel",
+            "rationale": "Parallel vectors are scalar multiples; these are not. What does a zero dot product indicate?"
+          },
+          {
+            "text": "They are identical",
+            "rationale": "The vectors clearly differ. What does $(1)(1) + (1)(-1) = 0$ tell you?"
+          },
+          {
+            "text": "They point in opposite directions",
+            "rationale": "Opposite vectors are negatives of each other; these are not. What perpendicularity does the zero dot product show?"
+          }
+        ]
+      }
+    ],
+    "eKG47g-qbDw": [
+      {
+        "id": "mp_eKG47g-qbDw_1",
+        "prompt": "For the nonhomogeneous system $\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}(t)$, the general solution has which structure?",
+        "hint": "It mirrors the scalar nonhomogeneous case.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = \\mathbf{x}_h + \\mathbf{x}_p$, homogeneous plus particular",
+            "correct": true,
+            "rationale": "Yes. The general solution is the homogeneous solution plus any particular solution."
+          },
+          {
+            "text": "$\\mathbf{x} = \\mathbf{x}_h \\cdot \\mathbf{x}_p$, a product",
+            "rationale": "Solutions combine by addition, not multiplication. How do the two pieces join?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\mathbf{x}_p$ only",
+            "rationale": "The homogeneous part carries the free constants. What must be added to $\\mathbf{x}_p$?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\mathbf{x}_h$ only",
+            "rationale": "The forcing $\\mathbf{g}(t)$ requires a particular piece too. What is added to $\\mathbf{x}_h$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eKG47g-qbDw_2",
+        "prompt": "For a constant forcing vector $\\mathbf{g}$, the method of undetermined coefficients guesses a particular solution of which form?",
+        "hint": "Match the form of the forcing: a constant input suggests a constant response.",
+        "answerOptions": [
+          {
+            "text": "A constant vector $\\mathbf{x}_p = \\mathbf{a}$",
+            "correct": true,
+            "rationale": "Yes. Constant forcing calls for a constant trial vector $\\mathbf{a}$, whose entries are then solved for."
+          },
+          {
+            "text": "A linear-in-$t$ vector $\\mathbf{a}t$",
+            "rationale": "A linear guess matches linear forcing, not constant. What trial fits a constant input?"
+          },
+          {
+            "text": "An exponential $e^{t}\\mathbf{a}$",
+            "rationale": "Exponential trials match exponential forcing. What matches a constant $\\mathbf{g}$?"
+          },
+          {
+            "text": "A trigonometric vector",
+            "rationale": "Sines and cosines match oscillatory forcing. What simple form matches a constant?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eKG47g-qbDw_3",
+        "prompt": "For constant forcing $\\mathbf{g}$ with $A$ invertible, the constant particular solution is which vector?",
+        "hint": "Set $\\mathbf{x}_p' = 0$ in $\\mathbf{x}_p' = A\\mathbf{x}_p + \\mathbf{g}$ and solve.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}_p = -A^{-1}\\mathbf{g}$",
+            "correct": true,
+            "rationale": "Yes. A constant $\\mathbf{x}_p$ has zero derivative, so $0 = A\\mathbf{x}_p + \\mathbf{g}$ gives $\\mathbf{x}_p = -A^{-1}\\mathbf{g}$."
+          },
+          {
+            "text": "$\\mathbf{x}_p = A^{-1}\\mathbf{g}$",
+            "rationale": "Move $\\mathbf{g}$ across the equation $0 = A\\mathbf{x}_p + \\mathbf{g}$. What sign appears?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = -A\\mathbf{g}$",
+            "rationale": "Solving for $\\mathbf{x}_p$ requires the inverse of $A$, not $A$ itself. What operator acts on $\\mathbf{g}$?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\mathbf{g}$",
+            "rationale": "The matrix $A$ cannot simply vanish. What does solving $A\\mathbf{x}_p = -\\mathbf{g}$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eKG47g-qbDw_4",
+        "prompt": "When the forcing has the form $e^{\\lambda t}\\mathbf{b}$ and $\\lambda$ is an eigenvalue of $A$, the trial guess must be modified how?",
+        "hint": "This is the resonant case, analogous to the scalar resonance fix.",
+        "answerOptions": [
+          {
+            "text": "Multiply the usual exponential guess by $t$ (and include lower-order terms)",
+            "correct": true,
+            "rationale": "Yes. Resonance with an eigenvalue forces a $t e^{\\lambda t}$ term in the trial, like the scalar case."
+          },
+          {
+            "text": "Leave the guess unchanged",
+            "rationale": "A plain guess collides with the homogeneous solution. What factor resolves the resonance?"
+          },
+          {
+            "text": "Replace the exponential with a constant",
+            "rationale": "The forcing is exponential, so the trial must be too. What modification handles resonance?"
+          },
+          {
+            "text": "Divide the guess by $t$",
+            "rationale": "Resonance calls for multiplying, not dividing, by $t$. What adjustment is standard?"
+          }
+        ]
+      },
+      {
+        "id": "mp_eKG47g-qbDw_5",
+        "prompt": "After choosing the trial $\\mathbf{x}_p$, how are its unknown coefficient vectors found?",
+        "hint": "Force the trial to satisfy the system identically.",
+        "answerOptions": [
+          {
+            "text": "Substitute into $\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}$ and match like terms",
+            "correct": true,
+            "rationale": "Yes. Plugging the trial in and equating coefficients of like terms yields equations for the unknowns."
+          },
+          {
+            "text": "Set them equal to the eigenvalues",
+            "rationale": "The coefficients are not the eigenvalues. How does substitution determine them?"
+          },
+          {
+            "text": "Read them off the initial condition",
+            "rationale": "Initial conditions fix the homogeneous constants, not the particular coefficients. What determines $\\mathbf{x}_p$?"
+          },
+          {
+            "text": "Take the determinant of $A$",
+            "rationale": "A determinant gives one number, not the coefficient vectors. What procedure solves for them?"
+          }
+        ]
+      }
+    ],
+    "C5SO-XAIG_g": [
+      {
+        "id": "mp_C5SO-XAIG_g_1",
+        "prompt": "Variation of parameters for $\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}(t)$ gives a particular solution of which form?",
+        "hint": "Use the fundamental matrix $\\Phi$ and integrate against the forcing.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\int \\Phi^{-1}(t)\\,\\mathbf{g}(t)\\,dt$",
+            "correct": true,
+            "rationale": "Yes. Variation of parameters yields $\\mathbf{x}_p = \\Phi \\int \\Phi^{-1}\\mathbf{g}\\,dt$."
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\Phi^{-1}(t)\\int \\Phi(t)\\,\\mathbf{g}(t)\\,dt$",
+            "rationale": "The fundamental matrix multiplies on the outside, with its inverse inside the integral. Which goes where?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\int \\Phi(t)\\,\\mathbf{g}(t)\\,dt$",
+            "rationale": "The integrand should contain $\\Phi^{-1}\\mathbf{g}$, with $\\Phi$ outside. What factor is missing inside?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\,\\mathbf{g}(t)$",
+            "rationale": "An integral over the forcing is required, not a plain product. What operation acts on $\\Phi^{-1}\\mathbf{g}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_C5SO-XAIG_g_2",
+        "prompt": "What is the key advantage of variation of parameters over undetermined coefficients for systems?",
+        "hint": "Think about which forcing functions each method can handle.",
+        "answerOptions": [
+          {
+            "text": "It works for any continuous forcing, not just special forms",
+            "correct": true,
+            "rationale": "Yes. Variation of parameters applies to general $\\mathbf{g}(t)$, while undetermined coefficients needs special forms."
+          },
+          {
+            "text": "It never requires integration",
+            "rationale": "It does require integrating $\\Phi^{-1}\\mathbf{g}$. What broader class of forcing does it handle?"
+          },
+          {
+            "text": "It avoids finding the homogeneous solution",
+            "rationale": "It actually relies on the fundamental matrix from the homogeneous problem. What is its real advantage?"
+          },
+          {
+            "text": "It only works for constant forcing",
+            "rationale": "Constant forcing is the easy case for guessing. What forcing does variation of parameters allow?"
+          }
+        ]
+      },
+      {
+        "id": "mp_C5SO-XAIG_g_3",
+        "prompt": "In the variation of parameters formula, why is $\\Phi^{-1}(t)$ required to exist?",
+        "hint": "Recall the determinant property of a fundamental matrix.",
+        "answerOptions": [
+          {
+            "text": "Because a fundamental matrix has nonzero determinant, so it is invertible",
+            "correct": true,
+            "rationale": "Yes. Independent solution columns make $\\det\\Phi \\neq 0$, guaranteeing the inverse exists."
+          },
+          {
+            "text": "Because $A$ is always invertible",
+            "rationale": "The invertibility needed is that of $\\Phi$, not $A$. Why is $\\Phi$ invertible?"
+          },
+          {
+            "text": "Because $\\mathbf{g}(t)$ is nonzero",
+            "rationale": "The forcing being nonzero does not invert $\\Phi$. What property of $\\Phi$ guarantees its inverse?"
+          },
+          {
+            "text": "Because the eigenvalues are distinct",
+            "rationale": "Distinct eigenvalues are not required for invertibility of $\\Phi$. What determinant fact ensures it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_C5SO-XAIG_g_4",
+        "prompt": "For the IVP version, the definite-integral form of the particular solution uses which lower limit so that $\\mathbf{x}_p(t_0) = \\mathbf{0}$?",
+        "hint": "Choose the lower limit so the integral vanishes at the start.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\int_{t_0}^{t} \\Phi^{-1}(s)\\,\\mathbf{g}(s)\\,ds$",
+            "correct": true,
+            "rationale": "Yes. With lower limit $t_0$, the integral is zero at $t = t_0$, so $\\mathbf{x}_p(t_0) = \\mathbf{0}$."
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\int_{0}^{\\infty} \\Phi^{-1}(s)\\,\\mathbf{g}(s)\\,ds$",
+            "rationale": "An improper integral over all time does not vanish at $t_0$. What lower limit makes it zero there?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\int_{t}^{t_0} \\Phi^{-1}(s)\\,\\mathbf{g}(s)\\,ds$",
+            "rationale": "The limits are reversed, flipping the sign. Which order makes the integral vanish at $t_0$?"
+          },
+          {
+            "text": "$\\mathbf{x}_p = \\Phi(t)\\int_{-\\infty}^{t} \\Phi^{-1}(s)\\,\\mathbf{g}(s)\\,ds$",
+            "rationale": "Starting at $-\\infty$ does not give zero at $t_0$. What finite lower limit works?"
+          }
+        ]
+      },
+      {
+        "id": "mp_C5SO-XAIG_g_5",
+        "prompt": "The full general solution of the nonhomogeneous system by variation of parameters is which expression?",
+        "hint": "Add the homogeneous combination to the particular integral.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = \\Phi(t)\\,\\mathbf{c} + \\Phi(t)\\int \\Phi^{-1}\\mathbf{g}\\,dt$",
+            "correct": true,
+            "rationale": "Yes. The homogeneous part $\\Phi\\mathbf{c}$ plus the particular integral gives the general solution."
+          },
+          {
+            "text": "$\\mathbf{x} = \\Phi(t)\\int \\Phi^{-1}\\mathbf{g}\\,dt$ only",
+            "rationale": "The free constants from the homogeneous solution are missing. What term carries $\\mathbf{c}$?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\Phi(t)\\,\\mathbf{c}$ only",
+            "rationale": "This ignores the forcing entirely. What particular term must be added?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\mathbf{c} + \\int \\Phi^{-1}\\mathbf{g}\\,dt$",
+            "rationale": "The fundamental matrix must multiply both pieces. What factor is missing in front?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_15_1",
+      "prompt": "To convert $y'' + 5y' + 6y = 0$ into a first-order system with $x_1 = y$, $x_2 = y'$, what is $x_2'$?",
+      "hint": "Solve the equation for $y''$ and rewrite using $x_1, x_2$.",
+      "answerOptions": [
+        {
+          "text": "$x_2' = -6x_1 - 5x_2$",
+          "correct": true,
+          "rationale": "Correct. From $y'' = -6y - 5y'$ we read off $x_2' = -6x_1 - 5x_2$."
+        },
+        {
+          "text": "$x_2' = 6x_1 + 5x_2$",
+          "rationale": "Both terms move across the equals sign from $y'' + 5y' + 6y = 0$. What signs appear?"
+        },
+        {
+          "text": "$x_2' = -5x_1 - 6x_2$",
+          "rationale": "The $6y$ term pairs with $x_1$ and $5y'$ with $x_2$. Which coefficient goes with $x_1$?"
+        },
+        {
+          "text": "$x_2' = x_1$",
+          "rationale": "That ignores the original equation. What does solving for $y''$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_2",
+      "prompt": "A fourth-order linear ODE converts into a first-order system of how many equations?",
+      "hint": "Use a variable for each derivative from $y$ up to $y'''$.",
+      "answerOptions": [
+        {
+          "text": "Four",
+          "correct": true,
+          "rationale": "Yes. The variables $y, y', y'', y'''$ give exactly four first-order equations."
+        },
+        {
+          "text": "Three",
+          "rationale": "Count the variables from $y$ through $y'''$. How many is that?"
+        },
+        {
+          "text": "Eight",
+          "rationale": "Each derivative becomes one variable, not two. How many derivatives below order four, including $y$?"
+        },
+        {
+          "text": "Two",
+          "rationale": "Only a second-order ODE gives two. What is the count for order four?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_3",
+      "prompt": "Writing $y'' + 4y = 0$ as $\\mathbf{x}' = A\\mathbf{x}$ with $x_1 = y$, $x_2 = y'$, what are the rows of $A$?",
+      "hint": "First row: $x_1' = x_2$. Second row: $x_2' = -4x_1$.",
+      "answerOptions": [
+        {
+          "text": "Rows $(0, 1)$ and $(-4, 0)$",
+          "correct": true,
+          "rationale": "Correct. $x_1' = x_2$ gives $(0,1)$ and $x_2' = -4x_1$ gives $(-4, 0)$."
+        },
+        {
+          "text": "Rows $(0, 1)$ and $(4, 0)$",
+          "rationale": "The term $4y$ moves across with a sign change. What sign does $-4$ carry?"
+        },
+        {
+          "text": "Rows $(1, 0)$ and $(-4, 0)$",
+          "rationale": "The equation $x_1' = x_2$ has no $x_1$ term. What is the first row?"
+        },
+        {
+          "text": "Rows $(0, 1)$ and $(0, -4)$",
+          "rationale": "The coefficient $-4$ multiplies $x_1$, not $x_2$. Which slot holds it?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_4",
+      "prompt": "The main reason to rewrite a higher-order ODE as a first-order system is what?",
+      "hint": "Think about the matrix machinery built for first-order vector equations.",
+      "answerOptions": [
+        {
+          "text": "To apply eigenvalue, matrix-exponential, and standard numerical methods",
+          "correct": true,
+          "rationale": "Yes. The form $\\mathbf{x}' = A\\mathbf{x}$ unlocks linear-algebra and numerical solution techniques."
+        },
+        {
+          "text": "To make the equation have fewer unknowns",
+          "rationale": "Conversion adds unknowns rather than removing them. What is the real benefit?"
+        },
+        {
+          "text": "To guarantee the equation is separable",
+          "rationale": "Conversion does not make systems separable. What solution machinery does it enable?"
+        },
+        {
+          "text": "To eliminate the need for initial conditions",
+          "rationale": "Initial conditions are still needed. What methods does the system form allow?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_5",
+      "prompt": "The eigenvalue method solves $\\mathbf{x}' = A\\mathbf{x}$ by trying which form?",
+      "hint": "Guess an exponential in time times a fixed direction.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$",
+          "correct": true,
+          "rationale": "Yes. This trial converts the system into the eigenvalue problem $A\\mathbf{v} = \\lambda\\mathbf{v}$."
+        },
+        {
+          "text": "$\\mathbf{x} = t^\\lambda \\mathbf{v}$",
+          "rationale": "A constant-coefficient system calls for an exponential, not a power of $t$. What time factor is used?"
+        },
+        {
+          "text": "$\\mathbf{x} = e^{\\lambda t}$ (scalar)",
+          "rationale": "The unknown is a vector and needs a direction. What vector multiplies the exponential?"
+        },
+        {
+          "text": "$\\mathbf{x} = \\sin(\\lambda t)\\mathbf{v}$",
+          "rationale": "A bare sine is not the general trial. What exponential form is standard?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_6",
+      "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ yields which equation?",
+      "hint": "Cancel the nonzero scalar $e^{\\lambda t}$ after differentiating.",
+      "answerOptions": [
+        {
+          "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$",
+          "correct": true,
+          "rationale": "Yes. The system collapses to the eigenvalue equation $A\\mathbf{v} = \\lambda\\mathbf{v}$."
+        },
+        {
+          "text": "$A\\mathbf{v} = 0$",
+          "rationale": "Differentiating brings down a factor $\\lambda$ on the right. What does it multiply?"
+        },
+        {
+          "text": "$A\\mathbf{v} = \\lambda^2\\mathbf{v}$",
+          "rationale": "Only one derivative is taken, giving one power of $\\lambda$. What power is correct?"
+        },
+        {
+          "text": "$\\mathbf{v} = \\lambda A\\mathbf{v}$",
+          "rationale": "The factor $\\lambda$ lands on $\\mathbf{v}$, not on $A\\mathbf{v}$. What is the standard eigenvalue equation?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_7",
+      "prompt": "Eigenvalues are the solutions of which equation?",
+      "hint": "A nontrivial eigenvector requires $A - \\lambda I$ to be singular.",
+      "answerOptions": [
+        {
+          "text": "$\\det(A - \\lambda I) = 0$",
+          "correct": true,
+          "rationale": "Yes. Singularity of $A - \\lambda I$ is exactly $\\det(A - \\lambda I) = 0$."
+        },
+        {
+          "text": "$\\det(A) = 0$",
+          "rationale": "The shift by $\\lambda I$ is essential. What matrix must be singular?"
+        },
+        {
+          "text": "$\\text{tr}(A - \\lambda I) = 0$",
+          "rationale": "The trace condition is not the characteristic equation. What determinant must vanish?"
+        },
+        {
+          "text": "$A\\mathbf{v} = 0$",
+          "rationale": "That is a special case forcing $\\lambda = 0$. What general determinant equation gives all eigenvalues?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_8",
+      "prompt": "For distinct real eigenvalues, the general solution of $\\mathbf{x}' = A\\mathbf{x}$ is which combination?",
+      "hint": "Superpose one exponential mode per eigenpair.",
+      "answerOptions": [
+        {
+          "text": "$c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$",
+          "correct": true,
+          "rationale": "Yes. Each eigenpair contributes a mode, combined linearly."
+        },
+        {
+          "text": "$c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$",
+          "rationale": "The eigenvectors give each mode its direction. What vectors are missing?"
+        },
+        {
+          "text": "$c_1 \\mathbf{v}_1 + c_2 \\mathbf{v}_2$",
+          "rationale": "Without exponentials there is no time dependence. What factor accompanies each eigenvector?"
+        },
+        {
+          "text": "$e^{\\lambda_1 t}\\mathbf{v}_1 \\cdot e^{\\lambda_2 t}\\mathbf{v}_2$",
+          "rationale": "Modes add, they do not multiply. How are they combined?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_9",
+      "prompt": "For the matrix with rows $(2, 1)$ and $(1, 2)$, what are the eigenvalues?",
+      "hint": "Use trace $4$ and determinant $3$, or the symmetric trick $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+      "answerOptions": [
+        {
+          "text": "$3$ and $1$",
+          "correct": true,
+          "rationale": "Correct. Trace $4$, determinant $3$ give $\\lambda^2 - 4\\lambda + 3 = 0$, so $\\lambda = 3, 1$."
+        },
+        {
+          "text": "$2$ and $2$",
+          "rationale": "The off-diagonal entries shift the eigenvalues off the diagonal. What does $\\lambda^2 - 4\\lambda + 3 = 0$ give?"
+        },
+        {
+          "text": "$4$ and $3$",
+          "rationale": "Those are the trace and determinant, not the roots. What two numbers sum to $4$ and multiply to $3$?"
+        },
+        {
+          "text": "$3$ and $-1$",
+          "rationale": "The product of the roots is $+3$, so both are positive. What is the second root?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_10",
+      "prompt": "For $A$ with rows $(0, 1)$ and $(-1, 0)$, the eigenvalues are which pair?",
+      "hint": "The characteristic equation is $\\lambda^2 + 1 = 0$.",
+      "answerOptions": [
+        {
+          "text": "$\\pm i$",
+          "correct": true,
+          "rationale": "Correct. $\\lambda^2 + 1 = 0$ gives the purely imaginary pair $\\pm i$."
+        },
+        {
+          "text": "$\\pm 1$",
+          "rationale": "Solve $\\lambda^2 = -1$, not $\\lambda^2 = 1$. What are the roots?"
+        },
+        {
+          "text": "$0$ and $0$",
+          "rationale": "The constant term is $1$, so the roots are nonzero. What solves $\\lambda^2 = -1$?"
+        },
+        {
+          "text": "$\\pm i\\sqrt{2}$",
+          "rationale": "The equation is $\\lambda^2 = -1$, not $\\lambda^2 = -2$. What is the square root of $-1$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_11",
+      "prompt": "Complex eigenvalues of a real matrix always appear how?",
+      "hint": "Real coefficients impose a symmetry on complex roots.",
+      "answerOptions": [
+        {
+          "text": "In conjugate pairs $\\alpha \\pm \\beta i$",
+          "correct": true,
+          "rationale": "Yes. A real characteristic polynomial forces conjugate complex roots."
+        },
+        {
+          "text": "As a single complex number",
+          "rationale": "A real polynomial cannot have one lone complex root. What partner accompanies it?"
+        },
+        {
+          "text": "As two unrelated complex numbers",
+          "rationale": "They are related by conjugation, not unrelated. What pairing is forced?"
+        },
+        {
+          "text": "As real numbers in disguise",
+          "rationale": "If complex, they are genuinely complex. What conjugate structure holds?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_12",
+      "prompt": "For eigenvalues $\\alpha \\pm \\beta i$, what do $\\alpha$ and $\\beta$ respectively control in the phase portrait?",
+      "hint": "One sets growth or decay; the other sets rotation speed.",
+      "answerOptions": [
+        {
+          "text": "$\\alpha$ sets growth or decay; $\\beta$ sets the oscillation frequency",
+          "correct": true,
+          "rationale": "Yes. The real part is the growth rate and the imaginary part is the angular frequency."
+        },
+        {
+          "text": "$\\alpha$ sets frequency; $\\beta$ sets growth",
+          "rationale": "The roles are reversed. Which part lives inside the cosine and sine?"
+        },
+        {
+          "text": "Both set the frequency",
+          "rationale": "They play different roles. What does the real part govern?"
+        },
+        {
+          "text": "Both set the growth rate",
+          "rationale": "Only the real part affects amplitude. What does the imaginary part control?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_13",
+      "prompt": "For complex eigenvalues with $\\alpha = 0$ (purely imaginary), the origin is what?",
+      "hint": "With no growth envelope, the oscillation has constant amplitude.",
+      "answerOptions": [
+        {
+          "text": "A center, with closed orbits",
+          "correct": true,
+          "rationale": "Yes. Zero real part means constant amplitude, so trajectories close into orbits, a center."
+        },
+        {
+          "text": "A stable spiral",
+          "rationale": "A stable spiral needs a negative real part. What does $\\alpha = 0$ give?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "Saddles come from real opposite-sign eigenvalues. What do purely imaginary ones give?"
+        },
+        {
+          "text": "A stable node",
+          "rationale": "Nodes come from real eigenvalues. What closed-orbit type results here?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_14",
+      "prompt": "How is the matrix exponential $e^{At}$ defined?",
+      "hint": "It copies the scalar power series with $A$ replacing the number.",
+      "answerOptions": [
+        {
+          "text": "$I + At + \\frac{(At)^2}{2!} + \\frac{(At)^3}{3!} + \\cdots$",
+          "correct": true,
+          "rationale": "Yes. It is the same power series as the scalar exponential, summing powers of $At$ over factorials."
+        },
+        {
+          "text": "$I + At$ only",
+          "rationale": "That truncates after two terms. What infinite series is meant?"
+        },
+        {
+          "text": "$A e^{t}$",
+          "rationale": "The matrix cannot factor out like that. What power series defines it?"
+        },
+        {
+          "text": "$\\det(A)\\,e^{t}$",
+          "rationale": "The determinant is not involved in the definition. What series is used?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_15",
+      "prompt": "The solution of $\\mathbf{x}' = A\\mathbf{x}$ with $\\mathbf{x}(0) = \\mathbf{x}_0$ is which expression?",
+      "hint": "It mirrors the scalar $x = e^{at}x_0$.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x}(t) = e^{At}\\mathbf{x}_0$",
+          "correct": true,
+          "rationale": "Yes. The matrix exponential propagates the initial vector forward in time."
+        },
+        {
+          "text": "$\\mathbf{x}(t) = e^{At} + \\mathbf{x}_0$",
+          "rationale": "The initial vector is multiplied, not added. How does $e^{At}$ act on $\\mathbf{x}_0$?"
+        },
+        {
+          "text": "$\\mathbf{x}(t) = e^{t}\\mathbf{x}_0$",
+          "rationale": "A scalar exponential ignores the matrix. What exponential carries $A$?"
+        },
+        {
+          "text": "$\\mathbf{x}(t) = A e^{t}\\mathbf{x}_0$",
+          "rationale": "The matrix belongs in the exponent. What is the correct form?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_16",
+      "prompt": "What is $\\frac{d}{dt}e^{At}$?",
+      "hint": "Differentiate the power series term by term.",
+      "answerOptions": [
+        {
+          "text": "$A\\,e^{At}$",
+          "correct": true,
+          "rationale": "Yes. Differentiating brings down a factor $A$, giving $A e^{At}$."
+        },
+        {
+          "text": "$e^{At}$",
+          "rationale": "A factor is brought down by differentiation. What constant matrix appears?"
+        },
+        {
+          "text": "$A^2 e^{At}$",
+          "rationale": "One derivative brings down one factor of $A$, not two. What is the coefficient?"
+        },
+        {
+          "text": "$t e^{At}$",
+          "rationale": "No extra $t$ appears. What matrix factor results?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_17",
+      "prompt": "For diagonalizable $A = PDP^{-1}$, the matrix exponential equals what?",
+      "hint": "Conjugation passes through every term of the series.",
+      "answerOptions": [
+        {
+          "text": "$P\\,e^{Dt}\\,P^{-1}$",
+          "correct": true,
+          "rationale": "Yes. Since $A^n = PD^nP^{-1}$, the whole series gives $e^{At} = P e^{Dt} P^{-1}$."
+        },
+        {
+          "text": "$P^{-1} e^{Dt} P$",
+          "rationale": "The factor order must match $A = PDP^{-1}$. Which comes first?"
+        },
+        {
+          "text": "$e^{Dt}$ alone",
+          "rationale": "The change-of-basis matrices remain. What surrounds $e^{Dt}$?"
+        },
+        {
+          "text": "$P D e^{t} P^{-1}$",
+          "rationale": "The diagonal matrix belongs inside the exponential. What is the middle factor?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_18",
+      "prompt": "For the decoupled system $x' = -x$, $y' = 4y$, what is $e^{At}$?",
+      "hint": "A diagonal matrix exponentiates entrywise.",
+      "answerOptions": [
+        {
+          "text": "The diagonal matrix with entries $e^{-t}$ and $e^{4t}$",
+          "correct": true,
+          "rationale": "Yes. Each diagonal entry $d$ becomes $e^{dt}$."
+        },
+        {
+          "text": "The diagonal matrix with entries $-e^{t}$ and $4e^{t}$",
+          "rationale": "The entries go into the exponent, not in front. What are $e^{-t}$ and $e^{4t}$?"
+        },
+        {
+          "text": "The diagonal matrix with entries $e^{-1}$ and $e^{4}$",
+          "rationale": "The variable $t$ must be in the exponent. What time-dependent entries result?"
+        },
+        {
+          "text": "The diagonal matrix with entries $-t$ and $4t$",
+          "rationale": "Exponentiation is required, not multiplication. What is $e^{dt}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_19",
+      "prompt": "The columns of a fundamental matrix $\\Phi(t)$ are what?",
+      "hint": "They form a complete independent set of solutions.",
+      "answerOptions": [
+        {
+          "text": "Linearly independent solutions of $\\mathbf{x}' = A\\mathbf{x}$",
+          "correct": true,
+          "rationale": "Yes. A fundamental matrix collects independent solution vectors as its columns."
+        },
+        {
+          "text": "The eigenvectors of $A$ without time dependence",
+          "rationale": "Columns are full time-dependent solutions. What factor is missing?"
+        },
+        {
+          "text": "Constant vectors",
+          "rationale": "Constant columns do not solve the system. What must the columns be?"
+        },
+        {
+          "text": "The rows of $A$",
+          "rationale": "Rows of $A$ are not solutions. What objects fill the columns?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_20",
+      "prompt": "A fundamental matrix satisfies which matrix differential equation?",
+      "hint": "Each column solves $\\mathbf{x}' = A\\mathbf{x}$.",
+      "answerOptions": [
+        {
+          "text": "$\\Phi' = A\\Phi$",
+          "correct": true,
+          "rationale": "Yes. Because every column obeys $\\mathbf{x}' = A\\mathbf{x}$, the matrix satisfies $\\Phi' = A\\Phi$."
+        },
+        {
+          "text": "$\\Phi' = \\Phi A$",
+          "rationale": "The coefficient matrix multiplies on the left. Which side does $A$ take?"
+        },
+        {
+          "text": "$\\Phi' = A + \\Phi$",
+          "rationale": "The relation is multiplicative. How does $A$ act on $\\Phi$?"
+        },
+        {
+          "text": "$\\Phi' = \\det(A)\\Phi$",
+          "rationale": "The full matrix acts, not its determinant. What multiplies $\\Phi$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_21",
+      "prompt": "The matrix exponential $e^{At}$ is the fundamental matrix satisfying which normalization?",
+      "hint": "It equals the identity at the starting time.",
+      "answerOptions": [
+        {
+          "text": "$\\Phi(0) = I$",
+          "correct": true,
+          "rationale": "Yes. The matrix exponential is normalized so $\\Phi(0) = I$."
+        },
+        {
+          "text": "$\\Phi(0) = A$",
+          "rationale": "At $t = 0$ the exponential is the identity. What is $e^{A \\cdot 0}$?"
+        },
+        {
+          "text": "$\\Phi(0) = 0$",
+          "rationale": "A zero matrix could not be fundamental. What value does $e^{At}$ take at $0$?"
+        },
+        {
+          "text": "$\\Phi(0) = A^{-1}$",
+          "rationale": "The normalization gives the identity, not an inverse. What is $\\Phi(0)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_22",
+      "prompt": "Using a fundamental matrix, the general solution of $\\mathbf{x}' = A\\mathbf{x}$ is which expression?",
+      "hint": "Combine the columns with a constant vector.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x}(t) = \\Phi(t)\\,\\mathbf{c}$",
+          "correct": true,
+          "rationale": "Yes. Multiplying the fundamental matrix by an arbitrary constant vector gives every solution."
+        },
+        {
+          "text": "$\\mathbf{x}(t) = \\Phi(t) + \\mathbf{c}$",
+          "rationale": "The constants combine columns by multiplication. How does $\\mathbf{c}$ act?"
+        },
+        {
+          "text": "$\\mathbf{x}(t) = \\Phi(t)^{-1}\\mathbf{c}$",
+          "rationale": "The matrix itself, not its inverse, builds the solution. What product is used?"
+        },
+        {
+          "text": "$\\mathbf{x}(t) = A\\Phi(t)$",
+          "rationale": "That is the derivative relation, not the solution. What does $\\Phi$ multiply?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_23",
+      "prompt": "For $A$ with rows $(1, 1)$ and $(4, 1)$, the eigenvalues are which pair?",
+      "hint": "Trace $2$, determinant $1 - 4 = -3$; factor $\\lambda^2 - 2\\lambda - 3$.",
+      "answerOptions": [
+        {
+          "text": "$3$ and $-1$",
+          "correct": true,
+          "rationale": "Correct. $\\lambda^2 - 2\\lambda - 3 = (\\lambda - 3)(\\lambda + 1) = 0$ gives $3$ and $-1$."
+        },
+        {
+          "text": "$-3$ and $1$",
+          "rationale": "Check the signs of $(\\lambda - 3)(\\lambda + 1)$. What roots result?"
+        },
+        {
+          "text": "$3$ and $1$",
+          "rationale": "The determinant $-3$ forces opposite signs. What is the negative root?"
+        },
+        {
+          "text": "$2$ and $-3$",
+          "rationale": "The roots sum to the trace $2$ and multiply to $-3$. What pair fits?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_24",
+      "prompt": "With eigenvalues $3$ and $-1$, the origin of $\\mathbf{x}' = A\\mathbf{x}$ is what kind of equilibrium?",
+      "hint": "The eigenvalues are real with opposite signs.",
+      "answerOptions": [
+        {
+          "text": "A saddle (unstable)",
+          "correct": true,
+          "rationale": "Yes. Opposite-sign real eigenvalues produce a saddle, which is unstable."
+        },
+        {
+          "text": "A stable node",
+          "rationale": "A stable node needs both negative. What does the positive eigenvalue do?"
+        },
+        {
+          "text": "An unstable node",
+          "rationale": "An unstable node needs both positive. What does the negative eigenvalue change?"
+        },
+        {
+          "text": "A center",
+          "rationale": "Centers need imaginary eigenvalues. What do real opposite-sign eigenvalues give?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_25",
+      "prompt": "For $\\lambda = 3$ with $A$ rows $(1, 1)$ and $(4, 1)$, an eigenvector solves $(A - 3I)\\mathbf{v} = 0$ with row $(-2, 1)$. Which vector works?",
+      "hint": "Solve $-2v_1 + v_2 = 0$.",
+      "answerOptions": [
+        {
+          "text": "$(1, 2)$",
+          "correct": true,
+          "rationale": "Correct. $-2v_1 + v_2 = 0$ gives $v_2 = 2v_1$, so $(1, 2)$ works."
+        },
+        {
+          "text": "$(2, 1)$",
+          "rationale": "The relation $v_2 = 2v_1$ makes the second component larger. Which ordering fits?"
+        },
+        {
+          "text": "$(1, -2)$",
+          "rationale": "The equation gives a positive $v_2$. What sign should the second component have?"
+        },
+        {
+          "text": "$(1, 1)$",
+          "rationale": "Equal components fail $v_2 = 2v_1$. What second component is forced?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_26",
+      "prompt": "For $A$ with rows $(3, 1)$ and $(1, 3)$ (eigenvalues $4$ and $2$), the origin is what?",
+      "hint": "Both eigenvalues are positive reals.",
+      "answerOptions": [
+        {
+          "text": "An unstable node (source)",
+          "correct": true,
+          "rationale": "Yes. Two positive real eigenvalues push trajectories away, a source."
+        },
+        {
+          "text": "A stable node (sink)",
+          "rationale": "A sink needs negative eigenvalues. What do two positive ones give?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "A saddle needs opposite signs. Are $4$ and $2$ opposite?"
+        },
+        {
+          "text": "A center",
+          "rationale": "Centers need imaginary eigenvalues. Are $4$ and $2$ real or imaginary?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_27",
+      "prompt": "The general solution of $\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}(t)$ has which structure?",
+      "hint": "It mirrors the scalar nonhomogeneous case.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x} = \\mathbf{x}_h + \\mathbf{x}_p$",
+          "correct": true,
+          "rationale": "Yes. The homogeneous solution plus any particular solution gives the general solution."
+        },
+        {
+          "text": "$\\mathbf{x} = \\mathbf{x}_h \\cdot \\mathbf{x}_p$",
+          "rationale": "The pieces add, not multiply. How do they combine?"
+        },
+        {
+          "text": "$\\mathbf{x} = \\mathbf{x}_p$ only",
+          "rationale": "The free constants live in $\\mathbf{x}_h$. What must be added?"
+        },
+        {
+          "text": "$\\mathbf{x} = \\mathbf{x}_h$ only",
+          "rationale": "The forcing requires a particular piece. What is added to $\\mathbf{x}_h$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_28",
+      "prompt": "For constant forcing $\\mathbf{g}$ with $A$ invertible, the constant (steady-state) particular solution is which vector?",
+      "hint": "Set $\\mathbf{x}_p' = 0$ in $\\mathbf{x}_p' = A\\mathbf{x}_p + \\mathbf{g}$.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x}_p = -A^{-1}\\mathbf{g}$",
+          "correct": true,
+          "rationale": "Yes. A constant solution has zero derivative, so $0 = A\\mathbf{x}_p + \\mathbf{g}$ gives $\\mathbf{x}_p = -A^{-1}\\mathbf{g}$."
+        },
+        {
+          "text": "$\\mathbf{x}_p = A^{-1}\\mathbf{g}$",
+          "rationale": "Move $\\mathbf{g}$ across $0 = A\\mathbf{x}_p + \\mathbf{g}$. What sign appears?"
+        },
+        {
+          "text": "$\\mathbf{x}_p = -A\\mathbf{g}$",
+          "rationale": "Solving for $\\mathbf{x}_p$ needs the inverse of $A$. What operator acts on $\\mathbf{g}$?"
+        },
+        {
+          "text": "$\\mathbf{x}_p = \\mathbf{g}$",
+          "rationale": "The matrix $A$ cannot vanish. What does solving $A\\mathbf{x}_p = -\\mathbf{g}$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_29",
+      "prompt": "Variation of parameters gives a particular solution of $\\mathbf{x}' = A\\mathbf{x} + \\mathbf{g}$ of which form?",
+      "hint": "Use the fundamental matrix outside and its inverse inside the integral.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x}_p = \\Phi(t)\\int \\Phi^{-1}(t)\\,\\mathbf{g}(t)\\,dt$",
+          "correct": true,
+          "rationale": "Yes. This is the variation-of-parameters formula for systems."
+        },
+        {
+          "text": "$\\mathbf{x}_p = \\Phi^{-1}(t)\\int \\Phi(t)\\,\\mathbf{g}(t)\\,dt$",
+          "rationale": "The inverse goes inside and $\\Phi$ outside. Which is which?"
+        },
+        {
+          "text": "$\\mathbf{x}_p = \\int \\Phi(t)\\,\\mathbf{g}(t)\\,dt$",
+          "rationale": "The integrand needs $\\Phi^{-1}\\mathbf{g}$ with $\\Phi$ outside. What is missing inside?"
+        },
+        {
+          "text": "$\\mathbf{x}_p = \\Phi(t)\\,\\mathbf{g}(t)$",
+          "rationale": "An integral is required, not a plain product. What operation acts on $\\Phi^{-1}\\mathbf{g}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_15_30",
+      "prompt": "When the exponential forcing $e^{\\lambda t}\\mathbf{b}$ has $\\lambda$ equal to an eigenvalue of $A$, the undetermined-coefficients trial must be modified how?",
+      "hint": "This is the resonant case, like the scalar one.",
+      "answerOptions": [
+        {
+          "text": "Multiply the exponential guess by $t$ (and include lower-order terms)",
+          "correct": true,
+          "rationale": "Yes. Resonance with an eigenvalue forces a $t e^{\\lambda t}$ term in the trial."
+        },
+        {
+          "text": "Leave the guess unchanged",
+          "rationale": "A plain guess collides with the homogeneous solution. What factor resolves it?"
+        },
+        {
+          "text": "Replace the exponential with a constant",
+          "rationale": "The forcing is exponential, so the trial must be too. What modification is standard?"
+        },
+        {
+          "text": "Divide the guess by $\\lambda$",
+          "rationale": "Resonance calls for a factor of $t$, not dividing by $\\lambda$. What adjustment is used?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

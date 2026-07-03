@@ -1,0 +1,543 @@
+{
+  "unitNumber": 13,
+  "title": "Series Solutions of Differential Equations",
+  "subtitle": "Power Series, the Frobenius Method, and the Classical Special Functions",
+  "description": "Power series and Frobenius methods, leading to the classical special functions of mathematical physics. When constant-coefficient tricks fail, we posit an unknown analytic solution and solve for its coefficients term by term — a method that reaches its full power at singular points and gives birth to the Legendre, Bessel, Hermite, Laguerre, and Chebyshev families.",
+  "atAGlance": {
+    "title": "Unit 13 at a Glance: Series Solutions",
+    "summary": "Most differential equations have no closed-form elementary solution. The series method assumes the solution is an (possibly singular) analytic function $y = \\sum a_n x^n$, substitutes it into the equation, and matches coefficients of each power of $x$ to extract a recurrence for the $a_n$. At an ordinary point a plain power series works; at a regular singular point the Frobenius factor $x^r$ is required. Applied to the great equations of mathematical physics, the method manufactures the classical special functions.",
+    "bullets": [
+      {
+        "lead": "Taylor foundations",
+        "body": "the coefficient formula $f^{(n)}(a)/n!$, the standard library ($e^x,\\sin,\\cos,\\tfrac{1}{1-x}$), and the radius of convergence."
+      },
+      {
+        "lead": "Power series solutions",
+        "body": "ordinary points, the ansatz $y=\\sum a_n x^n$, re-indexing the derivatives, and reading off a recurrence."
+      },
+      {
+        "lead": "The Frobenius method",
+        "body": "regular singular points, the ansatz $x^r\\sum a_n x^n$, the indicial equation, and its three root cases."
+      },
+      {
+        "lead": "Legendre and Bessel",
+        "body": "the two flagship equations, polynomial versus transcendental solutions, and orthogonality."
+      },
+      {
+        "lead": "Hermite, Laguerre, Chebyshev",
+        "body": "three more orthogonal families, their weights, recurrences, and physical homes."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "13.1",
+      "title": "Taylor Series and the Exponential Function",
+      "topics": "Taylor and Maclaurin expansions, the coefficient formula $f^{(n)}(a)/n!$, the standard library of series, and the radius of convergence via the ratio test.",
+      "formulas": [
+        {
+          "title": "Taylor / Maclaurin Series",
+          "body": "f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}(x-a)^n, \\qquad \\text{Maclaurin: } a = 0."
+        },
+        {
+          "title": "The Standard Library",
+          "body": "e^x = \\sum_{n=0}^{\\infty}\\frac{x^n}{n!}, \\quad \\cos x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n}}{(2n)!}, \\quad \\sin x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n+1}}{(2n+1)!}, \\quad \\frac{1}{1-x} = \\sum_{n=0}^{\\infty} x^n \\ (|x|<1)."
+        },
+        {
+          "title": "Radius of Convergence (Ratio Test)",
+          "body": "\\frac{1}{R} = \\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|, \\qquad \\text{series converges for } |x-a| < R."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Build a Maclaurin Series",
+        "steps": [
+          "Compute the derivatives $f^{(n)}(0)$ at the center.",
+          "Form the coefficients $a_n = f^{(n)}(0)/n!$.",
+          "Assemble the series $\\sum_{n\\ge 0} a_n x^n$.",
+          "Determine the radius of convergence with the ratio test."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Maclaurin Series of $e^x$",
+          "setup": "Build the series for $f(x) = e^x$ about $x = 0$ and read off the cubic polynomial.",
+          "steps": [
+            "f^{(n)}(x) = e^x \\ \\Rightarrow\\ f^{(n)}(0) = 1 \\text{ for all } n",
+            "a_n = \\frac{f^{(n)}(0)}{n!} = \\frac{1}{n!}",
+            "e^x = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\cdots = \\sum_{n=0}^{\\infty}\\frac{x^n}{n!}",
+            "\\frac{1}{R} = \\lim_{n\\to\\infty}\\frac{1/(n+1)!}{1/n!} = \\lim_{n\\to\\infty}\\frac{1}{n+1} = 0 \\ \\Rightarrow\\ R = \\infty"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "An \\highlight{analytic function equals its own Taylor series} inside the radius of convergence $R$. This is the licence for the entire unit: if a solution is analytic, positing $y=\\sum a_n x^n$ loses nothing."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "A Taylor series only represents $f$ \\emph{inside} its radius of convergence. The geometric series $\\sum x^n$ equals $\\tfrac{1}{1-x}$ only for $|x|<1$; plugging in $x=2$ is meaningless even though $\\tfrac{1}{1-x}$ is perfectly finite there."
+      },
+      "flashQuiz": [
+        {
+          "id": "mp_ZcvxlNKKY_Q_1",
+          "prompt": "What is the Maclaurin series of $e^x$?",
+          "answer": "$\\sum_{n=0}^{\\infty} \\frac{x^n}{n!}$"
+        },
+        {
+          "id": "mp_ZcvxlNKKY_Q_2",
+          "prompt": "In the Maclaurin series of $e^x$, what is the coefficient of $x^4$?",
+          "answer": "$\\frac{1}{24}$"
+        },
+        {
+          "id": "mp_ZcvxlNKKY_Q_3",
+          "prompt": "The Taylor coefficient of $x^n$ for $f$ about $0$ is which formula?",
+          "answer": "$\\frac{f^{(n)}(0)}{n!}$"
+        },
+        {
+          "id": "mp_ZcvxlNKKY_Q_4",
+          "prompt": "Why does the Taylor expansion of $e^x$ have coefficients $1/n!$?",
+          "answer": "Every derivative of $e^x$ equals $e^x$, which is $1$ at $x=0$."
+        },
+        {
+          "id": "mp_ZcvxlNKKY_Q_5",
+          "prompt": "What is the third-degree Taylor polynomial of $e^x$ about $0$?",
+          "answer": "$1 + x + \\frac{x^2}{2} + \\frac{x^3}{6}$"
+        },
+        {
+          "id": "mp_ebfOSDj4j3I_1",
+          "prompt": "What is the Taylor series of $f$ centered at $x=a$?",
+          "answer": "$\\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!}(x-a)^n$"
+        },
+        {
+          "id": "mp_ebfOSDj4j3I_2",
+          "prompt": "A Maclaurin series is a Taylor series centered where?",
+          "answer": "$x=0$"
+        },
+        {
+          "id": "mp_ebfOSDj4j3I_3",
+          "prompt": "The geometric series $\\sum x^n$ converges to $\\frac{1}{1-x}$ on which interval?",
+          "answer": "$|x|<1$"
+        },
+        {
+          "id": "mp_ebfOSDj4j3I_4",
+          "prompt": "Radius of convergence of $\\sum \\frac{x^n}{2^n}$?",
+          "answer": "$R=2$"
+        },
+        {
+          "id": "mp_ebfOSDj4j3I_5",
+          "prompt": "What is the Maclaurin series of $\\cos x$?",
+          "answer": "$\\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n}}{(2n)!}$"
+        }
+      ]
+    },
+    {
+      "id": "13.2",
+      "title": "Power Series Solutions at an Ordinary Point",
+      "topics": "Ordinary points, the ansatz $y=\\sum a_n x^n$, term-by-term differentiation and re-indexing, and extracting a recurrence relation for the coefficients.",
+      "formulas": [
+        {
+          "title": "The Ansatz and Its Derivatives (re-indexed to $x^n$)",
+          "body": "y = \\sum_{n=0}^{\\infty} a_n x^n, \\quad y' = \\sum_{n=0}^{\\infty}(n+1)a_{n+1}x^n, \\quad y'' = \\sum_{n=0}^{\\infty}(n+2)(n+1)a_{n+2}x^n."
+        },
+        {
+          "title": "Ordinary Point Test",
+          "body": "\\text{For } y'' + p(x)y' + q(x)y = 0,\\ \\ x_0 \\text{ is ordinary} \\iff p,q \\text{ are both analytic at } x_0."
+        },
+        {
+          "title": "Guaranteed Radius",
+          "body": "R \\ge \\text{distance from } x_0 \\text{ to the nearest singular point in the complex plane.}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Series Solution at an Ordinary Point",
+        "steps": [
+          "Confirm $x_0$ is an ordinary point ($p,q$ analytic there).",
+          "Substitute $y=\\sum a_n x^n$ and the re-indexed derivatives into the equation.",
+          "Shift indices so every term carries the common power $x^n$.",
+          "Match coefficients of $x^n$ to obtain a recurrence relation.",
+          "Solve the recurrence; $a_0$ and $a_1$ remain free and generate the two independent solutions."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Solve $y'' + y = 0$ by Series",
+          "setup": "Find a power series solution about the ordinary point $x=0$ and identify the result.",
+          "steps": [
+            "y = \\sum_{n=0}^{\\infty} a_n x^n, \\quad y'' = \\sum_{n=0}^{\\infty}(n+2)(n+1)a_{n+2}x^n",
+            "y'' + y = \\sum_{n=0}^{\\infty}\\big[(n+2)(n+1)a_{n+2} + a_n\\big]x^n = 0",
+            "a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}",
+            "a_0:\\ 1 - \\tfrac{x^2}{2!} + \\tfrac{x^4}{4!} - \\cdots = \\cos x; \\quad a_1:\\ x - \\tfrac{x^3}{3!} + \\cdots = \\sin x",
+            "y = a_0\\cos x + a_1\\sin x"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "At an ordinary point the two free constants \\highlight{$a_0$ and $a_1$} are precisely the two arbitrary constants of a second-order ODE — the even-indexed and odd-indexed coefficients build the two independent solutions."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "You must \\emph{re-index} every series to the same power $x^n$ before matching coefficients. Skipping the index shift after differentiating (forgetting the $(n+1)$ or $(n+2)(n+1)$ factor) is the single most common source of a wrong recurrence."
+      },
+      "flashQuiz": [
+        {
+          "id": "mp_xeeM3TT4Zgg_1",
+          "prompt": "What form do we assume for a power series solution about $x=0$?",
+          "answer": "$y = \\sum_{n=0}^{\\infty} a_n x^n$"
+        },
+        {
+          "id": "mp_xeeM3TT4Zgg_2",
+          "prompt": "If $y=\\sum a_n x^n$, which series equals $y'$ re-indexed to $x^n$?",
+          "answer": "$\\sum_{n=0}^{\\infty} (n+1)a_{n+1} x^n$"
+        },
+        {
+          "id": "mp_xeeM3TT4Zgg_3",
+          "prompt": "Substituting into $y'=y$ gives which recurrence?",
+          "answer": "$a_{n+1} = \\frac{a_n}{n+1}$"
+        },
+        {
+          "id": "mp_xeeM3TT4Zgg_4",
+          "prompt": "Using $a_{n+1}=a_n/(n+1)$ with $a_0=1$, what is $a_2$?",
+          "answer": "$a_2 = \\frac{1}{2}$"
+        },
+        {
+          "id": "mp_xeeM3TT4Zgg_5",
+          "prompt": "The recurrence with $a_0=1$ gives $a_n=1/n!$; which function is the solution?",
+          "answer": "$y = e^x$"
+        },
+        {
+          "id": "mp_6csP7dw0XTY_1",
+          "prompt": "What makes $x_0$ an ordinary point of $y''+p y'+q y=0$?",
+          "answer": "Both $p(x)$ and $q(x)$ are analytic at $x_0$."
+        },
+        {
+          "id": "mp_6csP7dw0XTY_2",
+          "prompt": "If $y=\\sum a_n x^n$, which series equals $y''$ re-indexed to $x^n$?",
+          "answer": "$\\sum_{n=0}^{\\infty} (n+2)(n+1)a_{n+2} x^n$"
+        },
+        {
+          "id": "mp_6csP7dw0XTY_3",
+          "prompt": "Substituting into $y''+y=0$ gives which recurrence?",
+          "answer": "$a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}$"
+        },
+        {
+          "id": "mp_6csP7dw0XTY_4",
+          "prompt": "The two independent series solutions of $y''+y=0$ are which functions?",
+          "answer": "$\\cos x$ and $\\sin x$"
+        },
+        {
+          "id": "mp_6csP7dw0XTY_5",
+          "prompt": "At an ordinary point, the radius of convergence is at least what?",
+          "answer": "The distance to the nearest singular point of the equation."
+        }
+      ]
+    },
+    {
+      "id": "13.3",
+      "title": "The Frobenius Method",
+      "topics": "Regular singular points, the Frobenius ansatz $x^r\\sum a_n x^n$, the indicial equation $r(r-1)+p_0 r+q_0=0$, and the three cases of its roots.",
+      "formulas": [
+        {
+          "title": "Regular Singular Point",
+          "body": "x_0 \\text{ is singular, yet } (x-x_0)\\,p(x) \\text{ and } (x-x_0)^2 q(x) \\text{ are analytic at } x_0."
+        },
+        {
+          "title": "Frobenius Ansatz and Indicial Equation",
+          "body": "y = x^r\\sum_{n=0}^{\\infty} a_n x^n, \\qquad r(r-1) + p_0\\,r + q_0 = 0, \\quad p_0=\\lim_{x\\to 0} x\\,p(x),\\ q_0=\\lim_{x\\to 0} x^2 q(x)."
+        },
+        {
+          "title": "The Three Root Cases ($r_1 \\ge r_2$)",
+          "body": "\\begin{aligned} &\\text{(i) } r_1-r_2 \\notin \\mathbb{Z}: && \\text{two clean Frobenius series.} \\\\ &\\text{(ii) } r_1=r_2: && \\text{second solution needs a } \\ln x \\text{ term.} \\\\ &\\text{(iii) } r_1-r_2\\in\\mathbb{Z}^+: && \\ln x \\text{ may appear.} \\end{aligned}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- The Frobenius Procedure",
+        "steps": [
+          "Confirm $x_0$ is a regular singular point ($xp$ and $x^2q$ analytic).",
+          "Compute $p_0=\\lim x\\,p(x)$ and $q_0=\\lim x^2 q(x)$.",
+          "Form and solve the indicial equation $r(r-1)+p_0 r+q_0=0$ for $r_1\\ge r_2$.",
+          "Substitute $y=\\sum a_n x^{n+r}$ with the larger root to get a recurrence for $a_n$.",
+          "Build the second solution according to the root case (a log term if roots coincide or differ by an integer)."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Indicial Roots of $x^2 y'' + x y' - y = 0$",
+          "setup": "Classify $x=0$, find $p_0,q_0$, and solve the indicial equation.",
+          "steps": [
+            "\\text{Standard form: } y'' + \\tfrac{1}{x}y' - \\tfrac{1}{x^2}y = 0,\\quad p(x)=\\tfrac{1}{x},\\ q(x)=-\\tfrac{1}{x^2}",
+            "p_0 = \\lim_{x\\to 0} x\\cdot\\tfrac{1}{x} = 1, \\qquad q_0 = \\lim_{x\\to 0} x^2\\cdot\\left(-\\tfrac{1}{x^2}\\right) = -1",
+            "r(r-1) + (1)r + (-1) = r^2 - 1 = 0",
+            "r = 1 \\ \\text{and}\\ r = -1 \\ \\Rightarrow\\ y = c_1 x + c_2 x^{-1}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The Frobenius exponent \\highlight{$x^r$} is exactly what captures the singular behavior a plain power series cannot. The indicial equation comes from the \\emph{lowest} power of $x$ in the substitution, and its roots set the leading exponents of the two solutions."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "When the indicial roots are equal, or differ by a positive integer, the two series can collide. Do not assume two clean series — the smaller-root solution may require a \\warn{logarithmic term} $y_1\\ln x$ for independence."
+      },
+      "flashQuiz": [
+        {
+          "id": "mp__qQLuxYClA4_1",
+          "prompt": "What makes $x_0=0$ a regular singular point?",
+          "answer": "$x_0$ is singular, yet $x\\,p(x)$ and $x^2 q(x)$ are analytic at $x_0$."
+        },
+        {
+          "id": "mp__qQLuxYClA4_2",
+          "prompt": "What solution form does Frobenius assume?",
+          "answer": "$y = \\sum_{n=0}^{\\infty} a_n x^{n+r}$"
+        },
+        {
+          "id": "mp__qQLuxYClA4_3",
+          "prompt": "With $p_0,q_0$ defined by limits, what is the indicial equation?",
+          "answer": "$r(r-1) + p_0 r + q_0 = 0$"
+        },
+        {
+          "id": "mp__qQLuxYClA4_4",
+          "prompt": "For $x^2y''+xy'-y=0$ ($p_0=1,q_0=-1$), the indicial roots are?",
+          "answer": "$r=1$ and $r=-1$"
+        },
+        {
+          "id": "mp__qQLuxYClA4_5",
+          "prompt": "When should Frobenius be used instead of a plain power series?",
+          "answer": "When expanding about a regular singular point."
+        },
+        {
+          "id": "mp_58_qJyfVl-Y_1",
+          "prompt": "For $p_0=\\tfrac32, q_0=-\\tfrac12$, the indicial roots are?",
+          "answer": "$r=\\frac{1}{2}$ and $r=-1$"
+        },
+        {
+          "id": "mp_58_qJyfVl-Y_2",
+          "prompt": "When roots are distinct and don't differ by an integer, Frobenius yields?",
+          "answer": "Two independent Frobenius series solutions, one per root."
+        },
+        {
+          "id": "mp_58_qJyfVl-Y_3",
+          "prompt": "For a repeated indicial root, the second solution must include?",
+          "answer": "A logarithmic term, $y_1\\ln x$ plus a second series."
+        },
+        {
+          "id": "mp_58_qJyfVl-Y_4",
+          "prompt": "Near $x=0$, a Frobenius solution behaves like which leading term?",
+          "answer": "$a_0 x^r$, the lowest power set by the indicial root."
+        },
+        {
+          "id": "mp_58_qJyfVl-Y_5",
+          "prompt": "When roots differ by a positive integer, the smaller-root solution may require?",
+          "answer": "Possibly a logarithmic term, since the solutions can overlap."
+        }
+      ]
+    },
+    {
+      "id": "13.4",
+      "title": "Legendre and Bessel Equations",
+      "topics": "The two flagship equations of mathematical physics, the contrast between terminating polynomial solutions and transcendental ones, and orthogonality.",
+      "formulas": [
+        {
+          "title": "Legendre's Equation",
+          "body": "(1-x^2)y'' - 2x y' + n(n+1)y = 0, \\quad \\text{singular at } x=\\pm 1,\\ \\text{ordinary at } x=0."
+        },
+        {
+          "title": "Legendre Polynomials and Orthogonality",
+          "body": "P_0=1,\\ P_1=x,\\ P_2=\\tfrac{1}{2}(3x^2-1); \\qquad \\int_{-1}^{1} P_m(x)P_n(x)\\,dx = \\frac{2}{2n+1}\\,\\delta_{mn}."
+        },
+        {
+          "title": "Bessel's Equation of Order $\\nu$",
+          "body": "x^2 y'' + x y' + (x^2 - \\nu^2)y = 0, \\quad \\text{regular singular at } x=0,\\ \\text{indicial roots } r = \\pm\\nu."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Recognize and Solve a Named Equation",
+        "steps": [
+          "Match the equation to its standard form and read off the parameter ($n$ or $\\nu$).",
+          "Classify $x=0$: Legendre is ordinary there (use a power series); Bessel is regular singular (use Frobenius).",
+          "For Legendre with integer $n$, the series terminates into the degree-$n$ polynomial $P_n$.",
+          "For Bessel, the larger root $+\\nu$ gives the bounded first-kind solution $J_\\nu$."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- The Legendre Polynomial $P_2$",
+          "setup": "For $n=2$, Legendre's equation $(1-x^2)y'' - 2x y' + 6y = 0$ has a terminating solution. Normalize so $P_2(1)=1$.",
+          "steps": [
+            "\\text{Even series: } a_2 = -\\tfrac{n(n+1)}{2}a_0 = -\\tfrac{6}{2}a_0 = -3a_0,\\ \\ a_4 = 0 \\ (\\text{terminates})",
+            "y = a_0(1 - 3x^2)",
+            "\\text{Normalize } P_2(1)=1:\\ a_0(1-3) = -2a_0 = 1 \\Rightarrow a_0 = -\\tfrac{1}{2}",
+            "P_2(x) = -\\tfrac{1}{2}(1 - 3x^2) = \\tfrac{1}{2}(3x^2 - 1)"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The \\highlight{special functions} are simply the named solutions of the physically important singular ODEs. Legendre arises from spherical symmetry and terminates into polynomials for integer $n$; Bessel arises from cylindrical symmetry and gives the oscillatory $J_\\nu$."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Bessel's equation at $x=0$ is a \\emph{regular singular point}, not an ordinary point — the coefficients blow up there. A plain power series fails; you must use Frobenius with indicial roots $r=\\pm\\nu$."
+      },
+      "flashQuiz": [
+        {
+          "id": "mp_3e5BUrtUKZc_1",
+          "prompt": "Which equation is Legendre's differential equation?",
+          "answer": "$(1-x^2)y'' - 2x y' + n(n+1)y = 0$"
+        },
+        {
+          "id": "mp_3e5BUrtUKZc_2",
+          "prompt": "For integer $n$, one Legendre solution is special — what is it?",
+          "answer": "A polynomial of degree $n$, the Legendre polynomial $P_n(x)$."
+        },
+        {
+          "id": "mp_3e5BUrtUKZc_3",
+          "prompt": "Given $P_0=1, P_1=x$, what is $P_2(x)$?",
+          "answer": "$\\frac{1}{2}(3x^2-1)$"
+        },
+        {
+          "id": "mp_3e5BUrtUKZc_4",
+          "prompt": "Where are Legendre's singular points; is $x=0$ ordinary?",
+          "answer": "Singular at $x=\\pm 1$; $x=0$ is an ordinary point."
+        },
+        {
+          "id": "mp_3e5BUrtUKZc_5",
+          "prompt": "For $m\\neq n$ on $[-1,1]$, Legendre polynomials satisfy?",
+          "answer": "They are orthogonal: $\\int_{-1}^{1} P_m P_n\\,dx = 0$."
+        },
+        {
+          "id": "mp_uLORiAWe63A_1",
+          "prompt": "Which equation is Bessel's equation of order $\\nu$?",
+          "answer": "$x^2 y'' + x y' + (x^2-\\nu^2)y = 0$"
+        },
+        {
+          "id": "mp_uLORiAWe63A_2",
+          "prompt": "What type of point is $x=0$ for Bessel, and which method applies?",
+          "answer": "A regular singular point, so the Frobenius method applies."
+        },
+        {
+          "id": "mp_uLORiAWe63A_3",
+          "prompt": "For Bessel of order $\\nu$, what are the indicial roots?",
+          "answer": "$r=\\nu$ and $r=-\\nu$"
+        },
+        {
+          "id": "mp_uLORiAWe63A_4",
+          "prompt": "How does $J_\\nu(x)$ ($\\nu>0$) behave as $x\\to 0$?",
+          "answer": "It approaches $0$, growing from zero like $x^\\nu$."
+        },
+        {
+          "id": "mp_uLORiAWe63A_5",
+          "prompt": "Bessel functions arise naturally in which physical problem?",
+          "answer": "Vibrations and heat flow with cylindrical symmetry, e.g. a circular drumhead."
+        }
+      ]
+    },
+    {
+      "id": "13.5",
+      "title": "Hermite, Laguerre, and Chebyshev Polynomials",
+      "topics": "Three more classical orthogonal families: their differential equations, recurrences, weight functions, and the physical or numerical settings where each appears.",
+      "formulas": [
+        {
+          "title": "Hermite (physicists' convention)",
+          "body": "y'' - 2x y' + 2n y = 0; \\quad H_0=1,\\ H_1=2x,\\ H_2=4x^2-2; \\quad \\text{weight } e^{-x^2} \\text{ on } (-\\infty,\\infty)."
+        },
+        {
+          "title": "Laguerre",
+          "body": "x y'' + (1-x)y' + n y = 0; \\quad \\text{weight } e^{-x} \\text{ on } [0,\\infty)."
+        },
+        {
+          "title": "Chebyshev (first kind)",
+          "body": "\\begin{gathered} (1-x^2)y'' - x y' + n^2 y = 0; \\quad T_n(\\cos\\theta)=\\cos(n\\theta) \\\\ T_0=1,\\ T_1=x,\\ T_2=2x^2-1; \\quad \\text{weight } \\tfrac{1}{\\sqrt{1-x^2}}. \\end{gathered}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Place a Classical Family",
+        "steps": [
+          "Inspect the leading coefficient and the first-derivative term to fingerprint the equation.",
+          "Match to the family: constant lead with $-2xy'$ is Hermite; $xy''$ with $(1-x)y'$ is Laguerre; $(1-x^2)y''$ with a single $xy'$ is Chebyshev.",
+          "Generate the polynomials from the family's recurrence.",
+          "Pair with the correct weight function for orthogonality."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- $H_2$ and $T_2$ from Recurrences",
+          "setup": "Use the Hermite recurrence $H_{n+1}=2xH_n-2nH_{n-1}$ and the Chebyshev recurrence $T_{n+1}=2xT_n-T_{n-1}$ to build the degree-2 members.",
+          "steps": [
+            "H_2 = 2x H_1 - 2(1)H_0 = 2x(2x) - 2(1) = 4x^2 - 2",
+            "T_2 = 2x T_1 - T_0 = 2x(x) - 1 = 2x^2 - 1",
+            "\\text{Contrast: } H_2 = 4x^2-2,\\quad T_2 = 2x^2-1,\\quad P_2 = \\tfrac{1}{2}(3x^2-1)"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Each classical family is an \\highlight{orthogonal basis under its own weight}, tailored to a geometry: Hermite ($e^{-x^2}$) to the quantum harmonic oscillator, Laguerre ($e^{-x}$) to the hydrogen atom, Chebyshev ($1/\\sqrt{1-x^2}$) to minimax approximation."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Do not confuse the degree-2 members: \\warn{$H_2 = 4x^2-2$} (Hermite), $T_2 = 2x^2-1$ (Chebyshev), and $P_2 = \\tfrac{1}{2}(3x^2-1)$ (Legendre) all look similar but come from different equations, recurrences, and weights."
+      },
+      "flashQuiz": [
+        {
+          "id": "mp_1WlTe-DzO5E_1",
+          "prompt": "Which equation is Hermite's differential equation?",
+          "answer": "$y'' - 2x y' + 2n y = 0$"
+        },
+        {
+          "id": "mp_1WlTe-DzO5E_2",
+          "prompt": "Given $H_0=1, H_1=2x$, what is $H_2(x)$?",
+          "answer": "$4x^2-2$"
+        },
+        {
+          "id": "mp_1WlTe-DzO5E_3",
+          "prompt": "Which equation is Laguerre's differential equation?",
+          "answer": "$x y'' + (1-x)y' + n y = 0$"
+        },
+        {
+          "id": "mp_1WlTe-DzO5E_4",
+          "prompt": "Hermite polynomials are orthogonal on $\\mathbb{R}$ with which weight?",
+          "answer": "$e^{-x^2}$"
+        },
+        {
+          "id": "mp_1WlTe-DzO5E_5",
+          "prompt": "In which physical setting do Hermite polynomials famously appear?",
+          "answer": "The quantum harmonic oscillator wavefunctions."
+        },
+        {
+          "id": "mp_sHlIF-YZ9Yw_1",
+          "prompt": "Which equation is Chebyshev's differential equation?",
+          "answer": "$(1-x^2)y'' - x y' + n^2 y = 0$"
+        },
+        {
+          "id": "mp_sHlIF-YZ9Yw_2",
+          "prompt": "Given $T_0=1, T_1=x$, what is $T_2(x)$?",
+          "answer": "$2x^2-1$"
+        },
+        {
+          "id": "mp_sHlIF-YZ9Yw_3",
+          "prompt": "Chebyshev polynomials satisfy $T_n(\\cos\\theta)=$?",
+          "answer": "$\\cos(n\\theta)$"
+        },
+        {
+          "id": "mp_sHlIF-YZ9Yw_4",
+          "prompt": "Chebyshev (first kind) are orthogonal on $[-1,1]$ with which weight?",
+          "answer": "$\\frac{1}{\\sqrt{1-x^2}}$"
+        },
+        {
+          "id": "mp_sHlIF-YZ9Yw_5",
+          "prompt": "Why are Chebyshev polynomials valued in numerical approximation?",
+          "answer": "They minimize the maximum error, spreading it evenly (equioscillation)."
+        }
+      ]
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Power Series, Frobenius, and the Classical Special Functions",
+    "takeaway": {
+      "title": "Unit Key Takeaway",
+      "body": "The series method is one idea applied with increasing nerve: \\highlight{posit an analytic solution} $y=\\sum a_n x^n$, substitute, and match powers to get a recurrence. At an ordinary point a plain power series works; at a regular singular point the \\highlight{Frobenius factor $x^r$} and its indicial equation are required. Run the machine on the great equations of physics and out come the Legendre, Bessel, Hermite, Laguerre, and Chebyshev families --- each an orthogonal basis under its own weight."
+    }
+  }
+}

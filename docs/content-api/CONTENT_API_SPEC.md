@@ -99,19 +99,24 @@ type (prompts, hints, rationales, solutions, summaries, concept/warning bodies).
   `\textcolor`, `\noindent`, `\quad`/`\qquad` *outside* math, `\\` line breaks in
   prose, `---`, environment/document commands (`\begin{document}`, `\input`,
   `\section`). Structure belongs in JSON fields, not in strings.
-- **The three semantic macros** are the *only* permitted text-mode commands:
+- **The five semantic macros** are the *only* permitted text-mode commands
+  (amended 1.0.0: `\work` and `\warn` added after the migration audit found
+  441 `workpurple` and 47 `warnred` usages that would otherwise be lossy):
 
-  | Macro | Meaning | Web mapping | Print mapping |
+  | Macro | Meaning | Web mapping (Phase 1 → target) | Print mapping |
   |---|---|---|---|
-  | `\emph{…}` | emphasis | `<em>` | `\emph{…}` |
-  | `\strong{…}` | strong emphasis | `<strong>` | `\textbf{…}` |
-  | `\highlight{…}` | accent callout | `<mark class="accent">` | `\textcolor{accentorange}{…}` |
+  | `\emph{…}` | emphasis | unwrap → `<em>` | `\emph{…}` |
+  | `\strong{…}` | strong emphasis | unwrap → `<strong>` | `\textbf{…}` |
+  | `\highlight{…}` | accent callout | unwrap → `<mark class="accent">` | `\textcolor{accentorange}{…}` |
+  | `\work{…}` | live working math | unwrap → styled span | `\textcolor{workpurple}{…}` |
+  | `\warn{…}` | warning emphasis | unwrap → styled span | `\textcolor{warnred}{…}` |
 
-  This is the load-bearing fix for the round-trip problem: today's
-  `unitN_data.json` bodies embed `\textcolor{accentorange}{…}` (print-only) which
-  the web sanitizer must strip destructively. Canonical content stores the
-  *intent*; each compiler renders its dialect. Nothing is lost in either
-  direction, and `--mode master` regeneration becomes total.
+  Web lowering is **unwrap** (drop the macro, keep the body) in Phase 1 because
+  the SPA renders these strings via `textContent` + KaTeX auto-render; the HTML
+  element mappings activate with the Phase 2 renderer migration. The macro maps
+  are **bijective token renames**, so canonical ⇄ print round-trips are
+  byte-exact and nothing is lost in either direction — the load-bearing fix for
+  the documented `--mode master` regeneration loss.
 
 ### 4.3 `MathExpr`
 A bare math body with **no delimiters** — the renderer chooses `\[...\]`,
@@ -119,6 +124,18 @@ A bare math body with **no delimiters** — the renderer chooses `\[...\]`,
 steps, and recurrence displays. Same KaTeX bar as math spans in `MathText`.
 Alignment `&` and `\\` are legal here (matrices, `aligned`) — the ampersand copy
 rule applies to prose, not math.
+
+**Delimiter note (amended 1.0.0):** in `MathText`, display math may be
+delimited by `$$...$$` *or* `\[...\]` as authored — KaTeX auto-render accepts
+both, and preserving the authored form keeps the print round-trip byte-exact.
+The web compiler normalizes `\[ \]` → `$$` at emission (matching today's
+deployed strings); canonical files keep the authored delimiters.
+
+**Solution labels (amended 1.0.0):** practice solutions carry no label prefix
+in canonical form; the print compiler emits the default `Solution N.` label, or
+the problem's explicit `solutionLabel` when present (the six authored
+`(Capstone)` variants). This also fixes a live web defect where non-default
+labels leaked literal `\noindentSolution (Capstone).\quad` text to students.
 
 ### 4.4 Print-only decoration is the compiler's job
 `\textcolor{workpurple}{…}` wrapping of live solution steps, `Solution N.`

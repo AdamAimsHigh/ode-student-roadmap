@@ -60,7 +60,10 @@
       "additionalProperties": false,
       "required": ["title", "body"],
       "properties": {
-        "title": { "$ref": "#/$defs/plainText" },
+        "title": {
+          "$ref": "#/$defs/mathText",
+          "description": "Box titles may contain math and print typography; copy rules are enforced contextually by validate_content.py, not here."
+        },
         "body": { "$ref": "#/$defs/mathText" }
       }
     },

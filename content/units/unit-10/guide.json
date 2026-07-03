@@ -1,0 +1,142 @@
+{
+  "unitNumber": 10,
+  "richBodies": true,
+  "title": "Nonhomogeneous Equations and Forced Response",
+  "subtitle": "Finding particular solutions by every major technique, and understanding how systems respond to inputs.",
+  "description": "Finding particular solutions by every major technique, and understanding how systems respond to inputs.",
+  "atAGlance": {
+    "title": "Unit 10 at a Glance: Core Sub-Topics",
+    "summary": "A nonhomogeneous linear equation reads $L[y] = g(x)$, and its general solution always splits as $y = y_h + y_p$ --- the complementary solution of $L[y]=0$ plus \\emph{any} particular solution of the forcing. This unit is the toolkit for building $y_p$ and for reading how a system answers an input.",
+    "bullets": [
+      {
+        "lead": "Undetermined coefficients",
+        "body": "guess a trial of the same shape as the forcing, then match coefficients."
+      },
+      {
+        "lead": "Variation of parameters",
+        "body": "promote the constants $c_1,c_2$ to functions for \\emph{any} continuous forcing."
+      },
+      {
+        "lead": "The annihilator method",
+        "body": "an operator that kills $g$ derives the trial form instead of memorizing it."
+      },
+      {
+        "lead": "Transient and steady-state",
+        "body": "the homogeneous part decays, the particular part persists."
+      },
+      {
+        "lead": "Unit step and impulse response",
+        "body": "$u(t)$, $\\delta(t)$, and the system's answer to a unit kick from rest."
+      },
+      {
+        "lead": "Duhamel's principle",
+        "body": "convolve the impulse response with the input to answer \\emph{every} forcing at once."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "10.1",
+      "title": "The Method of Undetermined Coefficients",
+      "topics": "For a constant-coefficient $L[y] = g(x)$, the general solution is $y = y_h + y_p$: the complementary solution $y_h$ solves $L[y]=0$ and carries the arbitrary constants, while $y_p$ matches the forcing. When $g$ is an exponential, polynomial, sine/cosine, or a product of these, guess a trial of the \\emph{same shape} and solve for its coefficients.",
+      "formulas": [
+        {
+          "title": "Complementary Plus Particular",
+          "body": "\\[ y = y_h + y_p, \\qquad L[y_h] = 0, \\qquad L[y_p] = g(x). \\]\nOnly $y_h$ holds the free constants, so it alone can absorb the initial or\nboundary conditions --- which is why $y_p$ is never the whole story."
+        },
+        {
+          "title": "Trial Solution Table (No Overlap)",
+          "body": "\\[\n\\begin{array}{l|l}\n\\strong{Forcing } g(x) & \\strong{Trial } y_p \\\\ \\hline\ne^{\\alpha x} & A e^{\\alpha x} \\\\\n\\text{polynomial of degree } n & A_n x^n + \\cdots + A_1 x + A_0 \\\\\n\\cos\\beta x \\ \\text{ or } \\ \\sin\\beta x & A\\cos\\beta x + B\\sin\\beta x \\\\\ne^{\\alpha x}\\cos\\beta x & e^{\\alpha x}(A\\cos\\beta x + B\\sin\\beta x) \\\\\n\\end{array}\n\\]\nFor a \\emph{sum} of forcings, build a particular solution for each piece and add\nthem (superposition for the nonhomogeneous equation)."
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Overlap with the Homogeneous Solution",
+        "body": "If any term of the trial already solves $L[y]=0$, substitution collapses it to\nzero and the method fails. \\strong{Multiply the offending trial by $x$} (or by a\nhigher power $x^k$ for a root of multiplicity $k$) until no term overlaps $y_h$.\nFor $y''+y=\\cos x$, the bare guess $A\\cos x + B\\sin x$ \\emph{is} the homogeneous\nsolution; the corrected resonant trial is $x(A\\cos x + B\\sin x)$."
+      }
+    },
+    {
+      "id": "10.2",
+      "title": "Variation of Parameters",
+      "topics": "When the forcing is not one of the friendly shapes --- $\\tan x$, $\\sec x$, $e^x/x$ --- undetermined coefficients has nothing to guess. Variation of parameters promotes the constants $c_1,c_2$ of $y_h = c_1 y_1 + c_2 y_2$ to functions $u_1(x),u_2(x)$ and works for \\emph{any} continuous $g$.",
+      "formulas": [
+        {
+          "title": "Variation of Parameters Formulas",
+          "body": "Write the equation in standard form $y'' + p y' + q y = g$ (leading coefficient\none), let $W = y_1 y_2' - y_2 y_1'$ be the Wronskian, and set $y_p = u_1 y_1 + u_2 y_2$ with\n\\[ u_1' = -\\frac{y_2\\, g}{W}, \\qquad u_2' = \\frac{y_1\\, g}{W}, \\]\n\\[ y_p = -\\,y_1\\!\\int \\frac{y_2\\, g}{W}\\,dx \\;+\\; y_2\\!\\int \\frac{y_1\\, g}{W}\\,dx. \\]"
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Forgetting to Normalize",
+        "body": "The $g$ in these formulas is the right-hand side \\emph{after} dividing through so\nthe $y''$ coefficient is one. Reading $g$ off an unnormalized equation scales the\nanswer incorrectly. Always normalize first, then read $g$."
+      }
+    },
+    {
+      "id": "10.3",
+      "title": "Differential Operators and the Annihilator Method",
+      "topics": "Writing $D = \\tfrac{d}{dx}$, a constant-coefficient operator factors like a polynomial. An \\strong{annihilator} of $g$ is an operator $A(D)$ with $A(D)g = 0$. Applying it to both sides of $L[y]=g$ turns the problem into a larger \\emph{homogeneous} equation whose extra solutions are exactly the trial form.",
+      "formulas": [
+        {
+          "title": "Common Annihilators",
+          "body": "\\[\n\\begin{array}{l|l}\n\\strong{Function} & \\strong{Annihilator} \\\\ \\hline\ne^{\\alpha x} & (D-\\alpha) \\\\\nx^{k-1} & D^{k} \\\\\n\\cos\\beta x,\\ \\sin\\beta x & (D^2 + \\beta^2) \\\\\ne^{\\alpha x}\\cos\\beta x,\\ e^{\\alpha x}\\sin\\beta x & (D-\\alpha)^2 + \\beta^2 \\\\\n\\end{array}\n\\]\nA repeated factor $(D-\\alpha)^k$ signals the terms\n$e^{\\alpha x}, x e^{\\alpha x}, \\ldots, x^{k-1}e^{\\alpha x}$. Annihilate a sum by\n\\emph{multiplying} the individual annihilators."
+        }
+      ],
+      "methodology": {
+        "title": "Annihilator Workflow",
+        "steps": [
+          "Factor $L(D)$ and write the complementary solution $y_h$.",
+          "Pick the annihilator $A(D)$ of the forcing $g$.",
+          "Apply $A(D)$: solve the homogeneous equation $A(D)L(D)\\,y = 0$.",
+          "Drop the terms already in $y_h$; the survivors are the trial $y_p$.",
+          "Substitute into $L[y]=g$ and match coefficients."
+        ]
+      }
+    },
+    {
+      "id": "10.4",
+      "title": "Transient and Steady-State Response",
+      "topics": "For a \\emph{stable} forced system (characteristic roots with negative real parts), the complete solution $y = y_h + y_p$ separates by long-term behavior: the homogeneous part fades while the particular part endures.",
+      "formulas": [
+        {
+          "title": "Transient Versus Steady-State",
+          "body": "\\[ y(t) = \\underbrace{y_h(t)}_{\\text{transient}\\ \\to\\ 0} \\;+\\; \\underbrace{y_p(t)}_{\\text{steady-state}}. \\]\nThe \\strong{transient} carries the initial-condition dependence and decays because\nits exponentials have negative real parts. The \\strong{steady-state} is fixed by\nthe forcing alone, so long after the start the response is essentially independent\nof the initial data. For sinusoidal forcing the steady state is a sinusoid at the\n\\emph{drive} frequency, rescaled and phase-shifted, often read off the complex\ngain $1/p(i\\omega)$."
+        }
+      ]
+    },
+    {
+      "id": "10.5",
+      "title": "Unit Step and Impulse Response",
+      "topics": "Two idealized inputs model switching and striking. The unit step $u(t)$ switches a forcing on; the Dirac delta $\\delta(t)$ is an instantaneous unit kick. They are linked by calculus, and so are the responses they produce.",
+      "formulas": [
+        {
+          "title": "Step, Delta, and Their Responses",
+          "body": "\\[ u(t) = \\begin{cases} 0, & t<0 \\\\ 1, & t>0 \\end{cases}, \\qquad\n   \\delta(t) = u'(t), \\qquad \\int_{-\\infty}^{\\infty}\\!\\delta(t)\\,dt = 1. \\]\n\\strong{Sifting property:} $\\displaystyle\\int_{-\\infty}^{\\infty} f(t)\\,\\delta(t-a)\\,dt = f(a)$.\nThe \\strong{impulse response} $w(t)$ is the output of $L[y]=\\delta(t)$ from rest;\nthe \\strong{step response} is its integral. Knowing $w$ unlocks every input by\nconvolution."
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Forgetting the Rest State",
+        "body": "The impulse response is defined from \\strong{rest} --- zero state just before the\nkick. Starting with leftover energy mixes in a transient that is unrelated to the\nimpulse, so the clean $w(t)$ (here $w(0)=0$, $w'(0)=1$ for a second-order system)\nis lost. Isolate the impulse by zeroing the initial conditions first."
+      }
+    },
+    {
+      "id": "10.6",
+      "title": "Duhamel's Principle",
+      "topics": "Duhamel's principle views a general input as a continuous succession of small impulses. Each kick at time $\\tau$ produces a scaled, time-shifted copy of the impulse response, and superposition sums them into a convolution.",
+      "methodology": {
+        "title": "Duhamel's Convolution",
+        "steps": [
+          "For a linear, time-invariant system starting from rest, the forced response to an input $f(t)$ is \\[ y_p(t) = \\int_0^t w(t-\\tau)\\,f(\\tau)\\,d\\tau, \\] where $w$ is the impulse response (the Green's function of the initial-value problem). The limits $0$ to $t$ encode \\strong{causality} --- only inputs already applied can affect the present --- and the argument $t-\\tau$ is the time elapsed since each kick. \\strong{Linearity} and \\strong{time invariance} are exactly what make the convolution valid."
+        ]
+      },
+      "concept": {
+        "title": "Unit 10 Key Takeaway",
+        "body": "Every forced response is \\highlight{$y = y_h + y_p$}. Build $y_p$ by\n\\highlight{undetermined coefficients} when the forcing is friendly\n(remember to \\highlight{multiply by $x$} on overlap), by\n\\highlight{variation of parameters} for anything continuous, or read\nits form from an \\highlight{annihilator}. In a stable system the\n\\highlight{transient} $y_h$ decays and the\n\\highlight{steady-state} $y_p$ remains, and once the\n\\highlight{impulse response $w$} is known,\n\\highlight{Duhamel's convolution} answers every input at once."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Nonhomogeneous Equations and Forced Response",
+    "takeaway": {
+      "title": "Unit 10 Key Takeaway",
+      "body": "The shape of the forcing chooses the tool:\n\\highlight{undetermined coefficients} for exponentials,\npolynomials, and sinusoids --- with the \\highlight{$\\times x$\nresonance fix} whenever a trial term solves $L[y]=0$ ---\n\\highlight{variation of parameters} for $\\sec x$, $e^x/x$, and other\nunfriendly inputs, and the \\highlight{annihilator} to derive the\ntrial form. In a stable system the \\highlight{transient} decays to\nthe \\highlight{steady-state}, and the\n\\highlight{impulse response $w(t)=e^{-t}-e^{-2t}$} feeds\n\\highlight{Duhamel's convolution} to resolve every input at once."
+    }
+  }
+}

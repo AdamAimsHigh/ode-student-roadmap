@@ -7,6 +7,10 @@
   "required": ["unitNumber", "title", "subtitle", "description", "atAGlance", "modules"],
   "properties": {
     "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+    "richBodies": {
+      "type": "boolean",
+      "description": "Renderer directive (legacy is_rich_source): when true, formula bodies and example steps are self-delimited mixed prose/display blocks emitted verbatim by the print compiler; when absent/false they are bare MathExpr wrapped in display math. True on the units 0-11 backfill era."
+    },
     "title": {
       "$ref": "common.defs.schema.json#/$defs/plainText",
       "description": "Full document title, e.g. \"Series Solutions of Differential Equations\" (legacy 'title'; the legacy 'unit' heading is derived from curriculum.json)."
@@ -94,11 +98,11 @@
                 "setup": { "$ref": "common.defs.schema.json#/$defs/mathText" },
                 "steps": {
                   "type": "array",
-                  "minItems": 1,
                   "items": {
                     "$ref": "common.defs.schema.json#/$defs/mathExpr",
                     "description": "Bare math lines; the print compiler wraps each in workpurple display math."
-                  }
+                  },
+                  "description": "May be empty in backfilled guides where the whole worked body lives in 'setup'."
                 },
                 "result": { "$ref": "common.defs.schema.json#/$defs/mathText" }
               }

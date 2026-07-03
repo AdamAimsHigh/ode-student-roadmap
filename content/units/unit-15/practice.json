@@ -1,0 +1,61 @@
+{
+  "unitNumber": 15,
+  "subtitle": "Practice Set: Problems and Complete Solutions",
+  "intro": "Work the following ten problems in order. They climb from converting a higher-order ODE into a first-order system, through the eigenvalue method and the full decoupling $A=PDP^{-1}$ with $P$, $P^{-1}$, and $D$ computed explicitly, into the matrix exponential $e^{At}=Pe^{Dt}P^{-1}$, the fundamental matrix and its link $e^{At}=\\Psi(t)\\Psi(0)^{-1}$, and a complex-eigenvalue capstone that produces a spiraling real solution.",
+  "takeaway": {
+    "title": "Unit Key Takeaway",
+    "body": "One idea threads the whole unit: a linear system is easiest in its own eigenbasis. Recast higher-order ODEs as $\\mathbf{x}'=A\\mathbf{x}$, then \\highlight{diagonalize $A=PDP^{-1}$} so the modal substitution $\\mathbf{y}=P^{-1}\\mathbf{x}$ \\highlight{decouples} the system. The \\highlight{matrix exponential $e^{At}=Pe^{Dt}P^{-1}$} packages every mode into one operator and generalizes scalar $e^{at}$; the \\highlight{fundamental matrix} collects the same solutions and reproduces $e^{At}$ at $t=0$. Complex eigenvalues simply trade pure exponentials for spirals."
+  },
+  "problems": [
+    {
+      "id": "ps_15_1",
+      "problem": "\\strong{(To a system)} Convert $y'' + 5y' + 6y = 0$ into a first-order system $\\mathbf{x}'=A\\mathbf{x}$, and state the companion matrix $A$.",
+      "solution": " Let $x_1=y$, $x_2=y'$, so $x_1'=x_2$ and $x_2'=y''=-6y-5y'=-6x_1-5x_2$:\n\\[ \\work{\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}' = \\begin{pmatrix} 0 & 1 \\\\ -6 & -5 \\end{pmatrix}\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}, \\qquad A = \\begin{pmatrix} 0 & 1 \\\\ -6 & -5 \\end{pmatrix}.} \\]\nThe coefficients enter the bottom row with flipped signs."
+    },
+    {
+      "id": "ps_15_2",
+      "problem": "\\strong{(Eigenvalues)} For $A=\\begin{pmatrix} 1 & 2 \\\\ 3 & 2 \\end{pmatrix}$, compute $\\det(A-\\lambda I)$ and find both eigenvalues.",
+      "solution": " Expand the determinant:\n\\[ \\work{\\det(A-\\lambda I) = (1-\\lambda)(2-\\lambda) - (2)(3) = \\lambda^2 - 3\\lambda - 4 = (\\lambda-4)(\\lambda+1).} \\]\nSo $\\lambda_1=4$ and $\\lambda_2=-1$."
+    },
+    {
+      "id": "ps_15_3",
+      "problem": "\\strong{(Eigenvectors and $P$)} For that same $A$, find an eigenvector for each eigenvalue and assemble the modal matrix $P=[\\mathbf{v}_1\\mid\\mathbf{v}_2]$.",
+      "solution": " Solve $(A-\\lambda I)\\mathbf{v}=\\mathbf{0}$ for each eigenvalue:\n\\[ \\work{\\lambda=4:\\ \\begin{pmatrix} -3 & 2 \\\\ 3 & -2 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_1=(2,3);} \\]\n\\[ \\work{\\lambda=-1:\\ \\begin{pmatrix} 2 & 2 \\\\ 3 & 3 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_2=(1,-1).} \\]\nHence $P=\\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix}$."
+    },
+    {
+      "id": "ps_15_4",
+      "problem": "\\strong{(Inverse)} Compute $P^{-1}$ for $P=\\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix}$, showing $\\det P$ explicitly.",
+      "solution": " The determinant and inverse are\n\\[ \\work{\\det P = (2)(-1)-(1)(3) = -5, \\qquad P^{-1} = \\frac{1}{-5}\\begin{pmatrix} -1 & -1 \\\\ -3 & 2 \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 1 & 1 \\\\ 3 & -2 \\end{pmatrix}.} \\]"
+    },
+    {
+      "id": "ps_15_5",
+      "problem": "\\strong{(Verify decoupling)} Confirm $P^{-1}AP=D$ for the $A$, $P$, $P^{-1}$ above, and state the decoupled system $\\mathbf{y}'=D\\mathbf{y}$.",
+      "solution": " Multiply in two steps, $AP$ then $P^{-1}(AP)$:\n\\[ \\work{AP = \\begin{pmatrix} 8 & -1 \\\\ 12 & 1 \\end{pmatrix}, \\qquad P^{-1}AP = \\frac{1}{5}\\begin{pmatrix} 20 & 0 \\\\ 0 & -5 \\end{pmatrix} = \\begin{pmatrix} 4 & 0 \\\\ 0 & -1 \\end{pmatrix} = D.} \\]\nThe decoupled system is $y_1'=4y_1$, $y_2'=-y_2$."
+    },
+    {
+      "id": "ps_15_6",
+      "problem": "\\strong{(General solution)} Write the general solution $\\mathbf{x}(t)$ of $\\mathbf{x}'=A\\mathbf{x}$ from the eigenpairs $\\lambda_1=4,\\ \\mathbf{v}_1=(2,3)$ and $\\lambda_2=-1,\\ \\mathbf{v}_2=(1,-1)$.",
+      "solution": " Each eigenpair contributes one exponential mode:\n\\[ \\work{\\mathbf{x}(t) = c_1 e^{4t}\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix} + c_2 e^{-t}\\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}.} \\]\nWith $\\lambda_1=4>0>\\lambda_2=-1$ the origin is a saddle."
+    },
+    {
+      "id": "ps_15_7",
+      "problem": "\\strong{(Matrix exponential)} Using $A=PDP^{-1}$ with $D=\\operatorname{diag}(4,-1)$, build $e^{At}=Pe^{Dt}P^{-1}$ in closed form.",
+      "solution": " Exponentiate the diagonal and reassemble $e^{At}=Pe^{Dt}P^{-1}$:\n\\[ \\work{Pe^{Dt} = \\begin{pmatrix} 2e^{4t} & e^{-t} \\\\ 3e^{4t} & -e^{-t} \\end{pmatrix}, \\quad e^{At} = \\frac{1}{5}\\begin{pmatrix} 2e^{4t}+3e^{-t} & 2e^{4t}-2e^{-t} \\\\ 3e^{4t}-3e^{-t} & 3e^{4t}+2e^{-t} \\end{pmatrix}.} \\]\nAt $t=0$ this is $I$, as it must be."
+    },
+    {
+      "id": "ps_15_8",
+      "problem": "\\strong{(Fundamental matrix)} Write a fundamental matrix $\\Psi(t)$ for this system and compute its Wronskian $\\det\\Psi(t)$.",
+      "solution": " Stack the two eigensolutions as columns:\n\\[ \\work{\\Psi(t) = \\begin{pmatrix} 2e^{4t} & e^{-t} \\\\ 3e^{4t} & -e^{-t} \\end{pmatrix}, \\qquad \\det\\Psi = -2e^{3t}-3e^{3t} = -5e^{3t} \\neq 0.} \\]\nThe nonzero Wronskian confirms the columns are independent."
+    },
+    {
+      "id": "ps_15_9",
+      "problem": "\\strong{(Normalization)} Explain why $e^{At}=\\Psi(t)\\Psi(0)^{-1}$, and identify $\\Psi(0)$ for the $\\Psi$ above.",
+      "solution": " Both $\\Psi(t)$ and $e^{At}$ solve $X'=AX$; they agree once normalized to the same value at $t=0$. Since $e^{A\\cdot 0}=I$,\n\\[ \\work{e^{At} = \\Psi(t)\\,\\Psi(0)^{-1}, \\qquad \\Psi(0) = \\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix} = P.} \\]\nRight-multiplying by $\\Psi(0)^{-1}$ forces the value $I$ at $t=0$."
+    },
+    {
+      "id": "ps_15_10",
+      "problem": "\\strong{(Complex capstone)} Solve $\\mathbf{x}'=A\\mathbf{x}$ for $A=\\begin{pmatrix} 2 & -3 \\\\ 3 & 2 \\end{pmatrix}$, giving the real general solution and the spiral direction.",
+      "solution": " Here $\\det(A-\\lambda I)=\\lambda^2-4\\lambda+13=0$ gives $\\lambda=2\\pm 3i$. With $\\mathbf{v}=(1,-i)$ for $\\lambda=2+3i$, Euler's formula yields\n\\[ \\work{\\mathbf{x}(t) = e^{2t}\\left[ c_1\\begin{pmatrix} \\cos 3t \\\\ \\sin 3t \\end{pmatrix} + c_2\\begin{pmatrix} \\sin 3t \\\\ -\\cos 3t \\end{pmatrix} \\right].} \\]\nSince $\\alpha=2>0$, every trajectory spirals outward."
+    }
+  ]
+}

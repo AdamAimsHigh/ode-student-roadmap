@@ -1,0 +1,1704 @@
+{
+  "unitNumber": 14,
+  "microPractice": {
+    "k7RM-ot2NWY": [
+      {
+        "id": "mp_k7RM-ot2NWY_1",
+        "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
+        "hint": "It is built by scaling each vector and adding the results.",
+        "answerOptions": [
+          {
+            "text": "$a\\mathbf{v} + b\\mathbf{w}$ for scalars $a$ and $b$",
+            "correct": true,
+            "rationale": "Yes. A linear combination scales each vector by a scalar and adds, giving $a\\mathbf{v} + b\\mathbf{w}$."
+          },
+          {
+            "text": "$\\mathbf{v}\\cdot\\mathbf{w}$, their dot product",
+            "rationale": "The dot product returns a single number, not a combined vector. What operation scales and adds the vectors?"
+          },
+          {
+            "text": "$\\mathbf{v}\\times\\mathbf{w}$, their cross product",
+            "rationale": "The cross product is a specific perpendicular vector, not a general combination. What form uses arbitrary scalars?"
+          },
+          {
+            "text": "$\\mathbf{v}^a \\mathbf{w}^b$",
+            "rationale": "Vectors are not raised to powers. What combination uses scalar multiples and addition?"
+          }
+        ]
+      },
+      {
+        "id": "mp_k7RM-ot2NWY_2",
+        "prompt": "Compute the linear combination $2(1, 0) + 3(0, 1)$.",
+        "hint": "Scale each vector, then add componentwise.",
+        "answerOptions": [
+          {
+            "text": "$(2, 3)$",
+            "correct": true,
+            "rationale": "Correct. $2(1,0) = (2,0)$ and $3(0,1) = (0,3)$, which sum to $(2,3)$."
+          },
+          {
+            "text": "$(3, 2)$",
+            "rationale": "Keep the components in order: the first scalar scales the first basis vector. What is $(2,0) + (0,3)$?"
+          },
+          {
+            "text": "$(5, 5)$",
+            "rationale": "The scalars do not add together; they scale separate directions. What is $2(1,0) + 3(0,1)$ componentwise?"
+          },
+          {
+            "text": "$(6, 0)$",
+            "rationale": "The two vectors point in different directions, so they do not merge into one axis. What is the componentwise sum?"
+          }
+        ]
+      },
+      {
+        "id": "mp_k7RM-ot2NWY_3",
+        "prompt": "What is the span of a set of vectors?",
+        "hint": "It is everything you can reach by combining them.",
+        "answerOptions": [
+          {
+            "text": "The set of all linear combinations of those vectors",
+            "correct": true,
+            "rationale": "Yes. The span is every vector reachable as a linear combination of the given set."
+          },
+          {
+            "text": "Only the vectors themselves",
+            "rationale": "The span includes far more than the listed vectors. What set of reachable vectors does it describe?"
+          },
+          {
+            "text": "The longest vector in the set",
+            "rationale": "Span is a whole set of vectors, not a single longest one. What collection does it form?"
+          },
+          {
+            "text": "The dot products of the vectors",
+            "rationale": "Span is about combinations, not dot products. What operation generates the span?"
+          }
+        ]
+      },
+      {
+        "id": "mp_k7RM-ot2NWY_4",
+        "prompt": "What is the span of two nonzero vectors in $\\mathbb{R}^2$ that do not lie on the same line?",
+        "hint": "Two independent directions in the plane reach everywhere in it.",
+        "answerOptions": [
+          {
+            "text": "All of $\\mathbb{R}^2$ (the entire plane)",
+            "correct": true,
+            "rationale": "Yes. Two linearly independent vectors in the plane span all of $\\mathbb{R}^2$."
+          },
+          {
+            "text": "A single line through the origin",
+            "rationale": "A single line is spanned by parallel vectors. What do two independent directions reach?"
+          },
+          {
+            "text": "Only the two vectors",
+            "rationale": "Linear combinations reach much more than the two vectors. What region of the plane is covered?"
+          },
+          {
+            "text": "A single point, the origin",
+            "rationale": "Only the zero vectors span just the origin. What do two independent vectors span?"
+          }
+        ]
+      },
+      {
+        "id": "mp_k7RM-ot2NWY_5",
+        "prompt": "What two conditions must a set of vectors satisfy to be a basis for a space?",
+        "hint": "A basis must reach everything, with no redundancy.",
+        "answerOptions": [
+          {
+            "text": "It must be linearly independent and span the space",
+            "correct": true,
+            "rationale": "Yes. A basis spans the space and has no redundant vectors, that is, it is linearly independent."
+          },
+          {
+            "text": "It must contain the zero vector",
+            "rationale": "The zero vector makes a set dependent, which is disallowed. What two properties define a basis?"
+          },
+          {
+            "text": "It must be orthogonal",
+            "rationale": "Orthogonality is optional, not required for a basis. What two conditions are essential?"
+          },
+          {
+            "text": "It must have infinitely many vectors",
+            "rationale": "A finite-dimensional basis is finite. What spanning and independence conditions are needed?"
+          }
+        ]
+      }
+    ],
+    "kYB8IZa5AuE": [
+      {
+        "id": "mp_kYB8IZa5AuE_1",
+        "prompt": "Which property must a linear transformation $T$ satisfy?",
+        "hint": "Linearity means it respects vector addition and scalar multiplication.",
+        "answerOptions": [
+          {
+            "text": "$T(a\\mathbf{u} + b\\mathbf{v}) = aT(\\mathbf{u}) + bT(\\mathbf{v})$",
+            "correct": true,
+            "rationale": "Yes. A linear transformation preserves linear combinations, which is exactly this identity."
+          },
+          {
+            "text": "$T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u})\\,T(\\mathbf{v})$",
+            "rationale": "Linear maps add outputs, they do not multiply them. What identity preserves combinations?"
+          },
+          {
+            "text": "$T(\\mathbf{u}) = \\mathbf{u} + \\mathbf{c}$ for a fixed $\\mathbf{c} \\neq \\mathbf{0}$",
+            "rationale": "A nonzero shift moves the origin, breaking linearity. What identity must hold instead?"
+          },
+          {
+            "text": "$T(\\mathbf{u}) = \\|\\mathbf{u}\\|$",
+            "rationale": "That returns a scalar length, not a linear vector map. What property defines linearity?"
+          }
+        ]
+      },
+      {
+        "id": "mp_kYB8IZa5AuE_2",
+        "prompt": "For a matrix representing a linear transformation, what do its columns represent?",
+        "hint": "Feed in the standard basis vectors and see where they land.",
+        "answerOptions": [
+          {
+            "text": "The images of the standard basis vectors under the transformation",
+            "correct": true,
+            "rationale": "Yes. Column $j$ is where the $j$-th basis vector is sent, which fully determines the map."
+          },
+          {
+            "text": "The eigenvalues of the transformation",
+            "rationale": "Eigenvalues come from the characteristic equation, not directly from columns. What do the columns show geometrically?"
+          },
+          {
+            "text": "The lengths of the input vectors",
+            "rationale": "Columns encode directions of basis images, not input lengths. What landing points do they record?"
+          },
+          {
+            "text": "The fixed points of the transformation",
+            "rationale": "Columns are basis images, not fixed points. Where does each basis vector go?"
+          }
+        ]
+      },
+      {
+        "id": "mp_kYB8IZa5AuE_3",
+        "prompt": "Apply the transformation with rows $(2, 0)$ and $(0, 3)$ to the vector $(1, 1)$.",
+        "hint": "Each output component is a row dotted with the input.",
+        "answerOptions": [
+          {
+            "text": "$(2, 3)$",
+            "correct": true,
+            "rationale": "Correct. Row $(2,0)\\cdot(1,1) = 2$ and row $(0,3)\\cdot(1,1) = 3$, giving $(2,3)$."
+          },
+          {
+            "text": "$(2, 2)$",
+            "rationale": "The second row is $(0, 3)$, scaling the second component by $3$. What is $(0,3)\\cdot(1,1)$?"
+          },
+          {
+            "text": "$(3, 2)$",
+            "rationale": "Keep the row order: the first row gives the first output. What is $(2,0)\\cdot(1,1)$?"
+          },
+          {
+            "text": "$(5, 5)$",
+            "rationale": "Each output uses one row only, not both summed. What is row one dotted with the input?"
+          }
+        ]
+      },
+      {
+        "id": "mp_kYB8IZa5AuE_4",
+        "prompt": "Apply the transformation with rows $(1, 2)$ and $(3, 4)$ to the vector $(1, 1)$.",
+        "hint": "Dot each row with $(1, 1)$.",
+        "answerOptions": [
+          {
+            "text": "$(3, 7)$",
+            "correct": true,
+            "rationale": "Correct. $(1,2)\\cdot(1,1) = 3$ and $(3,4)\\cdot(1,1) = 7$, giving $(3, 7)$."
+          },
+          {
+            "text": "$(7, 3)$",
+            "rationale": "Keep the rows in order. What is the first row $(1,2)$ dotted with $(1,1)$?"
+          },
+          {
+            "text": "$(3, 4)$",
+            "rationale": "The second component uses row $(3, 4)$ dotted with $(1, 1)$, summing the entries. What is $3 + 4$?"
+          },
+          {
+            "text": "$(1, 3)$",
+            "rationale": "Each output adds both row entries since the input is $(1,1)$. What are $1 + 2$ and $3 + 4$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_kYB8IZa5AuE_5",
+        "prompt": "How is the composition of two linear transformations represented with matrices?",
+        "hint": "Doing one transformation after another corresponds to a single combined operation.",
+        "answerOptions": [
+          {
+            "text": "By the product of their matrices",
+            "correct": true,
+            "rationale": "Yes. Composing transformations corresponds to multiplying the matrices, applied right to left."
+          },
+          {
+            "text": "By the sum of their matrices",
+            "rationale": "Adding matrices represents adding transformations, not composing them. What operation chains them?"
+          },
+          {
+            "text": "By the dot product of their columns",
+            "rationale": "Composition is a full matrix operation, not a single dot product. What matrix operation applies?"
+          },
+          {
+            "text": "By swapping their rows and columns",
+            "rationale": "That describes a transpose, not composition. How are two maps combined into one matrix?"
+          }
+        ]
+      }
+    ],
+    "Ip3X9LOh2dk": [
+      {
+        "id": "mp_Ip3X9LOh2dk_1",
+        "prompt": "Geometrically, what does the determinant of a $2\\times 2$ matrix measure?",
+        "hint": "Think about how the transformation rescales areas.",
+        "answerOptions": [
+          {
+            "text": "The factor by which areas are scaled by the transformation",
+            "correct": true,
+            "rationale": "Yes. The determinant is the area-scaling factor of the linear transformation."
+          },
+          {
+            "text": "The total length of the column vectors",
+            "rationale": "The determinant measures area change, not summed lengths. What does it scale?"
+          },
+          {
+            "text": "The angle between the column vectors",
+            "rationale": "Angle is not what the determinant reports. What geometric quantity does it scale?"
+          },
+          {
+            "text": "The number of eigenvalues",
+            "rationale": "Eigenvalue count is fixed by size, not the determinant. What area effect does it capture?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ip3X9LOh2dk_2",
+        "prompt": "For a matrix with rows $(a, b)$ and $(c, d)$, what is the determinant?",
+        "hint": "It is the difference of the two diagonal products.",
+        "answerOptions": [
+          {
+            "text": "$ad - bc$",
+            "correct": true,
+            "rationale": "Yes. The $2\\times 2$ determinant is the main diagonal product minus the off-diagonal product, $ad - bc$."
+          },
+          {
+            "text": "$ab - cd$",
+            "rationale": "The determinant pairs entries across the diagonals, not along rows. What is $ad - bc$?"
+          },
+          {
+            "text": "$ad + bc$",
+            "rationale": "The off-diagonal product is subtracted, not added. What is the correct sign?"
+          },
+          {
+            "text": "$ac - bd$",
+            "rationale": "Group the entries by diagonal: $a$ with $d$, and $b$ with $c$. What is $ad - bc$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ip3X9LOh2dk_3",
+        "prompt": "Compute the determinant of the matrix with rows $(3, 1)$ and $(2, 4)$.",
+        "hint": "Use $ad - bc$ with $a = 3$, $b = 1$, $c = 2$, $d = 4$.",
+        "answerOptions": [
+          {
+            "text": "$10$",
+            "correct": true,
+            "rationale": "Correct. $ad - bc = 3\\cdot 4 - 1\\cdot 2 = 12 - 2 = 10$."
+          },
+          {
+            "text": "$14$",
+            "rationale": "The off-diagonal product is subtracted, not added. What is $12 - 2$?"
+          },
+          {
+            "text": "$12$",
+            "rationale": "Do not forget to subtract $bc = 1\\cdot 2$. What is $12 - 2$?"
+          },
+          {
+            "text": "$11$",
+            "rationale": "Recompute $bc = 1 \\cdot 2 = 2$, then subtract. What is $12 - 2$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ip3X9LOh2dk_4",
+        "prompt": "What does a determinant of $0$ tell you about a linear transformation?",
+        "hint": "Zero area scaling means the output is flattened.",
+        "answerOptions": [
+          {
+            "text": "It collapses space to a lower dimension, so the columns are linearly dependent",
+            "correct": true,
+            "rationale": "Yes. A zero determinant squishes the plane onto a line or point, signaling dependent columns."
+          },
+          {
+            "text": "It rotates space without changing area",
+            "rationale": "A pure rotation has determinant $1$, not $0$. What does zero area scaling do to the space?"
+          },
+          {
+            "text": "It doubles every area",
+            "rationale": "Doubling is determinant $2$. What does a factor of $0$ do to areas?"
+          },
+          {
+            "text": "It leaves every vector fixed",
+            "rationale": "Fixing all vectors is the identity, with determinant $1$. What does determinant $0$ imply?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ip3X9LOh2dk_5",
+        "prompt": "What does a negative determinant indicate about a linear transformation?",
+        "hint": "The sign tracks whether orientation is preserved.",
+        "answerOptions": [
+          {
+            "text": "The transformation reverses orientation (it flips the plane)",
+            "correct": true,
+            "rationale": "Yes. A negative determinant means orientation is reversed, like a reflection, while its magnitude still gives area scaling."
+          },
+          {
+            "text": "The areas become negative",
+            "rationale": "Area magnitude stays positive; the sign tracks orientation. What does the negative sign flip?"
+          },
+          {
+            "text": "The transformation is not invertible",
+            "rationale": "Invertibility fails only at determinant $0$, not for negative values. What does the sign indicate?"
+          },
+          {
+            "text": "All eigenvalues are negative",
+            "rationale": "The determinant sign is the product of eigenvalues, not each one. What orientation effect does a negative sign signal?"
+          }
+        ]
+      }
+    ],
+    "P2LTAUO1TdA": [
+      {
+        "id": "mp_P2LTAUO1TdA_1",
+        "prompt": "What does a change of basis matrix do?",
+        "hint": "It translates the description of a vector between two coordinate systems.",
+        "answerOptions": [
+          {
+            "text": "It converts a vector's coordinates from one basis to another",
+            "correct": true,
+            "rationale": "Yes. A change of basis matrix relabels the same vector in a different coordinate system."
+          },
+          {
+            "text": "It changes the actual vector into a different vector",
+            "rationale": "The underlying vector is unchanged; only its coordinates change. What does the matrix translate?"
+          },
+          {
+            "text": "It computes the length of a vector",
+            "rationale": "Length is not what a change of basis produces. What does it convert between coordinate systems?"
+          },
+          {
+            "text": "It always rotates vectors by ninety degrees",
+            "rationale": "A change of basis is general, not a fixed rotation. What does it do to coordinates?"
+          }
+        ]
+      },
+      {
+        "id": "mp_P2LTAUO1TdA_2",
+        "prompt": "In a change of basis matrix, what do the columns contain?",
+        "hint": "They record where the new basis vectors sit in the old language.",
+        "answerOptions": [
+          {
+            "text": "The new basis vectors written in the old coordinates",
+            "correct": true,
+            "rationale": "Yes. Each column is a new basis vector expressed in terms of the original basis."
+          },
+          {
+            "text": "The eigenvalues of the transformation",
+            "rationale": "Eigenvalues are separate from a basis change. What vectors fill the columns?"
+          },
+          {
+            "text": "The lengths of the old basis vectors",
+            "rationale": "Columns hold full vectors, not scalar lengths. Which vectors do they store?"
+          },
+          {
+            "text": "The dot products of the bases",
+            "rationale": "Columns are basis vectors, not dot products. What do they express?"
+          }
+        ]
+      },
+      {
+        "id": "mp_P2LTAUO1TdA_3",
+        "prompt": "To express a transformation $A$ in a new basis given by change of basis matrix $P$, which formula applies?",
+        "hint": "You translate into the new basis, apply $A$, then translate back.",
+        "answerOptions": [
+          {
+            "text": "$P^{-1} A P$",
+            "correct": true,
+            "rationale": "Yes. The similarity transform $P^{-1} A P$ rewrites $A$ in the new coordinate system."
+          },
+          {
+            "text": "$P A P^{-1}$",
+            "rationale": "Check the order of translating in and out. Which factor converts an input from the new basis first?"
+          },
+          {
+            "text": "$A P$",
+            "rationale": "You must also translate back after applying $A$. What completes the conjugation?"
+          },
+          {
+            "text": "$P^{-1} A$",
+            "rationale": "The input must first be converted into the original basis. What factor goes on the right?"
+          }
+        ]
+      },
+      {
+        "id": "mp_P2LTAUO1TdA_4",
+        "prompt": "A matrix and its representation in a new basis describe what, relative to each other?",
+        "hint": "Only the coordinate language changes, not the underlying action.",
+        "answerOptions": [
+          {
+            "text": "The same linear transformation in different coordinates",
+            "correct": true,
+            "rationale": "Yes. Similar matrices are the same transformation viewed through different bases."
+          },
+          {
+            "text": "Two completely unrelated transformations",
+            "rationale": "They are tightly linked by the basis change. What single object do they both describe?"
+          },
+          {
+            "text": "A transformation and its inverse",
+            "rationale": "A basis change is not inversion. What stays the same between the two representations?"
+          },
+          {
+            "text": "A transformation and its transpose",
+            "rationale": "Similarity is not transposition. What underlying map do similar matrices share?"
+          }
+        ]
+      },
+      {
+        "id": "mp_P2LTAUO1TdA_5",
+        "prompt": "Why is choosing an eigenbasis a particularly useful change of basis?",
+        "hint": "In the right basis the transformation acts as simple independent scalings.",
+        "answerOptions": [
+          {
+            "text": "In an eigenbasis the matrix becomes diagonal, so the action is just scaling each axis",
+            "correct": true,
+            "rationale": "Yes. Using eigenvectors as the basis diagonalizes the matrix, simplifying powers and exponentials."
+          },
+          {
+            "text": "In an eigenbasis the matrix becomes the zero matrix",
+            "rationale": "Diagonalization scales the axes, it does not annihilate them. What special form does the matrix take?"
+          },
+          {
+            "text": "An eigenbasis makes the determinant equal $1$",
+            "rationale": "The determinant is unchanged by a basis change. What simpler structure does the matrix gain?"
+          },
+          {
+            "text": "An eigenbasis removes all eigenvalues",
+            "rationale": "Eigenvalues are preserved and become the diagonal entries. What form does the matrix take?"
+          }
+        ]
+      }
+    ],
+    "PFDu9oVAE-g": [
+      {
+        "id": "mp_PFDu9oVAE-g_1",
+        "prompt": "What equation defines an eigenvector $\\mathbf{v}$ of a matrix $A$ with eigenvalue $\\lambda$?",
+        "hint": "The transformation only stretches the eigenvector, leaving its direction fixed.",
+        "answerOptions": [
+          {
+            "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$ with $\\mathbf{v} \\neq \\mathbf{0}$",
+            "correct": true,
+            "rationale": "Yes. An eigenvector is a nonzero vector that the matrix only scales, by the factor $\\lambda$."
+          },
+          {
+            "text": "$A\\mathbf{v} = \\mathbf{0}$ with $\\mathbf{v} \\neq \\mathbf{0}$",
+            "rationale": "That defines a null-space vector, the special case $\\lambda = 0$. What is the general eigenvalue equation?"
+          },
+          {
+            "text": "$A\\mathbf{v} = \\mathbf{v} + \\lambda$",
+            "rationale": "You cannot add a scalar to a vector. How should $\\lambda$ act on $\\mathbf{v}$?"
+          },
+          {
+            "text": "$A + \\lambda\\mathbf{v} = \\mathbf{0}$",
+            "rationale": "The matrix multiplies the vector, it is not added to it. What is the correct multiplicative relation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PFDu9oVAE-g_2",
+        "prompt": "Geometrically, what is special about an eigenvector under its transformation?",
+        "hint": "Most vectors get knocked off their line; eigenvectors do not.",
+        "answerOptions": [
+          {
+            "text": "It stays on its own line through the origin, only stretched or compressed",
+            "correct": true,
+            "rationale": "Yes. An eigenvector keeps its direction (its span), being scaled by the eigenvalue."
+          },
+          {
+            "text": "It is rotated to a perpendicular direction",
+            "rationale": "Eigenvectors keep their direction rather than rotating. What happens to their line?"
+          },
+          {
+            "text": "It is sent to the zero vector",
+            "rationale": "That only happens for eigenvalue $0$, a special case. What generally happens to an eigenvector's direction?"
+          },
+          {
+            "text": "It doubles in number of components",
+            "rationale": "A transformation does not change the dimension of a vector. What stays fixed about an eigenvector?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PFDu9oVAE-g_3",
+        "prompt": "The eigenvalues of $A$ are found by solving which equation?",
+        "hint": "Eigenvalues make $A - \\lambda I$ fail to be invertible.",
+        "answerOptions": [
+          {
+            "text": "$\\det(A - \\lambda I) = 0$",
+            "correct": true,
+            "rationale": "Yes. Eigenvalues are the roots of the characteristic equation $\\det(A - \\lambda I) = 0$."
+          },
+          {
+            "text": "$\\det(A) = \\lambda$",
+            "rationale": "The eigenvalues come from a determinant set to zero, not the determinant itself. What is the characteristic equation?"
+          },
+          {
+            "text": "$A - \\lambda I = 0$",
+            "rationale": "Setting the whole matrix to zero is too strong; only its determinant must vanish. What is the correct condition?"
+          },
+          {
+            "text": "$\\text{tr}(A) = \\lambda$",
+            "rationale": "The trace is the sum of eigenvalues, not the defining equation. What determinant condition gives each $\\lambda$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PFDu9oVAE-g_4",
+        "prompt": "What are the eigenvalues of the matrix with rows $(3, 0)$ and $(0, 5)$?",
+        "hint": "For a diagonal matrix the eigenvalues sit on the diagonal.",
+        "answerOptions": [
+          {
+            "text": "$3$ and $5$",
+            "correct": true,
+            "rationale": "Correct. A diagonal matrix has its diagonal entries as eigenvalues, here $3$ and $5$."
+          },
+          {
+            "text": "$0$ and $0$",
+            "rationale": "The off-diagonal zeros are not the eigenvalues. Which entries does a diagonal matrix expose as eigenvalues?"
+          },
+          {
+            "text": "$8$ and $0$",
+            "rationale": "The trace $8$ is the sum, not an eigenvalue. What are the individual diagonal entries?"
+          },
+          {
+            "text": "$15$ and $1$",
+            "rationale": "The product $15$ is the determinant, not an eigenvalue. What sit on the diagonal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PFDu9oVAE-g_5",
+        "prompt": "What are the eigenvalues of the upper triangular matrix with rows $(2, 7)$ and $(0, 4)$?",
+        "hint": "A triangular matrix shares the diagonal-eigenvalue property.",
+        "answerOptions": [
+          {
+            "text": "$2$ and $4$",
+            "correct": true,
+            "rationale": "Correct. A triangular matrix has its diagonal entries as eigenvalues, here $2$ and $4$; the entry $7$ does not affect them."
+          },
+          {
+            "text": "$2$ and $7$",
+            "rationale": "The off-diagonal entry $7$ is not an eigenvalue of a triangular matrix. Which entries are?"
+          },
+          {
+            "text": "$7$ and $4$",
+            "rationale": "The eigenvalues are the diagonal entries, not the off-diagonal one. What are they?"
+          },
+          {
+            "text": "$6$ and $8$",
+            "rationale": "Those are not the diagonal entries. For a triangular matrix, where do the eigenvalues sit?"
+          }
+        ]
+      }
+    ],
+    "e50Bj7jn9IQ": [
+      {
+        "id": "mp_e50Bj7jn9IQ_1",
+        "prompt": "For a $2\\times 2$ matrix, the eigenvalues are the roots of which quadratic?",
+        "hint": "The characteristic polynomial is built from the trace and determinant.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda^2 - (\\text{tr}\\,A)\\lambda + \\det A = 0$",
+            "correct": true,
+            "rationale": "Yes. For a $2\\times 2$ matrix the characteristic equation is $\\lambda^2 - (\\text{tr})\\lambda + \\det = 0$."
+          },
+          {
+            "text": "$\\lambda^2 + (\\text{tr}\\,A)\\lambda + \\det A = 0$",
+            "rationale": "The trace term carries a minus sign. What is the correct sign on the $\\lambda$ term?"
+          },
+          {
+            "text": "$\\lambda^2 - (\\det A)\\lambda + \\text{tr}\\,A = 0$",
+            "rationale": "The trace and determinant roles are swapped. Which one multiplies $\\lambda$?"
+          },
+          {
+            "text": "$\\lambda^2 - \\text{tr}\\,A - \\det A = 0$",
+            "rationale": "The trace must multiply $\\lambda$, not stand alone. What is the proper quadratic?"
+          }
+        ]
+      },
+      {
+        "id": "mp_e50Bj7jn9IQ_2",
+        "prompt": "The quick trick writes eigenvalues as $\\lambda = m \\pm \\sqrt{m^2 - p}$. What are $m$ and $p$?",
+        "hint": "One is half the trace (the mean of the eigenvalues), the other is the determinant.",
+        "answerOptions": [
+          {
+            "text": "$m = \\tfrac{1}{2}\\text{tr}\\,A$ (the mean) and $p = \\det A$ (the product)",
+            "correct": true,
+            "rationale": "Yes. The mean of the eigenvalues is half the trace, and their product is the determinant."
+          },
+          {
+            "text": "$m = \\text{tr}\\,A$ and $p = \\det A$",
+            "rationale": "The mean is half the trace, not the full trace. What is $m$?"
+          },
+          {
+            "text": "$m = \\det A$ and $p = \\tfrac{1}{2}\\text{tr}\\,A$",
+            "rationale": "The roles are reversed. Which quantity is the mean and which is the product?"
+          },
+          {
+            "text": "$m = \\tfrac{1}{2}\\det A$ and $p = \\text{tr}\\,A$",
+            "rationale": "The mean comes from the trace and the product from the determinant. What are $m$ and $p$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_e50Bj7jn9IQ_3",
+        "prompt": "Use the trick on the matrix with rows $(2, 1)$ and $(1, 2)$: trace $4$, determinant $3$. What are the eigenvalues?",
+        "hint": "Compute $m = 2$, $p = 3$, then $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+        "answerOptions": [
+          {
+            "text": "$3$ and $1$",
+            "correct": true,
+            "rationale": "Correct. $m = 2$, $p = 3$, so $\\lambda = 2 \\pm \\sqrt{4 - 3} = 2 \\pm 1$, giving $3$ and $1$."
+          },
+          {
+            "text": "$4$ and $0$",
+            "rationale": "Use $m = 2$ and $\\sqrt{m^2 - p} = \\sqrt{1} = 1$. What is $2 \\pm 1$?"
+          },
+          {
+            "text": "$2$ and $2$",
+            "rationale": "The discriminant $m^2 - p = 1$ is nonzero, so the roots differ. What is $2 \\pm 1$?"
+          },
+          {
+            "text": "$3$ and $-1$",
+            "rationale": "Both roots are $2$ plus or minus $1$. What is $2 - 1$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_e50Bj7jn9IQ_4",
+        "prompt": "For any matrix, the sum of the eigenvalues equals which quantity?",
+        "hint": "It is the invariant formed by adding the diagonal entries.",
+        "answerOptions": [
+          {
+            "text": "The trace of the matrix",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues sum to the trace, the sum of the diagonal entries."
+          },
+          {
+            "text": "The determinant of the matrix",
+            "rationale": "The determinant equals the product of eigenvalues, not their sum. What invariant gives the sum?"
+          },
+          {
+            "text": "The rank of the matrix",
+            "rationale": "Rank counts independent directions, unrelated to the eigenvalue sum. Which diagonal quantity matches the sum?"
+          },
+          {
+            "text": "Always zero",
+            "rationale": "The sum is generally nonzero. Which matrix invariant equals the eigenvalue sum?"
+          }
+        ]
+      },
+      {
+        "id": "mp_e50Bj7jn9IQ_5",
+        "prompt": "Use the trick on the matrix with rows $(3, 1)$ and $(1, 3)$: trace $6$, determinant $8$. What are the eigenvalues?",
+        "hint": "Compute $m = 3$, $p = 8$, then $\\lambda = m \\pm \\sqrt{m^2 - p}$.",
+        "answerOptions": [
+          {
+            "text": "$4$ and $2$",
+            "correct": true,
+            "rationale": "Correct. $m = 3$, $p = 8$, so $\\lambda = 3 \\pm \\sqrt{9 - 8} = 3 \\pm 1$, giving $4$ and $2$."
+          },
+          {
+            "text": "$6$ and $8$",
+            "rationale": "The trace and determinant are not themselves the eigenvalues. What is $3 \\pm 1$?"
+          },
+          {
+            "text": "$3$ and $3$",
+            "rationale": "The discriminant $9 - 8 = 1$ is nonzero, so the roots split. What is $3 \\pm 1$?"
+          },
+          {
+            "text": "$5$ and $1$",
+            "rationale": "Check the discriminant: $\\sqrt{9 - 8} = 1$, not $2$. What is $3 \\pm 1$?"
+          }
+        ]
+      }
+    ],
+    "QYS-ML_vn4k": [
+      {
+        "id": "mp_QYS-ML_vn4k_1",
+        "prompt": "For the linear system $\\mathbf{x}' = A\\mathbf{x}$, what trial solution leads to the eigenvalue problem?",
+        "hint": "Guess a fixed direction whose size changes exponentially in time.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ for a constant vector $\\mathbf{v}$",
+            "correct": true,
+            "rationale": "Yes. Substituting this trial turns the system into the eigenvalue equation for $A$."
+          },
+          {
+            "text": "$\\mathbf{x} = \\lambda t\\,\\mathbf{v}$",
+            "rationale": "Linear-in-$t$ growth does not solve a first-order linear system. What time dependence does?"
+          },
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}$ (a scalar)",
+            "rationale": "The state is a vector, so the trial needs a constant direction $\\mathbf{v}$. What is the full vector trial?"
+          },
+          {
+            "text": "$\\mathbf{x} = \\cos(\\lambda t)\\mathbf{v}$",
+            "rationale": "The natural trial for a first-order system is exponential, not cosine. What form should $\\mathbf{x}$ take?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QYS-ML_vn4k_2",
+        "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ and cancelling $e^{\\lambda t}$ gives what?",
+        "hint": "The derivative brings down a $\\lambda$, and the exponential factors out.",
+        "answerOptions": [
+          {
+            "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$, the eigenvalue problem",
+            "correct": true,
+            "rationale": "Yes. The substitution reduces to $\\lambda\\mathbf{v} = A\\mathbf{v}$, exactly the eigenvalue equation."
+          },
+          {
+            "text": "$A\\mathbf{v} = \\mathbf{0}$",
+            "rationale": "The left side differentiates to $\\lambda e^{\\lambda t}\\mathbf{v}$, leaving a $\\lambda\\mathbf{v}$ term. What equation results?"
+          },
+          {
+            "text": "$\\mathbf{v}' = \\lambda\\mathbf{v}$",
+            "rationale": "The vector $\\mathbf{v}$ is constant, so it has no derivative. What relation between $A\\mathbf{v}$ and $\\lambda\\mathbf{v}$ appears?"
+          },
+          {
+            "text": "$A = \\lambda I$ exactly",
+            "rationale": "That would force every direction to be an eigenvector. What weaker equation does the substitution give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QYS-ML_vn4k_3",
+        "prompt": "Each eigenpair $(\\lambda, \\mathbf{v})$ of $A$ provides which solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "Reassemble the trial with the eigenpair you found.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$",
+            "correct": true,
+            "rationale": "Yes. Each eigenpair yields the exponential solution $e^{\\lambda t}\\mathbf{v}$."
+          },
+          {
+            "text": "$\\mathbf{x} = \\lambda e^{t}\\mathbf{v}$",
+            "rationale": "The eigenvalue belongs in the exponent, not as a front multiplier. What is the correct solution?"
+          },
+          {
+            "text": "$\\mathbf{x} = e^{t}\\mathbf{v}$",
+            "rationale": "The growth rate is the eigenvalue $\\lambda$, not $1$. What exponent should appear?"
+          },
+          {
+            "text": "$\\mathbf{x} = e^{\\lambda t}A\\mathbf{v}$",
+            "rationale": "The eigenvector $\\mathbf{v}$ itself rides the exponential. What is the clean solution form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QYS-ML_vn4k_4",
+        "prompt": "Why does using eigenvectors simplify the system $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "Along an eigenvector the matrix acts like a single number.",
+        "answerOptions": [
+          {
+            "text": "Along an eigenvector the system decouples into a scalar equation $x' = \\lambda x$",
+            "correct": true,
+            "rationale": "Yes. In the eigenvector direction $A$ acts as multiplication by $\\lambda$, reducing to a simple scalar ODE."
+          },
+          {
+            "text": "Eigenvectors make $A$ the zero matrix",
+            "rationale": "Eigenvectors diagonalize, not annihilate, the matrix. What scalar equation appears along an eigenvector?"
+          },
+          {
+            "text": "Eigenvectors eliminate the need for initial conditions",
+            "rationale": "Initial conditions are still needed to fix constants. What does the eigenvector direction simplify the dynamics to?"
+          },
+          {
+            "text": "Eigenvectors turn the system nonlinear",
+            "rationale": "The system stays linear; eigenvectors decouple it. Into what simple form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QYS-ML_vn4k_5",
+        "prompt": "How is the general solution of $\\mathbf{x}' = A\\mathbf{x}$ built from several eigensolutions?",
+        "hint": "A linear system lets independent solutions be superposed.",
+        "answerOptions": [
+          {
+            "text": "As a linear combination of the eigensolutions $e^{\\lambda_i t}\\mathbf{v}_i$",
+            "correct": true,
+            "rationale": "Yes. Superposition combines the independent eigensolutions into the general solution."
+          },
+          {
+            "text": "As the product of the eigensolutions",
+            "rationale": "Linear systems superpose by addition, not multiplication. How are the eigensolutions combined?"
+          },
+          {
+            "text": "By choosing only the largest eigenvalue's solution",
+            "rationale": "Dropping solutions loses generality. How are all eigensolutions used together?"
+          },
+          {
+            "text": "As the determinant of the eigensolutions",
+            "rationale": "A determinant is not how solutions combine. What linear operation builds the general solution?"
+          }
+        ]
+      }
+    ],
+    "Cose44Lgssw": [
+      {
+        "id": "mp_Cose44Lgssw_1",
+        "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$ with eigenpairs $(\\lambda_1, \\mathbf{v}_1)$ and $(\\lambda_2, \\mathbf{v}_2)$, what is the general solution?",
+        "hint": "Combine the two exponential eigensolutions with arbitrary constants.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$",
+            "correct": true,
+            "rationale": "Yes. The general solution superposes the two eigensolutions with constants $c_1$ and $c_2$."
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_2 + c_2 e^{\\lambda_2 t}\\mathbf{v}_1$",
+            "rationale": "Each exponential must pair with its own eigenvector. Which vector goes with $\\lambda_1$?"
+          },
+          {
+            "text": "$\\mathbf{x} = (c_1 + c_2)e^{(\\lambda_1 + \\lambda_2)t}\\mathbf{v}_1$",
+            "rationale": "The eigenvalues do not add into one exponent. How are the two separate eigensolutions combined?"
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$",
+            "rationale": "The eigenvectors must appear, since $\\mathbf{x}$ is a vector. What multiplies each exponential?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Cose44Lgssw_2",
+        "prompt": "If $A$ has eigenvalue $\\lambda = -2$ with eigenvector $\\mathbf{v}$, what is the corresponding solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "Place the eigenvalue in the exponent of the eigensolution.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = c\\,e^{-2t}\\mathbf{v}$",
+            "correct": true,
+            "rationale": "Correct. The eigenpair gives the decaying solution $e^{-2t}\\mathbf{v}$."
+          },
+          {
+            "text": "$\\mathbf{x} = c\\,e^{2t}\\mathbf{v}$",
+            "rationale": "The eigenvalue is $-2$, so the exponent is negative. What is the sign in the exponent?"
+          },
+          {
+            "text": "$\\mathbf{x} = c\\,e^{-2t}$",
+            "rationale": "The vector $\\mathbf{v}$ must appear in a vector solution. What rides the exponential?"
+          },
+          {
+            "text": "$\\mathbf{x} = -2c\\,e^{t}\\mathbf{v}$",
+            "rationale": "The eigenvalue sets the exponent, not a front factor. What exponential appears?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Cose44Lgssw_3",
+        "prompt": "For real eigenvalues, what does the sign of $\\lambda$ tell you about the corresponding solution as $t \\to \\infty$?",
+        "hint": "The exponential $e^{\\lambda t}$ either grows or decays depending on the sign.",
+        "answerOptions": [
+          {
+            "text": "Negative $\\lambda$ gives decay toward the origin; positive $\\lambda$ gives growth",
+            "correct": true,
+            "rationale": "Yes. The factor $e^{\\lambda t}$ decays for $\\lambda < 0$ and grows for $\\lambda > 0$, governing stability."
+          },
+          {
+            "text": "Negative $\\lambda$ gives growth; positive $\\lambda$ gives decay",
+            "rationale": "Check the behavior of $e^{\\lambda t}$: which sign of $\\lambda$ makes it shrink as $t$ grows?"
+          },
+          {
+            "text": "The sign has no effect on growth or decay",
+            "rationale": "The sign is decisive for $e^{\\lambda t}$. Which sign causes decay?"
+          },
+          {
+            "text": "Any real $\\lambda$ produces oscillation",
+            "rationale": "Oscillation needs complex eigenvalues, not real ones. What do real negative eigenvalues produce?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Cose44Lgssw_4",
+        "prompt": "The matrix with rows $(1, 0)$ and $(0, -2)$ has eigenvalues $1$ and $-2$ with eigenvectors $(1,0)$ and $(0,1)$. What is the general solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+        "hint": "Pair each diagonal eigenvalue with its standard eigenvector in the superposition.",
+        "answerOptions": [
+          {
+            "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{-2t}(0, 1)$",
+            "correct": true,
+            "rationale": "Correct. Eigenvalue $1$ pairs with $(1,0)$ and eigenvalue $-2$ pairs with $(0,1)$."
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{-2t}(1, 0) + c_2 e^{t}(0, 1)$",
+            "rationale": "Match each exponent to its own eigenvector. Which eigenvalue belongs to $(1, 0)$?"
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{2t}(0, 1)$",
+            "rationale": "The second eigenvalue is $-2$, not $2$. What is the correct exponent for $(0, 1)$?"
+          },
+          {
+            "text": "$\\mathbf{x} = c_1 e^{t} + c_2 e^{-2t}$",
+            "rationale": "The eigenvectors must appear in a vector solution. What multiplies each exponential?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Cose44Lgssw_5",
+        "prompt": "If $A$ has complex eigenvalues, what qualitative behavior do the solutions of $\\mathbf{x}' = A\\mathbf{x}$ show?",
+        "hint": "The imaginary part of the eigenvalue introduces a rotational character.",
+        "answerOptions": [
+          {
+            "text": "Oscillation, since complex eigenvalues produce sines and cosines",
+            "correct": true,
+            "rationale": "Yes. Complex eigenvalues introduce oscillatory factors, giving spiraling or circulating solutions."
+          },
+          {
+            "text": "Pure exponential decay with no oscillation",
+            "rationale": "Pure decay comes from real negative eigenvalues. What does the imaginary part add?"
+          },
+          {
+            "text": "Constant solutions that never change",
+            "rationale": "Constant solutions require a zero eigenvalue. What does a nonzero imaginary part introduce?"
+          },
+          {
+            "text": "Unbounded linear growth in $t$",
+            "rationale": "Linear-in-$t$ growth signals repeated eigenvalues, not complex ones. What behavior do complex eigenvalues give?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_14_1",
+      "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
+      "hint": "Scale each vector and add the results.",
+      "answerOptions": [
+        {
+          "text": "$a\\mathbf{v} + b\\mathbf{w}$ for scalars $a$ and $b$",
+          "correct": true,
+          "rationale": "Yes. A linear combination scales each vector and adds them."
+        },
+        {
+          "text": "$\\mathbf{v}\\cdot\\mathbf{w}$",
+          "rationale": "The dot product returns a scalar, not a combined vector. What scales and adds?"
+        },
+        {
+          "text": "$\\mathbf{v}\\times\\mathbf{w}$",
+          "rationale": "The cross product is one perpendicular vector, not a general combination. What uses arbitrary scalars?"
+        },
+        {
+          "text": "$\\|\\mathbf{v}\\| + \\|\\mathbf{w}\\|$",
+          "rationale": "That adds lengths, not vectors. What is the vector combination?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_2",
+      "prompt": "What is the span of a set of vectors?",
+      "hint": "Everything reachable by combining them.",
+      "answerOptions": [
+        {
+          "text": "The set of all linear combinations of the vectors",
+          "correct": true,
+          "rationale": "Yes. The span is every vector reachable as a linear combination."
+        },
+        {
+          "text": "Only the listed vectors",
+          "rationale": "The span includes far more. What set does it form?"
+        },
+        {
+          "text": "The longest vector",
+          "rationale": "Span is a whole set, not one vector. What collection is it?"
+        },
+        {
+          "text": "The perpendicular to the vectors",
+          "rationale": "Span is built from combinations, not perpendiculars. What does it contain?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_3",
+      "prompt": "What two conditions make a set of vectors a basis?",
+      "hint": "Reach everything, with no redundancy.",
+      "answerOptions": [
+        {
+          "text": "Linear independence and spanning the space",
+          "correct": true,
+          "rationale": "Yes. A basis spans the space and is linearly independent."
+        },
+        {
+          "text": "Orthogonality and unit length",
+          "rationale": "Those are optional refinements, not the definition. What two conditions are essential?"
+        },
+        {
+          "text": "Containing the zero vector",
+          "rationale": "The zero vector creates dependence. What two properties define a basis?"
+        },
+        {
+          "text": "Having infinitely many vectors",
+          "rationale": "A finite-dimensional basis is finite. What conditions are required?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_4",
+      "prompt": "What is the span of two nonzero, non-parallel vectors in $\\mathbb{R}^2$?",
+      "hint": "Two independent directions cover the plane.",
+      "answerOptions": [
+        {
+          "text": "All of $\\mathbb{R}^2$",
+          "correct": true,
+          "rationale": "Yes. Two independent vectors span the entire plane."
+        },
+        {
+          "text": "A single line",
+          "rationale": "A line is spanned by parallel vectors. What do independent directions reach?"
+        },
+        {
+          "text": "Just the origin",
+          "rationale": "Only zero vectors span the origin alone. What do two independent vectors span?"
+        },
+        {
+          "text": "Only the two vectors",
+          "rationale": "Combinations reach much more. What region results?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_5",
+      "prompt": "Compute the linear combination $3(1, 0) + 2(0, 1)$.",
+      "hint": "Scale each, then add componentwise.",
+      "answerOptions": [
+        {
+          "text": "$(3, 2)$",
+          "correct": true,
+          "rationale": "Correct. $3(1,0) + 2(0,1) = (3,0) + (0,2) = (3,2)$."
+        },
+        {
+          "text": "$(2, 3)$",
+          "rationale": "Keep the scalars with their own directions. What is $(3,0) + (0,2)$?"
+        },
+        {
+          "text": "$(5, 5)$",
+          "rationale": "The scalars scale separate axes; they do not add together. What is the componentwise sum?"
+        },
+        {
+          "text": "$(6, 0)$",
+          "rationale": "The vectors point in different directions. What is the componentwise sum?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_6",
+      "prompt": "Which identity must a linear transformation $T$ satisfy?",
+      "hint": "It preserves linear combinations.",
+      "answerOptions": [
+        {
+          "text": "$T(a\\mathbf{u} + b\\mathbf{v}) = aT(\\mathbf{u}) + bT(\\mathbf{v})$",
+          "correct": true,
+          "rationale": "Yes. Linearity preserves linear combinations exactly this way."
+        },
+        {
+          "text": "$T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u})\\,T(\\mathbf{v})$",
+          "rationale": "Outputs add, they do not multiply. What identity holds?"
+        },
+        {
+          "text": "$T(\\mathbf{u}) = \\mathbf{u} + \\mathbf{c}$, $\\mathbf{c}\\neq\\mathbf{0}$",
+          "rationale": "A nonzero shift breaks linearity. What identity is required?"
+        },
+        {
+          "text": "$T(\\mathbf{u}) = \\|\\mathbf{u}\\|$",
+          "rationale": "That returns a scalar, not a linear map. What property defines linearity?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_7",
+      "prompt": "For a matrix of a linear transformation, what do the columns represent?",
+      "hint": "Send in the standard basis vectors.",
+      "answerOptions": [
+        {
+          "text": "The images of the standard basis vectors",
+          "correct": true,
+          "rationale": "Yes. Each column is where a basis vector lands."
+        },
+        {
+          "text": "The eigenvalues",
+          "rationale": "Eigenvalues come from the characteristic equation. What do columns show?"
+        },
+        {
+          "text": "The input vector lengths",
+          "rationale": "Columns are basis images, not lengths. What do they record?"
+        },
+        {
+          "text": "The fixed points",
+          "rationale": "Columns are basis images, not fixed points. Where does each basis vector go?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_8",
+      "prompt": "Apply the transformation with rows $(1, 2)$ and $(3, 4)$ to $(1, 1)$.",
+      "hint": "Dot each row with the input.",
+      "answerOptions": [
+        {
+          "text": "$(3, 7)$",
+          "correct": true,
+          "rationale": "Correct. $(1,2)\\cdot(1,1) = 3$ and $(3,4)\\cdot(1,1) = 7$."
+        },
+        {
+          "text": "$(7, 3)$",
+          "rationale": "Keep the rows in order. What is row one dotted with $(1,1)$?"
+        },
+        {
+          "text": "$(3, 4)$",
+          "rationale": "The second output is $(3,4)\\cdot(1,1) = 3 + 4$. What is that?"
+        },
+        {
+          "text": "$(4, 6)$",
+          "rationale": "Each output dots one row with $(1,1)$. What are $1+2$ and $3+4$?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_9",
+      "prompt": "Geometrically, what does the determinant of a $2\\times 2$ matrix measure?",
+      "hint": "How the transformation rescales area.",
+      "answerOptions": [
+        {
+          "text": "The area-scaling factor of the transformation",
+          "correct": true,
+          "rationale": "Yes. The determinant is the factor by which areas are scaled."
+        },
+        {
+          "text": "The summed length of the columns",
+          "rationale": "It measures area change, not length. What does it scale?"
+        },
+        {
+          "text": "The angle between the columns",
+          "rationale": "Angle is not the determinant. What geometric quantity does it scale?"
+        },
+        {
+          "text": "The number of eigenvalues",
+          "rationale": "That is fixed by size. What area effect does the determinant capture?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_10",
+      "prompt": "For a matrix with rows $(a, b)$ and $(c, d)$, what is the determinant?",
+      "hint": "The difference of the diagonal products.",
+      "answerOptions": [
+        {
+          "text": "$ad - bc$",
+          "correct": true,
+          "rationale": "Yes. The $2\\times 2$ determinant is $ad - bc$."
+        },
+        {
+          "text": "$ab - cd$",
+          "rationale": "Pair entries across the diagonals, not along rows. What is $ad - bc$?"
+        },
+        {
+          "text": "$ad + bc$",
+          "rationale": "The off-diagonal product is subtracted. What is the sign?"
+        },
+        {
+          "text": "$ac - bd$",
+          "rationale": "Group $a$ with $d$ and $b$ with $c$. What is $ad - bc$?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_11",
+      "prompt": "Compute the determinant of the matrix with rows $(2, 3)$ and $(1, 4)$.",
+      "hint": "Use $ad - bc$.",
+      "answerOptions": [
+        {
+          "text": "$5$",
+          "correct": true,
+          "rationale": "Correct. $2\\cdot 4 - 3\\cdot 1 = 8 - 3 = 5$."
+        },
+        {
+          "text": "$11$",
+          "rationale": "The off-diagonal product is subtracted, not added. What is $8 - 3$?"
+        },
+        {
+          "text": "$8$",
+          "rationale": "Subtract $bc = 3\\cdot 1$. What is $8 - 3$?"
+        },
+        {
+          "text": "$2$",
+          "rationale": "Recompute: $ad = 8$ and $bc = 3$. What is $8 - 3$?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_12",
+      "prompt": "What does a determinant of $0$ indicate?",
+      "hint": "Zero area scaling flattens the space.",
+      "answerOptions": [
+        {
+          "text": "Space collapses to a lower dimension and the columns are dependent",
+          "correct": true,
+          "rationale": "Yes. A zero determinant squishes the plane onto a line or point, so the columns are linearly dependent."
+        },
+        {
+          "text": "The transformation is a pure rotation",
+          "rationale": "A rotation has determinant $1$. What does zero area scaling do?"
+        },
+        {
+          "text": "Areas are doubled",
+          "rationale": "Doubling is determinant $2$. What does factor $0$ do?"
+        },
+        {
+          "text": "Every vector is fixed",
+          "rationale": "That is the identity, determinant $1$. What does determinant $0$ imply?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_13",
+      "prompt": "What does a negative determinant indicate?",
+      "hint": "The sign tracks orientation.",
+      "answerOptions": [
+        {
+          "text": "The transformation reverses orientation (a flip)",
+          "correct": true,
+          "rationale": "Yes. A negative determinant reverses orientation, like a reflection; its magnitude still gives area scaling."
+        },
+        {
+          "text": "Areas become negative",
+          "rationale": "Area magnitude stays positive; the sign tracks orientation. What does it flip?"
+        },
+        {
+          "text": "The matrix is not invertible",
+          "rationale": "Invertibility fails only at $0$. What does a negative sign indicate?"
+        },
+        {
+          "text": "All eigenvalues are negative",
+          "rationale": "The sign is the product of eigenvalues, not each one. What orientation effect does it signal?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_14",
+      "prompt": "What does a change of basis matrix do?",
+      "hint": "It relabels the same vector in new coordinates.",
+      "answerOptions": [
+        {
+          "text": "It converts a vector's coordinates from one basis to another",
+          "correct": true,
+          "rationale": "Yes. It relabels the same vector in a different coordinate system."
+        },
+        {
+          "text": "It changes the vector into a different vector",
+          "rationale": "The vector is unchanged; only coordinates change. What does it translate?"
+        },
+        {
+          "text": "It computes a vector's length",
+          "rationale": "Length is unrelated. What does it convert?"
+        },
+        {
+          "text": "It always rotates by ninety degrees",
+          "rationale": "It is general, not a fixed rotation. What does it convert?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_15",
+      "prompt": "To express a transformation $A$ in a new basis given by matrix $P$, which formula applies?",
+      "hint": "Translate in, apply $A$, translate back.",
+      "answerOptions": [
+        {
+          "text": "$P^{-1} A P$",
+          "correct": true,
+          "rationale": "Yes. The similarity transform $P^{-1} A P$ rewrites $A$ in the new basis."
+        },
+        {
+          "text": "$P A P^{-1}$",
+          "rationale": "Check which factor converts the input first. What goes on the right of $A$?"
+        },
+        {
+          "text": "$A P$",
+          "rationale": "You must translate back after applying $A$. What completes the conjugation?"
+        },
+        {
+          "text": "$P^{-1} A$",
+          "rationale": "The input must be converted into the original basis first. What goes on the right?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_16",
+      "prompt": "Why is an eigenbasis a particularly useful change of basis?",
+      "hint": "The transformation becomes simple independent scalings.",
+      "answerOptions": [
+        {
+          "text": "The matrix becomes diagonal, scaling each axis independently",
+          "correct": true,
+          "rationale": "Yes. In an eigenbasis the matrix is diagonal, simplifying powers and exponentials."
+        },
+        {
+          "text": "The matrix becomes the zero matrix",
+          "rationale": "Diagonalization scales axes, not annihilates them. What form results?"
+        },
+        {
+          "text": "The determinant becomes $1$",
+          "rationale": "The determinant is unchanged by a basis change. What structure does the matrix gain?"
+        },
+        {
+          "text": "The eigenvalues all vanish",
+          "rationale": "Eigenvalues become the diagonal entries. What form does the matrix take?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_17",
+      "prompt": "What equation defines an eigenvector $\\mathbf{v}$ of $A$ with eigenvalue $\\lambda$?",
+      "hint": "The matrix only scales the eigenvector.",
+      "answerOptions": [
+        {
+          "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$ with $\\mathbf{v}\\neq\\mathbf{0}$",
+          "correct": true,
+          "rationale": "Yes. An eigenvector is a nonzero vector that $A$ only scales by $\\lambda$."
+        },
+        {
+          "text": "$A\\mathbf{v} = \\mathbf{0}$ with $\\mathbf{v}\\neq\\mathbf{0}$",
+          "rationale": "That is the special case $\\lambda = 0$. What is the general equation?"
+        },
+        {
+          "text": "$A\\mathbf{v} = \\mathbf{v} + \\lambda$",
+          "rationale": "A scalar cannot be added to a vector. How should $\\lambda$ act?"
+        },
+        {
+          "text": "$A + \\lambda\\mathbf{v} = \\mathbf{0}$",
+          "rationale": "The matrix multiplies the vector. What is the multiplicative relation?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_18",
+      "prompt": "The eigenvalues of $A$ are the roots of which equation?",
+      "hint": "They make $A - \\lambda I$ singular.",
+      "answerOptions": [
+        {
+          "text": "$\\det(A - \\lambda I) = 0$",
+          "correct": true,
+          "rationale": "Yes. Eigenvalues are roots of the characteristic equation $\\det(A - \\lambda I) = 0$."
+        },
+        {
+          "text": "$\\det(A) = \\lambda$",
+          "rationale": "Eigenvalues come from a determinant set to zero, not the determinant itself. What is the equation?"
+        },
+        {
+          "text": "$A - \\lambda I = 0$",
+          "rationale": "Only the determinant must vanish, not the whole matrix. What is the condition?"
+        },
+        {
+          "text": "$\\text{tr}(A) = \\lambda$",
+          "rationale": "The trace is the sum of eigenvalues, not the defining equation. What gives each $\\lambda$?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_19",
+      "prompt": "What are the eigenvalues of the matrix with rows $(4, 0)$ and $(0, 7)$?",
+      "hint": "A diagonal matrix exposes its eigenvalues on the diagonal.",
+      "answerOptions": [
+        {
+          "text": "$4$ and $7$",
+          "correct": true,
+          "rationale": "Correct. The diagonal entries are the eigenvalues."
+        },
+        {
+          "text": "$0$ and $0$",
+          "rationale": "The off-diagonal zeros are not the eigenvalues. Which entries are?"
+        },
+        {
+          "text": "$11$ and $0$",
+          "rationale": "The trace $11$ is the sum, not an eigenvalue. What are the diagonal entries?"
+        },
+        {
+          "text": "$28$ and $1$",
+          "rationale": "The product $28$ is the determinant. What sit on the diagonal?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_20",
+      "prompt": "For any matrix, the sum of the eigenvalues equals which quantity?",
+      "hint": "Add the diagonal entries.",
+      "answerOptions": [
+        {
+          "text": "The trace",
+          "correct": true,
+          "rationale": "Yes. The eigenvalues sum to the trace."
+        },
+        {
+          "text": "The determinant",
+          "rationale": "The determinant is the product of eigenvalues, not the sum. What gives the sum?"
+        },
+        {
+          "text": "The rank",
+          "rationale": "Rank counts independent directions. What invariant equals the eigenvalue sum?"
+        },
+        {
+          "text": "Zero, always",
+          "rationale": "The sum is generally nonzero. Which invariant matches it?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_21",
+      "prompt": "For any matrix, the product of the eigenvalues equals which quantity?",
+      "hint": "It is the area or volume scaling factor.",
+      "answerOptions": [
+        {
+          "text": "The determinant",
+          "correct": true,
+          "rationale": "Yes. The eigenvalues multiply to the determinant."
+        },
+        {
+          "text": "The trace",
+          "rationale": "The trace is the sum, not the product. What invariant equals the product?"
+        },
+        {
+          "text": "The number of columns",
+          "rationale": "Column count is fixed by size. What invariant equals the eigenvalue product?"
+        },
+        {
+          "text": "One, always",
+          "rationale": "The product is generally not $1$. Which invariant matches it?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_22",
+      "prompt": "For a $2\\times 2$ matrix, the eigenvalues are roots of which quadratic?",
+      "hint": "Built from the trace and determinant.",
+      "answerOptions": [
+        {
+          "text": "$\\lambda^2 - (\\text{tr}\\,A)\\lambda + \\det A = 0$",
+          "correct": true,
+          "rationale": "Yes. The characteristic equation is $\\lambda^2 - (\\text{tr})\\lambda + \\det = 0$."
+        },
+        {
+          "text": "$\\lambda^2 + (\\text{tr}\\,A)\\lambda + \\det A = 0$",
+          "rationale": "The trace term is negative. What is the correct sign?"
+        },
+        {
+          "text": "$\\lambda^2 - (\\det A)\\lambda + \\text{tr}\\,A = 0$",
+          "rationale": "Trace and determinant roles are swapped. Which multiplies $\\lambda$?"
+        },
+        {
+          "text": "$\\lambda^2 = \\text{tr}\\,A + \\det A$",
+          "rationale": "The structure is a full quadratic in $\\lambda$. What is it?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_23",
+      "prompt": "Use the trick $\\lambda = m \\pm \\sqrt{m^2 - p}$ on rows $(2, 1)$ and $(1, 2)$: trace $4$, determinant $3$.",
+      "hint": "Here $m = 2$, $p = 3$.",
+      "answerOptions": [
+        {
+          "text": "$3$ and $1$",
+          "correct": true,
+          "rationale": "Correct. $\\lambda = 2 \\pm \\sqrt{4 - 3} = 2 \\pm 1$, giving $3$ and $1$."
+        },
+        {
+          "text": "$4$ and $0$",
+          "rationale": "Use $\\sqrt{m^2 - p} = 1$. What is $2 \\pm 1$?"
+        },
+        {
+          "text": "$2$ and $2$",
+          "rationale": "The discriminant $1$ is nonzero. What is $2 \\pm 1$?"
+        },
+        {
+          "text": "$3$ and $-1$",
+          "rationale": "Both roots are $2$ plus or minus $1$. What is $2 - 1$?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_24",
+      "prompt": "What are the eigenvalues of the upper triangular matrix with rows $(5, 9)$ and $(0, 2)$?",
+      "hint": "A triangular matrix shows eigenvalues on the diagonal.",
+      "answerOptions": [
+        {
+          "text": "$5$ and $2$",
+          "correct": true,
+          "rationale": "Correct. The diagonal entries $5$ and $2$ are the eigenvalues; the off-diagonal $9$ does not affect them."
+        },
+        {
+          "text": "$5$ and $9$",
+          "rationale": "The off-diagonal $9$ is not an eigenvalue. Which entries are?"
+        },
+        {
+          "text": "$9$ and $2$",
+          "rationale": "The eigenvalues are the diagonal entries. What are they?"
+        },
+        {
+          "text": "$7$ and $11$",
+          "rationale": "Those are not diagonal entries. Where do triangular eigenvalues sit?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_25",
+      "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$, which trial solution leads to the eigenvalue problem?",
+      "hint": "A fixed direction with exponential time dependence.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ for a constant vector $\\mathbf{v}$",
+          "correct": true,
+          "rationale": "Yes. This trial turns the system into the eigenvalue equation."
+        },
+        {
+          "text": "$\\mathbf{x} = \\lambda t\\,\\mathbf{v}$",
+          "rationale": "Linear-in-$t$ growth does not solve the system. What time dependence does?"
+        },
+        {
+          "text": "$\\mathbf{x} = e^{\\lambda t}$ (scalar)",
+          "rationale": "The state is a vector, so a direction $\\mathbf{v}$ is needed. What is the full trial?"
+        },
+        {
+          "text": "$\\mathbf{x} = \\sin(\\lambda t)\\mathbf{v}$",
+          "rationale": "The natural first-order trial is exponential. What form is it?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_26",
+      "prompt": "Substituting $\\mathbf{x} = e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}' = A\\mathbf{x}$ gives what?",
+      "hint": "The derivative brings down $\\lambda$; the exponential cancels.",
+      "answerOptions": [
+        {
+          "text": "$A\\mathbf{v} = \\lambda\\mathbf{v}$",
+          "correct": true,
+          "rationale": "Yes. It reduces to the eigenvalue equation $A\\mathbf{v} = \\lambda\\mathbf{v}$."
+        },
+        {
+          "text": "$A\\mathbf{v} = \\mathbf{0}$",
+          "rationale": "The left side gives $\\lambda\\mathbf{v}$, not zero. What equation results?"
+        },
+        {
+          "text": "$\\mathbf{v}' = \\lambda\\mathbf{v}$",
+          "rationale": "The vector $\\mathbf{v}$ is constant. What relation appears?"
+        },
+        {
+          "text": "$A = \\lambda I$",
+          "rationale": "That forces every vector to be an eigenvector. What weaker equation results?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_27",
+      "prompt": "For $\\mathbf{x}' = A\\mathbf{x}$ with eigenpairs $(\\lambda_1,\\mathbf{v}_1)$ and $(\\lambda_2,\\mathbf{v}_2)$, what is the general solution?",
+      "hint": "Superpose the two eigensolutions with constants.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_1 + c_2 e^{\\lambda_2 t}\\mathbf{v}_2$",
+          "correct": true,
+          "rationale": "Yes. The general solution superposes the eigensolutions."
+        },
+        {
+          "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t}\\mathbf{v}_2 + c_2 e^{\\lambda_2 t}\\mathbf{v}_1$",
+          "rationale": "Each exponential pairs with its own eigenvector. Which vector goes with $\\lambda_1$?"
+        },
+        {
+          "text": "$\\mathbf{x} = c_1 e^{\\lambda_1 t} + c_2 e^{\\lambda_2 t}$",
+          "rationale": "The eigenvectors must appear in a vector solution. What multiplies each exponential?"
+        },
+        {
+          "text": "$\\mathbf{x} = (c_1 + c_2)e^{(\\lambda_1+\\lambda_2)t}\\mathbf{v}_1$",
+          "rationale": "The eigenvalues do not merge into one exponent. How are the eigensolutions combined?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_28",
+      "prompt": "For real eigenvalues, what does $\\lambda < 0$ imply for the solution as $t \\to \\infty$?",
+      "hint": "Look at the sign in $e^{\\lambda t}$.",
+      "answerOptions": [
+        {
+          "text": "The solution decays toward the origin",
+          "correct": true,
+          "rationale": "Yes. With $\\lambda < 0$ the factor $e^{\\lambda t}$ decays to zero."
+        },
+        {
+          "text": "The solution grows without bound",
+          "rationale": "Growth needs $\\lambda > 0$. What does a negative exponent do?"
+        },
+        {
+          "text": "The solution oscillates",
+          "rationale": "Oscillation needs complex eigenvalues. What do real negative ones do?"
+        },
+        {
+          "text": "The solution stays constant",
+          "rationale": "A constant needs $\\lambda = 0$. What does $\\lambda < 0$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_29",
+      "prompt": "The matrix with rows $(1, 0)$ and $(0, -2)$ has eigenvalues $1$ and $-2$ with eigenvectors $(1,0)$ and $(0,1)$. What is the general solution of $\\mathbf{x}' = A\\mathbf{x}$?",
+      "hint": "Pair each eigenvalue with its eigenvector.",
+      "answerOptions": [
+        {
+          "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{-2t}(0, 1)$",
+          "correct": true,
+          "rationale": "Correct. Eigenvalue $1$ pairs with $(1,0)$ and $-2$ pairs with $(0,1)$."
+        },
+        {
+          "text": "$\\mathbf{x} = c_1 e^{-2t}(1, 0) + c_2 e^{t}(0, 1)$",
+          "rationale": "Match each exponent to its own eigenvector. Which eigenvalue belongs to $(1,0)$?"
+        },
+        {
+          "text": "$\\mathbf{x} = c_1 e^{t}(1, 0) + c_2 e^{2t}(0, 1)$",
+          "rationale": "The second eigenvalue is $-2$, not $2$. What exponent goes with $(0,1)$?"
+        },
+        {
+          "text": "$\\mathbf{x} = c_1 e^{t} + c_2 e^{-2t}$",
+          "rationale": "The eigenvectors must appear. What multiplies each exponential?"
+        }
+      ]
+    },
+    {
+      "id": "um_14_30",
+      "prompt": "If $A$ has complex eigenvalues, what behavior do the solutions of $\\mathbf{x}' = A\\mathbf{x}$ show?",
+      "hint": "The imaginary part brings rotation.",
+      "answerOptions": [
+        {
+          "text": "Oscillation, from the sine and cosine the complex parts produce",
+          "correct": true,
+          "rationale": "Yes. Complex eigenvalues give oscillatory, spiraling solutions."
+        },
+        {
+          "text": "Pure exponential decay only",
+          "rationale": "Pure decay comes from real negative eigenvalues. What does the imaginary part add?"
+        },
+        {
+          "text": "Constant solutions",
+          "rationale": "Those need a zero eigenvalue. What does a nonzero imaginary part introduce?"
+        },
+        {
+          "text": "Linear growth in $t$",
+          "rationale": "That signals repeated eigenvalues. What do complex eigenvalues give?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

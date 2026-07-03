@@ -1,0 +1,2192 @@
+{
+  "unitNumber": 11,
+  "microPractice": {
+    "gZ_KnZHCn4M": [
+      {
+        "id": "mp_gZ_KnZHCn4M_1",
+        "prompt": "Hooke's law models the force a spring exerts when stretched a displacement $x$ from equilibrium. Which expression states it?",
+        "hint": "The spring pulls back toward equilibrium, so the force opposes the displacement.",
+        "answerOptions": [
+          {
+            "text": "$F = -kx$",
+            "correct": true,
+            "rationale": "Yes. The restoring force is proportional to displacement and directed opposite to it, hence the minus sign."
+          },
+          {
+            "text": "$F = kx$",
+            "rationale": "This points the force the same way as the displacement. Which direction must a restoring force act relative to $x$?"
+          },
+          {
+            "text": "$F = -kx^2$",
+            "rationale": "Hooke's law is linear in displacement. What power of $x$ appears in the spring force?"
+          },
+          {
+            "text": "$F = -k/x$",
+            "rationale": "An inverse dependence would blow up at equilibrium. How does the spring force scale with $x$ for a Hookean spring?"
+          }
+        ]
+      },
+      {
+        "id": "mp_gZ_KnZHCn4M_2",
+        "prompt": "A mass-spring system obeys $2x'' + 18x = 0$. What is its natural angular frequency $\\omega_0$?",
+        "hint": "Divide to the form $x'' + \\omega_0^2 x = 0$, then read off $\\omega_0$.",
+        "answerOptions": [
+          {
+            "text": "$\\omega_0 = 3$",
+            "correct": true,
+            "rationale": "Correct. Dividing gives $x'' + 9x = 0$, so $\\omega_0^2 = 9$ and $\\omega_0 = 3$."
+          },
+          {
+            "text": "$\\omega_0 = 9$",
+            "rationale": "You may have read $\\omega_0^2$ as $\\omega_0$. After dividing by $2$, what is $\\sqrt{9}$?"
+          },
+          {
+            "text": "$\\omega_0 = 18$",
+            "rationale": "That is the original coefficient before dividing by the mass. What is $\\sqrt{k/m}$ here?"
+          },
+          {
+            "text": "$\\omega_0 = 6$",
+            "rationale": "Check the division by the mass $2$. What is $18/2$, and then its square root?"
+          }
+        ]
+      },
+      {
+        "id": "mp_gZ_KnZHCn4M_3",
+        "prompt": "For simple harmonic motion with angular frequency $\\omega_0 = 3$, what is the period $T$?",
+        "hint": "Use $T = \\frac{2\\pi}{\\omega_0}$.",
+        "answerOptions": [
+          {
+            "text": "$T = \\frac{2\\pi}{3}$",
+            "correct": true,
+            "rationale": "Correct. The period is $2\\pi$ divided by the angular frequency."
+          },
+          {
+            "text": "$T = \\frac{3}{2\\pi}$",
+            "rationale": "That is the reciprocal arrangement. Which quantity goes on top in $T = 2\\pi/\\omega_0$?"
+          },
+          {
+            "text": "$T = 6\\pi$",
+            "rationale": "This multiplies rather than divides by $\\omega_0$. How does $T$ depend on $\\omega_0$?"
+          },
+          {
+            "text": "$T = 3$",
+            "rationale": "The period is not the angular frequency itself. What formula connects $T$ and $\\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_gZ_KnZHCn4M_4",
+        "prompt": "What is the physical meaning of the minus sign in $F = -kx$?",
+        "hint": "Consider which way the force points when the mass is displaced to the right.",
+        "answerOptions": [
+          {
+            "text": "The force is restoring, always pointing back toward equilibrium",
+            "correct": true,
+            "rationale": "Yes. When $x > 0$ the force is negative, pulling the mass back, which produces oscillation."
+          },
+          {
+            "text": "The force grows without bound",
+            "rationale": "The magnitude stays proportional to $x$. What does the sign say about direction, not size?"
+          },
+          {
+            "text": "The spring constant is negative",
+            "rationale": "The constant $k$ is positive; the sign is separate. What does the explicit minus encode about direction?"
+          },
+          {
+            "text": "The motion is damped",
+            "rationale": "No damping term is present here. What does the sign tell you about where the force points?"
+          }
+        ]
+      },
+      {
+        "id": "mp_gZ_KnZHCn4M_5",
+        "prompt": "What is the general solution of $x'' + \\omega_0^2 x = 0$?",
+        "hint": "This is the constant-coefficient equation with purely imaginary characteristic roots $\\pm i\\omega_0$.",
+        "answerOptions": [
+          {
+            "text": "$x = c_1 \\cos(\\omega_0 t) + c_2 \\sin(\\omega_0 t)$",
+            "correct": true,
+            "rationale": "Yes. Imaginary roots $\\pm i\\omega_0$ give an undamped oscillation at frequency $\\omega_0$."
+          },
+          {
+            "text": "$x = c_1 e^{\\omega_0 t} + c_2 e^{-\\omega_0 t}$",
+            "rationale": "Real exponentials solve $x'' - \\omega_0^2 x = 0$. What roots does $x'' + \\omega_0^2 x = 0$ give?"
+          },
+          {
+            "text": "$x = (c_1 + c_2 t)\\cos(\\omega_0 t)$",
+            "rationale": "A repeated-root factor of $t$ is not needed for distinct imaginary roots. What is the plain oscillatory form?"
+          },
+          {
+            "text": "$x = c_1 \\cos(\\omega_0 t)$",
+            "rationale": "One constant is too few for a second-order equation. What second independent solution is missing?"
+          }
+        ]
+      }
+    ],
+    "Z52emur7Rko": [
+      {
+        "id": "mp_Z52emur7Rko_1",
+        "prompt": "A hanging mass stretches a spring to a new equilibrium where gravity balances the spring force, so $mg = kL$. If $mg = 10$ N stretches the spring by $L = 0.2$ m, what is $k$?",
+        "hint": "Solve $k = mg/L$.",
+        "answerOptions": [
+          {
+            "text": "$k = 50$ N/m",
+            "correct": true,
+            "rationale": "Correct. $k = mg/L = 10/0.2 = 50$ N/m."
+          },
+          {
+            "text": "$k = 2$ N/m",
+            "rationale": "That is $mg \\cdot L$, a product. The relation $mg = kL$ asks you to divide. What is $10/0.2$?"
+          },
+          {
+            "text": "$k = 10$ N/m",
+            "rationale": "That is just the weight, ignoring the stretch $L$. What is $mg/L$?"
+          },
+          {
+            "text": "$k = 0.02$ N/m",
+            "rationale": "Check which quantity divides which. Is it $L/mg$ or $mg/L$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Z52emur7Rko_2",
+        "prompt": "The equation $m x'' + k x = 0$ has no first-derivative term. What does the absence of an $x'$ term mean physically?",
+        "hint": "A term proportional to velocity would represent friction or a dashpot.",
+        "answerOptions": [
+          {
+            "text": "There is no damping, so the motion is undamped",
+            "correct": true,
+            "rationale": "Yes. A velocity-proportional term would be damping; without it the oscillation never decays."
+          },
+          {
+            "text": "There is no restoring force",
+            "rationale": "The restoring force is the $kx$ term, which is present. What does a missing $x'$ term remove?"
+          },
+          {
+            "text": "The mass is zero",
+            "rationale": "The mass multiplies $x''$ and is present. What physical effect does the $x'$ term represent when it appears?"
+          },
+          {
+            "text": "The system is forced",
+            "rationale": "Forcing would appear on the right-hand side, not as an $x'$ term. What does the velocity term model?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Z52emur7Rko_3",
+        "prompt": "Write $x(t) = 3\\cos(2t) + 4\\sin(2t)$ in amplitude-phase form $x = C\\cos(2t - \\phi)$. What is the amplitude $C$?",
+        "hint": "The amplitude is $C = \\sqrt{c_1^2 + c_2^2}$.",
+        "answerOptions": [
+          {
+            "text": "$C = 5$",
+            "correct": true,
+            "rationale": "Correct. $C = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5$."
+          },
+          {
+            "text": "$C = 7$",
+            "rationale": "You added the coefficients directly. The amplitude combines them as $\\sqrt{c_1^2 + c_2^2}$, not $c_1 + c_2$."
+          },
+          {
+            "text": "$C = 12$",
+            "rationale": "That is the product $3 \\cdot 4$. How do the two coefficients combine into one amplitude?"
+          },
+          {
+            "text": "$C = 25$",
+            "rationale": "That is $c_1^2 + c_2^2$ before the square root. What is $\\sqrt{25}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Z52emur7Rko_4",
+        "prompt": "If the angular frequency of an oscillation is $\\omega_0$, what is the frequency $f$ in cycles per second?",
+        "hint": "Angular frequency in radians per second relates to ordinary frequency by a factor of $2\\pi$.",
+        "answerOptions": [
+          {
+            "text": "$f = \\frac{\\omega_0}{2\\pi}$",
+            "correct": true,
+            "rationale": "Yes. There are $2\\pi$ radians per cycle, so $f = \\omega_0/(2\\pi)$."
+          },
+          {
+            "text": "$f = 2\\pi\\,\\omega_0$",
+            "rationale": "This multiplies instead of dividing by $2\\pi$. How many radians are in one full cycle?"
+          },
+          {
+            "text": "$f = \\omega_0$",
+            "rationale": "Angular frequency and ordinary frequency differ by a factor. What converts radians per second to cycles per second?"
+          },
+          {
+            "text": "$f = \\frac{2\\pi}{\\omega_0}$",
+            "rationale": "That expression is the period $T$, not the frequency. What is the relationship between $f$ and $\\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Z52emur7Rko_5",
+        "prompt": "In an undamped spring-mass system, what happens to the total mechanical energy over time?",
+        "hint": "With no damping there is no mechanism to dissipate energy.",
+        "answerOptions": [
+          {
+            "text": "It stays constant, trading between kinetic and potential",
+            "correct": true,
+            "rationale": "Yes. Energy is conserved in the undamped case, oscillating between kinetic and spring potential."
+          },
+          {
+            "text": "It decreases steadily to zero",
+            "rationale": "Decay requires a dissipative term. Is there any damping in an undamped system?"
+          },
+          {
+            "text": "It grows without bound",
+            "rationale": "No energy source is present without forcing. What does conservation imply for the total?"
+          },
+          {
+            "text": "It is zero at all times",
+            "rationale": "The mass is moving, so kinetic energy is generally nonzero. What is true of the total instead?"
+          }
+        ]
+      }
+    ],
+    "f2wGE_n5xtA": [
+      {
+        "id": "mp_f2wGE_n5xtA_1",
+        "prompt": "Which equation describes free undamped motion of a spring-mass system?",
+        "hint": "Free means no external forcing; undamped means no velocity term.",
+        "answerOptions": [
+          {
+            "text": "$m x'' + k x = 0$",
+            "correct": true,
+            "rationale": "Yes. No forcing on the right and no $x'$ term means free and undamped."
+          },
+          {
+            "text": "$m x'' + c x' + k x = 0$",
+            "rationale": "The $c x'$ term is damping, so this is not undamped. Which term must be absent?"
+          },
+          {
+            "text": "$m x'' + k x = F_0 \\cos(\\omega t)$",
+            "rationale": "A nonzero right-hand side is external forcing, so this is not free. What should the right side equal?"
+          },
+          {
+            "text": "$m x'' = 0$",
+            "rationale": "With no restoring term there is no oscillation. Which term provides the spring restoring force?"
+          }
+        ]
+      },
+      {
+        "id": "mp_f2wGE_n5xtA_2",
+        "prompt": "Solve the IVP $x'' + 4x = 0$, $x(0) = 1$, $x'(0) = 0$.",
+        "hint": "The general solution is $c_1 \\cos 2t + c_2 \\sin 2t$; apply the conditions.",
+        "answerOptions": [
+          {
+            "text": "$x = \\cos 2t$",
+            "correct": true,
+            "rationale": "Correct. $x(0) = 1$ gives $c_1 = 1$, and $x'(0) = 0$ gives $c_2 = 0$."
+          },
+          {
+            "text": "$x = \\sin 2t$",
+            "rationale": "This has $x(0) = 0$, violating $x(0) = 1$. Which function equals one at $t = 0$?"
+          },
+          {
+            "text": "$x = \\cos 4t$",
+            "rationale": "The angular frequency is $\\sqrt{4} = 2$, not $4$. What frequency does $x'' + 4x = 0$ give?"
+          },
+          {
+            "text": "$x = \\cos 2t + \\sin 2t$",
+            "rationale": "This has $x'(0) = 2 \\neq 0$. What must $c_2$ be so that the initial velocity is zero?"
+          }
+        ]
+      },
+      {
+        "id": "mp_f2wGE_n5xtA_3",
+        "prompt": "In the form $x = C\\cos(\\omega_0 t - \\phi)$, what does the constant $C$ represent?",
+        "hint": "It is the single coefficient multiplying the cosine of the combined oscillation.",
+        "answerOptions": [
+          {
+            "text": "The amplitude, the maximum displacement from equilibrium",
+            "correct": true,
+            "rationale": "Yes. $C$ is the amplitude, the largest value $|x|$ attains."
+          },
+          {
+            "text": "The angular frequency",
+            "rationale": "The frequency is $\\omega_0$ inside the cosine. What does the leading multiplier measure?"
+          },
+          {
+            "text": "The phase shift",
+            "rationale": "The phase shift is $\\phi$. What does the factor in front of the cosine represent?"
+          },
+          {
+            "text": "The period",
+            "rationale": "The period is $2\\pi/\\omega_0$. What physical quantity is the front coefficient?"
+          }
+        ]
+      },
+      {
+        "id": "mp_f2wGE_n5xtA_4",
+        "prompt": "A spring-mass system has $m = 1$ and $k = 16$ in $m x'' + k x = 0$. What is the period of oscillation?",
+        "hint": "Find $\\omega_0 = \\sqrt{k/m}$, then $T = 2\\pi/\\omega_0$.",
+        "answerOptions": [
+          {
+            "text": "$T = \\frac{\\pi}{2}$",
+            "correct": true,
+            "rationale": "Correct. $\\omega_0 = \\sqrt{16} = 4$, so $T = 2\\pi/4 = \\pi/2$."
+          },
+          {
+            "text": "$T = 2\\pi$",
+            "rationale": "This uses $\\omega_0 = 1$. What is $\\sqrt{k/m}$ when $k = 16$ and $m = 1$?"
+          },
+          {
+            "text": "$T = 8\\pi$",
+            "rationale": "This divides by a frequency less than one. What is $2\\pi$ divided by $\\omega_0 = 4$?"
+          },
+          {
+            "text": "$T = 4$",
+            "rationale": "That is the angular frequency $\\omega_0$, not the period. What is $2\\pi/\\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_f2wGE_n5xtA_5",
+        "prompt": "If the spring constant $k$ increases while the mass $m$ stays fixed, what happens to the natural frequency?",
+        "hint": "Recall $\\omega_0 = \\sqrt{k/m}$ and how it responds to a larger $k$.",
+        "answerOptions": [
+          {
+            "text": "It increases, so the mass oscillates faster",
+            "correct": true,
+            "rationale": "Yes. A stiffer spring raises $\\omega_0 = \\sqrt{k/m}$, speeding up the oscillation."
+          },
+          {
+            "text": "It decreases",
+            "rationale": "A larger $k$ increases $\\sqrt{k/m}$. Does the frequency rise or fall with stiffness?"
+          },
+          {
+            "text": "It stays the same",
+            "rationale": "The frequency depends on $k$ through $\\sqrt{k/m}$. How does raising $k$ change it?"
+          },
+          {
+            "text": "It becomes zero",
+            "rationale": "A nonzero stiffer spring keeps the system oscillating. What is the effect of larger $k$ on $\\omega_0$?"
+          }
+        ]
+      }
+    ],
+    "3F6NlCP4CWU": [
+      {
+        "id": "mp_3F6NlCP4CWU_1",
+        "prompt": "Solve the IVP $x'' + 9x = 0$, $x(0) = 0$, $x'(0) = 6$.",
+        "hint": "Use $x = c_1\\cos 3t + c_2\\sin 3t$ and match the conditions; recall $x'(0)$ involves the sine coefficient.",
+        "answerOptions": [
+          {
+            "text": "$x = 2\\sin 3t$",
+            "correct": true,
+            "rationale": "Correct. $x(0) = 0$ kills the cosine, and $x'(0) = 3c_2 = 6$ gives $c_2 = 2$."
+          },
+          {
+            "text": "$x = 6\\sin 3t$",
+            "rationale": "The derivative brings down a factor of $3$, so $3c_2 = 6$. What is $c_2$?"
+          },
+          {
+            "text": "$x = 2\\cos 3t$",
+            "rationale": "Cosine has $x(0) = 2 \\neq 0$. Which function vanishes at $t = 0$ to match $x(0) = 0$?"
+          },
+          {
+            "text": "$x = 6\\sin 9t$",
+            "rationale": "The frequency is $\\sqrt{9} = 3$, not $9$, and the coefficient must satisfy $3c_2 = 6$. Recheck both."
+          }
+        ]
+      },
+      {
+        "id": "mp_3F6NlCP4CWU_2",
+        "prompt": "How many initial conditions are needed to determine the motion of a free undamped oscillator uniquely?",
+        "hint": "The count matches the number of arbitrary constants in a second-order solution.",
+        "answerOptions": [
+          {
+            "text": "Two, typically initial position and initial velocity",
+            "correct": true,
+            "rationale": "Yes. The second-order equation has two constants, fixed by $x(0)$ and $x'(0)$."
+          },
+          {
+            "text": "One, just initial position",
+            "rationale": "One condition leaves the initial velocity free. How many constants must be pinned down?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three would over-determine a two-constant family. How many free constants does a second-order solution have?"
+          },
+          {
+            "text": "None",
+            "rationale": "Without conditions the motion is a whole family. How many does it take to select one?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3F6NlCP4CWU_3",
+        "prompt": "What is the amplitude of the motion $x(t) = 2\\sin 3t$?",
+        "hint": "For a single sinusoid, the amplitude is the absolute value of its coefficient.",
+        "answerOptions": [
+          {
+            "text": "$2$",
+            "correct": true,
+            "rationale": "Correct. The coefficient $2$ is the maximum displacement."
+          },
+          {
+            "text": "$3$",
+            "rationale": "That is the angular frequency inside the sine, not the amplitude. What multiplies the sine?"
+          },
+          {
+            "text": "$6$",
+            "rationale": "That is the product of the coefficient and frequency. What is the leading coefficient alone?"
+          },
+          {
+            "text": "$2\\pi/3$",
+            "rationale": "That is the period of the motion. What is the maximum value of $|x|$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3F6NlCP4CWU_4",
+        "prompt": "Two identical systems start with different initial conditions. What does the angular frequency $\\omega_0$ depend on?",
+        "hint": "Think about which quantities set $\\omega_0 = \\sqrt{k/m}$.",
+        "answerOptions": [
+          {
+            "text": "Only the mass and spring constant, not the initial conditions",
+            "correct": true,
+            "rationale": "Yes. $\\omega_0 = \\sqrt{k/m}$ is fixed by the physical system, independent of how the motion starts."
+          },
+          {
+            "text": "The initial position",
+            "rationale": "The starting position sets the amplitude and phase, not the frequency. What determines $\\omega_0$?"
+          },
+          {
+            "text": "The initial velocity",
+            "rationale": "Initial velocity affects amplitude and phase, not how fast it oscillates. What sets $\\omega_0$?"
+          },
+          {
+            "text": "The amplitude of motion",
+            "rationale": "Amplitude does not change the frequency in a linear oscillator. What physical constants set $\\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3F6NlCP4CWU_5",
+        "prompt": "Write $x(t) = 5\\cos 2t + 12\\sin 2t$ as a single sinusoid. What is its amplitude?",
+        "hint": "Combine the coefficients as $\\sqrt{c_1^2 + c_2^2}$.",
+        "answerOptions": [
+          {
+            "text": "$13$",
+            "correct": true,
+            "rationale": "Correct. $\\sqrt{5^2 + 12^2} = \\sqrt{169} = 13$."
+          },
+          {
+            "text": "$17$",
+            "rationale": "That is $5 + 12$, a direct sum. The amplitude combines them as $\\sqrt{c_1^2 + c_2^2}$."
+          },
+          {
+            "text": "$60$",
+            "rationale": "That is the product $5 \\cdot 12$. How do the coefficients combine into one amplitude?"
+          },
+          {
+            "text": "$169$",
+            "rationale": "That is $5^2 + 12^2$ before the square root. What is $\\sqrt{169}$?"
+          }
+        ]
+      }
+    ],
+    "CTd1uVq5-l8": [
+      {
+        "id": "mp_CTd1uVq5-l8_1",
+        "prompt": "In the damped equation $m x'' + c x' + k x = 0$, which term represents the damping?",
+        "hint": "Damping resists motion and is proportional to velocity.",
+        "answerOptions": [
+          {
+            "text": "$c x'$, proportional to velocity",
+            "correct": true,
+            "rationale": "Yes. The damping force opposes motion and scales with the velocity $x'$."
+          },
+          {
+            "text": "$k x$, proportional to displacement",
+            "rationale": "That is the spring restoring force. Which term involves the velocity?"
+          },
+          {
+            "text": "$m x''$, proportional to acceleration",
+            "rationale": "That is the inertial term. Which term is proportional to velocity?"
+          },
+          {
+            "text": "There is no damping term",
+            "rationale": "One term involves $x'$. Which derivative does damping multiply?"
+          }
+        ]
+      },
+      {
+        "id": "mp_CTd1uVq5-l8_2",
+        "prompt": "The damping case is classified by the discriminant $c^2 - 4mk$. Which sign corresponds to overdamping?",
+        "hint": "Overdamping means two distinct real characteristic roots, which requires a positive discriminant.",
+        "answerOptions": [
+          {
+            "text": "$c^2 - 4mk > 0$",
+            "correct": true,
+            "rationale": "Yes. A positive discriminant gives two distinct real roots and no oscillation, which is overdamped."
+          },
+          {
+            "text": "$c^2 - 4mk = 0$",
+            "rationale": "A zero discriminant is the critically damped boundary, not overdamped. What sign gives two distinct real roots?"
+          },
+          {
+            "text": "$c^2 - 4mk < 0$",
+            "rationale": "A negative discriminant gives complex roots and oscillation, which is underdamped. What sign gives overdamping?"
+          },
+          {
+            "text": "$c^2 - 4mk = 1$",
+            "rationale": "The specific value does not matter, only its sign relative to zero. Which sign produces two real roots?"
+          }
+        ]
+      },
+      {
+        "id": "mp_CTd1uVq5-l8_3",
+        "prompt": "For $m = 1$ and $k = 9$, what damping coefficient $c$ makes the system critically damped?",
+        "hint": "Critical damping occurs when $c^2 - 4mk = 0$, so $c = 2\\sqrt{mk}$.",
+        "answerOptions": [
+          {
+            "text": "$c = 6$",
+            "correct": true,
+            "rationale": "Correct. $c = 2\\sqrt{mk} = 2\\sqrt{9} = 6$."
+          },
+          {
+            "text": "$c = 3$",
+            "rationale": "That is $\\sqrt{k}$, missing the factor of $2$. What is $2\\sqrt{mk}$?"
+          },
+          {
+            "text": "$c = 9$",
+            "rationale": "That is $k$ itself. Critical damping needs $c^2 = 4mk$. What is $\\sqrt{4 \\cdot 9}$?"
+          },
+          {
+            "text": "$c = 18$",
+            "rationale": "That is $2k$, not $2\\sqrt{mk}$. With $m = 1$, what is $2\\sqrt{9}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_CTd1uVq5-l8_4",
+        "prompt": "What is the characteristic motion of an underdamped system?",
+        "hint": "Underdamped corresponds to complex roots with a negative real part.",
+        "answerOptions": [
+          {
+            "text": "Oscillation with an amplitude that decays over time",
+            "correct": true,
+            "rationale": "Yes. Complex roots give oscillation, and the negative real part makes the amplitude shrink."
+          },
+          {
+            "text": "A smooth return to equilibrium with no oscillation",
+            "rationale": "That describes overdamped or critically damped motion. What do complex roots add?"
+          },
+          {
+            "text": "Sustained oscillation with constant amplitude",
+            "rationale": "Constant amplitude needs zero damping. What does a negative real part do to the amplitude?"
+          },
+          {
+            "text": "Unbounded growth",
+            "rationale": "Damping removes energy, so the motion decays. What kind of decaying behavior do complex roots give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_CTd1uVq5-l8_5",
+        "prompt": "Which damping case returns the system to equilibrium fastest without oscillating?",
+        "hint": "It is the boundary case sitting exactly between oscillation and sluggish decay.",
+        "answerOptions": [
+          {
+            "text": "Critically damped",
+            "correct": true,
+            "rationale": "Yes. Critical damping gives the quickest non-oscillatory return to equilibrium."
+          },
+          {
+            "text": "Overdamped",
+            "rationale": "Overdamping returns slowly because of the strong resistance. Which case is the fast boundary?"
+          },
+          {
+            "text": "Underdamped",
+            "rationale": "Underdamping oscillates on the way back, so it does overshoot. Which case avoids oscillation yet is fastest?"
+          },
+          {
+            "text": "Undamped",
+            "rationale": "Undamped motion never settles; it oscillates forever. Which damped case settles fastest without oscillating?"
+          }
+        ]
+      }
+    ],
+    "dQ6_aaFlVTo": [
+      {
+        "id": "mp_dQ6_aaFlVTo_1",
+        "prompt": "Solve $x'' + 5x' + 6x = 0$. What is the general solution, and which damping case is it?",
+        "hint": "Factor $r^2 + 5r + 6 = (r+2)(r+3)$ to find the roots.",
+        "answerOptions": [
+          {
+            "text": "$x = c_1 e^{-2t} + c_2 e^{-3t}$, overdamped",
+            "correct": true,
+            "rationale": "Correct. Distinct real roots $-2, -3$ give pure decay with no oscillation, the overdamped case."
+          },
+          {
+            "text": "$x = (c_1 + c_2 t)e^{-2t}$, critically damped",
+            "rationale": "A repeated-root form needs equal roots, but $-2$ and $-3$ differ. Which case has two distinct real roots?"
+          },
+          {
+            "text": "$x = e^{-t}(c_1\\cos t + c_2\\sin t)$, underdamped",
+            "rationale": "Oscillatory forms come from complex roots, but here the discriminant is positive. What real roots does $(r+2)(r+3)$ give?"
+          },
+          {
+            "text": "$x = c_1 e^{2t} + c_2 e^{3t}$, unstable",
+            "rationale": "Check the signs of the roots of $(r+2)(r+3) = 0$. Are they positive or negative?"
+          }
+        ]
+      },
+      {
+        "id": "mp_dQ6_aaFlVTo_2",
+        "prompt": "Solve $x'' + 2x' + x = 0$. What is the general solution?",
+        "hint": "The characteristic equation $r^2 + 2r + 1 = (r+1)^2$ is a perfect square.",
+        "answerOptions": [
+          {
+            "text": "$x = (c_1 + c_2 t)e^{-t}$",
+            "correct": true,
+            "rationale": "Correct. The repeated root $-1$ gives the factor $t$ on the second solution, the critically damped form."
+          },
+          {
+            "text": "$x = c_1 e^{-t} + c_2 e^{t}$",
+            "rationale": "The roots are not $\\pm 1$; the equation factors as $(r+1)^2$. What repeated root appears?"
+          },
+          {
+            "text": "$x = c_1 e^{-t} + c_2 e^{-2t}$",
+            "rationale": "These are distinct roots, but $(r+1)^2$ has a single repeated root. What form handles a double root?"
+          },
+          {
+            "text": "$x = e^{-t}(c_1\\cos t + c_2\\sin t)$",
+            "rationale": "Complex roots are not present here; the discriminant is zero. What repeated-root form applies?"
+          }
+        ]
+      },
+      {
+        "id": "mp_dQ6_aaFlVTo_3",
+        "prompt": "Solve $x'' + 2x' + 5x = 0$. What is the general solution?",
+        "hint": "Use the quadratic formula on $r^2 + 2r + 5 = 0$ to get $r = -1 \\pm 2i$.",
+        "answerOptions": [
+          {
+            "text": "$x = e^{-t}(c_1\\cos 2t + c_2\\sin 2t)$",
+            "correct": true,
+            "rationale": "Correct. The roots $-1 \\pm 2i$ give a decaying envelope $e^{-t}$ times oscillation at frequency $2$."
+          },
+          {
+            "text": "$x = e^{t}(c_1\\cos 2t + c_2\\sin 2t)$",
+            "rationale": "Check the real part of the roots. Is it $+1$ or $-1$?"
+          },
+          {
+            "text": "$x = e^{-t}(c_1\\cos t + c_2\\sin t)$",
+            "rationale": "The oscillation frequency is the imaginary part of the roots. Is it $1$ or $2$?"
+          },
+          {
+            "text": "$x = c_1 e^{-t} + c_2 e^{-5t}$",
+            "rationale": "The discriminant $4 - 20$ is negative, so the roots are complex. What oscillatory form results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_dQ6_aaFlVTo_4",
+        "prompt": "In an underdamped solution $e^{-bt}(c_1\\cos\\mu t + c_2\\sin\\mu t)$, what role does the factor $e^{-bt}$ play?",
+        "hint": "This factor multiplies an oscillation that itself stays bounded.",
+        "answerOptions": [
+          {
+            "text": "It is the decaying envelope that shrinks the oscillation amplitude over time",
+            "correct": true,
+            "rationale": "Yes. The exponential envelope steadily reduces the amplitude of the bounded oscillation."
+          },
+          {
+            "text": "It sets the oscillation frequency",
+            "rationale": "Frequency comes from $\\mu$ inside the trig functions. What does the exponential do to the amplitude?"
+          },
+          {
+            "text": "It makes the motion grow",
+            "rationale": "With $b > 0$ the factor decays, not grows. What happens to the envelope as $t$ increases?"
+          },
+          {
+            "text": "It shifts the phase",
+            "rationale": "Phase comes from the combination of cosine and sine. What does the exponential factor control?"
+          }
+        ]
+      },
+      {
+        "id": "mp_dQ6_aaFlVTo_5",
+        "prompt": "How does the quasi-frequency of an underdamped oscillator compare to the undamped natural frequency $\\omega_0$?",
+        "hint": "Damping modifies the oscillation rate through the imaginary part of the complex roots.",
+        "answerOptions": [
+          {
+            "text": "The quasi-frequency is lower than $\\omega_0$",
+            "correct": true,
+            "rationale": "Yes. Damping reduces the oscillation rate, so the quasi-frequency is below the undamped natural frequency."
+          },
+          {
+            "text": "It is higher than $\\omega_0$",
+            "rationale": "Damping slows oscillation rather than speeding it. Is the damped rate above or below $\\omega_0$?"
+          },
+          {
+            "text": "It equals $\\omega_0$ exactly",
+            "rationale": "Only the undamped case oscillates at $\\omega_0$. How does damping shift the rate?"
+          },
+          {
+            "text": "It is always zero",
+            "rationale": "An underdamped system does oscillate, so its frequency is nonzero. How does it compare to $\\omega_0$?"
+          }
+        ]
+      }
+    ],
+    "PzuhMbZYVLA": [
+      {
+        "id": "mp_PzuhMbZYVLA_1",
+        "prompt": "For undamped forced motion $m x'' + k x = F_0\\cos(\\omega t)$, pure resonance occurs under which condition?",
+        "hint": "Resonance happens when the driving frequency matches the system's natural frequency.",
+        "answerOptions": [
+          {
+            "text": "The forcing frequency $\\omega$ equals the natural frequency $\\omega_0$",
+            "correct": true,
+            "rationale": "Yes. Driving at the natural frequency causes resonance in the undamped system."
+          },
+          {
+            "text": "The forcing amplitude $F_0$ is very large",
+            "rationale": "A large amplitude alone is not resonance. Which frequencies must coincide?"
+          },
+          {
+            "text": "The mass $m$ is zero",
+            "rationale": "A zero mass is unphysical here. What frequency condition defines resonance?"
+          },
+          {
+            "text": "The forcing frequency is zero",
+            "rationale": "Zero forcing frequency is a constant push, not resonance. What must $\\omega$ equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PzuhMbZYVLA_2",
+        "prompt": "At pure resonance in an undamped system, how does the amplitude of the response behave over time?",
+        "hint": "With no damping to absorb energy, the driving keeps pumping energy in at the natural frequency.",
+        "answerOptions": [
+          {
+            "text": "It grows without bound, increasing linearly in $t$",
+            "correct": true,
+            "rationale": "Yes. The resonant particular solution has a factor of $t$, so the amplitude grows without limit."
+          },
+          {
+            "text": "It stays constant",
+            "rationale": "Constant amplitude occurs off resonance. What does matching frequencies do with no damping?"
+          },
+          {
+            "text": "It decays to zero",
+            "rationale": "Decay requires damping, which is absent here. What happens when energy keeps being added?"
+          },
+          {
+            "text": "It oscillates between fixed bounds",
+            "rationale": "Bounded oscillation is the off-resonance case. What does the resonant $t$ factor cause?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PzuhMbZYVLA_3",
+        "prompt": "When the forcing frequency equals the natural frequency, the particular-solution trial must be modified how?",
+        "hint": "The plain trial already solves the homogeneous equation, so it must be multiplied by $t$.",
+        "answerOptions": [
+          {
+            "text": "Multiply the trial by $t$, giving $x_p = t(A\\cos\\omega_0 t + B\\sin\\omega_0 t)$",
+            "correct": true,
+            "rationale": "Yes. Because the forcing matches a homogeneous solution, the trial gains a factor of $t$."
+          },
+          {
+            "text": "Use $x_p = A\\cos\\omega_0 t + B\\sin\\omega_0 t$ unchanged",
+            "rationale": "That plain trial already solves the homogeneous equation, so it fails. What factor must be inserted?"
+          },
+          {
+            "text": "Use $x_p = A e^{\\omega_0 t}$",
+            "rationale": "An exponential trial does not match cosine forcing. What modification handles the resonance overlap?"
+          },
+          {
+            "text": "Multiply the trial by $t^2$",
+            "rationale": "A single overlap with the homogeneous solution needs only one factor of $t$. How many powers of $t$ are required?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PzuhMbZYVLA_4",
+        "prompt": "For $x'' + 25x = \\cos(\\omega t)$, at which forcing frequency does resonance occur?",
+        "hint": "Find $\\omega_0$ from $x'' + \\omega_0^2 x = 0$, then set $\\omega = \\omega_0$.",
+        "answerOptions": [
+          {
+            "text": "$\\omega = 5$",
+            "correct": true,
+            "rationale": "Correct. The natural frequency is $\\sqrt{25} = 5$, so resonance occurs at $\\omega = 5$."
+          },
+          {
+            "text": "$\\omega = 25$",
+            "rationale": "That is $\\omega_0^2$, not $\\omega_0$. What is $\\sqrt{25}$?"
+          },
+          {
+            "text": "$\\omega = 0$",
+            "rationale": "Zero forcing frequency is a constant push, not resonance. What is the natural frequency here?"
+          },
+          {
+            "text": "$\\omega = \\frac{1}{5}$",
+            "rationale": "That is the reciprocal of the natural frequency. What value of $\\omega$ matches $\\omega_0 = 5$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_PzuhMbZYVLA_5",
+        "prompt": "Why is resonance a practical engineering concern for structures?",
+        "hint": "Consider what unbounded amplitude growth does to a physical structure.",
+        "answerOptions": [
+          {
+            "text": "The growing amplitude can produce destructive oscillations",
+            "correct": true,
+            "rationale": "Yes. Resonant growth can drive displacements large enough to damage or destroy a structure."
+          },
+          {
+            "text": "It makes the structure perfectly rigid",
+            "rationale": "Resonance increases motion, not rigidity. What does the amplitude do at resonance?"
+          },
+          {
+            "text": "It eliminates all vibration",
+            "rationale": "Resonance amplifies vibration rather than removing it. What is the danger of large amplitude?"
+          },
+          {
+            "text": "It lowers the natural frequency permanently",
+            "rationale": "Resonance is about matching frequencies, not changing them. What physical risk does growing amplitude pose?"
+          }
+        ]
+      }
+    ],
+    "7bYgGelMC-E": [
+      {
+        "id": "mp_7bYgGelMC-E_1",
+        "prompt": "Beats arise in an undamped forced system under which condition on the forcing frequency $\\omega$?",
+        "hint": "Beats are distinct from resonance; the frequencies are close but not identical.",
+        "answerOptions": [
+          {
+            "text": "$\\omega$ is close to but not equal to $\\omega_0$",
+            "correct": true,
+            "rationale": "Yes. Two nearby frequencies interfere to produce the slow amplitude modulation called beats."
+          },
+          {
+            "text": "$\\omega$ equals $\\omega_0$ exactly",
+            "rationale": "Exact equality gives resonance, not beats. What relationship between the frequencies produces beats?"
+          },
+          {
+            "text": "$\\omega$ is zero",
+            "rationale": "Zero forcing frequency is a constant push. What near-match condition produces beats?"
+          },
+          {
+            "text": "$\\omega$ is much larger than $\\omega_0$",
+            "rationale": "Beats need the two frequencies to be close. How close must $\\omega$ be to $\\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7bYgGelMC-E_2",
+        "prompt": "What is the hallmark of a beat pattern?",
+        "hint": "Picture a fast oscillation whose loudness rises and falls slowly.",
+        "answerOptions": [
+          {
+            "text": "A slow periodic rise and fall of the oscillation amplitude",
+            "correct": true,
+            "rationale": "Yes. The amplitude is modulated by a slow envelope while the fast oscillation continues underneath."
+          },
+          {
+            "text": "A steadily growing amplitude",
+            "rationale": "Unbounded growth is resonance, not beats. What does the amplitude do in a beat pattern?"
+          },
+          {
+            "text": "A constant amplitude with no variation",
+            "rationale": "Beats specifically vary the amplitude. What slow behavior of the amplitude defines them?"
+          },
+          {
+            "text": "A sudden jump in frequency",
+            "rationale": "Beats keep the frequencies fixed and modulate amplitude. What happens to the amplitude over time?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7bYgGelMC-E_3",
+        "prompt": "The beat envelope comes from a product-to-sum identity. Which identity converts the difference of two cosines into a product?",
+        "hint": "The relevant identity writes $\\cos A - \\cos B$ as a product of two sines.",
+        "answerOptions": [
+          {
+            "text": "$\\cos A - \\cos B = -2\\sin\\!\\frac{A+B}{2}\\,\\sin\\!\\frac{A-B}{2}$",
+            "correct": true,
+            "rationale": "Yes. This product form exposes a fast oscillation times a slow envelope, producing beats."
+          },
+          {
+            "text": "$\\cos A - \\cos B = \\cos(A - B)$",
+            "rationale": "A difference of cosines is not the cosine of the difference. Which identity yields a product of sines?"
+          },
+          {
+            "text": "$\\cos A - \\cos B = 2\\cos\\!\\frac{A+B}{2}\\cos\\!\\frac{A-B}{2}$",
+            "rationale": "That product form is for the sum $\\cos A + \\cos B$, not the difference. What does the difference give?"
+          },
+          {
+            "text": "$\\cos A - \\cos B = \\sin A - \\sin B$",
+            "rationale": "Cosines do not convert directly into sines this way. Which product-to-sum identity applies to the difference?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7bYgGelMC-E_4",
+        "prompt": "As the forcing frequency $\\omega$ approaches the natural frequency $\\omega_0$, what happens to the beat period?",
+        "hint": "The beat envelope frequency is proportional to the difference $\\omega_0 - \\omega$.",
+        "answerOptions": [
+          {
+            "text": "The beat period grows longer, approaching the resonance limit",
+            "correct": true,
+            "rationale": "Yes. As the frequencies converge, the slow envelope stretches out, blending into resonant growth."
+          },
+          {
+            "text": "The beat period shrinks to zero",
+            "rationale": "A smaller frequency difference makes the envelope slower, not faster. What happens to the period?"
+          },
+          {
+            "text": "The beat period stays fixed",
+            "rationale": "The envelope depends on $\\omega_0 - \\omega$, which is changing. How does the period respond as the gap closes?"
+          },
+          {
+            "text": "The beats disappear immediately",
+            "rationale": "The transition to resonance is gradual. What does the beat period do as $\\omega \\to \\omega_0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7bYgGelMC-E_5",
+        "prompt": "Off resonance, the steady particular solution of $m x'' + k x = F_0\\cos(\\omega t)$ has amplitude proportional to $\\frac{1}{m(\\omega_0^2 - \\omega^2)}$. What happens as $\\omega \\to \\omega_0$?",
+        "hint": "Look at the denominator and what it approaches.",
+        "answerOptions": [
+          {
+            "text": "The amplitude grows without bound because the denominator approaches zero",
+            "correct": true,
+            "rationale": "Yes. As $\\omega \\to \\omega_0$ the factor $\\omega_0^2 - \\omega^2$ vanishes, driving the amplitude up, which signals resonance."
+          },
+          {
+            "text": "The amplitude approaches zero",
+            "rationale": "A vanishing denominator makes a fraction large, not small. What happens to $\\frac{1}{m(\\omega_0^2-\\omega^2)}$?"
+          },
+          {
+            "text": "The amplitude stays constant",
+            "rationale": "The denominator is changing as $\\omega \\to \\omega_0$. What does it approach, and what does that do to the fraction?"
+          },
+          {
+            "text": "The amplitude becomes negative",
+            "rationale": "The magnitude is what blows up here. What does the denominator approaching zero do to the size of the amplitude?"
+          }
+        ]
+      }
+    ],
+    "-pXnfzQfupE": [
+      {
+        "id": "mp_-pXnfzQfupE_1",
+        "prompt": "What characterizes a system of coupled oscillators?",
+        "hint": "Coupling means the equation for one mass involves the position of another.",
+        "answerOptions": [
+          {
+            "text": "The equations of motion are linked, so each mass's acceleration depends on the others' positions",
+            "correct": true,
+            "rationale": "Yes. Coupling springs make the equations interdependent rather than separate."
+          },
+          {
+            "text": "Each mass moves completely independently",
+            "rationale": "Independent motion is the uncoupled case. What does coupling do to the equations?"
+          },
+          {
+            "text": "There is only one mass in the system",
+            "rationale": "Coupled oscillators involve multiple masses. What links their equations?"
+          },
+          {
+            "text": "The masses never move",
+            "rationale": "Coupled oscillators do move and exchange energy. How are their equations related?"
+          }
+        ]
+      },
+      {
+        "id": "mp_-pXnfzQfupE_2",
+        "prompt": "What is a normal mode of a coupled oscillator system?",
+        "hint": "In a normal mode every part of the system shares one common rhythm.",
+        "answerOptions": [
+          {
+            "text": "A motion in which all masses oscillate at a single common frequency",
+            "correct": true,
+            "rationale": "Yes. In a normal mode the whole system moves sinusoidally at one shared frequency."
+          },
+          {
+            "text": "A motion in which each mass has a different frequency",
+            "rationale": "Differing frequencies describe general motion, not a single mode. What frequency structure defines a normal mode?"
+          },
+          {
+            "text": "A state in which the masses are at rest",
+            "rationale": "A normal mode is an active oscillation, not rest. What do all masses share in a mode?"
+          },
+          {
+            "text": "The decay of the system to equilibrium",
+            "rationale": "Normal modes are sustained oscillations, not decay. What common feature do the masses have?"
+          }
+        ]
+      },
+      {
+        "id": "mp_-pXnfzQfupE_3",
+        "prompt": "How many normal modes does a system of two coupled masses (two degrees of freedom) have?",
+        "hint": "The number of normal modes equals the number of degrees of freedom.",
+        "answerOptions": [
+          {
+            "text": "Two",
+            "correct": true,
+            "rationale": "Yes. Two degrees of freedom yield two independent normal modes."
+          },
+          {
+            "text": "One",
+            "rationale": "A single mode cannot span a two-degree-of-freedom system. How many modes match two degrees of freedom?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three exceeds the number of degrees of freedom here. How many independent modes does a two-mass system have?"
+          },
+          {
+            "text": "Infinitely many",
+            "rationale": "A finite system has a finite number of modes. How many degrees of freedom are there?"
+          }
+        ]
+      },
+      {
+        "id": "mp_-pXnfzQfupE_4",
+        "prompt": "In a single normal mode, what is true about the ratio of the masses' amplitudes?",
+        "hint": "A normal mode has a fixed shape that the masses keep as they oscillate together.",
+        "answerOptions": [
+          {
+            "text": "The amplitude ratio is fixed and characteristic of that mode",
+            "correct": true,
+            "rationale": "Yes. Each mode has a definite shape, so the amplitude ratio between masses is constant."
+          },
+          {
+            "text": "The ratio changes randomly over time",
+            "rationale": "A normal mode keeps a fixed shape. What stays constant about the amplitudes?"
+          },
+          {
+            "text": "The amplitudes are always equal",
+            "rationale": "Equal amplitudes occur only for special symmetric modes, not in general. What is generally true of the ratio?"
+          },
+          {
+            "text": "One amplitude is always zero",
+            "rationale": "In a mode both masses generally move. What property of the amplitude ratio defines a mode?"
+          }
+        ]
+      },
+      {
+        "id": "mp_-pXnfzQfupE_5",
+        "prompt": "How is the general motion of a coupled oscillator system related to its normal modes?",
+        "hint": "Linearity allows solutions to be combined.",
+        "answerOptions": [
+          {
+            "text": "It is a superposition (linear combination) of the normal modes",
+            "correct": true,
+            "rationale": "Yes. Any motion can be written as a sum of the normal modes with appropriate amplitudes and phases."
+          },
+          {
+            "text": "It must be exactly one normal mode",
+            "rationale": "General motion can mix modes. How do the modes combine to give arbitrary motion?"
+          },
+          {
+            "text": "It is unrelated to the normal modes",
+            "rationale": "The modes form a basis for all motion. How does linearity let them build the general solution?"
+          },
+          {
+            "text": "It is the product of the normal modes",
+            "rationale": "Linear systems combine solutions by addition, not multiplication. What combination gives the general motion?"
+          }
+        ]
+      }
+    ],
+    "Ye92jN6FrlU": [
+      {
+        "id": "mp_Ye92jN6FrlU_1",
+        "prompt": "Writing a coupled system as $\\mathbf{x}'' = A\\mathbf{x}$, the normal-mode frequencies are found from which quantities of $A$?",
+        "hint": "The mode frequencies come from the eigenvalues of the coefficient matrix.",
+        "answerOptions": [
+          {
+            "text": "Its eigenvalues, which give $\\omega^2$ for each mode",
+            "correct": true,
+            "rationale": "Yes. Each eigenvalue determines a normal-mode frequency through $\\omega^2$."
+          },
+          {
+            "text": "Its trace alone",
+            "rationale": "The trace is only the sum of eigenvalues, not the individual frequencies. What set of values gives each mode?"
+          },
+          {
+            "text": "Its determinant alone",
+            "rationale": "The determinant is the product of eigenvalues, not each frequency. What quantities give the modes?"
+          },
+          {
+            "text": "Its diagonal entries directly",
+            "rationale": "For a coupled matrix the diagonal entries are not the frequencies. What must you compute from $A$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ye92jN6FrlU_2",
+        "prompt": "For two identical coupled masses, how do the in-phase and out-of-phase modes compare in frequency?",
+        "hint": "Stretching the coupling spring (out of phase) adds restoring force; moving together (in phase) does not.",
+        "answerOptions": [
+          {
+            "text": "The in-phase mode has the lower frequency, the out-of-phase mode the higher",
+            "correct": true,
+            "rationale": "Yes. Out-of-phase motion stretches the coupling spring more, raising its frequency above the in-phase mode."
+          },
+          {
+            "text": "Both modes have the same frequency",
+            "rationale": "Coupling splits the frequencies. Which mode stretches the coupling spring and raises its frequency?"
+          },
+          {
+            "text": "The out-of-phase mode has the lower frequency",
+            "rationale": "Out-of-phase motion engages the coupling spring more strongly. Which mode is therefore faster?"
+          },
+          {
+            "text": "The frequencies depend only on initial conditions",
+            "rationale": "Mode frequencies are set by the physical system. Which mode stiffens the coupling and raises the frequency?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ye92jN6FrlU_3",
+        "prompt": "Consider the coupled system $x_1'' = -2x_1 + x_2$ and $x_2'' = x_1 - 2x_2$. The matrix has eigenvalues $-1$ and $-3$. What are the normal-mode angular frequencies?",
+        "hint": "Each eigenvalue equals $-\\omega^2$, so $\\omega = \\sqrt{-\\lambda}$.",
+        "answerOptions": [
+          {
+            "text": "$\\omega = 1$ and $\\omega = \\sqrt{3}$",
+            "correct": true,
+            "rationale": "Correct. From $-\\omega^2 = -1$ and $-\\omega^2 = -3$ we get $\\omega = 1$ and $\\omega = \\sqrt{3}$."
+          },
+          {
+            "text": "$\\omega = -1$ and $\\omega = -3$",
+            "rationale": "Frequencies are positive and come from $\\omega = \\sqrt{-\\lambda}$. What are $\\sqrt{1}$ and $\\sqrt{3}$?"
+          },
+          {
+            "text": "$\\omega = 1$ and $\\omega = 3$",
+            "rationale": "The second eigenvalue is $-3$, so $\\omega = \\sqrt{3}$, not $3$. Recompute the square root."
+          },
+          {
+            "text": "$\\omega = 2$ and $\\omega = 2$",
+            "rationale": "The diagonal entry $-2$ is not an eigenvalue of the coupled matrix. Use the given eigenvalues $-1$ and $-3$."
+          }
+        ]
+      },
+      {
+        "id": "mp_Ye92jN6FrlU_4",
+        "prompt": "Once the normal modes are known, how is the full solution of the coupled system expressed?",
+        "hint": "Combine the modes the way linear solutions are always combined.",
+        "answerOptions": [
+          {
+            "text": "As a superposition of the modes, each with its own amplitude and phase",
+            "correct": true,
+            "rationale": "Yes. The general solution is a linear combination of the normal-mode oscillations."
+          },
+          {
+            "text": "As the single fastest mode only",
+            "rationale": "Discarding modes loses generality. How are all modes combined?"
+          },
+          {
+            "text": "As the product of the modes",
+            "rationale": "Linear systems superpose by addition, not multiplication. How do the modes combine?"
+          },
+          {
+            "text": "As an exponential of the mode matrix",
+            "rationale": "The modes are oscillatory and add linearly. What combination gives the general solution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Ye92jN6FrlU_5",
+        "prompt": "For two identical pendulums joined by a very weak coupling spring, the in-phase mode frequency is approximately what?",
+        "hint": "In the in-phase mode the coupling spring is never stretched, so it contributes no force.",
+        "answerOptions": [
+          {
+            "text": "Approximately the frequency of a single uncoupled pendulum",
+            "correct": true,
+            "rationale": "Yes. Moving together leaves the coupling spring relaxed, so each pendulum swings at its natural frequency."
+          },
+          {
+            "text": "Much higher than a single pendulum",
+            "rationale": "The coupling spring is unstretched in this mode, adding no stiffness. What frequency remains?"
+          },
+          {
+            "text": "Zero",
+            "rationale": "The pendulums still swing under gravity. What is the natural pendulum frequency when the spring is relaxed?"
+          },
+          {
+            "text": "Twice the single-pendulum frequency",
+            "rationale": "No extra restoring force acts in the in-phase mode. What frequency does an uncoupled pendulum have?"
+          }
+        ]
+      }
+    ],
+    "8ePqqZXSMQs": [
+      {
+        "id": "mp_8ePqqZXSMQs_1",
+        "prompt": "Which differential equation is the harmonic oscillator?",
+        "hint": "It is the undamped, unforced second-order equation with a linear restoring term.",
+        "answerOptions": [
+          {
+            "text": "$x'' + \\omega_0^2 x = 0$",
+            "correct": true,
+            "rationale": "Yes. This is the canonical harmonic oscillator with natural frequency $\\omega_0$."
+          },
+          {
+            "text": "$x'' - \\omega_0^2 x = 0$",
+            "rationale": "The minus sign gives growing and decaying exponentials, not oscillation. What sign produces oscillation?"
+          },
+          {
+            "text": "$x' + \\omega_0^2 x = 0$",
+            "rationale": "That is first order and gives exponential decay, not oscillation. What order is the harmonic oscillator?"
+          },
+          {
+            "text": "$x'' + \\omega_0^2 x = F_0\\cos(\\omega t)$",
+            "rationale": "A nonzero right-hand side is forced motion, not the plain oscillator. What should the right side be?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8ePqqZXSMQs_2",
+        "prompt": "One of the four approaches uses the characteristic equation. What characteristic equation does $x'' + \\omega_0^2 x = 0$ produce?",
+        "hint": "Substitute $x = e^{rt}$ and cancel the exponential.",
+        "answerOptions": [
+          {
+            "text": "$r^2 + \\omega_0^2 = 0$",
+            "correct": true,
+            "rationale": "Yes. The trial $e^{rt}$ gives $r^2 + \\omega_0^2 = 0$, with roots $\\pm i\\omega_0$."
+          },
+          {
+            "text": "$r^2 - \\omega_0^2 = 0$",
+            "rationale": "That would come from $x'' - \\omega_0^2 x = 0$. What sign does the $+\\omega_0^2 x$ term contribute?"
+          },
+          {
+            "text": "$r + \\omega_0^2 = 0$",
+            "rationale": "The second derivative contributes $r^2$, not $r$. What power of $r$ should appear?"
+          },
+          {
+            "text": "$r^2 + \\omega_0 = 0$",
+            "rationale": "The constant term should be $\\omega_0^2$, matching the coefficient of $x$. What is it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8ePqqZXSMQs_3",
+        "prompt": "The characteristic roots of $r^2 + \\omega_0^2 = 0$ are which values, and what solution do they give?",
+        "hint": "Solve for $r$ and translate complex roots into real oscillatory solutions.",
+        "answerOptions": [
+          {
+            "text": "$r = \\pm i\\omega_0$, giving $c_1\\cos\\omega_0 t + c_2\\sin\\omega_0 t$",
+            "correct": true,
+            "rationale": "Correct. Purely imaginary roots produce undamped sinusoidal motion at frequency $\\omega_0$."
+          },
+          {
+            "text": "$r = \\pm\\omega_0$, giving $c_1 e^{\\omega_0 t} + c_2 e^{-\\omega_0 t}$",
+            "rationale": "Those real roots come from a minus sign in the equation. What roots does $r^2 = -\\omega_0^2$ give?"
+          },
+          {
+            "text": "$r = 0$ (double), giving $c_1 + c_2 t$",
+            "rationale": "A double zero root needs $r^2 = 0$. What does $r^2 + \\omega_0^2 = 0$ give instead?"
+          },
+          {
+            "text": "$r = \\omega_0 i$ only, giving $c_1\\cos\\omega_0 t$",
+            "rationale": "There are two roots and two independent solutions. What is the second root and solution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8ePqqZXSMQs_4",
+        "prompt": "Another approach multiplies $x'' + \\omega_0^2 x = 0$ by $x'$ and integrates. What does this energy method produce?",
+        "hint": "Integrating $x'' x' + \\omega_0^2 x x'$ gives a sum of squares that stays constant.",
+        "answerOptions": [
+          {
+            "text": "A conserved quantity, $\\tfrac{1}{2}(x')^2 + \\tfrac{1}{2}\\omega_0^2 x^2 = \\text{const}$",
+            "correct": true,
+            "rationale": "Yes. This is the conserved energy, a first integral of the oscillator equation."
+          },
+          {
+            "text": "A first-order linear equation in $x$",
+            "rationale": "The result is a conservation law, not a linear ODE. What combination of squares stays constant?"
+          },
+          {
+            "text": "The characteristic equation",
+            "rationale": "That comes from the exponential trial, not from integrating. What conserved expression results here?"
+          },
+          {
+            "text": "A forcing term",
+            "rationale": "No forcing is introduced; the equation is homogeneous. What invariant does integration reveal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8ePqqZXSMQs_5",
+        "prompt": "What is the key takeaway from solving the harmonic oscillator four different ways?",
+        "hint": "Different valid methods applied to the same equation must agree.",
+        "answerOptions": [
+          {
+            "text": "All the methods yield the same oscillatory solution",
+            "correct": true,
+            "rationale": "Yes. The approaches differ in technique but converge on the same sinusoidal motion."
+          },
+          {
+            "text": "Each method gives a different physical answer",
+            "rationale": "Correct methods cannot disagree on the solution. What must be true of their results?"
+          },
+          {
+            "text": "Only one method actually works",
+            "rationale": "All four are valid routes to the solution. What do they have in common in their output?"
+          },
+          {
+            "text": "The solution depends on which method you choose",
+            "rationale": "The solution is a property of the equation, not the method. What is true across all four?"
+          }
+        ]
+      }
+    ],
+    "obXbCCWEKfY": [
+      {
+        "id": "mp_obXbCCWEKfY_1",
+        "prompt": "Why does the harmonic oscillator appear so widely across physics and engineering?",
+        "hint": "Think about what most smooth systems look like very close to a stable equilibrium.",
+        "answerOptions": [
+          {
+            "text": "It is the linear approximation of almost any system near a stable equilibrium",
+            "correct": true,
+            "rationale": "Yes. Near a stable equilibrium the restoring force is approximately linear, so the dynamics reduce to a harmonic oscillator."
+          },
+          {
+            "text": "It is the only equation that can be solved exactly",
+            "rationale": "Many equations are solvable; that is not the reason. What makes the oscillator a universal approximation?"
+          },
+          {
+            "text": "It only applies to literal springs",
+            "rationale": "Its reach extends far beyond springs. Why does it model so many systems near equilibrium?"
+          },
+          {
+            "text": "It requires no initial conditions",
+            "rationale": "Like any second-order equation it needs two conditions. What property makes it broadly applicable?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obXbCCWEKfY_2",
+        "prompt": "Expanding a potential energy $U(x)$ about a stable minimum, the leading nonconstant term is quadratic. What dynamics does that quadratic term produce?",
+        "hint": "A quadratic potential gives a linear restoring force, since force is the negative derivative of $U$.",
+        "answerOptions": [
+          {
+            "text": "Simple harmonic motion",
+            "correct": true,
+            "rationale": "Yes. A quadratic potential yields a linear restoring force, hence harmonic oscillation."
+          },
+          {
+            "text": "Exponential growth",
+            "rationale": "A stable minimum gives a restoring, not a repelling, force. What motion does a linear restoring force produce?"
+          },
+          {
+            "text": "Constant velocity drift",
+            "rationale": "A restoring force accelerates the system back, not at constant velocity. What oscillatory motion results?"
+          },
+          {
+            "text": "Purely random motion",
+            "rationale": "The dynamics are deterministic near a minimum. What regular motion does a quadratic potential give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obXbCCWEKfY_3",
+        "prompt": "Near a stable equilibrium, how does the restoring force behave as a function of small displacement?",
+        "hint": "This is the content of linearizing the force about the equilibrium point.",
+        "answerOptions": [
+          {
+            "text": "Approximately linear in the displacement, like $-kx$",
+            "correct": true,
+            "rationale": "Yes. To leading order the restoring force is proportional to displacement, the Hooke's-law form."
+          },
+          {
+            "text": "Approximately constant",
+            "rationale": "A constant force would not restore the system to equilibrium. How does the force scale with small $x$?"
+          },
+          {
+            "text": "Proportional to the square of the displacement",
+            "rationale": "The leading restoring term is linear, not quadratic. What is the lowest-order dependence on $x$?"
+          },
+          {
+            "text": "Independent of displacement",
+            "rationale": "A restoring force must depend on how far the system is displaced. What is its leading dependence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obXbCCWEKfY_4",
+        "prompt": "Which of the following is an example of harmonic-oscillator behavior outside of mechanical springs?",
+        "hint": "Look for another system governed by $x'' + \\omega_0^2 x = 0$ in some variable.",
+        "answerOptions": [
+          {
+            "text": "Charge in an LC electrical circuit",
+            "correct": true,
+            "rationale": "Yes. An ideal LC circuit obeys the same oscillator equation, with charge playing the role of displacement."
+          },
+          {
+            "text": "Steady heat flow through a wall",
+            "rationale": "Steady conduction is not oscillatory. Which listed system swings back and forth like an oscillator?"
+          },
+          {
+            "text": "Exponential radioactive decay",
+            "rationale": "Decay is monotonic, not oscillatory. Which example shows oscillation governed by the same equation?"
+          },
+          {
+            "text": "A ball rolling down a constant slope",
+            "rationale": "Constant acceleration is not oscillation. Which system has a linear restoring effect?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obXbCCWEKfY_5",
+        "prompt": "An ideal LC circuit satisfies $L q'' + \\frac{1}{C} q = 0$. What is its oscillation angular frequency?",
+        "hint": "Match the equation to $q'' + \\omega_0^2 q = 0$ after dividing by $L$.",
+        "answerOptions": [
+          {
+            "text": "$\\omega_0 = \\frac{1}{\\sqrt{LC}}$",
+            "correct": true,
+            "rationale": "Correct. Dividing by $L$ gives $\\omega_0^2 = 1/(LC)$, so $\\omega_0 = 1/\\sqrt{LC}$."
+          },
+          {
+            "text": "$\\omega_0 = \\sqrt{LC}$",
+            "rationale": "That is the reciprocal of the correct value. What is $\\sqrt{1/(LC)}$?"
+          },
+          {
+            "text": "$\\omega_0 = LC$",
+            "rationale": "The frequency involves a square root of a reciprocal, not the product. What is $\\sqrt{1/(LC)}$?"
+          },
+          {
+            "text": "$\\omega_0 = \\frac{1}{LC}$",
+            "rationale": "That is $\\omega_0^2$, missing the square root. What is $\\sqrt{1/(LC)}$?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_11_1",
+      "prompt": "Hooke's law for an ideal spring states the restoring force is which expression?",
+      "hint": "The force opposes displacement and is proportional to it.",
+      "answerOptions": [
+        {
+          "text": "$F = -kx$",
+          "correct": true,
+          "rationale": "Yes. The restoring force is proportional to displacement and points back toward equilibrium."
+        },
+        {
+          "text": "$F = kx$",
+          "rationale": "That force points the same way as the displacement. Which direction must a restoring force act?"
+        },
+        {
+          "text": "$F = -kx^2$",
+          "rationale": "Hooke's law is linear in $x$. What power of $x$ appears?"
+        },
+        {
+          "text": "$F = -k\\dot{x}$",
+          "rationale": "A velocity-dependent force is damping, not the spring force. What variable does the spring force depend on?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_2",
+      "prompt": "For $m x'' + k x = 0$, what is the natural angular frequency $\\omega_0$?",
+      "hint": "Normalize to $x'' + \\omega_0^2 x = 0$ by dividing by $m$.",
+      "answerOptions": [
+        {
+          "text": "$\\omega_0 = \\sqrt{k/m}$",
+          "correct": true,
+          "rationale": "Yes. Dividing by $m$ gives $\\omega_0^2 = k/m$."
+        },
+        {
+          "text": "$\\omega_0 = k/m$",
+          "rationale": "That is $\\omega_0^2$, not $\\omega_0$. What is the square root of $k/m$?"
+        },
+        {
+          "text": "$\\omega_0 = \\sqrt{m/k}$",
+          "rationale": "The ratio is inverted. Is the frequency $\\sqrt{k/m}$ or $\\sqrt{m/k}$?"
+        },
+        {
+          "text": "$\\omega_0 = mk$",
+          "rationale": "The frequency is a square root of a ratio, not a product. What is $\\sqrt{k/m}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_3",
+      "prompt": "The period of a simple harmonic oscillator with angular frequency $\\omega_0$ is which expression?",
+      "hint": "Recall the relationship $T = 2\\pi/\\omega_0$.",
+      "answerOptions": [
+        {
+          "text": "$T = \\frac{2\\pi}{\\omega_0}$",
+          "correct": true,
+          "rationale": "Yes. The period is $2\\pi$ divided by the angular frequency."
+        },
+        {
+          "text": "$T = 2\\pi\\omega_0$",
+          "rationale": "This multiplies rather than divides. How does $T$ depend on $\\omega_0$?"
+        },
+        {
+          "text": "$T = \\frac{\\omega_0}{2\\pi}$",
+          "rationale": "That expression is the ordinary frequency $f$, not the period. What is the period?"
+        },
+        {
+          "text": "$T = \\omega_0^2$",
+          "rationale": "The period is not the square of the frequency. What formula relates $T$ and $\\omega_0$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_4",
+      "prompt": "In $F = -kx$, the minus sign tells you the force is what?",
+      "hint": "Consider the direction of the force when the mass is displaced.",
+      "answerOptions": [
+        {
+          "text": "Restoring, always directed back toward equilibrium",
+          "correct": true,
+          "rationale": "Yes. The sign ensures the force opposes the displacement, producing oscillation."
+        },
+        {
+          "text": "Repelling, pushing the mass away from equilibrium",
+          "rationale": "A repelling force would not oscillate. Which way does the sign point the force?"
+        },
+        {
+          "text": "Constant in magnitude",
+          "rationale": "The magnitude scales with $x$. What does the sign say about direction?"
+        },
+        {
+          "text": "Always zero",
+          "rationale": "The force is generally nonzero. What does the minus sign encode about its direction?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_5",
+      "prompt": "What is the general solution of $x'' + \\omega_0^2 x = 0$?",
+      "hint": "The roots are $\\pm i\\omega_0$.",
+      "answerOptions": [
+        {
+          "text": "$x = c_1\\cos\\omega_0 t + c_2\\sin\\omega_0 t$",
+          "correct": true,
+          "rationale": "Yes. Imaginary roots give undamped oscillation at frequency $\\omega_0$."
+        },
+        {
+          "text": "$x = c_1 e^{\\omega_0 t} + c_2 e^{-\\omega_0 t}$",
+          "rationale": "Real exponentials solve $x'' - \\omega_0^2 x = 0$. What roots does the $+\\omega_0^2$ term give?"
+        },
+        {
+          "text": "$x = c_1 + c_2 t$",
+          "rationale": "That solves $x'' = 0$. What oscillatory form does $x'' + \\omega_0^2 x = 0$ give?"
+        },
+        {
+          "text": "$x = c_1 e^{-\\omega_0 t}\\cos\\omega_0 t$",
+          "rationale": "A decaying factor requires damping, which is absent. What is the undamped form?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_6",
+      "prompt": "Which equation models free undamped vibration?",
+      "hint": "Free means unforced; undamped means no velocity term.",
+      "answerOptions": [
+        {
+          "text": "$m x'' + k x = 0$",
+          "correct": true,
+          "rationale": "Yes. No forcing and no $x'$ term means free and undamped."
+        },
+        {
+          "text": "$m x'' + c x' + k x = 0$",
+          "rationale": "The $c x'$ term is damping. Which term must be absent for undamped motion?"
+        },
+        {
+          "text": "$m x'' + k x = F_0\\cos\\omega t$",
+          "rationale": "A nonzero right side is forcing. What must the right side equal for free motion?"
+        },
+        {
+          "text": "$m x' + k x = 0$",
+          "rationale": "That is first order, not a vibration equation. What order governs oscillation?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_7",
+      "prompt": "Solve the IVP $x'' + 9x = 0$, $x(0) = 0$, $x'(0) = 6$.",
+      "hint": "Use $x = c_1\\cos 3t + c_2\\sin 3t$; the derivative brings a factor of $3$.",
+      "answerOptions": [
+        {
+          "text": "$x = 2\\sin 3t$",
+          "correct": true,
+          "rationale": "Correct. $x(0) = 0$ removes the cosine, and $3c_2 = 6$ gives $c_2 = 2$."
+        },
+        {
+          "text": "$x = 6\\sin 3t$",
+          "rationale": "The derivative introduces a factor of $3$, so $3c_2 = 6$. What is $c_2$?"
+        },
+        {
+          "text": "$x = 2\\cos 3t$",
+          "rationale": "Cosine has $x(0) = 2 \\neq 0$. Which function vanishes at $t = 0$?"
+        },
+        {
+          "text": "$x = 6\\cos 3t$",
+          "rationale": "This violates both conditions. Which function matches $x(0) = 0$, and what coefficient fits $x'(0) = 6$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_8",
+      "prompt": "Express $x = 3\\cos\\omega_0 t + 4\\sin\\omega_0 t$ in the form $C\\cos(\\omega_0 t - \\phi)$. What is $C$?",
+      "hint": "The amplitude is $C = \\sqrt{c_1^2 + c_2^2}$.",
+      "answerOptions": [
+        {
+          "text": "$C = 5$",
+          "correct": true,
+          "rationale": "Correct. $\\sqrt{3^2 + 4^2} = 5$."
+        },
+        {
+          "text": "$C = 7$",
+          "rationale": "The amplitude is not the sum $3 + 4$. How do the coefficients combine?"
+        },
+        {
+          "text": "$C = 12$",
+          "rationale": "That is the product $3 \\cdot 4$. What is $\\sqrt{c_1^2 + c_2^2}$?"
+        },
+        {
+          "text": "$C = 1$",
+          "rationale": "That is the difference $4 - 3$. What does $\\sqrt{3^2 + 4^2}$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_9",
+      "prompt": "A system $m x'' + k x = 0$ has $m = 1$ and $k = 16$. What is the period of oscillation?",
+      "hint": "Compute $\\omega_0 = \\sqrt{k/m}$, then $T = 2\\pi/\\omega_0$.",
+      "answerOptions": [
+        {
+          "text": "$T = \\frac{\\pi}{2}$",
+          "correct": true,
+          "rationale": "Correct. $\\omega_0 = 4$, so $T = 2\\pi/4 = \\pi/2$."
+        },
+        {
+          "text": "$T = 2\\pi$",
+          "rationale": "This uses $\\omega_0 = 1$. What is $\\sqrt{16}$?"
+        },
+        {
+          "text": "$T = 8\\pi$",
+          "rationale": "That divides by a frequency below one. What is $2\\pi/4$?"
+        },
+        {
+          "text": "$T = 4$",
+          "rationale": "That is $\\omega_0$, not the period. What is $2\\pi/\\omega_0$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_10",
+      "prompt": "The angular frequency of a free undamped oscillator depends on which quantities?",
+      "hint": "Recall $\\omega_0 = \\sqrt{k/m}$.",
+      "answerOptions": [
+        {
+          "text": "Only the mass and the spring constant",
+          "correct": true,
+          "rationale": "Yes. $\\omega_0 = \\sqrt{k/m}$ depends solely on the physical constants, not on how the motion starts."
+        },
+        {
+          "text": "The initial position and velocity",
+          "rationale": "Those set amplitude and phase, not frequency. What physical constants set $\\omega_0$?"
+        },
+        {
+          "text": "The amplitude of the motion",
+          "rationale": "Amplitude does not affect the linear oscillator's frequency. What determines $\\omega_0$?"
+        },
+        {
+          "text": "The phase angle",
+          "rationale": "Phase does not change the frequency. Which constants set $\\omega_0$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_11",
+      "prompt": "In $m x'' + c x' + k x = 0$, which term represents damping?",
+      "hint": "Damping is proportional to velocity.",
+      "answerOptions": [
+        {
+          "text": "$c x'$",
+          "correct": true,
+          "rationale": "Yes. The damping force opposes motion and is proportional to velocity."
+        },
+        {
+          "text": "$k x$",
+          "rationale": "That is the spring restoring force. Which term uses the velocity?"
+        },
+        {
+          "text": "$m x''$",
+          "rationale": "That is the inertial term. Which term involves $x'$?"
+        },
+        {
+          "text": "All three terms equally",
+          "rationale": "Only one term is the damping. Which one is proportional to $x'$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_12",
+      "prompt": "The damping cases are set by the discriminant $c^2 - 4mk$. Which sign gives underdamping?",
+      "hint": "Underdamping means complex roots and oscillation.",
+      "answerOptions": [
+        {
+          "text": "$c^2 - 4mk < 0$",
+          "correct": true,
+          "rationale": "Yes. A negative discriminant gives complex roots and decaying oscillation."
+        },
+        {
+          "text": "$c^2 - 4mk > 0$",
+          "rationale": "A positive discriminant gives overdamping with no oscillation. Which sign produces complex roots?"
+        },
+        {
+          "text": "$c^2 - 4mk = 0$",
+          "rationale": "A zero discriminant is the critically damped boundary. Which sign gives oscillation?"
+        },
+        {
+          "text": "$c^2 - 4mk = 4$",
+          "rationale": "Only the sign relative to zero matters, and a positive value is overdamped. Which sign is underdamped?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_13",
+      "prompt": "For $m = 1$ and $k = 25$, what damping coefficient $c$ gives critical damping?",
+      "hint": "Critical damping requires $c = 2\\sqrt{mk}$.",
+      "answerOptions": [
+        {
+          "text": "$c = 10$",
+          "correct": true,
+          "rationale": "Correct. $c = 2\\sqrt{mk} = 2\\sqrt{25} = 10$."
+        },
+        {
+          "text": "$c = 5$",
+          "rationale": "That is $\\sqrt{k}$, missing the factor of $2$. What is $2\\sqrt{25}$?"
+        },
+        {
+          "text": "$c = 25$",
+          "rationale": "That is $k$ itself. Critical damping needs $c = 2\\sqrt{mk}$. What is it here?"
+        },
+        {
+          "text": "$c = 50$",
+          "rationale": "That is $2k$, not $2\\sqrt{mk}$. With $m = 1$, what is $2\\sqrt{25}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_14",
+      "prompt": "Solve $x'' + 5x' + 6x = 0$ and classify the damping.",
+      "hint": "Factor $r^2 + 5r + 6 = (r+2)(r+3)$.",
+      "answerOptions": [
+        {
+          "text": "$x = c_1 e^{-2t} + c_2 e^{-3t}$, overdamped",
+          "correct": true,
+          "rationale": "Correct. Distinct negative real roots give pure decay, the overdamped case."
+        },
+        {
+          "text": "$x = (c_1 + c_2 t)e^{-2t}$, critically damped",
+          "rationale": "Equal roots are needed for that form, but $-2$ and $-3$ differ. Which case has distinct real roots?"
+        },
+        {
+          "text": "$x = e^{-t}(c_1\\cos t + c_2\\sin t)$, underdamped",
+          "rationale": "The discriminant here is positive, so the roots are real. What case results?"
+        },
+        {
+          "text": "$x = c_1 e^{2t} + c_2 e^{3t}$, unstable",
+          "rationale": "Check the signs of the roots of $(r+2)(r+3)$. Are they positive or negative?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_15",
+      "prompt": "Solve $x'' + 2x' + 5x = 0$.",
+      "hint": "The roots of $r^2 + 2r + 5 = 0$ are $-1 \\pm 2i$.",
+      "answerOptions": [
+        {
+          "text": "$x = e^{-t}(c_1\\cos 2t + c_2\\sin 2t)$",
+          "correct": true,
+          "rationale": "Correct. The complex roots $-1 \\pm 2i$ give a decaying envelope and oscillation at frequency $2$."
+        },
+        {
+          "text": "$x = e^{t}(c_1\\cos 2t + c_2\\sin 2t)$",
+          "rationale": "Check the real part of the roots. Is it $+1$ or $-1$?"
+        },
+        {
+          "text": "$x = e^{-t}(c_1\\cos t + c_2\\sin t)$",
+          "rationale": "The oscillation frequency is the imaginary part. Is it $1$ or $2$?"
+        },
+        {
+          "text": "$x = c_1 e^{-t} + c_2 e^{-5t}$",
+          "rationale": "The discriminant is negative, so the roots are complex. What oscillatory form results?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_16",
+      "prompt": "Which damping case returns to equilibrium fastest without oscillating?",
+      "hint": "It is the boundary between oscillatory and sluggish decay.",
+      "answerOptions": [
+        {
+          "text": "Critically damped",
+          "correct": true,
+          "rationale": "Yes. Critical damping gives the quickest non-oscillatory return."
+        },
+        {
+          "text": "Overdamped",
+          "rationale": "Overdamping is sluggish due to strong resistance. Which case is the fast boundary?"
+        },
+        {
+          "text": "Underdamped",
+          "rationale": "Underdamping overshoots and oscillates. Which case avoids oscillation yet is fastest?"
+        },
+        {
+          "text": "Undamped",
+          "rationale": "Undamped motion never settles. Which damped case settles fastest without oscillating?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_17",
+      "prompt": "For undamped forced motion $m x'' + k x = F_0\\cos\\omega t$, pure resonance occurs when which condition holds?",
+      "hint": "The driving frequency must match the natural frequency.",
+      "answerOptions": [
+        {
+          "text": "$\\omega = \\omega_0$",
+          "correct": true,
+          "rationale": "Yes. Driving at the natural frequency causes resonance in the undamped system."
+        },
+        {
+          "text": "$\\omega = 0$",
+          "rationale": "Zero forcing frequency is a constant push. What frequency match produces resonance?"
+        },
+        {
+          "text": "$F_0$ is large",
+          "rationale": "A large amplitude alone is not resonance. Which frequencies must coincide?"
+        },
+        {
+          "text": "$\\omega = 2\\omega_0$",
+          "rationale": "Resonance requires an exact match, not a doubling. What must $\\omega$ equal?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_18",
+      "prompt": "At pure resonance in an undamped system, the response amplitude does what?",
+      "hint": "With no damping, energy keeps being added at the natural frequency.",
+      "answerOptions": [
+        {
+          "text": "Grows without bound, increasing linearly in $t$",
+          "correct": true,
+          "rationale": "Yes. The resonant particular solution carries a factor of $t$, so the amplitude grows without limit."
+        },
+        {
+          "text": "Stays constant",
+          "rationale": "Constant amplitude occurs off resonance. What does matching frequencies do without damping?"
+        },
+        {
+          "text": "Decays to zero",
+          "rationale": "Decay needs damping, which is absent. What happens when energy keeps accumulating?"
+        },
+        {
+          "text": "Remains bounded between fixed limits",
+          "rationale": "Bounded oscillation is the off-resonance case. What does the resonant $t$ factor cause?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_19",
+      "prompt": "When the forcing frequency equals the natural frequency, the particular-solution trial must be modified how?",
+      "hint": "The plain trial already solves the homogeneous equation.",
+      "answerOptions": [
+        {
+          "text": "Multiply by $t$, giving $x_p = t(A\\cos\\omega_0 t + B\\sin\\omega_0 t)$",
+          "correct": true,
+          "rationale": "Yes. Because the forcing duplicates a homogeneous solution, a factor of $t$ is required."
+        },
+        {
+          "text": "Leave the trial unchanged",
+          "rationale": "The plain trial fails because it solves the homogeneous equation. What factor must be added?"
+        },
+        {
+          "text": "Use an exponential trial",
+          "rationale": "Exponentials do not match cosine forcing. What modification handles the overlap?"
+        },
+        {
+          "text": "Multiply by $t^2$",
+          "rationale": "One overlap needs only a single factor of $t$. How many powers of $t$ are required?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_20",
+      "prompt": "For $x'' + 25x = \\cos\\omega t$, at which forcing frequency does resonance occur?",
+      "hint": "Find $\\omega_0 = \\sqrt{25}$, then set $\\omega = \\omega_0$.",
+      "answerOptions": [
+        {
+          "text": "$\\omega = 5$",
+          "correct": true,
+          "rationale": "Correct. The natural frequency is $\\sqrt{25} = 5$, so resonance occurs at $\\omega = 5$."
+        },
+        {
+          "text": "$\\omega = 25$",
+          "rationale": "That is $\\omega_0^2$, not $\\omega_0$. What is $\\sqrt{25}$?"
+        },
+        {
+          "text": "$\\omega = 0$",
+          "rationale": "Zero is a constant push, not resonance. What is the natural frequency?"
+        },
+        {
+          "text": "$\\omega = \\sqrt{5}$",
+          "rationale": "The natural frequency is $\\sqrt{25} = 5$, not $\\sqrt{5}$. What is $\\sqrt{25}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_21",
+      "prompt": "Beats occur in an undamped forced system when the forcing frequency $\\omega$ satisfies which condition?",
+      "hint": "Beats are distinct from resonance; the frequencies are close but unequal.",
+      "answerOptions": [
+        {
+          "text": "$\\omega$ is close to but not equal to $\\omega_0$",
+          "correct": true,
+          "rationale": "Yes. Two nearby frequencies interfere to produce the slow amplitude modulation called beats."
+        },
+        {
+          "text": "$\\omega = \\omega_0$ exactly",
+          "rationale": "Exact equality gives resonance. What near-match produces beats?"
+        },
+        {
+          "text": "$\\omega = 0$",
+          "rationale": "Zero forcing frequency is a constant push. What relationship between $\\omega$ and $\\omega_0$ gives beats?"
+        },
+        {
+          "text": "$\\omega \\gg \\omega_0$",
+          "rationale": "Beats need the frequencies to be close. How close must $\\omega$ be to $\\omega_0$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_22",
+      "prompt": "Off resonance, the steady amplitude is proportional to $\\frac{1}{m(\\omega_0^2 - \\omega^2)}$. As $\\omega \\to \\omega_0$, the amplitude does what?",
+      "hint": "Look at the denominator as the frequencies converge.",
+      "answerOptions": [
+        {
+          "text": "Grows without bound, since the denominator approaches zero",
+          "correct": true,
+          "rationale": "Yes. The factor $\\omega_0^2 - \\omega^2$ vanishes, so the amplitude blows up, signaling resonance."
+        },
+        {
+          "text": "Approaches zero",
+          "rationale": "A vanishing denominator makes the fraction large, not small. What happens to the amplitude?"
+        },
+        {
+          "text": "Stays constant",
+          "rationale": "The denominator is changing. What does it approach, and what does that do to the fraction?"
+        },
+        {
+          "text": "Becomes exactly $F_0$",
+          "rationale": "The magnitude diverges rather than settling at $F_0$. What does the vanishing denominator do?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_23",
+      "prompt": "What defines a system of coupled oscillators?",
+      "hint": "Coupling links the equations of motion together.",
+      "answerOptions": [
+        {
+          "text": "Each mass's acceleration depends on the positions of the others",
+          "correct": true,
+          "rationale": "Yes. The coupling springs make the equations of motion interdependent."
+        },
+        {
+          "text": "Each mass moves independently of the others",
+          "rationale": "Independence is the uncoupled case. What does coupling do to the equations?"
+        },
+        {
+          "text": "There is only a single mass",
+          "rationale": "Coupled systems have multiple masses. What links their equations?"
+        },
+        {
+          "text": "The masses are all at rest",
+          "rationale": "Coupled oscillators move and exchange energy. How are their equations related?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_24",
+      "prompt": "What is a normal mode of a coupled oscillator system?",
+      "hint": "In a normal mode the whole system shares one rhythm.",
+      "answerOptions": [
+        {
+          "text": "A motion in which all masses oscillate at a single common frequency",
+          "correct": true,
+          "rationale": "Yes. In a normal mode every part moves sinusoidally at one shared frequency."
+        },
+        {
+          "text": "A motion in which each mass uses a different frequency",
+          "rationale": "That is general motion, not a single mode. What frequency structure defines a mode?"
+        },
+        {
+          "text": "A state of rest",
+          "rationale": "A normal mode is an active oscillation. What do all masses share in a mode?"
+        },
+        {
+          "text": "The decay of the system to equilibrium",
+          "rationale": "Normal modes are sustained oscillations. What common feature defines them?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_25",
+      "prompt": "How many normal modes does a coupled system with two degrees of freedom have?",
+      "hint": "The count equals the number of degrees of freedom.",
+      "answerOptions": [
+        {
+          "text": "Two",
+          "correct": true,
+          "rationale": "Yes. Two degrees of freedom give two independent normal modes."
+        },
+        {
+          "text": "One",
+          "rationale": "One mode cannot span two degrees of freedom. How many modes match two degrees?"
+        },
+        {
+          "text": "Four",
+          "rationale": "That doubles the degrees of freedom. How many independent modes are there?"
+        },
+        {
+          "text": "Infinitely many",
+          "rationale": "A finite system has finitely many modes. How many degrees of freedom are there?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_26",
+      "prompt": "The coupled system $\\mathbf{x}'' = A\\mathbf{x}$ has a matrix $A$ with eigenvalues $-1$ and $-4$. What are the normal-mode angular frequencies?",
+      "hint": "Each eigenvalue equals $-\\omega^2$, so $\\omega = \\sqrt{-\\lambda}$.",
+      "answerOptions": [
+        {
+          "text": "$\\omega = 1$ and $\\omega = 2$",
+          "correct": true,
+          "rationale": "Correct. From $-\\omega^2 = -1$ and $-\\omega^2 = -4$ we get $\\omega = 1$ and $\\omega = 2$."
+        },
+        {
+          "text": "$\\omega = -1$ and $\\omega = -4$",
+          "rationale": "Frequencies are positive square roots. What are $\\sqrt{1}$ and $\\sqrt{4}$?"
+        },
+        {
+          "text": "$\\omega = 1$ and $\\omega = 4$",
+          "rationale": "The second eigenvalue is $-4$, so $\\omega = \\sqrt{4} = 2$, not $4$. Recompute."
+        },
+        {
+          "text": "$\\omega = \\sqrt{5}$",
+          "rationale": "The modes have separate frequencies from each eigenvalue, not a combined one. What are $\\sqrt{1}$ and $\\sqrt{4}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_27",
+      "prompt": "How is the general motion of a coupled system related to its normal modes?",
+      "hint": "Linearity allows the modes to be combined.",
+      "answerOptions": [
+        {
+          "text": "It is a superposition of the normal modes",
+          "correct": true,
+          "rationale": "Yes. Any motion is a linear combination of the normal-mode oscillations."
+        },
+        {
+          "text": "It must be a single normal mode",
+          "rationale": "General motion can mix modes. How do the modes combine?"
+        },
+        {
+          "text": "It is the product of the modes",
+          "rationale": "Linear systems superpose by addition, not multiplication. How are modes combined?"
+        },
+        {
+          "text": "It is unrelated to the modes",
+          "rationale": "The modes form a basis for all motion. How does the general solution use them?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_28",
+      "prompt": "Substituting $x = e^{rt}$ into $x'' + \\omega_0^2 x = 0$ gives which characteristic roots?",
+      "hint": "Solve $r^2 + \\omega_0^2 = 0$.",
+      "answerOptions": [
+        {
+          "text": "$r = \\pm i\\omega_0$",
+          "correct": true,
+          "rationale": "Yes. The roots are purely imaginary, giving undamped oscillation."
+        },
+        {
+          "text": "$r = \\pm\\omega_0$",
+          "rationale": "Those real roots come from $x'' - \\omega_0^2 x = 0$. What does $r^2 = -\\omega_0^2$ give?"
+        },
+        {
+          "text": "$r = 0$ (double)",
+          "rationale": "A double zero needs $r^2 = 0$. What does $r^2 + \\omega_0^2 = 0$ give?"
+        },
+        {
+          "text": "$r = \\omega_0^2$",
+          "rationale": "The roots solve a quadratic, not equal $\\omega_0^2$. What is $\\sqrt{-\\omega_0^2}$?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_29",
+      "prompt": "Multiplying $x'' + \\omega_0^2 x = 0$ by $x'$ and integrating yields what?",
+      "hint": "The result is a sum of squares that stays constant.",
+      "answerOptions": [
+        {
+          "text": "A conserved energy, $\\tfrac{1}{2}(x')^2 + \\tfrac{1}{2}\\omega_0^2 x^2 = \\text{const}$",
+          "correct": true,
+          "rationale": "Yes. This is the conserved mechanical energy of the oscillator."
+        },
+        {
+          "text": "The characteristic equation",
+          "rationale": "That comes from the exponential trial, not integration. What conserved expression results?"
+        },
+        {
+          "text": "A first-order linear equation",
+          "rationale": "The result is a conservation law, not a linear ODE. What invariant appears?"
+        },
+        {
+          "text": "A forcing term",
+          "rationale": "The equation is homogeneous with no forcing. What invariant does integration reveal?"
+        }
+      ]
+    },
+    {
+      "id": "um_11_30",
+      "prompt": "An ideal LC circuit obeys $L q'' + \\frac{1}{C}q = 0$. What does this illustrate about the harmonic oscillator?",
+      "hint": "Compare the equation's form to $x'' + \\omega_0^2 x = 0$.",
+      "answerOptions": [
+        {
+          "text": "The same oscillator equation governs systems far beyond mechanical springs",
+          "correct": true,
+          "rationale": "Yes. The LC circuit obeys the identical form, with $\\omega_0 = 1/\\sqrt{LC}$, showing the oscillator's universality."
+        },
+        {
+          "text": "Only mechanical systems can oscillate harmonically",
+          "rationale": "The LC circuit is electrical, yet oscillates the same way. What does that show about the oscillator?"
+        },
+        {
+          "text": "Electrical systems never oscillate",
+          "rationale": "The LC circuit clearly oscillates. What does its matching form demonstrate?"
+        },
+        {
+          "text": "The equation has no natural frequency here",
+          "rationale": "Its frequency is $1/\\sqrt{LC}$. What broad lesson does the shared form teach?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

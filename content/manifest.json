@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "1.0.0",
+  "units": [
+    {
+      "unitNumber": 0,
+      "slug": "unit-00",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 1,
+      "slug": "unit-01",
+      "status": {
+        "guide": "missing",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored"
+      }
+    },
+    {
+      "unitNumber": 2,
+      "slug": "unit-02",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 3,
+      "slug": "unit-03",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 4,
+      "slug": "unit-04",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 5,
+      "slug": "unit-05",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 6,
+      "slug": "unit-06",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 7,
+      "slug": "unit-07",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 8,
+      "slug": "unit-08",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 9,
+      "slug": "unit-09",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "backfill"
+      }
+    },
+    {
+      "unitNumber": 10,
+      "slug": "unit-10",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 11,
+      "slug": "unit-11",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 12,
+      "slug": "unit-12",
+      "status": {
+        "guide": "missing",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "backfill",
+        "quizzes": "authored"
+      }
+    },
+    {
+      "unitNumber": 13,
+      "slug": "unit-13",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 14,
+      "slug": "unit-14",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 15,
+      "slug": "unit-15",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 16,
+      "slug": "unit-16",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 17,
+      "slug": "unit-17",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    },
+    {
+      "unitNumber": 18,
+      "slug": "unit-18",
+      "status": {
+        "guide": "complete",
+        "practice": "complete",
+        "quizzes": "complete"
+      },
+      "provenance": {
+        "practice": "authored",
+        "quizzes": "authored",
+        "guide": "authored"
+      }
+    }
+  ]
+}

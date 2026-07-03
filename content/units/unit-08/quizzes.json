@@ -1,0 +1,2314 @@
+{
+  "unitNumber": 8,
+  "microPractice": {
+    "A1hy1skVwzI": [
+      {
+        "id": "mp_A1hy1skVwzI_1",
+        "prompt": "A Clairaut equation has which general form, writing $p = \\frac{dy}{dx}$?",
+        "hint": "The hallmark is $y$ standing alone equal to $x$ times its slope plus a function of the slope.",
+        "answerOptions": [
+          {
+            "text": "$y = x p + f(p)$",
+            "correct": true,
+            "rationale": "Yes. The Clairaut form sets $y$ equal to $xp$ plus a function of the slope $p$."
+          },
+          {
+            "text": "$y = x + f(p)$",
+            "rationale": "The slope must multiply $x$ in this form. What factor sits in front of $x$?"
+          },
+          {
+            "text": "$y = p^2 + f(x)$",
+            "rationale": "The extra function depends on $p$, not $x$, and $x$ appears times $p$. What is the correct structure?"
+          },
+          {
+            "text": "$y' = x y + f(y)$",
+            "rationale": "That is not the Clairaut pattern. How does $y$ relate to $xp$ and $f(p)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A1hy1skVwzI_2",
+        "prompt": "The general solution of a Clairaut equation $y = xp + f(p)$ is obtained by replacing $p$ with what?",
+        "hint": "Differentiating leads to a factor that vanishes when the slope is constant.",
+        "answerOptions": [
+          {
+            "text": "An arbitrary constant $c$, giving $y = cx + f(c)$",
+            "correct": true,
+            "rationale": "Yes. The general solution is the one-parameter family of straight lines $y = cx + f(c)$."
+          },
+          {
+            "text": "Zero, giving $y = f(0)$",
+            "rationale": "Setting $p = 0$ gives one line, not the family. What replaces $p$ to produce all solution lines?"
+          },
+          {
+            "text": "$x$, giving $y = x^2 + f(x)$",
+            "rationale": "The slope is a constant in the general solution, not $x$. What constant replaces $p$?"
+          },
+          {
+            "text": "$\\frac{1}{x}$",
+            "rationale": "The general solution is a family of lines with constant slope. What replaces $p$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A1hy1skVwzI_3",
+        "prompt": "For $y = xp + p^2$, the general solution is which family?",
+        "hint": "Replace $p$ by a constant $c$ in $y = xp + f(p)$ with $f(p) = p^2$.",
+        "answerOptions": [
+          {
+            "text": "$y = cx + c^2$",
+            "correct": true,
+            "rationale": "Correct. Substituting the constant slope $c$ gives the line family $y = cx + c^2$."
+          },
+          {
+            "text": "$y = cx - c^2$",
+            "rationale": "Check the sign of $f(c) = c^2$. Is it added or subtracted in the Clairaut form?"
+          },
+          {
+            "text": "$y = cx^2 + c$",
+            "rationale": "The constant $c$ is the slope multiplying $x$ to the first power. What is the line family?"
+          },
+          {
+            "text": "$y = x c^2$",
+            "rationale": "The term $xp$ becomes $cx$, plus $f(c)$. What is the full expression?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A1hy1skVwzI_4",
+        "prompt": "Differentiating $y = xp + f(p)$ with respect to $x$ leads to which factored condition?",
+        "hint": "Use the product rule on $xp$ and the chain rule on $f(p)$, then collect the $\\frac{dp}{dx}$ terms.",
+        "answerOptions": [
+          {
+            "text": "$\\left(x + f'(p)\\right)\\frac{dp}{dx} = 0$",
+            "correct": true,
+            "rationale": "Yes. After cancellation, the equation factors into this product set equal to zero."
+          },
+          {
+            "text": "$p + f'(p) = 0$",
+            "rationale": "The factor $\\frac{dp}{dx}$ is missing. What multiplies $x + f'(p)$ after differentiating?"
+          },
+          {
+            "text": "$x \\frac{dp}{dx} = 0$",
+            "rationale": "The term $f'(p)\\frac{dp}{dx}$ also belongs. What full factor multiplies $\\frac{dp}{dx}$?"
+          },
+          {
+            "text": "$\\frac{dp}{dx} = p$",
+            "rationale": "Differentiating yields a product equal to zero, not this. What factored form results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A1hy1skVwzI_5",
+        "prompt": "The two cases from $\\left(x + f'(p)\\right)\\frac{dp}{dx} = 0$ correspond to which pair of solution types?",
+        "hint": "One factor being zero gives constant slope; the other gives a special curve.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dp}{dx} = 0$ gives the general line family, and $x + f'(p) = 0$ gives the singular solution",
+            "correct": true,
+            "rationale": "Yes. Constant slope yields the lines, while the other factor yields the singular envelope solution."
+          },
+          {
+            "text": "Both factors give the same line family",
+            "rationale": "The two factors give genuinely different solution types. What does $x + f'(p) = 0$ produce?"
+          },
+          {
+            "text": "$\\frac{dp}{dx} = 0$ gives the singular solution",
+            "rationale": "Constant slope produces the straight-line family, not the singular one. Which factor gives the singular solution?"
+          },
+          {
+            "text": "Neither factor yields a valid solution",
+            "rationale": "Both lead to solutions. What does each factor produce?"
+          }
+        ]
+      }
+    ],
+    "DNT2eXBTW34": [
+      {
+        "id": "mp_DNT2eXBTW34_1",
+        "prompt": "The singular solution of a Clairaut equation is geometrically what, relative to the family of solution lines?",
+        "hint": "It is the curve that each line in the family touches tangentially.",
+        "answerOptions": [
+          {
+            "text": "The envelope of the family of straight-line solutions",
+            "correct": true,
+            "rationale": "Yes. The singular solution is the envelope tangent to every line in the general family."
+          },
+          {
+            "text": "One specific line in the family",
+            "rationale": "The singular solution is generally curved, not a member line. What curve do all the lines touch?"
+          },
+          {
+            "text": "A line perpendicular to all solutions",
+            "rationale": "It is tangent to the lines, not perpendicular. What curve is that?"
+          },
+          {
+            "text": "The $x$-axis always",
+            "rationale": "The envelope depends on $f$, not always the axis. What is the singular solution in general?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DNT2eXBTW34_2",
+        "prompt": "For $y = xp + p^2$, the singular solution comes from eliminating $p$ between $y = xp + p^2$ and which equation?",
+        "hint": "Set the other factor $x + f'(p) = 0$ with $f(p) = p^2$.",
+        "answerOptions": [
+          {
+            "text": "$x + 2p = 0$",
+            "correct": true,
+            "rationale": "Yes. Since $f'(p) = 2p$, the condition is $x + 2p = 0$."
+          },
+          {
+            "text": "$x + p = 0$",
+            "rationale": "Recompute $f'(p)$ for $f(p) = p^2$. What is the derivative?"
+          },
+          {
+            "text": "$x + p^2 = 0$",
+            "rationale": "That is $f(p)$, not $f'(p)$. What is $\\frac{d}{dp}(p^2)$?"
+          },
+          {
+            "text": "$2x + p = 0$",
+            "rationale": "The derivative attaches to $f$, giving $x + f'(p)$. What is $f'(p)$ here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DNT2eXBTW34_3",
+        "prompt": "Solving $x + 2p = 0$ for $p$ and substituting into $y = xp + p^2$ gives which singular solution?",
+        "hint": "From $p = -x/2$, substitute into $y = xp + p^2$ and simplify.",
+        "answerOptions": [
+          {
+            "text": "$y = -\\frac{x^2}{4}$",
+            "correct": true,
+            "rationale": "Correct. With $p = -x/2$, $y = x(-x/2) + (x/2)^2 = -x^2/4$."
+          },
+          {
+            "text": "$y = \\frac{x^2}{4}$",
+            "rationale": "Check the sign of $xp = x(-x/2)$. Is the dominant term positive or negative?"
+          },
+          {
+            "text": "$y = -\\frac{x^2}{2}$",
+            "rationale": "Combine $-x^2/2 + x^2/4$ carefully. What is the sum?"
+          },
+          {
+            "text": "$y = -x^2$",
+            "rationale": "Recompute $x(-x/2) + (x/2)^2$. What single term results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DNT2eXBTW34_4",
+        "prompt": "Why is the singular solution not part of the general one-parameter family?",
+        "hint": "No single choice of the constant slope reproduces a curved envelope.",
+        "answerOptions": [
+          {
+            "text": "No value of the constant $c$ produces it, since it is the envelope rather than a member line",
+            "correct": true,
+            "rationale": "Yes. The envelope is a separate solution that no constant slope generates."
+          },
+          {
+            "text": "It violates the differential equation",
+            "rationale": "The singular solution does satisfy the equation. Why is it still outside the family?"
+          },
+          {
+            "text": "It is just $c = 0$",
+            "rationale": "A single constant gives a line, not the curved envelope. Why can no constant produce it?"
+          },
+          {
+            "text": "It is the same as every line",
+            "rationale": "It is tangent to the lines but distinct from them. Why is it not in the family?"
+          }
+        ]
+      },
+      {
+        "id": "mp_DNT2eXBTW34_5",
+        "prompt": "On a graph, how does the singular solution relate to each line of the general family?",
+        "hint": "An envelope touches each family member at exactly one point.",
+        "answerOptions": [
+          {
+            "text": "It is tangent to each line at one point",
+            "correct": true,
+            "rationale": "Yes. The envelope touches every solution line tangentially at a single point."
+          },
+          {
+            "text": "It crosses each line twice",
+            "rationale": "An envelope touches, it does not generally cross twice. How does it meet each line?"
+          },
+          {
+            "text": "It never touches any line",
+            "rationale": "The envelope is defined by touching the lines. How does it meet each one?"
+          },
+          {
+            "text": "It coincides with one line everywhere",
+            "rationale": "It is a distinct curve, not a single line. How does it touch the family members?"
+          }
+        ]
+      }
+    ],
+    "5kyE-vUoymU": [
+      {
+        "id": "mp_5kyE-vUoymU_1",
+        "prompt": "In a pursuit curve problem, the pursuer's velocity vector is always directed how?",
+        "hint": "The chaser steers straight at the target at every instant.",
+        "answerOptions": [
+          {
+            "text": "Toward the target's current position",
+            "correct": true,
+            "rationale": "Yes. The defining rule is that the pursuer always points at where the target is now."
+          },
+          {
+            "text": "Toward the target's starting position",
+            "rationale": "The chaser updates direction continuously, not toward the start. Where does it point at each instant?"
+          },
+          {
+            "text": "Perpendicular to the target's motion",
+            "rationale": "The chaser aims at the target, not at a right angle. Which direction does its velocity take?"
+          },
+          {
+            "text": "Along a fixed straight line",
+            "rationale": "The direction changes as the target moves. What position does the pursuer aim at?"
+          }
+        ]
+      },
+      {
+        "id": "mp_5kyE-vUoymU_2",
+        "prompt": "The pursuit condition translates into a differential equation by setting the pursuer's slope equal to what?",
+        "hint": "The line from pursuer to target has a slope determined by their coordinate differences.",
+        "answerOptions": [
+          {
+            "text": "The slope of the line connecting the pursuer to the target",
+            "correct": true,
+            "rationale": "Yes. The pursuer's path slope must match the slope toward the target's location."
+          },
+          {
+            "text": "Zero at all times",
+            "rationale": "The slope is generally nonzero and changing. What geometric slope does it match?"
+          },
+          {
+            "text": "The target's speed",
+            "rationale": "Speed is not a slope. What direction does the pursuer's slope align with?"
+          },
+          {
+            "text": "A constant equal to one",
+            "rationale": "The slope varies with position. What line's slope does it equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_5kyE-vUoymU_3",
+        "prompt": "In the classic boat problem, what physical quantities are typically given to set up the model?",
+        "hint": "You need how fast each object moves to relate the distances traveled.",
+        "answerOptions": [
+          {
+            "text": "The speeds of the pursuer and the target",
+            "correct": true,
+            "rationale": "Yes. The ratio of the two speeds drives the geometry of the pursuit curve."
+          },
+          {
+            "text": "Only the starting positions",
+            "rationale": "Positions alone cannot determine the curve without motion rates. What speeds are needed?"
+          },
+          {
+            "text": "The water temperature",
+            "rationale": "Temperature is irrelevant to the geometry. What kinematic quantities matter?"
+          },
+          {
+            "text": "The color of the boats",
+            "rationale": "Color plays no role. What speeds set up the pursuit model?"
+          }
+        ]
+      },
+      {
+        "id": "mp_5kyE-vUoymU_4",
+        "prompt": "Whether the pursuer ever catches the target generally depends on what comparison?",
+        "hint": "Catching up requires moving fast enough relative to the one being chased.",
+        "answerOptions": [
+          {
+            "text": "Whether the pursuer's speed exceeds the target's speed",
+            "correct": true,
+            "rationale": "Yes. The outcome hinges on the ratio of speeds, with a faster pursuer able to catch up."
+          },
+          {
+            "text": "Whether the pursuer starts higher",
+            "rationale": "Starting height does not decide capture. What speed comparison does?"
+          },
+          {
+            "text": "Whether the path is a straight line",
+            "rationale": "Pursuit paths are typically curved regardless. What determines capture?"
+          },
+          {
+            "text": "The number of turns made",
+            "rationale": "Turn count is not the criterion. Which speed comparison governs capture?"
+          }
+        ]
+      },
+      {
+        "id": "mp_5kyE-vUoymU_5",
+        "prompt": "Why does the pursuit curve generally bend rather than stay straight?",
+        "hint": "The aim point keeps moving, so the steering direction continuously updates.",
+        "answerOptions": [
+          {
+            "text": "Because the target moves, the pursuer must continually redirect, curving its path",
+            "correct": true,
+            "rationale": "Yes. Constantly re-aiming at a moving target produces a curved trajectory."
+          },
+          {
+            "text": "Because the pursuer slows down",
+            "rationale": "Speed changes are not the cause. What about the target forces continual redirection?"
+          },
+          {
+            "text": "Because the water pushes it sideways",
+            "rationale": "External currents are not assumed. What makes the aim direction change over time?"
+          },
+          {
+            "text": "Because the path must be a circle",
+            "rationale": "Pursuit curves are not generally circles. Why does the path bend at all?"
+          }
+        ]
+      }
+    ],
+    "apf5UDQU1NE": [
+      {
+        "id": "mp_apf5UDQU1NE_1",
+        "prompt": "The tractrix is the path traced by an object dragged by a string of constant length when the puller moves along a straight line. What stays constant along the curve?",
+        "hint": "Picture the taut string as a tangent segment reaching from the curve to the line the puller follows.",
+        "answerOptions": [
+          {
+            "text": "The length of the tangent segment from the curve to the line is constant",
+            "correct": true,
+            "rationale": "Yes. The defining property is that the tangent segment from the curve to the axis has fixed length."
+          },
+          {
+            "text": "The slope of the curve is constant",
+            "rationale": "The slope changes along a tractrix. What length stays fixed instead?"
+          },
+          {
+            "text": "The area under the curve is constant",
+            "rationale": "Area is not the invariant here. What tangent-segment length is fixed?"
+          },
+          {
+            "text": "The height $y$ is constant",
+            "rationale": "The height decreases along the curve. What constant length defines the tractrix?"
+          }
+        ]
+      },
+      {
+        "id": "mp_apf5UDQU1NE_2",
+        "prompt": "For a tractrix with string length $a$ dragged along the $x$-axis, the differential equation is which of these?",
+        "hint": "The tangent length condition gives a slope built from $y$ and $\\sqrt{a^2 - y^2}$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dy}{dx} = -\\frac{y}{\\sqrt{a^2 - y^2}}$",
+            "correct": true,
+            "rationale": "Yes. The constant tangent length yields this slope, negative as the curve descends toward the axis."
+          },
+          {
+            "text": "$\\frac{dy}{dx} = \\frac{\\sqrt{a^2 - y^2}}{y}$",
+            "rationale": "That is the reciprocal slope. Which quantity belongs in the numerator for a descending curve?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = -\\frac{\\sqrt{a^2 - y^2}}{y}$",
+            "rationale": "The numerator and denominator are swapped. Which expression sits over the square root?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = \\frac{y}{a}$",
+            "rationale": "The slope involves $\\sqrt{a^2 - y^2}$, not just $a$. What is the correct denominator?"
+          }
+        ]
+      },
+      {
+        "id": "mp_apf5UDQU1NE_3",
+        "prompt": "As the dragged object approaches the line of travel, the tractrix does what?",
+        "hint": "As $y \\to 0$, consider the height and the slope behavior of the curve.",
+        "answerOptions": [
+          {
+            "text": "It approaches the line asymptotically, getting ever closer without reaching it in finite distance",
+            "correct": true,
+            "rationale": "Yes. The tractrix approaches the axis asymptotically as the object trails behind."
+          },
+          {
+            "text": "It crosses the line at a right angle",
+            "rationale": "The curve flattens toward the line rather than crossing sharply. How does it approach the axis?"
+          },
+          {
+            "text": "It loops back upward",
+            "rationale": "The tractrix descends monotonically. What does it do near the axis?"
+          },
+          {
+            "text": "It stops abruptly at the line",
+            "rationale": "The approach is gradual and asymptotic. How does the curve meet the axis?"
+          }
+        ]
+      },
+      {
+        "id": "mp_apf5UDQU1NE_4",
+        "prompt": "The tractrix is an example of which broader class of problems from this module?",
+        "hint": "It arises from one object trailing another that moves along a path.",
+        "answerOptions": [
+          {
+            "text": "Pursuit and dragging problems",
+            "correct": true,
+            "rationale": "Yes. The tractrix is a dragging problem, closely related to pursuit curves."
+          },
+          {
+            "text": "Resonance problems",
+            "rationale": "Resonance concerns oscillators, not dragging. Which class does the tractrix belong to?"
+          },
+          {
+            "text": "Heat conduction problems",
+            "rationale": "Heat flow is unrelated to this geometry. What class fits a dragged object?"
+          },
+          {
+            "text": "Eigenvalue problems",
+            "rationale": "Eigenvalues are not involved here. What kind of problem is a dragged-string curve?"
+          }
+        ]
+      },
+      {
+        "id": "mp_apf5UDQU1NE_5",
+        "prompt": "Why does the square root $\\sqrt{a^2 - y^2}$ appear in the tractrix equation?",
+        "hint": "It is the horizontal leg of a right triangle whose hypotenuse is the string of length $a$ and whose vertical leg is $y$.",
+        "answerOptions": [
+          {
+            "text": "It is the horizontal leg of a right triangle with hypotenuse $a$ and vertical leg $y$",
+            "correct": true,
+            "rationale": "Yes. The Pythagorean relation on the string triangle produces $\\sqrt{a^2 - y^2}$."
+          },
+          {
+            "text": "It is the area of the triangle",
+            "rationale": "That expression is a length, not an area. Which leg of the string triangle is it?"
+          },
+          {
+            "text": "It is the slope of the string",
+            "rationale": "It is a length used in the slope, not the slope itself. What geometric leg is it?"
+          },
+          {
+            "text": "It is an arbitrary constant",
+            "rationale": "It depends on $y$ and $a$ by geometry. What triangle leg does it represent?"
+          }
+        ]
+      }
+    ],
+    "hFcgcxw_TPo": [
+      {
+        "id": "mp_hFcgcxw_TPo_1",
+        "prompt": "Fluid dynamics models the motion of fluids using which mathematical tool?",
+        "hint": "Rates of change of velocity in space and time are described by derivatives.",
+        "answerOptions": [
+          {
+            "text": "Differential equations relating velocity, pressure, and their rates of change",
+            "correct": true,
+            "rationale": "Yes. Fluid motion is governed by differential equations linking velocity, pressure, and their derivatives."
+          },
+          {
+            "text": "Only algebraic equations",
+            "rationale": "Static algebra cannot capture changing flow. What kind of equations describe rates of change?"
+          },
+          {
+            "text": "Only probability distributions",
+            "rationale": "Randomness is not the core tool here. What equations model the flow's evolution?"
+          },
+          {
+            "text": "Simple linear interpolation",
+            "rationale": "Interpolation does not model dynamics. What mathematical objects govern fluid motion?"
+          }
+        ]
+      },
+      {
+        "id": "mp_hFcgcxw_TPo_2",
+        "prompt": "A conservation law in fluid dynamics, such as conservation of mass, is expressed by which kind of equation?",
+        "hint": "Mass conservation balances how much fluid flows in against how much accumulates.",
+        "answerOptions": [
+          {
+            "text": "A continuity equation balancing inflow, outflow, and accumulation",
+            "correct": true,
+            "rationale": "Yes. The continuity equation enforces conservation of mass through a balance of flow and storage."
+          },
+          {
+            "text": "A single number",
+            "rationale": "A conservation law is a relation, not a constant. What balancing equation expresses it?"
+          },
+          {
+            "text": "An unrelated geometric identity",
+            "rationale": "It is a physical balance, not pure geometry. What equation encodes mass conservation?"
+          },
+          {
+            "text": "A purely statistical average",
+            "rationale": "Conservation is deterministic here. What flow-balance equation states it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_hFcgcxw_TPo_3",
+        "prompt": "Why are many realistic fluid flow equations difficult to solve exactly?",
+        "hint": "The terms describing how flow carries itself along make the equations nonlinear.",
+        "answerOptions": [
+          {
+            "text": "They are nonlinear, so superposition and simple closed forms generally fail",
+            "correct": true,
+            "rationale": "Yes. Nonlinearity blocks superposition and usually prevents simple exact solutions."
+          },
+          {
+            "text": "They have no solutions at all",
+            "rationale": "Solutions exist but are hard to find. What property makes them difficult?"
+          },
+          {
+            "text": "They are always trivially linear",
+            "rationale": "If they were linear they would be easy; the trouble is the opposite. What property complicates them?"
+          },
+          {
+            "text": "They ignore all physical laws",
+            "rationale": "They encode physical laws faithfully. What mathematical feature makes them hard?"
+          }
+        ]
+      },
+      {
+        "id": "mp_hFcgcxw_TPo_4",
+        "prompt": "A streamline in a steady flow is best described as what?",
+        "hint": "It is the curve that the velocity field is tangent to everywhere.",
+        "answerOptions": [
+          {
+            "text": "A curve tangent to the velocity vector at every point",
+            "correct": true,
+            "rationale": "Yes. Streamlines are everywhere tangent to the flow's velocity field."
+          },
+          {
+            "text": "A curve perpendicular to the velocity",
+            "rationale": "Streamlines follow the flow, not cross it. How do they relate to the velocity vector?"
+          },
+          {
+            "text": "A line of constant pressure only",
+            "rationale": "Constant-pressure lines are a different concept. What does a streamline stay tangent to?"
+          },
+          {
+            "text": "The boundary of the container",
+            "rationale": "The boundary is fixed geometry, not a streamline in general. What field is a streamline tangent to?"
+          }
+        ]
+      },
+      {
+        "id": "mp_hFcgcxw_TPo_5",
+        "prompt": "Why are differential equations the natural language for fluid flow?",
+        "hint": "Flow is defined by how velocity and pressure change from point to point and moment to moment.",
+        "answerOptions": [
+          {
+            "text": "They capture how local quantities change continuously in space and time",
+            "correct": true,
+            "rationale": "Yes. Differential equations express the continuous local changes that define a flow."
+          },
+          {
+            "text": "Because fluids never change",
+            "rationale": "Fluids change constantly; that is why derivatives are needed. What do the equations capture?"
+          },
+          {
+            "text": "Because flow is purely random",
+            "rationale": "Flow has deterministic structure. What continuous changes do the equations describe?"
+          },
+          {
+            "text": "Because they avoid calculus",
+            "rationale": "They are built from calculus. Why is that the right tool for flow?"
+          }
+        ]
+      }
+    ],
+    "VvDJyhYSJv8": [
+      {
+        "id": "mp_VvDJyhYSJv8_1",
+        "prompt": "Viscosity is a measure of a fluid's what?",
+        "hint": "It quantifies how strongly a fluid resists being sheared or made to flow.",
+        "answerOptions": [
+          {
+            "text": "Resistance to flow, or internal friction between layers",
+            "correct": true,
+            "rationale": "Yes. Viscosity measures a fluid's internal resistance to shearing flow."
+          },
+          {
+            "text": "Total mass",
+            "rationale": "Mass is unrelated to viscosity. What flow property does viscosity quantify?"
+          },
+          {
+            "text": "Color and clarity",
+            "rationale": "Optical traits are not viscosity. What resistance does it measure?"
+          },
+          {
+            "text": "Temperature alone",
+            "rationale": "Temperature affects viscosity but is not its definition. What does viscosity measure?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VvDJyhYSJv8_2",
+        "prompt": "For a Newtonian fluid, the shear stress is proportional to which quantity?",
+        "hint": "It depends on how quickly velocity changes across the layers of fluid.",
+        "answerOptions": [
+          {
+            "text": "The velocity gradient, the rate of change of velocity across the flow",
+            "correct": true,
+            "rationale": "Yes. Newtonian shear stress is proportional to the velocity gradient, with viscosity as the constant."
+          },
+          {
+            "text": "The total volume of fluid",
+            "rationale": "Volume is not the driver. What spatial rate of change sets the shear stress?"
+          },
+          {
+            "text": "The color of the fluid",
+            "rationale": "Color is irrelevant. What gradient governs the stress?"
+          },
+          {
+            "text": "The square of the pressure",
+            "rationale": "Pressure squared is not the relation. What velocity-related gradient applies?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VvDJyhYSJv8_3",
+        "prompt": "In the Newtonian relation $\\tau = \\mu \\frac{du}{dy}$, what does the symbol $\\mu$ represent?",
+        "hint": "It is the proportionality constant linking stress to the velocity gradient.",
+        "answerOptions": [
+          {
+            "text": "The dynamic viscosity of the fluid",
+            "correct": true,
+            "rationale": "Yes. The constant $\\mu$ is the dynamic viscosity relating stress to the velocity gradient."
+          },
+          {
+            "text": "The fluid's density",
+            "rationale": "Density is a different property, often written with another symbol. What does $\\mu$ denote here?"
+          },
+          {
+            "text": "The pressure",
+            "rationale": "Pressure is not the proportionality constant. What does $\\mu$ stand for?"
+          },
+          {
+            "text": "The velocity itself",
+            "rationale": "Velocity appears in the gradient, not as $\\mu$. What is $\\mu$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VvDJyhYSJv8_4",
+        "prompt": "Comparing honey and water, which statement about viscosity is correct?",
+        "hint": "Thicker, slower-pouring fluids resist flow more.",
+        "answerOptions": [
+          {
+            "text": "Honey has higher viscosity than water",
+            "correct": true,
+            "rationale": "Yes. Honey resists flow much more strongly, so its viscosity is higher."
+          },
+          {
+            "text": "Water has higher viscosity than honey",
+            "rationale": "Water pours far more freely than honey. Which fluid resists flow more?"
+          },
+          {
+            "text": "They have identical viscosity",
+            "rationale": "Their flow behavior differs greatly. Which one is more viscous?"
+          },
+          {
+            "text": "Neither fluid has viscosity",
+            "rationale": "Both real fluids have viscosity. Which has the larger value?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VvDJyhYSJv8_5",
+        "prompt": "Why does viscosity enter the differential equations of fluid flow?",
+        "hint": "Internal friction transfers momentum between fluid layers moving at different speeds.",
+        "answerOptions": [
+          {
+            "text": "It models the momentum transfer and resistance between layers moving at different speeds",
+            "correct": true,
+            "rationale": "Yes. Viscous terms capture how internal friction transfers momentum across the flow."
+          },
+          {
+            "text": "It sets the color of the fluid",
+            "rationale": "Color is not modeled by the equations. What physical effect does viscosity add?"
+          },
+          {
+            "text": "It removes all derivatives",
+            "rationale": "Viscosity introduces derivative terms rather than removing them. What does it represent physically?"
+          },
+          {
+            "text": "It makes the flow instantaneous",
+            "rationale": "Viscosity slows transfer rather than speeding it. What resistance does it model?"
+          }
+        ]
+      }
+    ],
+    "yvFr5D7UAMQ": [
+      {
+        "id": "mp_yvFr5D7UAMQ_1",
+        "prompt": "In a simple market model, the rate of change of price is often taken proportional to what?",
+        "hint": "Price rises when buyers want more than sellers offer and falls in the opposite case.",
+        "answerOptions": [
+          {
+            "text": "The excess demand, the difference between demand and supply",
+            "correct": true,
+            "rationale": "Yes. Price adjusts in proportion to excess demand, rising when demand exceeds supply."
+          },
+          {
+            "text": "The total supply alone",
+            "rationale": "Supply by itself does not set the direction of price change. What difference drives it?"
+          },
+          {
+            "text": "The price squared",
+            "rationale": "The model uses the supply-demand gap, not the price squared. What quantity is the rate proportional to?"
+          },
+          {
+            "text": "A fixed constant only",
+            "rationale": "A constant rate ignores the market. What difference does the price respond to?"
+          }
+        ]
+      },
+      {
+        "id": "mp_yvFr5D7UAMQ_2",
+        "prompt": "Writing $\\frac{dp}{dt} = k(D - S)$ with $k > 0$, what happens when demand $D$ exceeds supply $S$?",
+        "hint": "A positive excess demand makes the right side positive.",
+        "answerOptions": [
+          {
+            "text": "The price increases",
+            "correct": true,
+            "rationale": "Yes. With $D > S$, the right side is positive, so the price rises."
+          },
+          {
+            "text": "The price decreases",
+            "rationale": "A positive excess demand gives a positive rate. Which direction does the price move?"
+          },
+          {
+            "text": "The price stays constant",
+            "rationale": "The rate is nonzero when $D \\neq S$. What does a positive rate do to price?"
+          },
+          {
+            "text": "The price oscillates forever",
+            "rationale": "A single sign of the rate does not create oscillation. What does $D > S$ do to price?"
+          }
+        ]
+      },
+      {
+        "id": "mp_yvFr5D7UAMQ_3",
+        "prompt": "The equilibrium price in this model occurs where which condition holds?",
+        "hint": "At equilibrium the price stops changing, so the rate is zero.",
+        "answerOptions": [
+          {
+            "text": "Demand equals supply, so $\\frac{dp}{dt} = 0$",
+            "correct": true,
+            "rationale": "Yes. When demand equals supply the rate vanishes and the price holds steady."
+          },
+          {
+            "text": "Demand is maximized",
+            "rationale": "Maximum demand is not the equilibrium condition. What balance makes the rate zero?"
+          },
+          {
+            "text": "Supply is zero",
+            "rationale": "Zero supply is not equilibrium. What equality of demand and supply stops price change?"
+          },
+          {
+            "text": "Price is zero",
+            "rationale": "Equilibrium price is generally nonzero. What condition makes $\\frac{dp}{dt} = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_yvFr5D7UAMQ_4",
+        "prompt": "Suppose demand is $D = 100 - 2p$ and supply is $S = 20 + 3p$. What is the equilibrium price?",
+        "hint": "Set $D = S$ and solve $100 - 2p = 20 + 3p$ for $p$.",
+        "answerOptions": [
+          {
+            "text": "$p = 16$",
+            "correct": true,
+            "rationale": "Correct. $100 - 2p = 20 + 3p$ gives $80 = 5p$, so $p = 16$."
+          },
+          {
+            "text": "$p = 20$",
+            "rationale": "Recheck the algebra. After combining, $80 = 5p$; what is $p$?"
+          },
+          {
+            "text": "$p = 24$",
+            "rationale": "Move all $p$ terms to one side carefully. What does $80 = 5p$ give?"
+          },
+          {
+            "text": "$p = 80$",
+            "rationale": "You stopped before dividing by the coefficient of $p$. What is $80 / 5$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_yvFr5D7UAMQ_5",
+        "prompt": "If the equilibrium price is stable, a small displacement of price will do what over time?",
+        "hint": "Stability means the adjustment pushes price back toward the balance point.",
+        "answerOptions": [
+          {
+            "text": "Return toward the equilibrium price",
+            "correct": true,
+            "rationale": "Yes. A stable equilibrium draws nearby prices back toward it over time."
+          },
+          {
+            "text": "Move away from the equilibrium price",
+            "rationale": "That describes instability. What does a stable equilibrium do to nearby prices?"
+          },
+          {
+            "text": "Stay displaced permanently",
+            "rationale": "A stable adjustment does not leave price stuck off balance. Where does it head?"
+          },
+          {
+            "text": "Jump to zero",
+            "rationale": "Stability does not send price to zero. Toward what value does it return?"
+          }
+        ]
+      }
+    ],
+    "Tc05IbqTsFM": [
+      {
+        "id": "mp_Tc05IbqTsFM_1",
+        "prompt": "In the Lotka-Volterra model with prey $x$ and predator $y$, the prey equation $\\frac{dx}{dt} = ax - bxy$ says the prey population does what without predators?",
+        "hint": "Set $y = 0$ and read the remaining growth term.",
+        "answerOptions": [
+          {
+            "text": "Grows exponentially at rate $a$",
+            "correct": true,
+            "rationale": "Yes. With $y = 0$, the equation reduces to $\\frac{dx}{dt} = ax$, exponential growth."
+          },
+          {
+            "text": "Decays exponentially",
+            "rationale": "The remaining term $ax$ has a positive coefficient. Does the prey grow or shrink without predators?"
+          },
+          {
+            "text": "Stays constant",
+            "rationale": "The term $ax$ is nonzero for positive $x$. What kind of change does it produce?"
+          },
+          {
+            "text": "Oscillates on its own",
+            "rationale": "A single linear term gives no oscillation. What behavior does $\\frac{dx}{dt} = ax$ describe?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Tc05IbqTsFM_2",
+        "prompt": "In the predator equation $\\frac{dy}{dt} = -cy + dxy$, what happens to predators when prey are absent?",
+        "hint": "Set $x = 0$ and read the remaining term.",
+        "answerOptions": [
+          {
+            "text": "They decline exponentially at rate $c$",
+            "correct": true,
+            "rationale": "Yes. With $x = 0$, the equation becomes $\\frac{dy}{dt} = -cy$, exponential decline."
+          },
+          {
+            "text": "They grow exponentially",
+            "rationale": "The remaining term $-cy$ is negative. Do predators rise or fall without prey?"
+          },
+          {
+            "text": "They stay constant",
+            "rationale": "The term $-cy$ is nonzero for positive $y$. What change does it cause?"
+          },
+          {
+            "text": "They double instantly",
+            "rationale": "The decay is gradual and negative. What does $\\frac{dy}{dt} = -cy$ describe?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Tc05IbqTsFM_3",
+        "prompt": "The interaction term $bxy$ in the prey equation represents what?",
+        "hint": "It models how often predators and prey meet, which scales with both populations.",
+        "answerOptions": [
+          {
+            "text": "Loss of prey due to predation, proportional to encounters between the two species",
+            "correct": true,
+            "rationale": "Yes. The product $xy$ measures encounters, and $b$ scales the prey lost to predation."
+          },
+          {
+            "text": "Growth of prey from reproduction",
+            "rationale": "Reproduction is the $ax$ term. What does the $xy$ product with a minus sign represent?"
+          },
+          {
+            "text": "Immigration of new prey",
+            "rationale": "Immigration is not in this term. What does the predator-prey encounter product capture?"
+          },
+          {
+            "text": "Random noise",
+            "rationale": "The model is deterministic. What biological effect does $bxy$ model?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Tc05IbqTsFM_4",
+        "prompt": "The nonzero coexistence equilibrium of the Lotka-Volterra system occurs at which point?",
+        "hint": "Set both rates to zero and solve, factoring out the nonzero populations.",
+        "answerOptions": [
+          {
+            "text": "$x = \\frac{c}{d}$ and $y = \\frac{a}{b}$",
+            "correct": true,
+            "rationale": "Yes. Setting $ax - bxy = 0$ and $-cy + dxy = 0$ gives $x = c/d$ and $y = a/b$."
+          },
+          {
+            "text": "$x = \\frac{a}{b}$ and $y = \\frac{c}{d}$",
+            "rationale": "The equilibrium values are swapped. Which equation determines $x$, and which determines $y$?"
+          },
+          {
+            "text": "$x = 0$ and $y = 0$",
+            "rationale": "That is the trivial extinction equilibrium, not the coexistence one. What positive values solve the equations?"
+          },
+          {
+            "text": "$x = a$ and $y = c$",
+            "rationale": "The ratios of parameters matter, not the bare constants. What are $x$ and $y$ at coexistence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Tc05IbqTsFM_5",
+        "prompt": "Solution trajectories of the Lotka-Volterra model in the phase plane typically form what?",
+        "hint": "The populations rise and fall in a repeating chase without settling down.",
+        "answerOptions": [
+          {
+            "text": "Closed cycles, indicating periodic oscillations of both populations",
+            "correct": true,
+            "rationale": "Yes. The trajectories are closed loops, so predator and prey numbers oscillate periodically."
+          },
+          {
+            "text": "Curves spiraling into the equilibrium",
+            "rationale": "The classic model does not damp to the equilibrium. What closed shape do the orbits form?"
+          },
+          {
+            "text": "Straight lines to extinction",
+            "rationale": "The populations cycle rather than die out. What closed curves appear?"
+          },
+          {
+            "text": "A single fixed point only",
+            "rationale": "Generic trajectories move around, not stay put. What repeating shape do they trace?"
+          }
+        ]
+      }
+    ],
+    "QXLmsKKr1Zs": [
+      {
+        "id": "mp_QXLmsKKr1Zs_1",
+        "prompt": "The Lotka-Volterra model is a system of how many coupled differential equations?",
+        "hint": "There is one equation for each interacting population.",
+        "answerOptions": [
+          {
+            "text": "Two, one for the prey and one for the predator",
+            "correct": true,
+            "rationale": "Yes. The model couples two equations, one per population."
+          },
+          {
+            "text": "One equation only",
+            "rationale": "A single equation cannot track two interacting species. How many are coupled?"
+          },
+          {
+            "text": "Three equations",
+            "rationale": "The basic model has one equation per species, and there are two species. How many is that?"
+          },
+          {
+            "text": "Four equations",
+            "rationale": "The classic two-species model uses fewer. How many equations does it have?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QXLmsKKr1Zs_2",
+        "prompt": "Why are the two Lotka-Volterra equations described as coupled?",
+        "hint": "Each population's rate of change involves the other population.",
+        "answerOptions": [
+          {
+            "text": "Each equation contains the other species through the interaction term $xy$",
+            "correct": true,
+            "rationale": "Yes. The shared $xy$ term ties the two equations together, making them coupled."
+          },
+          {
+            "text": "They are written on the same page",
+            "rationale": "Coupling is mathematical, not typographical. What links the two equations?"
+          },
+          {
+            "text": "They have the same constant $a$",
+            "rationale": "Sharing a constant is not what coupling means. What variable links them?"
+          },
+          {
+            "text": "They are actually independent",
+            "rationale": "They are not independent; each affects the other. What term couples them?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QXLmsKKr1Zs_3",
+        "prompt": "In the predator-prey cycle, a rise in prey is typically followed by what?",
+        "hint": "More prey means more food, so predators respond after a lag.",
+        "answerOptions": [
+          {
+            "text": "A rise in predators, as more food becomes available",
+            "correct": true,
+            "rationale": "Yes. Abundant prey fuels predator growth, which lags behind the prey peak."
+          },
+          {
+            "text": "An immediate crash of prey to zero",
+            "rationale": "Prey do not vanish instantly. What does abundant prey do to predators next?"
+          },
+          {
+            "text": "A permanent drop in predators",
+            "rationale": "Predators rise, not fall, when prey are plentiful. What follows a prey rise?"
+          },
+          {
+            "text": "No change in predators ever",
+            "rationale": "Predators respond to prey abundance. What change follows a prey increase?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QXLmsKKr1Zs_4",
+        "prompt": "After predators become abundant, the prey population typically does what?",
+        "hint": "Heavy predation outpaces prey reproduction.",
+        "answerOptions": [
+          {
+            "text": "Declines, since predation now exceeds prey reproduction",
+            "correct": true,
+            "rationale": "Yes. Abundant predators drive the prey down, completing part of the cycle."
+          },
+          {
+            "text": "Continues to grow without limit",
+            "rationale": "Heavy predation checks prey growth. What does the prey population do?"
+          },
+          {
+            "text": "Stays exactly constant",
+            "rationale": "The cycle keeps moving. What happens to prey under abundant predators?"
+          },
+          {
+            "text": "Instantly recovers",
+            "rationale": "Recovery comes later, after predators decline. What happens to prey first?"
+          }
+        ]
+      },
+      {
+        "id": "mp_QXLmsKKr1Zs_5",
+        "prompt": "A key simplifying assumption of the basic Lotka-Volterra model is what?",
+        "hint": "The prey have unlimited resources in the absence of predators.",
+        "answerOptions": [
+          {
+            "text": "Prey grow without any resource limit when predators are absent",
+            "correct": true,
+            "rationale": "Yes. The basic model assumes unbounded prey growth without predators, ignoring carrying capacity."
+          },
+          {
+            "text": "Predators never die",
+            "rationale": "Predators do decline without prey in the model. What unrealistic prey assumption is made?"
+          },
+          {
+            "text": "The populations are always equal",
+            "rationale": "The populations differ and cycle. What assumption about prey growth is built in?"
+          },
+          {
+            "text": "There is no interaction term",
+            "rationale": "The interaction term is central to the model. What simplification about prey growth is assumed?"
+          }
+        ]
+      }
+    ],
+    "8GxwFrAyD9Q": [
+      {
+        "id": "mp_8GxwFrAyD9Q_1",
+        "prompt": "In a competition model, the interaction term between two species has which effect on each population?",
+        "hint": "Competitors reduce one another's growth rather than feed on one another.",
+        "answerOptions": [
+          {
+            "text": "It is negative for both species, since each suppresses the other's growth",
+            "correct": true,
+            "rationale": "Yes. In competition each species lowers the other's growth, so both interaction effects are negative."
+          },
+          {
+            "text": "It helps one and harms the other",
+            "rationale": "That asymmetry describes predation, not competition. How does competition affect both species?"
+          },
+          {
+            "text": "It helps both species",
+            "rationale": "Mutual benefit is cooperation, not competition. What sign do the competitive effects carry?"
+          },
+          {
+            "text": "It has no effect on either",
+            "rationale": "Competition does affect growth. What sign does its effect take for each species?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8GxwFrAyD9Q_2",
+        "prompt": "Competition models extend the logistic equation by adding what?",
+        "hint": "Each species already limits itself; competition adds a term for the other species.",
+        "answerOptions": [
+          {
+            "text": "A term for the suppressing effect of the competing species",
+            "correct": true,
+            "rationale": "Yes. Beyond self-limitation, a cross term captures the rival species' suppressing effect."
+          },
+          {
+            "text": "A predation term that feeds one species",
+            "rationale": "Competition is not predation; no species gains nourishment. What term is added instead?"
+          },
+          {
+            "text": "A constant immigration rate",
+            "rationale": "Immigration is not the competitive addition. What cross-species term appears?"
+          },
+          {
+            "text": "Nothing beyond the logistic term",
+            "rationale": "Competition requires a cross term. What does it add to the logistic model?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8GxwFrAyD9Q_3",
+        "prompt": "The principle of competitive exclusion states what?",
+        "hint": "Two species filling the exact same niche cannot both persist indefinitely.",
+        "answerOptions": [
+          {
+            "text": "Two species competing for the identical limiting resource cannot coexist indefinitely; one is excluded",
+            "correct": true,
+            "rationale": "Yes. Competitive exclusion says identical competitors cannot coexist forever, and one wins out."
+          },
+          {
+            "text": "Competing species always coexist peacefully",
+            "rationale": "Identical competitors typically cannot both persist. What does exclusion predict instead?"
+          },
+          {
+            "text": "Both species always go extinct",
+            "rationale": "Exclusion removes one, not necessarily both. What is the usual outcome?"
+          },
+          {
+            "text": "Competition has no long-term effect",
+            "rationale": "It strongly shapes long-term outcomes. What does the exclusion principle assert?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8GxwFrAyD9Q_4",
+        "prompt": "Whether two competing species can coexist generally depends on what?",
+        "hint": "Coexistence requires each species to limit itself more than it limits its rival.",
+        "answerOptions": [
+          {
+            "text": "The relative strengths of intraspecific versus interspecific competition",
+            "correct": true,
+            "rationale": "Yes. Coexistence is favored when self-limitation outweighs the cross-species competition."
+          },
+          {
+            "text": "Only the initial population sizes",
+            "rationale": "Starting sizes do not by themselves decide the long-term outcome. What competition comparison does?"
+          },
+          {
+            "text": "The color of each species",
+            "rationale": "Color is irrelevant. Which comparison of competition strengths matters?"
+          },
+          {
+            "text": "The time of day",
+            "rationale": "Timing is not the factor. What balance of competition terms governs coexistence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8GxwFrAyD9Q_5",
+        "prompt": "How does a competition model differ structurally from the predator-prey model?",
+        "hint": "Compare the signs of how each species affects the other.",
+        "answerOptions": [
+          {
+            "text": "Both cross terms are negative in competition, whereas predator-prey has one positive and one negative",
+            "correct": true,
+            "rationale": "Yes. Competition harms both, while predation benefits the predator and harms the prey."
+          },
+          {
+            "text": "They are structurally identical",
+            "rationale": "The signs of the interaction terms differ. How do the cross-term signs compare?"
+          },
+          {
+            "text": "Competition has only one equation",
+            "rationale": "Both are two-species systems. What distinguishes their interaction signs?"
+          },
+          {
+            "text": "Predator-prey has no interaction term",
+            "rationale": "Predator-prey is built on its interaction term. How do the two models' cross-term signs differ?"
+          }
+        ]
+      }
+    ],
+    "obasfCufOr0": [
+      {
+        "id": "mp_obasfCufOr0_1",
+        "prompt": "Interspecific competition refers to competition between what?",
+        "hint": "The prefix inter means between, pointing to different species.",
+        "answerOptions": [
+          {
+            "text": "Members of different species",
+            "correct": true,
+            "rationale": "Yes. Interspecific competition is competition between members of different species."
+          },
+          {
+            "text": "Members of the same species",
+            "rationale": "That is intraspecific competition. What does the prefix inter indicate?"
+          },
+          {
+            "text": "Predators and their prey",
+            "rationale": "That is predation, not competition. Between whom does interspecific competition occur?"
+          },
+          {
+            "text": "Cells within one organism",
+            "rationale": "The term is ecological, between organisms. Which groups compete interspecifically?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obasfCufOr0_2",
+        "prompt": "In the competition equations, the coefficient on the cross term measures what?",
+        "hint": "It scales how strongly one species' presence suppresses the other's growth.",
+        "answerOptions": [
+          {
+            "text": "The per-capita competitive effect of one species on the other",
+            "correct": true,
+            "rationale": "Yes. The cross coefficient measures how strongly each individual of one species suppresses the other's growth."
+          },
+          {
+            "text": "The reproduction rate of a single species",
+            "rationale": "Self-reproduction is a different term. What does the cross coefficient quantify?"
+          },
+          {
+            "text": "The total area of the habitat",
+            "rationale": "Area is not encoded in that coefficient. What competitive effect does it scale?"
+          },
+          {
+            "text": "The fluid viscosity",
+            "rationale": "Viscosity is unrelated. What competitive influence does the cross term measure?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obasfCufOr0_3",
+        "prompt": "A phase-plane analysis of the competition model uses which curves to locate equilibria?",
+        "hint": "Equilibria sit where each species' rate of change is zero.",
+        "answerOptions": [
+          {
+            "text": "The nullclines, where each species' growth rate is zero",
+            "correct": true,
+            "rationale": "Yes. Equilibria occur at intersections of the nullclines, where both growth rates vanish."
+          },
+          {
+            "text": "The streamlines of a fluid",
+            "rationale": "Streamlines belong to fluid flow, not this model. What zero-growth curves are used?"
+          },
+          {
+            "text": "The level curves of viscosity",
+            "rationale": "Viscosity is unrelated here. What curves mark zero growth?"
+          },
+          {
+            "text": "The contour lines of temperature",
+            "rationale": "Temperature is not in the model. What curves locate the equilibria?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obasfCufOr0_4",
+        "prompt": "One possible long-term outcome of interspecific competition is which of these?",
+        "hint": "Strong competition can drive one species out entirely.",
+        "answerOptions": [
+          {
+            "text": "Competitive exclusion, where one species drives the other to extinction",
+            "correct": true,
+            "rationale": "Yes. Strong interspecific competition can lead to exclusion of one species."
+          },
+          {
+            "text": "Both species growing without bound",
+            "rationale": "Resource limits prevent unbounded growth. What exclusion outcome is possible?"
+          },
+          {
+            "text": "The species merging into one",
+            "rationale": "Species do not merge in this model. What is a realistic competitive outcome?"
+          },
+          {
+            "text": "No change ever occurring",
+            "rationale": "Competition does change populations. What long-term outcome can result?"
+          }
+        ]
+      },
+      {
+        "id": "mp_obasfCufOr0_5",
+        "prompt": "Stable coexistence of two competitors corresponds to which feature in the phase plane?",
+        "hint": "It is an interior equilibrium that nearby trajectories approach.",
+        "answerOptions": [
+          {
+            "text": "A stable interior equilibrium with both populations positive",
+            "correct": true,
+            "rationale": "Yes. Stable coexistence is a stable equilibrium with both species present at positive levels."
+          },
+          {
+            "text": "An equilibrium on an axis with one species at zero",
+            "rationale": "An axis equilibrium means one species is absent, which is exclusion. What interior point gives coexistence?"
+          },
+          {
+            "text": "A trajectory escaping to infinity",
+            "rationale": "Unbounded escape is not coexistence. What stable point represents it?"
+          },
+          {
+            "text": "The origin",
+            "rationale": "The origin means both species are extinct. What positive interior point gives coexistence?"
+          }
+        ]
+      }
+    ],
+    "4K8-PAX0VYQ": [
+      {
+        "id": "mp_4K8-PAX0VYQ_1",
+        "prompt": "Which method is the natural first choice for $\\frac{dy}{dx} = \\frac{g(x)}{h(y)}$, where the variables separate cleanly?",
+        "hint": "If you can put all the $y$ on one side and all the $x$ on the other, one technique applies directly.",
+        "answerOptions": [
+          {
+            "text": "Separation of variables",
+            "correct": true,
+            "rationale": "Yes. When the equation factors into an $x$ part and a $y$ part, you separate and integrate."
+          },
+          {
+            "text": "Integrating factor for linear equations",
+            "rationale": "That is for first-order linear form. Which method fits a cleanly separable equation?"
+          },
+          {
+            "text": "Exact equation potential method",
+            "rationale": "That targets total-differential form. What simpler method handles separable equations?"
+          },
+          {
+            "text": "Laplace transform",
+            "rationale": "Transforms are heavier machinery. What direct method suits a separable equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4K8-PAX0VYQ_2",
+        "prompt": "For a first-order linear equation $y' + P(x)y = Q(x)$, which method applies?",
+        "hint": "You multiply by a factor that turns the left side into a single derivative.",
+        "answerOptions": [
+          {
+            "text": "Multiply by the integrating factor $\\mu(x) = e^{\\int P\\,dx}$",
+            "correct": true,
+            "rationale": "Yes. The integrating factor makes the left side the derivative of $\\mu y$."
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "The mixed $P(x)y$ and $Q(x)$ terms block clean separation. What factor linearizes the left side into a derivative?"
+          },
+          {
+            "text": "The Clairaut substitution",
+            "rationale": "Clairaut form is different. What standard factor solves the linear first-order equation?"
+          },
+          {
+            "text": "Partial fractions only",
+            "rationale": "Partial fractions is a sub-step at most. What method handles the full linear equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4K8-PAX0VYQ_3",
+        "prompt": "A Bernoulli equation $y' + P(x)y = Q(x)y^n$ is solved by which substitution?",
+        "hint": "You introduce a new variable that turns the nonlinear equation into a linear one.",
+        "answerOptions": [
+          {
+            "text": "$v = y^{1-n}$, which linearizes the equation",
+            "correct": true,
+            "rationale": "Yes. The substitution $v = y^{1-n}$ converts the Bernoulli equation into a linear one in $v$."
+          },
+          {
+            "text": "$v = y^n$",
+            "rationale": "That exponent does not linearize it. What power of $y$ produces a linear equation?"
+          },
+          {
+            "text": "$v = e^y$",
+            "rationale": "An exponential substitution does not apply here. What power substitution works for Bernoulli?"
+          },
+          {
+            "text": "$v = \\ln y$",
+            "rationale": "A logarithm is not the Bernoulli substitution. What power of $y$ linearizes it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4K8-PAX0VYQ_4",
+        "prompt": "For $M\\,dx + N\\,dy = 0$ with $M_y = N_x$, which method should you reach for?",
+        "hint": "The matching cross partials signal a total differential.",
+        "answerOptions": [
+          {
+            "text": "The exact-equation method, finding a potential $F$ with $F = C$",
+            "correct": true,
+            "rationale": "Yes. Matching cross partials means the form is exact, so you reconstruct the potential."
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "The equation may not separate. What does $M_y = N_x$ specifically indicate?"
+          },
+          {
+            "text": "The Bernoulli substitution",
+            "rationale": "Bernoulli targets a different form. What method fits a form with equal cross partials?"
+          },
+          {
+            "text": "An eigenvalue computation",
+            "rationale": "Eigenvalues are for linear systems. What first-order method does exactness call for?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4K8-PAX0VYQ_5",
+        "prompt": "Why is it valuable to recognize the type of a differential equation before solving?",
+        "hint": "Each form has a tailored technique that avoids wasted effort.",
+        "answerOptions": [
+          {
+            "text": "The form points to the most efficient matching method, saving effort",
+            "correct": true,
+            "rationale": "Yes. Identifying the type directs you to the technique built for it."
+          },
+          {
+            "text": "All equations use the same method anyway",
+            "rationale": "Different forms need different methods. Why does identifying the type help?"
+          },
+          {
+            "text": "Classification changes the solution's value",
+            "rationale": "The solution is what it is; classification guides the route, not the answer. Why classify first?"
+          },
+          {
+            "text": "It avoids the need to integrate",
+            "rationale": "Integration is usually still required. What does classification actually streamline?"
+          }
+        ]
+      }
+    ],
+    "0kY3Wpvutfs": [
+      {
+        "id": "mp_0kY3Wpvutfs_1",
+        "prompt": "For a constant-coefficient linear homogeneous equation, the standard approach is to try which trial solution?",
+        "hint": "An exponential reproduces itself under differentiation, turning the equation into algebra.",
+        "answerOptions": [
+          {
+            "text": "$y = e^{rx}$, leading to a characteristic equation in $r$",
+            "correct": true,
+            "rationale": "Yes. Substituting $e^{rx}$ converts the differential equation into an algebraic characteristic equation."
+          },
+          {
+            "text": "$y = x^n$ for integer $n$",
+            "rationale": "Power trials suit equidimensional equations, not constant-coefficient ones. What trial reproduces itself under differentiation?"
+          },
+          {
+            "text": "$y = \\sin x$ only",
+            "rationale": "A single sine is too restrictive. What exponential trial yields a characteristic equation?"
+          },
+          {
+            "text": "$y = \\ln x$",
+            "rationale": "A logarithm does not fit this form. What exponential should you try?"
+          }
+        ]
+      },
+      {
+        "id": "mp_0kY3Wpvutfs_2",
+        "prompt": "To handle a nonhomogeneous term, physicists often use which method to get a particular solution?",
+        "hint": "You guess a form resembling the forcing term and fix its coefficients.",
+        "answerOptions": [
+          {
+            "text": "The method of undetermined coefficients",
+            "correct": true,
+            "rationale": "Yes. You guess a particular solution patterned on the forcing term and solve for its coefficients."
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "Separation does not target the forced response of a linear equation. What guessing method does?"
+          },
+          {
+            "text": "The exactness test",
+            "rationale": "Exactness applies to first-order forms, not forced linear equations. What method finds a particular solution?"
+          },
+          {
+            "text": "The tractrix construction",
+            "rationale": "That is a specific geometry problem. What general method gives a particular solution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_0kY3Wpvutfs_3",
+        "prompt": "For problems with initial conditions and discontinuous or impulsive forcing, which tool is especially useful?",
+        "hint": "It turns differentiation into algebra and folds the initial conditions in directly.",
+        "answerOptions": [
+          {
+            "text": "The Laplace transform",
+            "correct": true,
+            "rationale": "Yes. The Laplace transform handles impulsive forcing and builds in the initial conditions."
+          },
+          {
+            "text": "The integrating factor",
+            "rationale": "That suits first-order linear equations, not impulsive forcing with initial data. What transform is built for it?"
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "Separation does not manage impulses or initial-value bookkeeping well. What transform does?"
+          },
+          {
+            "text": "The Clairaut method",
+            "rationale": "Clairaut form is unrelated. What transform tackles impulsive forcing?"
+          }
+        ]
+      },
+      {
+        "id": "mp_0kY3Wpvutfs_4",
+        "prompt": "When an equation cannot be solved in closed form, what is a standard fallback for physicists?",
+        "hint": "You can still step the solution forward approximately on a computer.",
+        "answerOptions": [
+          {
+            "text": "Numerical methods, such as Euler or Runge-Kutta",
+            "correct": true,
+            "rationale": "Yes. Numerical integration approximates the solution when no closed form exists."
+          },
+          {
+            "text": "Declaring the problem unsolvable",
+            "rationale": "An approximate solution is still attainable. What computational approach applies?"
+          },
+          {
+            "text": "Ignoring the initial conditions",
+            "rationale": "Initial conditions are needed to step forward. What numerical approach uses them?"
+          },
+          {
+            "text": "Switching to algebra only",
+            "rationale": "Algebra alone cannot integrate the dynamics. What numerical methods step the solution forward?"
+          }
+        ]
+      },
+      {
+        "id": "mp_0kY3Wpvutfs_5",
+        "prompt": "Why do physicists value having several solution methods rather than one?",
+        "hint": "Different equations and forcing types yield to different techniques.",
+        "answerOptions": [
+          {
+            "text": "Different equation forms and forcing types are best handled by different matching methods",
+            "correct": true,
+            "rationale": "Yes. A toolkit lets you match each problem to the technique suited to it."
+          },
+          {
+            "text": "One method always works for everything",
+            "rationale": "No single method covers all forms. Why keep several?"
+          },
+          {
+            "text": "More methods make the answers different",
+            "rationale": "The solution is unique regardless of method; the route differs. Why have several routes?"
+          },
+          {
+            "text": "It avoids ever needing calculus",
+            "rationale": "Calculus remains central. Why is a variety of methods useful?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_8_1",
+      "prompt": "A Clairaut equation has which general form, with $p = \\frac{dy}{dx}$?",
+      "hint": "The hallmark is $y$ alone equal to $x$ times its slope plus a function of the slope.",
+      "answerOptions": [
+        {
+          "text": "$y = x p + f(p)$",
+          "correct": true,
+          "rationale": "Yes. This is the defining Clairaut structure."
+        },
+        {
+          "text": "$y = x + f(p)$",
+          "rationale": "The slope must multiply $x$. What factor sits before $x$?"
+        },
+        {
+          "text": "$y = p^2 + f(x)$",
+          "rationale": "The added function depends on $p$, and $x$ appears times $p$. What is the correct form?"
+        },
+        {
+          "text": "$y' = xy + f(y)$",
+          "rationale": "That is not the Clairaut pattern. How does $y$ relate to $xp$ and $f(p)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_2",
+      "prompt": "The general solution of a Clairaut equation is obtained by replacing $p$ with what?",
+      "hint": "One factor of the differentiated equation gives constant slope.",
+      "answerOptions": [
+        {
+          "text": "An arbitrary constant $c$, giving the line family $y = cx + f(c)$",
+          "correct": true,
+          "rationale": "Yes. The general solution is a one-parameter family of straight lines."
+        },
+        {
+          "text": "Zero",
+          "rationale": "That gives a single line, not the family. What replaces $p$ to give all the lines?"
+        },
+        {
+          "text": "$x$",
+          "rationale": "The slope is constant in the general solution, not $x$. What replaces $p$?"
+        },
+        {
+          "text": "$f(p)$",
+          "rationale": "You replace the slope by a constant, not by $f$. What constant goes in?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_3",
+      "prompt": "For $y = xp + p^2$, the general solution is which family?",
+      "hint": "Replace $p$ by $c$ in $y = xp + f(p)$ with $f(p) = p^2$.",
+      "answerOptions": [
+        {
+          "text": "$y = cx + c^2$",
+          "correct": true,
+          "rationale": "Correct. Substituting the constant slope $c$ gives this line family."
+        },
+        {
+          "text": "$y = cx - c^2$",
+          "rationale": "Check the sign of $f(c) = c^2$. Is it added or subtracted?"
+        },
+        {
+          "text": "$y = cx^2 + c$",
+          "rationale": "The slope $c$ multiplies $x$ to the first power. What is the family?"
+        },
+        {
+          "text": "$y = c^2 x$",
+          "rationale": "The term $f(c) = c^2$ is added, not multiplied onto $x$. What is the full family?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_4",
+      "prompt": "The singular solution of a Clairaut equation is geometrically what?",
+      "hint": "It is the curve every solution line touches tangentially.",
+      "answerOptions": [
+        {
+          "text": "The envelope of the family of solution lines",
+          "correct": true,
+          "rationale": "Yes. The singular solution is the envelope tangent to every line."
+        },
+        {
+          "text": "One member line of the family",
+          "rationale": "The singular solution is generally curved and not in the family. What curve do all lines touch?"
+        },
+        {
+          "text": "A line perpendicular to all solutions",
+          "rationale": "It is tangent to the lines, not perpendicular. What curve is it?"
+        },
+        {
+          "text": "The $y$-axis",
+          "rationale": "The envelope depends on $f$, not a fixed axis. What is the singular solution in general?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_5",
+      "prompt": "For $y = xp + p^2$, eliminating $p$ between $y = xp + p^2$ and $x + 2p = 0$ gives which singular solution?",
+      "hint": "Solve $x + 2p = 0$ for $p = -x/2$, then substitute.",
+      "answerOptions": [
+        {
+          "text": "$y = -\\frac{x^2}{4}$",
+          "correct": true,
+          "rationale": "Correct. With $p = -x/2$, $y = x(-x/2) + (x/2)^2 = -x^2/4$."
+        },
+        {
+          "text": "$y = \\frac{x^2}{4}$",
+          "rationale": "Check the sign of $xp$. Is the leading term positive or negative?"
+        },
+        {
+          "text": "$y = -\\frac{x^2}{2}$",
+          "rationale": "Combine $-x^2/2 + x^2/4$. What is the sum?"
+        },
+        {
+          "text": "$y = -x^2$",
+          "rationale": "Recompute $x(-x/2) + (x/2)^2$. What single term results?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_6",
+      "prompt": "Why is the singular solution not part of the general one-parameter family?",
+      "hint": "No single constant slope produces a curved envelope.",
+      "answerOptions": [
+        {
+          "text": "No value of $c$ generates it, since it is the envelope rather than a member line",
+          "correct": true,
+          "rationale": "Yes. The envelope is a distinct solution that no constant slope produces."
+        },
+        {
+          "text": "It fails to satisfy the equation",
+          "rationale": "It does satisfy the equation. Why is it still outside the family?"
+        },
+        {
+          "text": "It is just $c = 1$",
+          "rationale": "A single constant gives a line, not the curved envelope. Why can no constant produce it?"
+        },
+        {
+          "text": "It equals every line at once",
+          "rationale": "It is tangent to the lines but distinct from them. Why is it separate?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_7",
+      "prompt": "In a pursuit problem, the pursuer's velocity always points where?",
+      "hint": "The chaser steers straight at the target at each instant.",
+      "answerOptions": [
+        {
+          "text": "Toward the target's current position",
+          "correct": true,
+          "rationale": "Yes. The pursuer continually aims at where the target is now."
+        },
+        {
+          "text": "Toward the target's starting position",
+          "rationale": "The direction updates continuously. Where does the pursuer aim at each instant?"
+        },
+        {
+          "text": "Perpendicular to the target's path",
+          "rationale": "The chaser aims at the target, not at a right angle. Which direction does its velocity take?"
+        },
+        {
+          "text": "Along a fixed line",
+          "rationale": "The direction changes as the target moves. What position does it aim at?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_8",
+      "prompt": "The tractrix is defined by which constant quantity?",
+      "hint": "Picture the taut string as a tangent segment from the curve to the line of travel.",
+      "answerOptions": [
+        {
+          "text": "The length of the tangent segment from the curve to the line is constant",
+          "correct": true,
+          "rationale": "Yes. The fixed tangent-segment length defines the tractrix."
+        },
+        {
+          "text": "The slope is constant",
+          "rationale": "The slope varies along a tractrix. What length is fixed?"
+        },
+        {
+          "text": "The area under the curve is constant",
+          "rationale": "Area is not the invariant. What tangent length stays fixed?"
+        },
+        {
+          "text": "The height is constant",
+          "rationale": "The height decreases along the curve. What length is constant?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_9",
+      "prompt": "For a tractrix with string length $a$ along the $x$-axis, the differential equation is which of these?",
+      "hint": "The tangent-length condition gives a slope built from $y$ and $\\sqrt{a^2 - y^2}$.",
+      "answerOptions": [
+        {
+          "text": "$\\frac{dy}{dx} = -\\frac{y}{\\sqrt{a^2 - y^2}}$",
+          "correct": true,
+          "rationale": "Yes. The constant tangent length yields this descending slope."
+        },
+        {
+          "text": "$\\frac{dy}{dx} = \\frac{\\sqrt{a^2 - y^2}}{y}$",
+          "rationale": "That is the reciprocal. Which quantity belongs on top for a descending curve?"
+        },
+        {
+          "text": "$\\frac{dy}{dx} = -\\frac{\\sqrt{a^2 - y^2}}{y}$",
+          "rationale": "Numerator and denominator are swapped. Which sits over the square root?"
+        },
+        {
+          "text": "$\\frac{dy}{dx} = \\frac{y}{a}$",
+          "rationale": "The denominator involves $\\sqrt{a^2 - y^2}$, not just $a$. What is the correct slope?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_10",
+      "prompt": "Why does $\\sqrt{a^2 - y^2}$ appear in the tractrix equation?",
+      "hint": "It is a leg of a right triangle with hypotenuse $a$ and vertical leg $y$.",
+      "answerOptions": [
+        {
+          "text": "It is the horizontal leg of the string triangle with hypotenuse $a$ and vertical leg $y$",
+          "correct": true,
+          "rationale": "Yes. The Pythagorean relation gives this horizontal leg."
+        },
+        {
+          "text": "It is the triangle's area",
+          "rationale": "That expression is a length, not an area. Which leg is it?"
+        },
+        {
+          "text": "It is the slope of the string",
+          "rationale": "It is a length used in the slope, not the slope itself. What leg is it?"
+        },
+        {
+          "text": "It is an arbitrary constant",
+          "rationale": "It depends on $y$ and $a$. What triangle leg is it?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_11",
+      "prompt": "Whether a pursuer catches the target generally depends on what comparison?",
+      "hint": "Catching up requires moving fast enough relative to the target.",
+      "answerOptions": [
+        {
+          "text": "Whether the pursuer's speed exceeds the target's speed",
+          "correct": true,
+          "rationale": "Yes. The ratio of speeds decides whether capture occurs."
+        },
+        {
+          "text": "Whether the pursuer starts higher",
+          "rationale": "Starting height does not decide capture. What speed comparison does?"
+        },
+        {
+          "text": "Whether the path is straight",
+          "rationale": "Pursuit paths are typically curved. What governs capture?"
+        },
+        {
+          "text": "The number of turns made",
+          "rationale": "Turn count is not the criterion. Which speed comparison matters?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_12",
+      "prompt": "Conservation of mass in a fluid is expressed by which kind of equation?",
+      "hint": "It balances how much fluid flows in against how much accumulates.",
+      "answerOptions": [
+        {
+          "text": "A continuity equation",
+          "correct": true,
+          "rationale": "Yes. The continuity equation enforces conservation of mass."
+        },
+        {
+          "text": "A single constant",
+          "rationale": "A conservation law is a relation, not a number. What balancing equation states it?"
+        },
+        {
+          "text": "A purely statistical average",
+          "rationale": "Conservation is deterministic here. What equation expresses it?"
+        },
+        {
+          "text": "An algebraic identity unrelated to flow",
+          "rationale": "It is a physical flow balance. What equation captures mass conservation?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_13",
+      "prompt": "A streamline in a steady flow is what?",
+      "hint": "It is the curve the velocity field is tangent to everywhere.",
+      "answerOptions": [
+        {
+          "text": "A curve tangent to the velocity vector at every point",
+          "correct": true,
+          "rationale": "Yes. Streamlines follow the velocity field tangentially."
+        },
+        {
+          "text": "A curve perpendicular to the velocity",
+          "rationale": "Streamlines follow the flow, not cross it. How do they relate to velocity?"
+        },
+        {
+          "text": "A line of constant pressure",
+          "rationale": "That is a different concept. What field is a streamline tangent to?"
+        },
+        {
+          "text": "The container boundary",
+          "rationale": "The boundary is fixed geometry. What field is the streamline tangent to?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_14",
+      "prompt": "For a Newtonian fluid, the shear stress is proportional to what?",
+      "hint": "It depends on how quickly velocity changes across the layers.",
+      "answerOptions": [
+        {
+          "text": "The velocity gradient",
+          "correct": true,
+          "rationale": "Yes. Newtonian shear stress is proportional to the velocity gradient."
+        },
+        {
+          "text": "The total volume",
+          "rationale": "Volume is not the driver. What spatial rate sets the stress?"
+        },
+        {
+          "text": "The square of the pressure",
+          "rationale": "That is not the relation. What velocity-related gradient applies?"
+        },
+        {
+          "text": "The temperature alone",
+          "rationale": "Temperature affects viscosity but is not the proportional quantity. What gradient is?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_15",
+      "prompt": "In $\\tau = \\mu \\frac{du}{dy}$, the symbol $\\mu$ represents what?",
+      "hint": "It is the proportionality constant linking stress to the velocity gradient.",
+      "answerOptions": [
+        {
+          "text": "The dynamic viscosity",
+          "correct": true,
+          "rationale": "Yes. The constant $\\mu$ is the dynamic viscosity."
+        },
+        {
+          "text": "The density",
+          "rationale": "Density is a different property. What does $\\mu$ denote here?"
+        },
+        {
+          "text": "The pressure",
+          "rationale": "Pressure is not the proportionality constant. What is $\\mu$?"
+        },
+        {
+          "text": "The velocity itself",
+          "rationale": "Velocity appears in the gradient, not as $\\mu$. What is $\\mu$?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_16",
+      "prompt": "Why are realistic fluid flow equations often hard to solve exactly?",
+      "hint": "The terms describing flow carrying itself make the equations nonlinear.",
+      "answerOptions": [
+        {
+          "text": "They are nonlinear, so superposition and simple closed forms generally fail",
+          "correct": true,
+          "rationale": "Yes. Nonlinearity blocks superposition and usually prevents exact solutions."
+        },
+        {
+          "text": "They have no solutions",
+          "rationale": "Solutions exist but are hard to find. What property makes them difficult?"
+        },
+        {
+          "text": "They are always linear",
+          "rationale": "The trouble is the opposite of linearity. What feature complicates them?"
+        },
+        {
+          "text": "They ignore physical laws",
+          "rationale": "They encode physical laws. What mathematical feature makes them hard?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_17",
+      "prompt": "In the market model $\\frac{dp}{dt} = k(D - S)$ with $k > 0$, the price rises when what is true?",
+      "hint": "A positive right side raises the price.",
+      "answerOptions": [
+        {
+          "text": "Demand exceeds supply",
+          "correct": true,
+          "rationale": "Yes. With $D > S$ the rate is positive, so the price increases."
+        },
+        {
+          "text": "Supply exceeds demand",
+          "rationale": "That makes the rate negative. What relation raises the price?"
+        },
+        {
+          "text": "Demand equals supply",
+          "rationale": "That makes the rate zero. What relation makes it positive?"
+        },
+        {
+          "text": "The price is negative",
+          "rationale": "Price sign does not drive the rate. What demand-supply relation raises price?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_18",
+      "prompt": "The equilibrium price in this model satisfies which condition?",
+      "hint": "At equilibrium the price stops changing.",
+      "answerOptions": [
+        {
+          "text": "Demand equals supply",
+          "correct": true,
+          "rationale": "Yes. When $D = S$ the rate is zero and price holds steady."
+        },
+        {
+          "text": "Demand is maximized",
+          "rationale": "Maximum demand is not the equilibrium. What balance makes the rate zero?"
+        },
+        {
+          "text": "Supply is zero",
+          "rationale": "Zero supply is not equilibrium. What equality stops price change?"
+        },
+        {
+          "text": "Price is zero",
+          "rationale": "Equilibrium price is generally nonzero. What condition makes the rate vanish?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_19",
+      "prompt": "With demand $D = 100 - 2p$ and supply $S = 20 + 3p$, the equilibrium price is what?",
+      "hint": "Set $D = S$ and solve $100 - 2p = 20 + 3p$.",
+      "answerOptions": [
+        {
+          "text": "$p = 16$",
+          "correct": true,
+          "rationale": "Correct. $80 = 5p$ gives $p = 16$."
+        },
+        {
+          "text": "$p = 20$",
+          "rationale": "Recheck the algebra. What does $80 = 5p$ give?"
+        },
+        {
+          "text": "$p = 24$",
+          "rationale": "Combine the $p$ terms carefully. What is $80/5$?"
+        },
+        {
+          "text": "$p = 80$",
+          "rationale": "You stopped before dividing by the coefficient of $p$. What is $80/5$?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_20",
+      "prompt": "In $\\frac{dx}{dt} = ax - bxy$, the prey $x$ without predators ($y = 0$) does what?",
+      "hint": "Set $y = 0$ and read the remaining term.",
+      "answerOptions": [
+        {
+          "text": "Grows exponentially at rate $a$",
+          "correct": true,
+          "rationale": "Yes. With $y = 0$, $\\frac{dx}{dt} = ax$, exponential growth."
+        },
+        {
+          "text": "Decays exponentially",
+          "rationale": "The coefficient $a$ is positive. Does the prey grow or shrink?"
+        },
+        {
+          "text": "Stays constant",
+          "rationale": "The term $ax$ is nonzero. What change does it produce?"
+        },
+        {
+          "text": "Oscillates alone",
+          "rationale": "A single linear term gives no oscillation. What behavior results?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_21",
+      "prompt": "In $\\frac{dy}{dt} = -cy + dxy$, the predators $y$ without prey ($x = 0$) do what?",
+      "hint": "Set $x = 0$ and read the remaining term.",
+      "answerOptions": [
+        {
+          "text": "Decline exponentially at rate $c$",
+          "correct": true,
+          "rationale": "Yes. With $x = 0$, $\\frac{dy}{dt} = -cy$, exponential decline."
+        },
+        {
+          "text": "Grow exponentially",
+          "rationale": "The remaining term $-cy$ is negative. Do predators rise or fall?"
+        },
+        {
+          "text": "Stay constant",
+          "rationale": "The term $-cy$ is nonzero. What change does it cause?"
+        },
+        {
+          "text": "Oscillate alone",
+          "rationale": "A single linear term gives no oscillation. What behavior results?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_22",
+      "prompt": "The coexistence equilibrium of $\\frac{dx}{dt} = ax - bxy$, $\\frac{dy}{dt} = -cy + dxy$ is at which point?",
+      "hint": "Set both rates to zero and factor out the nonzero populations.",
+      "answerOptions": [
+        {
+          "text": "$x = \\frac{c}{d}$, $y = \\frac{a}{b}$",
+          "correct": true,
+          "rationale": "Yes. Factoring gives $x = c/d$ and $y = a/b$."
+        },
+        {
+          "text": "$x = \\frac{a}{b}$, $y = \\frac{c}{d}$",
+          "rationale": "The values are swapped. Which equation sets $x$, and which sets $y$?"
+        },
+        {
+          "text": "$x = 0$, $y = 0$",
+          "rationale": "That is the extinction equilibrium. What positive values solve the equations?"
+        },
+        {
+          "text": "$x = a$, $y = c$",
+          "rationale": "Ratios of parameters matter, not bare constants. What are $x$ and $y$?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_23",
+      "prompt": "The interaction term $bxy$ in the prey equation models what?",
+      "hint": "It scales with how often the two species meet.",
+      "answerOptions": [
+        {
+          "text": "Loss of prey to predation, proportional to encounters",
+          "correct": true,
+          "rationale": "Yes. The product $xy$ counts encounters, scaled by $b$."
+        },
+        {
+          "text": "Prey reproduction",
+          "rationale": "Reproduction is the $ax$ term. What does the $xy$ product with a minus sign model?"
+        },
+        {
+          "text": "Prey immigration",
+          "rationale": "Immigration is not in this term. What does the encounter product capture?"
+        },
+        {
+          "text": "Random fluctuation",
+          "rationale": "The model is deterministic. What biological effect does $bxy$ represent?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_24",
+      "prompt": "Lotka-Volterra trajectories in the phase plane typically form what?",
+      "hint": "The populations rise and fall in a repeating chase.",
+      "answerOptions": [
+        {
+          "text": "Closed cycles, giving periodic oscillations",
+          "correct": true,
+          "rationale": "Yes. The closed orbits mean both populations oscillate periodically."
+        },
+        {
+          "text": "Spirals into the equilibrium",
+          "rationale": "The classic model does not damp inward. What closed shape forms?"
+        },
+        {
+          "text": "Straight lines to extinction",
+          "rationale": "The populations cycle rather than die out. What closed curves appear?"
+        },
+        {
+          "text": "A single fixed point",
+          "rationale": "Generic trajectories move around. What repeating shape do they trace?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_25",
+      "prompt": "In a two-species competition model, the cross interaction terms have which sign for each species?",
+      "hint": "Competitors suppress one another's growth.",
+      "answerOptions": [
+        {
+          "text": "Negative for both, since each suppresses the other",
+          "correct": true,
+          "rationale": "Yes. Competition lowers both species' growth, so both effects are negative."
+        },
+        {
+          "text": "Positive for one, negative for the other",
+          "rationale": "That asymmetry is predation. How does competition affect both?"
+        },
+        {
+          "text": "Positive for both",
+          "rationale": "Mutual benefit is cooperation. What sign do competitive effects carry?"
+        },
+        {
+          "text": "Zero for both",
+          "rationale": "Competition does affect growth. What sign does its effect take?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_26",
+      "prompt": "The principle of competitive exclusion states what?",
+      "hint": "Two species in the identical niche cannot both persist forever.",
+      "answerOptions": [
+        {
+          "text": "Two species competing for the same limiting resource cannot coexist indefinitely",
+          "correct": true,
+          "rationale": "Yes. One competitor is eventually excluded."
+        },
+        {
+          "text": "Competing species always coexist",
+          "rationale": "Identical competitors usually cannot both persist. What does exclusion predict?"
+        },
+        {
+          "text": "Both species always go extinct",
+          "rationale": "Exclusion removes one, not necessarily both. What is the usual result?"
+        },
+        {
+          "text": "Competition has no long-term effect",
+          "rationale": "It strongly shapes outcomes. What does the principle assert?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_27",
+      "prompt": "Whether two competitors can coexist generally depends on what balance?",
+      "hint": "Coexistence needs each species to limit itself more than its rival.",
+      "answerOptions": [
+        {
+          "text": "Intraspecific competition being strong relative to interspecific competition",
+          "correct": true,
+          "rationale": "Yes. Self-limitation outweighing cross-competition favors coexistence."
+        },
+        {
+          "text": "Only the initial population sizes",
+          "rationale": "Starting sizes do not by themselves decide the long-term outcome. What balance does?"
+        },
+        {
+          "text": "The habitat color",
+          "rationale": "Color is irrelevant. Which competition comparison matters?"
+        },
+        {
+          "text": "The time of year",
+          "rationale": "Timing is not the factor. What balance of competition strengths governs it?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_28",
+      "prompt": "In a phase-plane analysis, equilibria of a competition model are located where?",
+      "hint": "Equilibria sit where each species' rate of change is zero.",
+      "answerOptions": [
+        {
+          "text": "At intersections of the nullclines, where both growth rates vanish",
+          "correct": true,
+          "rationale": "Yes. The nullcline intersections give the equilibria."
+        },
+        {
+          "text": "At the streamline crossings",
+          "rationale": "Streamlines belong to fluid flow. What zero-growth curves are used?"
+        },
+        {
+          "text": "At the contour lines of temperature",
+          "rationale": "Temperature is not in the model. What curves locate equilibria?"
+        },
+        {
+          "text": "At the level curves of viscosity",
+          "rationale": "Viscosity is unrelated. What curves mark zero growth?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_29",
+      "prompt": "For $M\\,dx + N\\,dy = 0$ with $M_y = N_x$, which solution method applies?",
+      "hint": "Matching cross partials signal a total differential.",
+      "answerOptions": [
+        {
+          "text": "The exact-equation method, finding a potential $F$ with $F = C$",
+          "correct": true,
+          "rationale": "Yes. Exactness lets you reconstruct the potential."
+        },
+        {
+          "text": "Separation of variables",
+          "rationale": "The equation may not separate. What does $M_y = N_x$ specifically indicate?"
+        },
+        {
+          "text": "The Bernoulli substitution",
+          "rationale": "Bernoulli targets a different form. What method fits equal cross partials?"
+        },
+        {
+          "text": "An eigenvalue computation",
+          "rationale": "Eigenvalues are for linear systems. What first-order method does exactness call for?"
+        }
+      ]
+    },
+    {
+      "id": "um_8_30",
+      "prompt": "A Bernoulli equation $y' + P(x)y = Q(x)y^n$ is linearized by which substitution?",
+      "hint": "Introduce a new variable that turns the nonlinear equation linear.",
+      "answerOptions": [
+        {
+          "text": "$v = y^{1-n}$",
+          "correct": true,
+          "rationale": "Yes. The substitution $v = y^{1-n}$ produces a linear equation in $v$."
+        },
+        {
+          "text": "$v = y^n$",
+          "rationale": "That exponent does not linearize it. What power of $y$ does?"
+        },
+        {
+          "text": "$v = e^y$",
+          "rationale": "An exponential substitution does not apply. What power of $y$ works?"
+        },
+        {
+          "text": "$v = \\ln y$",
+          "rationale": "A logarithm is not the Bernoulli substitution. What power of $y$ linearizes it?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

@@ -1,0 +1,162 @@
+{
+  "unitNumber": 6,
+  "richBodies": true,
+  "title": "Multivariable Calculus Foundations",
+  "subtitle": "The multivariable bridge to exactness: partial derivatives, the chain rule, line integrals, potential functions, and curve geometry.",
+  "description": "The multivariable bridge to exactness: partial derivatives, the chain rule, line integrals, potential functions, and curve geometry.",
+  "atAGlance": {
+    "title": "Unit 6 at a Glance: Core Sub-Topics",
+    "summary": "Differential equations in more than one variable need the language of multivariable calculus. This unit builds that bridge: we learn to differentiate one variable at a time, to package those partials into a gradient, to chain through intermediate variables, to locate and classify extrema, and to read the geometry of level curves --- the same geometry that decides when a differential $M\\,dx+N\\,dy$ is \\emph{exact}.",
+    "bullets": [
+      {
+        "lead": "Partial Derivatives",
+        "body": "differentiate in one variable while holding the others constant; $f_x,\\ f_y$."
+      },
+      {
+        "lead": "Higher-Order and Mixed Partials",
+        "body": "Clairaut's theorem: $f_{xy}=f_{yx}$ when the second partials are continuous."
+      },
+      {
+        "lead": "Gradient and Directional Derivatives",
+        "body": "$\\nabla f$ collects the partials; $D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u$ measures change along a unit direction."
+      },
+      {
+        "lead": "The Multivariable Chain Rule",
+        "body": "sum one product term per path from the output down to the independent variable."
+      },
+      {
+        "lead": "Critical Points and Optimization",
+        "body": "set $\\nabla f=\\mathbf 0$, then classify with the second-derivative (Hessian) test."
+      },
+      {
+        "lead": "Level Curves and Exactness",
+        "body": "$f(x,y)=c$, $\\nabla f$ normal to the curve, and the exact-differential test $\\partial_y M=\\partial_x N$."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "6.1",
+      "title": "Partial Derivatives",
+      "topics": "A partial derivative differentiates a multivariable function in \\emph{one} variable while treating every other variable as a constant symbol. It measures the instantaneous rate of change of $f$ along a single coordinate axis.",
+      "formulas": [
+        {
+          "title": "Definition of the Partial Derivatives",
+          "body": "\\[ f_x = \\frac{\\partial f}{\\partial x} = \\lim_{h\\to 0}\\frac{f(x+h,y)-f(x,y)}{h},\n   \\qquad\n   f_y = \\frac{\\partial f}{\\partial y} = \\lim_{h\\to 0}\\frac{f(x,y+h)-f(x,y)}{h}. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item To compute $f_x$, \\strong{hold $y$ constant} and differentiate in $x$\n          with the ordinary rules; any pure-$y$ term is a constant and dies.\n    \\item Holding a variable \\emph{constant} is not the same as\n          \\emph{setting it to zero}: the symbol stays in the answer.\n\\end{itemize}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 6.1: First partials of $f=x^2y+y^3$",
+          "setup": "Treat $y$ as constant for $f_x$, then $x$ as constant for $f_y$:\n\\[ \\work{f_x = 2xy + 0 = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]\nThe $y^3$ term vanishes under $\\partial_x$, while the $x^2$ term contributes its\ncoefficient $x^2$ under $\\partial_y$.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "6.2",
+      "title": "Higher-Order and Mixed Partials",
+      "topics": "Each first partial can itself be differentiated again, giving four second-order partials: two \\emph{pure} ($f_{xx},f_{yy}$) and two \\emph{mixed} ($f_{xy},f_{yx}$). Clairaut's theorem says the mixed pair agrees whenever the function is smooth enough.",
+      "formulas": [
+        {
+          "title": "Clairaut's Theorem on Mixed Partials",
+          "body": "If the second partial derivatives of $f$ are \\strong{continuous} near a point,\nthen the mixed partials are equal there:\n\\[ f_{xy} = \\frac{\\partial^2 f}{\\partial y\\,\\partial x}\n          = \\frac{\\partial^2 f}{\\partial x\\,\\partial y} = f_{yx}. \\]\nThe order of differentiation does not matter --- a function of two variables has\n\\strong{four} second partials but only \\strong{three} distinct values."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 6.2: Mixed partials of $f=x^2y^3$",
+          "setup": "Differentiate in $x$ first, then in $y$ --- and the reverse:\n\\[ \\work{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth routes land on $6xy^2$, exactly as Clairaut guarantees.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "6.3",
+      "title": "The Gradient and Directional Derivatives",
+      "topics": "The gradient packages the partials into a single vector that points in the direction of steepest increase. Dotting it with a \\emph{unit} direction gives the rate of change along that direction --- the directional derivative.",
+      "formulas": [
+        {
+          "title": "Gradient, Directional Derivative, and Steepest Ascent",
+          "body": "\\[ \\nabla f = \\left(\\frac{\\partial f}{\\partial x},\\ \\frac{\\partial f}{\\partial y}\\right),\n   \\qquad\n   D_{\\mathbf u} f = \\nabla f \\cdot \\mathbf u \\quad(\\mathbf u \\text{ a unit vector}). \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item The \\strong{maximum} rate of increase at a point is $\\lvert\\nabla f\\rvert$,\n          attained in the direction $\\mathbf u = \\nabla f/\\lvert\\nabla f\\rvert$.\n    \\item $\\nabla f$ is \\strong{perpendicular} to the level curve through the point.\n\\end{itemize}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 6.3: Directional derivative of $f=x^2+xy+y^2$",
+          "setup": "At $(1,2)$, $\\nabla f=(2x+y,\\,x+2y)=(4,5)$. Along $\\mathbf v=(3,4)$, normalize to\n$\\mathbf u=(\\tfrac35,\\tfrac45)$:\n\\[ \\work{D_{\\mathbf u}f = (4,5)\\cdot\\left(\\tfrac35,\\tfrac45\\right)\n   = \\tfrac{12}{5}+\\tfrac{20}{5} = \\tfrac{32}{5} = 6.4.} \\]\nThe steepest ascent there points along $(4,5)$ with rate\n$\\lvert\\nabla f\\rvert=\\sqrt{41}\\approx 6.40$.",
+          "steps": []
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: The Direction Must Be a Unit Vector",
+        "body": "$D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u$ is only valid when $\\mathbf u$ is\n\\strong{normalized}. Given a raw direction $\\mathbf v$, divide first:\n$\\mathbf u=\\mathbf v/\\lvert\\mathbf v\\rvert$. Skipping the normalization rescales\nthe answer by $\\lvert\\mathbf v\\rvert$ and silently corrupts every directional\nderivative and max-rate computation that follows."
+      }
+    },
+    {
+      "id": "6.4",
+      "title": "The Multivariable Chain Rule",
+      "topics": "When the inputs of $f$ are themselves functions, differentiate by summing one product term for every path from the output down to the variable you are differentiating with respect to. A small \\emph{tree diagram} bookkeeps the paths.",
+      "methodology": {
+        "title": "Chain Rule Trees: Counting the Paths",
+        "steps": [
+          "Draw a branch from $z$ to each intermediate variable ($x,y$).",
+          "Extend a branch from each intermediate variable to the target ($t$).",
+          "\\strong{Multiply} along each branch, then \\strong{add} the branches."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example 6.4: Chain rule for $z=x^2y$, $x=t^2$, $y=t^3$",
+          "setup": "With $z_x=2xy$, $z_y=x^2$, $x'=2t$, $y'=3t^2$:\n\\[ \\work{\\frac{dz}{dt} = (2xy)(2t) + (x^2)(3t^2)\n   = (2t^5)(2t) + (t^4)(3t^2) = 4t^6 + 3t^6 = 7t^6.} \\]\nThe direct substitution $z=t^4\\cdot t^3=t^7$ confirms $dz/dt=7t^6$.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "6.5",
+      "title": "Critical Points and Optimization",
+      "topics": "Interior extrema of a smooth $f(x,y)$ occur where the gradient vanishes. The \\emph{second-derivative test} then uses the sign of the Hessian discriminant to sort each critical point into a minimum, maximum, or saddle.",
+      "formulas": [
+        {
+          "title": "The Second-Derivative (Hessian) Test",
+          "body": "\\[ D = f_{xx}\\,f_{yy} - \\left(f_{xy}\\right)^2. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item $D>0,\\ f_{xx}>0$: \\strong{local minimum}.\n    \\item $D>0,\\ f_{xx}<0$: \\strong{local maximum}.\n    \\item $D<0$: \\strong{saddle point} (no extremum).\n    \\item $D=0$: the test is \\strong{inconclusive}.\n\\end{itemize}"
+        }
+      ],
+      "methodology": {
+        "title": "Locating and Classifying Critical Points",
+        "steps": [
+          "\\strong{Solve} $\\nabla f=\\mathbf 0$, i.e.\\ $f_x=0$ and $f_y=0$ simultaneously, to find all critical points.",
+          "\\strong{Form} the discriminant $D = f_{xx}f_{yy} - \\left(f_{xy}\\right)^2$ at each point.",
+          "\\strong{Classify} with $D$ and $f_{xx}$ (Step in the box below)."
+        ]
+      },
+      "warning": {
+        "title": "Common Pitfall: Reading the Sign Boundary Wrong",
+        "body": "The sign of $f_{xx}$ only decides min vs.\\ max \\emph{after} $D>0$ confirms an\nextremum. When $D<0$ the point is a \\strong{saddle} regardless of $f_{xx}$, and\nwhen $D=0$ the test says \\emph{nothing} --- do not declare a saddle by default.\nA single mishandled sign flips a minimum into a maximum."
+      }
+    },
+    {
+      "id": "6.6",
+      "title": "Level Curves, Gradients, and Exactness",
+      "topics": "Level curves $f(x,y)=c$ slice a surface into contour lines; the gradient cuts across them at right angles. This same gradient structure is exactly what makes a first-order differential \\emph{exact} --- the payoff that carries into Unit 7.",
+      "formulas": [
+        {
+          "title": "Level Curves and the Exact-Differential Test",
+          "body": "A \\strong{level curve} is the set $\\{(x,y):f(x,y)=c\\}$; $\\nabla f$ is normal to\nit. A differential $M(x,y)\\,dx+N(x,y)\\,dy$ is \\strong{exact} on a simply\nconnected region exactly when\n\\[ \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}, \\]\nin which case it equals $df$ for a potential $f$ with $f_x=M,\\ f_y=N$ --- and the\nfield $\\mathbf F=(M,N)=\\nabla f$ is \\strong{conservative}."
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Path Dependence and the Wrong Cross Partials",
+        "body": "The exactness/conservative test compares the \\emph{cross} partials\n$\\partial_y M$ and $\\partial_x N$ --- not $\\partial_x M$ and $\\partial_y N$. When\nthey differ the field is path-dependent: $\\int_C\\mathbf F\\cdot d\\mathbf r$\ndepends on the route, so there is \\emph{no} single potential to read off."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Multivariable Calculus Foundations",
+    "takeaway": {
+      "title": "Unit 6 Key Takeaway",
+      "body": "The workflow is uniform: \\highlight{partials} build the\n\\highlight{gradient $\\nabla f$}; the gradient drives directional\nderivatives $\\highlight{D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u}$\n(always on a \\emph{unit} $\\mathbf u$) and points along steepest ascent\n$\\highlight{\\lvert\\nabla f\\rvert}$; the\n\\highlight{chain rule} sums one term per path; and\n\\highlight{optimization} solves $\\nabla f=\\mathbf 0$ then sorts each\npoint with $\\highlight{D=f_{xx}f_{yy}-f_{xy}^{\\,2}}$ --- $D>0$ an\nextremum (sign of $f_{xx}$ decides min vs.\\ max), $D<0$ a saddle."
+    }
+  }
+}

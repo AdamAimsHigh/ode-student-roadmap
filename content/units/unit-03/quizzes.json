@@ -1,0 +1,2192 @@
+{
+  "unitNumber": 3,
+  "microPractice": {
+    "ccDMpj2UK_M": [
+      {
+        "id": "mp_ccDMpj2UK_M_1",
+        "prompt": "For a first order equation $\\frac{dy}{dx} = f(x,y)$, what does a slope field draw at each point of the plane?",
+        "hint": "The equation hands you a number at every point. Ask what geometric feature a derivative value represents on a graph.",
+        "answerOptions": [
+          {
+            "text": "A short line segment whose slope equals $f(x,y)$ at that point",
+            "correct": true,
+            "rationale": "Yes. The derivative is a slope, so the field plants a tiny tangent segment of slope $f(x,y)$ at each point."
+          },
+          {
+            "text": "A dot at the height $y = f(x,y)$",
+            "rationale": "A derivative value is not a height. What feature of a curve does $\\frac{dy}{dx}$ measure at a point?"
+          },
+          {
+            "text": "The area under the solution curve",
+            "rationale": "Area comes from integrating, not from the slope rule. What does $f(x,y)$ tell you directly at a single point?"
+          },
+          {
+            "text": "The second derivative of the solution",
+            "rationale": "The equation only gives the first derivative. What single geometric quantity does that first derivative represent?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccDMpj2UK_M_2",
+        "prompt": "For $\\frac{dy}{dx} = x + y$, what is the slope of the field at the point $(1, 2)$?",
+        "hint": "Substitute the coordinates directly into $f(x,y)$.",
+        "answerOptions": [
+          {
+            "text": "$3$",
+            "correct": true,
+            "rationale": "Correct. $f(1,2) = 1 + 2 = 3$."
+          },
+          {
+            "text": "$2$",
+            "rationale": "Did you use both coordinates? Add the $x$ value to the $y$ value."
+          },
+          {
+            "text": "$-1$",
+            "rationale": "That looks like $x - y$. Re read the rule. Are the terms added or subtracted?"
+          },
+          {
+            "text": "$1$",
+            "rationale": "That uses only $x$. The rule depends on $y$ as well. What is $x + y$ here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccDMpj2UK_M_3",
+        "prompt": "For $\\frac{dy}{dx} = x + y$, the isocline along which every segment has slope $0$ is which line?",
+        "hint": "An isocline of slope $c$ is the set of points where $f(x,y) = c$. Set $f$ equal to zero and solve.",
+        "answerOptions": [
+          {
+            "text": "$y = -x$",
+            "correct": true,
+            "rationale": "Correct. Setting $x + y = 0$ gives $y = -x$, where all segments are flat."
+          },
+          {
+            "text": "$y = x$",
+            "rationale": "Check the sign when you solve $x + y = 0$ for $y$. Does $y$ equal $x$ or its negative?"
+          },
+          {
+            "text": "$y = 0$",
+            "rationale": "That fixes only $y$. The condition is $x + y = 0$, which links both variables. What line does that give?"
+          },
+          {
+            "text": "$x = 0$",
+            "rationale": "Setting $x = 0$ ignores $y$. Solve the full equation $x + y = 0$ for the relationship between them."
+          }
+        ]
+      },
+      {
+        "id": "mp_ccDMpj2UK_M_4",
+        "prompt": "What is an integral curve of a slope field?",
+        "hint": "Think about how a solution curve relates to the little segments it passes through.",
+        "answerOptions": [
+          {
+            "text": "A solution curve that stays tangent to the field segments at every point it passes through",
+            "correct": true,
+            "rationale": "Yes. An integral curve threads through the field so its tangent matches the prescribed slope everywhere."
+          },
+          {
+            "text": "A curve along which the slope is always zero",
+            "rationale": "That describes only one special isocline. Does a general solution have zero slope everywhere?"
+          },
+          {
+            "text": "The vertical line where the field is undefined",
+            "rationale": "A solution curve is generally not vertical. What relationship must it keep with the segments it crosses?"
+          },
+          {
+            "text": "The boundary of the region where $f$ is defined",
+            "rationale": "A boundary is about the domain, not a solution. What geometric condition does a solution curve satisfy against the segments?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ccDMpj2UK_M_5",
+        "prompt": "For $\\frac{dy}{dx} = y^{2} - x$, along which curve do all segments have slope $2$?",
+        "hint": "Set $f(x,y)$ equal to the target slope and solve for the relationship between $x$ and $y$.",
+        "answerOptions": [
+          {
+            "text": "$x = y^{2} - 2$",
+            "correct": true,
+            "rationale": "Correct. Setting $y^{2} - x = 2$ and solving for $x$ gives $x = y^{2} - 2$."
+          },
+          {
+            "text": "$x = y^{2} + 2$",
+            "rationale": "Move the $2$ carefully when solving $y^{2} - x = 2$. Does it add to or subtract from $y^{2}$?"
+          },
+          {
+            "text": "$y^{2} - x = 0$",
+            "rationale": "That is the isocline of slope zero, not slope two. What constant should the left side equal here?"
+          },
+          {
+            "text": "$y = x^{2} - 2$",
+            "rationale": "Check which variable is squared in the rule. Is it $x$ or $y$ that appears as a square?"
+          }
+        ]
+      }
+    ],
+    "m9Y8U9f9_Bw": [
+      {
+        "id": "mp_m9Y8U9f9_Bw_1",
+        "prompt": "Why is a slope field useful even when an equation cannot be solved with a formula?",
+        "hint": "You can build the picture straight from $f(x,y)$ without ever finding $y(x)$.",
+        "answerOptions": [
+          {
+            "text": "It lets you sketch the qualitative shape and behavior of solutions directly from the equation",
+            "correct": true,
+            "rationale": "Yes. Even with no formula, the field reveals where solutions rise, fall, and level off."
+          },
+          {
+            "text": "It produces the exact closed form formula for $y$",
+            "rationale": "If a formula were obtainable this way, solving would be trivial. What does the field give you instead of an exact formula?"
+          },
+          {
+            "text": "It removes the need for any initial condition",
+            "rationale": "You still need a starting point to pick one curve. What does the field show about the whole family before that choice?"
+          },
+          {
+            "text": "It forces every solution to be a straight line",
+            "rationale": "Solutions can curve freely through the field. What kind of information does the field actually convey?"
+          }
+        ]
+      },
+      {
+        "id": "mp_m9Y8U9f9_Bw_2",
+        "prompt": "For $\\frac{dy}{dx} = 2x$, the slope depends only on $x$. What is the slope everywhere along the vertical line $x = 3$?",
+        "hint": "Substitute the fixed $x$ value into $f$. Notice $y$ does not appear.",
+        "answerOptions": [
+          {
+            "text": "$6$ at every point on that line",
+            "correct": true,
+            "rationale": "Correct. With $f = 2x$ and $x = 3$, the slope is $6$ regardless of $y$."
+          },
+          {
+            "text": "It depends on the value of $y$",
+            "rationale": "Look at the rule $2x$. Does the variable $y$ appear in it at all?"
+          },
+          {
+            "text": "$3$",
+            "rationale": "Did you multiply by the coefficient? Evaluate $2x$ at $x = 3$."
+          },
+          {
+            "text": "$0$",
+            "rationale": "A nonzero $x$ gives a nonzero slope here. What is $2 \\cdot 3$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_m9Y8U9f9_Bw_3",
+        "prompt": "If $\\frac{dy}{dx}$ depends only on $y$ (an autonomous equation), how does the slope field look?",
+        "hint": "Ask which coordinate the slope ignores, then think about which direction you can move without changing the slope.",
+        "answerOptions": [
+          {
+            "text": "The slopes are constant along horizontal lines, the same for all $x$ at a given $y$",
+            "correct": true,
+            "rationale": "Yes. Since the rule ignores $x$, every point at the same height carries the same slope."
+          },
+          {
+            "text": "The slopes are constant along vertical lines",
+            "rationale": "Vertical lines fix $x$, but the rule depends on $y$. Which lines hold $y$ fixed?"
+          },
+          {
+            "text": "The slopes are zero everywhere",
+            "rationale": "An autonomous rule is not always zero. It simply does not use $x$. What stays constant as $x$ changes?"
+          },
+          {
+            "text": "The slopes are always positive",
+            "rationale": "Sign depends on the specific rule. What is special is which variable the slope ignores. Which one?"
+          }
+        ]
+      },
+      {
+        "id": "mp_m9Y8U9f9_Bw_4",
+        "prompt": "For $\\frac{dy}{dx} = -\\frac{x}{y}$, what is the slope of the segment at the point $(3, 4)$?",
+        "hint": "Substitute both coordinates and keep the negative sign out front.",
+        "answerOptions": [
+          {
+            "text": "$-\\frac{3}{4}$",
+            "correct": true,
+            "rationale": "Correct. $f(3,4) = -\\frac{3}{4}$."
+          },
+          {
+            "text": "$\\frac{3}{4}$",
+            "rationale": "Do not drop the leading minus sign. What does the negative in front of the fraction do to the value?"
+          },
+          {
+            "text": "$-\\frac{4}{3}$",
+            "rationale": "Check which coordinate is on top. Is $x$ in the numerator or the denominator?"
+          },
+          {
+            "text": "$\\frac{4}{3}$",
+            "rationale": "Both the sign and the order of $x$ and $y$ need care here. Which variable sits on top of the fraction?"
+          }
+        ]
+      },
+      {
+        "id": "mp_m9Y8U9f9_Bw_5",
+        "prompt": "Given a slope field, how do you trace the solution that passes through a chosen initial point?",
+        "hint": "Start at the point and let the segments guide you, keeping the curve in step with them.",
+        "answerOptions": [
+          {
+            "text": "Start at the point and follow the segments, keeping the curve tangent to the field as you move",
+            "correct": true,
+            "rationale": "Yes. The field acts like a current you flow along, matching its slope at each step."
+          },
+          {
+            "text": "Connect every point where the slope is zero",
+            "rationale": "Those points form one isocline, not a single solution. What should the curve do relative to the segments it passes?"
+          },
+          {
+            "text": "Draw a horizontal line through the point",
+            "rationale": "A horizontal line ignores the prescribed slopes. How should the curve respond to each segment it meets?"
+          },
+          {
+            "text": "Select only the steepest segments and join them",
+            "rationale": "Picking by steepness abandons the starting point. What property must the traced curve keep with the local segments?"
+          }
+        ]
+      }
+    ],
+    "lsbUlubAiGw": [
+      {
+        "id": "mp_lsbUlubAiGw_1",
+        "prompt": "In the phase plane of a system, what does a single point represent?",
+        "hint": "The axes are the dependent variables, not time. Ask what one choice of those variables describes.",
+        "answerOptions": [
+          {
+            "text": "A complete state of the system, the values of all dependent variables at one instant",
+            "correct": true,
+            "rationale": "Yes. Each point fixes the values of every dependent variable at a moment in time."
+          },
+          {
+            "text": "The value of the time variable $t$",
+            "rationale": "Time is not an axis of the phase plane. What do the axes actually measure?"
+          },
+          {
+            "text": "The slope of a single solution",
+            "rationale": "A point is a location, not a slope. What information do its coordinates carry?"
+          },
+          {
+            "text": "Only an equilibrium of the system",
+            "rationale": "Most points are not equilibria. What does a generic point describe about the system?"
+          }
+        ]
+      },
+      {
+        "id": "mp_lsbUlubAiGw_2",
+        "prompt": "What is a trajectory, or orbit, in the phase plane?",
+        "hint": "As $t$ runs, the state point moves. Ask what its motion sweeps out.",
+        "answerOptions": [
+          {
+            "text": "The path traced by a solution as the parameter $t$ varies",
+            "correct": true,
+            "rationale": "Yes. A trajectory is the curve swept by the state point as time advances."
+          },
+          {
+            "text": "The set of all equilibrium points",
+            "rationale": "Equilibria are isolated rest points, not a moving path. What does the state point trace as $t$ changes?"
+          },
+          {
+            "text": "A line of constant slope in a slope field",
+            "rationale": "That belongs to a single first order slope field, not the phase plane of a system. What carves out a trajectory?"
+          },
+          {
+            "text": "The graph of one variable against time $t$",
+            "rationale": "That is a time plot, with $t$ on an axis. The phase plane has no time axis. What curve lives there?"
+          }
+        ]
+      },
+      {
+        "id": "mp_lsbUlubAiGw_3",
+        "prompt": "For the system $x' = y$ and $y' = -x$, where is the equilibrium point?",
+        "hint": "An equilibrium sets every derivative to zero at once. Solve both equations simultaneously.",
+        "answerOptions": [
+          {
+            "text": "$(0, 0)$",
+            "correct": true,
+            "rationale": "Correct. $x' = y = 0$ and $y' = -x = 0$ force both coordinates to zero."
+          },
+          {
+            "text": "$(1, 1)$",
+            "rationale": "Test it. Does $x' = y$ vanish there? An equilibrium needs both derivatives equal to zero."
+          },
+          {
+            "text": "$(1, 0)$",
+            "rationale": "Check the second equation $y' = -x$ at this point. Is it zero?"
+          },
+          {
+            "text": "There is no equilibrium",
+            "rationale": "Try setting both right sides to zero. Is there a point where $y = 0$ and $x = 0$ together?"
+          }
+        ]
+      },
+      {
+        "id": "mp_lsbUlubAiGw_4",
+        "prompt": "For $x' = x - y$ and $y' = x + y$, where is the $x$ nullcline, the set where $x' = 0$?",
+        "hint": "Set the right side of the $x'$ equation to zero and solve for the line.",
+        "answerOptions": [
+          {
+            "text": "The line $y = x$",
+            "correct": true,
+            "rationale": "Correct. $x - y = 0$ gives $y = x$, where the horizontal motion vanishes."
+          },
+          {
+            "text": "The line $y = -x$",
+            "rationale": "Watch the sign when solving $x - y = 0$. Does $y$ equal $x$ or its negative?"
+          },
+          {
+            "text": "The line $x = 0$",
+            "rationale": "That uses only one variable. The condition $x - y = 0$ relates both. What line results?"
+          },
+          {
+            "text": "The line $y = 0$",
+            "rationale": "Setting $y = 0$ does not satisfy $x - y = 0$ in general. Solve the equation for the full relationship."
+          }
+        ]
+      },
+      {
+        "id": "mp_lsbUlubAiGw_5",
+        "prompt": "Where a trajectory crosses the $x$ nullcline (where $x' = 0$ but $y' \\neq 0$), in which direction does it move?",
+        "hint": "If the horizontal part of the velocity is zero, only the vertical part is left.",
+        "answerOptions": [
+          {
+            "text": "Vertically, since the horizontal component of the velocity is zero there",
+            "correct": true,
+            "rationale": "Yes. With $x' = 0$ the motion has no horizontal part, so the crossing is straight up or down."
+          },
+          {
+            "text": "Horizontally",
+            "rationale": "Horizontal motion needs $x' \\neq 0$. What is $x'$ on this nullcline?"
+          },
+          {
+            "text": "At a forty five degree angle",
+            "rationale": "A diagonal needs both components nonzero. Which component is zero on the $x$ nullcline?"
+          },
+          {
+            "text": "It always stops there",
+            "rationale": "It only stops if $y'$ is also zero. Here $y' \\neq 0$, so what remains of the motion?"
+          }
+        ]
+      }
+    ],
+    "zmzyW1rP-hk": [
+      {
+        "id": "mp_zmzyW1rP-hk_1",
+        "prompt": "A phase portrait is best described as what?",
+        "hint": "It is a picture meant to show the whole landscape of motion, not just one path.",
+        "answerOptions": [
+          {
+            "text": "A representative collection of trajectories sketched together in the phase plane",
+            "correct": true,
+            "rationale": "Yes. Several typical orbits drawn together reveal the global behavior of the system."
+          },
+          {
+            "text": "A single solution curve through one initial point",
+            "rationale": "One curve shows one history. What does a portrait gather to show the full picture?"
+          },
+          {
+            "text": "A plot of one variable against time",
+            "rationale": "That is a time plot. The phase plane has no time axis. What does the portrait collect?"
+          },
+          {
+            "text": "The slope field of a scalar equation $y' = f(x,y)$",
+            "rationale": "A scalar slope field is a different object. What does a phase portrait of a system assemble?"
+          }
+        ]
+      },
+      {
+        "id": "mp_zmzyW1rP-hk_2",
+        "prompt": "For the linear system $x' = 2x$, $y' = 3y$, what are the eigenvalues of its coefficient matrix?",
+        "hint": "A decoupled system like this has a diagonal coefficient matrix, and the eigenvalues sit right on the diagonal.",
+        "answerOptions": [
+          {
+            "text": "$2$ and $3$",
+            "correct": true,
+            "rationale": "Correct. A diagonal matrix has its diagonal entries as eigenvalues."
+          },
+          {
+            "text": "$0$ and $0$",
+            "rationale": "The zeros are off the diagonal. Which entries determine the eigenvalues of a diagonal matrix?"
+          },
+          {
+            "text": "$2$ and $0$",
+            "rationale": "Both diagonal entries count. What is the second nonzero entry on the diagonal?"
+          },
+          {
+            "text": "$5$ and $6$",
+            "rationale": "You may be combining entries. For a diagonal matrix, read the eigenvalues straight off the diagonal."
+          }
+        ]
+      },
+      {
+        "id": "mp_zmzyW1rP-hk_3",
+        "prompt": "If both eigenvalues of a linear system are real and positive, the origin is what type of equilibrium?",
+        "hint": "Positive eigenvalues push solutions outward along their eigendirections.",
+        "answerOptions": [
+          {
+            "text": "An unstable node, a source, with trajectories moving away from the origin",
+            "correct": true,
+            "rationale": "Yes. Positive real eigenvalues make every nearby trajectory grow away from the origin."
+          },
+          {
+            "text": "A stable node",
+            "rationale": "Stability would pull trajectories inward. What does a positive growth rate do to a solution?"
+          },
+          {
+            "text": "A saddle point",
+            "rationale": "A saddle needs eigenvalues of opposite sign. What is true when both are positive?"
+          },
+          {
+            "text": "A center",
+            "rationale": "A center comes from purely imaginary eigenvalues. What shape arises from two real positive ones?"
+          }
+        ]
+      },
+      {
+        "id": "mp_zmzyW1rP-hk_4",
+        "prompt": "A saddle point at the origin arises when the eigenvalues are which kind?",
+        "hint": "A saddle has one direction pulling in and another pushing out.",
+        "answerOptions": [
+          {
+            "text": "Real with opposite signs",
+            "correct": true,
+            "rationale": "Yes. One negative eigenvalue draws in along its direction while one positive pushes out along the other."
+          },
+          {
+            "text": "Both negative",
+            "rationale": "Two negative eigenvalues pull everything inward. Does that create the in and out structure of a saddle?"
+          },
+          {
+            "text": "Both positive",
+            "rationale": "Two positive eigenvalues push everything outward. Where would the inward direction of a saddle come from?"
+          },
+          {
+            "text": "Complex with zero real part",
+            "rationale": "Those give closed orbits, not a saddle. What sign pattern produces one inflow and one outflow direction?"
+          }
+        ]
+      },
+      {
+        "id": "mp_zmzyW1rP-hk_5",
+        "prompt": "For the linear system $x' = y$, $y' = -x$ the eigenvalues are $\\pm i$. The origin is what?",
+        "hint": "Purely imaginary eigenvalues mean no growth or decay, only rotation.",
+        "answerOptions": [
+          {
+            "text": "A center, with trajectories forming closed orbits around the origin",
+            "correct": true,
+            "rationale": "Yes. Pure imaginary eigenvalues give rotation with constant amplitude, so orbits close."
+          },
+          {
+            "text": "A stable spiral",
+            "rationale": "A spiral needs a nonzero real part to shrink the radius. What is the real part of $\\pm i$?"
+          },
+          {
+            "text": "An unstable node",
+            "rationale": "A node comes from real eigenvalues. These are purely imaginary. What motion does that give?"
+          },
+          {
+            "text": "A saddle",
+            "rationale": "A saddle needs real eigenvalues of opposite sign. What do purely imaginary eigenvalues produce instead?"
+          }
+        ]
+      }
+    ],
+    "_WpncZ3RkTg": [
+      {
+        "id": "mp__WpncZ3RkTg_1",
+        "prompt": "The existence and uniqueness theorem for $\\frac{dy}{dx} = f(x,y)$ with $y(x_{0}) = y_{0}$ guarantees a unique solution near $x_{0}$ when which condition holds?",
+        "hint": "Two continuity conditions appear, one on $f$ and one on a particular partial derivative.",
+        "answerOptions": [
+          {
+            "text": "Both $f$ and $\\frac{\\partial f}{\\partial y}$ are continuous on a rectangle containing $(x_{0}, y_{0})$",
+            "correct": true,
+            "rationale": "Yes. Continuity of $f$ gives existence, and continuity of $\\frac{\\partial f}{\\partial y}$ secures uniqueness."
+          },
+          {
+            "text": "$f$ is merely defined at the single point $(x_{0}, y_{0})$",
+            "rationale": "Being defined at one point says nothing about nearby behavior. What must hold on a whole rectangle around it?"
+          },
+          {
+            "text": "The initial value $y_{0}$ equals zero",
+            "rationale": "The starting height is not a hypothesis of the theorem. What two continuity conditions does it actually require?"
+          },
+          {
+            "text": "The function $f$ is linear in $y$",
+            "rationale": "Linearity is sufficient but far from necessary. What general continuity conditions does the theorem ask for?"
+          }
+        ]
+      },
+      {
+        "id": "mp__WpncZ3RkTg_2",
+        "prompt": "If $f$ is continuous near $(x_{0}, y_{0})$ but $\\frac{\\partial f}{\\partial y}$ is not, what is guaranteed?",
+        "hint": "Separate the two roles. One condition delivers a solution, the other delivers exactly one.",
+        "answerOptions": [
+          {
+            "text": "At least one solution exists, but uniqueness is not guaranteed",
+            "correct": true,
+            "rationale": "Yes. Continuity of $f$ alone secures existence; uniqueness may fail without the derivative condition."
+          },
+          {
+            "text": "Uniqueness holds but existence may fail",
+            "rationale": "Continuity of $f$ is precisely the existence condition. Which property is the derivative condition responsible for?"
+          },
+          {
+            "text": "Both existence and uniqueness are guaranteed",
+            "rationale": "One hypothesis is missing. Which of the two conclusions depends on $\\frac{\\partial f}{\\partial y}$?"
+          },
+          {
+            "text": "Neither existence nor uniqueness holds",
+            "rationale": "Continuity of $f$ still buys something. Which conclusion survives without the derivative condition?"
+          }
+        ]
+      },
+      {
+        "id": "mp__WpncZ3RkTg_3",
+        "prompt": "For $\\frac{dy}{dx} = y^{1/3}$ with $y(0) = 0$, why does uniqueness fail at the origin?",
+        "hint": "Examine $\\frac{\\partial f}{\\partial y}$ near $y = 0$. Does it stay finite and continuous?",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial f}{\\partial y} = \\frac{1}{3} y^{-2/3}$ is not continuous at $y = 0$, it blows up",
+            "correct": true,
+            "rationale": "Yes. The derivative condition breaks down at $y = 0$, so the uniqueness guarantee is lost."
+          },
+          {
+            "text": "The function $f = y^{1/3}$ is discontinuous at $0$",
+            "rationale": "Check $f$ itself at $y = 0$. Is $0^{1/3}$ undefined, or is it the derivative that misbehaves?"
+          },
+          {
+            "text": "The initial value is negative",
+            "rationale": "The starting value is zero, not negative. Which quantity actually fails to be continuous here?"
+          },
+          {
+            "text": "Nonlinear equations never have solutions",
+            "rationale": "Many nonlinear equations have solutions. What specific hypothesis fails at the origin?"
+          }
+        ]
+      },
+      {
+        "id": "mp__WpncZ3RkTg_4",
+        "prompt": "For $\\frac{dy}{dx} = x^{2} + y^{2}$, in which region is a unique solution guaranteed through any starting point?",
+        "hint": "Check where $f$ and $\\frac{\\partial f}{\\partial y}$ are continuous.",
+        "answerOptions": [
+          {
+            "text": "The entire plane, since $f$ and $\\frac{\\partial f}{\\partial y} = 2y$ are continuous everywhere",
+            "correct": true,
+            "rationale": "Yes. Both are polynomials, continuous on all of the plane, so uniqueness holds throughout."
+          },
+          {
+            "text": "Only where $y > 0$",
+            "rationale": "Polynomials do not care about sign. Where are $f$ and $2y$ continuous?"
+          },
+          {
+            "text": "Only along the line $x = 0$",
+            "rationale": "The conditions are not restricted to one line. Where are these polynomial expressions continuous?"
+          },
+          {
+            "text": "Nowhere, because the equation is nonlinear",
+            "rationale": "Nonlinearity does not by itself break the theorem. Are $f$ and $\\frac{\\partial f}{\\partial y}$ continuous here?"
+          }
+        ]
+      },
+      {
+        "id": "mp__WpncZ3RkTg_5",
+        "prompt": "The theorem guarantees a unique solution on what kind of interval around $x_{0}$?",
+        "hint": "The guarantee is local. Ask how wide the promised interval is.",
+        "answerOptions": [
+          {
+            "text": "Some open interval around $x_{0}$, possibly small, not necessarily all $x$",
+            "correct": true,
+            "rationale": "Yes. The conclusion is local, an interval that may be short and is not guaranteed to extend forever."
+          },
+          {
+            "text": "The entire real line, always",
+            "rationale": "A local theorem cannot promise a global interval. How far does it actually guarantee the solution extends?"
+          },
+          {
+            "text": "Only at the single point $x_{0}$",
+            "rationale": "A solution at one point is not a function on an interval. What size of neighborhood does the theorem provide?"
+          },
+          {
+            "text": "An interval of length exactly one",
+            "rationale": "No fixed length is promised. What does the theorem say about the size of the guaranteed interval?"
+          }
+        ]
+      }
+    ],
+    "BVKyaEu1FWk": [
+      {
+        "id": "mp_BVKyaEu1FWk_1",
+        "prompt": "For $\\frac{dy}{dx} = \\frac{x}{y - 2}$, where does the theorem fail to guarantee a unique solution?",
+        "hint": "Find where $f$ and its $y$ derivative lose continuity. Watch the denominator.",
+        "answerOptions": [
+          {
+            "text": "Along the line $y = 2$",
+            "correct": true,
+            "rationale": "Yes. The denominator vanishes there, so $f$ and $\\frac{\\partial f}{\\partial y}$ are not continuous on $y = 2$."
+          },
+          {
+            "text": "Along the line $x = 0$",
+            "rationale": "At $x = 0$ the function is simply zero and well behaved. Where does the denominator cause trouble?"
+          },
+          {
+            "text": "At the origin only",
+            "rationale": "The problem is a whole line, not one point. Which values of $y$ make the denominator zero?"
+          },
+          {
+            "text": "Nowhere, it is continuous everywhere",
+            "rationale": "Look at the denominator $y - 2$. Is there a value of $y$ that makes the expression blow up?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BVKyaEu1FWk_2",
+        "prompt": "In a region where the hypotheses of the theorem hold, what does uniqueness say about two distinct solution curves?",
+        "hint": "If two curves met at a point, both would be the unique solution through it. What contradiction follows?",
+        "answerOptions": [
+          {
+            "text": "They cannot intersect, distinct solution curves do not cross in that region",
+            "correct": true,
+            "rationale": "Yes. A crossing would mean two solutions through one point, contradicting uniqueness."
+          },
+          {
+            "text": "They may cross as long as they meet at right angles",
+            "rationale": "The angle does not matter. What would a shared point imply about the number of solutions there?"
+          },
+          {
+            "text": "They must be parallel everywhere",
+            "rationale": "Solutions need not be parallel. What is forbidden is meeting at a point. Why?"
+          },
+          {
+            "text": "Crossing is allowed if their slopes differ at the meeting point",
+            "rationale": "At a shared point the slope is fixed by $f$, so slopes would match. What does uniqueness rule out entirely?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BVKyaEu1FWk_3",
+        "prompt": "For $\\frac{dy}{dx} = \\sqrt{y}$ with $y(0) = 0$, how many solutions pass through the origin?",
+        "hint": "Test both $y = 0$ and $y = \\frac{x^{2}}{4}$. Then ask what the derivative condition does at $y = 0$.",
+        "answerOptions": [
+          {
+            "text": "More than one, for example $y = 0$ and $y = \\frac{x^{2}}{4}$, so uniqueness fails",
+            "correct": true,
+            "rationale": "Yes. Several curves satisfy the equation through the origin because $\\frac{\\partial f}{\\partial y}$ is not continuous at $y = 0$."
+          },
+          {
+            "text": "Exactly one, because $f$ is continuous there",
+            "rationale": "Continuity of $f$ gives existence, not uniqueness. Check $\\frac{\\partial f}{\\partial y}$ at $y = 0$. Is it continuous?"
+          },
+          {
+            "text": "None",
+            "rationale": "At least $y = 0$ works. Can you find another curve through the origin as well?"
+          },
+          {
+            "text": "Exactly two and no more",
+            "rationale": "Delayed start solutions give even more. Is the count limited to two, or is uniqueness simply broken?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BVKyaEu1FWk_4",
+        "prompt": "For the linear initial value problem $y' + p(x) y = q(x)$ with $p$ and $q$ continuous on an interval $I$ containing $x_{0}$, the solution exists and is unique on which set?",
+        "hint": "The linear theorem is stronger than the general one. It gives a global guarantee on the whole interval of continuity.",
+        "answerOptions": [
+          {
+            "text": "The entire interval $I$ on which $p$ and $q$ are continuous",
+            "correct": true,
+            "rationale": "Yes. For linear equations the unique solution extends across the full interval where the coefficients are continuous."
+          },
+          {
+            "text": "Only a tiny neighborhood of $x_{0}$",
+            "rationale": "That is the weaker general result. What does linearity let you say about the whole interval $I$?"
+          },
+          {
+            "text": "Only where $q(x) = 0$",
+            "rationale": "The forcing term need not vanish. Where do the coefficients being continuous let the solution live?"
+          },
+          {
+            "text": "Nowhere is it guaranteed",
+            "rationale": "Continuity of $p$ and $q$ guarantees a great deal here. Over what set does the linear theorem promise a unique solution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_BVKyaEu1FWk_5",
+        "prompt": "Which choice of $f(x,y)$ fails to have a continuous $\\frac{\\partial f}{\\partial y}$ at $y = 0$?",
+        "hint": "Differentiate each with respect to $y$ and ask which derivative blows up at $y = 0$.",
+        "answerOptions": [
+          {
+            "text": "$f = y^{2/3}$",
+            "correct": true,
+            "rationale": "Yes. Its derivative $\\frac{2}{3} y^{-1/3}$ is unbounded at $y = 0$, so it is not continuous there."
+          },
+          {
+            "text": "$f = y^{2}$",
+            "rationale": "Differentiate, getting $2y$. Is that continuous at $y = 0$?"
+          },
+          {
+            "text": "$f = \\sin y$",
+            "rationale": "Its derivative is $\\cos y$. Does that have any trouble at $y = 0$?"
+          },
+          {
+            "text": "$f = e^{y}$",
+            "rationale": "Its derivative is $e^{y}$. Is that finite and continuous at $y = 0$?"
+          }
+        ]
+      }
+    ],
+    "csInNn6pfT4": [
+      {
+        "id": "mp_csInNn6pfT4_1",
+        "prompt": "A fixed point of a function $g$ is a value $x^{*}$ satisfying which equation?",
+        "hint": "A fixed point is unmoved by the function. What does applying $g$ leave unchanged?",
+        "answerOptions": [
+          {
+            "text": "$g(x^{*}) = x^{*}$",
+            "correct": true,
+            "rationale": "Yes. A fixed point returns itself when fed through $g$."
+          },
+          {
+            "text": "$g'(x^{*}) = 0$",
+            "rationale": "That is a critical point, about the slope of $g$. What does a fixed point require of the value itself?"
+          },
+          {
+            "text": "$g(x^{*}) = 0$",
+            "rationale": "That is a root of $g$, where the output is zero. A fixed point asks the output to match what instead?"
+          },
+          {
+            "text": "$x^{*} = 0$",
+            "rationale": "Fixed points need not be at the origin. What relationship between input and output defines them?"
+          }
+        ]
+      },
+      {
+        "id": "mp_csInNn6pfT4_2",
+        "prompt": "Find the fixed point of $g(x) = \\frac{x}{2} + 3$.",
+        "hint": "Set $g(x) = x$ and solve for $x$.",
+        "answerOptions": [
+          {
+            "text": "$x = 6$",
+            "correct": true,
+            "rationale": "Correct. $x = \\frac{x}{2} + 3$ gives $\\frac{x}{2} = 3$, so $x = 6$."
+          },
+          {
+            "text": "$x = 3$",
+            "rationale": "The constant $3$ is not the answer by itself. Solve $\\frac{x}{2} = 3$ for $x$."
+          },
+          {
+            "text": "$x = 0$",
+            "rationale": "Substitute $x = 0$ into $g$. Does it return $0$? Set $g(x) = x$ and solve properly."
+          },
+          {
+            "text": "$x = 2$",
+            "rationale": "Check by plugging in. Does $g(2)$ equal $2$? Solve the equation $g(x) = x$ exactly."
+          }
+        ]
+      },
+      {
+        "id": "mp_csInNn6pfT4_3",
+        "prompt": "Iterating $x_{n+1} = \\cos(x_{n})$ from almost any start converges to a fixed point near which value (in radians)?",
+        "hint": "This is the famous number you reach by pressing cosine repeatedly on a calculator set to radians.",
+        "answerOptions": [
+          {
+            "text": "About $0.739$",
+            "correct": true,
+            "rationale": "Yes. That is the Dottie number, the unique fixed point of cosine."
+          },
+          {
+            "text": "$0$",
+            "rationale": "Pressing cosine on $0$ gives $1$, not $0$, so $0$ is not fixed. Where does the sequence settle?"
+          },
+          {
+            "text": "$1$",
+            "rationale": "Test it. Is $\\cos(1)$ equal to $1$? Keep iterating to see where it lands."
+          },
+          {
+            "text": "$\\frac{\\pi}{2}$",
+            "rationale": "Cosine of $\\frac{\\pi}{2}$ is $0$, so it is not fixed. What value does $g(x) = x$ give for cosine?"
+          }
+        ]
+      },
+      {
+        "id": "mp_csInNn6pfT4_4",
+        "prompt": "A fixed point $x^{*}$ of the iteration $x_{n+1} = g(x_{n})$ is attracting (stable) when which condition holds?",
+        "hint": "Nearby points should move closer with each step. That depends on how steep $g$ is at $x^{*}$.",
+        "answerOptions": [
+          {
+            "text": "$|g'(x^{*})| < 1$",
+            "correct": true,
+            "rationale": "Yes. A slope of magnitude less than one shrinks distances, pulling nearby points inward."
+          },
+          {
+            "text": "$|g'(x^{*})| > 1$",
+            "rationale": "A slope larger than one in magnitude stretches distances. Does that pull points in or push them out?"
+          },
+          {
+            "text": "$g'(x^{*}) = 0$ exactly",
+            "rationale": "Zero slope gives fast attraction, but it is not the general condition. What range of $|g'|$ guarantees attraction?"
+          },
+          {
+            "text": "$g(x^{*}) > x^{*}$",
+            "rationale": "That compares values, not slopes. Stability depends on the derivative. What must $|g'(x^{*})|$ satisfy?"
+          }
+        ]
+      },
+      {
+        "id": "mp_csInNn6pfT4_5",
+        "prompt": "For $g(x) = x^{2}$, which statement about its fixed points and their stability is correct?",
+        "hint": "Solve $x = x^{2}$, then evaluate $|g'(x)| = |2x|$ at each fixed point.",
+        "answerOptions": [
+          {
+            "text": "$x = 0$ is attracting and $x = 1$ is repelling",
+            "correct": true,
+            "rationale": "Yes. $|g'(0)| = 0 < 1$ attracts, while $|g'(1)| = 2 > 1$ repels."
+          },
+          {
+            "text": "Both $x = 0$ and $x = 1$ are attracting",
+            "rationale": "Evaluate $|2x|$ at each. Is the magnitude below one at both points?"
+          },
+          {
+            "text": "Both are repelling",
+            "rationale": "Check $|g'(0)|$. Is the slope magnitude at the origin really larger than one?"
+          },
+          {
+            "text": "$x = 1$ is attracting and $x = 0$ is repelling",
+            "rationale": "You may have swapped them. Compare $|2 \\cdot 0|$ and $|2 \\cdot 1|$ to the value one."
+          }
+        ]
+      }
+    ],
+    "bEZ6JLLjM3Y": [
+      {
+        "id": "mp_bEZ6JLLjM3Y_1",
+        "prompt": "Graphically, the fixed points of $g$ are found where which two graphs meet?",
+        "hint": "A fixed point has output equal to input. What line captures the relation output equals input?",
+        "answerOptions": [
+          {
+            "text": "Where the graph of $y = g(x)$ meets the line $y = x$",
+            "correct": true,
+            "rationale": "Yes. On the line $y = x$ the output equals the input, which is exactly the fixed point condition."
+          },
+          {
+            "text": "Where $g$ crosses the $x$ axis",
+            "rationale": "Crossing the $x$ axis means $g(x) = 0$, a root. Which line encodes output equals input instead?"
+          },
+          {
+            "text": "Where the slope of $g$ is zero",
+            "rationale": "Zero slope marks a critical point. What graphical condition matches input to output?"
+          },
+          {
+            "text": "At the $y$ intercept of $g$",
+            "rationale": "The intercept is just one value of $g$. Which line do you intersect to find fixed points?"
+          }
+        ]
+      },
+      {
+        "id": "mp_bEZ6JLLjM3Y_2",
+        "prompt": "What does a cobweb diagram illustrate?",
+        "hint": "It is a step by step picture of bouncing between the curve and a particular line.",
+        "answerOptions": [
+          {
+            "text": "The step by step behavior of the iteration $x_{n+1} = g(x_{n})$ toward or away from a fixed point",
+            "correct": true,
+            "rationale": "Yes. The cobweb traces each iterate, showing whether the sequence converges or diverges."
+          },
+          {
+            "text": "The area under the curve of $g$",
+            "rationale": "Cobwebs are not about area. What process do the bouncing steps represent?"
+          },
+          {
+            "text": "The roots of $g$",
+            "rationale": "Roots are where $g = 0$. What does the cobweb actually track as it bounces?"
+          },
+          {
+            "text": "The tangent line of $g$ at the origin",
+            "rationale": "A single tangent line is not the picture. What iterative process does the cobweb display?"
+          }
+        ]
+      },
+      {
+        "id": "mp_bEZ6JLLjM3Y_3",
+        "prompt": "For $g(x) = 0.5x + 1$, find the fixed point and state whether it is attracting.",
+        "hint": "Solve $g(x) = x$, then compare $|g'(x)|$ with one.",
+        "answerOptions": [
+          {
+            "text": "$x = 2$, and it is attracting since $|g'| = 0.5 < 1$",
+            "correct": true,
+            "rationale": "Yes. Solving gives $x = 2$, and the slope magnitude below one makes it attracting."
+          },
+          {
+            "text": "$x = 2$, but it is repelling",
+            "rationale": "You found the right point. Now check $|g'| = 0.5$. Is that above or below one?"
+          },
+          {
+            "text": "$x = 1$, and it is attracting",
+            "rationale": "Recheck the algebra. Solve $0.5x + 1 = x$ carefully for $x$."
+          },
+          {
+            "text": "$x = 0$, and it is attracting",
+            "rationale": "Test $x = 0$ in $g$. Does it return $0$? Solve $g(x) = x$ properly."
+          }
+        ]
+      },
+      {
+        "id": "mp_bEZ6JLLjM3Y_4",
+        "prompt": "Why does repeatedly pressing cosine on a calculator settle to the same number no matter where you start?",
+        "hint": "Think about how cosine compresses distances between inputs, and how many fixed points it has.",
+        "answerOptions": [
+          {
+            "text": "Cosine contracts distances on the relevant interval, so its single attracting fixed point pulls in every start",
+            "correct": true,
+            "rationale": "Yes. Because cosine shrinks gaps between points, all starts funnel to its one fixed point."
+          },
+          {
+            "text": "Because cosine is periodic",
+            "rationale": "Periodicity does not force convergence. What property makes nearby outputs closer together each step?"
+          },
+          {
+            "text": "Because the calculator rounds the digits",
+            "rationale": "Rounding is not the cause. What feature of cosine pulls every sequence to one value?"
+          },
+          {
+            "text": "Because cosine has many fixed points to choose from",
+            "rationale": "Cosine has just one fixed point here. What lets every start reach that single point?"
+          }
+        ]
+      },
+      {
+        "id": "mp_bEZ6JLLjM3Y_5",
+        "prompt": "Solving the fixed point equation for $g(x) = \\sqrt{x}$ gives which solutions?",
+        "hint": "Set $\\sqrt{x} = x$, then square both sides and solve.",
+        "answerOptions": [
+          {
+            "text": "$x = 0$ and $x = 1$",
+            "correct": true,
+            "rationale": "Yes. Squaring $\\sqrt{x} = x$ gives $x = x^{2}$, whose solutions are $0$ and $1$."
+          },
+          {
+            "text": "Only $x = 1$",
+            "rationale": "Do not forget the trivial solution. Does $x = 0$ satisfy $\\sqrt{x} = x$ as well?"
+          },
+          {
+            "text": "Only $x = 0$",
+            "rationale": "Check $x = 1$ too. Is $\\sqrt{1}$ equal to $1$?"
+          },
+          {
+            "text": "There are no solutions",
+            "rationale": "Try small values. Does $\\sqrt{x} = x$ hold at $x = 0$ and $x = 1$?"
+          }
+        ]
+      }
+    ],
+    "qHnXE_h5c2M": [
+      {
+        "id": "mp_qHnXE_h5c2M_1",
+        "prompt": "A function $g$ is a contraction on a set if there exists a constant $0 \\le k < 1$ such that which inequality holds for all $x$ and $y$?",
+        "hint": "A contraction shrinks the gap between any two points by at least a fixed factor.",
+        "answerOptions": [
+          {
+            "text": "$|g(x) - g(y)| \\le k\\,|x - y|$",
+            "correct": true,
+            "rationale": "Yes. The outputs are closer than the inputs by the factor $k$, which is less than one."
+          },
+          {
+            "text": "$|g(x) - g(y)| \\ge k\\,|x - y|$",
+            "rationale": "That would expand or preserve distances. A contraction does the opposite. Which direction is the inequality?"
+          },
+          {
+            "text": "$g'(x) = k$ for a constant $k$",
+            "rationale": "A constant derivative makes $g$ affine, which is special. What inequality must hold for all pairs $x$ and $y$?"
+          },
+          {
+            "text": "$|g(x)| \\le k$ for all $x$",
+            "rationale": "That bounds the values, not the distances between them. What does a contraction control about pairs of points?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qHnXE_h5c2M_2",
+        "prompt": "The Banach fixed point theorem guarantees what for a contraction on a complete space?",
+        "hint": "It is a strong statement, about how many fixed points there are and where the iteration goes.",
+        "answerOptions": [
+          {
+            "text": "Exactly one fixed point, and the iteration converges to it from any start",
+            "correct": true,
+            "rationale": "Yes. A contraction on a complete space has a unique fixed point reached from every starting value."
+          },
+          {
+            "text": "At least two fixed points",
+            "rationale": "A contraction cannot have two. If it did, the distance between them could not shrink. How many does it have?"
+          },
+          {
+            "text": "Existence of a fixed point, but possibly many",
+            "rationale": "Uniqueness is part of the conclusion. Why can a contraction have no second fixed point?"
+          },
+          {
+            "text": "Convergence only from starts very close to the fixed point",
+            "rationale": "Convergence is global for a contraction on a complete space. From which starts does the iteration converge?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qHnXE_h5c2M_3",
+        "prompt": "On an interval where $|g'(x)| \\le k < 1$, the map $g$ is a contraction with constant $k$. For $g(x) = \\cos x$ on $[0, 1]$, since $|g'(x)| = |\\sin x|$, what bound applies?",
+        "hint": "On $[0,1]$ the sine function increases, so its largest value there is at $x = 1$.",
+        "answerOptions": [
+          {
+            "text": "$|\\sin x| \\le \\sin 1 \\approx 0.841 < 1$, so $g$ is a contraction there",
+            "correct": true,
+            "rationale": "Yes. The derivative magnitude stays below one, confirming the contraction."
+          },
+          {
+            "text": "$|\\sin x|$ can equal $1$ on this interval",
+            "rationale": "Sine reaches one only at $\\frac{\\pi}{2} \\approx 1.57$, outside $[0,1]$. What is its largest value on $[0,1]$?"
+          },
+          {
+            "text": "$|\\sin x|$ exceeds $1$ somewhere on $[0, 1]$",
+            "rationale": "Sine never exceeds one anywhere. What is its maximum on this particular interval?"
+          },
+          {
+            "text": "$|\\sin x| = 0$ throughout the interval",
+            "rationale": "Sine is zero only at $x = 0$ here. What value does it climb to by $x = 1$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qHnXE_h5c2M_4",
+        "prompt": "Why does the Banach theorem require the space to be complete?",
+        "hint": "The iterates form a Cauchy sequence. Completeness is about whether such sequences have limits inside the space.",
+        "answerOptions": [
+          {
+            "text": "It ensures the limit of the Cauchy sequence of iterates actually lies in the space",
+            "correct": true,
+            "rationale": "Yes. Completeness guarantees the limit point belongs to the space, so the fixed point exists there."
+          },
+          {
+            "text": "It makes the map $g$ linear",
+            "rationale": "Completeness is a property of the space, not of $g$. What does it ensure about limits of sequences?"
+          },
+          {
+            "text": "It guarantees the contraction constant is zero",
+            "rationale": "The constant is set by $g$, not the space. What role does completeness play for the iterates?"
+          },
+          {
+            "text": "It removes the need for a starting point",
+            "rationale": "You still iterate from a start. What does completeness guarantee about where the sequence converges?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qHnXE_h5c2M_5",
+        "prompt": "If $k = 0.5$ and the first step moves a distance $|x_{1} - x_{0}| = 2$, the contraction property bounds $|x_{2} - x_{1}|$ by at most what?",
+        "hint": "Each step shrinks the previous gap by the factor $k$.",
+        "answerOptions": [
+          {
+            "text": "$1$",
+            "correct": true,
+            "rationale": "Correct. $|x_{2} - x_{1}| \\le k\\,|x_{1} - x_{0}| = 0.5 \\cdot 2 = 1$."
+          },
+          {
+            "text": "$2$",
+            "rationale": "The contraction shrinks the gap. Multiply the previous distance by $k = 0.5$. What do you get?"
+          },
+          {
+            "text": "$0.5$",
+            "rationale": "Multiply $k$ by the actual previous distance of $2$, not by one. What is $0.5 \\cdot 2$?"
+          },
+          {
+            "text": "$4$",
+            "rationale": "A contraction shrinks rather than grows distances. Should the next gap be larger or smaller than $2$?"
+          }
+        ]
+      }
+    ],
+    "ewGo7rtTHE0": [
+      {
+        "id": "mp_ewGo7rtTHE0_1",
+        "prompt": "How does the Banach theorem connect to solving differential equations?",
+        "hint": "The proof of existence and uniqueness recasts the equation as a fixed point problem for an operator.",
+        "answerOptions": [
+          {
+            "text": "The Picard integral operator is shown to be a contraction, so its unique fixed point is the unique solution",
+            "correct": true,
+            "rationale": "Yes. Solving the equation becomes finding the fixed point of a contraction, which Banach guarantees."
+          },
+          {
+            "text": "It factors the equation into separate linear pieces",
+            "rationale": "The link is not factoring. What operator is shown to be a contraction so its fixed point solves the equation?"
+          },
+          {
+            "text": "It computes the eigenvalues of the equation",
+            "rationale": "Eigenvalues belong to a different method. What fixed point of which operator gives the solution?"
+          },
+          {
+            "text": "It replaces integration with differentiation",
+            "rationale": "The integral form is the one used. What property of the integral operator does Banach exploit?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ewGo7rtTHE0_2",
+        "prompt": "A contraction with constant $k$ obeys the bound $|x_{n} - x^{*}| \\le \\frac{k^{n}}{1 - k}\\,|x_{1} - x_{0}|$. With $k = 0.5$ and $|x_{1} - x_{0}| = 1$, what is the bound at $n = 1$?",
+        "hint": "Substitute $k = 0.5$ and $n = 1$ into $\\frac{k^{n}}{1 - k}$, then multiply by the step size.",
+        "answerOptions": [
+          {
+            "text": "$1$",
+            "correct": true,
+            "rationale": "Correct. $\\frac{0.5}{1 - 0.5} \\cdot 1 = \\frac{0.5}{0.5} = 1$."
+          },
+          {
+            "text": "$0.5$",
+            "rationale": "Do not forget the denominator $1 - k$. What is $\\frac{0.5}{0.5}$?"
+          },
+          {
+            "text": "$2$",
+            "rationale": "Check the arithmetic of $\\frac{0.5}{0.5}$. Does dividing equal numbers give two?"
+          },
+          {
+            "text": "$0.25$",
+            "rationale": "That looks like $k^{2}$. Use $n = 1$, so the numerator is $k$, not $k^{2}$. What results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ewGo7rtTHE0_3",
+        "prompt": "Why must the contraction constant $k$ be strictly less than $1$, not equal to $1$?",
+        "hint": "With $k = 1$ the inequality only says distances do not grow. Is that enough to force convergence?",
+        "answerOptions": [
+          {
+            "text": "With $k = 1$ distances need not shrink, so the iterates may fail to converge to a single point",
+            "correct": true,
+            "rationale": "Yes. Only $k < 1$ forces gaps to zero, securing convergence and uniqueness."
+          },
+          {
+            "text": "With $k = 1$ the map $g$ becomes undefined",
+            "rationale": "The map is still defined at $k = 1$. What fails is the shrinking of distances. Why does that matter?"
+          },
+          {
+            "text": "With $k = 1$ there are always infinitely many fixed points",
+            "rationale": "That is not guaranteed. The real issue is convergence. What does $k = 1$ allow distances to do?"
+          },
+          {
+            "text": "The constant $k$ must be negative",
+            "rationale": "Distances are nonnegative, so $k \\ge 0$. The key requirement is the upper bound. What must $k$ be less than?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ewGo7rtTHE0_4",
+        "prompt": "Is $g(x) = x + 1$ a contraction on the real line?",
+        "hint": "Compute $|g(x) - g(y)|$, and also ask whether $g$ has any fixed point.",
+        "answerOptions": [
+          {
+            "text": "No, since $|g(x) - g(y)| = |x - y|$ gives $k = 1$, and it has no fixed point",
+            "correct": true,
+            "rationale": "Yes. The map preserves distances exactly and $x = x + 1$ has no solution, so Banach does not apply."
+          },
+          {
+            "text": "Yes, with constant $k = 1$",
+            "rationale": "A contraction needs $k < 1$ strictly. Does $k = 1$ qualify, and does this map even have a fixed point?"
+          },
+          {
+            "text": "Yes, with constant $k = 0$",
+            "rationale": "That would mean $g$ is constant, but $g(x) = x + 1$ moves with $x$. What is $|g(x) - g(y)|$ exactly?"
+          },
+          {
+            "text": "Yes, with a fixed point at $0$",
+            "rationale": "Test it. Does $g(0) = 0 + 1$ equal $0$? Can $x = x + 1$ ever hold?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ewGo7rtTHE0_5",
+        "prompt": "The theorem requires the map to send the space into itself. Why is that needed?",
+        "hint": "If an iterate left the domain, the contraction estimate might no longer apply to it.",
+        "answerOptions": [
+          {
+            "text": "So every iterate stays in the domain where the contraction property holds",
+            "correct": true,
+            "rationale": "Yes. Mapping the space into itself keeps the whole sequence inside the region where the estimates work."
+          },
+          {
+            "text": "So the map $g$ becomes linear",
+            "rationale": "Self mapping says nothing about linearity. What does it guarantee about where the iterates land?"
+          },
+          {
+            "text": "So the fixed point must equal zero",
+            "rationale": "The fixed point can be anywhere. What does staying inside the space ensure about the iterates?"
+          },
+          {
+            "text": "So the constant $k$ can exceed one",
+            "rationale": "A contraction always needs $k < 1$. What does the self mapping condition protect about the iteration?"
+          }
+        ]
+      }
+    ],
+    "9gos-d1v-2s": [
+      {
+        "id": "mp_9gos-d1v-2s_1",
+        "prompt": "Picard iteration first rewrites the problem $y' = f(x,y)$, $y(x_{0}) = y_{0}$ as which equivalent form?",
+        "hint": "Integrate both sides from $x_{0}$ to $x$ and use the initial condition to fix the constant.",
+        "answerOptions": [
+          {
+            "text": "The integral equation $y(x) = y_{0} + \\int_{x_{0}}^{x} f(t, y(t))\\,dt$",
+            "correct": true,
+            "rationale": "Yes. Integrating the derivative and applying the initial value gives this equivalent integral equation."
+          },
+          {
+            "text": "The algebraic relation $y(x) = y_{0} + f(x, y)$",
+            "rationale": "That has no integral and is not equivalent. What operation undoes the derivative across the interval?"
+          },
+          {
+            "text": "The equation $f(x, y) = 0$",
+            "rationale": "Setting $f$ to zero looks for equilibria, not the solution path. What form comes from integrating $y'$?"
+          },
+          {
+            "text": "The relation $y' = y_{0}$",
+            "rationale": "That replaces the rule with a constant, losing the equation. What equivalent integral form preserves it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_9gos-d1v-2s_2",
+        "prompt": "For $y' = y$ with $y(0) = 1$, take the zeroth iterate $\\varphi_{0} = 1$. What is the first Picard iterate $\\varphi_{1}(x)$?",
+        "hint": "Use $\\varphi_{1}(x) = 1 + \\int_{0}^{x} \\varphi_{0}(t)\\,dt$ with $\\varphi_{0} = 1$.",
+        "answerOptions": [
+          {
+            "text": "$1 + x$",
+            "correct": true,
+            "rationale": "Correct. $\\varphi_{1} = 1 + \\int_{0}^{x} 1\\,dt = 1 + x$."
+          },
+          {
+            "text": "$1$",
+            "rationale": "You must add the integral term. What is $\\int_{0}^{x} 1\\,dt$?"
+          },
+          {
+            "text": "$e^{x}$",
+            "rationale": "That is the final limit, not the first iterate. What does one integration of the constant $1$ give?"
+          },
+          {
+            "text": "$x$",
+            "rationale": "Do not drop the initial value $y_{0} = 1$. The formula starts with $1$ plus the integral. What is the sum?"
+          }
+        ]
+      },
+      {
+        "id": "mp_9gos-d1v-2s_3",
+        "prompt": "Continuing for $y' = y$, $y(0) = 1$ with $\\varphi_{1} = 1 + x$, what is the second iterate $\\varphi_{2}(x)$?",
+        "hint": "Compute $\\varphi_{2}(x) = 1 + \\int_{0}^{x} (1 + t)\\,dt$.",
+        "answerOptions": [
+          {
+            "text": "$1 + x + \\frac{x^{2}}{2}$",
+            "correct": true,
+            "rationale": "Correct. $\\int_{0}^{x}(1 + t)\\,dt = x + \\frac{x^{2}}{2}$, then add the leading $1$."
+          },
+          {
+            "text": "$1 + x$",
+            "rationale": "You integrated nothing new. Integrate $1 + t$ from $0$ to $x$ and add the leading $1$. What term appears?"
+          },
+          {
+            "text": "$1 + \\frac{x^{2}}{2}$",
+            "rationale": "Do not lose the linear term from integrating the constant $1$. What is $\\int_{0}^{x} 1\\,dt$?"
+          },
+          {
+            "text": "$1 + 2x$",
+            "rationale": "Integrating $t$ does not give $x$. What is $\\int_{0}^{x} t\\,dt$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_9gos-d1v-2s_4",
+        "prompt": "As $n \\to \\infty$ for $y' = y$, $y(0) = 1$, the Picard iterates converge to which function?",
+        "hint": "The iterates are the partial sums $1 + x + \\frac{x^{2}}{2} + \\cdots$. What familiar series is that?",
+        "answerOptions": [
+          {
+            "text": "$e^{x}$",
+            "correct": true,
+            "rationale": "Yes. The iterates build the Taylor series of $e^{x}$, the true solution."
+          },
+          {
+            "text": "$1 + x$",
+            "rationale": "That is only the first iterate. What function do the growing partial sums approach?"
+          },
+          {
+            "text": "A polynomial of fixed degree",
+            "rationale": "Each iterate adds another term forever. Does the limit stay polynomial, or become a known function?"
+          },
+          {
+            "text": "$x$",
+            "rationale": "The series starts at $1$ and never reduces to $x$ alone. What function has Taylor series $1 + x + \\frac{x^{2}}{2} + \\cdots$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_9gos-d1v-2s_5",
+        "prompt": "For $y' = x + y$ with $y(0) = 0$ and $\\varphi_{0} = 0$, compute the first Picard iterate $\\varphi_{1}(x)$.",
+        "hint": "Use $\\varphi_{1}(x) = 0 + \\int_{0}^{x} (t + \\varphi_{0}(t))\\,dt$ with $\\varphi_{0} = 0$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{x^{2}}{2}$",
+            "correct": true,
+            "rationale": "Correct. With $\\varphi_{0} = 0$, $\\varphi_{1} = \\int_{0}^{x} t\\,dt = \\frac{x^{2}}{2}$."
+          },
+          {
+            "text": "$x^{2}$",
+            "rationale": "Check the integral of $t$. Is $\\int_{0}^{x} t\\,dt$ equal to $x^{2}$ or half of that?"
+          },
+          {
+            "text": "$x$",
+            "rationale": "You integrated $t$, not a constant. What is $\\int_{0}^{x} t\\,dt$?"
+          },
+          {
+            "text": "$1 + \\frac{x^{2}}{2}$",
+            "rationale": "The initial value is $0$, not $1$, so no constant is added. What does the integral alone give?"
+          }
+        ]
+      }
+    ],
+    "fsbVJxOhRcU": [
+      {
+        "id": "mp_fsbVJxOhRcU_1",
+        "prompt": "The Picard Lindelof theorem proves existence and uniqueness using which main tool?",
+        "hint": "It turns the equation into a fixed point problem and applies a powerful theorem about contractions.",
+        "answerOptions": [
+          {
+            "text": "The Banach contraction principle applied to the Picard integral operator",
+            "correct": true,
+            "rationale": "Yes. The integral operator is a contraction, so Banach delivers a unique fixed point, the solution."
+          },
+          {
+            "text": "Eigenvalue decomposition of a matrix",
+            "rationale": "That belongs to linear systems. What principle about contractions powers this proof?"
+          },
+          {
+            "text": "The chain rule for derivatives",
+            "rationale": "The chain rule is a differentiation tool, not the engine of this proof. What fixed point principle is used?"
+          },
+          {
+            "text": "Partial fraction decomposition",
+            "rationale": "That is an integration technique for rational functions. What contraction based theorem proves the result?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsbVJxOhRcU_2",
+        "prompt": "What role does the Lipschitz condition on $f$ in the $y$ variable play?",
+        "hint": "The condition controls how much $f$ can change in $y$, which is what makes the operator shrink distances.",
+        "answerOptions": [
+          {
+            "text": "It makes the Picard operator a contraction, which secures uniqueness",
+            "correct": true,
+            "rationale": "Yes. A Lipschitz bound limits how fast $f$ varies in $y$, turning the operator into a contraction."
+          },
+          {
+            "text": "It guarantees the solution exists for all time",
+            "rationale": "Lipschitz control does not promise a global interval. What property of the operator does it provide?"
+          },
+          {
+            "text": "It forces $f$ to be linear in $y$",
+            "rationale": "Lipschitz is far weaker than linear. What does it ensure about the Picard operator?"
+          },
+          {
+            "text": "It removes the need for $f$ to be continuous",
+            "rationale": "Continuity is still needed for existence. What does the Lipschitz bound add about uniqueness?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsbVJxOhRcU_3",
+        "prompt": "The interval of guaranteed existence in the Picard Lindelof theorem is typically what?",
+        "hint": "The proof bounds $f$ over a rectangle, and those bounds set how far the solution is guaranteed to extend.",
+        "answerOptions": [
+          {
+            "text": "A possibly small interval determined by bounds on $f$ over a rectangle",
+            "correct": true,
+            "rationale": "Yes. The size depends on bounds for $f$ on a chosen rectangle, and may be short."
+          },
+          {
+            "text": "Always the entire real line",
+            "rationale": "The result is local. What sets the limit on how far it reaches?"
+          },
+          {
+            "text": "Exactly one unit wide every time",
+            "rationale": "No fixed width is promised. What quantity determines the interval length?"
+          },
+          {
+            "text": "Only the single point $x_{0}$",
+            "rationale": "A solution lives on an interval, not a point. What governs the width of that interval?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsbVJxOhRcU_4",
+        "prompt": "The function $f(x, y) = 3y$ is Lipschitz in $y$ with which constant $L$?",
+        "hint": "Find the smallest $L$ with $|f(x, y_{1}) - f(x, y_{2})| \\le L\\,|y_{1} - y_{2}|$.",
+        "answerOptions": [
+          {
+            "text": "$L = 3$",
+            "correct": true,
+            "rationale": "Correct. $|3y_{1} - 3y_{2}| = 3|y_{1} - y_{2}|$, so $L = 3$ works."
+          },
+          {
+            "text": "$L = 1$",
+            "rationale": "Factor the constant out of $|3y_{1} - 3y_{2}|$. What multiple of $|y_{1} - y_{2}|$ appears?"
+          },
+          {
+            "text": "$L = 0$",
+            "rationale": "A zero constant would mean $f$ does not change with $y$, but $3y$ clearly does. What is the coefficient?"
+          },
+          {
+            "text": "There is no Lipschitz constant",
+            "rationale": "This $f$ is perfectly linear in $y$. What constant bounds $|3y_{1} - 3y_{2}|$ over $|y_{1} - y_{2}|$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fsbVJxOhRcU_5",
+        "prompt": "Why is the integral formulation preferred over the differential one in the proof?",
+        "hint": "Integration is a smoothing, bounded operation, and it already carries the initial value inside it.",
+        "answerOptions": [
+          {
+            "text": "Integration is a smoothing, bounded operation suited to the contraction argument, and it builds in the initial condition",
+            "correct": true,
+            "rationale": "Yes. The integral operator is well behaved for the contraction estimates and encodes the starting value automatically."
+          },
+          {
+            "text": "Differentiation always diverges",
+            "rationale": "Differentiation does not diverge in general. What makes the integral form better behaved for the estimates?"
+          },
+          {
+            "text": "The derivative of the solution does not exist",
+            "rationale": "The solution is differentiable. Why is the integral form still more convenient for the proof?"
+          },
+          {
+            "text": "Integrals are always equal to zero",
+            "rationale": "Integrals are generally nonzero. What useful properties of the integral operator does the proof rely on?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_3_1",
+      "prompt": "For $\\frac{dy}{dx} = f(x,y)$, a slope field places at each point of the plane which object?",
+      "hint": "A derivative value is a slope. What geometric mark carries a slope at a point?",
+      "answerOptions": [
+        {
+          "text": "A short segment whose slope equals $f(x,y)$ there",
+          "correct": true,
+          "rationale": "Yes. The rule assigns a slope, drawn as a tiny tangent segment at each point."
+        },
+        {
+          "text": "A point at height $f(x,y)$",
+          "rationale": "A slope is not a height. What does a derivative value represent geometrically?"
+        },
+        {
+          "text": "The area under the curve up to that point",
+          "rationale": "Area comes from integration. What does $f(x,y)$ describe directly at the point?"
+        },
+        {
+          "text": "A circle of radius $f(x,y)$",
+          "rationale": "The field encodes direction, not size. What single feature does a derivative set at a point?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_2",
+      "prompt": "For $\\frac{dy}{dx} = x - y$, what is the slope of the field at $(2, 1)$?",
+      "hint": "Substitute the coordinates into $x - y$.",
+      "answerOptions": [
+        {
+          "text": "$1$",
+          "correct": true,
+          "rationale": "Correct. $f(2,1) = 2 - 1 = 1$."
+        },
+        {
+          "text": "$3$",
+          "rationale": "That is $x + y$. Re read the sign between the terms. Are they added or subtracted?"
+        },
+        {
+          "text": "$-1$",
+          "rationale": "Check the order. Is it $x - y$ or $y - x$?"
+        },
+        {
+          "text": "$2$",
+          "rationale": "That uses only $x$. The rule subtracts $y$ as well. What is $2 - 1$?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_3",
+      "prompt": "For $\\frac{dy}{dx} = x - y$, the isocline of slope $0$ is which line?",
+      "hint": "Set $x - y = 0$ and solve for $y$.",
+      "answerOptions": [
+        {
+          "text": "$y = x$",
+          "correct": true,
+          "rationale": "Correct. $x - y = 0$ gives $y = x$, where every segment is flat."
+        },
+        {
+          "text": "$y = -x$",
+          "rationale": "Watch the sign solving $x - y = 0$. Does $y$ equal $x$ or its negative?"
+        },
+        {
+          "text": "$x = 0$",
+          "rationale": "That fixes only $x$. The condition links both variables. What line is it?"
+        },
+        {
+          "text": "$y = 0$",
+          "rationale": "Setting $y = 0$ does not satisfy $x - y = 0$ generally. Solve the full equation."
+        }
+      ]
+    },
+    {
+      "id": "um_3_4",
+      "prompt": "An integral curve of a slope field is best described as what?",
+      "hint": "Think about how a solution relates to the segments along its path.",
+      "answerOptions": [
+        {
+          "text": "A solution curve tangent to the field segments at every point it crosses",
+          "correct": true,
+          "rationale": "Yes. The curve matches the prescribed slope everywhere it goes."
+        },
+        {
+          "text": "A curve where the slope is always zero",
+          "rationale": "That is one special isocline. Does a general solution stay flat everywhere?"
+        },
+        {
+          "text": "The vertical line where $f$ is undefined",
+          "rationale": "Solutions are generally not vertical lines. What must the curve do with the segments?"
+        },
+        {
+          "text": "The set of points where $f(x,y) = 1$",
+          "rationale": "That is a single isocline. What relationship does a solution keep with the segments throughout?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_5",
+      "prompt": "If $\\frac{dy}{dx}$ depends only on $y$, how do the slopes of the field behave?",
+      "hint": "Ask which variable the rule ignores, and along which lines that variable stays fixed.",
+      "answerOptions": [
+        {
+          "text": "They are constant along horizontal lines, the same for all $x$ at a fixed $y$",
+          "correct": true,
+          "rationale": "Yes. Ignoring $x$ means equal slopes at equal heights."
+        },
+        {
+          "text": "They are constant along vertical lines",
+          "rationale": "Vertical lines fix $x$, but the rule uses $y$. Which lines hold $y$ constant?"
+        },
+        {
+          "text": "They are zero everywhere",
+          "rationale": "An autonomous rule is not always zero. It only ignores $x$. What stays constant as $x$ varies?"
+        },
+        {
+          "text": "They increase as $x$ increases",
+          "rationale": "The rule does not see $x$ at all. Along which direction is the slope unchanged?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_6",
+      "prompt": "For $\\frac{dy}{dx} = y - x^{2}$, the isocline of slope $1$ is which curve?",
+      "hint": "Set $y - x^{2} = 1$ and solve for $y$.",
+      "answerOptions": [
+        {
+          "text": "$y = x^{2} + 1$",
+          "correct": true,
+          "rationale": "Correct. $y - x^{2} = 1$ rearranges to $y = x^{2} + 1$."
+        },
+        {
+          "text": "$y = x^{2} - 1$",
+          "rationale": "Move the constant carefully. Add or subtract $1$ when solving $y - x^{2} = 1$?"
+        },
+        {
+          "text": "$y = x^{2}$",
+          "rationale": "That is the isocline of slope zero. What constant should the expression equal for slope one?"
+        },
+        {
+          "text": "$y = 1 - x^{2}$",
+          "rationale": "Check the sign on $x^{2}$ after isolating $y$. Is it added or subtracted?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_7",
+      "prompt": "In the phase plane of a system, a single point represents what?",
+      "hint": "The axes are dependent variables, not time. What does one choice of those values describe?",
+      "answerOptions": [
+        {
+          "text": "A complete state of the system at one instant",
+          "correct": true,
+          "rationale": "Yes. The coordinates fix every dependent variable at a moment."
+        },
+        {
+          "text": "The value of time $t$",
+          "rationale": "Time is not plotted in the phase plane. What do the axes measure?"
+        },
+        {
+          "text": "A slope of the solution",
+          "rationale": "A point is a location, not a slope. What do its coordinates record?"
+        },
+        {
+          "text": "The energy of the system",
+          "rationale": "Energy is a derived quantity. What do the raw coordinates directly give?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_8",
+      "prompt": "For the system $x' = y$, $y' = -x$, the equilibrium point is where?",
+      "hint": "Set both right sides to zero and solve together.",
+      "answerOptions": [
+        {
+          "text": "$(0, 0)$",
+          "correct": true,
+          "rationale": "Correct. $y = 0$ and $-x = 0$ force the origin."
+        },
+        {
+          "text": "$(1, 1)$",
+          "rationale": "Test it in $x' = y$. Is the derivative zero there?"
+        },
+        {
+          "text": "$(0, 1)$",
+          "rationale": "Check $x' = y$ at this point. Is it zero when $y = 1$?"
+        },
+        {
+          "text": "There is none",
+          "rationale": "Can both $y = 0$ and $x = 0$ hold at once? What point is that?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_9",
+      "prompt": "For $x' = x - y$, $y' = x + y$, the $x$ nullcline (where $x' = 0$) is which line?",
+      "hint": "Set the $x'$ expression to zero and solve.",
+      "answerOptions": [
+        {
+          "text": "$y = x$",
+          "correct": true,
+          "rationale": "Correct. $x - y = 0$ gives $y = x$."
+        },
+        {
+          "text": "$y = -x$",
+          "rationale": "Mind the sign in $x - y = 0$. Does $y$ equal $x$ or its negative?"
+        },
+        {
+          "text": "$x = 0$",
+          "rationale": "That uses one variable only. The condition relates both. What line results?"
+        },
+        {
+          "text": "$y = 0$",
+          "rationale": "Setting $y = 0$ does not satisfy $x - y = 0$ in general. Solve it fully."
+        }
+      ]
+    },
+    {
+      "id": "um_3_10",
+      "prompt": "A phase portrait is best described as what?",
+      "hint": "It is a picture showing the overall landscape, not just one path.",
+      "answerOptions": [
+        {
+          "text": "A representative collection of trajectories drawn in the phase plane",
+          "correct": true,
+          "rationale": "Yes. Several orbits together reveal the global behavior."
+        },
+        {
+          "text": "A single trajectory through one point",
+          "rationale": "One curve is one history. What does a portrait gather?"
+        },
+        {
+          "text": "A graph of one variable against time",
+          "rationale": "That is a time plot. What does the portrait collect in the phase plane?"
+        },
+        {
+          "text": "A list of equilibrium points only",
+          "rationale": "Equilibria are part of it, but the portrait shows motion too. What does it assemble?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_11",
+      "prompt": "If both eigenvalues of a linear system are real and positive, the origin is what type?",
+      "hint": "Positive growth rates push solutions away.",
+      "answerOptions": [
+        {
+          "text": "An unstable node, a source",
+          "correct": true,
+          "rationale": "Yes. Trajectories grow away along both eigendirections."
+        },
+        {
+          "text": "A stable node",
+          "rationale": "Stability needs decay. What do positive growth rates do?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "A saddle needs opposite signs. What happens when both are positive?"
+        },
+        {
+          "text": "A center",
+          "rationale": "A center comes from imaginary eigenvalues. What do two positive reals give?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_12",
+      "prompt": "A saddle point at the origin occurs when the eigenvalues are which kind?",
+      "hint": "A saddle pulls in along one direction and pushes out along another.",
+      "answerOptions": [
+        {
+          "text": "Real with opposite signs",
+          "correct": true,
+          "rationale": "Yes. One negative direction draws in, one positive pushes out."
+        },
+        {
+          "text": "Both negative",
+          "rationale": "Two negatives pull everything in. Where is the outward direction?"
+        },
+        {
+          "text": "Both positive",
+          "rationale": "Two positives push everything out. Where is the inward direction?"
+        },
+        {
+          "text": "Purely imaginary",
+          "rationale": "Those give closed orbits. What sign pattern makes one inflow and one outflow?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_13",
+      "prompt": "For the linear system $x' = y$, $y' = -x$ with eigenvalues $\\pm i$, the origin is what?",
+      "hint": "Purely imaginary eigenvalues mean rotation with no growth or decay.",
+      "answerOptions": [
+        {
+          "text": "A center, with closed orbits around the origin",
+          "correct": true,
+          "rationale": "Yes. No real part means constant amplitude, so orbits close."
+        },
+        {
+          "text": "A stable spiral",
+          "rationale": "A spiral needs a negative real part. What is the real part of $\\pm i$?"
+        },
+        {
+          "text": "A saddle",
+          "rationale": "A saddle needs real eigenvalues of opposite sign. What do imaginary ones give?"
+        },
+        {
+          "text": "An unstable node",
+          "rationale": "A node comes from real eigenvalues. What motion do imaginary ones produce?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_14",
+      "prompt": "For the decoupled system $x' = -2x$, $y' = -5y$, what are the eigenvalues, and what is the origin?",
+      "hint": "The coefficient matrix is diagonal, so read the eigenvalues off the coefficients, then note both signs.",
+      "answerOptions": [
+        {
+          "text": "$-2$ and $-5$, a stable node",
+          "correct": true,
+          "rationale": "Yes. Both eigenvalues are negative, so trajectories decay into the origin."
+        },
+        {
+          "text": "$-2$ and $-5$, an unstable node",
+          "rationale": "Negative eigenvalues mean decay. Does that push out or pull in?"
+        },
+        {
+          "text": "$2$ and $5$, a stable node",
+          "rationale": "Check the signs on the diagonal. Are the entries positive or negative?"
+        },
+        {
+          "text": "$-2$ and $-5$, a saddle",
+          "rationale": "A saddle needs opposite signs. Are both of these the same sign?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_15",
+      "prompt": "The existence and uniqueness theorem guarantees a unique solution near $(x_{0}, y_{0})$ when which conditions hold?",
+      "hint": "Two continuity conditions, one on $f$ and one on a partial derivative.",
+      "answerOptions": [
+        {
+          "text": "Both $f$ and $\\frac{\\partial f}{\\partial y}$ are continuous on a rectangle containing the point",
+          "correct": true,
+          "rationale": "Yes. Continuity of $f$ gives existence and continuity of the derivative gives uniqueness."
+        },
+        {
+          "text": "Only $f$ is defined at the point",
+          "rationale": "One point tells you nothing about nearby behavior. What must hold on a rectangle?"
+        },
+        {
+          "text": "The equation is separable",
+          "rationale": "Separability is not required. What two continuity conditions does the theorem use?"
+        },
+        {
+          "text": "The initial value is positive",
+          "rationale": "The sign of $y_{0}$ is irrelevant. What continuity conditions matter?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_16",
+      "prompt": "If $f$ is continuous near a point but $\\frac{\\partial f}{\\partial y}$ is not, what does the theorem still guarantee?",
+      "hint": "Separate the two conclusions. One follows from continuity of $f$ alone.",
+      "answerOptions": [
+        {
+          "text": "At least one solution exists, though uniqueness may fail",
+          "correct": true,
+          "rationale": "Yes. Continuity of $f$ secures existence by itself."
+        },
+        {
+          "text": "Uniqueness but not existence",
+          "rationale": "Continuity of $f$ is the existence condition. Which conclusion needs the derivative condition?"
+        },
+        {
+          "text": "Both existence and uniqueness",
+          "rationale": "A hypothesis is missing. Which conclusion depends on $\\frac{\\partial f}{\\partial y}$?"
+        },
+        {
+          "text": "Neither",
+          "rationale": "Continuity of $f$ still buys something. Which conclusion survives?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_17",
+      "prompt": "For $y' = y^{1/3}$ with $y(0) = 0$, uniqueness fails at the origin because of which fact?",
+      "hint": "Examine $\\frac{\\partial f}{\\partial y}$ near $y = 0$.",
+      "answerOptions": [
+        {
+          "text": "$\\frac{\\partial f}{\\partial y} = \\frac{1}{3} y^{-2/3}$ is not continuous at $y = 0$",
+          "correct": true,
+          "rationale": "Yes. The derivative condition breaks at the origin, so uniqueness is lost."
+        },
+        {
+          "text": "$f$ itself is discontinuous at $0$",
+          "rationale": "Check $f = y^{1/3}$ at $0$. Is it the function or its derivative that misbehaves?"
+        },
+        {
+          "text": "The starting value is negative",
+          "rationale": "It is zero, not negative. Which quantity fails to be continuous?"
+        },
+        {
+          "text": "The equation has no solution at all",
+          "rationale": "At least $y = 0$ solves it. What fails is uniqueness. Why?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_18",
+      "prompt": "For $y' = \\frac{x}{y - 1}$, where does the theorem fail to guarantee a unique solution?",
+      "hint": "Find where the denominator vanishes.",
+      "answerOptions": [
+        {
+          "text": "Along the line $y = 1$",
+          "correct": true,
+          "rationale": "Yes. The denominator is zero there, so $f$ and its derivative are not continuous."
+        },
+        {
+          "text": "Along $x = 0$",
+          "rationale": "At $x = 0$ the function is well behaved. Where does the denominator cause trouble?"
+        },
+        {
+          "text": "At the origin only",
+          "rationale": "It is a whole line, not one point. Which $y$ makes the denominator zero?"
+        },
+        {
+          "text": "Nowhere",
+          "rationale": "Look at $y - 1$. What value of $y$ makes the expression blow up?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_19",
+      "prompt": "In a region where the hypotheses hold, what does uniqueness imply about two distinct solution curves?",
+      "hint": "A shared point would mean two solutions through it. What does that contradict?",
+      "answerOptions": [
+        {
+          "text": "They cannot cross there",
+          "correct": true,
+          "rationale": "Yes. A crossing would violate the one solution per point guarantee."
+        },
+        {
+          "text": "They may cross at right angles",
+          "rationale": "The angle is irrelevant. What does a shared point imply?"
+        },
+        {
+          "text": "They must be parallel",
+          "rationale": "Solutions need not be parallel. What is forbidden is intersection. Why?"
+        },
+        {
+          "text": "They can touch but not cross",
+          "rationale": "Even touching is a shared point. What does uniqueness forbid entirely?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_20",
+      "prompt": "For the linear problem $y' + p(x) y = q(x)$ with $p$ and $q$ continuous on an interval $I$ containing $x_{0}$, the solution exists and is unique on which set?",
+      "hint": "The linear theorem gives a global guarantee across the interval of continuity.",
+      "answerOptions": [
+        {
+          "text": "The entire interval $I$",
+          "correct": true,
+          "rationale": "Yes. The unique solution extends across the whole interval where the coefficients are continuous."
+        },
+        {
+          "text": "Only a small neighborhood of $x_{0}$",
+          "rationale": "That is the weaker general result. What does linearity give over $I$?"
+        },
+        {
+          "text": "Only where $q(x) = 0$",
+          "rationale": "The forcing term may be nonzero. Where does continuity of the coefficients let the solution live?"
+        },
+        {
+          "text": "Nowhere guaranteed",
+          "rationale": "Continuity of $p$ and $q$ guarantees a lot here. Over what set?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_21",
+      "prompt": "A fixed point of a function $g$ satisfies which equation?",
+      "hint": "A fixed point is left unchanged by $g$.",
+      "answerOptions": [
+        {
+          "text": "$g(x^{*}) = x^{*}$",
+          "correct": true,
+          "rationale": "Yes. Applying $g$ returns the same value."
+        },
+        {
+          "text": "$g'(x^{*}) = 0$",
+          "rationale": "That is a critical point about slope. What does a fixed point require of the value?"
+        },
+        {
+          "text": "$g(x^{*}) = 0$",
+          "rationale": "That is a root. A fixed point asks the output to match what?"
+        },
+        {
+          "text": "$x^{*} = 1$",
+          "rationale": "Fixed points are not tied to a specific number. What relation defines them?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_22",
+      "prompt": "Find the fixed point of $g(x) = \\frac{x}{3} + 2$.",
+      "hint": "Set $g(x) = x$ and solve.",
+      "answerOptions": [
+        {
+          "text": "$x = 3$",
+          "correct": true,
+          "rationale": "Correct. $x = \\frac{x}{3} + 2$ gives $\\frac{2x}{3} = 2$, so $x = 3$."
+        },
+        {
+          "text": "$x = 2$",
+          "rationale": "The constant alone is not the answer. Solve $\\frac{2x}{3} = 2$ for $x$."
+        },
+        {
+          "text": "$x = 6$",
+          "rationale": "Recheck the algebra. After $\\frac{2x}{3} = 2$, what is $x$?"
+        },
+        {
+          "text": "$x = 0$",
+          "rationale": "Test $x = 0$ in $g$. Does it return $0$? Solve $g(x) = x$ instead."
+        }
+      ]
+    },
+    {
+      "id": "um_3_23",
+      "prompt": "A fixed point $x^{*}$ of $x_{n+1} = g(x_{n})$ is attracting when which condition holds?",
+      "hint": "Nearby points should move closer each step, controlled by the steepness of $g$.",
+      "answerOptions": [
+        {
+          "text": "$|g'(x^{*})| < 1$",
+          "correct": true,
+          "rationale": "Yes. A slope magnitude below one shrinks distances toward the point."
+        },
+        {
+          "text": "$|g'(x^{*})| > 1$",
+          "rationale": "A larger slope stretches distances. Does that attract or repel?"
+        },
+        {
+          "text": "$g'(x^{*}) = 1$",
+          "rationale": "At exactly one the behavior is borderline, not attracting in general. What range pulls points in?"
+        },
+        {
+          "text": "$g(x^{*}) = 0$",
+          "rationale": "That is about the value, not the slope. What must $|g'(x^{*})|$ satisfy?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_24",
+      "prompt": "For $g(x) = x^{2}$, classify the stability of its fixed points.",
+      "hint": "Solve $x = x^{2}$, then test $|g'(x)| = |2x|$ at each.",
+      "answerOptions": [
+        {
+          "text": "$x = 0$ is attracting and $x = 1$ is repelling",
+          "correct": true,
+          "rationale": "Yes. $|g'(0)| = 0 < 1$ attracts and $|g'(1)| = 2 > 1$ repels."
+        },
+        {
+          "text": "Both are attracting",
+          "rationale": "Evaluate $|2x|$ at each fixed point. Is it below one at both?"
+        },
+        {
+          "text": "Both are repelling",
+          "rationale": "Check $|g'(0)|$. Is the slope at the origin above one?"
+        },
+        {
+          "text": "$x = 1$ attracting and $x = 0$ repelling",
+          "rationale": "You may have swapped them. Compare $|2 \\cdot 0|$ and $|2 \\cdot 1|$ to one."
+        }
+      ]
+    },
+    {
+      "id": "um_3_25",
+      "prompt": "Graphically, the fixed points of $g$ lie where which two graphs meet?",
+      "hint": "A fixed point has output equal to input. Which line encodes that?",
+      "answerOptions": [
+        {
+          "text": "The graph of $y = g(x)$ and the line $y = x$",
+          "correct": true,
+          "rationale": "Yes. On $y = x$ the output equals the input."
+        },
+        {
+          "text": "The graph of $g$ and the $x$ axis",
+          "rationale": "That marks roots, where $g = 0$. Which line means output equals input?"
+        },
+        {
+          "text": "The graph of $g$ and the $y$ axis",
+          "rationale": "That gives the intercept only. Which line captures the fixed point condition?"
+        },
+        {
+          "text": "The graph of $g$ and its tangent line",
+          "rationale": "A tangent does not define fixed points. Which line means input equals output?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_26",
+      "prompt": "A function $g$ is a contraction if there is a constant $0 \\le k < 1$ with which property for all $x$ and $y$?",
+      "hint": "A contraction shrinks the distance between any two points by a fixed factor.",
+      "answerOptions": [
+        {
+          "text": "$|g(x) - g(y)| \\le k\\,|x - y|$",
+          "correct": true,
+          "rationale": "Yes. Outputs are closer than inputs by the factor $k < 1$."
+        },
+        {
+          "text": "$|g(x) - g(y)| \\ge k\\,|x - y|$",
+          "rationale": "That preserves or grows distances. A contraction does the opposite. Which way is the inequality?"
+        },
+        {
+          "text": "$|g(x) - g(y)| = |x - y|$",
+          "rationale": "Equality means distances are preserved, the borderline case. What strict shrinking does a contraction need?"
+        },
+        {
+          "text": "$|g(x)| \\le k$ for all $x$",
+          "rationale": "That bounds values, not distances between pairs. What does a contraction control?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_27",
+      "prompt": "The Banach fixed point theorem guarantees what for a contraction on a complete space?",
+      "hint": "It speaks to how many fixed points exist and from where the iteration converges.",
+      "answerOptions": [
+        {
+          "text": "Exactly one fixed point, reached by iteration from any start",
+          "correct": true,
+          "rationale": "Yes. A unique fixed point exists and every start converges to it."
+        },
+        {
+          "text": "At least one fixed point, possibly several",
+          "rationale": "A contraction cannot have two. Why does uniqueness follow?"
+        },
+        {
+          "text": "Convergence only from nearby starts",
+          "rationale": "Convergence is global on a complete space. From which starts does it converge?"
+        },
+        {
+          "text": "A fixed point only if $g$ is linear",
+          "rationale": "Linearity is not required. What does the contraction property alone provide?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_28",
+      "prompt": "Picard iteration rewrites $y' = f(x,y)$, $y(x_{0}) = y_{0}$ as which equivalent equation?",
+      "hint": "Integrate from $x_{0}$ to $x$ and apply the initial condition.",
+      "answerOptions": [
+        {
+          "text": "$y(x) = y_{0} + \\int_{x_{0}}^{x} f(t, y(t))\\,dt$",
+          "correct": true,
+          "rationale": "Yes. Integrating the derivative and using the initial value gives this integral equation."
+        },
+        {
+          "text": "$y(x) = y_{0} + f(x, y)$",
+          "rationale": "That has no integral and is not equivalent. What operation undoes the derivative?"
+        },
+        {
+          "text": "$f(x, y) = 0$",
+          "rationale": "That seeks equilibria, not the solution. What integral form preserves the equation?"
+        },
+        {
+          "text": "$y(x) = y_{0} \\cdot f(x, y)$",
+          "rationale": "There is no product here. What comes from integrating both sides?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_29",
+      "prompt": "For $y' = y$, $y(0) = 1$, with $\\varphi_{0} = 1$, what is the first Picard iterate $\\varphi_{1}(x)$?",
+      "hint": "Compute $1 + \\int_{0}^{x} 1\\,dt$.",
+      "answerOptions": [
+        {
+          "text": "$1 + x$",
+          "correct": true,
+          "rationale": "Correct. $\\varphi_{1} = 1 + \\int_{0}^{x} 1\\,dt = 1 + x$."
+        },
+        {
+          "text": "$e^{x}$",
+          "rationale": "That is the final limit, not the first iterate. What does one integration of $1$ give?"
+        },
+        {
+          "text": "$1$",
+          "rationale": "You must add the integral term. What is $\\int_{0}^{x} 1\\,dt$?"
+        },
+        {
+          "text": "$x$",
+          "rationale": "Do not drop the initial value $1$. The formula adds it to the integral. What is the sum?"
+        }
+      ]
+    },
+    {
+      "id": "um_3_30",
+      "prompt": "The Picard Lindelof theorem proves existence and uniqueness using which tool, with which condition on $f$ ensuring uniqueness?",
+      "hint": "A contraction principle drives the proof, and a bound on how fast $f$ varies in $y$ gives uniqueness.",
+      "answerOptions": [
+        {
+          "text": "The Banach contraction principle, with a Lipschitz condition on $f$ in $y$",
+          "correct": true,
+          "rationale": "Yes. The Picard operator is a contraction once $f$ is Lipschitz in $y$, giving a unique solution."
+        },
+        {
+          "text": "Eigenvalue decomposition, with $f$ linear",
+          "rationale": "That belongs to linear systems and is not needed. What principle and condition does Picard Lindelof use?"
+        },
+        {
+          "text": "The chain rule, with $f$ differentiable in $x$",
+          "rationale": "The chain rule is not the engine. What contraction based tool and condition apply?"
+        },
+        {
+          "text": "Separation of variables, with $f$ separable",
+          "rationale": "Separability is not required. What general principle and Lipschitz condition power the proof?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

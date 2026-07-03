@@ -39,7 +39,7 @@ import os
 # Paths are resolved relative to the repository root (the script's parent dir).
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PREAMBLE_INPUT = "ode/assets/markdowns/preamble.tex"
-MARKDOWNS_DIR = os.path.join(REPO_ROOT, "app", "assets", "markdowns")
+MARKDOWNS_DIR = os.path.join(REPO_ROOT, "ode", "assets", "markdowns")
 
 # Per-mode output filename suffix.
 ASSET_SUFFIX = {
@@ -360,26 +360,25 @@ RENDERERS = {"cheat": render_cheat, "practice": render_practice, "master": rende
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
-def resolve_data_path(unit: int, explicit: str | None) -> str:
-    if explicit:
-        return explicit if os.path.isabs(explicit) else os.path.join(REPO_ROOT, explicit)
-    # Prefer scripts/unit{N}_data.json; fall back to a repo-root copy (e.g. unit 13).
-    scripts_path = os.path.join(REPO_ROOT, "scripts", f"unit{unit}_data.json")
-    root_path = os.path.join(REPO_ROOT, f"unit{unit}_data.json")
-    return scripts_path if os.path.exists(scripts_path) else root_path
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Render a Unit's LaTeX asset from its curriculum JSON.")
+    parser = argparse.ArgumentParser(description="Render a Unit's LaTeX asset from its canonical content package.")
     parser.add_argument("--unit", type=int, default=14, help="Unit number (default: 14).")
     parser.add_argument("--mode", choices=RENDERERS, default="master", help="Which asset to emit.")
-    parser.add_argument("--data", default=None, help="Path to the unit data JSON (default: scripts/unit{N}_data.json).")
+    parser.add_argument("--data", default=None,
+                        help="Escape hatch: render from a legacy unitN_data.json file "
+                             "instead of content/units/unit-NN/.")
     parser.add_argument("--out", default=None, help="Override output .tex path.")
     args = parser.parse_args()
 
-    data_path = resolve_data_path(args.unit, args.data)
-    with open(data_path, encoding="utf-8") as fh:
-        data = json.load(fh)
+    if args.data:
+        data_path = args.data if os.path.isabs(args.data) else os.path.join(REPO_ROOT, args.data)
+        with open(data_path, encoding="utf-8") as fh:
+            data = json.load(fh)
+        source = os.path.relpath(data_path, REPO_ROOT)
+    else:
+        import content_loader
+        data = content_loader.load_unit_legacy(args.unit)
+        source = f"content/units/unit-{args.unit:02d}/"
 
     tex = RENDERERS[args.mode](data)
 
@@ -389,7 +388,7 @@ def main() -> None:
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as fh:
         fh.write(tex)
-    print(f"[{args.mode}] wrote {out_path} (from {os.path.relpath(data_path, REPO_ROOT)})")
+    print(f"[{args.mode}] wrote {out_path} (from {source})")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Build the web PRACTICE_DATA store for all curriculum units.
+"""RETIRED (2026-07-03, Content API v1). Superseded by scripts/compile_web.py,
+which compiles PRACTICE_DATA (and everything else) from the canonical content/
+tree. Its web_clean sanitizer lives on, ported faithfully, as compile_web.web_lower.
+Kept for reference only; refuses to run.
+
+Original docstring follows.
+
+Build the web PRACTICE_DATA store for all curriculum units.
 
 Dev-time tool (like render_latex.py). It mines each unit's practice block --
 problems + complete solutions -- and sanitizes the PDF-LaTeX into the web-clean
@@ -248,4 +255,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(
+        "RETIRED: build_practice_data.py is superseded by scripts/compile_web.py "
+        "(compiles from the canonical content/ tree). See docs/content-api/CONTENT_API_SPEC.md.")

@@ -1,0 +1,326 @@
+{
+  "unitNumber": 16,
+  "title": "Phase Plane Analysis and Nonlinear Dynamics",
+  "subtitle": "Equilibria, Jacobian Linearization, and the Geometry of Flows",
+  "description": "A planar system x'=f(x,y), y'=g(x,y) is studied geometrically in the phase plane rather than solved in closed form. For a linear system x'=Ax the eigenvalues of A classify the single equilibrium at the origin into nodes, saddles, spirals, and centers, read off instantly from the trace tau=tr A and determinant Delta=det A. A nonlinear system is understood one equilibrium at a time: its fixed points are the intersections of the nullclines f=0 and g=0, and near each fixed point the Jacobian matrix J(x,y) = [[f_x, f_y],[g_x, g_y]] is the best linear approximation of the flow. Evaluating J at a fixed point and finding its eigenvalues classifies local stability (the Hartman-Grobman theorem makes this rigorous at hyperbolic fixed points). Stitching the local pictures together along the nullclines yields the global nonlinear phase portrait, illustrated by the undamped pendulum and the Lotka-Volterra predator-prey model.",
+  "atAGlance": {
+    "title": "Unit 16 at a Glance: Reading the Geometry of Dynamics",
+    "summary": "When a system $\\mathbf{x}'=\\mathbf{F}(\\mathbf{x})$ cannot be solved in closed form, you can still \\emph{draw} its behavior. The phase plane plots trajectories in the $xy$-state space; the long-run picture is organized entirely by the \\highlight{equilibria} and what the flow does near each one. For a \\emph{linear} system the eigenvalues of $A$ settle the question outright. For a \\emph{nonlinear} system you zoom in on each fixed point and replace $\\mathbf{F}$ by its \\highlight{best linear approximation}, the Jacobian $J=\\left(\\begin{smallmatrix} f_x & f_y \\\\ g_x & g_y \\end{smallmatrix}\\right)$ --- linearization turns an intractable nonlinear problem back into the eigenvalue analysis of Unit 15.",
+    "bullets": [
+      {
+        "lead": "Phase portraits",
+        "body": "trajectories of $\\mathbf{x}'=A\\mathbf{x}$ live in the $x_1x_2$-plane; straight-line orbits run along the eigenvectors of $A$."
+      },
+      {
+        "lead": "Classification",
+        "body": "the eigenvalues, equivalently the trace $\\tau$ and determinant $\\Delta$, sort the origin into a \\emph{node}, \\emph{saddle}, \\emph{spiral}, or \\emph{center}."
+      },
+      {
+        "lead": "Linearization",
+        "body": "near a fixed point $(x_*,y_*)$ a nonlinear system behaves like $\\mathbf{u}'=J(x_*,y_*)\\mathbf{u}$, where $J$ is the Jacobian of best linear approximation."
+      },
+      {
+        "lead": "Nullclines",
+        "body": "the curves $f=0$ and $g=0$ locate every fixed point at their intersections and partition the plane into regions of definite flow direction."
+      },
+      {
+        "lead": "Nonlinear portraits",
+        "body": "classify each equilibrium by the eigenvalues of $J$ there, then stitch the local pictures together; the pendulum and Lotka--Volterra are the canonical examples."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "16.1",
+      "title": "Phase Portraits of Linear Systems",
+      "topics": "The phase plane and trajectories (orbits); the equilibrium of $\\mathbf{x}'=A\\mathbf{x}$ at the origin; straight-line solutions along the eigenvectors; eliminating time to get the orbit slope $dy/dx=g/f$.",
+      "formulas": [
+        {
+          "title": "The Planar System and Its Equilibrium",
+          "body": "\\mathbf{x}' = A\\mathbf{x}, \\quad \\mathbf{x}=\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}; \\qquad A\\mathbf{x}=\\mathbf{0} \\;\\Rightarrow\\; \\mathbf{x}=\\mathbf{0} \\ \\text{ is the only equilibrium when } \\det A\\neq 0."
+        },
+        {
+          "title": "Straight-Line Trajectories (Eigendirections)",
+          "body": "A\\mathbf{v}=\\lambda\\mathbf{v} \\;\\Rightarrow\\; \\mathbf{x}(t)=c\\,e^{\\lambda t}\\mathbf{v} \\ \\text{ rides the line } \\operatorname{span}\\{\\mathbf{v}\\}: \\ \\text{inward if } \\lambda<0,\\ \\text{outward if } \\lambda>0."
+        },
+        {
+          "title": "The Orbit Equation (Time Eliminated)",
+          "body": "\\frac{dy}{dx} = \\frac{dy/dt}{dx/dt} = \\frac{g(x,y)}{f(x,y)} \\quad \\text{gives the trajectory shape without solving for } t."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Sketch a Linear Phase Portrait",
+        "steps": [
+          "Locate the equilibrium: solve $A\\mathbf{x}=\\mathbf{0}$ (the origin, when $\\det A\\neq 0$).",
+          "Find the eigenvalues and eigenvectors of $A$; draw the eigenvector lines as the skeleton of the portrait.",
+          "Mark the flow direction on each eigenline: arrows point inward where $\\lambda<0$, outward where $\\lambda>0$.",
+          "Fill in the generic trajectories so they follow the fast eigendirection (larger $|\\lambda|$) far out and bend along the slow one near the origin."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- A Saddle from Two Real Eigenvalues",
+          "setup": "Sketch the phase portrait of $\\mathbf{x}'=A\\mathbf{x}$ for $A=\\begin{pmatrix} 1 & 1 \\\\ 4 & 1 \\end{pmatrix}$.",
+          "steps": [
+            "\\det(A-\\lambda I) = (1-\\lambda)^2 - 4 = \\lambda^2 - 2\\lambda - 3 = (\\lambda-3)(\\lambda+1) \\;\\Rightarrow\\; \\lambda_1=3,\\ \\lambda_2=-1.",
+            "\\lambda_1=3:\\ (A-3I)\\mathbf{v}=\\begin{pmatrix} -2 & 1 \\\\ 4 & -2 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\;\\Rightarrow\\; \\mathbf{v}_1=(1,\\,2).",
+            "\\lambda_2=-1:\\ (A+I)\\mathbf{v}=\\begin{pmatrix} 2 & 1 \\\\ 4 & 2 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\;\\Rightarrow\\; \\mathbf{v}_2=(1,\\,-2).",
+            "\\text{Opposite signs} \\Rightarrow \\strong{saddle}: \\ \\text{out along } (1,2)\\ (\\lambda=3),\\ \\text{in along } (1,-2)\\ (\\lambda=-1).",
+            "\\mathbf{x}(t)=c_1 e^{3t}(1,2)+c_2 e^{-t}(1,-2): \\ \\text{orbits hug } (1,-2),\\ \\text{then peel off along } (1,2)."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A linear phase portrait is built from its \\highlight{eigendirections}. The eigenvectors are the invariant lines of the flow, the \\emph{sign} of each eigenvalue says inward or outward, and the \\emph{magnitude} says fast or slow. Everything else is filled in between these straight-line orbits, so two eigenpairs determine the whole picture."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "A phase portrait is \\warn{not} a graph of $x$ versus $t$. It plots $x_1$ against $x_2$, with $t$ a hidden parameter sliding \\emph{along} each curve --- so you must add \\warn{direction arrows}; the bare curves alone do not say which way time runs."
+      }
+    },
+    {
+      "id": "16.2",
+      "title": "Sources, Sinks, Saddles, Spirals, and Centers",
+      "topics": "Classifying the origin of $\\mathbf{x}'=A\\mathbf{x}$ from the eigenvalues; the trace--determinant shortcut $\\tau=\\operatorname{tr}A,\\ \\Delta=\\det A$; the discriminant $\\tau^2-4\\Delta$; stable vs.\\ unstable nodes, saddles, spirals, and centers.",
+      "formulas": [
+        {
+          "title": "Eigenvalues from Trace and Determinant",
+          "body": "\\lambda = \\frac{\\tau \\pm \\sqrt{\\tau^2 - 4\\Delta}}{2}, \\qquad \\tau=\\operatorname{tr}A=\\lambda_1+\\lambda_2, \\qquad \\Delta=\\det A=\\lambda_1\\lambda_2."
+        },
+        {
+          "title": "The Classification Dictionary",
+          "body": "\\Delta<0:\\ \\strong{saddle}. \\quad \\Delta>0:\\ \\begin{cases} \\tau^2-4\\Delta>0 & \\strong{node} \\\\ \\tau^2-4\\Delta<0 & \\strong{spiral} \\\\ \\tau=0 & \\strong{center} \\end{cases} \\ \\ \\tau<0\\text{ stable},\\ \\tau>0\\text{ unstable}."
+        },
+        {
+          "title": "Stability at a Glance",
+          "body": "\\operatorname{Re}\\lambda<0 \\text{ (both)} \\Rightarrow \\text{stable}; \\quad \\operatorname{Re}\\lambda>0 \\text{ (some)} \\Rightarrow \\text{unstable}; \\quad \\operatorname{Re}\\lambda=0 \\Rightarrow \\text{center}."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Classify an Equilibrium",
+        "steps": [
+          "Compute the trace $\\tau=\\operatorname{tr}A$ and determinant $\\Delta=\\det A$.",
+          "If $\\Delta<0$ stop: the equilibrium is a saddle (always unstable).",
+          "If $\\Delta>0$, check the discriminant $\\tau^2-4\\Delta$: positive $\\Rightarrow$ node, negative $\\Rightarrow$ spiral, and $\\tau=0$ $\\Rightarrow$ center.",
+          "Read stability from the sign of $\\tau$: $\\tau<0$ is stable (a sink), $\\tau>0$ is unstable (a source); a center ($\\tau=0$) is neutrally stable."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Classifying Three Equilibria",
+          "setup": "Classify the origin for each: $A_1=\\begin{pmatrix} -2 & 1 \\\\ 0 & -3 \\end{pmatrix}$, $A_2=\\begin{pmatrix} 1 & -2 \\\\ 2 & 1 \\end{pmatrix}$, $A_3=\\begin{pmatrix} 0 & -4 \\\\ 1 & 0 \\end{pmatrix}$.",
+          "steps": [
+            "A_1:\\ \\tau=-5,\\ \\Delta=6>0,\\ \\tau^2-4\\Delta=25-24=1>0 \\;\\Rightarrow\\; \\strong{stable node}\\ (\\lambda=-2,-3).",
+            "A_2:\\ \\tau=2,\\ \\Delta=1+4=5>0,\\ \\tau^2-4\\Delta=4-20=-16<0 \\;\\Rightarrow\\; \\strong{unstable spiral}\\ (\\lambda=1\\pm 2i).",
+            "A_3:\\ \\tau=0,\\ \\Delta=4>0 \\;\\Rightarrow\\; \\strong{center}\\ (\\lambda=\\pm 2i): \\text{closed orbits around the origin.}",
+            "\\text{Order: } \\operatorname{sign}\\Delta \\text{ finds saddles},\\ \\tau^2-4\\Delta \\text{ splits node/spiral},\\ \\operatorname{sign}\\tau \\text{ sets stability.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Two numbers decide everything: \\highlight{$\\Delta=\\det A$ and $\\tau=\\operatorname{tr}A$}. The determinant's sign isolates saddles, the discriminant $\\tau^2-4\\Delta$ separates nodes (real eigenvalues) from spirals (complex), and the trace's sign sets stability. The trace--determinant plane is a single map of every linear behavior."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "A \\warn{center is fragile}. It requires $\\tau$ \\emph{exactly} zero; the tiniest nonzero trace turns those closed orbits into a slow spiral. This is precisely why a linearized center must \\warn{never} be trusted to classify the original nonlinear system --- see linearization in 16.3."
+      }
+    },
+    {
+      "id": "16.3",
+      "title": "Linearization Near Equilibria --- The Jacobian",
+      "topics": "Fixed points of a nonlinear system $\\mathbf{x}'=\\mathbf{F}(\\mathbf{x})$; the Jacobian matrix $J(x,y)=\\left(\\begin{smallmatrix} f_x & f_y \\\\ g_x & g_y \\end{smallmatrix}\\right)$ as the best linear approximation; evaluating $J$ at each fixed point; the Hartman--Grobman theorem for hyperbolic equilibria.",
+      "formulas": [
+        {
+          "title": "Fixed Points of a Nonlinear System",
+          "body": "\\mathbf{x}' = \\begin{pmatrix} f(x,y) \\\\ g(x,y) \\end{pmatrix}: \\qquad (x_*,y_*) \\text{ is a fixed point} \\iff f(x_*,y_*)=0 \\ \\text{ and } \\ g(x_*,y_*)=0."
+        },
+        {
+          "title": "The Jacobian: Best Linear Approximation",
+          "body": "J(x,y) = \\begin{pmatrix} \\dfrac{\\partial f}{\\partial x} & \\dfrac{\\partial f}{\\partial y} \\\\[6pt] \\dfrac{\\partial g}{\\partial x} & \\dfrac{\\partial g}{\\partial y} \\end{pmatrix} = \\begin{pmatrix} f_x & f_y \\\\ g_x & g_y \\end{pmatrix}, \\qquad \\mathbf{F}(\\mathbf{x}) \\approx \\underbrace{\\mathbf{F}(\\mathbf{x}_*)}_{=\\,\\mathbf{0}} + J(\\mathbf{x}_*)(\\mathbf{x}-\\mathbf{x}_*)."
+        },
+        {
+          "title": "The Linearized System Near $(x_*,y_*)$",
+          "body": "\\mathbf{u}=\\mathbf{x}-\\mathbf{x}_*: \\qquad \\mathbf{u}' \\approx J(x_*,y_*)\\,\\mathbf{u}, \\quad \\text{a linear system whose eigenvalues classify the fixed point.}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Construct and Use the Jacobian",
+        "steps": [
+          "Write the system as $\\mathbf{x}'=(f,g)$ and find every fixed point by solving $f=0,\\ g=0$ simultaneously.",
+          "Build the Jacobian \\emph{symbolically}: take all four first partials and assemble $J(x,y)=\\left(\\begin{smallmatrix} f_x & f_y \\\\ g_x & g_y \\end{smallmatrix}\\right)$ --- this is the linear map that best approximates $\\mathbf{F}$ at any point.",
+          "Evaluate $J$ at each fixed point $(x_*,y_*)$ to get a constant matrix; the local flow obeys $\\mathbf{u}'=J(x_*,y_*)\\mathbf{u}$.",
+          "Find the eigenvalues of that constant matrix (or use $\\tau,\\Delta$ from 16.2) to classify each equilibrium and read off local stability."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- The Undamped Pendulum, Fully Linearized",
+          "setup": "The undamped pendulum $\\theta''+\\sin\\theta=0$ becomes the system $x'=y,\\ y'=-\\sin x$ (with $x=\\theta,\\ y=\\theta'$). Find its fixed points, build the Jacobian, evaluate it at each fixed point, find the eigenvalues, classify, and sketch the local portrait.",
+          "steps": [
+            "\\strong{Fixed points: } y=0,\\ -\\sin x=0 \\;\\Rightarrow\\; x=n\\pi; \\ \\text{types } (0,0)\\ \\text{(down)},\\ (\\pi,0)\\ \\text{(up).}",
+            "\\strong{Jacobian: } J(x,y)=\\begin{pmatrix} f_x & f_y \\\\ g_x & g_y \\end{pmatrix} = \\begin{pmatrix} 0 & 1 \\\\ -\\cos x & 0 \\end{pmatrix}.",
+            "\\strong{At } (0,0):\\ J=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}, \\quad \\det(J-\\lambda I)=\\lambda^2+1=0 \\;\\Rightarrow\\; \\lambda=\\pm i \\;\\Rightarrow\\; \\strong{center (oscillation).}",
+            "\\strong{At } (\\pi,0):\\ J=\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad \\det(J-\\lambda I)=\\lambda^2-1=0 \\;\\Rightarrow\\; \\lambda=\\pm 1 \\;\\Rightarrow\\; \\strong{saddle (unstable).}",
+            "\\strong{Sketch: } \\text{closed loops about } (0,0); \\ \\text{saddle at } (\\pi,0); \\ \\text{separatrices mark the swing-over threshold.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Linearization is the master move of nonlinear dynamics: replace the curved flow near a fixed point by its \\highlight{best linear approximation $\\mathbf{u}'=J(x_*,y_*)\\mathbf{u}$}. The Jacobian is just the matrix of first partials, and once you have it, the entire Unit 15 eigenvalue toolkit classifies the equilibrium. The \\highlight{Hartman--Grobman theorem} guarantees the linear picture is faithful whenever no eigenvalue sits on the imaginary axis."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Linearization \\warn{fails at borderline (non-hyperbolic) fixed points} --- when $J$ has a pure-imaginary or zero eigenvalue. A linearized \\emph{center} ($\\lambda=\\pm i\\beta$) may really be a slow spiral once nonlinear terms are restored, so a center verdict from $J$ is only a candidate. Also remember to evaluate $J$ \\warn{at each fixed point separately}; the symbolic $J$ alone classifies nothing."
+      }
+    },
+    {
+      "id": "16.4",
+      "title": "Nullclines and Stability for Nonlinear Systems",
+      "topics": "The nullclines $f=0$ (where the flow is vertical) and $g=0$ (where it is horizontal); fixed points as nullcline intersections; sign analysis of $f$ and $g$ to fix the flow direction in each region.",
+      "formulas": [
+        {
+          "title": "The Two Nullclines",
+          "body": "x\\text{-nullcline: } f=0 \\Rightarrow x'=0\\ (\\text{vertical}); \\qquad y\\text{-nullcline: } g=0 \\Rightarrow y'=0\\ (\\text{horizontal})."
+        },
+        {
+          "title": "Fixed Points = Nullcline Intersections",
+          "body": "(x_*,y_*) \\in \\{f=0\\}\\cap\\{g=0\\} \\iff x'=y'=0 \\iff (x_*,y_*) \\text{ is an equilibrium.}"
+        },
+        {
+          "title": "Directional Flow from the Signs",
+          "body": "f>0 \\Rightarrow \\text{move right},\\ f<0 \\Rightarrow \\text{move left}; \\qquad g>0 \\Rightarrow \\text{move up},\\ g<0 \\Rightarrow \\text{move down}."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Nullcline Analysis",
+        "steps": [
+          "Draw the $x$-nullcline $f=0$ and the $y$-nullcline $g=0$ in the phase plane.",
+          "Mark every intersection of the two families: these are exactly the fixed points.",
+          "In each region carved out by the nullclines, test the signs of $f$ and $g$ to draw a representative flow arrow (right/left from $\\operatorname{sign}f$, up/down from $\\operatorname{sign}g$).",
+          "Cross a nullcline and watch the relevant arrow component flip; combine with the Jacobian classification of each fixed point to assemble the portrait."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Fixed Points by Nullclines",
+          "setup": "Find the fixed points of $x'=x(3-x-2y),\\ y'=y(2-x-y)$ using nullclines.",
+          "steps": [
+            "\\strong{$x$-nullclines } (f=0):\\ x=0 \\ \\text{ or } \\ 3-x-2y=0.",
+            "\\strong{$y$-nullclines } (g=0):\\ y=0 \\ \\text{ or } \\ 2-x-y=0.",
+            "\\strong{Pair branches: } (x{=}0,y{=}0)\\to(0,0);\\ (x{=}0,\\,2{-}x{-}y{=}0)\\to(0,2);\\ (3{-}x{-}2y{=}0,\\,y{=}0)\\to(3,0).",
+            "\\strong{Interior point: } 3-x-2y=0,\\ 2-x-y=0 \\Rightarrow (x,y)=(1,1).",
+            "\\text{Four fixed points: } (0,0),(0,2),(3,0),(1,1); \\ \\text{classify each via } J \\text{ there.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Nullclines are the scaffolding of a nonlinear portrait. Their \\highlight{intersections pin down every fixed point} without solving the system, and the \\highlight{signs of $f$ and $g$} between them fix the flow direction region by region. Nullclines give the global skeleton; the Jacobian fills in the local detail at each equilibrium."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Do not confuse a nullcline with a trajectory --- a nullcline is where \\emph{one} velocity component vanishes, not a path the system follows. And a fixed point needs \\warn{both} $f=0$ and $g=0$: a point on a single nullcline is \\warn{not} an equilibrium. Always pair an $f=0$ branch with a $g=0$ branch, including the factored branches $x=0$ and $y=0$."
+      }
+    },
+    {
+      "id": "16.5",
+      "title": "Nonlinear Phase Portraits",
+      "topics": "Assembling the global portrait from local linearizations; multiple equilibria of differing type; separatrices and basins; when the linear and nonlinear pictures agree (hyperbolic) and when they may not (centers).",
+      "formulas": [
+        {
+          "title": "Local-to-Global Assembly",
+          "body": "\\text{global portrait} = \\bigcup_{\\text{fixed pts}} \\big(\\text{local } J\\text{-portrait}\\big) \\ \\text{glued along nullcline flow arrows.}"
+        },
+        {
+          "title": "Hyperbolic Fixed Points are Faithful",
+          "body": "\\operatorname{Re}\\lambda_i \\neq 0\\ \\forall i \\;\\Rightarrow\\; \\text{nonlinear portrait near } (x_*,y_*) = \\text{linearization (Hartman--Grobman).}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Build a Nonlinear Phase Portrait",
+        "steps": [
+          "Find all fixed points (nullcline intersections, 16.4).",
+          "At each fixed point form $J$, classify it by eigenvalues / trace--determinant (16.2--16.3), and note whether it is hyperbolic.",
+          "Sketch the local portrait at every equilibrium, drawing in the saddle separatrices first since they organize the global flow.",
+          "Connect the local pieces using the nullcline flow arrows so trajectories flow consistently from sources toward sinks; mark basins of attraction."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- A Two-Equilibrium System",
+          "setup": "Classify both fixed points of $x'=y,\\ y'=-x+x^3$ and describe the global portrait.",
+          "steps": [
+            "\\strong{Fixed points: } y=0 \\text{ and } -x+x^3=x(x^2-1)=0 \\Rightarrow x=0,\\pm 1 \\Rightarrow (0,0),(\\pm 1,0).",
+            "\\strong{Jacobian: } J(x,y)=\\begin{pmatrix} 0 & 1 \\\\ -1+3x^2 & 0 \\end{pmatrix}.",
+            "\\strong{At } (0,0):\\ J=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix},\\ \\lambda=\\pm i \\Rightarrow \\text{center candidate (conservative: closed orbits).}",
+            "\\strong{At } (\\pm 1,0):\\ J=\\begin{pmatrix} 0 & 1 \\\\ 2 & 0 \\end{pmatrix},\\ \\lambda=\\pm\\sqrt{2} \\Rightarrow \\strong{saddles (hyperbolic).}",
+            "\\text{Global: closed orbits about the origin, bounded by separatrices joining the saddles at } (\\pm 1,0)."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A nonlinear phase portrait is a \\highlight{quilt of local linear pictures}. Saddles and their separatrices set the global skeleton, sources push trajectories out, sinks pull them in, and the nullcline arrows guarantee the pieces connect consistently. At hyperbolic fixed points the linearization is provably the truth; the only fixed points needing extra care are the borderline centers."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Nonlinear systems can have \\warn{many equilibria of different types at once} --- never assume one classification covers the whole plane. And a linearized center is only a \\emph{candidate}: confirm it with a conserved quantity or symmetry before drawing closed orbits, since nonlinear terms can spiral it open or shut."
+      }
+    },
+    {
+      "id": "16.6",
+      "title": "Predator--Prey Dynamics in the Phase Plane",
+      "topics": "The Lotka--Volterra model $x'=x(a-by),\\ y'=y(-c+dx)$; the two equilibria (extinction and coexistence); the Jacobian classification giving a saddle and a center; the conserved quantity and closed population cycles.",
+      "formulas": [
+        {
+          "title": "The Lotka--Volterra System",
+          "body": "x' = x(a - by), \\qquad y' = y(-c + dx), \\qquad a,b,c,d>0; \\quad x=\\text{prey},\\ y=\\text{predator}."
+        },
+        {
+          "title": "The Two Equilibria",
+          "body": "(0,0) \\ \\text{(extinction)} \\qquad \\text{and} \\qquad \\Big(\\tfrac{c}{d},\\,\\tfrac{a}{b}\\Big) \\ \\text{(coexistence)}, \\ \\text{ from } a-by=0,\\ -c+dx=0."
+        },
+        {
+          "title": "The Conserved Quantity",
+          "body": "H(x,y) = dx - c\\ln x + by - a\\ln y = \\text{const} \\ \\Rightarrow\\ \\text{trajectories are closed level curves (true cycles).}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Analyze a Predator--Prey Model",
+        "steps": [
+          "Factor each equation and set $x'=y'=0$ to find the extinction and coexistence equilibria.",
+          "Form the Jacobian $J(x,y)=\\left(\\begin{smallmatrix} a-by & -bx \\\\ dy & -c+dx \\end{smallmatrix}\\right)$ symbolically.",
+          "Evaluate $J$ at the origin (a saddle: prey grow, predators die) and at the coexistence point (a center: pure imaginary eigenvalues).",
+          "Confirm the coexistence center with the conserved $H$; conclude that prey and predator populations cycle around the coexistence point."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Lotka--Volterra with $a=b=c=d=1$",
+          "setup": "Analyze $x'=x-xy,\\ y'=-y+xy$. Find the fixed points, build and evaluate the Jacobian, find the eigenvalues, and classify each equilibrium.",
+          "steps": [
+            "\\strong{Fixed points: } x(1-y)=0,\\ y(x-1)=0 \\;\\Rightarrow\\; (0,0) \\text{ and } (1,1).",
+            "\\strong{Jacobian: } J(x,y)=\\begin{pmatrix} f_x & f_y \\\\ g_x & g_y \\end{pmatrix} = \\begin{pmatrix} 1-y & -x \\\\ y & -1+x \\end{pmatrix}.",
+            "\\strong{At } (0,0):\\ J=\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix},\\ \\lambda=1,-1 \\;\\Rightarrow\\; \\strong{saddle}: \\text{ prey bloom, predators starve.}",
+            "\\strong{At } (1,1):\\ J=\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix},\\ \\det(J-\\lambda I)=\\lambda^2+1=0 \\Rightarrow \\lambda=\\pm i \\;\\Rightarrow\\; \\strong{center.}",
+            "\\strong{Confirm: } H=x-\\ln x+y-\\ln y \\text{ is conserved} \\Rightarrow \\text{genuine center; populations cycle.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Lotka--Volterra is the showcase of the whole unit: the same Jacobian recipe gives a \\highlight{saddle at extinction} (prey explode, predators die out) and a \\highlight{center at coexistence}, around which predator and prey populations \\highlight{oscillate forever} on closed orbits. Here the borderline center is real --- the conserved quantity $H$ proves the cycles are closed, not spirals."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "The coexistence center is the one case where the linearized $\\lambda=\\pm i$ \\emph{must} be checked, since linearization cannot certify a center on its own. For Lotka--Volterra the conserved $H$ saves it, but \\warn{adding any logistic damping} (e.g.\\ a $-x^2$ term) turns that center into a \\warn{stable spiral}, sending both populations to a steady coexistence instead of cycling."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Phase Portraits, Trace--Determinant Classification, and the Jacobian $J=\\left(\\begin{smallmatrix} f_x & f_y \\\\ g_x & g_y \\end{smallmatrix}\\right)$"
+  }
+}

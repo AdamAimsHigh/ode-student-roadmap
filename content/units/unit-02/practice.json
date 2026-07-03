@@ -1,0 +1,61 @@
+{
+  "unitNumber": 2,
+  "subtitle": "Practice Set: Problems and Complete Solutions",
+  "intro": "Work the following ten problems in order; they are graded from direct separation through linear factors, initial value problems, the homogeneous substitution, and a full physical model. Solutions follow in Part III.",
+  "takeaway": {
+    "title": "Unit 2 Key Takeaway",
+    "body": "Every method in this unit reduces to a single move --- rewrite the equation\ninto a form you can integrate. \\highlight{Separation of variables}\nsplits a factored rate law; the \\highlight{integrating factor\n$\\mu = e^{\\int P\\,dx}$} collapses a linear left side into one derivative; and\nthe \\highlight{substitution $y = vx$} turns a homogeneous equation\nseparable. Read the structure first, and the technique always follows."
+  },
+  "problems": [
+    {
+      "id": "ps_2_1",
+      "problem": "Solve $\\dfrac{dy}{dx} = \\dfrac{x}{y}$ by separation of variables.",
+      "solution": " Separate, then integrate.\n\\[ \\work{y\\,dy = x\\,dx} \\]\n\\[ \\work{\\frac{y^{2}}{2} = \\frac{x^{2}}{2} + C_{1}} \\]\n\\[ \\work{y^{2} = x^{2} + C} \\qquad\\text{(general solution).} \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_2",
+      "problem": "Solve $\\dfrac{dy}{dx} = e^{\\,x - y}$.",
+      "solution": " Split the exponential as\n$e^{x-y} = e^{x}e^{-y}$, then separate.\n\\[ \\work{e^{\\,y}\\,dy = e^{\\,x}\\,dx} \\]\n\\[ \\work{e^{\\,y} = e^{\\,x} + C} \\]\n\\[ \\work{y = \\ln\\!\\left(e^{\\,x} + C\\right)}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_3",
+      "problem": "Solve $\\dfrac{dy}{dx} = y\\cos x$, and identify any solution that is lost when you divide by $y$.",
+      "solution": " Separate (assuming $y \\neq 0$), integrate,\nand exponentiate.\n\\[ \\work{\\frac{1}{y}\\,dy = \\cos x\\,dx} \\]\n\\[ \\work{\\ln|y| = \\sin x + C} \\]\n\\[ \\work{y = C\\,e^{\\sin x}}. \\]\nDividing by $y$ assumed $y \\neq 0$, so it dropped the equilibrium solution\n$\\work{y = 0}$ --- which is recovered as the special case $C = 0$.\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_4",
+      "problem": "Solve the linear equation $\\dfrac{dy}{dx} + 3y = 6$ using an integrating factor.",
+      "solution": " Here $P = 3$, so the integrating factor is\n$\\work{\\mu = e^{\\int 3\\,dx} = e^{3x}}$. Multiply through:\n\\[ \\work{\\frac{d}{dx}\\big[e^{3x}y\\big] = 6\\,e^{3x}} \\]\n\\[ \\work{e^{3x}y = \\int 6\\,e^{3x}\\,dx = 2\\,e^{3x} + C} \\]\n\\[ \\work{y = 2 + C\\,e^{-3x}}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_5",
+      "problem": "Solve $x\\dfrac{dy}{dx} + y = x^{2}$ by first writing it in standard linear form.",
+      "solution": " Divide by $x$ to reach standard form:\n\\[ \\work{\\frac{dy}{dx} + \\frac{1}{x}\\,y = x}, \\qquad\n   \\work{\\mu = e^{\\int (1/x)\\,dx} = e^{\\ln|x|} = x}. \\]\nMultiply through and integrate:\n\\[ \\work{\\frac{d}{dx}\\big[xy\\big] = x\\cdot x = x^{2}} \\]\n\\[ \\work{xy = \\frac{x^{3}}{3} + C} \\]\n\\[ \\work{y = \\frac{x^{2}}{3} + \\frac{C}{x}}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_6",
+      "problem": "Solve $\\dfrac{dy}{dx} + \\dfrac{2}{x}\\,y = x$.",
+      "solution": " With $P = \\frac{2}{x}$, integrate the\ncoefficient and exponentiate:\n\\[ \\work{\\mu = e^{\\int (2/x)\\,dx} = e^{2\\ln|x|} = x^{2}}. \\]\nMultiply through and integrate:\n\\[ \\work{\\frac{d}{dx}\\big[x^{2}y\\big] = x^{2}\\cdot x = x^{3}} \\]\n\\[ \\work{x^{2}y = \\frac{x^{4}}{4} + C} \\]\n\\[ \\work{y = \\frac{x^{2}}{4} + \\frac{C}{x^{2}}}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_7",
+      "problem": "Solve the initial value problem $\\dfrac{dy}{dx} + 2y = 4$ with $y(0) = 1$.",
+      "solution": " The integrating factor is\n$\\work{\\mu = e^{\\int 2\\,dx} = e^{2x}}$. Multiply through and\nintegrate:\n\\[ \\work{\\frac{d}{dx}\\big[e^{2x}y\\big] = 4\\,e^{2x}} \\]\n\\[ \\work{e^{2x}y = 2\\,e^{2x} + C} \\]\n\\[ \\work{y = 2 + C\\,e^{-2x}}. \\]\nApply the initial condition $y(0) = 1$:\n\\[ \\work{1 = 2 + C \\;\\Longrightarrow\\; C = -1} \\]\n\\[ \\work{y = 2 - e^{-2x}}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_8",
+      "problem": "Solve the homogeneous equation $\\dfrac{dy}{dx} = \\dfrac{x + y}{x}$ using the substitution $y = vx$.",
+      "solution": " Rewrite as $\\frac{dy}{dx} = 1 + \\frac{y}{x}$\nand substitute $y = vx$, so $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$:\n\\[ \\work{v + x\\frac{dv}{dx} = 1 + v} \\]\n\\[ \\work{x\\frac{dv}{dx} = 1 \\;\\Longrightarrow\\; dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\work{v = \\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\work{y = x\\ln|x| + Cx}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_9",
+      "problem": "Solve the homogeneous equation $\\dfrac{dy}{dx} = \\dfrac{x^{2} + y^{2}}{xy}$ using $y = vx$.",
+      "solution": " Substitute $y = vx$. The right side becomes\n\\[ \\work{\\frac{x^{2} + v^{2}x^{2}}{x\\cdot vx} = \\frac{1 + v^{2}}{v}}. \\]\nWith $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$,\n\\[ \\work{v + x\\frac{dv}{dx} = \\frac{1 + v^{2}}{v} = \\frac{1}{v} + v} \\]\n\\[ \\work{x\\frac{dv}{dx} = \\frac{1}{v} \\;\\Longrightarrow\\; v\\,dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\work{\\frac{v^{2}}{2} = \\ln|x| + C_{1} \\;\\Longrightarrow\\; v^{2} = 2\\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\work{\\frac{y^{2}}{x^{2}} = 2\\ln|x| + C \\;\\Longrightarrow\\; y^{2} = x^{2}\\big(2\\ln|x| + C\\big)}. \\]\n\n\\medskip"
+    },
+    {
+      "id": "ps_2_10",
+      "problem": "\\strong{(Application)} An object at $100^{\\circ}$ is placed in a room held at $20^{\\circ}$. After $10$ minutes its temperature is $60^{\\circ}$. Find the temperature function $T(t)$ and determine how long it takes the object to reach $30^{\\circ}$.",
+      "solution": " Newton's law of cooling with surrounding\ntemperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives\n\\[ \\work{T(t) = 20 + (100 - 20)\\,e^{-kt} = 20 + 80\\,e^{-kt}}. \\]\nUse the reading $T(10) = 60$ to find $k$:\n\\[ \\work{60 = 20 + 80\\,e^{-10k} \\;\\Longrightarrow\\; 80\\,e^{-10k} = 40} \\]\n\\[ \\work{e^{-10k} = \\tfrac{1}{2} \\;\\Longrightarrow\\; -10k = -\\ln 2 \\;\\Longrightarrow\\; k = \\frac{\\ln 2}{10}}. \\]\nHence the temperature function is\n\\[ \\work{T(t) = 20 + 80\\,e^{-(\\ln 2 / 10)\\,t} = 20 + 80\\left(\\tfrac{1}{2}\\right)^{t/10}}. \\]\nTo reach $30^{\\circ}$, solve $T(t) = 30$:\n\\[ \\work{30 = 20 + 80\\,e^{-kt} \\;\\Longrightarrow\\; 80\\,e^{-kt} = 10 \\;\\Longrightarrow\\; e^{-kt} = \\tfrac{1}{8}} \\]\n\\[ \\work{-kt = -\\ln 8 = -3\\ln 2 \\;\\Longrightarrow\\; t = \\frac{3\\ln 2}{k} = \\frac{3\\ln 2}{\\ln 2 / 10} = 30 \\text{ minutes}}. \\]\n\n\\vspace{0.8em}"
+    }
+  ]
+}

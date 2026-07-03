@@ -1,0 +1,55 @@
+{
+  "unitNumber": 1,
+  "problems": [
+    {
+      "id": "ps_1_1",
+      "problem": "Differentiate $f(x) = 7x^4 - 3x^2 + 5$.",
+      "solution": "Apply the power rule to each term, and treat the constant as having a zero derivative. The result is $f'(x) = 28x^3 - 6x$."
+    },
+    {
+      "id": "ps_1_2",
+      "problem": "Differentiate $g(x) = (2x^3 + 1)^5$ using the chain rule.",
+      "solution": "The outer derivative is $5(2x^3 + 1)^4$ and the inner derivative is $6x^2$. Multiplying them gives $g'(x) = 30x^2 (2x^3 + 1)^4$."
+    },
+    {
+      "id": "ps_1_3",
+      "problem": "Differentiate $h(x) = x^3 e^x$ using the product rule.",
+      "solution": "With $u = x^3$ and $v = e^x$, the product rule gives $h'(x) = 3x^2 e^x + x^3 e^x$, which factors as $x^2 e^x (3 + x)$."
+    },
+    {
+      "id": "ps_1_4",
+      "problem": "Evaluate $\\int (6x^2 - 4x + 1)\\, dx$, including the constant of integration.",
+      "solution": "Integrate term by term and add a single constant. The result is $\\int (6x^2 - 4x + 1)\\, dx = 2x^3 - 2x^2 + x + C$."
+    },
+    {
+      "id": "ps_1_5",
+      "problem": "State the limit definition of the number $e$, write the formula for continuous compounding, and explain in one sentence why $\\frac{dy}{dt} = y$ is solved by an exponential function.",
+      "solution": "The limit definition is $e = \\lim_{n \\to \\infty} \\left(1 + \\frac{1}{n}\\right)^n$, and continuous compounding is $A = P e^{rt}$. The equation $\\frac{dy}{dt} = y$ is solved by an exponential because $e^t$ is the unique function, up to a constant multiple, that equals its own derivative."
+    },
+    {
+      "id": "ps_1_6",
+      "problem": "Solve the initial value problem $\\frac{dy}{dt} = k y$ with $y(0) = y_0$.",
+      "solution": "The general solution is $y = C e^{kt}$. Applying $y(0) = y_0$ gives $C = y_0$, since $e^0 = 1$, so the particular solution is $y = y_0 e^{kt}$."
+    },
+    {
+      "id": "ps_1_7",
+      "problem": "State Euler's formula, then evaluate $e^{i\\pi}$ and $e^{i\\pi/2}$.",
+      "solution": "Euler's formula is $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Therefore $e^{i\\pi} = \\cos\\pi + i\\sin\\pi = -1$, and $e^{i\\pi/2} = \\cos\\frac{\\pi}{2} + i\\sin\\frac{\\pi}{2} = i$."
+    },
+    {
+      "id": "ps_1_8",
+      "problem": "Multiply $2 e^{i\\pi/6}$ by $3 e^{i\\pi/3}$ and express the answer in rectangular form.",
+      "solution": "Multiply the magnitudes and add the angles. Here $2 \\cdot 3 = 6$ and $\\frac{\\pi}{6} + \\frac{\\pi}{3} = \\frac{\\pi}{2}$, so the product is $6 e^{i\\pi/2}$, which equals $6i$ in rectangular form."
+    },
+    {
+      "id": "ps_1_9",
+      "problem": "For $y'' + 3y' + 2y = e^x$, state the order, the degree, and whether it is linear. Then classify $(y')^2 + y = 0$ in the same way.",
+      "solution": "The first equation has order two, degree one, and is linear, because $y$ and its derivatives appear only to the first power. The second equation has order one and degree two, and it is nonlinear because the derivative is squared."
+    },
+    {
+      "id": "ps_1_10",
+      "problem": "Form the differential equation by eliminating the arbitrary constants $A$ and $B$ from $y = A\\cos x + B\\sin x$.",
+      "solution": "Differentiating twice gives $y'' = -A\\cos x - B\\sin x$, which is $-(A\\cos x + B\\sin x) = -y$. Therefore the differential equation is $y'' + y = 0$."
+    }
+  ]
+}

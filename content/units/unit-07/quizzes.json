@@ -1,0 +1,2436 @@
+{
+  "unitNumber": 7,
+  "microPractice": {
+    "_c3iEPReTVQ": [
+      {
+        "id": "mp__c3iEPReTVQ_1",
+        "prompt": "A first-order equation written as $M(x,y)\\,dx + N(x,y)\\,dy = 0$ is called exact when which condition holds?",
+        "hint": "Exactness means the left side is the total differential of some potential $F$, which forces a symmetry between the mixed partials.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+            "correct": true,
+            "rationale": "Yes. When the cross partials match, $M\\,dx + N\\,dy$ is the total differential $dF$ of a potential function."
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial x} = \\frac{\\partial N}{\\partial y}$",
+            "rationale": "Those are the straight partials, not the cross partials. Which derivative of $M$ should you compare with which derivative of $N$?"
+          },
+          {
+            "text": "$M = N$",
+            "rationale": "The two functions rarely equal each other. Which mixed partial derivatives must agree for a total differential to exist?"
+          },
+          {
+            "text": "$M + N = 0$",
+            "rationale": "That is an algebraic balance, not a derivative condition. What symmetry of partials signals exactness?"
+          }
+        ]
+      },
+      {
+        "id": "mp__c3iEPReTVQ_2",
+        "prompt": "If $M\\,dx + N\\,dy = dF$ for some function $F(x,y)$, then $M$ equals which partial derivative?",
+        "hint": "Match the differential $dF = F_x\\,dx + F_y\\,dy$ term by term against $M\\,dx + N\\,dy$.",
+        "answerOptions": [
+          {
+            "text": "$M = \\frac{\\partial F}{\\partial x}$",
+            "correct": true,
+            "rationale": "Yes. The coefficient of $dx$ in $dF$ is $F_x$, so $M = F_x$."
+          },
+          {
+            "text": "$M = \\frac{\\partial F}{\\partial y}$",
+            "rationale": "That coefficient belongs to $dy$. Which differential, $dx$ or $dy$, does $M$ multiply?"
+          },
+          {
+            "text": "$M = F$",
+            "rationale": "$M$ is a rate of change of $F$, not $F$ itself. Which partial multiplies $dx$?"
+          },
+          {
+            "text": "$M = \\frac{\\partial^2 F}{\\partial x \\partial y}$",
+            "rationale": "That is a second derivative. The coefficient of $dx$ in $dF$ is a first partial. Which one?"
+          }
+        ]
+      },
+      {
+        "id": "mp__c3iEPReTVQ_3",
+        "prompt": "Test whether $(2xy)\\,dx + (x^2)\\,dy = 0$ is exact.",
+        "hint": "Compute $M_y$ for $M = 2xy$ and $N_x$ for $N = x^2$, then compare.",
+        "answerOptions": [
+          {
+            "text": "Exact, since $M_y = 2x = N_x$",
+            "correct": true,
+            "rationale": "Correct. Both cross partials equal $2x$, so the equation is exact."
+          },
+          {
+            "text": "Not exact, since $M_y \\neq N_x$",
+            "rationale": "Recompute. What is $\\frac{\\partial}{\\partial y}(2xy)$ and $\\frac{\\partial}{\\partial x}(x^2)$?"
+          },
+          {
+            "text": "Exact, since $M = N$",
+            "rationale": "Here $2xy$ and $x^2$ are not equal, yet the equation can still be exact. Which partials decide it?"
+          },
+          {
+            "text": "Cannot be determined",
+            "rationale": "The cross partials settle the question directly. What are $M_y$ and $N_x$?"
+          }
+        ]
+      },
+      {
+        "id": "mp__c3iEPReTVQ_4",
+        "prompt": "The solution of an exact equation $M\\,dx + N\\,dy = 0$ takes which implicit form?",
+        "hint": "Once a potential $F$ exists with $dF = M\\,dx + N\\,dy$, the equation says $dF = 0$ along solutions.",
+        "answerOptions": [
+          {
+            "text": "$F(x, y) = C$ for a constant $C$",
+            "correct": true,
+            "rationale": "Yes. Since $dF = 0$ along a solution, $F$ stays constant on each solution curve."
+          },
+          {
+            "text": "$F(x, y) = 0$ only",
+            "rationale": "Zero is just one level curve. What general value does $F$ hold along a solution?"
+          },
+          {
+            "text": "$M(x, y) = C$",
+            "rationale": "The constant belongs to the potential $F$, not to $M$ alone. What function is held constant?"
+          },
+          {
+            "text": "$F(x, y) = x + y$",
+            "rationale": "The right side is an arbitrary constant, not a specific expression. What does $dF = 0$ imply about $F$?"
+          }
+        ]
+      },
+      {
+        "id": "mp__c3iEPReTVQ_5",
+        "prompt": "Why does exactness guarantee a potential function $F$ exists on a simply connected region?",
+        "hint": "The matching cross partials are exactly the integrability condition that lets you reconstruct $F$ by integrating.",
+        "answerOptions": [
+          {
+            "text": "The condition $M_y = N_x$ is the integrability condition that makes the pair $(M, N)$ a gradient",
+            "correct": true,
+            "rationale": "Yes. Equal cross partials let you integrate $M$ and $N$ consistently into a single potential $F$."
+          },
+          {
+            "text": "Every pair of functions is automatically a gradient",
+            "rationale": "Most pairs are not gradients. What special condition must $(M, N)$ satisfy first?"
+          },
+          {
+            "text": "Because $M$ and $N$ are continuous",
+            "rationale": "Continuity alone is not enough. What derivative condition guarantees a consistent potential?"
+          },
+          {
+            "text": "Because the equation is first order",
+            "rationale": "Order does not create a potential. Which equality of partials makes $(M, N)$ a gradient?"
+          }
+        ]
+      }
+    ],
+    "pgJci5CI9n4": [
+      {
+        "id": "mp_pgJci5CI9n4_1",
+        "prompt": "For the exact equation $(2x + y)\\,dx + (x + 2y)\\,dy = 0$, integrating $M = 2x + y$ with respect to $x$ gives what?",
+        "hint": "Integrate $2x + y$ treating $y$ as a constant, and remember the constant of integration may depend on $y$.",
+        "answerOptions": [
+          {
+            "text": "$F = x^2 + xy + g(y)$",
+            "correct": true,
+            "rationale": "Correct. Integrating in $x$ gives $x^2 + xy$, plus an unknown function $g(y)$."
+          },
+          {
+            "text": "$F = x^2 + xy$",
+            "rationale": "You integrated correctly but dropped the integration term. What unknown function of $y$ should you append?"
+          },
+          {
+            "text": "$F = x^2 + xy + C$",
+            "rationale": "A bare constant is too restrictive when integrating in $x$. What more general $y$ dependent term belongs here?"
+          },
+          {
+            "text": "$F = 2 + 0$",
+            "rationale": "You differentiated instead of integrated. What is $\\int (2x + y)\\,dx$ with $y$ held fixed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pgJci5CI9n4_2",
+        "prompt": "Continuing, you have $F = x^2 + xy + g(y)$ and need $F_y = N = x + 2y$. What is $g'(y)$?",
+        "hint": "Differentiate $F$ in $y$, set it equal to $N$, and solve for $g'(y)$.",
+        "answerOptions": [
+          {
+            "text": "$g'(y) = 2y$",
+            "correct": true,
+            "rationale": "Correct. $F_y = x + g'(y)$, and setting it equal to $x + 2y$ gives $g'(y) = 2y$."
+          },
+          {
+            "text": "$g'(y) = x + 2y$",
+            "rationale": "The $x$ term already appears in $F_y$. After subtracting it, what remains for $g'(y)$?"
+          },
+          {
+            "text": "$g'(y) = x$",
+            "rationale": "That is the part already accounted for by $xy$. What is left over after matching the $x$ terms?"
+          },
+          {
+            "text": "$g'(y) = 0$",
+            "rationale": "That would ignore the $2y$ in $N$. What does $F_y = x + 2y$ leave for $g'(y)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pgJci5CI9n4_3",
+        "prompt": "With $g'(y) = 2y$, the full implicit solution of $(2x + y)\\,dx + (x + 2y)\\,dy = 0$ is what?",
+        "hint": "Integrate $g'(y) = 2y$ to get $g(y)$, assemble $F$, and set it equal to a constant.",
+        "answerOptions": [
+          {
+            "text": "$x^2 + xy + y^2 = C$",
+            "correct": true,
+            "rationale": "Correct. Integrating $g'(y) = 2y$ gives $y^2$, so $F = x^2 + xy + y^2 = C$."
+          },
+          {
+            "text": "$x^2 + xy = C$",
+            "rationale": "You left out $g(y)$. What is $\\int 2y\\,dy$, and where does it go?"
+          },
+          {
+            "text": "$x^2 + xy + 2y = C$",
+            "rationale": "That is $g'(y)$, not its integral. What is $\\int 2y\\,dy$?"
+          },
+          {
+            "text": "$x^2 + y^2 = C$",
+            "rationale": "You dropped the mixed term $xy$ from integrating $M$. Which cross term belongs in $F$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pgJci5CI9n4_4",
+        "prompt": "When solving an exact equation, why does integrating $M$ in $x$ produce an unknown function $g(y)$ rather than a constant?",
+        "hint": "Think about what vanishes under the partial derivative $\\frac{\\partial}{\\partial x}$.",
+        "answerOptions": [
+          {
+            "text": "Any function of $y$ alone has zero $x$ partial, so it is invisible to the $x$ integration",
+            "correct": true,
+            "rationale": "Yes. Since $\\frac{\\partial}{\\partial x}g(y) = 0$, the recovery from $M$ cannot see $g(y)$, so it stays unknown."
+          },
+          {
+            "text": "Because $y$ is the independent variable",
+            "rationale": "In this framing $x$ and $y$ are symmetric coordinates. What term is invisible to the operator $\\frac{\\partial}{\\partial x}$?"
+          },
+          {
+            "text": "Because integration always adds a constant",
+            "rationale": "A plain constant is too narrow here. What broader family of terms has zero $x$ partial?"
+          },
+          {
+            "text": "Because $M$ depends only on $x$",
+            "rationale": "$M$ may depend on both variables. What kind of leftover term does the $x$ integration miss?"
+          }
+        ]
+      },
+      {
+        "id": "mp_pgJci5CI9n4_5",
+        "prompt": "After finding a candidate potential $F$, how can you verify your exact-equation solution is correct?",
+        "hint": "The defining property is that $dF$ reproduces the original differential form.",
+        "answerOptions": [
+          {
+            "text": "Check that $F_x = M$ and $F_y = N$",
+            "correct": true,
+            "rationale": "Yes. If both partials of $F$ return the original coefficients, the potential is correct."
+          },
+          {
+            "text": "Check that $F = 0$",
+            "rationale": "The solution sets $F$ to a constant, not to zero. What should the partials of $F$ recover?"
+          },
+          {
+            "text": "Check that $M = N$",
+            "rationale": "$M$ and $N$ need not be equal. Which derivatives of $F$ should reproduce them?"
+          },
+          {
+            "text": "Check that $F_x = F_y$",
+            "rationale": "There is no reason the two partials match each other. What should each partial equal individually?"
+          }
+        ]
+      }
+    ],
+    "iEpqcdaJNTQ": [
+      {
+        "id": "mp_iEpqcdaJNTQ_1",
+        "prompt": "If $F(x, y) = C$ defines $y$ implicitly as a function of $x$, differentiating both sides with respect to $x$ gives which relation?",
+        "hint": "Apply the chain rule to $F(x, y(x))$, remembering that $y$ depends on $x$.",
+        "answerOptions": [
+          {
+            "text": "$F_x + F_y \\frac{dy}{dx} = 0$",
+            "correct": true,
+            "rationale": "Yes. The total derivative of $F(x, y(x))$ with respect to $x$ vanishes because $F$ is constant."
+          },
+          {
+            "text": "$F_x + F_y = 0$",
+            "rationale": "You dropped the chain rule factor on the $y$ term. What multiplies $F_y$ when $y$ depends on $x$?"
+          },
+          {
+            "text": "$F_x \\frac{dy}{dx} + F_y = 0$",
+            "rationale": "The chain rule factor attaches to the $y$ partial, not the $x$ partial. Which term carries $\\frac{dy}{dx}$?"
+          },
+          {
+            "text": "$F_x + F_y \\frac{dy}{dx} = C$",
+            "rationale": "The derivative of a constant is zero, not $C$. What does the right side become after differentiating?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iEpqcdaJNTQ_2",
+        "prompt": "The relation $F_x + F_y \\frac{dy}{dx} = 0$ matches $M\\,dx + N\\,dy = 0$ when you identify which pairing?",
+        "hint": "Rewrite $M\\,dx + N\\,dy = 0$ as $M + N\\frac{dy}{dx} = 0$ and compare coefficients.",
+        "answerOptions": [
+          {
+            "text": "$M = F_x$ and $N = F_y$",
+            "correct": true,
+            "rationale": "Yes. Matching the two forms term by term gives $M = F_x$ and $N = F_y$."
+          },
+          {
+            "text": "$M = F_y$ and $N = F_x$",
+            "rationale": "The coefficient of $dx$ pairs with the $x$ partial. Which partial equals $M$?"
+          },
+          {
+            "text": "$M = N = F$",
+            "rationale": "$M$ and $N$ are partials of $F$, not $F$ itself. Which partial matches each coefficient?"
+          },
+          {
+            "text": "$M = F_x F_y$ and $N = 1$",
+            "rationale": "The coefficients are single partials, not products. What does $M$ equal directly?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iEpqcdaJNTQ_3",
+        "prompt": "Given $M = F_x$ and $N = F_y$, why must $M_y = N_x$ for a twice continuously differentiable $F$?",
+        "hint": "This is Clairaut's theorem on the symmetry of second mixed partial derivatives.",
+        "answerOptions": [
+          {
+            "text": "Because $M_y = F_{xy}$ and $N_x = F_{yx}$, and mixed partials are equal",
+            "correct": true,
+            "rationale": "Yes. The equality of mixed second partials forces $M_y = N_x$."
+          },
+          {
+            "text": "Because $M$ and $N$ are equal",
+            "rationale": "They are different partials of $F$. Which second derivatives do $M_y$ and $N_x$ become?"
+          },
+          {
+            "text": "Because $F$ is constant",
+            "rationale": "$F$ being constant on a solution does not give this identity. What property of mixed partials does?"
+          },
+          {
+            "text": "Because $x = y$",
+            "rationale": "The variables are independent and distinct. What theorem about second partials applies?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iEpqcdaJNTQ_4",
+        "prompt": "The slope of a solution curve to an exact equation at a point can be written as which ratio?",
+        "hint": "Solve $M + N\\frac{dy}{dx} = 0$ for $\\frac{dy}{dx}$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{dy}{dx} = -\\frac{M}{N}$",
+            "correct": true,
+            "rationale": "Yes. Solving $M + N\\frac{dy}{dx} = 0$ gives the slope as $-M/N$."
+          },
+          {
+            "text": "$\\frac{dy}{dx} = \\frac{M}{N}$",
+            "rationale": "Check the sign when you move $M$ to the other side. What sign does the slope carry?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = -\\frac{N}{M}$",
+            "rationale": "The roles of $M$ and $N$ are swapped. Which coefficient ends up in the numerator?"
+          },
+          {
+            "text": "$\\frac{dy}{dx} = M N$",
+            "rationale": "Solving a linear relation for the slope yields a ratio, not a product. What is that ratio?"
+          }
+        ]
+      },
+      {
+        "id": "mp_iEpqcdaJNTQ_5",
+        "prompt": "The level curves $F(x, y) = C$ are exactly the solution curves of the exact equation because of what?",
+        "hint": "On each level curve $F$ stays constant, so its total differential is zero there.",
+        "answerOptions": [
+          {
+            "text": "Along each level curve $dF = 0$, which is precisely the equation $M\\,dx + N\\,dy = 0$",
+            "correct": true,
+            "rationale": "Yes. The solutions are the curves where the potential stays constant."
+          },
+          {
+            "text": "The level curves are straight lines",
+            "rationale": "Level curves are generally curved. What property of $F$ along them matches the equation?"
+          },
+          {
+            "text": "$F$ changes fastest along them",
+            "rationale": "$F$ is constant, not changing, along a level curve. What does that constancy say about $dF$?"
+          },
+          {
+            "text": "They are perpendicular to all solutions",
+            "rationale": "They are the solutions themselves, not perpendicular to them. What does $dF = 0$ describe?"
+          }
+        ]
+      }
+    ],
+    "a7wYAtMjORQ": [
+      {
+        "id": "mp_a7wYAtMjORQ_1",
+        "prompt": "To reconstruct the potential $F$ from $F_x = M$, the natural step is to do what?",
+        "hint": "Reverse the partial differentiation in $x$ by partially integrating $M$ in $x$.",
+        "answerOptions": [
+          {
+            "text": "Integrate $M$ with respect to $x$, holding $y$ fixed",
+            "correct": true,
+            "rationale": "Yes. Partial integration of $M$ in $x$ recovers $F$ up to a function of $y$."
+          },
+          {
+            "text": "Differentiate $M$ with respect to $y$",
+            "rationale": "That moves away from $F$, not toward it. What operation undoes $F_x = M$?"
+          },
+          {
+            "text": "Integrate $M$ with respect to $y$",
+            "rationale": "You should reverse the $x$ derivative, so integrate in the matching variable. Which variable is that?"
+          },
+          {
+            "text": "Set $F = M$",
+            "rationale": "$M$ is the $x$ partial of $F$, not $F$ itself. What operation recovers $F$ from its partial?"
+          }
+        ]
+      },
+      {
+        "id": "mp_a7wYAtMjORQ_2",
+        "prompt": "After integrating $M$ in $x$ to get $F = \\int M\\,dx + g(y)$, how do you determine $g(y)$?",
+        "hint": "Differentiate this $F$ in $y$, set the result equal to $N$, and solve.",
+        "answerOptions": [
+          {
+            "text": "Set $\\frac{\\partial}{\\partial y}\\left(\\int M\\,dx\\right) + g'(y) = N$ and solve for $g'(y)$",
+            "correct": true,
+            "rationale": "Yes. Matching $F_y$ to $N$ isolates $g'(y)$, which you then integrate."
+          },
+          {
+            "text": "Set $g(y) = N$",
+            "rationale": "$N$ equals $F_y$, not $g(y)$ directly. What equation involving $g'(y)$ should you form?"
+          },
+          {
+            "text": "Set $g(y) = \\int N\\,dx$",
+            "rationale": "You integrate the leftover in $y$, not $N$ in $x$. What condition pins down $g'(y)$?"
+          },
+          {
+            "text": "Differentiate $N$ in $x$",
+            "rationale": "That tests exactness, it does not find $g$. Which matching condition gives $g'(y)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_a7wYAtMjORQ_3",
+        "prompt": "For $(y^2)\\,dx + (2xy)\\,dy = 0$, integrating $M = y^2$ in $x$ gives which candidate potential?",
+        "hint": "Integrate $y^2$ in $x$ treating $y$ as constant, then add $g(y)$.",
+        "answerOptions": [
+          {
+            "text": "$F = x y^2 + g(y)$",
+            "correct": true,
+            "rationale": "Correct. $\\int y^2\\,dx = x y^2$, plus the unknown $g(y)$."
+          },
+          {
+            "text": "$F = \\frac{y^3}{3} + g(y)$",
+            "rationale": "That integrates in $y$, not $x$. What is $\\int y^2\\,dx$ with $y$ held fixed?"
+          },
+          {
+            "text": "$F = x y^2$",
+            "rationale": "You omitted the integration term. What function of $y$ should be appended?"
+          },
+          {
+            "text": "$F = 2xy + g(y)$",
+            "rationale": "That looks like $N$, not the integral of $M$. What is $\\int y^2\\,dx$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_a7wYAtMjORQ_4",
+        "prompt": "Continuing the previous problem with $F = x y^2 + g(y)$ and $N = 2xy$, what is $g'(y)$?",
+        "hint": "Compute $F_y$ and set it equal to $N = 2xy$.",
+        "answerOptions": [
+          {
+            "text": "$g'(y) = 0$",
+            "correct": true,
+            "rationale": "Correct. $F_y = 2xy + g'(y)$ must equal $2xy$, so $g'(y) = 0$."
+          },
+          {
+            "text": "$g'(y) = 2xy$",
+            "rationale": "The $2xy$ already appears in $F_y$. What remains after subtracting it?"
+          },
+          {
+            "text": "$g'(y) = 2y$",
+            "rationale": "There is no leftover linear term here. What does $2xy - 2xy$ equal?"
+          },
+          {
+            "text": "$g'(y) = x y^2$",
+            "rationale": "That is part of $F$, not the leftover for $g'$. What is $N - F_y$ here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_a7wYAtMjORQ_5",
+        "prompt": "With $g'(y) = 0$, the implicit solution of $(y^2)\\,dx + (2xy)\\,dy = 0$ is what?",
+        "hint": "A zero $g'(y)$ means $g$ is a constant, which merges into the right-hand constant.",
+        "answerOptions": [
+          {
+            "text": "$x y^2 = C$",
+            "correct": true,
+            "rationale": "Correct. With $g$ constant, the potential is $x y^2$, so $x y^2 = C$."
+          },
+          {
+            "text": "$x y^2 + y = C$",
+            "rationale": "Since $g'(y) = 0$, no extra $y$ term appears. What is the potential without it?"
+          },
+          {
+            "text": "$\\frac{y^3}{3} = C$",
+            "rationale": "That came from integrating in the wrong variable. What did integrating $M$ in $x$ give?"
+          },
+          {
+            "text": "$2xy = C$",
+            "rationale": "That is $N$, not the potential. What constant expression did the potential reduce to?"
+          }
+        ]
+      }
+    ],
+    "VlE2jWCtH8c": [
+      {
+        "id": "mp_VlE2jWCtH8c_1",
+        "prompt": "The total differential of a function $F(x, y)$ is given by which expression?",
+        "hint": "A small change in $F$ collects the contribution from changing $x$ and the contribution from changing $y$.",
+        "answerOptions": [
+          {
+            "text": "$dF = F_x\\,dx + F_y\\,dy$",
+            "correct": true,
+            "rationale": "Yes. The total differential sums each partial times the change in its variable."
+          },
+          {
+            "text": "$dF = F_x\\,dy + F_y\\,dx$",
+            "rationale": "The partials are paired with the wrong differentials. Which change does $F_x$ multiply?"
+          },
+          {
+            "text": "$dF = F_x + F_y$",
+            "rationale": "The differentials $dx$ and $dy$ are missing. What multiplies each partial?"
+          },
+          {
+            "text": "$dF = F_{xx}\\,dx + F_{yy}\\,dy$",
+            "rationale": "Those are second partials. Which order of derivative appears in the total differential?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VlE2jWCtH8c_2",
+        "prompt": "Exact equations are motivated by reversing which process?",
+        "hint": "Think about where a differential form like $M\\,dx + N\\,dy$ could have come from.",
+        "answerOptions": [
+          {
+            "text": "Taking the total differential of an unknown potential $F$ and setting it to zero",
+            "correct": true,
+            "rationale": "Yes. An exact equation is the total differential of some $F$ set equal to zero, and solving recovers $F$."
+          },
+          {
+            "text": "Separating variables",
+            "rationale": "Separation is a different technique. What operation on a potential produces $M\\,dx + N\\,dy$?"
+          },
+          {
+            "text": "Multiplying through by an integrating factor",
+            "rationale": "That repairs non-exact equations. What process does an already exact equation reverse?"
+          },
+          {
+            "text": "Taking a Laplace transform",
+            "rationale": "Transforms are unrelated here. What differential operation on $F$ yields the exact form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VlE2jWCtH8c_3",
+        "prompt": "If $F(x, y) = x^2 y$, what is its total differential $dF$?",
+        "hint": "Compute $F_x$ and $F_y$, then assemble $F_x\\,dx + F_y\\,dy$.",
+        "answerOptions": [
+          {
+            "text": "$dF = 2xy\\,dx + x^2\\,dy$",
+            "correct": true,
+            "rationale": "Correct. $F_x = 2xy$ and $F_y = x^2$ give this differential."
+          },
+          {
+            "text": "$dF = x^2\\,dx + 2xy\\,dy$",
+            "rationale": "The partials are attached to the wrong differentials. What is $F_x$ here?"
+          },
+          {
+            "text": "$dF = 2xy\\,dx + 2xy\\,dy$",
+            "rationale": "The $y$ partial is not $2xy$. What is $\\frac{\\partial}{\\partial y}(x^2 y)$?"
+          },
+          {
+            "text": "$dF = 2x\\,dx + 1\\,dy$",
+            "rationale": "You differentiated as if $y$ and $x$ were absent from the other factor. What are the full partials of $x^2 y$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VlE2jWCtH8c_4",
+        "prompt": "Setting the total differential of a constant level $F(x, y) = C$ equal to zero expresses what physical idea?",
+        "hint": "On a level set the value of $F$ does not change as you move along the curve.",
+        "answerOptions": [
+          {
+            "text": "Motion along a curve where $F$ is conserved, so no net change in $F$ occurs",
+            "correct": true,
+            "rationale": "Yes. The solution curves are paths of constant $F$, where the conserved quantity does not change."
+          },
+          {
+            "text": "Motion in the direction $F$ increases fastest",
+            "rationale": "That is the gradient direction, across the level curve. What happens to $F$ along the solution curve?"
+          },
+          {
+            "text": "A region where $F$ is undefined",
+            "rationale": "$F$ is well defined on its level curves. What stays constant as you move along one?"
+          },
+          {
+            "text": "A point where $F$ has a maximum",
+            "rationale": "A level curve is generally not a single extremum. What value of $F$ is held fixed along it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VlE2jWCtH8c_5",
+        "prompt": "Why is recognizing a differential form as exact useful for solving the equation?",
+        "hint": "If the form is already a total differential, solving reduces to undoing one differentiation.",
+        "answerOptions": [
+          {
+            "text": "It reduces solving to finding a single potential $F$ whose differential is the given form",
+            "correct": true,
+            "rationale": "Yes. Exactness turns the problem into reconstructing one function $F$, then writing $F = C$."
+          },
+          {
+            "text": "It guarantees the solution is a straight line",
+            "rationale": "Solutions are general level curves, not lines. What single object does exactness let you find?"
+          },
+          {
+            "text": "It removes the need for any integration",
+            "rationale": "Recovering $F$ still requires integration. What does exactness simplify the task to?"
+          },
+          {
+            "text": "It makes the equation second order",
+            "rationale": "Exactness keeps the equation first order. What solving shortcut does it provide?"
+          }
+        ]
+      }
+    ],
+    "ljMaoSYfE1Q": [
+      {
+        "id": "mp_ljMaoSYfE1Q_1",
+        "prompt": "The constructive proof that an exact equation has a solution builds $F$ by which method?",
+        "hint": "It integrates one coefficient, then fixes the leftover by matching the other coefficient.",
+        "answerOptions": [
+          {
+            "text": "Integrate $M$ in $x$, then differentiate in $y$ and match $N$ to fix the unknown function",
+            "correct": true,
+            "rationale": "Yes. This two-step construction produces an explicit potential $F$."
+          },
+          {
+            "text": "Guess $F$ and check it works",
+            "rationale": "The proof is systematic, not a guess. What ordered steps build $F$ explicitly?"
+          },
+          {
+            "text": "Solve a second-order equation for $F$",
+            "rationale": "No higher-order equation is needed. What pair of first-order steps recovers $F$?"
+          },
+          {
+            "text": "Take the Laplace transform of $M$ and $N$",
+            "rationale": "Transforms are not part of this construction. What direct integration builds $F$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ljMaoSYfE1Q_2",
+        "prompt": "In the construction, the exactness condition $M_y = N_x$ is what guarantees what step succeeds?",
+        "hint": "After differentiating $\\int M\\,dx$ in $y$ and subtracting from $N$, the leftover must not depend on $x$.",
+        "answerOptions": [
+          {
+            "text": "The leftover that defines $g'(y)$ depends only on $y$, so it can be integrated",
+            "correct": true,
+            "rationale": "Yes. Exactness ensures the $x$ dependence cancels, leaving a pure function of $y$ to integrate."
+          },
+          {
+            "text": "The leftover is always zero",
+            "rationale": "It need not be zero, only free of $x$. What does exactness ensure about the leftover's variables?"
+          },
+          {
+            "text": "The integral of $M$ diverges",
+            "rationale": "Exactness does not cause divergence. What does it guarantee about the leftover term?"
+          },
+          {
+            "text": "The function $F$ becomes linear",
+            "rationale": "$F$ need not be linear. What property of the $g'(y)$ leftover does exactness secure?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ljMaoSYfE1Q_3",
+        "prompt": "Solve the exact equation $(3x^2 + y)\\,dx + (x)\\,dy = 0$. What is the implicit solution?",
+        "hint": "Integrate $M = 3x^2 + y$ in $x$, then match $F_y$ to $N = x$.",
+        "answerOptions": [
+          {
+            "text": "$x^3 + xy = C$",
+            "correct": true,
+            "rationale": "Correct. Integrating gives $x^3 + xy + g(y)$, and matching $N$ forces $g'(y) = 0$."
+          },
+          {
+            "text": "$x^3 + xy + y = C$",
+            "rationale": "Matching $F_y = x$ to $N = x$ leaves $g'(y) = 0$, so no extra $y$ term. What is the potential then?"
+          },
+          {
+            "text": "$x^3 + y = C$",
+            "rationale": "You dropped the cross term from integrating $y$ in $x$. What is $\\int (3x^2 + y)\\,dx$?"
+          },
+          {
+            "text": "$6x + xy = C$",
+            "rationale": "That differentiates the cubic instead of integrating. What is $\\int 3x^2\\,dx$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ljMaoSYfE1Q_4",
+        "prompt": "The constructive proof shows that an exact equation's solution is unique up to what?",
+        "hint": "The potential $F$ is determined only to within something that has zero differential.",
+        "answerOptions": [
+          {
+            "text": "An additive constant in $F$",
+            "correct": true,
+            "rationale": "Yes. Any constant can be absorbed into the right-hand side, so $F$ is fixed up to a constant."
+          },
+          {
+            "text": "A multiplicative constant in $F$",
+            "rationale": "Scaling $F$ would scale its differential. What additive change leaves the differential unchanged?"
+          },
+          {
+            "text": "An arbitrary function of $x$",
+            "rationale": "A nonconstant function of $x$ changes the differential. What term has zero differential?"
+          },
+          {
+            "text": "Nothing, the solution is exactly one curve",
+            "rationale": "The solution is a whole family of level curves. What freedom remains in $F$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ljMaoSYfE1Q_5",
+        "prompt": "Could you equally well begin the construction by integrating $N$ in $y$ first?",
+        "hint": "The roles of $x$ and $y$ are symmetric in the exactness setup.",
+        "answerOptions": [
+          {
+            "text": "Yes, integrating $N$ in $y$ and matching $M$ gives the same potential",
+            "correct": true,
+            "rationale": "Yes. The construction is symmetric, so either coefficient can start the process."
+          },
+          {
+            "text": "No, only $M$ can be integrated first",
+            "rationale": "The setup treats $x$ and $y$ symmetrically. Which coefficient could you integrate in $y$ instead?"
+          },
+          {
+            "text": "No, integrating $N$ gives a different solution",
+            "rationale": "A correct construction yields the same level curves. Why does starting with $N$ also work?"
+          },
+          {
+            "text": "Only if the equation is also separable",
+            "rationale": "Separability is not required. What symmetry lets you start from $N$?"
+          }
+        ]
+      }
+    ],
+    "rPZG1pfeJK0": [
+      {
+        "id": "mp_rPZG1pfeJK0_1",
+        "prompt": "Is the equation $(y)\\,dx + (2x)\\,dy = 0$ exact?",
+        "hint": "Compare $M_y$ for $M = y$ with $N_x$ for $N = 2x$.",
+        "answerOptions": [
+          {
+            "text": "No, since $M_y = 1$ but $N_x = 2$",
+            "correct": true,
+            "rationale": "Correct. The cross partials differ, so the equation is not exact as written."
+          },
+          {
+            "text": "Yes, since $M_y = N_x$",
+            "rationale": "Recompute. What is $\\frac{\\partial}{\\partial y}(y)$ versus $\\frac{\\partial}{\\partial x}(2x)$?"
+          },
+          {
+            "text": "Yes, since both are linear",
+            "rationale": "Linearity does not ensure exactness. What do the cross partials equal here?"
+          },
+          {
+            "text": "It is undefined",
+            "rationale": "The test applies cleanly. What are $M_y$ and $N_x$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_rPZG1pfeJK0_2",
+        "prompt": "When an equation fails the exactness test, the standard remedy is to multiply by what?",
+        "hint": "You want to rescale $M$ and $N$ so the cross partials line up.",
+        "answerOptions": [
+          {
+            "text": "An integrating factor $\\mu$ that makes the rescaled equation exact",
+            "correct": true,
+            "rationale": "Yes. A well chosen integrating factor restores the equality of cross partials."
+          },
+          {
+            "text": "A constant of integration",
+            "rationale": "A constant does not change the cross partial mismatch. What variable factor can fix it?"
+          },
+          {
+            "text": "The derivative of $M$",
+            "rationale": "Multiplying by a derivative is not the method. What factor is designed to restore exactness?"
+          },
+          {
+            "text": "Zero",
+            "rationale": "Multiplying by zero destroys the equation. What nonzero factor repairs exactness?"
+          }
+        ]
+      },
+      {
+        "id": "mp_rPZG1pfeJK0_3",
+        "prompt": "After multiplying by $\\mu(x, y)$, the new equation $\\mu M\\,dx + \\mu N\\,dy = 0$ is exact when which condition holds?",
+        "hint": "Apply the exactness test to the rescaled coefficients $\\mu M$ and $\\mu N$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial}{\\partial y}(\\mu M) = \\frac{\\partial}{\\partial x}(\\mu N)$",
+            "correct": true,
+            "rationale": "Yes. The exactness test now applies to the products $\\mu M$ and $\\mu N$."
+          },
+          {
+            "text": "$\\mu M = \\mu N$",
+            "rationale": "Equality of the coefficients is not the test. Which cross partials of the products must match?"
+          },
+          {
+            "text": "$\\mu_y = \\mu_x$",
+            "rationale": "The factor's own partials are not the condition. What cross partials of the rescaled coefficients must agree?"
+          },
+          {
+            "text": "$\\frac{\\partial}{\\partial x}(\\mu M) = \\frac{\\partial}{\\partial y}(\\mu N)$",
+            "rationale": "The cross partials are taken in the opposite variables. Which derivative of $\\mu M$ should match which of $\\mu N$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_rPZG1pfeJK0_4",
+        "prompt": "For $(y)\\,dx + (2x)\\,dy = 0$, the expression $\\frac{N_x - M_y}{M}$ equals what?",
+        "hint": "Use $M_y = 1$, $N_x = 2$, and $M = y$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{1}{y}$",
+            "correct": true,
+            "rationale": "Correct. $\\frac{2 - 1}{y} = \\frac{1}{y}$, a function of $y$ alone, signaling a $y$-only integrating factor."
+          },
+          {
+            "text": "$\\frac{1}{x}$",
+            "rationale": "The denominator here is $M = y$, not $x$. What is $\\frac{N_x - M_y}{M}$?"
+          },
+          {
+            "text": "$\\frac{1}{2x}$",
+            "rationale": "That uses $N$ in the denominator, a different test. What does dividing by $M = y$ give?"
+          },
+          {
+            "text": "$0$",
+            "rationale": "The numerator $N_x - M_y = 2 - 1$ is not zero. What is $\\frac{1}{y}$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_rPZG1pfeJK0_5",
+        "prompt": "Why does a non-exact equation still describe the same solution curves as its exactified version?",
+        "hint": "Multiplying $M\\,dx + N\\,dy = 0$ by a nonzero factor does not change where the left side equals zero.",
+        "answerOptions": [
+          {
+            "text": "Multiplying by a nonzero factor leaves the zero set unchanged, so the solutions are the same",
+            "correct": true,
+            "rationale": "Yes. Scaling both sides by a nonzero $\\mu$ preserves the equation's solution curves."
+          },
+          {
+            "text": "The integrating factor changes the solutions entirely",
+            "rationale": "A nonzero factor cannot change where the form equals zero. What stays the same after multiplying?"
+          },
+          {
+            "text": "Only the exact version has solutions",
+            "rationale": "Both versions share solutions. Why does multiplying by nonzero $\\mu$ preserve them?"
+          },
+          {
+            "text": "The factor shifts the curves by a constant",
+            "rationale": "It rescales, it does not shift. What property of multiplying by nonzero $\\mu$ keeps solutions fixed?"
+          }
+        ]
+      }
+    ],
+    "wQ0lwznTSvY": [
+      {
+        "id": "mp_wQ0lwznTSvY_1",
+        "prompt": "If $\\frac{M_y - N_x}{N}$ depends on $x$ alone, the integrating factor is which function?",
+        "hint": "This case yields a factor depending only on $x$, found by integrating that ratio.",
+        "answerOptions": [
+          {
+            "text": "$\\mu(x) = \\exp\\left(\\int \\frac{M_y - N_x}{N}\\,dx\\right)$",
+            "correct": true,
+            "rationale": "Yes. When the ratio depends only on $x$, this exponential integrating factor restores exactness."
+          },
+          {
+            "text": "$\\mu(x) = \\int \\frac{M_y - N_x}{N}\\,dx$",
+            "rationale": "The factor is the exponential of that integral, not the integral itself. What wraps the integral?"
+          },
+          {
+            "text": "$\\mu(y) = \\exp\\left(\\int \\frac{M_y - N_x}{N}\\,dy\\right)$",
+            "rationale": "A ratio depending on $x$ gives an $x$-only factor. Which variable should you integrate over?"
+          },
+          {
+            "text": "$\\mu(x) = \\frac{M_y - N_x}{N}$",
+            "rationale": "That is the ratio before integrating and exponentiating. What two operations turn it into $\\mu$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wQ0lwznTSvY_2",
+        "prompt": "If instead $\\frac{N_x - M_y}{M}$ depends on $y$ alone, the integrating factor is which function?",
+        "hint": "Mirror the previous case, swapping the roles of $x$ and $y$ and the order of the partials.",
+        "answerOptions": [
+          {
+            "text": "$\\mu(y) = \\exp\\left(\\int \\frac{N_x - M_y}{M}\\,dy\\right)$",
+            "correct": true,
+            "rationale": "Yes. When the ratio depends only on $y$, this exponential gives a $y$-only integrating factor."
+          },
+          {
+            "text": "$\\mu(x) = \\exp\\left(\\int \\frac{N_x - M_y}{M}\\,dx\\right)$",
+            "rationale": "A ratio depending on $y$ gives a $y$-only factor. Over which variable should you integrate?"
+          },
+          {
+            "text": "$\\mu(y) = \\frac{N_x - M_y}{M}$",
+            "rationale": "That is just the ratio. What two operations convert it into the factor $\\mu$?"
+          },
+          {
+            "text": "$\\mu(y) = \\ln\\left(\\frac{N_x - M_y}{M}\\right)$",
+            "rationale": "The factor uses an exponential of an integral, not a logarithm. What is the correct form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wQ0lwznTSvY_3",
+        "prompt": "For $(y)\\,dx + (2x)\\,dy = 0$, the test $\\frac{N_x - M_y}{M} = \\frac{1}{y}$ leads to which integrating factor?",
+        "hint": "Integrate $\\frac{1}{y}$ in $y$ and exponentiate.",
+        "answerOptions": [
+          {
+            "text": "$\\mu(y) = y$",
+            "correct": true,
+            "rationale": "Correct. $\\exp\\left(\\int \\frac{1}{y}\\,dy\\right) = \\exp(\\ln y) = y$."
+          },
+          {
+            "text": "$\\mu(y) = \\ln y$",
+            "rationale": "That is the integral before exponentiating. What is $\\exp(\\ln y)$?"
+          },
+          {
+            "text": "$\\mu(y) = \\frac{1}{y}$",
+            "rationale": "That is the ratio itself, not the factor. What does integrating and exponentiating give?"
+          },
+          {
+            "text": "$\\mu(y) = e^y$",
+            "rationale": "The integral is $\\ln y$, not $y$. What is $\\exp(\\ln y)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wQ0lwznTSvY_4",
+        "prompt": "Multiplying $(y)\\,dx + (2x)\\,dy = 0$ by $\\mu(y) = y$ gives which exact equation?",
+        "hint": "Distribute the factor $y$ across both coefficients.",
+        "answerOptions": [
+          {
+            "text": "$(y^2)\\,dx + (2xy)\\,dy = 0$",
+            "correct": true,
+            "rationale": "Correct. Now $M_y = 2y = N_x$, so the equation is exact."
+          },
+          {
+            "text": "$(y)\\,dx + (2xy)\\,dy = 0$",
+            "rationale": "The first coefficient must also be multiplied by $y$. What is $y \\cdot y$?"
+          },
+          {
+            "text": "$(y^2)\\,dx + (2x)\\,dy = 0$",
+            "rationale": "The second coefficient must also be multiplied by $y$. What is $y \\cdot 2x$?"
+          },
+          {
+            "text": "$(2y)\\,dx + (2xy)\\,dy = 0$",
+            "rationale": "Multiplying $y$ by $y$ gives $y^2$, not $2y$. What is the new first coefficient?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wQ0lwznTSvY_5",
+        "prompt": "Why must you check that $\\frac{M_y - N_x}{N}$ depends on $x$ alone before using the $x$-only integrating factor formula?",
+        "hint": "The exponential formula in $x$ only makes sense if the integrand has no $y$ dependence.",
+        "answerOptions": [
+          {
+            "text": "If the ratio still contains $y$, no purely $x$-dependent factor can fix the equation",
+            "correct": true,
+            "rationale": "Yes. The $x$-only formula applies precisely when the ratio is free of $y$."
+          },
+          {
+            "text": "Because the formula always works regardless",
+            "rationale": "It only works in a special case. What must be true of the ratio for an $x$-only factor to exist?"
+          },
+          {
+            "text": "Because $N$ must be constant",
+            "rationale": "$N$ need not be constant. What condition on the ratio justifies the $x$-only formula?"
+          },
+          {
+            "text": "Because $x$ must be positive",
+            "rationale": "Sign of $x$ is not the issue. What dependence must the ratio avoid for this formula?"
+          }
+        ]
+      }
+    ],
+    "u5NGfwNNqHw": [
+      {
+        "id": "mp_u5NGfwNNqHw_1",
+        "prompt": "An almost exact equation is one that is not exact but becomes exact after multiplying by what?",
+        "hint": "The phrase signals that a single special factor is all that stands between the equation and exactness.",
+        "answerOptions": [
+          {
+            "text": "A special integrating factor",
+            "correct": true,
+            "rationale": "Yes. An almost exact equation needs just one integrating factor to become exact."
+          },
+          {
+            "text": "A second derivative",
+            "rationale": "No higher derivative is introduced. What single factor restores exactness?"
+          },
+          {
+            "text": "A change of independent variable",
+            "rationale": "The variables stay the same. What multiplier turns it exact?"
+          },
+          {
+            "text": "A boundary condition",
+            "rationale": "Boundary data does not affect exactness. What factor does?"
+          }
+        ]
+      },
+      {
+        "id": "mp_u5NGfwNNqHw_2",
+        "prompt": "For $(3xy + y^2)\\,dx + (x^2 + xy)\\,dy = 0$, computing $M_y - N_x$ gives what?",
+        "hint": "With $M = 3xy + y^2$ and $N = x^2 + xy$, find $M_y = 3x + 2y$ and $N_x = 2x + y$, then subtract.",
+        "answerOptions": [
+          {
+            "text": "$x + y$",
+            "correct": true,
+            "rationale": "Correct. $(3x + 2y) - (2x + y) = x + y$."
+          },
+          {
+            "text": "$x - y$",
+            "rationale": "Recheck the $y$ terms: $2y - y = y$, not $-y$. What is the full difference?"
+          },
+          {
+            "text": "$5x + 3y$",
+            "rationale": "That added the partials instead of subtracting. What is $M_y - N_x$?"
+          },
+          {
+            "text": "$0$",
+            "rationale": "The equation is not exact here. What nonzero expression is $M_y - N_x$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_u5NGfwNNqHw_3",
+        "prompt": "For that same equation, $\\frac{M_y - N_x}{N} = \\frac{x + y}{x^2 + xy}$ simplifies to which $x$-only function?",
+        "hint": "Factor the denominator as $x(x + y)$ and cancel.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{1}{x}$",
+            "correct": true,
+            "rationale": "Correct. $\\frac{x + y}{x(x + y)} = \\frac{1}{x}$, which depends on $x$ alone."
+          },
+          {
+            "text": "$\\frac{1}{y}$",
+            "rationale": "The cancellation leaves $x$ in the denominator, not $y$. What is $\\frac{x+y}{x(x+y)}$?"
+          },
+          {
+            "text": "$x + y$",
+            "rationale": "You skipped the cancellation with the denominator. What remains after dividing by $x(x+y)$?"
+          },
+          {
+            "text": "$\\frac{1}{x + y}$",
+            "rationale": "Both numerator and one denominator factor are $x + y$ and cancel. What single factor remains?"
+          }
+        ]
+      },
+      {
+        "id": "mp_u5NGfwNNqHw_4",
+        "prompt": "Given $\\frac{M_y - N_x}{N} = \\frac{1}{x}$, the integrating factor for that equation is which function?",
+        "hint": "Integrate $\\frac{1}{x}$ in $x$ and exponentiate.",
+        "answerOptions": [
+          {
+            "text": "$\\mu(x) = x$",
+            "correct": true,
+            "rationale": "Correct. $\\exp\\left(\\int \\frac{1}{x}\\,dx\\right) = \\exp(\\ln x) = x$."
+          },
+          {
+            "text": "$\\mu(x) = \\ln x$",
+            "rationale": "That is the integral before exponentiating. What is $\\exp(\\ln x)$?"
+          },
+          {
+            "text": "$\\mu(x) = e^x$",
+            "rationale": "The integral is $\\ln x$, not $x$. What is $\\exp(\\ln x)$?"
+          },
+          {
+            "text": "$\\mu(x) = \\frac{1}{x}$",
+            "rationale": "That is the ratio, not the factor. What does integrating and exponentiating produce?"
+          }
+        ]
+      },
+      {
+        "id": "mp_u5NGfwNNqHw_5",
+        "prompt": "How do you decide whether to seek an integrating factor depending on $x$ alone versus $y$ alone?",
+        "hint": "Test which of the two diagnostic ratios collapses to a single-variable expression.",
+        "answerOptions": [
+          {
+            "text": "Check if $\\frac{M_y - N_x}{N}$ is $x$-only, otherwise check if $\\frac{N_x - M_y}{M}$ is $y$-only",
+            "correct": true,
+            "rationale": "Yes. Whichever ratio reduces to one variable tells you which kind of factor to use."
+          },
+          {
+            "text": "Always use an $x$-only factor first",
+            "rationale": "It only works when its ratio is $x$-only. What do you check before committing?"
+          },
+          {
+            "text": "Pick whichever variable appears in $M$",
+            "rationale": "Appearance in $M$ is not the criterion. Which diagnostic ratios do you actually test?"
+          },
+          {
+            "text": "Use a $y$-only factor whenever $N$ is larger",
+            "rationale": "Size of $N$ is irrelevant. What property of the diagnostic ratios decides the choice?"
+          }
+        ]
+      }
+    ],
+    "tOdlvZpdako": [
+      {
+        "id": "mp_tOdlvZpdako_1",
+        "prompt": "After multiplying an almost exact equation by its integrating factor, the next step is to do what?",
+        "hint": "Once exact, the equation is solved by the standard potential reconstruction.",
+        "answerOptions": [
+          {
+            "text": "Solve the now-exact equation by finding a potential $F$ with $F = C$",
+            "correct": true,
+            "rationale": "Yes. With exactness restored, you reconstruct $F$ and write $F = C$."
+          },
+          {
+            "text": "Differentiate the equation again",
+            "rationale": "No further differentiation is needed. What standard procedure solves an exact equation?"
+          },
+          {
+            "text": "Separate the variables",
+            "rationale": "The equation may not be separable. What method applies once it is exact?"
+          },
+          {
+            "text": "Apply a second integrating factor",
+            "rationale": "One factor already made it exact. What do you do with an exact equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tOdlvZpdako_2",
+        "prompt": "After multiplying by $\\mu(x) = x$, the equation $(3xy + y^2)\\,dx + (x^2 + xy)\\,dy = 0$ becomes which exact form?",
+        "hint": "Distribute $x$ across both coefficients.",
+        "answerOptions": [
+          {
+            "text": "$(3x^2 y + x y^2)\\,dx + (x^3 + x^2 y)\\,dy = 0$",
+            "correct": true,
+            "rationale": "Correct. Each coefficient is multiplied by $x$, and now the cross partials match."
+          },
+          {
+            "text": "$(3xy + y^2)\\,dx + (x^3 + x^2 y)\\,dy = 0$",
+            "rationale": "The first coefficient also needs the factor $x$. What is $x(3xy + y^2)$?"
+          },
+          {
+            "text": "$(3x^2 y + x y^2)\\,dx + (x^2 + xy)\\,dy = 0$",
+            "rationale": "The second coefficient also needs the factor $x$. What is $x(x^2 + xy)$?"
+          },
+          {
+            "text": "$(3x^2 y + y^2)\\,dx + (x^3 + xy)\\,dy = 0$",
+            "rationale": "Every term in each coefficient gets the factor $x$. What is $x \\cdot y^2$ and $x \\cdot xy$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tOdlvZpdako_3",
+        "prompt": "For the exact form $(3x^2 y + x y^2)\\,dx + (x^3 + x^2 y)\\,dy = 0$, integrating $M$ in $x$ gives which potential candidate?",
+        "hint": "Integrate $3x^2 y + x y^2$ in $x$, treating $y$ as constant.",
+        "answerOptions": [
+          {
+            "text": "$F = x^3 y + \\frac{x^2 y^2}{2} + g(y)$",
+            "correct": true,
+            "rationale": "Correct. $\\int 3x^2 y\\,dx = x^3 y$ and $\\int x y^2\\,dx = \\frac{x^2 y^2}{2}$, plus $g(y)$."
+          },
+          {
+            "text": "$F = x^3 y + x^2 y^2 + g(y)$",
+            "rationale": "Recheck $\\int x y^2\\,dx$. What power and coefficient does integrating $x$ produce?"
+          },
+          {
+            "text": "$F = 6xy + y^2 + g(y)$",
+            "rationale": "That differentiates instead of integrates. What is $\\int 3x^2 y\\,dx$?"
+          },
+          {
+            "text": "$F = x^3 y + \\frac{x^2 y^2}{2}$",
+            "rationale": "You omitted the integration term. What function of $y$ should be appended?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tOdlvZpdako_4",
+        "prompt": "Completing that solution, matching $F_y$ to $N = x^3 + x^2 y$ yields which implicit solution?",
+        "hint": "Differentiate $F = x^3 y + \\frac{x^2 y^2}{2} + g(y)$ in $y$, compare with $N$, and solve for $g$.",
+        "answerOptions": [
+          {
+            "text": "$x^3 y + \\frac{x^2 y^2}{2} = C$",
+            "correct": true,
+            "rationale": "Correct. $F_y$ already equals $N$, so $g'(y) = 0$ and the potential is complete."
+          },
+          {
+            "text": "$x^3 y + \\frac{x^2 y^2}{2} + y = C$",
+            "rationale": "Matching $F_y$ to $N$ gives $g'(y) = 0$, so no extra $y$ term. What is the potential then?"
+          },
+          {
+            "text": "$x^3 y + x^2 y^2 = C$",
+            "rationale": "The cross term carries a factor of one half from integration. What is the correct coefficient?"
+          },
+          {
+            "text": "$x^3 + x^2 y = C$",
+            "rationale": "That is $N$, not the potential built from $M$. What did integrating $M$ in $x$ produce?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tOdlvZpdako_5",
+        "prompt": "Why is it important that the integrating factor be nonzero on the region of interest?",
+        "hint": "Multiplying by a factor that vanishes could erase or distort the original solution curves.",
+        "answerOptions": [
+          {
+            "text": "A zero of the factor could introduce or remove solutions, so the equivalence holds only where it is nonzero",
+            "correct": true,
+            "rationale": "Yes. Solution equivalence between the two forms requires the factor to stay nonzero."
+          },
+          {
+            "text": "A zero makes the equation second order",
+            "rationale": "Order is unchanged. What problem does a vanishing factor cause for the solutions?"
+          },
+          {
+            "text": "A zero speeds up the integration",
+            "rationale": "Vanishing is a hazard, not a benefit. What can a zero of the factor do to solutions?"
+          },
+          {
+            "text": "It has no effect at all",
+            "rationale": "Zeros of the factor matter. How can they alter the solution set?"
+          }
+        ]
+      }
+    ],
+    "3rrfhp-VCMM": [
+      {
+        "id": "mp_3rrfhp-VCMM_1",
+        "prompt": "An exact equation $M\\,dx + N\\,dy = 0$ corresponds to which kind of vector field $(M, N)$?",
+        "hint": "Exactness means $(M, N)$ is the gradient of a scalar potential.",
+        "answerOptions": [
+          {
+            "text": "A conservative (gradient) vector field",
+            "correct": true,
+            "rationale": "Yes. Exactness is the statement that $(M, N) = \\nabla F$, a conservative field."
+          },
+          {
+            "text": "A divergence-free field",
+            "rationale": "Divergence-free is a different condition. What gradient structure does exactness express?"
+          },
+          {
+            "text": "A purely rotational field",
+            "rationale": "Conservative fields have no rotation. What kind of field is $(M, N)$ when exact?"
+          },
+          {
+            "text": "A time-dependent field",
+            "rationale": "Time is not involved here. What structural property does exactness give $(M, N)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3rrfhp-VCMM_2",
+        "prompt": "For a field $(M, N)$ on a simply connected region, the conservative test mirrors the exactness test as which equation?",
+        "hint": "Both conditions compare the same pair of cross partials.",
+        "answerOptions": [
+          {
+            "text": "$M_y = N_x$",
+            "correct": true,
+            "rationale": "Yes. The conservative test and the exactness test are the same equality of cross partials."
+          },
+          {
+            "text": "$M_x = N_y$",
+            "rationale": "Those are the straight partials. Which cross partials must agree?"
+          },
+          {
+            "text": "$M + N = 0$",
+            "rationale": "That is not a derivative test. What partial derivative equality defines both?"
+          },
+          {
+            "text": "$\\nabla \\cdot (M, N) = 0$",
+            "rationale": "That is the divergence-free condition, a different property. What test matches exactness?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3rrfhp-VCMM_3",
+        "prompt": "The potential function $F$ from solving an exact equation plays which role for the vector field?",
+        "hint": "The field is the gradient of $F$, so $F$ is its scalar potential.",
+        "answerOptions": [
+          {
+            "text": "It is the scalar potential whose gradient is $(M, N)$",
+            "correct": true,
+            "rationale": "Yes. $F$ is the scalar potential, and $\\nabla F = (M, N)$."
+          },
+          {
+            "text": "It is the divergence of the field",
+            "rationale": "Divergence is a scalar built from derivatives, not the potential. What is $F$ to the field?"
+          },
+          {
+            "text": "It is the curl of the field",
+            "rationale": "Curl measures rotation, not a potential. What scalar function has gradient $(M, N)$?"
+          },
+          {
+            "text": "It is the magnitude of the field",
+            "rationale": "Magnitude is not a potential. What role does $F$ play with respect to the gradient?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3rrfhp-VCMM_4",
+        "prompt": "For a conservative field, the line integral $\\int_C M\\,dx + N\\,dy$ between two points depends on what?",
+        "hint": "With a potential available, the fundamental theorem of line integrals applies.",
+        "answerOptions": [
+          {
+            "text": "Only the endpoints, not the path taken",
+            "correct": true,
+            "rationale": "Yes. The integral equals the potential difference, so only the endpoints matter."
+          },
+          {
+            "text": "The length of the path",
+            "rationale": "Length does not enter a potential difference. What does the integral depend on?"
+          },
+          {
+            "text": "The curvature of the path",
+            "rationale": "Curvature is irrelevant for a gradient field. What fixes the integral's value?"
+          },
+          {
+            "text": "The orientation of the axes",
+            "rationale": "Axis orientation does not change it. What two features set the value?"
+          }
+        ]
+      },
+      {
+        "id": "mp_3rrfhp-VCMM_5",
+        "prompt": "Why does the level-curve picture of $F(x, y) = C$ unify exact equations and conservative fields?",
+        "hint": "The solution curves of the equation and the equipotential curves of the field are the same level sets.",
+        "answerOptions": [
+          {
+            "text": "The solution curves of the exact equation are exactly the equipotential curves of the conservative field",
+            "correct": true,
+            "rationale": "Yes. Both describe the level sets of the same potential $F$."
+          },
+          {
+            "text": "They are unrelated coincidences",
+            "rationale": "They share the same potential $F$. What curves do both frameworks describe?"
+          },
+          {
+            "text": "Only the field has level curves",
+            "rationale": "The exact equation's solutions are level curves too. What common object do they share?"
+          },
+          {
+            "text": "The field has no potential",
+            "rationale": "A conservative field does have a potential. What level sets connect the two views?"
+          }
+        ]
+      }
+    ],
+    "1Db3jPmQTsI": [
+      {
+        "id": "mp_1Db3jPmQTsI_1",
+        "prompt": "The gradient $\\nabla F$ at a point is oriented how relative to the solution curve $F = C$ through that point?",
+        "hint": "The gradient points toward steepest increase, straight across a level curve.",
+        "answerOptions": [
+          {
+            "text": "Perpendicular to the solution curve",
+            "correct": true,
+            "rationale": "Yes. The gradient is always perpendicular to the level curve $F = C$."
+          },
+          {
+            "text": "Tangent to the solution curve",
+            "rationale": "Along the curve $F$ is constant, but the gradient points where $F$ changes. What angle is that?"
+          },
+          {
+            "text": "Anti-parallel to the curve",
+            "rationale": "There is no consistent parallel direction along a curve for the gradient. How is it oriented?"
+          },
+          {
+            "text": "At a fixed 30 degrees",
+            "rationale": "The angle is set by geometry, not a fixed degree. What is it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1Db3jPmQTsI_2",
+        "prompt": "Is the field $(M, N) = (2x, 2y)$ conservative, and if so what is a potential?",
+        "hint": "Check $M_y = N_x$, then integrate to find $F$.",
+        "answerOptions": [
+          {
+            "text": "Yes, with potential $F = x^2 + y^2$",
+            "correct": true,
+            "rationale": "Correct. $M_y = 0 = N_x$, and $\\nabla(x^2 + y^2) = (2x, 2y)$."
+          },
+          {
+            "text": "No, it is not conservative",
+            "rationale": "Recompute $M_y$ and $N_x$. Are they equal here?"
+          },
+          {
+            "text": "Yes, with potential $F = 2x + 2y$",
+            "rationale": "Check the gradient of $2x + 2y$; it is $(2, 2)$. What potential gives $(2x, 2y)$?"
+          },
+          {
+            "text": "Yes, with potential $F = xy$",
+            "rationale": "The gradient of $xy$ is $(y, x)$. What potential yields $(2x, 2y)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1Db3jPmQTsI_3",
+        "prompt": "A field whose cross partials do not match, such as $(M, N) = (-y, x)$, is what?",
+        "hint": "Test $M_y$ against $N_x$ for $M = -y$, $N = x$.",
+        "answerOptions": [
+          {
+            "text": "Not conservative, since $M_y = -1 \\neq 1 = N_x$",
+            "correct": true,
+            "rationale": "Correct. The cross partials differ, so the field is not conservative and the equation is not exact."
+          },
+          {
+            "text": "Conservative, since $M_y = N_x$",
+            "rationale": "Recompute. What are $\\frac{\\partial}{\\partial y}(-y)$ and $\\frac{\\partial}{\\partial x}(x)$?"
+          },
+          {
+            "text": "Conservative, since it rotates",
+            "rationale": "Rotation is the opposite of conservative behavior. What do the cross partials say?"
+          },
+          {
+            "text": "Exact after no changes",
+            "rationale": "It fails the exactness test as written. What do $M_y$ and $N_x$ equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1Db3jPmQTsI_4",
+        "prompt": "The line integral of a conservative field around a closed loop equals what?",
+        "hint": "On a closed loop the start and end points coincide, so the potential difference vanishes.",
+        "answerOptions": [
+          {
+            "text": "Zero",
+            "correct": true,
+            "rationale": "Yes. With start equal to end, the potential difference, and thus the integral, is zero."
+          },
+          {
+            "text": "The area enclosed",
+            "rationale": "Area is a different quantity. What does the potential difference give when the points coincide?"
+          },
+          {
+            "text": "The perimeter length",
+            "rationale": "Length does not enter a gradient integral. What is the value on a closed loop?"
+          },
+          {
+            "text": "A nonzero circulation",
+            "rationale": "Conservative fields have zero circulation. Why must the closed-loop integral vanish?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1Db3jPmQTsI_5",
+        "prompt": "Why does the simply connected requirement matter for concluding that $M_y = N_x$ implies a potential exists?",
+        "hint": "On domains with holes, matching cross partials can fail to guarantee a single-valued potential.",
+        "answerOptions": [
+          {
+            "text": "On a region with holes, matching cross partials may not yield a single-valued global potential",
+            "correct": true,
+            "rationale": "Yes. Simple connectivity rules out holes that could block a global potential."
+          },
+          {
+            "text": "It guarantees the field is constant",
+            "rationale": "Connectivity does not force constancy. What does it ensure about the potential?"
+          },
+          {
+            "text": "It makes the cross partials automatically equal",
+            "rationale": "Connectivity does not create the equality; it lets the equality imply a potential. Why is that needed?"
+          },
+          {
+            "text": "It is never actually required",
+            "rationale": "It genuinely matters on domains with holes. What can go wrong without it?"
+          }
+        ]
+      }
+    ],
+    "S8exyRjtatE": [
+      {
+        "id": "mp_S8exyRjtatE_1",
+        "prompt": "In thermodynamics, a state function has a differential that is what?",
+        "hint": "A state function depends only on the current state, so its change depends only on endpoints.",
+        "answerOptions": [
+          {
+            "text": "An exact differential, path independent",
+            "correct": true,
+            "rationale": "Yes. State functions have exact differentials, so changes depend only on the endpoints."
+          },
+          {
+            "text": "An inexact differential, path dependent",
+            "rationale": "Path dependence is the signature of a process quantity, not a state function. What is a state function's differential?"
+          },
+          {
+            "text": "Always zero",
+            "rationale": "State functions can change. What kind of differential do they have?"
+          },
+          {
+            "text": "Undefined",
+            "rationale": "State functions have well defined differentials. Which type, exact or inexact?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S8exyRjtatE_2",
+        "prompt": "Which of these is a state function, with an exact differential?",
+        "hint": "State functions describe the condition of a system, not the process used to reach it.",
+        "answerOptions": [
+          {
+            "text": "Internal energy $U$",
+            "correct": true,
+            "rationale": "Yes. Internal energy is a state function with the exact differential $dU$."
+          },
+          {
+            "text": "Heat $Q$",
+            "rationale": "Heat is exchanged during a process and depends on the path. Which listed quantity describes only the state?"
+          },
+          {
+            "text": "Work $W$",
+            "rationale": "Work depends on the path of the process. Which quantity depends only on the current state?"
+          },
+          {
+            "text": "Heat plus work along a path",
+            "rationale": "That is path dependent by construction. Which single quantity is a state function?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S8exyRjtatE_3",
+        "prompt": "For an exact differential $dU = M\\,dT + N\\,dV$, the Maxwell-type condition requires which equality?",
+        "hint": "Apply the exactness test to the coefficients of $dT$ and $dV$.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{\\partial M}{\\partial V} = \\frac{\\partial N}{\\partial T}$",
+            "correct": true,
+            "rationale": "Yes. Exactness of $dU$ forces the cross partials in $T$ and $V$ to match."
+          },
+          {
+            "text": "$\\frac{\\partial M}{\\partial T} = \\frac{\\partial N}{\\partial V}$",
+            "rationale": "Those are the straight partials. Which cross partials must agree for exactness?"
+          },
+          {
+            "text": "$M = N$",
+            "rationale": "The coefficients need not be equal. Which derivatives must match?"
+          },
+          {
+            "text": "$M + N = 0$",
+            "rationale": "That is not the exactness condition. Which cross partials must be equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S8exyRjtatE_4",
+        "prompt": "The closed-loop integral $\\oint dU$ of a state function around any cyclic process equals what?",
+        "hint": "After a full cycle the system returns to its starting state.",
+        "answerOptions": [
+          {
+            "text": "Zero",
+            "correct": true,
+            "rationale": "Yes. Returning to the same state gives no net change, so the cyclic integral is zero."
+          },
+          {
+            "text": "The net heat added",
+            "rationale": "Net heat over a cycle need not be zero, but the state function change is. What is $\\oint dU$?"
+          },
+          {
+            "text": "The total work done",
+            "rationale": "Work over a cycle can be nonzero, unlike the state function change. What is the cyclic integral of $dU$?"
+          },
+          {
+            "text": "Always positive",
+            "rationale": "A state function returns to its value after a cycle. What is its net change?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S8exyRjtatE_5",
+        "prompt": "Why is the exact-differential idea from differential equations the right language for state functions?",
+        "hint": "Both express that a quantity is recovered from a potential and changes only between endpoints.",
+        "answerOptions": [
+          {
+            "text": "Both describe a quantity recovered from a potential whose change depends only on the endpoints",
+            "correct": true,
+            "rationale": "Yes. State functions are potentials, and their exact differentials are path independent, exactly as in exact equations."
+          },
+          {
+            "text": "Because thermodynamics avoids calculus",
+            "rationale": "Thermodynamics relies heavily on calculus. What shared structure links the two?"
+          },
+          {
+            "text": "Because heat is always exact",
+            "rationale": "Heat is the inexact example, not the exact one. What property do state functions share with exact equations?"
+          },
+          {
+            "text": "Because every differential is exact",
+            "rationale": "Many differentials are inexact. What special property do state functions have in common with exact equations?"
+          }
+        ]
+      }
+    ],
+    "ATEKyjK9b4Y": [
+      {
+        "id": "mp_ATEKyjK9b4Y_1",
+        "prompt": "An inexact differential, often written $\\delta Q$, signals that the quantity is what?",
+        "hint": "The special delta symbol warns that the quantity is not a state function.",
+        "answerOptions": [
+          {
+            "text": "Path dependent, not a state function",
+            "correct": true,
+            "rationale": "Yes. The delta notation marks a path-dependent process quantity like heat."
+          },
+          {
+            "text": "Path independent, a state function",
+            "rationale": "The delta symbol marks the opposite of a state function. What kind of quantity is it?"
+          },
+          {
+            "text": "Always larger than $dU$",
+            "rationale": "Magnitude is not the point. What does the inexact notation indicate about the path?"
+          },
+          {
+            "text": "A second derivative",
+            "rationale": "It is a first-order differential, just inexact. What does it tell you about path dependence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ATEKyjK9b4Y_2",
+        "prompt": "The first law of thermodynamics is often written $dU = \\delta Q - \\delta W$. Which term is the exact differential?",
+        "hint": "Only the change in a state function is exact.",
+        "answerOptions": [
+          {
+            "text": "$dU$, since $U$ is a state function",
+            "correct": true,
+            "rationale": "Yes. Internal energy is a state function, so $dU$ is exact, while $\\delta Q$ and $\\delta W$ are inexact."
+          },
+          {
+            "text": "$\\delta Q$, since heat is conserved",
+            "rationale": "Heat is path dependent and its differential is inexact. Which term here is exact?"
+          },
+          {
+            "text": "$\\delta W$, since work is a force times distance",
+            "rationale": "Work is path dependent, so $\\delta W$ is inexact. Which differential is exact?"
+          },
+          {
+            "text": "All three are exact",
+            "rationale": "Two of these are inexact process quantities. Which single term is the exact differential?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ATEKyjK9b4Y_3",
+        "prompt": "How can an inexact differential like $\\delta Q$ sometimes be converted into an exact one?",
+        "hint": "Dividing heat by temperature produces the differential of entropy, a state function.",
+        "answerOptions": [
+          {
+            "text": "Multiply by an integrating factor, for example $\\frac{1}{T}$, giving the exact differential $dS$",
+            "correct": true,
+            "rationale": "Yes. The factor $1/T$ turns $\\delta Q$ into the exact differential of entropy."
+          },
+          {
+            "text": "Add a constant to it",
+            "rationale": "Adding a constant does not change exactness. What multiplier converts $\\delta Q$ to an exact form?"
+          },
+          {
+            "text": "Differentiate it once more",
+            "rationale": "Differentiation does not exactify it. What integrating factor produces $dS$?"
+          },
+          {
+            "text": "Set it equal to $dW$",
+            "rationale": "Both are inexact, so that does not help. What factor makes $\\delta Q$ exact?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ATEKyjK9b4Y_4",
+        "prompt": "The role of $\\frac{1}{T}$ in producing $dS = \\frac{\\delta Q}{T}$ for a reversible process is best described as what?",
+        "hint": "This is the same idea as repairing a non-exact differential equation.",
+        "answerOptions": [
+          {
+            "text": "An integrating factor that exactifies the inexact heat differential",
+            "correct": true,
+            "rationale": "Yes. Temperature's reciprocal is the integrating factor that makes the heat differential exact."
+          },
+          {
+            "text": "A boundary condition",
+            "rationale": "It is a multiplier, not a boundary value. What standard device does $1/T$ act as?"
+          },
+          {
+            "text": "A separation constant",
+            "rationale": "It does not separate variables. What does multiplying $\\delta Q$ by $1/T$ accomplish?"
+          },
+          {
+            "text": "A second potential",
+            "rationale": "It is not itself a potential. What function does $1/T$ serve in exactifying $\\delta Q$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ATEKyjK9b4Y_5",
+        "prompt": "Why does distinguishing exact from inexact differentials matter physically in thermodynamics?",
+        "hint": "It tells you whether a quantity is fixed by the state or depends on how the change was carried out.",
+        "answerOptions": [
+          {
+            "text": "It separates state functions, fixed by the current state, from process quantities that depend on the path",
+            "correct": true,
+            "rationale": "Yes. The distinction tells you which quantities are properties of the state and which depend on the process."
+          },
+          {
+            "text": "It determines the units of temperature",
+            "rationale": "Units are unrelated to exactness. What physical distinction does it capture?"
+          },
+          {
+            "text": "It makes all processes reversible",
+            "rationale": "Exactness does not force reversibility. What does the distinction actually classify?"
+          },
+          {
+            "text": "It eliminates the need for the first law",
+            "rationale": "The first law still holds. What does the exact versus inexact split clarify physically?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_7_1",
+      "prompt": "The differential equation $M\\,dx + N\\,dy = 0$ is exact precisely when which equation holds?",
+      "hint": "Compare the cross partials of the two coefficients.",
+      "answerOptions": [
+        {
+          "text": "$M_y = N_x$",
+          "correct": true,
+          "rationale": "Yes. Equal cross partials make the form a total differential."
+        },
+        {
+          "text": "$M_x = N_y$",
+          "rationale": "Those are the straight partials. Which cross partials must match?"
+        },
+        {
+          "text": "$M = N$",
+          "rationale": "The coefficients need not be equal. Which derivatives must agree?"
+        },
+        {
+          "text": "$M_x = N_x$",
+          "rationale": "Both are $x$ partials of different functions, not the exactness test. Which mixed partials must match?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_2",
+      "prompt": "Is $(3x^2 + y)\\,dx + (x - 2y)\\,dy = 0$ exact?",
+      "hint": "Compute $M_y$ for $M = 3x^2 + y$ and $N_x$ for $N = x - 2y$.",
+      "answerOptions": [
+        {
+          "text": "Yes, since $M_y = 1 = N_x$",
+          "correct": true,
+          "rationale": "Correct. Both cross partials equal $1$, so the equation is exact."
+        },
+        {
+          "text": "No, since $M_y \\neq N_x$",
+          "rationale": "Recompute. What is $\\frac{\\partial}{\\partial y}(3x^2 + y)$ and $\\frac{\\partial}{\\partial x}(x - 2y)$?"
+        },
+        {
+          "text": "Yes, since both contain $x$",
+          "rationale": "Shared variables do not decide exactness. What do the cross partials equal?"
+        },
+        {
+          "text": "Cannot be determined",
+          "rationale": "The cross partials settle it. What are $M_y$ and $N_x$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_3",
+      "prompt": "For $M = 2xy^3$, what is $M_y$?",
+      "hint": "Differentiate $2xy^3$ with respect to $y$, treating $x$ as constant.",
+      "answerOptions": [
+        {
+          "text": "$6xy^2$",
+          "correct": true,
+          "rationale": "Correct. The power rule on $y^3$ gives $3y^2$, times $2x$."
+        },
+        {
+          "text": "$2y^3$",
+          "rationale": "That is $M_x$, the $x$ partial. What is the $y$ partial?"
+        },
+        {
+          "text": "$6x y^3$",
+          "rationale": "The exponent on $y$ should drop by one after differentiating. What is $\\frac{\\partial}{\\partial y}(y^3)$?"
+        },
+        {
+          "text": "$2xy^2$",
+          "rationale": "You dropped the factor from the exponent. What does the power rule contribute?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_4",
+      "prompt": "For $N = x^2 \\cos y$, what is $N_x$?",
+      "hint": "Differentiate $x^2 \\cos y$ with respect to $x$, treating $y$ as constant.",
+      "answerOptions": [
+        {
+          "text": "$2x \\cos y$",
+          "correct": true,
+          "rationale": "Correct. The factor $\\cos y$ is constant in $x$, and $\\frac{\\partial}{\\partial x}(x^2) = 2x$."
+        },
+        {
+          "text": "$-x^2 \\sin y$",
+          "rationale": "That is the $y$ partial. What is the $x$ partial?"
+        },
+        {
+          "text": "$2x \\sin y$",
+          "rationale": "Differentiating in $x$ leaves $\\cos y$ untouched, not turned into $\\sin y$. What is $N_x$?"
+        },
+        {
+          "text": "$x^2 \\cos y$",
+          "rationale": "You did not differentiate. What is $\\frac{\\partial}{\\partial x}(x^2 \\cos y)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_5",
+      "prompt": "Which differential form is exact?",
+      "hint": "Test $M_y = N_x$ for each candidate.",
+      "answerOptions": [
+        {
+          "text": "$y\\,dx + x\\,dy$",
+          "correct": true,
+          "rationale": "Correct. Here $M_y = 1 = N_x$, so it is exact, with potential $xy$."
+        },
+        {
+          "text": "$y\\,dx - x\\,dy$",
+          "rationale": "Check the signs: $M_y = 1$ but $N_x = -1$. Do they match?"
+        },
+        {
+          "text": "$2y\\,dx + x\\,dy$",
+          "rationale": "Compute $M_y = 2$ and $N_x = 1$. Are they equal?"
+        },
+        {
+          "text": "$x\\,dx + y^2\\,dy$ with a cross check failing",
+          "rationale": "Reconsider which option has matching cross partials. Which one gives $M_y = N_x$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_6",
+      "prompt": "To solve an exact equation, after integrating $M$ in $x$ you obtain $F = \\int M\\,dx + g(y)$. What determines $g(y)$?",
+      "hint": "Differentiate this $F$ in $y$ and match it to $N$.",
+      "answerOptions": [
+        {
+          "text": "Setting $F_y = N$ and solving for $g'(y)$, then integrating",
+          "correct": true,
+          "rationale": "Yes. Matching $F_y$ to $N$ isolates $g'(y)$, which you integrate to get $g(y)$."
+        },
+        {
+          "text": "Setting $g(y) = N$",
+          "rationale": "$N$ equals $F_y$, not $g$ itself. What equation involving $g'(y)$ should you form?"
+        },
+        {
+          "text": "Setting $F_x = N$",
+          "rationale": "You already used $F_x = M$. Which partial should you now match to $N$?"
+        },
+        {
+          "text": "Differentiating $N$ in $x$",
+          "rationale": "That checks exactness, it does not find $g$. What condition pins down $g'(y)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_7",
+      "prompt": "Solve the exact equation $(2x + y)\\,dx + (x + 2y)\\,dy = 0$.",
+      "hint": "Integrate $M$ in $x$, then match $F_y$ to $N$.",
+      "answerOptions": [
+        {
+          "text": "$x^2 + xy + y^2 = C$",
+          "correct": true,
+          "rationale": "Correct. The potential is $x^2 + xy + y^2$, held constant."
+        },
+        {
+          "text": "$x^2 + 2xy + y^2 = C$",
+          "rationale": "Recheck the cross term from integrating $M$. What is the coefficient of $xy$?"
+        },
+        {
+          "text": "$x^2 + y^2 = C$",
+          "rationale": "You dropped the mixed term. Which cross term comes from $M$ and $N$?"
+        },
+        {
+          "text": "$2x + 2y = C$",
+          "rationale": "That differentiates rather than integrates. What is $\\int (2x + y)\\,dx$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_8",
+      "prompt": "A potential for the exact form $y\\,dx + x\\,dy$ is which function?",
+      "hint": "Find $F$ with $F_x = y$ and $F_y = x$.",
+      "answerOptions": [
+        {
+          "text": "$F = xy$",
+          "correct": true,
+          "rationale": "Correct. Its partials are $F_x = y$ and $F_y = x$."
+        },
+        {
+          "text": "$F = x + y$",
+          "rationale": "Its partials are both $1$, not $y$ and $x$. What product has those partials?"
+        },
+        {
+          "text": "$F = \\frac{x^2 + y^2}{2}$",
+          "rationale": "Its partials are $x$ and $y$, but paired the wrong way. What gives $F_x = y$?"
+        },
+        {
+          "text": "$F = x^2 y^2$",
+          "rationale": "Its partials are far too large. What simple product yields $F_x = y$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_9",
+      "prompt": "Solve $(\\cos y)\\,dx + (-x \\sin y)\\,dy = 0$ as an exact equation.",
+      "hint": "Check exactness, then integrate $M = \\cos y$ in $x$.",
+      "answerOptions": [
+        {
+          "text": "$x \\cos y = C$",
+          "correct": true,
+          "rationale": "Correct. With $F = x \\cos y$, the partials are $\\cos y$ and $-x \\sin y$."
+        },
+        {
+          "text": "$x \\sin y = C$",
+          "rationale": "Differentiate $x \\sin y$ in $x$: you get $\\sin y$, not $\\cos y$. What potential gives $\\cos y$?"
+        },
+        {
+          "text": "$\\cos y = C$",
+          "rationale": "That omits the $x$ from integrating $M$ in $x$. What is $\\int \\cos y\\,dx$?"
+        },
+        {
+          "text": "$-x \\sin y = C$",
+          "rationale": "That is $N$, not the potential. What function $F$ has $F_x = \\cos y$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_10",
+      "prompt": "The implicit solution $F(x, y) = C$ of an exact equation represents what geometrically?",
+      "hint": "The solutions are the curves on which the potential stays fixed.",
+      "answerOptions": [
+        {
+          "text": "The level curves of the potential $F$",
+          "correct": true,
+          "rationale": "Yes. Each solution is a level curve where $F$ is constant."
+        },
+        {
+          "text": "The gradient field of $F$",
+          "rationale": "The gradient is perpendicular to the solutions, not the solutions themselves. What curves are they?"
+        },
+        {
+          "text": "The critical points of $F$",
+          "rationale": "Solutions are curves, not isolated points. What level sets do they form?"
+        },
+        {
+          "text": "The tangent planes to $F$",
+          "rationale": "Planes are not the solution curves. What constant-value curves are they?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_11",
+      "prompt": "When $M\\,dx + N\\,dy = 0$ is not exact, the goal of an integrating factor $\\mu$ is to make which form exact?",
+      "hint": "You multiply both coefficients by $\\mu$ and re-test.",
+      "answerOptions": [
+        {
+          "text": "$\\mu M\\,dx + \\mu N\\,dy = 0$",
+          "correct": true,
+          "rationale": "Yes. The factor multiplies both coefficients, and exactness is tested on the products."
+        },
+        {
+          "text": "$M\\,dx + \\mu N\\,dy = 0$",
+          "rationale": "Only one coefficient is multiplied here. What must $\\mu$ multiply?"
+        },
+        {
+          "text": "$\\mu(M + N) = 0$",
+          "rationale": "The factor distributes across the differential form, not a bare sum. What is the rescaled form?"
+        },
+        {
+          "text": "$M_y\\,dx + N_x\\,dy = 0$",
+          "rationale": "That replaces coefficients with their partials. What form does $\\mu$ actually produce?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_12",
+      "prompt": "If $\\frac{M_y - N_x}{N}$ is a function of $x$ alone, the integrating factor is which expression?",
+      "hint": "Integrate that ratio in $x$ and exponentiate.",
+      "answerOptions": [
+        {
+          "text": "$\\mu(x) = \\exp\\left(\\int \\frac{M_y - N_x}{N}\\,dx\\right)$",
+          "correct": true,
+          "rationale": "Yes. This exponential of the integral restores exactness when the ratio is $x$-only."
+        },
+        {
+          "text": "$\\mu(x) = \\frac{M_y - N_x}{N}$",
+          "rationale": "That is the ratio, not the factor. What two operations build $\\mu$?"
+        },
+        {
+          "text": "$\\mu(y) = \\exp\\left(\\int \\frac{M_y - N_x}{N}\\,dy\\right)$",
+          "rationale": "An $x$-only ratio gives an $x$-only factor. Over which variable do you integrate?"
+        },
+        {
+          "text": "$\\mu(x) = \\ln\\left(\\frac{M_y - N_x}{N}\\right)$",
+          "rationale": "The factor uses an exponential, not a logarithm. What is the correct form?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_13",
+      "prompt": "For $(y)\\,dx + (2x)\\,dy = 0$, the ratio $\\frac{N_x - M_y}{M}$ equals what?",
+      "hint": "Use $M_y = 1$, $N_x = 2$, and $M = y$.",
+      "answerOptions": [
+        {
+          "text": "$\\frac{1}{y}$",
+          "correct": true,
+          "rationale": "Correct. $\\frac{2 - 1}{y} = \\frac{1}{y}$, a function of $y$ alone."
+        },
+        {
+          "text": "$\\frac{1}{x}$",
+          "rationale": "The denominator here is $M = y$. What is $\\frac{N_x - M_y}{M}$?"
+        },
+        {
+          "text": "$\\frac{1}{2x}$",
+          "rationale": "That uses $N$ in the denominator, the other test. What does dividing by $M = y$ give?"
+        },
+        {
+          "text": "$-\\frac{1}{y}$",
+          "rationale": "Check the sign: $N_x - M_y = 2 - 1 = 1$, positive. What is the ratio?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_14",
+      "prompt": "Using $\\frac{N_x - M_y}{M} = \\frac{1}{y}$, the integrating factor for $(y)\\,dx + (2x)\\,dy = 0$ is what?",
+      "hint": "Integrate $\\frac{1}{y}$ in $y$ and exponentiate.",
+      "answerOptions": [
+        {
+          "text": "$\\mu(y) = y$",
+          "correct": true,
+          "rationale": "Correct. $\\exp(\\ln y) = y$."
+        },
+        {
+          "text": "$\\mu(y) = \\frac{1}{y}$",
+          "rationale": "That is the ratio, not the factor. What does exponentiating the integral give?"
+        },
+        {
+          "text": "$\\mu(y) = \\ln y$",
+          "rationale": "That is the integral before exponentiating. What is $\\exp(\\ln y)$?"
+        },
+        {
+          "text": "$\\mu(y) = e^y$",
+          "rationale": "The integral is $\\ln y$, not $y$. What is $\\exp(\\ln y)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_15",
+      "prompt": "After multiplying $(y)\\,dx + (2x)\\,dy = 0$ by $\\mu(y) = y$, the exact equation and its solution are what?",
+      "hint": "Distribute $y$, then find the potential of $(y^2)\\,dx + (2xy)\\,dy = 0$.",
+      "answerOptions": [
+        {
+          "text": "$x y^2 = C$",
+          "correct": true,
+          "rationale": "Correct. The exact form $(y^2)\\,dx + (2xy)\\,dy = 0$ has potential $x y^2$."
+        },
+        {
+          "text": "$xy = C$",
+          "rationale": "That omits the squared factor introduced by $\\mu = y$. What is the potential after multiplying?"
+        },
+        {
+          "text": "$2xy = C$",
+          "rationale": "That is the second coefficient, not the potential. What function has $F_x = y^2$?"
+        },
+        {
+          "text": "$y^2 = C$",
+          "rationale": "You dropped the $x$ from integrating $y^2$ in $x$. What is $\\int y^2\\,dx$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_16",
+      "prompt": "An almost exact equation is best described as one that is what?",
+      "hint": "It misses exactness by exactly one integrating factor.",
+      "answerOptions": [
+        {
+          "text": "Not exact as written, but exact after multiplying by a suitable integrating factor",
+          "correct": true,
+          "rationale": "Yes. A single integrating factor turns an almost exact equation into an exact one."
+        },
+        {
+          "text": "Already exact with no changes",
+          "rationale": "Then it would not be called almost exact. What small repair does it need?"
+        },
+        {
+          "text": "Impossible to make exact",
+          "rationale": "An almost exact equation can be exactified. What makes it exact?"
+        },
+        {
+          "text": "Exact only after differentiating",
+          "rationale": "Differentiation is not the repair. What multiplication restores exactness?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_17",
+      "prompt": "For $(3xy + y^2)\\,dx + (x^2 + xy)\\,dy = 0$, the quantity $M_y - N_x$ equals what?",
+      "hint": "Compute $M_y = 3x + 2y$ and $N_x = 2x + y$, then subtract.",
+      "answerOptions": [
+        {
+          "text": "$x + y$",
+          "correct": true,
+          "rationale": "Correct. $(3x + 2y) - (2x + y) = x + y$."
+        },
+        {
+          "text": "$5x + 3y$",
+          "rationale": "That added the partials. What is $M_y - N_x$?"
+        },
+        {
+          "text": "$x - y$",
+          "rationale": "Recheck the $y$ terms: $2y - y = y$. What is the full difference?"
+        },
+        {
+          "text": "$0$",
+          "rationale": "The equation is not exact here. What nonzero expression results?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_18",
+      "prompt": "For that same equation, $\\frac{M_y - N_x}{N}$ reduces to which $x$-only function?",
+      "hint": "Factor $N = x^2 + xy = x(x + y)$ and cancel with the numerator $x + y$.",
+      "answerOptions": [
+        {
+          "text": "$\\frac{1}{x}$",
+          "correct": true,
+          "rationale": "Correct. $\\frac{x + y}{x(x + y)} = \\frac{1}{x}$."
+        },
+        {
+          "text": "$\\frac{1}{y}$",
+          "rationale": "The surviving factor is $x$, not $y$. What remains after cancellation?"
+        },
+        {
+          "text": "$x + y$",
+          "rationale": "You skipped the cancellation with $N$. What is $\\frac{x+y}{x(x+y)}$?"
+        },
+        {
+          "text": "$\\frac{1}{x + y}$",
+          "rationale": "Both $x + y$ factors cancel. What single term is left?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_19",
+      "prompt": "With integrating factor $\\mu(x) = x$, the equation $(3xy + y^2)\\,dx + (x^2 + xy)\\,dy = 0$ has which solution?",
+      "hint": "Multiply by $x$, then find the potential of the resulting exact equation.",
+      "answerOptions": [
+        {
+          "text": "$x^3 y + \\frac{x^2 y^2}{2} = C$",
+          "correct": true,
+          "rationale": "Correct. The exact form integrates to this potential."
+        },
+        {
+          "text": "$x^3 y + x^2 y^2 = C$",
+          "rationale": "Recheck the coefficient on the second term from integration. What factor of one half appears?"
+        },
+        {
+          "text": "$3xy + y^2 = C$",
+          "rationale": "That is the original $M$, not the potential after exactifying. What does integrating the rescaled $M$ give?"
+        },
+        {
+          "text": "$x^2 y + xy^2 = C$",
+          "rationale": "The powers are too low; you must include the factor $x$. What is the rescaled potential?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_20",
+      "prompt": "Why must an integrating factor be nonzero on the region where you apply it?",
+      "hint": "Multiplying by zero would change which curves satisfy the equation.",
+      "answerOptions": [
+        {
+          "text": "A zero of the factor can add or remove solutions, breaking the equivalence",
+          "correct": true,
+          "rationale": "Yes. Solution equivalence holds only where the factor stays nonzero."
+        },
+        {
+          "text": "A zero makes the equation linear",
+          "rationale": "Linearity is unrelated. What does a vanishing factor risk doing to solutions?"
+        },
+        {
+          "text": "A zero speeds the integration",
+          "rationale": "Vanishing is a hazard, not a help. What can it do to the solution set?"
+        },
+        {
+          "text": "It never matters",
+          "rationale": "Zeros of the factor do matter. How can they distort solutions?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_21",
+      "prompt": "An exact equation corresponds to which type of vector field $(M, N)$?",
+      "hint": "Exactness means the pair is a gradient.",
+      "answerOptions": [
+        {
+          "text": "A conservative field, the gradient of a potential",
+          "correct": true,
+          "rationale": "Yes. Exactness says $(M, N) = \\nabla F$."
+        },
+        {
+          "text": "A rotational field",
+          "rationale": "Conservative fields have no rotation. What gradient structure does exactness give?"
+        },
+        {
+          "text": "A divergence-free field",
+          "rationale": "That is a different condition. What kind of field is $(M, N)$ when exact?"
+        },
+        {
+          "text": "A random field",
+          "rationale": "There is nothing random here. What structured field does exactness produce?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_22",
+      "prompt": "For a conservative field, the line integral around a closed loop equals what?",
+      "hint": "On a closed loop the start and end points coincide.",
+      "answerOptions": [
+        {
+          "text": "Zero",
+          "correct": true,
+          "rationale": "Yes. The potential difference vanishes when the endpoints coincide."
+        },
+        {
+          "text": "The enclosed area",
+          "rationale": "Area is a different quantity. What is the value when start equals end?"
+        },
+        {
+          "text": "A nonzero circulation",
+          "rationale": "Conservative fields have zero circulation. Why must the loop integral vanish?"
+        },
+        {
+          "text": "The loop's length",
+          "rationale": "Length does not enter. What is the closed-loop value?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_23",
+      "prompt": "Is $(M, N) = (2xy, x^2)$ conservative?",
+      "hint": "Compare $M_y$ with $N_x$.",
+      "answerOptions": [
+        {
+          "text": "Yes, since $M_y = 2x = N_x$",
+          "correct": true,
+          "rationale": "Correct. The cross partials match, so the field is conservative."
+        },
+        {
+          "text": "No, since $M_y \\neq N_x$",
+          "rationale": "Recompute. What is $\\frac{\\partial}{\\partial y}(2xy)$ and $\\frac{\\partial}{\\partial x}(x^2)$?"
+        },
+        {
+          "text": "Yes, since $M = N$",
+          "rationale": "The components are not equal, yet it can be conservative. Which partials decide it?"
+        },
+        {
+          "text": "Cannot be determined",
+          "rationale": "The cross partials decide it. What are $M_y$ and $N_x$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_24",
+      "prompt": "The line integral $\\int_C \\nabla f \\cdot d\\mathbf{r}$ from $(0, 0)$ to $(1, 2)$ with $f = x^2 + y^2$ equals what?",
+      "hint": "Apply $f(\\text{end}) - f(\\text{start})$.",
+      "answerOptions": [
+        {
+          "text": "$5$",
+          "correct": true,
+          "rationale": "Correct. $f(1, 2) - f(0, 0) = 5 - 0 = 5$."
+        },
+        {
+          "text": "$0$",
+          "rationale": "The endpoints differ. What is $f(1, 2) - f(0, 0)$?"
+        },
+        {
+          "text": "$3$",
+          "rationale": "Recompute $f(1, 2) = 1 + 4$. What is that minus zero?"
+        },
+        {
+          "text": "$\\sqrt{5}$",
+          "rationale": "The potential is $x^2 + y^2$, not its root. What is the difference?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_25",
+      "prompt": "Why does the simply connected condition matter for the test $M_y = N_x$ to guarantee a potential?",
+      "hint": "Holes in the domain can block a single-valued global potential.",
+      "answerOptions": [
+        {
+          "text": "On a domain with holes, matching cross partials may not produce a single-valued global potential",
+          "correct": true,
+          "rationale": "Yes. Simple connectivity rules out holes that would obstruct a global potential."
+        },
+        {
+          "text": "It forces the field to be constant",
+          "rationale": "Connectivity does not force constancy. What does it ensure?"
+        },
+        {
+          "text": "It is never required",
+          "rationale": "It genuinely matters on domains with holes. What can fail without it?"
+        },
+        {
+          "text": "It makes the partials equal",
+          "rationale": "It does not create the equality; it lets the equality imply a potential. Why is that needed?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_26",
+      "prompt": "A thermodynamic state function has which type of differential?",
+      "hint": "Its change depends only on the endpoints, not the path.",
+      "answerOptions": [
+        {
+          "text": "An exact differential",
+          "correct": true,
+          "rationale": "Yes. State functions have exact, path-independent differentials."
+        },
+        {
+          "text": "An inexact differential",
+          "rationale": "That marks a path-dependent process quantity. What kind of differential does a state function have?"
+        },
+        {
+          "text": "A zero differential always",
+          "rationale": "State functions can change. What type of differential do they have?"
+        },
+        {
+          "text": "An undefined differential",
+          "rationale": "State functions have well defined differentials. Which type?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_27",
+      "prompt": "Which thermodynamic quantity is a state function?",
+      "hint": "State functions describe the condition of the system, not the process.",
+      "answerOptions": [
+        {
+          "text": "Internal energy $U$",
+          "correct": true,
+          "rationale": "Yes. Internal energy is a state function with exact differential $dU$."
+        },
+        {
+          "text": "Heat $Q$",
+          "rationale": "Heat is path dependent. Which listed quantity depends only on the state?"
+        },
+        {
+          "text": "Work $W$",
+          "rationale": "Work is path dependent. Which quantity is a state function?"
+        },
+        {
+          "text": "Heat absorbed along a given path",
+          "rationale": "That is path dependent by definition. Which quantity is a state function?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_28",
+      "prompt": "The inexact heat differential $\\delta Q$ can be made exact for a reversible process by multiplying by what?",
+      "hint": "Dividing heat by temperature produces the differential of entropy.",
+      "answerOptions": [
+        {
+          "text": "The integrating factor $\\frac{1}{T}$, giving $dS = \\frac{\\delta Q}{T}$",
+          "correct": true,
+          "rationale": "Yes. The factor $1/T$ turns $\\delta Q$ into the exact differential of entropy."
+        },
+        {
+          "text": "A constant",
+          "rationale": "A constant does not exactify it. What temperature-based factor does?"
+        },
+        {
+          "text": "The pressure $P$",
+          "rationale": "Pressure is not the integrating factor for heat. What factor yields $dS$?"
+        },
+        {
+          "text": "The volume $V$",
+          "rationale": "Volume is not the factor. What reciprocal quantity exactifies $\\delta Q$?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_29",
+      "prompt": "The cyclic integral $\\oint dU$ of internal energy around any closed thermodynamic cycle equals what?",
+      "hint": "After a full cycle the system returns to its starting state.",
+      "answerOptions": [
+        {
+          "text": "Zero",
+          "correct": true,
+          "rationale": "Yes. Returning to the same state gives zero net change in a state function."
+        },
+        {
+          "text": "The net work done",
+          "rationale": "Work over a cycle can be nonzero, but the state function change is not. What is $\\oint dU$?"
+        },
+        {
+          "text": "The net heat added",
+          "rationale": "Net heat need not vanish, but the internal energy change does. What is the cyclic integral?"
+        },
+        {
+          "text": "Always positive",
+          "rationale": "A state function returns to its value. What is its net change over a cycle?"
+        }
+      ]
+    },
+    {
+      "id": "um_7_30",
+      "prompt": "Why is the exact-differential framework the natural language for thermodynamic state functions?",
+      "hint": "Both describe a potential whose change depends only on endpoints.",
+      "answerOptions": [
+        {
+          "text": "Both describe potentials whose changes are path independent, fixed only by the endpoints",
+          "correct": true,
+          "rationale": "Yes. State functions are potentials with exact, path-independent differentials, exactly as in exact equations."
+        },
+        {
+          "text": "Because thermodynamics avoids derivatives",
+          "rationale": "It relies on derivatives heavily. What shared structure connects the two?"
+        },
+        {
+          "text": "Because all heat is exact",
+          "rationale": "Heat is the inexact example. What property do state functions share with exact equations?"
+        },
+        {
+          "text": "Because every differential is exact",
+          "rationale": "Many are inexact. What special property do state functions have in common with exact forms?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

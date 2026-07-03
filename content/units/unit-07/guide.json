@@ -1,0 +1,144 @@
+{
+  "unitNumber": 7,
+  "richBodies": true,
+  "title": "First-Order Exactness and Methods",
+  "subtitle": "Exact equations from motivation through intuition, repair of non-exact equations, and physical applications.",
+  "description": "Exact equations from motivation through intuition, repair of non-exact equations, and physical applications.",
+  "atAGlance": {
+    "title": "Unit 7 at a Glance: Core Sub-Topics",
+    "summary": "A first-order ODE written as $M\\,dx + N\\,dy = 0$ is \\emph{exact} when its left side is already the total differential $dF$ of some scalar potential $F$, making the general solution simply $F(x,y)=C$. This unit develops the complete toolkit: test the cross-partials to detect exactness, reconstruct the potential via the integration loop, repair non-exact equations with special integrating factors, connect the theory to conservative vector fields, and read the physics through thermodynamic state functions.",
+    "bullets": [
+      {
+        "lead": "7.1 Exact Differential Equations",
+        "body": "the criterion $M_y = N_x$ and the implicit general solution $F(x,y)=C$."
+      },
+      {
+        "lead": "7.2 Exact Equations Intuition",
+        "body": "Clairaut's theorem: $F_{xy}=F_{yx}$ is why $M_y=N_x$ guarantees a potential."
+      },
+      {
+        "lead": "7.3 Exact Equations Motivation and Theory",
+        "body": "the integration loop: $F = \\int M\\,dx + g(y)$, fix $g'(y)$ by matching $F_y = N$."
+      },
+      {
+        "lead": "7.4 Non-Exact Equations and Special Integrating Factors",
+        "body": "integrating factor $\\mu(x)$ when $\\Delta/N$ is pure in $x$; $\\mu(y)$ when $-\\Delta/M$ is pure in $y$ (where $\\Delta = M_y - N_x$)."
+      },
+      {
+        "lead": "7.5 Almost Exact Differential Equations",
+        "body": "decision tree: test both $\\mu(x)$ and $\\mu(y)$ routes systematically, then execute the repair and re-verify exactness before reconstructing $F$."
+      },
+      {
+        "lead": "7.6 Exact Equations and Conservative Vector Fields",
+        "body": "$M_y=N_x$ iff $\\mathbf F=\\langle M,N\\rangle$ is conservative; path independence via the Fundamental Theorem for Line Integrals."
+      },
+      {
+        "lead": "7.7 Applications in Thermodynamics",
+        "body": "$dU$ is an exact state differential; $\\delta Q$ is inexact; the integrating factor $1/T$ produces exact entropy $dS = \\delta Q/T$."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "7.1",
+      "title": "Exact Differential Equations",
+      "topics": "A first-order ODE $M(x,y)\\,dx + N(x,y)\\,dy = 0$ is \\emph{exact} on a simply connected region when its left side equals the total differential $dF$ of some potential function $F(x,y)$. The key theorem reduces exactness to a single algebraic test on the cross-partial derivatives of $M$ and $N$.",
+      "formulas": [
+        {
+          "title": "Exactness Criterion and Implicit Solution",
+          "body": "The ODE $M\\,dx + N\\,dy = 0$ (with $M,N$ having continuous first partials) is\n\\strong{exact} on a simply connected region if and only if\n\\[\n  \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}.\n\\]\nWhen exact, a potential $F(x,y)$ exists satisfying $F_x = M$ and $F_y = N$,\nand the \\strong{general solution} is\n\\[\n  F(x,y) = C.\n\\]"
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Swapped Cross Partials",
+        "body": "Always differentiate $M$ with respect to \\strong{$y$} and $N$ with respect to\n\\strong{$x$}. The test is $M_y = N_x$, never $M_x$ versus $N_y$. Computing the\nsame-variable partials tells you nothing about exactness and will produce a\nfalse positive or false negative on every equation you test."
+      }
+    },
+    {
+      "id": "7.2",
+      "title": "Exact Equations Intuition",
+      "topics": "The cross-partial criterion is not an arbitrary rule --- it is Clairaut's theorem in disguise. If $M = F_x$ and $N = F_y$ for some $F$, then $M_y = F_{xy}$ and $N_x = F_{yx}$, and Clairaut guarantees the two mixed partials agree whenever $F$ has continuous second partials. Exactness is precisely the statement that $M$ and $N$ are partials of a common function.",
+      "formulas": [
+        {
+          "title": "Clairaut's Theorem and the Exact-Differential Connection",
+          "body": "On a simply connected region with $M,N$ continuously differentiable,\n\\[\n  M\\,dx + N\\,dy = dF\n  \\iff\n  \\frac{\\partial M}{\\partial y}\n  = \\frac{\\partial^{2}F}{\\partial y\\,\\partial x}\n  = \\frac{\\partial^{2}F}{\\partial x\\,\\partial y}\n  = \\frac{\\partial N}{\\partial x}.\n\\]\nThe equality of mixed partials is both \\strong{necessary} (if $dF$ exists then\nthe cross partials must agree) and \\strong{sufficient} (on a simply connected\ndomain, equal cross partials guarantee a global potential)."
+        }
+      ]
+    },
+    {
+      "id": "7.3",
+      "title": "Exact Equations Motivation and Theory",
+      "topics": "Once exactness is confirmed, the potential $F$ is found by a two-step integration loop. Integrating $M$ with respect to $x$ introduces an arbitrary function $g(y)$ in place of a constant; that function is then pinned down by the condition $F_y = N$.",
+      "methodology": {
+        "title": "Potential Function Reconstruction: The Integration Loop",
+        "steps": [
+          "\\strong{Integrate $M$ in $x$}, holding $y$ fixed: \\[ F(x,y) = \\int M(x,y)\\,dx + g(y). \\]",
+          "\\strong{Differentiate $F$ in $y$} and set the result equal to $N$: \\[ \\frac{\\partial F}{\\partial y} = N(x,y) \\quad\\Longrightarrow\\quad g'(y) = N(x,y) - \\frac{\\partial}{\\partial y}\\int M\\,dx. \\] (All $x$-terms must cancel; if they do not, re-check the exactness test.)",
+          "\\strong{Integrate $g'(y)$} in $y$ to obtain $g(y)$.",
+          "Write the \\strong{general solution} $F(x,y) = C$."
+        ]
+      },
+      "warning": {
+        "title": "Common Pitfall: $g'(y)$ Must Be Free of $x$",
+        "body": "After forming $g'(y) = N - \\partial_y\\!\\int M\\,dx$, every $x$-term must\ncancel. If $x$ survives in $g'(y)$, the equation was not exact (or an\narithmetic error occurred). Integrating an $x$-dependent expression as if it\nwere a function of $y$ alone produces a wrong answer without any algebra error\nto signal the problem."
+      }
+    },
+    {
+      "id": "7.4",
+      "title": "Non-Exact Equations and Special Integrating Factors",
+      "topics": "When $M_y \\neq N_x$, no potential $F$ exists for the equation as written. Multiplying both sides by a non-zero \\emph{integrating factor} $\\mu$ can change the cross partials of $\\mu M$ and $\\mu N$ until they match. Two special forms of $\\mu$ are algebraically testable and cover the majority of non-exact equations encountered in practice.",
+      "formulas": [
+        {
+          "title": "Integrating Factors $\\mu(x)$ and $\\mu(y)$",
+          "body": "Let $\\Delta = M_y - N_x$ (the \\strong{exactness defect}).\n\\begin{itemize}[leftmargin=1.4em, itemsep=4pt]\n    \\item \\strong{Test for $\\mu(x)$:} Compute $\\dfrac{\\Delta}{N}$.\n          If the result depends on $x$ \\emph{only}, set $h(x)=\\Delta/N$ and\n          \\[\n            \\mu(x) = \\exp\\!\\left(\\int h(x)\\,dx\\right).\n          \\]\n    \\item \\strong{Test for $\\mu(y)$:} Compute $\\dfrac{N_x - M_y}{M}\n          = \\dfrac{-\\Delta}{M}$.\n          If the result depends on $y$ \\emph{only}, set $k(y)=-\\Delta/M$ and\n          \\[\n            \\mu(y) = \\exp\\!\\left(\\int k(y)\\,dy\\right).\n          \\]\n\\end{itemize}\nAfter multiplying the ODE through by $\\mu$, solve the resulting exact equation\nvia the integration loop (Section~7.3)."
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Always Re-Verify Exactness After Multiplying",
+        "body": "The formulas for $\\mu(x)$ and $\\mu(y)$ are derived by assuming the repaired\nequation will be exact. After multiplying by $\\mu$, explicitly re-compute the\ncross partials $(\\mu M)_y$ and $(\\mu N)_x$ and confirm they are equal before\nproceeding. A mis-simplified defect ratio can give a wrong $\\mu$ that does\n\\emph{not} restore exactness."
+      }
+    },
+    {
+      "id": "7.5",
+      "title": "Almost Exact Differential Equations",
+      "topics": "An \\emph{almost exact} equation is non-exact but possesses an integrating factor of one of the two standard forms ($\\mu(x)$ or $\\mu(y)$). The key skill is recognizing which test succeeds and executing the full repair-and-solve workflow systematically.",
+      "formulas": [
+        {
+          "title": "Why the Integrating Factor ODE Works",
+          "body": "Requiring $(\\mu M)_y = (\\mu N)_x$ for $\\mu = \\mu(x)$ yields\n\\[\n  \\mu\\,M_y = \\mu'\\,N + \\mu\\,N_x\n  \\quad\\Longrightarrow\\quad\n  \\frac{\\mu'}{\\mu} = \\frac{M_y - N_x}{N} = \\frac{\\Delta}{N},\n\\]\na separable ODE in $\\mu(x)$ whose solution is $\\mu = e^{\\int \\Delta/N\\,dx}$.\nThe analogous calculation with $\\mu = \\mu(y)$ gives $\\mu'/\\mu = -\\Delta/M$."
+        }
+      ],
+      "methodology": {
+        "title": "Integrating-Factor Decision Tree",
+        "steps": [
+          "Compute the defect $\\Delta = M_y - N_x$.",
+          "\\strong{Try $\\mu(x)$:} Form $\\Delta/N$. Does all $y$ cancel? If yes, $\\mu(x) = e^{\\int \\Delta/N\\,dx}$.",
+          "\\strong{Try $\\mu(y)$:} Form $-\\Delta/M$. Does all $x$ cancel? If yes, $\\mu(y) = e^{\\int(-\\Delta/M)\\,dy}$.",
+          "Multiply the ODE by $\\mu$, re-verify $(\\mu M)_y = (\\mu N)_x$, then use the integration loop to find $F$ and write $F = C$."
+        ]
+      }
+    },
+    {
+      "id": "7.6",
+      "title": "Exact Equations and Conservative Vector Fields",
+      "topics": "Every exact equation $M\\,dx + N\\,dy = 0$ can be read as the zero-work condition $\\mathbf{F}\\cdot d\\mathbf{r}=0$ for the vector field $\\mathbf{F}=\\langle M,N\\rangle$. Exactness is equivalent to $\\mathbf{F}$ being \\emph{conservative}, and the potential $F$ of the ODE is the scalar potential $\\varphi$ with $\\nabla\\varphi=\\mathbf{F}$.",
+      "formulas": [
+        {
+          "title": "Conservative Fields, Scalar Potentials, and Path Independence",
+          "body": "A $C^1$ vector field $\\mathbf{F}=\\langle M,N\\rangle$ on a simply connected\nregion is \\strong{conservative} if and only if\n\\[\n  \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}.\n\\]\nWhen conservative, there exists a scalar potential $\\varphi$ with\n$\\nabla\\varphi = \\mathbf{F}$, found by the same integration loop as the ODE\npotential. Line integrals are then \\strong{path independent}:\n\\[\n  \\int_C \\mathbf{F}\\cdot d\\mathbf{r}\n  = \\varphi\\!\\left(B\\right) - \\varphi\\!\\left(A\\right)\n\\]\nfor any smooth curve $C$ from point $A$ to point $B$ (Fundamental Theorem for\nLine Integrals). Equivalently, $\\oint_C \\mathbf{F}\\cdot d\\mathbf{r}=0$ for\nevery closed curve."
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: The Domain Must Be Simply Connected",
+        "body": "The equivalence $M_y = N_x \\iff$ conservative holds only on a\n\\strong{simply connected} domain (a domain with no holes). On a\nmultiply-connected domain such as $\\mathbb{R}^2\\setminus\\{(0,0)\\}$, the field\n$\\mathbf{F}=\\langle -y,\\,x\\rangle/(x^2+y^2)$ satisfies $M_y=N_x$ everywhere\nit is defined yet is \\emph{not} conservative: its integral around the unit\ncircle equals $2\\pi\\neq 0$."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: First-Order Exactness and Methods",
+    "takeaway": {
+      "title": "Unit 7 Key Takeaway",
+      "body": "Every exact equation $M\\,dx+N\\,dy=0$ reduces to finding the potential\n\\highlight{$F(x,y)=C$} via the integration loop\n\\highlight{$F=\\int M\\,dx+g(y)$} with $g'(y)$ pinned by matching\n$F_y=N$. For non-exact equations, compute the defect\n\\highlight{$\\Delta=M_y-N_x$} and apply\n\\highlight{$\\mu(x)=e^{\\int\\Delta/N\\,dx}$} when $\\Delta/N$ is\npure in $x$, or \\highlight{$\\mu(y)=e^{-\\int\\Delta/M\\,dy}$} when\n$-\\Delta/M$ is pure in $y$; always re-verify exactness after multiplying. The\nconservative-field identity \\highlight{$M_y=N_x\\iff\\mathbf{F}=\\nabla\\varphi$}\nmakes line integrals path-independent:\n\\highlight{$\\int_C\\mathbf{F}\\cdot d\\mathbf{r}=\\varphi(B)-\\varphi(A)$}.\nIn thermodynamics, \\highlight{$dU$} is exact while\n\\highlight{$\\delta Q$} is not; the integrating factor\n\\highlight{$1/T$} converts $\\delta Q$ into the exact entropy\ndifferential \\highlight{$dS=C_V\\ln T+nR\\ln V+\\text{const}$}."
+    }
+  }
+}

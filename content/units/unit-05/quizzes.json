@@ -1,0 +1,2192 @@
+{
+  "unitNumber": 5,
+  "microPractice": {
+    "Q6A_m9YGG6A": [
+      {
+        "id": "mp_Q6A_m9YGG6A_1",
+        "prompt": "Euler's method advances the solution of $\\frac{dy}{dt} = f(t, y)$ using which update formula?",
+        "hint": "You start at a known point and step forward along the slope the equation gives you, scaled by the step size.",
+        "answerOptions": [
+          {
+            "text": "$y_{n+1} = y_n + h\\,f(t_n, y_n)$",
+            "correct": true,
+            "rationale": "Yes. You take the slope at the current point and step forward by $h$ times that slope."
+          },
+          {
+            "text": "$y_{n+1} = y_n + f(t_n, y_n)$",
+            "rationale": "Without the step size $h$, the units do not match. What scales the slope to the length of one step?"
+          },
+          {
+            "text": "$y_{n+1} = y_n + h\\,f(t_{n+1}, y_{n+1})$",
+            "rationale": "That uses the slope at the unknown next point. Which point does the explicit method evaluate the slope at?"
+          },
+          {
+            "text": "$y_{n+1} = y_n - h\\,f(t_n, y_n)$",
+            "rationale": "Check the sign. Do you move along the slope or against it when advancing forward in $t$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Q6A_m9YGG6A_2",
+        "prompt": "For $\\frac{dy}{dt} = y$ with $y(0) = 1$ and step $h = 0.1$, what is the first Euler estimate $y_1$?",
+        "hint": "Apply $y_1 = y_0 + h\\,f(t_0, y_0)$ with $f(t, y) = y$.",
+        "answerOptions": [
+          {
+            "text": "$1.1$",
+            "correct": true,
+            "rationale": "Correct. $y_1 = 1 + 0.1 \\cdot 1 = 1.1$."
+          },
+          {
+            "text": "$1.0$",
+            "rationale": "You left the value unchanged. What does adding $0.1 \\cdot 1$ to $1$ give?"
+          },
+          {
+            "text": "$1.11$",
+            "rationale": "That looks like a second step result. What is $1 + 0.1 \\cdot 1$ for the first step alone?"
+          },
+          {
+            "text": "$0.9$",
+            "rationale": "Check the sign of the increment. Does the value grow or shrink when the slope is positive?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Q6A_m9YGG6A_3",
+        "prompt": "Geometrically, each Euler step follows which line away from the current point?",
+        "hint": "The differential equation hands you a slope at the current point. Picture the line through that point with that slope.",
+        "answerOptions": [
+          {
+            "text": "The tangent line whose slope is $f(t_n, y_n)$",
+            "correct": true,
+            "rationale": "Yes. Euler walks along the tangent line given by the slope at the current point."
+          },
+          {
+            "text": "A horizontal line of zero slope",
+            "rationale": "The slope is set by $f$, not fixed at zero. What line carries the slope the equation provides?"
+          },
+          {
+            "text": "The secant line between two known solution points",
+            "rationale": "You only know one point, not two. Which line uses just the slope at the single current point?"
+          },
+          {
+            "text": "A vertical line at $t_n$",
+            "rationale": "A vertical line cannot represent a function value advancing in $t$. What line has slope $f(t_n, y_n)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Q6A_m9YGG6A_4",
+        "prompt": "As the step size $h$ in Euler's method decreases, what generally happens to the accuracy?",
+        "hint": "Smaller steps follow the curving solution more closely before the slope has a chance to change.",
+        "answerOptions": [
+          {
+            "text": "The error generally decreases",
+            "correct": true,
+            "rationale": "Yes. Smaller steps track the changing slope more closely, so the error shrinks."
+          },
+          {
+            "text": "The error generally increases",
+            "rationale": "Smaller steps stay closer to the true curve. Does following it more tightly raise or lower error?"
+          },
+          {
+            "text": "The accuracy is unaffected by $h$",
+            "rationale": "The whole point of $h$ is how far you stretch a fixed slope. Does stretching less change the error?"
+          },
+          {
+            "text": "The method becomes exact for any nonzero $h$",
+            "rationale": "Euler is only an approximation while $h$ is positive. Does shrinking $h$ remove all error or merely reduce it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Q6A_m9YGG6A_5",
+        "prompt": "For $\\frac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.5$, what is $y_1$?",
+        "hint": "Evaluate the slope $f(0, 1) = 0 + 1$ first, then step forward by $h$ times that slope.",
+        "answerOptions": [
+          {
+            "text": "$1.5$",
+            "correct": true,
+            "rationale": "Correct. The slope is $0 + 1 = 1$, so $y_1 = 1 + 0.5 \\cdot 1 = 1.5$."
+          },
+          {
+            "text": "$1.0$",
+            "rationale": "You skipped the increment. What is $1 + 0.5 \\cdot 1$?"
+          },
+          {
+            "text": "$2.0$",
+            "rationale": "That uses a full step of size $1$, not $0.5$. What does $0.5 \\cdot 1$ contribute?"
+          },
+          {
+            "text": "$1.25$",
+            "rationale": "Recheck the slope. Is $f(0, 1) = 0 + 1$ equal to $0.5$ or to $1$?"
+          }
+        ]
+      }
+    ],
+    "6GfkRtf-A4M": [
+      {
+        "id": "mp_6GfkRtf-A4M_1",
+        "prompt": "Euler's method approximates the solution over one small step by replacing the curve with what?",
+        "hint": "Over a short interval, a smooth curve and its tangent line stay close together.",
+        "answerOptions": [
+          {
+            "text": "Its tangent line, using the slope from the differential equation",
+            "correct": true,
+            "rationale": "Yes. Over a small step the tangent line is a good stand in for the curve."
+          },
+          {
+            "text": "A parabola through three sampled points",
+            "rationale": "Euler uses only one point and one slope. What simple line approximates the curve locally?"
+          },
+          {
+            "text": "The exact integral of $f$",
+            "rationale": "If you could integrate exactly you would not need a numerical method. What local linear object does Euler use?"
+          },
+          {
+            "text": "A constant equal to $y_n$",
+            "rationale": "A constant ignores the slope entirely. What line carries the slope $f(t_n, y_n)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_6GfkRtf-A4M_2",
+        "prompt": "The local truncation error of Euler's method, the error made in a single step, is of which order in $h$?",
+        "hint": "It comes from dropping the quadratic and higher terms of the Taylor expansion over one step.",
+        "answerOptions": [
+          {
+            "text": "$O(h^2)$",
+            "correct": true,
+            "rationale": "Yes. A single Euler step omits the $\\frac{h^2}{2}y''$ term, giving local error of order $h^2$."
+          },
+          {
+            "text": "$O(h)$",
+            "rationale": "That is the global order, not the per step order. What is the order of the first dropped Taylor term?"
+          },
+          {
+            "text": "$O(h^3)$",
+            "rationale": "The first omitted term is quadratic in $h$, not cubic. What order does that make the local error?"
+          },
+          {
+            "text": "$O(h^4)$",
+            "rationale": "That order belongs to far more accurate methods. What is the order of the leading dropped term in Euler?"
+          }
+        ]
+      },
+      {
+        "id": "mp_6GfkRtf-A4M_3",
+        "prompt": "Euler's method is called a first order method because its global error scales like what?",
+        "hint": "Accumulating many local errors of order $h^2$ over about $1/h$ steps lowers the exponent by one.",
+        "answerOptions": [
+          {
+            "text": "$O(h)$",
+            "correct": true,
+            "rationale": "Yes. Summing $O(h^2)$ local errors across $O(1/h)$ steps gives global error of order $h$."
+          },
+          {
+            "text": "$O(h^2)$",
+            "rationale": "That is the per step error before accumulation. What happens to the order after summing over $1/h$ steps?"
+          },
+          {
+            "text": "$O(1)$",
+            "rationale": "A bounded constant error would not improve as $h$ shrinks, yet Euler does improve. What order captures that?"
+          },
+          {
+            "text": "$O(h^{1/2})$",
+            "rationale": "The global order is a whole power of $h$, set by the local order and step count. What is it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_6GfkRtf-A4M_4",
+        "prompt": "If you halve the step size in Euler's method, the global error changes by approximately what factor?",
+        "hint": "For a first order method the error is roughly proportional to $h$.",
+        "answerOptions": [
+          {
+            "text": "It is roughly halved",
+            "correct": true,
+            "rationale": "Yes. First order error scales with $h$, so halving $h$ roughly halves the error."
+          },
+          {
+            "text": "It is roughly quartered",
+            "rationale": "Quartering would mean error proportional to $h^2$. What power of $h$ does a first order method carry?"
+          },
+          {
+            "text": "It is unchanged",
+            "rationale": "Error that ignored $h$ would not be first order. How does error proportional to $h$ respond to halving $h$?"
+          },
+          {
+            "text": "It roughly doubles",
+            "rationale": "Smaller steps reduce error rather than enlarge it. Which way does halving $h$ move a first order error?"
+          }
+        ]
+      },
+      {
+        "id": "mp_6GfkRtf-A4M_5",
+        "prompt": "Why does Euler's method accumulate error as it marches forward?",
+        "hint": "The slope it uses is computed once at the start of each step and never updated within the step.",
+        "answerOptions": [
+          {
+            "text": "It holds the slope fixed across each step, ignoring how the slope changes along the way",
+            "correct": true,
+            "rationale": "Yes. Freezing the slope for the whole step misses the curve's bending, and those misses add up."
+          },
+          {
+            "text": "It uses too many steps, and each adds randomness",
+            "rationale": "The error is systematic, not random, and more steps usually help. What fixed assumption inside each step causes the drift?"
+          },
+          {
+            "text": "It divides by the step size and amplifies roundoff",
+            "rationale": "Euler multiplies by $h$, it does not divide by it. What does holding one slope per step overlook?"
+          },
+          {
+            "text": "It requires the exact solution, which is unavailable",
+            "rationale": "Euler never uses the exact solution. What approximation within each step is the true source of error?"
+          }
+        ]
+      }
+    ],
+    "A5ObpYPADPQ": [
+      {
+        "id": "mp_A5ObpYPADPQ_1",
+        "prompt": "The improved Euler method updates $y$ using which combination of slopes, with $k_1 = f(t_n, y_n)$ and $k_2 = f(t_n + h, y_n + h k_1)$?",
+        "hint": "It predicts the endpoint with a plain Euler step, then averages the starting and predicted slopes.",
+        "answerOptions": [
+          {
+            "text": "$y_{n+1} = y_n + \\frac{h}{2}(k_1 + k_2)$",
+            "correct": true,
+            "rationale": "Yes. It averages the slope at the start and at the predicted endpoint."
+          },
+          {
+            "text": "$y_{n+1} = y_n + h k_1$",
+            "rationale": "That is just plain Euler using one slope. What second slope does the improved method add in?"
+          },
+          {
+            "text": "$y_{n+1} = y_n + h k_2$",
+            "rationale": "Using only the predicted endpoint slope discards the starting slope. How are the two slopes combined?"
+          },
+          {
+            "text": "$y_{n+1} = y_n + \\frac{h}{3}(k_1 + 2k_2)$",
+            "rationale": "Check the weights. Does the improved Euler method average the two slopes equally or unequally?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A5ObpYPADPQ_2",
+        "prompt": "For $\\frac{dy}{dt} = y$ with $y(0) = 1$ and $h = 0.1$, what is the improved Euler estimate $y_1$?",
+        "hint": "Compute $k_1 = 1$, predict $y_n + h k_1 = 1.1$ so $k_2 = 1.1$, then average.",
+        "answerOptions": [
+          {
+            "text": "$1.105$",
+            "correct": true,
+            "rationale": "Correct. $y_1 = 1 + \\frac{0.1}{2}(1 + 1.1) = 1 + 0.05 \\cdot 2.1 = 1.105$."
+          },
+          {
+            "text": "$1.1$",
+            "rationale": "That is the plain Euler value using only $k_1$. What does averaging in $k_2 = 1.1$ add?"
+          },
+          {
+            "text": "$1.11$",
+            "rationale": "Recheck the averaging weight. The factor is $\\frac{h}{2}$, not $h$. What does that give?"
+          },
+          {
+            "text": "$1.21$",
+            "rationale": "That doubles the increment. What is $1 + 0.05 \\cdot (1 + 1.1)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A5ObpYPADPQ_3",
+        "prompt": "In the improved Euler method, the predictor step is computed using which method?",
+        "hint": "Before correcting, you need a first guess for the endpoint value to evaluate the second slope.",
+        "answerOptions": [
+          {
+            "text": "A plain Euler step to estimate the endpoint value",
+            "correct": true,
+            "rationale": "Yes. The predictor is an ordinary Euler step that locates a provisional endpoint."
+          },
+          {
+            "text": "An exact integration of $f$",
+            "rationale": "Exact integration would defeat the purpose. What simple one slope step provides the prediction?"
+          },
+          {
+            "text": "A midpoint slope evaluation",
+            "rationale": "The midpoint slope belongs to a different method. Which basic step predicts the endpoint here?"
+          },
+          {
+            "text": "A backward implicit solve",
+            "rationale": "No implicit equation is solved in improved Euler. What explicit step gives the predicted endpoint?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A5ObpYPADPQ_4",
+        "prompt": "The improved Euler method is a second order method, so its global error scales like what?",
+        "hint": "Averaging two slopes captures the curvature term that plain Euler drops, raising the order by one.",
+        "answerOptions": [
+          {
+            "text": "$O(h^2)$",
+            "correct": true,
+            "rationale": "Yes. The slope averaging makes the method second order, with global error proportional to $h^2$."
+          },
+          {
+            "text": "$O(h)$",
+            "rationale": "That is the order of plain Euler. What order does averaging the two slopes achieve?"
+          },
+          {
+            "text": "$O(h^3)$",
+            "rationale": "Third order needs more slope samples than two. What order does a two slope average reach?"
+          },
+          {
+            "text": "$O(h^4)$",
+            "rationale": "Fourth order is the realm of RK4. What order does improved Euler attain?"
+          }
+        ]
+      },
+      {
+        "id": "mp_A5ObpYPADPQ_5",
+        "prompt": "Why does averaging the slopes at the two endpoints improve accuracy over plain Euler?",
+        "hint": "Plain Euler uses only the starting slope, but the slope generally changes across the interval.",
+        "answerOptions": [
+          {
+            "text": "It better approximates the average slope across the interval, accounting for how the slope changes",
+            "correct": true,
+            "rationale": "Yes. Two slopes bracket the change, so their average tracks the true mean slope more closely."
+          },
+          {
+            "text": "It secretly uses a smaller step size",
+            "rationale": "The step size is unchanged. What about the slope estimate itself becomes more representative?"
+          },
+          {
+            "text": "It removes the need to evaluate $f$",
+            "rationale": "It actually evaluates $f$ twice. What does combining those two evaluations capture?"
+          },
+          {
+            "text": "It makes the method implicit",
+            "rationale": "Improved Euler stays explicit. What property of the averaged slope reduces the error?"
+          }
+        ]
+      }
+    ],
+    "2-vJuL2hqN4": [
+      {
+        "id": "mp_2-vJuL2hqN4_1",
+        "prompt": "The modified Euler, or midpoint, method estimates the slope at which location in the interval?",
+        "hint": "It takes a half step first, then reads the slope where it lands.",
+        "answerOptions": [
+          {
+            "text": "At the midpoint $t_n + \\frac{h}{2}$, using a half step Euler prediction",
+            "correct": true,
+            "rationale": "Yes. It predicts the midpoint with a half step, then uses the slope there for the full step."
+          },
+          {
+            "text": "At the left endpoint only",
+            "rationale": "That is plain Euler. Where does the modified method move before reading the slope?"
+          },
+          {
+            "text": "At the right endpoint only",
+            "rationale": "The right endpoint slope drives a different scheme. Which interior point does this method sample?"
+          },
+          {
+            "text": "Averaged over both endpoints",
+            "rationale": "Endpoint averaging is the improved Euler idea. Which single interior point does the midpoint method use?"
+          }
+        ]
+      },
+      {
+        "id": "mp_2-vJuL2hqN4_2",
+        "prompt": "For $\\frac{dy}{dt} = y$ with $y(0) = 1$ and $h = 0.2$, what is the midpoint method estimate $y_1$?",
+        "hint": "Half step to $y_n + \\frac{h}{2}f = 1 + 0.1 \\cdot 1 = 1.1$, take the slope $1.1$ there, then full step.",
+        "answerOptions": [
+          {
+            "text": "$1.22$",
+            "correct": true,
+            "rationale": "Correct. The midpoint slope is $1.1$, so $y_1 = 1 + 0.2 \\cdot 1.1 = 1.22$."
+          },
+          {
+            "text": "$1.2$",
+            "rationale": "That is plain Euler using the starting slope. What does the midpoint slope $1.1$ give instead?"
+          },
+          {
+            "text": "$1.1$",
+            "rationale": "That is only the half step prediction, not the full update. What is $1 + 0.2 \\cdot 1.1$?"
+          },
+          {
+            "text": "$1.221$",
+            "rationale": "Recheck the arithmetic. What is $0.2 \\cdot 1.1$ added to $1$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_2-vJuL2hqN4_3",
+        "prompt": "The midpoint method has which order of global accuracy?",
+        "hint": "Sampling the slope at the midpoint captures the leading curvature, like the improved Euler method.",
+        "answerOptions": [
+          {
+            "text": "Second order, $O(h^2)$",
+            "correct": true,
+            "rationale": "Yes. The midpoint slope makes the method second order accurate."
+          },
+          {
+            "text": "First order, $O(h)$",
+            "rationale": "First order is plain Euler. What order does the midpoint sampling reach?"
+          },
+          {
+            "text": "Third order, $O(h^3)$",
+            "rationale": "Third order needs more than one interior sample. What order does a single midpoint slope give?"
+          },
+          {
+            "text": "Fourth order, $O(h^4)$",
+            "rationale": "Fourth order belongs to RK4. What order does the midpoint method attain?"
+          }
+        ]
+      },
+      {
+        "id": "mp_2-vJuL2hqN4_4",
+        "prompt": "Why is the slope at the midpoint a better representative of the whole step than the slope at the left endpoint?",
+        "hint": "Think about where a single sample best stands in for the average of a changing quantity over an interval.",
+        "answerOptions": [
+          {
+            "text": "The midpoint slope is closer to the average slope over the interval",
+            "correct": true,
+            "rationale": "Yes. A midpoint sample typically matches the interval's mean slope better than an endpoint sample."
+          },
+          {
+            "text": "The midpoint is where the solution is always exact",
+            "rationale": "No point is guaranteed exact. Why does the middle sample better represent the interval as a whole?"
+          },
+          {
+            "text": "It requires no function evaluations",
+            "rationale": "It still evaluates $f$, in fact twice. What makes the midpoint slope more typical of the step?"
+          },
+          {
+            "text": "The left slope is always zero",
+            "rationale": "The left slope is whatever $f$ gives, rarely zero. Why is the center a better sampling spot?"
+          }
+        ]
+      },
+      {
+        "id": "mp_2-vJuL2hqN4_5",
+        "prompt": "How many evaluations of $f$ does the midpoint method require per step?",
+        "hint": "One evaluation locates the midpoint, and another reads the slope there.",
+        "answerOptions": [
+          {
+            "text": "Two",
+            "correct": true,
+            "rationale": "Yes. One evaluation for the half step prediction and one for the midpoint slope."
+          },
+          {
+            "text": "One",
+            "rationale": "A single evaluation is plain Euler. How many slopes does the midpoint method compute per step?"
+          },
+          {
+            "text": "Four",
+            "rationale": "Four evaluations is the RK4 count. How many does a single midpoint sample need?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Count the evaluations: predict the midpoint, then read its slope. How many is that?"
+          }
+        ]
+      }
+    ],
+    "wTS8SDG0_sQ": [
+      {
+        "id": "mp_wTS8SDG0_sQ_1",
+        "prompt": "Heun's method estimates the increment using the average of the starting and predicted ending slopes, mirroring which integration rule?",
+        "hint": "Averaging the function values at the two ends of an interval to estimate an integral is a classic quadrature rule.",
+        "answerOptions": [
+          {
+            "text": "The trapezoidal rule",
+            "correct": true,
+            "rationale": "Yes. Averaging the two endpoint slopes is exactly the trapezoidal estimate of the increment."
+          },
+          {
+            "text": "The midpoint rule",
+            "rationale": "The midpoint rule samples the center, not the two ends. Which rule averages the endpoint values?"
+          },
+          {
+            "text": "Simpson's rule",
+            "rationale": "Simpson's rule uses three weighted points. Which two point rule averages the ends?"
+          },
+          {
+            "text": "The left endpoint rule",
+            "rationale": "The left endpoint rule uses one slope and is plain Euler. Which rule blends both ends equally?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wTS8SDG0_sQ_2",
+        "prompt": "In Heun's method, the predicted endpoint value $\\tilde{y}_{n+1}$ is found with which formula?",
+        "hint": "The prediction is an ordinary Euler step using the slope at the current point.",
+        "answerOptions": [
+          {
+            "text": "$\\tilde{y}_{n+1} = y_n + h\\,f(t_n, y_n)$",
+            "correct": true,
+            "rationale": "Yes. The predictor is a plain Euler step from the current point."
+          },
+          {
+            "text": "$\\tilde{y}_{n+1} = y_n + \\frac{h}{2}f(t_n, y_n)$",
+            "rationale": "A half step is the midpoint idea, not Heun's predictor. What full step predicts the endpoint?"
+          },
+          {
+            "text": "$\\tilde{y}_{n+1} = y_n + h\\,f(t_{n+1}, \\tilde{y}_{n+1})$",
+            "rationale": "That is an implicit relation. Which explicit Euler step gives the prediction?"
+          },
+          {
+            "text": "$\\tilde{y}_{n+1} = y_n - h\\,f(t_n, y_n)$",
+            "rationale": "Check the sign of a forward step. Which direction does the predictor move?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wTS8SDG0_sQ_3",
+        "prompt": "The corrector step in Heun's method computes $y_{n+1}$ as which expression?",
+        "hint": "It averages the slope at the start with the slope at the predicted endpoint, scaled by $h$.",
+        "answerOptions": [
+          {
+            "text": "$y_n + \\frac{h}{2}\\left[f(t_n, y_n) + f(t_{n+1}, \\tilde{y}_{n+1})\\right]$",
+            "correct": true,
+            "rationale": "Yes. The corrector averages the two slopes and scales by $h$."
+          },
+          {
+            "text": "$y_n + h\\,f(t_{n+1}, \\tilde{y}_{n+1})$",
+            "rationale": "That uses only the endpoint slope. How does Heun blend it with the starting slope?"
+          },
+          {
+            "text": "$y_n + \\frac{h}{2}f(t_n, y_n)$",
+            "rationale": "That is a half step on one slope. Which two slopes does the corrector combine?"
+          },
+          {
+            "text": "$\\tilde{y}_{n+1}$",
+            "rationale": "That is just the predictor, with no correction. What averaged increment refines it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wTS8SDG0_sQ_4",
+        "prompt": "For $\\frac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$, what is the Heun estimate $y_1$?",
+        "hint": "Compute $k_1 = 0 + 1 = 1$, predict $1.2$, then $k_2 = f(0.2, 1.2) = 1.4$, and average.",
+        "answerOptions": [
+          {
+            "text": "$1.24$",
+            "correct": true,
+            "rationale": "Correct. $y_1 = 1 + \\frac{0.2}{2}(1 + 1.4) = 1 + 0.1 \\cdot 2.4 = 1.24$."
+          },
+          {
+            "text": "$1.2$",
+            "rationale": "That is the plain Euler predictor. What does averaging in $k_2 = 1.4$ change?"
+          },
+          {
+            "text": "$1.4$",
+            "rationale": "That is the predicted endpoint slope, not the new $y$ value. What is $1 + 0.1(1 + 1.4)$?"
+          },
+          {
+            "text": "$1.28$",
+            "rationale": "Recheck the averaging factor $\\frac{h}{2} = 0.1$. What does $0.1 \\cdot 2.4$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wTS8SDG0_sQ_5",
+        "prompt": "Heun's method has what order of global accuracy?",
+        "hint": "Averaging two slopes captures the curvature term, the same gain seen in the improved Euler method.",
+        "answerOptions": [
+          {
+            "text": "Second order",
+            "correct": true,
+            "rationale": "Yes. Heun's method is second order accurate, with global error proportional to $h^2$."
+          },
+          {
+            "text": "First order",
+            "rationale": "First order is plain Euler. What order does the two slope average produce?"
+          },
+          {
+            "text": "Third order",
+            "rationale": "Third order needs additional slope samples. What order does Heun reach with two?"
+          },
+          {
+            "text": "Fourth order",
+            "rationale": "Fourth order is RK4. What order is Heun's method?"
+          }
+        ]
+      }
+    ],
+    "aeRqofNb3_4": [
+      {
+        "id": "mp_aeRqofNb3_4_1",
+        "prompt": "Heun's method is another name for which method?",
+        "hint": "It uses a plain Euler predictor and then averages the two endpoint slopes to correct.",
+        "answerOptions": [
+          {
+            "text": "The improved Euler method",
+            "correct": true,
+            "rationale": "Yes. Heun's method and the improved Euler method are the same predictor corrector scheme."
+          },
+          {
+            "text": "The modified Euler midpoint method",
+            "rationale": "The midpoint method samples the center, not the two ends. Which endpoint averaging method matches Heun?"
+          },
+          {
+            "text": "The RK4 method",
+            "rationale": "RK4 uses four slopes. Which two slope method shares Heun's name?"
+          },
+          {
+            "text": "The backward Euler method",
+            "rationale": "Backward Euler is implicit and uses the endpoint alone. Which explicit averaging method is Heun?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aeRqofNb3_4_2",
+        "prompt": "Heun's method evaluates $f$ twice per step because it needs which two slopes?",
+        "hint": "One slope comes from where you stand now, the other from where a plain Euler step predicts you will land.",
+        "answerOptions": [
+          {
+            "text": "The slope at the current point and the slope at the predicted endpoint",
+            "correct": true,
+            "rationale": "Yes. One evaluation at the start and one at the predicted endpoint give the two slopes to average."
+          },
+          {
+            "text": "The slope at the midpoint and the slope at the endpoint",
+            "rationale": "Heun does not use a midpoint slope. Which two points does it actually sample?"
+          },
+          {
+            "text": "Two slopes both taken at the starting point",
+            "rationale": "Sampling the same point twice gives no new information. Where is the second slope taken?"
+          },
+          {
+            "text": "The second derivative evaluated twice",
+            "rationale": "Heun uses first order slopes, not second derivatives. Which two slope values does it average?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aeRqofNb3_4_3",
+        "prompt": "For $\\frac{dy}{dt} = 2t$ with $y(0) = 0$ and $h = 0.5$, what is the Heun estimate $y_1$?",
+        "hint": "Here $k_1 = 0$, the predictor is $0$, and $k_2 = f(0.5, 0) = 1$. Average the slopes.",
+        "answerOptions": [
+          {
+            "text": "$0.25$",
+            "correct": true,
+            "rationale": "Correct. $y_1 = 0 + \\frac{0.5}{2}(0 + 1) = 0.25$, which matches the exact value $t^2$ at $0.5$."
+          },
+          {
+            "text": "$0$",
+            "rationale": "That ignores the endpoint slope $k_2 = 1$. What does averaging $0$ and $1$ contribute?"
+          },
+          {
+            "text": "$0.5$",
+            "rationale": "That uses a full step on slope $1$. What does the factor $\\frac{h}{2} = 0.25$ give?"
+          },
+          {
+            "text": "$0.125$",
+            "rationale": "Recheck the average of the slopes. What is $0.25 \\cdot (0 + 1)$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aeRqofNb3_4_4",
+        "prompt": "Compared with plain Euler at the same step size, Heun's method generally produces what?",
+        "hint": "It corrects the plain Euler prediction by accounting for how the slope changes across the step.",
+        "answerOptions": [
+          {
+            "text": "Smaller error, since it accounts for the changing slope",
+            "correct": true,
+            "rationale": "Yes. The slope correction makes Heun more accurate than plain Euler at the same step size."
+          },
+          {
+            "text": "Larger error, since it does more arithmetic",
+            "rationale": "Extra slope information helps rather than hurts. Which way does the correction move the error?"
+          },
+          {
+            "text": "Identical error, since both are explicit",
+            "rationale": "Being explicit does not fix accuracy. What does the second slope do to the error?"
+          },
+          {
+            "text": "Zero error in all cases",
+            "rationale": "Heun is still an approximation. Does it reduce the error or eliminate it entirely?"
+          }
+        ]
+      },
+      {
+        "id": "mp_aeRqofNb3_4_5",
+        "prompt": "Heun's method belongs to which family of methods?",
+        "hint": "It first predicts an endpoint, then corrects that prediction with a better slope estimate.",
+        "answerOptions": [
+          {
+            "text": "Predictor corrector methods",
+            "correct": true,
+            "rationale": "Yes. Heun predicts with a plain Euler step and corrects with the averaged slope."
+          },
+          {
+            "text": "Implicit one step methods",
+            "rationale": "Heun is explicit, with no equation to solve for the unknown. Which predict then correct family fits?"
+          },
+          {
+            "text": "Multistep methods only",
+            "rationale": "Heun uses just the previous point, not several past points. Which single step family does it belong to?"
+          },
+          {
+            "text": "Spectral methods",
+            "rationale": "Spectral methods expand in basis functions, unlike Heun. Which stepwise family describes it?"
+          }
+        ]
+      }
+    ],
+    "ydFM5yON-24": [
+      {
+        "id": "mp_ydFM5yON-24_1",
+        "prompt": "RK4 combines its four slopes $k_1, k_2, k_3, k_4$ using which weighted average?",
+        "hint": "The midpoint slopes are weighted more heavily than the endpoint slopes, and the total weight divides by six.",
+        "answerOptions": [
+          {
+            "text": "$y_{n+1} = y_n + \\frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)$",
+            "correct": true,
+            "rationale": "Yes. The two midpoint slopes get double weight, and the sum is scaled by $\\frac{h}{6}$."
+          },
+          {
+            "text": "$y_{n+1} = y_n + \\frac{h}{4}(k_1 + k_2 + k_3 + k_4)$",
+            "rationale": "Equal weights miss the emphasis on the midpoint slopes. Which slopes does RK4 weight twice?"
+          },
+          {
+            "text": "$y_{n+1} = y_n + \\frac{h}{6}(k_1 + 3k_2 + 3k_3 + k_4)$",
+            "rationale": "Check the weights. Do the middle slopes carry a factor of two or three?"
+          },
+          {
+            "text": "$y_{n+1} = y_n + h k_1$",
+            "rationale": "That is plain Euler with one slope. How many slopes does RK4 combine, and with what weights?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ydFM5yON-24_2",
+        "prompt": "In RK4, the first slope $k_1$ is evaluated where?",
+        "hint": "It is the very first sample, taken before any trial step is made.",
+        "answerOptions": [
+          {
+            "text": "At the current point $(t_n, y_n)$",
+            "correct": true,
+            "rationale": "Yes. $k_1$ is the slope at the starting point, just as in plain Euler."
+          },
+          {
+            "text": "At the midpoint $(t_n + \\frac{h}{2}, y_n + \\frac{h}{2}k_1)$",
+            "rationale": "That describes $k_2$. Where is the very first slope taken?"
+          },
+          {
+            "text": "At the endpoint $(t_n + h, y_n + h k_3)$",
+            "rationale": "That is $k_4$. Which slope is computed first, before any trial step?"
+          },
+          {
+            "text": "At $(t_n + h, y_n)$",
+            "rationale": "RK4 does not sample there. Where does the initial slope $k_1$ sit?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ydFM5yON-24_3",
+        "prompt": "Why do $k_2$ and $k_3$ carry twice the weight of $k_1$ and $k_4$ in RK4?",
+        "hint": "The weights match a well known three point quadrature rule that emphasizes the center of the interval.",
+        "answerOptions": [
+          {
+            "text": "They sample the slope near the midpoint, which Simpson's rule weights more heavily",
+            "correct": true,
+            "rationale": "Yes. The RK4 weights mirror Simpson's rule, which gives the midpoint the largest weight."
+          },
+          {
+            "text": "They are always larger in value than $k_1$ and $k_4$",
+            "rationale": "The weighting is about position, not size. Which quadrature rule gives the center extra weight?"
+          },
+          {
+            "text": "They are each evaluated twice",
+            "rationale": "Each slope is computed once. Why does the midpoint region deserve a larger weight?"
+          },
+          {
+            "text": "They correct for the step size $h$",
+            "rationale": "The factor $h$ is handled separately. What rule sets the two to one weighting pattern?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ydFM5yON-24_4",
+        "prompt": "For $\\frac{dy}{dt} = 2t$ with $y(0) = 0$ and $h = 1$, what is the RK4 estimate $y_1$?",
+        "hint": "Since $f$ depends only on $t$: $k_1 = 0$, $k_2 = k_3 = 2(0.5) = 1$, $k_4 = 2(1) = 2$. Apply the weighted average.",
+        "answerOptions": [
+          {
+            "text": "$1$",
+            "correct": true,
+            "rationale": "Correct. $y_1 = \\frac{1}{6}(0 + 2 + 2 + 2) = 1$, matching the exact value $t^2$ at $t = 1$."
+          },
+          {
+            "text": "$0.5$",
+            "rationale": "Recompute the weighted sum. What is $\\frac{1}{6}(0 + 2 \\cdot 1 + 2 \\cdot 1 + 2)$?"
+          },
+          {
+            "text": "$2$",
+            "rationale": "That is the endpoint slope $k_4$ alone. How does the full weighted average reduce it?"
+          },
+          {
+            "text": "$0.75$",
+            "rationale": "Check each slope and weight carefully. What does $\\frac{1}{6}(0 + 2 + 2 + 2)$ equal?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ydFM5yON-24_5",
+        "prompt": "RK4 is a fourth order method, so its global error scales like what?",
+        "hint": "The four carefully weighted slopes match the Taylor expansion through the fourth order term.",
+        "answerOptions": [
+          {
+            "text": "$O(h^4)$",
+            "correct": true,
+            "rationale": "Yes. RK4 has global error proportional to $h^4$, which is why it is so accurate."
+          },
+          {
+            "text": "$O(h^2)$",
+            "rationale": "Second order is the level of Heun and the midpoint method. What order does four weighted slopes reach?"
+          },
+          {
+            "text": "$O(h)$",
+            "rationale": "First order is plain Euler. What much higher order does RK4 achieve?"
+          },
+          {
+            "text": "$O(h^6)$",
+            "rationale": "Sixth order needs even more stages. What order does the classical four stage method reach?"
+          }
+        ]
+      }
+    ],
+    "1YZnic1Ug9g": [
+      {
+        "id": "mp_1YZnic1Ug9g_1",
+        "prompt": "How many evaluations of $f$ does RK4 require per step?",
+        "hint": "Count the distinct slopes $k_1$ through $k_4$.",
+        "answerOptions": [
+          {
+            "text": "Four",
+            "correct": true,
+            "rationale": "Yes. RK4 evaluates $f$ four times per step, once for each slope."
+          },
+          {
+            "text": "One",
+            "rationale": "One evaluation is plain Euler. How many slopes does the fourth order method use?"
+          },
+          {
+            "text": "Two",
+            "rationale": "Two evaluations is Heun or the midpoint method. How many slopes does RK4 sample?"
+          },
+          {
+            "text": "Six",
+            "rationale": "The classical method uses fewer than six. How many $k$ values appear in RK4?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1YZnic1Ug9g_2",
+        "prompt": "If you halve the step size in RK4, the global error decreases by approximately what factor?",
+        "hint": "For a fourth order method the error scales like $h^4$, so consider $2^4$.",
+        "answerOptions": [
+          {
+            "text": "About $16$",
+            "correct": true,
+            "rationale": "Yes. Fourth order error scales as $h^4$, and $2^4 = 16$."
+          },
+          {
+            "text": "About $4$",
+            "rationale": "That would be second order behavior. What is $2$ raised to the fourth power?"
+          },
+          {
+            "text": "About $2$",
+            "rationale": "That would be first order behavior. What factor comes from $h^4$ when $h$ halves?"
+          },
+          {
+            "text": "About $8$",
+            "rationale": "That is $2^3$, a third order factor. What power matches RK4?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1YZnic1Ug9g_3",
+        "prompt": "In RK4, the fourth slope $k_4$ uses which point?",
+        "hint": "It is the slope at the far end of the step, using the increment built from $k_3$.",
+        "answerOptions": [
+          {
+            "text": "$(t_n + h, y_n + h k_3)$",
+            "correct": true,
+            "rationale": "Yes. The final slope is evaluated at the endpoint, stepping with $k_3$."
+          },
+          {
+            "text": "$(t_n, y_n)$",
+            "rationale": "That is the starting point used by $k_1$. Where does the last slope $k_4$ sit?"
+          },
+          {
+            "text": "$(t_n + \\frac{h}{2}, y_n + \\frac{h}{2}k_2)$",
+            "rationale": "That is the second midpoint slope $k_3$. Where is the final endpoint slope taken?"
+          },
+          {
+            "text": "$(t_n + h, y_n)$",
+            "rationale": "The endpoint value must include the increment from $k_3$. What $y$ position does $k_4$ use?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1YZnic1Ug9g_4",
+        "prompt": "Compared with Euler at the same step size, RK4 typically gives much higher accuracy because it does what?",
+        "hint": "Instead of trusting one slope, it probes the step at several places and blends the results.",
+        "answerOptions": [
+          {
+            "text": "It samples the slope at several points within the step and averages them",
+            "correct": true,
+            "rationale": "Yes. Multiple weighted slope samples capture the curve's bending far better than one slope."
+          },
+          {
+            "text": "It automatically uses a much smaller step",
+            "rationale": "The step size is the same in the comparison. What does RK4 do within each step that Euler does not?"
+          },
+          {
+            "text": "It solves the equation exactly",
+            "rationale": "RK4 is still an approximation. What sampling strategy gives it the edge over Euler?"
+          },
+          {
+            "text": "It ignores the endpoints entirely",
+            "rationale": "RK4 uses both endpoints and the midpoint. What is its real source of accuracy?"
+          }
+        ]
+      },
+      {
+        "id": "mp_1YZnic1Ug9g_5",
+        "prompt": "RK4 is a single step method, meaning each new value depends on what?",
+        "hint": "Think about how much past history the update formula actually requires.",
+        "answerOptions": [
+          {
+            "text": "Only the value at the immediately previous step",
+            "correct": true,
+            "rationale": "Yes. RK4 needs just the current point to produce the next, making it self starting."
+          },
+          {
+            "text": "The previous four steps",
+            "rationale": "The four refers to the order and slope count, not stored history. How many past points does it need?"
+          },
+          {
+            "text": "All prior steps from the start",
+            "rationale": "RK4 carries no long history. How many previous values does each update use?"
+          },
+          {
+            "text": "Future steps not yet computed",
+            "rationale": "An explicit method never uses future values. Which single prior value does it rely on?"
+          }
+        ]
+      }
+    ],
+    "b-OSyxOpxKc": [
+      {
+        "id": "mp_b-OSyxOpxKc_1",
+        "prompt": "Runge-Kutta methods of all orders share which common strategy?",
+        "hint": "Each one probes the slope at several places inside the step and blends them.",
+        "answerOptions": [
+          {
+            "text": "They take a weighted combination of slope evaluations within each step",
+            "correct": true,
+            "rationale": "Yes. Every Runge-Kutta method blends several sampled slopes with chosen weights."
+          },
+          {
+            "text": "They require the exact solution to start",
+            "rationale": "No exact solution is needed. What do these methods do with several slope samples?"
+          },
+          {
+            "text": "They use only the left endpoint slope",
+            "rationale": "One slope is plain Euler, the simplest member. What do higher members add?"
+          },
+          {
+            "text": "They store many past steps",
+            "rationale": "That describes multistep methods. What single step strategy defines the Runge-Kutta family?"
+          }
+        ]
+      },
+      {
+        "id": "mp_b-OSyxOpxKc_2",
+        "prompt": "The simplest member of the Runge-Kutta family, using one slope evaluation, is which method?",
+        "hint": "A single slope sample at the start of the step is the most basic scheme you know.",
+        "answerOptions": [
+          {
+            "text": "Euler's method",
+            "correct": true,
+            "rationale": "Yes. Plain Euler is the one stage, first order Runge-Kutta method."
+          },
+          {
+            "text": "RK4",
+            "rationale": "RK4 uses four slopes. Which method uses just one?"
+          },
+          {
+            "text": "Heun's method",
+            "rationale": "Heun uses two slopes. Which single slope method is the simplest?"
+          },
+          {
+            "text": "The midpoint method",
+            "rationale": "The midpoint method uses two evaluations. Which uses only one?"
+          }
+        ]
+      },
+      {
+        "id": "mp_b-OSyxOpxKc_3",
+        "prompt": "The coefficients of a Runge-Kutta method are commonly organized in what?",
+        "hint": "There is a standard tableau named after a numerical analyst that lays out the nodes, weights, and stage coefficients.",
+        "answerOptions": [
+          {
+            "text": "A Butcher tableau",
+            "correct": true,
+            "rationale": "Yes. The Butcher tableau compactly stores the nodes, weights, and internal coefficients."
+          },
+          {
+            "text": "A Jacobian matrix",
+            "rationale": "The Jacobian holds partial derivatives, not method coefficients. What named tableau stores Runge-Kutta data?"
+          },
+          {
+            "text": "A Wronskian",
+            "rationale": "The Wronskian tests linear independence of solutions. What array holds the method's coefficients?"
+          },
+          {
+            "text": "A phase portrait",
+            "rationale": "A phase portrait pictures trajectories, not coefficients. What tableau organizes the weights and nodes?"
+          }
+        ]
+      },
+      {
+        "id": "mp_b-OSyxOpxKc_4",
+        "prompt": "Higher order Runge-Kutta methods generally require what in exchange for greater accuracy?",
+        "hint": "More accuracy comes from probing the step in more places.",
+        "answerOptions": [
+          {
+            "text": "More function evaluations per step",
+            "correct": true,
+            "rationale": "Yes. Each added stage means another slope evaluation, the cost of higher order."
+          },
+          {
+            "text": "Fewer function evaluations per step",
+            "rationale": "Greater accuracy does not come for free. Which way does the evaluation count move with order?"
+          },
+          {
+            "text": "A larger step size automatically",
+            "rationale": "The step size is independent of order. What grows when the order grows?"
+          },
+          {
+            "text": "An implicit solver in every case",
+            "rationale": "Many high order methods are explicit. What per step cost rises with the order?"
+          }
+        ]
+      },
+      {
+        "id": "mp_b-OSyxOpxKc_5",
+        "prompt": "A general second order Runge-Kutta method uses how many slope evaluations, or stages, per step?",
+        "hint": "Heun and the midpoint method are both second order examples. Count their slope evaluations.",
+        "answerOptions": [
+          {
+            "text": "Two",
+            "correct": true,
+            "rationale": "Yes. Second order Runge-Kutta methods use two stages, as in Heun and the midpoint method."
+          },
+          {
+            "text": "One",
+            "rationale": "One stage gives only first order Euler. How many stages reach second order?"
+          },
+          {
+            "text": "Four",
+            "rationale": "Four stages is the classical fourth order count. How many give second order?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three stages typically aim for third order. How many stages does second order need?"
+          }
+        ]
+      }
+    ],
+    "Rad-9gfIj5s": [
+      {
+        "id": "mp_Rad-9gfIj5s_1",
+        "prompt": "The order conditions that a Runge-Kutta method must satisfy come from matching what?",
+        "hint": "You compare the numerical update term by term against the true solution expanded in a power series.",
+        "answerOptions": [
+          {
+            "text": "The method's Taylor expansion to the exact solution's Taylor expansion",
+            "correct": true,
+            "rationale": "Yes. Matching Taylor series term by term yields the order conditions on the coefficients."
+          },
+          {
+            "text": "The boundary conditions of the problem",
+            "rationale": "Order is about local accuracy, not boundary data. Which series comparison sets the conditions?"
+          },
+          {
+            "text": "The eigenvalues of the system",
+            "rationale": "Eigenvalues govern stability, not the order conditions. What expansion must the method match?"
+          },
+          {
+            "text": "The initial condition alone",
+            "rationale": "A single initial value does not pin down the coefficients. What series matching does?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Rad-9gfIj5s_2",
+        "prompt": "In an explicit Runge-Kutta method, each stage slope depends only on what?",
+        "hint": "Explicit means you can compute the stages one after another with no equation solving.",
+        "answerOptions": [
+          {
+            "text": "Slopes already computed at earlier stages",
+            "correct": true,
+            "rationale": "Yes. Each explicit stage uses only previously found slopes, so no system must be solved."
+          },
+          {
+            "text": "Slopes at all stages including itself",
+            "rationale": "Self dependence makes a method implicit. What does an explicit stage rely on instead?"
+          },
+          {
+            "text": "Future steps",
+            "rationale": "No method uses future steps. Which earlier information does an explicit stage use?"
+          },
+          {
+            "text": "The exact solution",
+            "rationale": "The exact solution is unknown. Which already computed quantities feed an explicit stage?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Rad-9gfIj5s_3",
+        "prompt": "For a Runge-Kutta method to be consistent, the weights $b_i$ in the final combination must satisfy what?",
+        "hint": "Consistency at minimum requires the method to reproduce the simplest case correctly over one step.",
+        "answerOptions": [
+          {
+            "text": "They sum to one",
+            "correct": true,
+            "rationale": "Yes. The weights must sum to one for the method to be consistent."
+          },
+          {
+            "text": "They sum to zero",
+            "rationale": "Weights summing to zero would give no net step. What must they sum to for consistency?"
+          },
+          {
+            "text": "They each equal the step size",
+            "rationale": "The weights are dimensionless numbers, not step sizes. What is their required total?"
+          },
+          {
+            "text": "They sum to the order of the method",
+            "rationale": "The sum is fixed regardless of order. What single value must the weights total?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Rad-9gfIj5s_4",
+        "prompt": "The classical RK4 method has how many stages?",
+        "hint": "The name encodes both the order and, in this classical case, the stage count.",
+        "answerOptions": [
+          {
+            "text": "Four",
+            "correct": true,
+            "rationale": "Yes. Classical RK4 uses four stages to reach fourth order accuracy."
+          },
+          {
+            "text": "Two",
+            "rationale": "Two stages reach only second order. How many stages does classical RK4 use?"
+          },
+          {
+            "text": "Six",
+            "rationale": "Six stages would aim higher than fourth order. How many does the classical method use?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three stages typically give third order. How many stages does RK4 have?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Rad-9gfIj5s_5",
+        "prompt": "Implicit Runge-Kutta methods are valued primarily because they offer what?",
+        "hint": "Their main advantage shows up on problems with widely separated time scales.",
+        "answerOptions": [
+          {
+            "text": "Better stability for stiff problems",
+            "correct": true,
+            "rationale": "Yes. Implicit methods can stay stable on stiff problems where explicit methods would need tiny steps."
+          },
+          {
+            "text": "Fewer stages in every case",
+            "rationale": "Stage count is not their advantage. What property helps them on stiff problems?"
+          },
+          {
+            "text": "Exact solutions",
+            "rationale": "Implicit methods are still approximate. What stability benefit do they provide?"
+          },
+          {
+            "text": "No equations to solve",
+            "rationale": "Implicit methods require solving equations each step. What do they gain in return?"
+          }
+        ]
+      }
+    ],
+    "JcRsGD2pKlA": [
+      {
+        "id": "mp_JcRsGD2pKlA_1",
+        "prompt": "Adaptive step size methods choose the step size $h$ based on what?",
+        "hint": "They watch how much error each tentative step seems to be making and react to it.",
+        "answerOptions": [
+          {
+            "text": "An estimate of the local error at each step",
+            "correct": true,
+            "rationale": "Yes. The step size is tuned step by step using an on the fly error estimate."
+          },
+          {
+            "text": "A fixed schedule set in advance",
+            "rationale": "A preset schedule cannot react to the solution. What measured quantity drives an adaptive choice?"
+          },
+          {
+            "text": "The total number of steps allowed",
+            "rationale": "A step budget does not set each individual size. What local quantity guides the adaptation?"
+          },
+          {
+            "text": "The initial condition alone",
+            "rationale": "The starting value cannot dictate every future step. What ongoing estimate controls $h$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_JcRsGD2pKlA_2",
+        "prompt": "When the estimated local error exceeds the tolerance, an adaptive method does what?",
+        "hint": "Too much error means the current step is too ambitious.",
+        "answerOptions": [
+          {
+            "text": "Reduces the step size and retries",
+            "correct": true,
+            "rationale": "Yes. If the error is too large, the method shrinks $h$ and repeats the step."
+          },
+          {
+            "text": "Increases the step size",
+            "rationale": "Growing the step would worsen an already large error. Which way should $h$ move?"
+          },
+          {
+            "text": "Stops the computation",
+            "rationale": "An error overshoot is recoverable. What adjustment lets the method continue accurately?"
+          },
+          {
+            "text": "Ignores the error and proceeds",
+            "rationale": "Ignoring the tolerance defeats adaptation. What does the method do when error is too high?"
+          }
+        ]
+      },
+      {
+        "id": "mp_JcRsGD2pKlA_3",
+        "prompt": "A common way to estimate the local error for adaptive stepping is to compare what?",
+        "hint": "You need two estimates of the same step that differ in accuracy, so their gap reveals the error.",
+        "answerOptions": [
+          {
+            "text": "Results from two methods of different order, or two different step sizes",
+            "correct": true,
+            "rationale": "Yes. The difference between a lower and higher order result estimates the local error."
+          },
+          {
+            "text": "The initial and final times",
+            "rationale": "The time span does not measure step error. Which two solution estimates does it compare?"
+          },
+          {
+            "text": "Two unrelated differential equations",
+            "rationale": "Only the current problem matters. What two estimates of this step are compared?"
+          },
+          {
+            "text": "The exact and numerical solution",
+            "rationale": "The exact solution is unknown, so it cannot be used. What computable pair estimates the error?"
+          }
+        ]
+      },
+      {
+        "id": "mp_JcRsGD2pKlA_4",
+        "prompt": "The main efficiency benefit of adaptive stepping is that it uses small steps where?",
+        "hint": "Effort should be concentrated where the solution is hardest to follow.",
+        "answerOptions": [
+          {
+            "text": "Only where the solution changes rapidly, and larger steps elsewhere",
+            "correct": true,
+            "rationale": "Yes. Adaptation spends small steps on fast changing regions and saves effort on smooth ones."
+          },
+          {
+            "text": "Everywhere uniformly",
+            "rationale": "Uniform small steps waste effort on easy regions. Where does adaptation focus the small steps?"
+          },
+          {
+            "text": "Only at the start of the interval",
+            "rationale": "The hard regions can appear anywhere. Where does an adaptive method place its fine steps?"
+          },
+          {
+            "text": "Only at the end of the interval",
+            "rationale": "There is no reason to favor the end. Where are small steps actually needed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_JcRsGD2pKlA_5",
+        "prompt": "The Runge-Kutta-Fehlberg, or RKF45, method estimates error by pairing methods of which orders?",
+        "hint": "The name 45 encodes the two orders it runs side by side.",
+        "answerOptions": [
+          {
+            "text": "Orders four and five",
+            "correct": true,
+            "rationale": "Yes. RKF45 pairs a fourth order and a fifth order estimate, and their difference gauges the error."
+          },
+          {
+            "text": "Orders one and two",
+            "rationale": "Those low orders would not match the name. Which two orders does 45 indicate?"
+          },
+          {
+            "text": "Orders two and three",
+            "rationale": "The digits in the name point higher. Which orders does RKF45 pair?"
+          },
+          {
+            "text": "Orders five and six",
+            "rationale": "The pairing is one order lower than that. What two orders does RKF45 use?"
+          }
+        ]
+      }
+    ],
+    "uzCD3K3VOV4": [
+      {
+        "id": "mp_uzCD3K3VOV4_1",
+        "prompt": "In a long orbital simulation, plain Euler's method typically causes the orbit to do what?",
+        "hint": "Small per step errors in energy build up over thousands of steps.",
+        "answerOptions": [
+          {
+            "text": "Spiral outward or inward as energy drifts, due to accumulated error",
+            "correct": true,
+            "rationale": "Yes. Euler's accumulated error makes the simulated orbit gain or lose energy and spiral."
+          },
+          {
+            "text": "Stay perfectly periodic forever",
+            "rationale": "Perfect periodicity would require no error at all. What does accumulated error do to the orbit?"
+          },
+          {
+            "text": "Stop moving immediately",
+            "rationale": "The simulation keeps running. What slow defect appears in the orbit shape over time?"
+          },
+          {
+            "text": "Become exact after many steps",
+            "rationale": "Errors accumulate rather than cancel. What happens to the orbit radius as they build?"
+          }
+        ]
+      },
+      {
+        "id": "mp_uzCD3K3VOV4_2",
+        "prompt": "Compared with Euler, RK4 in an orbital simulation at the same step size does what?",
+        "hint": "A fourth order method makes far smaller errors per step.",
+        "answerOptions": [
+          {
+            "text": "Tracks the true orbit far more closely with less energy drift",
+            "correct": true,
+            "rationale": "Yes. RK4's small per step error keeps the orbit close to the true path for much longer."
+          },
+          {
+            "text": "Drifts away faster than Euler",
+            "rationale": "Higher order means smaller error. Which method holds the orbit better?"
+          },
+          {
+            "text": "Gives results identical to Euler",
+            "rationale": "The methods differ sharply in accuracy. Which one keeps the orbit tighter?"
+          },
+          {
+            "text": "Cannot simulate orbits at all",
+            "rationale": "RK4 handles orbits well. How does its accuracy compare with Euler's here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_uzCD3K3VOV4_3",
+        "prompt": "Over a long simulation with many steps, why does the choice of method matter so much?",
+        "hint": "Think about how individual step errors combine across a very large number of steps.",
+        "answerOptions": [
+          {
+            "text": "Per step errors accumulate, so a higher order method keeps the total error small",
+            "correct": true,
+            "rationale": "Yes. With many steps the accumulated error dominates, so a higher order method pays off."
+          },
+          {
+            "text": "Each step is independent with no accumulation",
+            "rationale": "Errors do build on one another. Why does that make the method choice critical over long runs?"
+          },
+          {
+            "text": "The method has no effect on long runs",
+            "rationale": "The method strongly affects accuracy. Why does its effect grow with the number of steps?"
+          },
+          {
+            "text": "Error decreases automatically with more steps",
+            "rationale": "More steps over a fixed span means smaller $h$, but error per method still accumulates. Why does order matter?"
+          }
+        ]
+      },
+      {
+        "id": "mp_uzCD3K3VOV4_4",
+        "prompt": "One way to reduce Euler's orbital drift is to shrink the step size, but the cost is what?",
+        "hint": "Halving the step over a fixed time span doubles how many steps you must compute.",
+        "answerOptions": [
+          {
+            "text": "Many more steps and more computation",
+            "correct": true,
+            "rationale": "Yes. Smaller steps reduce error but require proportionally more work."
+          },
+          {
+            "text": "Less accuracy",
+            "rationale": "Smaller steps improve accuracy, not worsen it. What is the trade off in effort?"
+          },
+          {
+            "text": "A higher order method automatically",
+            "rationale": "Shrinking $h$ does not change the method's order. What computational price does it carry?"
+          },
+          {
+            "text": "No change in runtime",
+            "rationale": "More steps take more time. How does the runtime respond to a smaller step size?"
+          }
+        ]
+      },
+      {
+        "id": "mp_uzCD3K3VOV4_5",
+        "prompt": "A good check on a numerical orbit method is whether it approximately conserves which quantity?",
+        "hint": "For a closed orbit under gravity, one scalar quantity should stay essentially constant.",
+        "answerOptions": [
+          {
+            "text": "The total energy of the orbit",
+            "correct": true,
+            "rationale": "Yes. A faithful method keeps the total energy nearly constant over the orbit."
+          },
+          {
+            "text": "The number of steps",
+            "rationale": "The step count is a setting, not a conserved physical quantity. What physical quantity should hold steady?"
+          },
+          {
+            "text": "The step size",
+            "rationale": "The step size is chosen, not conserved. Which physical invariant tests the method?"
+          },
+          {
+            "text": "The initial time",
+            "rationale": "The starting time is fixed input. What conserved quantity signals a good orbit method?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_5_1",
+      "prompt": "Euler's method advances the solution using which update?",
+      "hint": "You step forward from the current point along the slope the equation gives, scaled by $h$.",
+      "answerOptions": [
+        {
+          "text": "$y_{n+1} = y_n + h\\,f(t_n, y_n)$",
+          "correct": true,
+          "rationale": "Yes. The slope at the current point times $h$ gives the increment."
+        },
+        {
+          "text": "$y_{n+1} = y_n + f(t_n, y_n)$",
+          "rationale": "The step size is missing. What scales the slope to one step?"
+        },
+        {
+          "text": "$y_{n+1} = y_n + h\\,f(t_{n+1}, y_{n+1})$",
+          "rationale": "That evaluates the slope at the unknown next point. Which point does explicit Euler use?"
+        },
+        {
+          "text": "$y_{n+1} = y_n - h\\,f(t_n, y_n)$",
+          "rationale": "Check the sign of a forward step. Which direction does the increment go?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_2",
+      "prompt": "For $\\frac{dy}{dt} = y$ with $y(0) = 1$ and $h = 0.1$, what is $y_1$ by Euler's method?",
+      "hint": "Apply $y_1 = 1 + 0.1 \\cdot f(0, 1)$ with $f = y$.",
+      "answerOptions": [
+        {
+          "text": "$1.1$",
+          "correct": true,
+          "rationale": "Correct. $1 + 0.1 \\cdot 1 = 1.1$."
+        },
+        {
+          "text": "$1.0$",
+          "rationale": "You added nothing. What is $1 + 0.1 \\cdot 1$?"
+        },
+        {
+          "text": "$1.11$",
+          "rationale": "That resembles a second step. What is the first step value?"
+        },
+        {
+          "text": "$0.9$",
+          "rationale": "The slope is positive, so the value grows. What is the result?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_3",
+      "prompt": "Geometrically, each Euler step follows which line?",
+      "hint": "The equation supplies a slope at the current point.",
+      "answerOptions": [
+        {
+          "text": "The tangent line with slope $f(t_n, y_n)$",
+          "correct": true,
+          "rationale": "Yes. Euler walks along the tangent line at the current point."
+        },
+        {
+          "text": "A horizontal line",
+          "rationale": "The slope is set by $f$, not zero. Which line carries that slope?"
+        },
+        {
+          "text": "A secant between two solution points",
+          "rationale": "Only one point is known. Which line uses just that point's slope?"
+        },
+        {
+          "text": "A vertical line",
+          "rationale": "A vertical line cannot represent advancing $y$. Which line has slope $f(t_n, y_n)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_4",
+      "prompt": "Euler's method is first order, so its global error scales like what?",
+      "hint": "Local errors of order $h^2$ accumulate over about $1/h$ steps.",
+      "answerOptions": [
+        {
+          "text": "$O(h)$",
+          "correct": true,
+          "rationale": "Yes. The global error of Euler's method is proportional to $h$."
+        },
+        {
+          "text": "$O(h^2)$",
+          "rationale": "That is the per step local error. What is the order after accumulation?"
+        },
+        {
+          "text": "$O(h^4)$",
+          "rationale": "That belongs to RK4. What order is plain Euler?"
+        },
+        {
+          "text": "$O(1)$",
+          "rationale": "A constant error would not shrink with $h$. What order does Euler have?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_5",
+      "prompt": "If you halve the step size in Euler's method, the global error is approximately changed how?",
+      "hint": "First order error is roughly proportional to $h$.",
+      "answerOptions": [
+        {
+          "text": "Roughly halved",
+          "correct": true,
+          "rationale": "Yes. With error proportional to $h$, halving $h$ halves the error."
+        },
+        {
+          "text": "Roughly quartered",
+          "rationale": "Quartering would be second order behavior. What power of $h$ does Euler carry?"
+        },
+        {
+          "text": "Unchanged",
+          "rationale": "The error does depend on $h$. How does halving $h$ affect a first order error?"
+        },
+        {
+          "text": "Roughly doubled",
+          "rationale": "Smaller steps reduce error. Which way does it move?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_6",
+      "prompt": "The improved Euler method updates $y$ with which combination, where $k_1$ and $k_2$ are the start and predicted endpoint slopes?",
+      "hint": "It averages the two slopes over the step.",
+      "answerOptions": [
+        {
+          "text": "$y_{n+1} = y_n + \\frac{h}{2}(k_1 + k_2)$",
+          "correct": true,
+          "rationale": "Yes. It averages the starting and predicted endpoint slopes."
+        },
+        {
+          "text": "$y_{n+1} = y_n + h k_1$",
+          "rationale": "That is plain Euler with one slope. What second slope is averaged in?"
+        },
+        {
+          "text": "$y_{n+1} = y_n + h k_2$",
+          "rationale": "Using only the endpoint slope drops the start. How are they combined?"
+        },
+        {
+          "text": "$y_{n+1} = y_n + \\frac{h}{2}(k_1 - k_2)$",
+          "rationale": "A difference, not a sum, would be wrong. Which combination averages the slopes?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_7",
+      "prompt": "For $\\frac{dy}{dt} = y$ with $y(0) = 1$ and $h = 0.1$, what is the improved Euler estimate $y_1$?",
+      "hint": "Here $k_1 = 1$, predicted endpoint $1.1$ so $k_2 = 1.1$, then average.",
+      "answerOptions": [
+        {
+          "text": "$1.105$",
+          "correct": true,
+          "rationale": "Correct. $1 + 0.05(1 + 1.1) = 1.105$."
+        },
+        {
+          "text": "$1.1$",
+          "rationale": "That is plain Euler using only $k_1$. What does averaging $k_2 = 1.1$ add?"
+        },
+        {
+          "text": "$1.11$",
+          "rationale": "Recheck the factor $\\frac{h}{2} = 0.05$. What does that give?"
+        },
+        {
+          "text": "$1.21$",
+          "rationale": "That doubles the increment. What is $1 + 0.05(1 + 1.1)$?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_8",
+      "prompt": "The modified Euler, or midpoint, method evaluates the slope where?",
+      "hint": "It takes a half step and reads the slope at the center.",
+      "answerOptions": [
+        {
+          "text": "At the midpoint $t_n + \\frac{h}{2}$, via a half step prediction",
+          "correct": true,
+          "rationale": "Yes. It predicts the midpoint and uses the slope there."
+        },
+        {
+          "text": "At the left endpoint only",
+          "rationale": "That is plain Euler. Where does the midpoint method sample?"
+        },
+        {
+          "text": "At the right endpoint only",
+          "rationale": "The endpoint slope drives a different method. Which interior point is used?"
+        },
+        {
+          "text": "Averaged over both endpoints",
+          "rationale": "That is the improved Euler idea. Which single point does the midpoint method use?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_9",
+      "prompt": "The improved Euler and midpoint methods are both of which order?",
+      "hint": "Each captures the leading curvature with two slope evaluations.",
+      "answerOptions": [
+        {
+          "text": "Second order",
+          "correct": true,
+          "rationale": "Yes. Both are second order, with global error proportional to $h^2$."
+        },
+        {
+          "text": "First order",
+          "rationale": "First order is plain Euler. What order do two slope methods reach?"
+        },
+        {
+          "text": "Third order",
+          "rationale": "Third order needs more samples. What order do these two stage methods have?"
+        },
+        {
+          "text": "Fourth order",
+          "rationale": "Fourth order is RK4. What order are improved and midpoint Euler?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_10",
+      "prompt": "Why does averaging or centering the slope improve on plain Euler?",
+      "hint": "Plain Euler uses one starting slope, but the slope changes across the interval.",
+      "answerOptions": [
+        {
+          "text": "It better approximates the average slope across the step",
+          "correct": true,
+          "rationale": "Yes. A two slope estimate tracks the interval's mean slope more closely."
+        },
+        {
+          "text": "It secretly uses a smaller step",
+          "rationale": "The step size is unchanged. What about the slope estimate improves?"
+        },
+        {
+          "text": "It removes the need to evaluate $f$",
+          "rationale": "It evaluates $f$ more, not less. What does the extra evaluation capture?"
+        },
+        {
+          "text": "It makes the method implicit",
+          "rationale": "These methods stay explicit. What property of the slope estimate reduces error?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_11",
+      "prompt": "Heun's method is another name for which method, and it mirrors which integration rule?",
+      "hint": "It averages the two endpoint slopes, a classic two point quadrature.",
+      "answerOptions": [
+        {
+          "text": "The improved Euler method, mirroring the trapezoidal rule",
+          "correct": true,
+          "rationale": "Yes. Heun is improved Euler, and averaging endpoint slopes is the trapezoidal rule."
+        },
+        {
+          "text": "The midpoint method, mirroring the midpoint rule",
+          "rationale": "Heun uses the two ends, not the center. Which method and rule match it?"
+        },
+        {
+          "text": "RK4, mirroring Simpson's rule",
+          "rationale": "RK4 uses four slopes. Which two slope method is Heun?"
+        },
+        {
+          "text": "Backward Euler, mirroring the left endpoint rule",
+          "rationale": "Backward Euler is implicit and one sided. Which averaging method is Heun?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_12",
+      "prompt": "In Heun's method, the predicted endpoint $\\tilde{y}_{n+1}$ is computed by which step?",
+      "hint": "The prediction is an ordinary forward Euler step.",
+      "answerOptions": [
+        {
+          "text": "$\\tilde{y}_{n+1} = y_n + h\\,f(t_n, y_n)$",
+          "correct": true,
+          "rationale": "Yes. The predictor is a plain Euler step."
+        },
+        {
+          "text": "$\\tilde{y}_{n+1} = y_n + \\frac{h}{2}f(t_n, y_n)$",
+          "rationale": "A half step is the midpoint idea. What full step predicts the endpoint?"
+        },
+        {
+          "text": "$\\tilde{y}_{n+1} = y_n + h\\,f(t_{n+1}, \\tilde{y}_{n+1})$",
+          "rationale": "That is implicit. Which explicit step gives the prediction?"
+        },
+        {
+          "text": "$\\tilde{y}_{n+1} = y_n$",
+          "rationale": "That makes no step at all. What forward step predicts the endpoint?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_13",
+      "prompt": "For $\\frac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$, what is the Heun estimate $y_1$?",
+      "hint": "$k_1 = 1$, predictor $1.2$, $k_2 = f(0.2, 1.2) = 1.4$, then average.",
+      "answerOptions": [
+        {
+          "text": "$1.24$",
+          "correct": true,
+          "rationale": "Correct. $1 + 0.1(1 + 1.4) = 1.24$."
+        },
+        {
+          "text": "$1.2$",
+          "rationale": "That is the predictor alone. What does averaging $k_2 = 1.4$ give?"
+        },
+        {
+          "text": "$1.4$",
+          "rationale": "That is the endpoint slope, not the new value. What is $1 + 0.1(1 + 1.4)$?"
+        },
+        {
+          "text": "$1.28$",
+          "rationale": "Recheck $\\frac{h}{2} = 0.1$. What is $0.1 \\cdot 2.4$?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_14",
+      "prompt": "Heun's method belongs to which family, and what is its order?",
+      "hint": "It predicts then corrects, capturing curvature with two slopes.",
+      "answerOptions": [
+        {
+          "text": "Predictor corrector, second order",
+          "correct": true,
+          "rationale": "Yes. Heun predicts then corrects and is second order accurate."
+        },
+        {
+          "text": "Multistep, first order",
+          "rationale": "Heun uses a single previous point and reaches second order. Which family and order fit?"
+        },
+        {
+          "text": "Implicit, fourth order",
+          "rationale": "Heun is explicit and second order. What family and order describe it?"
+        },
+        {
+          "text": "Spectral, third order",
+          "rationale": "Heun is a stepwise two slope method. Which family and order are correct?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_15",
+      "prompt": "RK4 combines its four slopes using which weighted average?",
+      "hint": "The two midpoint slopes get double weight, all over six.",
+      "answerOptions": [
+        {
+          "text": "$y_{n+1} = y_n + \\frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)$",
+          "correct": true,
+          "rationale": "Yes. The middle slopes carry double weight, scaled by $\\frac{h}{6}$."
+        },
+        {
+          "text": "$y_{n+1} = y_n + \\frac{h}{4}(k_1 + k_2 + k_3 + k_4)$",
+          "rationale": "Equal weights miss the emphasis. Which slopes get doubled?"
+        },
+        {
+          "text": "$y_{n+1} = y_n + \\frac{h}{6}(k_1 + 3k_2 + 3k_3 + k_4)$",
+          "rationale": "Check the middle weights. Are they two or three?"
+        },
+        {
+          "text": "$y_{n+1} = y_n + h k_1$",
+          "rationale": "That is plain Euler. How many slopes does RK4 blend?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_16",
+      "prompt": "In RK4, the first slope $k_1$ is evaluated where?",
+      "hint": "It is the very first sample, before any trial step.",
+      "answerOptions": [
+        {
+          "text": "At the current point $(t_n, y_n)$",
+          "correct": true,
+          "rationale": "Yes. $k_1$ is the starting slope."
+        },
+        {
+          "text": "At the midpoint",
+          "rationale": "That is $k_2$. Where is the first slope taken?"
+        },
+        {
+          "text": "At the endpoint",
+          "rationale": "That is $k_4$. Which slope comes first?"
+        },
+        {
+          "text": "At $(t_n + h, y_n)$",
+          "rationale": "RK4 does not sample there for $k_1$. Where is it taken?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_17",
+      "prompt": "RK4 is a fourth order method, so its global error scales like what?",
+      "hint": "Four weighted slopes match the Taylor series through fourth order.",
+      "answerOptions": [
+        {
+          "text": "$O(h^4)$",
+          "correct": true,
+          "rationale": "Yes. The global error of RK4 is proportional to $h^4$."
+        },
+        {
+          "text": "$O(h^2)$",
+          "rationale": "Second order is Heun's level. What order is RK4?"
+        },
+        {
+          "text": "$O(h)$",
+          "rationale": "First order is plain Euler. What order does RK4 reach?"
+        },
+        {
+          "text": "$O(h^6)$",
+          "rationale": "Sixth order needs more stages. What order is classical RK4?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_18",
+      "prompt": "If you halve the step size in RK4, the global error decreases by approximately what factor?",
+      "hint": "For fourth order error scaling like $h^4$, consider $2^4$.",
+      "answerOptions": [
+        {
+          "text": "About $16$",
+          "correct": true,
+          "rationale": "Yes. $2^4 = 16$."
+        },
+        {
+          "text": "About $4$",
+          "rationale": "That is second order behavior. What is $2^4$?"
+        },
+        {
+          "text": "About $2$",
+          "rationale": "That is first order behavior. What factor matches $h^4$?"
+        },
+        {
+          "text": "About $8$",
+          "rationale": "That is $2^3$. What is the fourth power of two?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_19",
+      "prompt": "How many evaluations of $f$ does RK4 use per step?",
+      "hint": "Count the slopes $k_1$ through $k_4$.",
+      "answerOptions": [
+        {
+          "text": "Four",
+          "correct": true,
+          "rationale": "Yes. RK4 evaluates $f$ four times per step."
+        },
+        {
+          "text": "One",
+          "rationale": "One is plain Euler. How many slopes does RK4 use?"
+        },
+        {
+          "text": "Two",
+          "rationale": "Two is Heun or midpoint. How many does RK4 use?"
+        },
+        {
+          "text": "Six",
+          "rationale": "Classical RK4 uses fewer than six. How many?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_20",
+      "prompt": "For $\\frac{dy}{dt} = 2t$ with $y(0) = 0$ and $h = 1$, what is the RK4 estimate $y_1$?",
+      "hint": "With $f$ depending only on $t$: $k_1 = 0$, $k_2 = k_3 = 1$, $k_4 = 2$. Apply the weighted average.",
+      "answerOptions": [
+        {
+          "text": "$1$",
+          "correct": true,
+          "rationale": "Correct. $\\frac{1}{6}(0 + 2 + 2 + 2) = 1$, matching the exact $t^2$ at $t = 1$."
+        },
+        {
+          "text": "$0.5$",
+          "rationale": "Recompute the weighted sum. What is $\\frac{1}{6}(0 + 2 + 2 + 2)$?"
+        },
+        {
+          "text": "$2$",
+          "rationale": "That is $k_4$ alone. How does the weighted average reduce it?"
+        },
+        {
+          "text": "$0.75$",
+          "rationale": "Check each weight. What does $\\frac{1}{6}(0 + 2 + 2 + 2)$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_21",
+      "prompt": "All Runge-Kutta methods share which strategy?",
+      "hint": "Each probes the slope at several places inside the step.",
+      "answerOptions": [
+        {
+          "text": "A weighted combination of slope evaluations within each step",
+          "correct": true,
+          "rationale": "Yes. They blend several sampled slopes with chosen weights."
+        },
+        {
+          "text": "Requiring the exact solution",
+          "rationale": "No exact solution is used. What do they do with sampled slopes?"
+        },
+        {
+          "text": "Using only the left endpoint slope",
+          "rationale": "One slope is plain Euler. What do higher members add?"
+        },
+        {
+          "text": "Storing many past steps",
+          "rationale": "That is the multistep idea. What single step strategy do they share?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_22",
+      "prompt": "The one stage, first order member of the Runge-Kutta family is which method?",
+      "hint": "A single slope at the start of the step is the simplest scheme.",
+      "answerOptions": [
+        {
+          "text": "Euler's method",
+          "correct": true,
+          "rationale": "Yes. Plain Euler is the one stage Runge-Kutta method."
+        },
+        {
+          "text": "RK4",
+          "rationale": "RK4 uses four stages. Which uses one?"
+        },
+        {
+          "text": "Heun's method",
+          "rationale": "Heun uses two stages. Which uses one?"
+        },
+        {
+          "text": "The midpoint method",
+          "rationale": "That uses two stages. Which single stage method is simplest?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_23",
+      "prompt": "The coefficients of a Runge-Kutta method are organized in what?",
+      "hint": "A standard tableau named after a numerical analyst stores the nodes and weights.",
+      "answerOptions": [
+        {
+          "text": "A Butcher tableau",
+          "correct": true,
+          "rationale": "Yes. The Butcher tableau holds the nodes, weights, and stage coefficients."
+        },
+        {
+          "text": "A Jacobian matrix",
+          "rationale": "The Jacobian holds partial derivatives. What tableau holds method coefficients?"
+        },
+        {
+          "text": "A Wronskian",
+          "rationale": "The Wronskian tests independence of solutions. What array stores the coefficients?"
+        },
+        {
+          "text": "A phase portrait",
+          "rationale": "A phase portrait pictures trajectories. What tableau organizes the weights?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_24",
+      "prompt": "Higher order Runge-Kutta methods generally require what?",
+      "hint": "More accuracy comes from probing more places per step.",
+      "answerOptions": [
+        {
+          "text": "More function evaluations per step",
+          "correct": true,
+          "rationale": "Yes. Each added stage is another slope evaluation."
+        },
+        {
+          "text": "Fewer function evaluations per step",
+          "rationale": "Higher accuracy is not free. Which way does the evaluation count move?"
+        },
+        {
+          "text": "A larger step size automatically",
+          "rationale": "Step size is independent of order. What grows with order?"
+        },
+        {
+          "text": "An implicit solver always",
+          "rationale": "Many high order methods are explicit. What per step cost rises?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_25",
+      "prompt": "For a Runge-Kutta method to be consistent, its weights $b_i$ must satisfy what?",
+      "hint": "Consistency requires reproducing the simplest case over one step.",
+      "answerOptions": [
+        {
+          "text": "They sum to one",
+          "correct": true,
+          "rationale": "Yes. The weights must sum to one for consistency."
+        },
+        {
+          "text": "They sum to zero",
+          "rationale": "A zero sum gives no net step. What must the weights total?"
+        },
+        {
+          "text": "They equal the step size",
+          "rationale": "The weights are dimensionless numbers. What is their required sum?"
+        },
+        {
+          "text": "They sum to the order",
+          "rationale": "The sum is fixed regardless of order. What value is it?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_26",
+      "prompt": "Adaptive step size methods choose $h$ based on what?",
+      "hint": "They react to how much error each tentative step makes.",
+      "answerOptions": [
+        {
+          "text": "An estimate of the local error at each step",
+          "correct": true,
+          "rationale": "Yes. The step size is tuned using an on the fly error estimate."
+        },
+        {
+          "text": "A fixed schedule set in advance",
+          "rationale": "A preset schedule cannot react. What measured quantity drives the choice?"
+        },
+        {
+          "text": "The total number of steps",
+          "rationale": "A step budget does not set each size. What local quantity guides $h$?"
+        },
+        {
+          "text": "The initial condition alone",
+          "rationale": "The start cannot dictate every step. What ongoing estimate controls $h$?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_27",
+      "prompt": "When the estimated local error exceeds the tolerance, an adaptive method does what?",
+      "hint": "Too much error means the step was too ambitious.",
+      "answerOptions": [
+        {
+          "text": "Reduces the step size and retries",
+          "correct": true,
+          "rationale": "Yes. It shrinks $h$ and repeats the step."
+        },
+        {
+          "text": "Increases the step size",
+          "rationale": "Growing the step worsens the error. Which way should $h$ go?"
+        },
+        {
+          "text": "Stops the computation",
+          "rationale": "The situation is recoverable. What adjustment continues accurately?"
+        },
+        {
+          "text": "Ignores the error",
+          "rationale": "Ignoring the tolerance defeats adaptation. What does the method do?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_28",
+      "prompt": "The RKF45 method estimates error by pairing methods of which orders?",
+      "hint": "The digits 45 encode the two orders.",
+      "answerOptions": [
+        {
+          "text": "Orders four and five",
+          "correct": true,
+          "rationale": "Yes. RKF45 pairs a fourth and fifth order estimate."
+        },
+        {
+          "text": "Orders one and two",
+          "rationale": "Those are too low for the name. Which orders does 45 mean?"
+        },
+        {
+          "text": "Orders two and three",
+          "rationale": "The digits point higher. Which orders does RKF45 use?"
+        },
+        {
+          "text": "Orders five and six",
+          "rationale": "That is one too high. Which two orders are paired?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_29",
+      "prompt": "The efficiency benefit of adaptive stepping is that small steps are used where?",
+      "hint": "Effort should concentrate where the solution is hardest to follow.",
+      "answerOptions": [
+        {
+          "text": "Only where the solution changes rapidly, with larger steps elsewhere",
+          "correct": true,
+          "rationale": "Yes. Fine steps go to fast changing regions and coarse steps to smooth ones."
+        },
+        {
+          "text": "Everywhere uniformly",
+          "rationale": "Uniform small steps waste effort. Where does adaptation focus them?"
+        },
+        {
+          "text": "Only at the start",
+          "rationale": "Hard regions can be anywhere. Where are small steps needed?"
+        },
+        {
+          "text": "Only at the end",
+          "rationale": "There is no reason to favor the end. Where do fine steps go?"
+        }
+      ]
+    },
+    {
+      "id": "um_5_30",
+      "prompt": "In a long orbital simulation, plain Euler typically causes the orbit to do what, and a good check is conservation of which quantity?",
+      "hint": "Accumulated error makes the orbit drift, and one scalar should stay nearly fixed.",
+      "answerOptions": [
+        {
+          "text": "Spiral as energy drifts, so conservation of total energy is the check",
+          "correct": true,
+          "rationale": "Yes. Euler's accumulated error drifts the energy, so energy conservation tests the method."
+        },
+        {
+          "text": "Stay perfectly periodic, so conservation of step count is the check",
+          "rationale": "Step count is not a physical invariant, and Euler does drift. What conserved quantity tests the orbit?"
+        },
+        {
+          "text": "Stop immediately, so conservation of the initial time is the check",
+          "rationale": "The simulation keeps running, and time is fixed input. What physical quantity should hold steady?"
+        },
+        {
+          "text": "Become exact, so no conservation check is needed",
+          "rationale": "Euler accumulates error rather than becoming exact. Which conserved quantity provides a check?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

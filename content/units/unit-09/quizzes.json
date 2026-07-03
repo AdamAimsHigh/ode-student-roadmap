@@ -1,0 +1,2558 @@
+{
+  "unitNumber": 9,
+  "microPractice": {
+    "xCCeV-glFdM": [
+      {
+        "id": "mp_xCCeV-glFdM_1",
+        "prompt": "What feature makes a differential equation second order?",
+        "hint": "The order of an equation is named for the highest derivative that appears in it.",
+        "answerOptions": [
+          {
+            "text": "The highest derivative present is $y''$",
+            "correct": true,
+            "rationale": "Yes. Order is set by the highest derivative, so a second-order equation contains $y''$ and no higher."
+          },
+          {
+            "text": "It contains exactly two terms",
+            "rationale": "Term count does not set the order. Which derivative being present fixes the order?"
+          },
+          {
+            "text": "It has two solutions",
+            "rationale": "Solution count is a consequence, not the definition. What derivative names the order?"
+          },
+          {
+            "text": "The coefficients are quadratic in $x$",
+            "rationale": "The shape of the coefficients does not set order. What is the highest derivative that must appear?"
+          }
+        ]
+      },
+      {
+        "id": "mp_xCCeV-glFdM_2",
+        "prompt": "Which is the general form of a linear second-order differential equation?",
+        "hint": "Linear means $y$, $y'$, and $y''$ each appear to the first power and are not multiplied together.",
+        "answerOptions": [
+          {
+            "text": "$a(x)\\,y'' + b(x)\\,y' + c(x)\\,y = g(x)$",
+            "correct": true,
+            "rationale": "Yes. Each of $y$, $y'$, $y''$ appears to the first power with coefficients depending only on $x$."
+          },
+          {
+            "text": "$a(x)\\,y'' + b(x)\\,(y')^2 + c(x)\\,y = g(x)$",
+            "rationale": "A squared derivative breaks linearity. To what power may each derivative appear in a linear equation?"
+          },
+          {
+            "text": "$y'' \\cdot y' + c(x)\\,y = g(x)$",
+            "rationale": "Multiplying two derivatives together is nonlinear. How must the derivative terms combine in a linear equation?"
+          },
+          {
+            "text": "$a(x)\\,y'' = \\sin(y)$",
+            "rationale": "A function like $\\sin(y)$ makes the dependence on $y$ nonlinear. How must $y$ enter a linear equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_xCCeV-glFdM_3",
+        "prompt": "A second-order linear equation is called homogeneous when which condition holds?",
+        "hint": "Homogeneous here refers to the forcing term on the right-hand side.",
+        "answerOptions": [
+          {
+            "text": "The right-hand side $g(x)$ is zero",
+            "correct": true,
+            "rationale": "Yes. With $g(x) = 0$ the equation is homogeneous; a nonzero $g(x)$ makes it nonhomogeneous."
+          },
+          {
+            "text": "All coefficients are constant",
+            "rationale": "Constant coefficients are a separate property. What must the forcing term equal for homogeneity?"
+          },
+          {
+            "text": "The equation has no $y$ term",
+            "rationale": "A missing $y$ term is unrelated to homogeneity. What value of $g(x)$ defines it?"
+          },
+          {
+            "text": "$y'' = y$",
+            "rationale": "That is one particular equation, not the defining condition. What about the right-hand side makes an equation homogeneous?"
+          }
+        ]
+      },
+      {
+        "id": "mp_xCCeV-glFdM_4",
+        "prompt": "How many arbitrary constants appear in the general solution of a second-order linear equation?",
+        "hint": "The number of free constants matches the order of the equation.",
+        "answerOptions": [
+          {
+            "text": "Two",
+            "correct": true,
+            "rationale": "Yes. A second-order equation carries two arbitrary constants, fixed by two side conditions."
+          },
+          {
+            "text": "One",
+            "rationale": "One constant suits a first-order equation. How does the constant count relate to the order here?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three constants would suit a third-order equation. What is the order of this equation?"
+          },
+          {
+            "text": "Zero",
+            "rationale": "A general solution is a family, not a single curve. How many free constants does order two give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_xCCeV-glFdM_5",
+        "prompt": "Which equation is nonlinear?",
+        "hint": "Scan for derivatives or $y$ raised to powers other than one, or products of those quantities.",
+        "answerOptions": [
+          {
+            "text": "$y'' + (y')^2 = 0$",
+            "correct": true,
+            "rationale": "Yes. The term $(y')^2$ raises a derivative to the second power, so the equation is nonlinear."
+          },
+          {
+            "text": "$y'' + 3y' + 2y = 0$",
+            "rationale": "Every term here is first power in $y$ or its derivatives. Does any term square a derivative?"
+          },
+          {
+            "text": "$x^2 y'' + x y' + y = 0$",
+            "rationale": "The coefficients depend on $x$, but the derivatives are first power. Is that linear or nonlinear?"
+          },
+          {
+            "text": "$y'' + y = \\sin x$",
+            "rationale": "Here $\\sin x$ is just a forcing term in $x$, not $\\sin y$. Are the $y$ terms first power?"
+          }
+        ]
+      }
+    ],
+    "fi54Hz5TiWI": [
+      {
+        "id": "mp_fi54Hz5TiWI_1",
+        "prompt": "Is $y = \\cos x$ a solution of $y'' + y = 0$?",
+        "hint": "Compute $y''$ for $y = \\cos x$ and substitute into the equation.",
+        "answerOptions": [
+          {
+            "text": "Yes, since $y'' = -\\cos x$ and $-\\cos x + \\cos x = 0$",
+            "correct": true,
+            "rationale": "Correct. The second derivative cancels $y$, so the equation holds."
+          },
+          {
+            "text": "No, since $y'' = \\cos x$",
+            "rationale": "Recompute. What is the second derivative of $\\cos x$?"
+          },
+          {
+            "text": "No, since $\\cos x$ is not differentiable twice",
+            "rationale": "Cosine is smooth and differentiable to all orders. What does substituting $y''$ give?"
+          },
+          {
+            "text": "Yes, but only at $x = 0$",
+            "rationale": "A solution must satisfy the equation for all $x$, and this one does. What is $y'' + y$ in general here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fi54Hz5TiWI_2",
+        "prompt": "What is the general solution of $y'' = 0$?",
+        "hint": "Integrate twice, picking up one constant at each integration.",
+        "answerOptions": [
+          {
+            "text": "$y = c_1 x + c_2$",
+            "correct": true,
+            "rationale": "Yes. Integrating $y'' = 0$ once gives a constant slope, and again gives a linear function with two constants."
+          },
+          {
+            "text": "$y = c_1 x^2 + c_2$",
+            "rationale": "Integrating zero does not produce a quadratic. What do two integrations of zero give?"
+          },
+          {
+            "text": "$y = c_1 e^x + c_2 e^{-x}$",
+            "rationale": "Exponentials solve $y'' = y$, not $y'' = 0$. What functions have zero second derivative?"
+          },
+          {
+            "text": "$y = c_1$",
+            "rationale": "That has only one constant, too few for second order. How many constants should appear, and what is the form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fi54Hz5TiWI_3",
+        "prompt": "How many initial conditions are needed to pin down a unique solution of a second-order equation?",
+        "hint": "Match the number of conditions to the number of arbitrary constants.",
+        "answerOptions": [
+          {
+            "text": "Two, typically $y(x_0)$ and $y'(x_0)$",
+            "correct": true,
+            "rationale": "Yes. Two constants require two conditions, usually the value and slope at a point."
+          },
+          {
+            "text": "One, just $y(x_0)$",
+            "rationale": "One condition leaves a constant undetermined. How many constants must be fixed?"
+          },
+          {
+            "text": "Three",
+            "rationale": "Three would over-determine a two-constant family. How many free constants are there?"
+          },
+          {
+            "text": "None, the solution is already unique",
+            "rationale": "The general solution is a two-parameter family. How many conditions select one member?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fi54Hz5TiWI_4",
+        "prompt": "If $y_1$ and $y_2$ both solve the same homogeneous linear equation, what can you say about $c_1 y_1 + c_2 y_2$?",
+        "hint": "This is the superposition principle for linear homogeneous equations.",
+        "answerOptions": [
+          {
+            "text": "It also solves the equation for any constants $c_1, c_2$",
+            "correct": true,
+            "rationale": "Yes. Superposition says any linear combination of homogeneous solutions is again a solution."
+          },
+          {
+            "text": "It solves the equation only if $c_1 = c_2$",
+            "rationale": "No special relation between the constants is required. What does linearity allow for any combination?"
+          },
+          {
+            "text": "It never solves the equation",
+            "rationale": "Linear combinations of homogeneous solutions do solve it. What principle guarantees this?"
+          },
+          {
+            "text": "It solves a different equation",
+            "rationale": "The combination stays a solution of the same homogeneous equation. Why does linearity preserve it?"
+          }
+        ]
+      },
+      {
+        "id": "mp_fi54Hz5TiWI_5",
+        "prompt": "Which equation has variable coefficients rather than constant coefficients?",
+        "hint": "Look at whether the multipliers of $y''$, $y'$, and $y$ are numbers or functions of $x$.",
+        "answerOptions": [
+          {
+            "text": "$x^2 y'' + x y' + y = 0$",
+            "correct": true,
+            "rationale": "Yes. The coefficients $x^2$ and $x$ depend on $x$, so this has variable coefficients."
+          },
+          {
+            "text": "$y'' + 5y' + 6y = 0$",
+            "rationale": "All multipliers here are numbers. Are those constant or variable coefficients?"
+          },
+          {
+            "text": "$2y'' - 3y' + y = 0$",
+            "rationale": "Each coefficient is a fixed number. Does $x$ appear as a multiplier anywhere?"
+          },
+          {
+            "text": "$y'' + 4y = 0$",
+            "rationale": "The coefficients $1$ and $4$ are constants. Which option instead multiplies a derivative by a function of $x$?"
+          }
+        ]
+      }
+    ],
+    "VpZOuOJ_ob4": [
+      {
+        "id": "mp_VpZOuOJ_ob4_1",
+        "prompt": "For $y'' + p(x)\\,y' + q(x)\\,y = g(x)$ with an initial point $x_0$, the existence and uniqueness theorem guarantees a unique solution provided what?",
+        "hint": "The theorem asks for continuity of the coefficient functions on an interval containing the start point.",
+        "answerOptions": [
+          {
+            "text": "$p$, $q$, and $g$ are continuous on an interval containing $x_0$",
+            "correct": true,
+            "rationale": "Yes. Continuity of the coefficients and forcing on an interval around $x_0$ guarantees a unique solution there."
+          },
+          {
+            "text": "$p$, $q$, and $g$ are constant",
+            "rationale": "Constancy is stronger than needed. What weaker property of these functions does the theorem actually require?"
+          },
+          {
+            "text": "$g(x) = 0$",
+            "rationale": "The theorem covers nonhomogeneous equations too. What must be true of $p$, $q$, and $g$ near $x_0$?"
+          },
+          {
+            "text": "The equation is separable",
+            "rationale": "Separability is unrelated to this theorem. What continuity hypothesis is needed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VpZOuOJ_ob4_2",
+        "prompt": "Writing $L[y] = y'' + p\\,y' + q\\,y$, the linearity of $L$ means $L[c_1 y_1 + c_2 y_2]$ equals what?",
+        "hint": "A linear operator distributes over sums and pulls out constant multipliers.",
+        "answerOptions": [
+          {
+            "text": "$c_1 L[y_1] + c_2 L[y_2]$",
+            "correct": true,
+            "rationale": "Yes. The operator $L$ is linear, so it distributes across the combination and factors out the constants."
+          },
+          {
+            "text": "$L[y_1] \\cdot L[y_2]$",
+            "rationale": "Linearity gives a sum, not a product. How does a linear operator act on a sum of scaled inputs?"
+          },
+          {
+            "text": "$c_1 c_2 L[y_1 + y_2]$",
+            "rationale": "The constants do not multiply together. How do $c_1$ and $c_2$ attach to each term?"
+          },
+          {
+            "text": "$L[y_1] + L[y_2]$",
+            "rationale": "You dropped the constants $c_1$ and $c_2$. Where do those multipliers go?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VpZOuOJ_ob4_3",
+        "prompt": "Why does superposition build solutions for the homogeneous equation $L[y] = 0$ but not directly for $L[y] = g$ with $g \\neq 0$?",
+        "hint": "Apply the linear operator to a sum of two solutions in each case and see what the right-hand side becomes.",
+        "answerOptions": [
+          {
+            "text": "Adding two solutions of $L[y] = g$ gives $L = 2g$, not $g$, while adding solutions of $L[y] = 0$ stays zero",
+            "correct": true,
+            "rationale": "Yes. Zero is preserved under addition, but a nonzero $g$ doubles, so the homogeneous case is special."
+          },
+          {
+            "text": "Superposition works equally for both",
+            "rationale": "Test it on $L[y] = g$: adding two solutions gives $L = 2g$. Does that still equal $g$?"
+          },
+          {
+            "text": "The nonhomogeneous equation has no solutions",
+            "rationale": "It does have solutions. What goes wrong when you add two of them under $L$?"
+          },
+          {
+            "text": "Because $g$ is not continuous",
+            "rationale": "Continuity is not the issue. What value does $L$ give when you add two particular solutions?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VpZOuOJ_ob4_4",
+        "prompt": "For a homogeneous linear second-order equation, the largest interval on which the unique solution is guaranteed is determined by what?",
+        "hint": "The solution is guaranteed wherever the hypotheses of the existence theorem hold.",
+        "answerOptions": [
+          {
+            "text": "The largest interval containing $x_0$ on which $p$ and $q$ are continuous",
+            "correct": true,
+            "rationale": "Yes. The guaranteed interval extends as far as the coefficient functions remain continuous around $x_0$."
+          },
+          {
+            "text": "The interval where $y$ stays positive",
+            "rationale": "The sign of $y$ does not bound the interval. What property of the coefficients sets it?"
+          },
+          {
+            "text": "A fixed interval of length one",
+            "rationale": "There is no fixed length. What feature of $p$ and $q$ controls how far the solution extends?"
+          },
+          {
+            "text": "The spacing of the initial conditions",
+            "rationale": "Both conditions sit at one point $x_0$. What continuity property determines the interval?"
+          }
+        ]
+      },
+      {
+        "id": "mp_VpZOuOJ_ob4_5",
+        "prompt": "Two solutions $y_1, y_2$ of a homogeneous second-order linear equation form a fundamental set when they are what?",
+        "hint": "A fundamental set must be rich enough to express every solution as a combination of its members.",
+        "answerOptions": [
+          {
+            "text": "Linearly independent",
+            "correct": true,
+            "rationale": "Yes. Two linearly independent solutions form a fundamental set whose combinations give the general solution."
+          },
+          {
+            "text": "Equal to each other",
+            "rationale": "Identical solutions cannot span a two-parameter family. What relationship must they avoid?"
+          },
+          {
+            "text": "Both equal to zero",
+            "rationale": "The zero function carries no information. What independence property is required?"
+          },
+          {
+            "text": "Proportional",
+            "rationale": "Proportional solutions are dependent and span too little. What must be true instead?"
+          }
+        ]
+      }
+    ],
+    "S-wzapPZGzE": [
+      {
+        "id": "mp_S-wzapPZGzE_1",
+        "prompt": "Two functions $y_1$ and $y_2$ are linearly independent on an interval when which statement holds?",
+        "hint": "Independence means no nontrivial constant combination vanishes identically.",
+        "answerOptions": [
+          {
+            "text": "$c_1 y_1 + c_2 y_2 = 0$ for all $x$ forces $c_1 = c_2 = 0$",
+            "correct": true,
+            "rationale": "Yes. Only the trivial choice of constants makes the combination vanish everywhere, which is independence."
+          },
+          {
+            "text": "$y_1 + y_2 = 0$ for all $x$",
+            "rationale": "That is one specific combination, not the definition. What must be true of every constant combination that vanishes?"
+          },
+          {
+            "text": "$y_1$ and $y_2$ are never zero",
+            "rationale": "Independence is about combinations, not about either function being nonzero. What condition on $c_1, c_2$ defines it?"
+          },
+          {
+            "text": "$y_1 = c\\,y_2$ for some constant $c$",
+            "rationale": "That describes dependence, the opposite case. What does independence require of the constants?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S-wzapPZGzE_2",
+        "prompt": "The Wronskian of $y_1$ and $y_2$ is defined as which expression?",
+        "hint": "It is the determinant of the matrix whose rows are the functions and their first derivatives.",
+        "answerOptions": [
+          {
+            "text": "$W = y_1 y_2' - y_2 y_1'$",
+            "correct": true,
+            "rationale": "Yes. The Wronskian is the determinant $y_1 y_2' - y_2 y_1'$."
+          },
+          {
+            "text": "$W = y_1 y_2' + y_2 y_1'$",
+            "rationale": "A determinant uses a difference, not a sum. Which sign joins the two product terms?"
+          },
+          {
+            "text": "$W = y_1 y_2 - y_1' y_2'$",
+            "rationale": "The pairing crosses functions with derivatives. Which products belong in the Wronskian?"
+          },
+          {
+            "text": "$W = y_1' y_2' - y_1 y_2$",
+            "rationale": "That pairs both derivatives and both functions incorrectly. What are the correct cross products?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S-wzapPZGzE_3",
+        "prompt": "If the Wronskian $W(x_0) \\neq 0$ at some point, what does that tell you about $y_1$ and $y_2$?",
+        "hint": "A nonzero Wronskian at a point is a sufficient test for independence.",
+        "answerOptions": [
+          {
+            "text": "They are linearly independent",
+            "correct": true,
+            "rationale": "Yes. A nonzero Wronskian at any point certifies linear independence."
+          },
+          {
+            "text": "They are linearly dependent",
+            "rationale": "A nonzero Wronskian points the other way. What does a nonzero value certify?"
+          },
+          {
+            "text": "One of them is zero",
+            "rationale": "Neither function need vanish. What independence conclusion follows from $W \\neq 0$?"
+          },
+          {
+            "text": "They solve different equations",
+            "rationale": "The Wronskian says nothing about which equation they solve. What does $W \\neq 0$ imply about independence?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S-wzapPZGzE_4",
+        "prompt": "When $y_1, y_2$ are independent solutions, the general solution of the homogeneous equation is what?",
+        "hint": "A fundamental set spans all solutions through linear combinations.",
+        "answerOptions": [
+          {
+            "text": "$y = c_1 y_1 + c_2 y_2$",
+            "correct": true,
+            "rationale": "Yes. Every solution is a linear combination of the two independent solutions."
+          },
+          {
+            "text": "$y = y_1 y_2$",
+            "rationale": "Solutions combine by addition with constants, not by multiplication. What is the spanning form?"
+          },
+          {
+            "text": "$y = c_1 y_1$",
+            "rationale": "That uses only one solution and one constant. How many independent pieces span a second-order solution space?"
+          },
+          {
+            "text": "$y = c_1 y_1 + c_2 y_2 + c_3$",
+            "rationale": "A bare extra constant is not a solution of the homogeneous equation in general. What is the correct two-term form?"
+          }
+        ]
+      },
+      {
+        "id": "mp_S-wzapPZGzE_5",
+        "prompt": "Compute the Wronskian of $y_1 = e^{x}$ and $y_2 = e^{2x}$.",
+        "hint": "Use $W = y_1 y_2' - y_2 y_1'$ with $y_1' = e^x$ and $y_2' = 2e^{2x}$.",
+        "answerOptions": [
+          {
+            "text": "$W = e^{3x}$",
+            "correct": true,
+            "rationale": "Correct. $e^x \\cdot 2e^{2x} - e^{2x} \\cdot e^x = 2e^{3x} - e^{3x} = e^{3x}$."
+          },
+          {
+            "text": "$W = 0$",
+            "rationale": "These exponentials are not proportional, so $W$ is nonzero. Recompute $y_1 y_2' - y_2 y_1'$."
+          },
+          {
+            "text": "$W = 3e^{3x}$",
+            "rationale": "Check the subtraction: $2e^{3x} - e^{3x}$. What is the coefficient?"
+          },
+          {
+            "text": "$W = e^{2x}$",
+            "rationale": "Each product is a multiple of $e^{3x}$, not $e^{2x}$. What exponent results from $e^x \\cdot e^{2x}$?"
+          }
+        ]
+      }
+    ],
+    "4z5aL3aGVQs": [
+      {
+        "id": "mp_4z5aL3aGVQs_1",
+        "prompt": "Compute the Wronskian of $y_1 = x$ and $y_2 = 2x$.",
+        "hint": "Use $W = y_1 y_2' - y_2 y_1'$ with $y_1' = 1$ and $y_2' = 2$.",
+        "answerOptions": [
+          {
+            "text": "$W = 0$",
+            "correct": true,
+            "rationale": "Correct. $x \\cdot 2 - 2x \\cdot 1 = 2x - 2x = 0$, consistent with these proportional functions."
+          },
+          {
+            "text": "$W = 2x$",
+            "rationale": "Recheck the subtraction $2x - 2x$. What does it equal?"
+          },
+          {
+            "text": "$W = -2x$",
+            "rationale": "Both products equal $2x$, so they cancel. What is $2x - 2x$?"
+          },
+          {
+            "text": "$W = 2$",
+            "rationale": "You may have stopped at the derivatives. Carry out $y_1 y_2' - y_2 y_1'$ fully."
+          }
+        ]
+      },
+      {
+        "id": "mp_4z5aL3aGVQs_2",
+        "prompt": "The functions $y_1 = x$ and $y_2 = 2x$ have $W = 0$. What does this reflect?",
+        "hint": "They are constant multiples of one another.",
+        "answerOptions": [
+          {
+            "text": "They are linearly dependent, since $y_2 = 2 y_1$",
+            "correct": true,
+            "rationale": "Yes. One is a constant multiple of the other, so they are dependent and $W = 0$."
+          },
+          {
+            "text": "They are independent",
+            "rationale": "Proportional functions are not independent. What relationship between $x$ and $2x$ shows dependence?"
+          },
+          {
+            "text": "They cannot both be solutions",
+            "rationale": "Both can be solutions; their dependence is the point. What multiple links them?"
+          },
+          {
+            "text": "The Wronskian was computed wrong",
+            "rationale": "The value $0$ is correct for proportional functions. What does $y_2 = 2y_1$ tell you?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4z5aL3aGVQs_3",
+        "prompt": "Compute the Wronskian of $y_1 = \\sin x$ and $y_2 = \\cos x$.",
+        "hint": "Use $W = y_1 y_2' - y_2 y_1'$ with $y_1' = \\cos x$ and $y_2' = -\\sin x$.",
+        "answerOptions": [
+          {
+            "text": "$W = -1$",
+            "correct": true,
+            "rationale": "Correct. $\\sin x(-\\sin x) - \\cos x(\\cos x) = -\\sin^2 x - \\cos^2 x = -1$."
+          },
+          {
+            "text": "$W = 1$",
+            "rationale": "Check the signs: both products are negative. What is $-\\sin^2 x - \\cos^2 x$?"
+          },
+          {
+            "text": "$W = 0$",
+            "rationale": "Sine and cosine are independent, so $W \\neq 0$. Recompute the determinant."
+          },
+          {
+            "text": "$W = \\sin x \\cos x$",
+            "rationale": "The cross terms simplify using $\\sin^2 x + \\cos^2 x = 1$. What constant results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4z5aL3aGVQs_4",
+        "prompt": "A nonzero Wronskian on an interval certifies which property of the two functions?",
+        "hint": "Recall what conclusion a nonvanishing Wronskian supports.",
+        "answerOptions": [
+          {
+            "text": "Linear independence",
+            "correct": true,
+            "rationale": "Yes. If $W$ is nonzero somewhere, the functions are linearly independent."
+          },
+          {
+            "text": "Linear dependence",
+            "rationale": "That is the opposite conclusion. What does a nonzero Wronskian establish?"
+          },
+          {
+            "text": "That both are constant",
+            "rationale": "Constancy is unrelated. What independence property does $W \\neq 0$ certify?"
+          },
+          {
+            "text": "That they are equal",
+            "rationale": "Equal functions would have $W = 0$. What does a nonzero value indicate?"
+          }
+        ]
+      },
+      {
+        "id": "mp_4z5aL3aGVQs_5",
+        "prompt": "For two solutions of the same homogeneous linear equation, the Wronskian behaves how across an interval?",
+        "hint": "Abel's theorem constrains the Wronskian of solutions to one of two extremes.",
+        "answerOptions": [
+          {
+            "text": "It is either zero everywhere or nonzero everywhere",
+            "correct": true,
+            "rationale": "Yes. For solutions of one linear equation, the Wronskian cannot be zero at some points and nonzero at others."
+          },
+          {
+            "text": "It can be zero at some points and nonzero at others",
+            "rationale": "That mixed behavior is exactly what Abel's theorem rules out for solutions. What are the only two options?"
+          },
+          {
+            "text": "It is always exactly one",
+            "rationale": "The value is not pinned to one. What dichotomy does Abel's theorem give instead?"
+          },
+          {
+            "text": "It always changes sign",
+            "rationale": "There is no forced sign change. What two global possibilities does the theorem allow?"
+          }
+        ]
+      }
+    ],
+    "clc2poliklA": [
+      {
+        "id": "mp_clc2poliklA_1",
+        "prompt": "The proof shows that if $y_1$ and $y_2$ are linearly dependent, then their Wronskian is what?",
+        "hint": "Dependence means one function is a constant multiple of the other; substitute that in.",
+        "answerOptions": [
+          {
+            "text": "Identically zero",
+            "correct": true,
+            "rationale": "Yes. If $y_2 = c\\,y_1$, the determinant collapses and $W = 0$ everywhere."
+          },
+          {
+            "text": "Nonzero everywhere",
+            "rationale": "Dependence forces the determinant to vanish. What value does $W$ take when $y_2 = c\\,y_1$?"
+          },
+          {
+            "text": "Equal to $c$",
+            "rationale": "The Wronskian does not equal the proportionality constant. What does substituting $y_2 = c\\,y_1$ give?"
+          },
+          {
+            "text": "Equal to one",
+            "rationale": "A dependent pair gives a vanishing determinant. What is $W$ then?"
+          }
+        ]
+      },
+      {
+        "id": "mp_clc2poliklA_2",
+        "prompt": "Taking the contrapositive, if the Wronskian is nonzero at a point, then the functions must be what?",
+        "hint": "The contrapositive of dependence implying $W = 0$ flips both statements.",
+        "answerOptions": [
+          {
+            "text": "Linearly independent",
+            "correct": true,
+            "rationale": "Yes. The contrapositive of dependence forcing $W = 0$ is that $W \\neq 0$ forces independence."
+          },
+          {
+            "text": "Still possibly dependent",
+            "rationale": "Dependence forces $W = 0$ everywhere, so $W \\neq 0$ excludes it. What is the only remaining case?"
+          },
+          {
+            "text": "Proportional",
+            "rationale": "Proportional functions have $W = 0$. What does a nonzero value rule out and therefore imply?"
+          },
+          {
+            "text": "Equal",
+            "rationale": "Equal functions give $W = 0$. What does $W \\neq 0$ force instead?"
+          }
+        ]
+      },
+      {
+        "id": "mp_clc2poliklA_3",
+        "prompt": "Why is the Wronskian written as a determinant of $y_1, y_2$ and their first derivatives?",
+        "hint": "Think about the linear system you get by differentiating $c_1 y_1 + c_2 y_2 = 0$ once.",
+        "answerOptions": [
+          {
+            "text": "The system for $c_1, c_2$ from the combination and its derivative has that matrix, and a nonzero determinant forces $c_1 = c_2 = 0$",
+            "correct": true,
+            "rationale": "Yes. The determinant decides whether the only solution of that system is the trivial one."
+          },
+          {
+            "text": "It is an arbitrary definition with no system behind it",
+            "rationale": "There is a linear system behind it. What equations in $c_1, c_2$ produce this determinant?"
+          },
+          {
+            "text": "Because determinants are always zero",
+            "rationale": "Determinants are generally nonzero. What role does this particular determinant play for $c_1, c_2$?"
+          },
+          {
+            "text": "Because $y_1 = y_2$ by assumption",
+            "rationale": "The functions are not assumed equal. What system of equations makes the determinant relevant?"
+          }
+        ]
+      },
+      {
+        "id": "mp_clc2poliklA_4",
+        "prompt": "A subtle point: for arbitrary functions, $W = 0$ at a point does not by itself prove dependence. Why is the test cleaner for solutions of a linear ODE?",
+        "hint": "Abel's theorem applies only when the functions solve a common linear equation.",
+        "answerOptions": [
+          {
+            "text": "For solutions of one linear equation, $W$ is zero everywhere or nowhere, so a single zero implies dependence",
+            "correct": true,
+            "rationale": "Yes. Abel's dichotomy removes the loophole that affects arbitrary functions."
+          },
+          {
+            "text": "Because solutions are always proportional",
+            "rationale": "Solutions need not be proportional. What special property of $W$ for solutions sharpens the test?"
+          },
+          {
+            "text": "Because the Wronskian is undefined for solutions",
+            "rationale": "The Wronskian is perfectly defined for solutions. What does Abel's theorem add?"
+          },
+          {
+            "text": "Because arbitrary functions have no derivatives",
+            "rationale": "Arbitrary smooth functions do have derivatives. What is special about $W$ for ODE solutions?"
+          }
+        ]
+      },
+      {
+        "id": "mp_clc2poliklA_5",
+        "prompt": "Two functions are proportional on an interval. What is the most direct conclusion about independence?",
+        "hint": "Proportional means a single constant multiple connects them.",
+        "answerOptions": [
+          {
+            "text": "They are linearly dependent",
+            "correct": true,
+            "rationale": "Yes. Proportional functions are dependent, since one is a constant multiple of the other."
+          },
+          {
+            "text": "They are linearly independent",
+            "rationale": "Proportionality is exactly dependence. What conclusion follows?"
+          },
+          {
+            "text": "Nothing can be concluded",
+            "rationale": "Proportionality settles it immediately. What does a constant multiple relationship mean?"
+          },
+          {
+            "text": "They must be equal",
+            "rationale": "Proportional is weaker than equal. What independence status does proportionality give?"
+          }
+        ]
+      }
+    ],
+    "wJspS9lQsHM": [
+      {
+        "id": "mp_wJspS9lQsHM_1",
+        "prompt": "For $y'' + p(x)\\,y' + q(x)\\,y = 0$, Abel's identity gives the Wronskian as which expression?",
+        "hint": "The Wronskian solves a first-order equation whose solution is an exponential of an integral.",
+        "answerOptions": [
+          {
+            "text": "$W(x) = W(x_0)\\,\\exp\\!\\left(-\\int p(x)\\,dx\\right)$",
+            "correct": true,
+            "rationale": "Yes. Abel's identity expresses $W$ as a constant times $\\exp(-\\int p\\,dx)$."
+          },
+          {
+            "text": "$W(x) = W(x_0)\\,\\exp\\!\\left(\\int p(x)\\,dx\\right)$",
+            "rationale": "Check the sign in the exponent. Does Abel's formula use $+\\int p$ or $-\\int p$?"
+          },
+          {
+            "text": "$W(x) = W(x_0)\\,\\exp\\!\\left(-\\int q(x)\\,dx\\right)$",
+            "rationale": "The exponent uses the first-derivative coefficient, not $q$. Which coefficient appears?"
+          },
+          {
+            "text": "$W(x) = W(x_0) + \\int p(x)\\,dx$",
+            "rationale": "The dependence is exponential, not additive. What function wraps the integral of $p$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wJspS9lQsHM_2",
+        "prompt": "The proof shows the Wronskian satisfies which first-order differential equation?",
+        "hint": "Differentiate $W = y_1 y_2' - y_2 y_1'$ and use the original equation for each $y_i''$.",
+        "answerOptions": [
+          {
+            "text": "$W' = -p(x)\\,W$",
+            "correct": true,
+            "rationale": "Yes. Differentiating $W$ and substituting the ODE yields $W' = -p\\,W$."
+          },
+          {
+            "text": "$W' = p(x)\\,W$",
+            "rationale": "Check the sign you obtain after substituting $y_i'' = -p y_i' - q y_i$. Is the coefficient $+p$ or $-p$?"
+          },
+          {
+            "text": "$W' = -q(x)\\,W$",
+            "rationale": "The surviving coefficient is the one on $y'$, not on $y$. Which function multiplies $W$?"
+          },
+          {
+            "text": "$W' = W^2$",
+            "rationale": "The equation for $W$ is linear, not quadratic. What linear relation does $W'$ satisfy?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wJspS9lQsHM_3",
+        "prompt": "If $p(x) = 0$ in the equation $y'' + q(x)\\,y = 0$, what does Abel's identity say about $W$?",
+        "hint": "Set the exponent to zero in the Abel formula.",
+        "answerOptions": [
+          {
+            "text": "$W$ is constant",
+            "correct": true,
+            "rationale": "Yes. With $p = 0$ the exponential is $1$, so $W$ stays constant."
+          },
+          {
+            "text": "$W$ grows exponentially",
+            "rationale": "Growth requires a nonzero $p$. What does $\\exp(0)$ equal, and what does that make $W$?"
+          },
+          {
+            "text": "$W = 0$",
+            "rationale": "A zero $p$ does not force $W = 0$. What constant behavior does $\\exp(-\\int 0\\,dx)$ give?"
+          },
+          {
+            "text": "$W$ oscillates",
+            "rationale": "No oscillation arises from a constant factor. What is $W$ when the exponent vanishes?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wJspS9lQsHM_4",
+        "prompt": "Abel's identity confirms that the Wronskian of two solutions is either always zero or never zero. Why?",
+        "hint": "An exponential factor is never zero, so the sign of $W$ is fixed by the constant $W(x_0)$.",
+        "answerOptions": [
+          {
+            "text": "The exponential factor is never zero, so $W$ vanishes only if $W(x_0) = 0$, and then everywhere",
+            "correct": true,
+            "rationale": "Yes. Since $\\exp(\\cdot) \\neq 0$, the whole product is zero exactly when the leading constant is zero."
+          },
+          {
+            "text": "Because $p$ is always positive",
+            "rationale": "The sign of $p$ is irrelevant here. What property of the exponential forces the dichotomy?"
+          },
+          {
+            "text": "Because solutions are periodic",
+            "rationale": "Periodicity is not assumed. What feature of $\\exp$ prevents $W$ from crossing zero?"
+          },
+          {
+            "text": "Because $W$ is linear in $x$",
+            "rationale": "$W$ is generally not linear. Why can an exponential factor never make $W$ cross zero?"
+          }
+        ]
+      },
+      {
+        "id": "mp_wJspS9lQsHM_5",
+        "prompt": "For $y'' - 3y' + 2y = 0$, Abel's identity gives the Wronskian proportional to which function?",
+        "hint": "Here $p = -3$, so the exponent is $-\\int p\\,dx = 3x$.",
+        "answerOptions": [
+          {
+            "text": "$e^{3x}$",
+            "correct": true,
+            "rationale": "Correct. With $p = -3$, $W \\propto \\exp(-\\int(-3)\\,dx) = e^{3x}$."
+          },
+          {
+            "text": "$e^{-3x}$",
+            "rationale": "Watch the double sign: the exponent is $-\\int p$ with $p = -3$. What is $-(-3x)$?"
+          },
+          {
+            "text": "$e^{2x}$",
+            "rationale": "The exponent comes from $p$, the coefficient of $y'$, not from the $y$ coefficient $2$. What is $-\\int p\\,dx$?"
+          },
+          {
+            "text": "a constant",
+            "rationale": "A constant Wronskian needs $p = 0$, but here $p = -3$. What exponential results?"
+          }
+        ]
+      }
+    ],
+    "h4w3euxv_i4": [
+      {
+        "id": "mp_h4w3euxv_i4_1",
+        "prompt": "Before applying Abel's formula, an equation $a(x)\\,y'' + b(x)\\,y' + c(x)\\,y = 0$ should first be put in which form?",
+        "hint": "Abel's $p$ is read off only after the leading coefficient is one.",
+        "answerOptions": [
+          {
+            "text": "Standard form $y'' + \\frac{b}{a}\\,y' + \\frac{c}{a}\\,y = 0$, so $p = \\frac{b}{a}$",
+            "correct": true,
+            "rationale": "Yes. Divide by $a(x)$ so the $y''$ coefficient is one, then $p = b/a$."
+          },
+          {
+            "text": "Leave it as is and use $p = b$",
+            "rationale": "Using $b$ directly ignores the leading coefficient $a$. What must you divide by first?"
+          },
+          {
+            "text": "Multiply through by $a(x)$",
+            "rationale": "Multiplying makes the leading coefficient worse, not one. What operation normalizes it?"
+          },
+          {
+            "text": "Set $a(x) = 0$",
+            "rationale": "That would destroy the second-order term. How do you make the $y''$ coefficient equal one?"
+          }
+        ]
+      },
+      {
+        "id": "mp_h4w3euxv_i4_2",
+        "prompt": "In $W(x) = W(x_0)\\,\\exp(-\\int p\\,dx)$, what determines the sign of the exponent?",
+        "hint": "Look at the explicit minus sign in front of the integral of $p$.",
+        "answerOptions": [
+          {
+            "text": "The leading minus sign together with the sign of $p$",
+            "correct": true,
+            "rationale": "Yes. The formula has a built-in minus, so the exponent is the negative of the integral of $p$."
+          },
+          {
+            "text": "The sign of $q$",
+            "rationale": "The coefficient $q$ does not enter the exponent. Which coefficient and which fixed sign set it?"
+          },
+          {
+            "text": "Always positive",
+            "rationale": "The formula carries an explicit minus sign. How does that affect the exponent?"
+          },
+          {
+            "text": "The value of $W(x_0)$",
+            "rationale": "That constant scales $W$ but does not set the exponent's sign. What does?"
+          }
+        ]
+      },
+      {
+        "id": "mp_h4w3euxv_i4_3",
+        "prompt": "Abel's formula is especially useful when you already know one solution and want a second. Which later technique does it support?",
+        "hint": "Knowing $W$ and one solution lets you recover the other through an integral.",
+        "answerOptions": [
+          {
+            "text": "Reduction of order, which uses $W$ and $y_1$ to build $y_2$",
+            "correct": true,
+            "rationale": "Yes. With $W$ from Abel and one solution $y_1$, reduction of order produces a second independent solution."
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "Separation is a first-order technique unrelated to $W$. Which method uses $y_1$ and $W$ to find $y_2$?"
+          },
+          {
+            "text": "The Laplace transform",
+            "rationale": "Transforms do not rely on the Wronskian this way. What method recovers a second solution from $y_1$ and $W$?"
+          },
+          {
+            "text": "Undetermined coefficients",
+            "rationale": "That targets nonhomogeneous forcing, not a second homogeneous solution. Which method does Abel support?"
+          }
+        ]
+      },
+      {
+        "id": "mp_h4w3euxv_i4_4",
+        "prompt": "For $y'' + 2x\\,y' + y = 0$, the Abel Wronskian is proportional to which function?",
+        "hint": "Here $p = 2x$, so the exponent is $-\\int 2x\\,dx = -x^2$.",
+        "answerOptions": [
+          {
+            "text": "$e^{-x^2}$",
+            "correct": true,
+            "rationale": "Correct. $-\\int 2x\\,dx = -x^2$, so $W \\propto e^{-x^2}$."
+          },
+          {
+            "text": "$e^{x^2}$",
+            "rationale": "The formula has a minus sign in the exponent. What is $-\\int 2x\\,dx$?"
+          },
+          {
+            "text": "$e^{-2x}$",
+            "rationale": "The integral of $2x$ is $x^2$, not $2x$. What is $-\\int 2x\\,dx$?"
+          },
+          {
+            "text": "$e^{-x}$",
+            "rationale": "Integrating $2x$ raises the power of $x$. What is $\\int 2x\\,dx$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_h4w3euxv_i4_5",
+        "prompt": "What does Abel's formula reveal about the relationship between the two solutions whose Wronskian it computes?",
+        "hint": "A nonzero Wronskian is the certificate the formula produces when $W(x_0) \\neq 0$.",
+        "answerOptions": [
+          {
+            "text": "If $W(x_0) \\neq 0$, the solutions are independent for all $x$ in the interval",
+            "correct": true,
+            "rationale": "Yes. A nonzero starting value combined with a nonvanishing exponential keeps the pair independent throughout."
+          },
+          {
+            "text": "They are always dependent",
+            "rationale": "A nonzero $W(x_0)$ rules out dependence. What independence does the formula then guarantee?"
+          },
+          {
+            "text": "They must be equal at $x_0$",
+            "rationale": "Equality is not implied. What does $W(x_0) \\neq 0$ say about independence?"
+          },
+          {
+            "text": "Their Wronskian must change sign",
+            "rationale": "The exponential prevents sign changes. What stays true about independence across the interval?"
+          }
+        ]
+      }
+    ],
+    "oQSFW8BIrY0": [
+      {
+        "id": "mp_oQSFW8BIrY0_1",
+        "prompt": "Reduction of order finds a second solution by assuming $y_2$ has which form, given a known solution $y_1$?",
+        "hint": "The method multiplies the known solution by an unknown function to be determined.",
+        "answerOptions": [
+          {
+            "text": "$y_2 = v(x)\\,y_1$ for an unknown function $v(x)$",
+            "correct": true,
+            "rationale": "Yes. Writing $y_2 = v\\,y_1$ and substituting reduces the problem to a first-order equation for $v'$."
+          },
+          {
+            "text": "$y_2 = v(x) + y_1$",
+            "rationale": "The method scales $y_1$, it does not add to it. What product form is assumed for $y_2$?"
+          },
+          {
+            "text": "$y_2 = y_1^2$",
+            "rationale": "Squaring the known solution is not the ansatz. What multiplicative unknown is introduced?"
+          },
+          {
+            "text": "$y_2 = c\\,y_1$ for a constant $c$",
+            "rationale": "A constant multiple is dependent and gives nothing new. What kind of multiplier is allowed instead?"
+          }
+        ]
+      },
+      {
+        "id": "mp_oQSFW8BIrY0_2",
+        "prompt": "After substituting $y_2 = v y_1$ into the homogeneous equation, which terms cancel?",
+        "hint": "The terms with $v$ undifferentiated collect into $v$ times the original equation applied to $y_1$.",
+        "answerOptions": [
+          {
+            "text": "The terms multiplying $v$ alone, because $y_1$ already solves the equation",
+            "correct": true,
+            "rationale": "Yes. Those terms form $v$ times $L[y_1] = 0$, so they vanish, leaving an equation in $v'$ and $v''$."
+          },
+          {
+            "text": "The terms with $v''$",
+            "rationale": "The highest-derivative terms in $v$ do not cancel; they drive the reduced equation. Which terms vanish because $y_1$ is a solution?"
+          },
+          {
+            "text": "All terms, leaving $0 = 0$",
+            "rationale": "Not everything cancels, or the method would be useless. Which specific group of terms drops out?"
+          },
+          {
+            "text": "The forcing term",
+            "rationale": "The equation is homogeneous, so there is no forcing term. Which terms cancel because of $L[y_1] = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_oQSFW8BIrY0_3",
+        "prompt": "Why does the leftover equation become first order in disguise?",
+        "hint": "Notice that $v$ itself no longer appears, only its derivatives.",
+        "answerOptions": [
+          {
+            "text": "Only $v'$ and $v''$ remain, so substituting $w = v'$ gives a first-order equation in $w$",
+            "correct": true,
+            "rationale": "Yes. With $v$ absent, $w = v'$ turns the equation into a first-order one, lowering the order."
+          },
+          {
+            "text": "Because $v$ is constant",
+            "rationale": "If $v$ were constant the solution would be dependent. What lets $w = v'$ reduce the order?"
+          },
+          {
+            "text": "Because $y_1 = 0$",
+            "rationale": "The known solution is not the zero function. What substitution reduces the order of the $v$ equation?"
+          },
+          {
+            "text": "Because the equation is separable from the start",
+            "rationale": "Separability is not the reason. What variable change drops the equation to first order?"
+          }
+        ]
+      },
+      {
+        "id": "mp_oQSFW8BIrY0_4",
+        "prompt": "For the repeated-root equation $y'' - 2y' + y = 0$ with known solution $y_1 = e^x$, reduction of order produces which second solution?",
+        "hint": "The repeated-root case famously yields the known exponential times $x$.",
+        "answerOptions": [
+          {
+            "text": "$y_2 = x e^{x}$",
+            "correct": true,
+            "rationale": "Correct. Reduction of order gives $v = x$, so $y_2 = x e^x$, independent of $e^x$."
+          },
+          {
+            "text": "$y_2 = e^{-x}$",
+            "rationale": "This equation has a repeated root, not two distinct ones. What factor times $e^x$ does reduction yield?"
+          },
+          {
+            "text": "$y_2 = e^{2x}$",
+            "rationale": "The characteristic root here is repeated at $1$, not $2$. What second solution does the repeated root give?"
+          },
+          {
+            "text": "$y_2 = x^2 e^{x}$",
+            "rationale": "A double root gives one extra factor of $x$, not two. What is $v$ from the reduction?"
+          }
+        ]
+      },
+      {
+        "id": "mp_oQSFW8BIrY0_5",
+        "prompt": "Why must $v(x)$ be nonconstant for $y_2 = v y_1$ to be a genuinely new solution?",
+        "hint": "Think about what $y_2$ becomes if $v$ is just a constant.",
+        "answerOptions": [
+          {
+            "text": "A constant $v$ makes $y_2$ proportional to $y_1$, hence dependent",
+            "correct": true,
+            "rationale": "Yes. Only a nonconstant $v$ produces a solution independent of $y_1$."
+          },
+          {
+            "text": "A constant $v$ makes $y_2$ undefined",
+            "rationale": "$y_2$ stays defined; it just is not new. What dependence problem does a constant $v$ create?"
+          },
+          {
+            "text": "A constant $v$ changes the equation",
+            "rationale": "The equation is unchanged. What happens to the independence of $y_2$ if $v$ is constant?"
+          },
+          {
+            "text": "It does not matter whether $v$ is constant",
+            "rationale": "It matters for independence. What does a constant $v$ do to the relationship between $y_2$ and $y_1$?"
+          }
+        ]
+      }
+    ],
+    "i9HSsR8aF4I": [
+      {
+        "id": "mp_i9HSsR8aF4I_1",
+        "prompt": "The reduction-of-order formula expresses the second solution as which integral, given $y_1$ and $p(x)$?",
+        "hint": "The formula integrates the Abel factor divided by the square of the known solution.",
+        "answerOptions": [
+          {
+            "text": "$y_2 = y_1 \\int \\frac{\\exp\\!\\left(-\\int p\\,dx\\right)}{y_1^2}\\,dx$",
+            "correct": true,
+            "rationale": "Yes. This standard formula builds $y_2$ from $y_1$, the Abel factor, and $y_1^2$."
+          },
+          {
+            "text": "$y_2 = y_1 \\int \\frac{\\exp\\!\\left(\\int p\\,dx\\right)}{y_1^2}\\,dx$",
+            "rationale": "Check the sign of the exponent, which comes from Abel's formula. Is it $+\\int p$ or $-\\int p$?"
+          },
+          {
+            "text": "$y_2 = y_1 \\int \\frac{\\exp\\!\\left(-\\int p\\,dx\\right)}{y_1}\\,dx$",
+            "rationale": "The denominator should be the square of $y_1$. What power of $y_1$ appears?"
+          },
+          {
+            "text": "$y_2 = \\int \\frac{\\exp\\!\\left(-\\int p\\,dx\\right)}{y_1^2}\\,dx$",
+            "rationale": "The prefactor $y_1$ outside the integral is missing. What multiplies the integral?"
+          }
+        ]
+      },
+      {
+        "id": "mp_i9HSsR8aF4I_2",
+        "prompt": "Reduction of order connects to the Wronskian because the quantity $\\exp(-\\int p\\,dx)$ is what?",
+        "hint": "Recall Abel's identity for the Wronskian of two solutions.",
+        "answerOptions": [
+          {
+            "text": "Proportional to the Wronskian $W$ of the solutions",
+            "correct": true,
+            "rationale": "Yes. Abel's identity makes $\\exp(-\\int p\\,dx)$ proportional to $W$, which is why it appears in the formula."
+          },
+          {
+            "text": "Equal to $y_1$",
+            "rationale": "It is not the known solution itself. Which Wronskian quantity does the Abel factor represent?"
+          },
+          {
+            "text": "Equal to $p(x)$",
+            "rationale": "It is built from integrating $p$, not $p$ itself. What Wronskian object is it proportional to?"
+          },
+          {
+            "text": "Always equal to one",
+            "rationale": "It equals one only when $p = 0$. In general, what does it equal up to a constant?"
+          }
+        ]
+      },
+      {
+        "id": "mp_i9HSsR8aF4I_3",
+        "prompt": "A key advantage of reduction of order is that it works for which kind of equations?",
+        "hint": "The method only needs one known solution and the coefficient $p(x)$, not constant coefficients.",
+        "answerOptions": [
+          {
+            "text": "Variable-coefficient equations, as long as one solution is already known",
+            "correct": true,
+            "rationale": "Yes. Reduction of order handles variable coefficients whenever a first solution is available."
+          },
+          {
+            "text": "Only constant-coefficient equations",
+            "rationale": "The method does not require constant coefficients. What does it require instead?"
+          },
+          {
+            "text": "Only homogeneous equations with $p = 0$",
+            "rationale": "A nonzero $p$ is fine; it enters through the Abel factor. What single ingredient must you already have?"
+          },
+          {
+            "text": "Only first-order equations",
+            "rationale": "It reduces second-order equations using a known solution. What class of coefficients can it tolerate?"
+          }
+        ]
+      },
+      {
+        "id": "mp_i9HSsR8aF4I_4",
+        "prompt": "For $y'' - y = 0$ with known solution $y_1 = e^{x}$, the reduction formula leads to which independent second solution?",
+        "hint": "Here $p = 0$, so the integrand is $1/y_1^2 = e^{-2x}$; integrate and multiply by $y_1$.",
+        "answerOptions": [
+          {
+            "text": "$y_2 = e^{-x}$ (up to a constant factor)",
+            "correct": true,
+            "rationale": "Correct. $\\int e^{-2x}\\,dx = -\\tfrac{1}{2}e^{-2x}$, and $e^x$ times that is proportional to $e^{-x}$."
+          },
+          {
+            "text": "$y_2 = x e^{x}$",
+            "rationale": "The roots here are distinct ($\\pm 1$), not repeated. What independent exponential does the integral give?"
+          },
+          {
+            "text": "$y_2 = e^{2x}$",
+            "rationale": "The integral of $e^{-2x}$ times $e^x$ does not give $e^{2x}$. What sign does the new exponent carry?"
+          },
+          {
+            "text": "$y_2 = e^{x}$",
+            "rationale": "That is just $y_1$ again, which is dependent. What different exponential results?"
+          }
+        ]
+      },
+      {
+        "id": "mp_i9HSsR8aF4I_5",
+        "prompt": "After reduction of order yields $y_2$, how can you confirm $y_1$ and $y_2$ form a fundamental set?",
+        "hint": "Use the independence test built from the two solutions and their derivatives.",
+        "answerOptions": [
+          {
+            "text": "Check that their Wronskian is nonzero",
+            "correct": true,
+            "rationale": "Yes. A nonzero Wronskian confirms independence and hence a fundamental set."
+          },
+          {
+            "text": "Check that $y_2 = y_1$",
+            "rationale": "Equality would mean dependence, the opposite of what you want. What nonzero quantity confirms independence?"
+          },
+          {
+            "text": "Check that both are exponentials",
+            "rationale": "The form of the solutions is not the test. What determinant must be nonzero?"
+          },
+          {
+            "text": "Check that $y_1 + y_2 = 0$",
+            "rationale": "That would signal a dependence relation. What value of the Wronskian certifies a fundamental set?"
+          }
+        ]
+      }
+    ],
+    "znO6v-8pvXo": [
+      {
+        "id": "mp_znO6v-8pvXo_1",
+        "prompt": "To solve $a y'' + b y' + c y = 0$ with constant coefficients, the standard trial solution is what?",
+        "hint": "Choose a function whose derivatives are multiples of itself.",
+        "answerOptions": [
+          {
+            "text": "$y = e^{rx}$ for a constant $r$ to be found",
+            "correct": true,
+            "rationale": "Yes. The exponential trial reduces the ODE to an algebraic equation for $r$."
+          },
+          {
+            "text": "$y = x^r$",
+            "rationale": "That power trial belongs to Cauchy-Euler equations, not constant-coefficient ones. What exponential trial works here?"
+          },
+          {
+            "text": "$y = \\sin(rx)$ only",
+            "rationale": "Sinusoids arise only in the complex-root case, as part of a broader family. What single trial covers all cases?"
+          },
+          {
+            "text": "$y = r x + c$",
+            "rationale": "A linear trial does not capture exponential behavior. What function has derivatives proportional to itself?"
+          }
+        ]
+      },
+      {
+        "id": "mp_znO6v-8pvXo_2",
+        "prompt": "Substituting $y = e^{rx}$ into $a y'' + b y' + c y = 0$ produces which characteristic equation?",
+        "hint": "Each derivative brings down a factor of $r$, and the common $e^{rx}$ divides out.",
+        "answerOptions": [
+          {
+            "text": "$a r^2 + b r + c = 0$",
+            "correct": true,
+            "rationale": "Yes. The exponential cancels, leaving this quadratic in $r$."
+          },
+          {
+            "text": "$a r + b = 0$",
+            "rationale": "That is only first order in $r$ and ignores two derivatives. What quadratic results from $y''$, $y'$, and $y$?"
+          },
+          {
+            "text": "$r^2 + r + 1 = 0$",
+            "rationale": "The coefficients should be $a$, $b$, $c$, not all ones. What is the general characteristic equation?"
+          },
+          {
+            "text": "$a r^2 - b r + c = 0$",
+            "rationale": "The sign on the $b r$ term should match the sign of $b$. What is the correct quadratic?"
+          }
+        ]
+      },
+      {
+        "id": "mp_znO6v-8pvXo_3",
+        "prompt": "Solve $y'' - 5y' + 6y = 0$. What is the general solution?",
+        "hint": "Factor the characteristic equation $r^2 - 5r + 6 = 0$.",
+        "answerOptions": [
+          {
+            "text": "$y = c_1 e^{2x} + c_2 e^{3x}$",
+            "correct": true,
+            "rationale": "Correct. $r^2 - 5r + 6 = (r-2)(r-3)$, giving distinct roots $2$ and $3$."
+          },
+          {
+            "text": "$y = c_1 e^{-2x} + c_2 e^{-3x}$",
+            "rationale": "Check the signs of the roots of $(r-2)(r-3) = 0$. Are they positive or negative?"
+          },
+          {
+            "text": "$y = (c_1 + c_2 x) e^{2x}$",
+            "rationale": "The repeated-root form applies only when the roots coincide. Are $2$ and $3$ equal?"
+          },
+          {
+            "text": "$y = c_1 \\cos 2x + c_2 \\sin 3x$",
+            "rationale": "Trig solutions require complex roots. Are the roots of $r^2 - 5r + 6$ real or complex?"
+          }
+        ]
+      },
+      {
+        "id": "mp_znO6v-8pvXo_4",
+        "prompt": "Which feature of the characteristic equation decides whether you get exponentials, a repeated factor, or sinusoids?",
+        "hint": "The nature of the roots is governed by the discriminant of the quadratic.",
+        "answerOptions": [
+          {
+            "text": "The discriminant $b^2 - 4ac$",
+            "correct": true,
+            "rationale": "Yes. Positive gives distinct real roots, zero gives a repeated root, and negative gives complex roots."
+          },
+          {
+            "text": "The sign of $c$ alone",
+            "rationale": "The constant term alone does not classify the roots. What combination of $a$, $b$, $c$ does?"
+          },
+          {
+            "text": "Whether $a = 1$",
+            "rationale": "Normalizing the leading coefficient does not change the root type. What quantity governs the cases?"
+          },
+          {
+            "text": "The value of $y(0)$",
+            "rationale": "Initial data does not affect the root structure. What part of the quadratic determines the case?"
+          }
+        ]
+      },
+      {
+        "id": "mp_znO6v-8pvXo_5",
+        "prompt": "For distinct real roots $r_1 \\neq r_2$, why is $y = c_1 e^{r_1 x} + c_2 e^{r_2 x}$ the general solution?",
+        "hint": "The two exponentials must be independent to span the full solution space.",
+        "answerOptions": [
+          {
+            "text": "The two exponentials are linearly independent, so their combinations give every solution",
+            "correct": true,
+            "rationale": "Yes. Distinct exponents make $e^{r_1 x}$ and $e^{r_2 x}$ independent, forming a fundamental set."
+          },
+          {
+            "text": "Because every second-order equation has exponential solutions",
+            "rationale": "Not every case is purely exponential; complex and repeated roots differ. Why does the distinct-real case use two exponentials?"
+          },
+          {
+            "text": "Because $r_1 = r_2$",
+            "rationale": "The roots here are distinct, not equal. What does distinctness give the two exponentials?"
+          },
+          {
+            "text": "Because the Wronskian is zero",
+            "rationale": "A zero Wronskian would mean dependence. What must the Wronskian be for these to span solutions?"
+          }
+        ]
+      }
+    ],
+    "r8Uk4tbuxVE": [
+      {
+        "id": "mp_r8Uk4tbuxVE_1",
+        "prompt": "Solve $y'' - 4y' + 4y = 0$. What is the general solution?",
+        "hint": "The characteristic equation $r^2 - 4r + 4 = 0$ is a perfect square.",
+        "answerOptions": [
+          {
+            "text": "$y = (c_1 + c_2 x)\\,e^{2x}$",
+            "correct": true,
+            "rationale": "Correct. $r^2 - 4r + 4 = (r-2)^2$, a repeated root $2$, giving the factor $x$ on the second solution."
+          },
+          {
+            "text": "$y = c_1 e^{2x} + c_2 e^{-2x}$",
+            "rationale": "The root here is repeated, not a $\\pm$ pair. What form handles a double root?"
+          },
+          {
+            "text": "$y = c_1 e^{2x} + c_2 e^{4x}$",
+            "rationale": "The characteristic equation is $(r-2)^2$, not $(r-2)(r-4)$. What single root repeats?"
+          },
+          {
+            "text": "$y = e^{2x}\\cos 2x$",
+            "rationale": "The root is real and repeated, not complex. What repeated-root form applies?"
+          }
+        ]
+      },
+      {
+        "id": "mp_r8Uk4tbuxVE_2",
+        "prompt": "Solve $y'' + y = 0$. What is the general solution?",
+        "hint": "The characteristic equation $r^2 + 1 = 0$ has purely imaginary roots.",
+        "answerOptions": [
+          {
+            "text": "$y = c_1 \\cos x + c_2 \\sin x$",
+            "correct": true,
+            "rationale": "Correct. Roots $\\pm i$ give the oscillatory solution with frequency one."
+          },
+          {
+            "text": "$y = c_1 e^{x} + c_2 e^{-x}$",
+            "rationale": "Those exponentials solve $y'' - y = 0$, not $y'' + y = 0$. What roots does $r^2 + 1 = 0$ give?"
+          },
+          {
+            "text": "$y = (c_1 + c_2 x)\\cos x$",
+            "rationale": "The roots are simple, not repeated, so no factor of $x$ is needed. What is the plain sinusoidal form?"
+          },
+          {
+            "text": "$y = c_1 \\cos x$",
+            "rationale": "That has only one constant, too few for second order. What second independent sinusoid is missing?"
+          }
+        ]
+      },
+      {
+        "id": "mp_r8Uk4tbuxVE_3",
+        "prompt": "Solve $y'' + 4y' + 13y = 0$. What is the general solution?",
+        "hint": "Complete the square or use the quadratic formula on $r^2 + 4r + 13 = 0$ to get $r = -2 \\pm 3i$.",
+        "answerOptions": [
+          {
+            "text": "$y = e^{-2x}(c_1 \\cos 3x + c_2 \\sin 3x)$",
+            "correct": true,
+            "rationale": "Correct. The roots $-2 \\pm 3i$ give decay $e^{-2x}$ times oscillation at frequency $3$."
+          },
+          {
+            "text": "$y = e^{2x}(c_1 \\cos 3x + c_2 \\sin 3x)$",
+            "rationale": "Check the real part of the roots. Is it $+2$ or $-2$?"
+          },
+          {
+            "text": "$y = e^{-2x}(c_1 \\cos 2x + c_2 \\sin 2x)$",
+            "rationale": "The oscillation frequency is the imaginary part of the roots. Is it $2$ or $3$?"
+          },
+          {
+            "text": "$y = c_1 e^{-2x} + c_2 e^{3x}$",
+            "rationale": "The roots are complex, so the solution combines decay and oscillation. What form does $-2 \\pm 3i$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_r8Uk4tbuxVE_4",
+        "prompt": "For complex roots $\\alpha \\pm \\beta i$, the real part $\\alpha$ controls which feature of the solution?",
+        "hint": "Separate the solution into an exponential envelope and an oscillating factor.",
+        "answerOptions": [
+          {
+            "text": "The exponential growth or decay envelope $e^{\\alpha x}$",
+            "correct": true,
+            "rationale": "Yes. The real part sets the envelope $e^{\\alpha x}$; the imaginary part sets the oscillation frequency."
+          },
+          {
+            "text": "The oscillation frequency",
+            "rationale": "Frequency comes from the imaginary part $\\beta$, not $\\alpha$. What does the real part control?"
+          },
+          {
+            "text": "The period of the sine and cosine",
+            "rationale": "The period is governed by $\\beta$. What does $\\alpha$ govern in $e^{\\alpha x}$?"
+          },
+          {
+            "text": "The number of solutions",
+            "rationale": "There are always two independent solutions. What growth or decay does $\\alpha$ set?"
+          }
+        ]
+      },
+      {
+        "id": "mp_r8Uk4tbuxVE_5",
+        "prompt": "Across the three cases, why does a repeated root require the extra factor $x$ in the second solution?",
+        "hint": "Without it, the two solutions for a double root would coincide.",
+        "answerOptions": [
+          {
+            "text": "The two basic exponentials collapse into one, so $x e^{rx}$ supplies a second independent solution",
+            "correct": true,
+            "rationale": "Yes. A double root yields only one exponential, and reduction of order produces $x e^{rx}$ to complete the set."
+          },
+          {
+            "text": "Because $x$ makes the solution decay faster",
+            "rationale": "The factor $x$ is about independence, not decay. What problem does a repeated root cause that $x$ fixes?"
+          },
+          {
+            "text": "Because complex roots demand it",
+            "rationale": "Repeated real roots, not complex ones, call for the factor $x$. Why is a second independent solution needed?"
+          },
+          {
+            "text": "Because the equation becomes first order",
+            "rationale": "The order does not change. Why does the repeated root leave only one exponential without the $x$ factor?"
+          }
+        ]
+      }
+    ],
+    "AMixzLG1h5E": [
+      {
+        "id": "mp_AMixzLG1h5E_1",
+        "prompt": "A Cauchy-Euler equation has the form $a x^2 y'' + b x y' + c y = 0$. What is the standard trial solution?",
+        "hint": "Match the powers of $x$ in the coefficients by choosing a power function.",
+        "answerOptions": [
+          {
+            "text": "$y = x^r$",
+            "correct": true,
+            "rationale": "Yes. The power trial $x^r$ matches the $x^k$ coefficients and reduces the equation to an algebraic one in $r$."
+          },
+          {
+            "text": "$y = e^{rx}$",
+            "rationale": "Exponentials suit constant-coefficient equations, not the $x^2, x$ coefficients here. What power trial fits?"
+          },
+          {
+            "text": "$y = r x$",
+            "rationale": "A linear function does not capture the needed family. What trial of the form $x^{\\text{power}}$ is used?"
+          },
+          {
+            "text": "$y = \\ln x$",
+            "rationale": "A logarithm is not the basic trial, though it can appear in the repeated-root case. What is the standard ansatz?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AMixzLG1h5E_2",
+        "prompt": "With $y = x^r$, the term $x^2 y''$ becomes which expression?",
+        "hint": "Differentiate $x^r$ twice, then multiply by $x^2$.",
+        "answerOptions": [
+          {
+            "text": "$r(r-1)\\,x^r$",
+            "correct": true,
+            "rationale": "Yes. $y'' = r(r-1)x^{r-2}$, so $x^2 y'' = r(r-1)x^r$."
+          },
+          {
+            "text": "$r^2 x^r$",
+            "rationale": "That skips the $(r-1)$ factor from the second derivative. What is $\\frac{d^2}{dx^2}x^r$ times $x^2$?"
+          },
+          {
+            "text": "$r(r-1)\\,x^{r-2}$",
+            "rationale": "You forgot to multiply by $x^2$. What does $x^2 \\cdot r(r-1)x^{r-2}$ give?"
+          },
+          {
+            "text": "$r\\,x^r$",
+            "rationale": "That is closer to the $x y'$ term. What is the full second-derivative contribution $x^2 y''$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AMixzLG1h5E_3",
+        "prompt": "Substituting $y = x^r$ into $x^2 y'' - 2x y' - 4y = 0$ gives which indicial equation?",
+        "hint": "Use $x^2 y'' = r(r-1)x^r$, $x y' = r x^r$, and collect.",
+        "answerOptions": [
+          {
+            "text": "$r^2 - 3r - 4 = 0$",
+            "correct": true,
+            "rationale": "Correct. $r(r-1) - 2r - 4 = r^2 - 3r - 4 = 0$."
+          },
+          {
+            "text": "$r^2 - 2r - 4 = 0$",
+            "rationale": "Recombine the linear terms: $-r$ from $r(r-1)$ and $-2r$ from $-2xy'$. What is their sum?"
+          },
+          {
+            "text": "$r^2 + 3r - 4 = 0$",
+            "rationale": "Check the sign of the linear term after combining $-r$ and $-2r$. Is it $+3r$ or $-3r$?"
+          },
+          {
+            "text": "$r^2 - 3r + 4 = 0$",
+            "rationale": "The constant term comes from $-4y$, so it should be $-4$. What is the correct constant?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AMixzLG1h5E_4",
+        "prompt": "The indicial equation $r^2 - 3r - 4 = 0$ has which roots, and what general solution do they give?",
+        "hint": "Factor $r^2 - 3r - 4 = (r-4)(r+1)$.",
+        "answerOptions": [
+          {
+            "text": "$r = 4, -1$, so $y = c_1 x^4 + c_2 x^{-1}$",
+            "correct": true,
+            "rationale": "Correct. The distinct real roots give two independent power solutions $x^4$ and $x^{-1}$."
+          },
+          {
+            "text": "$r = 4, 1$, so $y = c_1 x^4 + c_2 x$",
+            "rationale": "Recheck the factorization: $(r-4)(r+1)$ gives roots $4$ and $-1$. What is the second power?"
+          },
+          {
+            "text": "$r = -4, 1$, so $y = c_1 x^{-4} + c_2 x$",
+            "rationale": "The factor $(r-4)$ gives $r = 4$, not $-4$. What are both roots?"
+          },
+          {
+            "text": "$r = 4, -1$, so $y = c_1 e^{4x} + c_2 e^{-x}$",
+            "rationale": "Cauchy-Euler solutions are powers of $x$, not exponentials. What form do the roots give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AMixzLG1h5E_5",
+        "prompt": "The substitution $t = \\ln x$ converts a Cauchy-Euler equation into what kind of equation?",
+        "hint": "This change of variable removes the variable coefficients.",
+        "answerOptions": [
+          {
+            "text": "A constant-coefficient linear equation in $t$",
+            "correct": true,
+            "rationale": "Yes. Setting $t = \\ln x$ turns the Cauchy-Euler equation into a constant-coefficient one, explaining the power-law solutions."
+          },
+          {
+            "text": "A separable first-order equation",
+            "rationale": "The order is preserved at two. What kind of second-order equation in $t$ results?"
+          },
+          {
+            "text": "A nonlinear equation",
+            "rationale": "The transformation keeps the equation linear. What feature of the coefficients does it fix?"
+          },
+          {
+            "text": "An exact equation",
+            "rationale": "Exactness is not the outcome. What property do the coefficients gain in the variable $t$?"
+          }
+        ]
+      }
+    ],
+    "7vwDp94wEhg": [
+      {
+        "id": "mp_7vwDp94wEhg_1",
+        "prompt": "The general solution of an $n$-th order linear homogeneous equation is a combination of how many independent solutions?",
+        "hint": "The dimension of the solution space matches the order.",
+        "answerOptions": [
+          {
+            "text": "$n$ independent solutions",
+            "correct": true,
+            "rationale": "Yes. An $n$-th order linear equation has an $n$-dimensional solution space spanned by $n$ independent solutions."
+          },
+          {
+            "text": "Two, regardless of $n$",
+            "rationale": "Two is specific to second order. How does the count of independent solutions scale with the order?"
+          },
+          {
+            "text": "One",
+            "rationale": "One solution cannot span a higher-order solution space. How many independent solutions does order $n$ require?"
+          },
+          {
+            "text": "$n - 1$",
+            "rationale": "The count matches the order exactly, not one less. How many independent solutions are there?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7vwDp94wEhg_2",
+        "prompt": "How many initial conditions does a unique solution of an $n$-th order linear equation require?",
+        "hint": "Match the number of conditions to the number of arbitrary constants.",
+        "answerOptions": [
+          {
+            "text": "$n$ conditions, typically $y, y', \\dots, y^{(n-1)}$ at a point",
+            "correct": true,
+            "rationale": "Yes. The $n$ arbitrary constants need $n$ conditions, usually the function and its first $n-1$ derivatives at a point."
+          },
+          {
+            "text": "Two, the value and slope",
+            "rationale": "Two conditions fit second order only. How many are needed for order $n$?"
+          },
+          {
+            "text": "$n + 1$",
+            "rationale": "That is one too many for $n$ constants. How many conditions match $n$ constants?"
+          },
+          {
+            "text": "One condition per term",
+            "rationale": "It is one condition per arbitrary constant, and there are $n$ of them. How many conditions total?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7vwDp94wEhg_3",
+        "prompt": "For $n$ functions, the Wronskian is the determinant of a matrix of what size?",
+        "hint": "Stack each function and its derivatives up to order $n-1$.",
+        "answerOptions": [
+          {
+            "text": "An $n \\times n$ matrix of the functions and derivatives up to order $n-1$",
+            "correct": true,
+            "rationale": "Yes. The rows run from the functions through their $(n-1)$-th derivatives, giving an $n \\times n$ determinant."
+          },
+          {
+            "text": "A $2 \\times 2$ matrix",
+            "rationale": "That is the second-order case. How large is the determinant for $n$ functions?"
+          },
+          {
+            "text": "An $n \\times 1$ matrix",
+            "rationale": "A single column is not a determinant of independence. What square size does the Wronskian use?"
+          },
+          {
+            "text": "An $(n+1) \\times (n+1)$ matrix",
+            "rationale": "Derivatives only run up to order $n-1$, giving $n$ rows. What is the matrix size?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7vwDp94wEhg_4",
+        "prompt": "Does the superposition principle extend to higher-order linear homogeneous equations?",
+        "hint": "Linearity of the operator does not depend on the order being two.",
+        "answerOptions": [
+          {
+            "text": "Yes, any linear combination of solutions is again a solution",
+            "correct": true,
+            "rationale": "Yes. Linearity holds at every order, so combinations of homogeneous solutions remain solutions."
+          },
+          {
+            "text": "No, it works only for second order",
+            "rationale": "Order does not limit linearity. Why does superposition still apply at order $n$?"
+          },
+          {
+            "text": "Only for $n$ even",
+            "rationale": "Parity of $n$ is irrelevant. What property of the operator guarantees superposition?"
+          },
+          {
+            "text": "Only if the coefficients are constant",
+            "rationale": "Variable coefficients still give a linear operator. What underlies superposition regardless?"
+          }
+        ]
+      },
+      {
+        "id": "mp_7vwDp94wEhg_5",
+        "prompt": "The existence and uniqueness theorem for an $n$-th order linear equation guarantees a unique solution provided what?",
+        "hint": "Generalize the second-order continuity hypothesis to all coefficient functions.",
+        "answerOptions": [
+          {
+            "text": "All coefficient functions and the forcing are continuous on an interval containing $x_0$",
+            "correct": true,
+            "rationale": "Yes. Continuity of every coefficient and the forcing on an interval around $x_0$ guarantees a unique solution."
+          },
+          {
+            "text": "The equation is homogeneous",
+            "rationale": "The theorem covers nonhomogeneous equations too. What continuity hypothesis is required?"
+          },
+          {
+            "text": "All coefficients are equal",
+            "rationale": "Equality of coefficients is not needed. What property must they share on the interval?"
+          },
+          {
+            "text": "The order $n$ is at most two",
+            "rationale": "The theorem holds at every order. What must be true of the coefficients near $x_0$?"
+          }
+        ]
+      }
+    ],
+    "vA3MjD0cfS4": [
+      {
+        "id": "mp_vA3MjD0cfS4_1",
+        "prompt": "For a constant-coefficient equation of order $n$, the characteristic equation is a polynomial of which degree?",
+        "hint": "Each derivative order contributes one power of $r$.",
+        "answerOptions": [
+          {
+            "text": "Degree $n$",
+            "correct": true,
+            "rationale": "Yes. The characteristic polynomial has the same degree as the order of the equation."
+          },
+          {
+            "text": "Degree $2$ always",
+            "rationale": "Degree two is the second-order case. How does the degree depend on the order $n$?"
+          },
+          {
+            "text": "Degree $n - 1$",
+            "rationale": "The top derivative $y^{(n)}$ gives $r^n$, so the degree is $n$, not $n-1$. What degree results?"
+          },
+          {
+            "text": "Degree $1$",
+            "rationale": "A degree-one polynomial would miss most roots. What degree matches an $n$-th order equation?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vA3MjD0cfS4_2",
+        "prompt": "Solve $y''' - y' = 0$. What is the general solution?",
+        "hint": "Factor the characteristic polynomial $r^3 - r = r(r-1)(r+1)$.",
+        "answerOptions": [
+          {
+            "text": "$y = c_1 + c_2 e^{x} + c_3 e^{-x}$",
+            "correct": true,
+            "rationale": "Correct. Roots $0, 1, -1$ give the constant, $e^x$, and $e^{-x}$ solutions."
+          },
+          {
+            "text": "$y = c_1 e^{x} + c_2 e^{-x}$",
+            "rationale": "That uses only two roots; the root $r = 0$ is missing. What solution corresponds to $r = 0$?"
+          },
+          {
+            "text": "$y = c_1 + c_2 x + c_3 x^2$",
+            "rationale": "Those polynomials come from a repeated zero root, not from $r(r-1)(r+1)$. What roots does the cubic have?"
+          },
+          {
+            "text": "$y = (c_1 + c_2 x + c_3 x^2)e^{x}$",
+            "rationale": "That form is for a triple root at $1$. What are the three distinct roots here?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vA3MjD0cfS4_3",
+        "prompt": "A root $r$ of multiplicity $m$ in the characteristic polynomial contributes which solutions?",
+        "hint": "Generalize the repeated-root rule from second order, adding one power of $x$ per repetition.",
+        "answerOptions": [
+          {
+            "text": "$e^{rx}, x e^{rx}, \\dots, x^{m-1} e^{rx}$",
+            "correct": true,
+            "rationale": "Yes. A root of multiplicity $m$ contributes $m$ independent solutions with powers of $x$ up to $x^{m-1}$."
+          },
+          {
+            "text": "Just $e^{rx}$, repeated $m$ times",
+            "rationale": "Repeating the same function gives only one independent solution. What extra factors make them independent?"
+          },
+          {
+            "text": "$e^{rx}$ and $e^{-rx}$",
+            "rationale": "Multiplicity does not introduce a sign flip in the exponent. What powers of $x$ appear instead?"
+          },
+          {
+            "text": "$m\\,e^{rx}$",
+            "rationale": "A constant multiple is still one solution. How many independent solutions, and of what form, does multiplicity $m$ give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vA3MjD0cfS4_4",
+        "prompt": "In a constant-coefficient equation with real coefficients, complex roots must appear how?",
+        "hint": "Real polynomials have complex roots that come in conjugate pairs.",
+        "answerOptions": [
+          {
+            "text": "In conjugate pairs $\\alpha \\pm \\beta i$",
+            "correct": true,
+            "rationale": "Yes. Real coefficients force complex roots to occur in conjugate pairs, giving $e^{\\alpha x}\\cos\\beta x$ and $e^{\\alpha x}\\sin\\beta x$."
+          },
+          {
+            "text": "Singly, with no partner",
+            "rationale": "A lone complex root would violate real coefficients. How must complex roots pair up?"
+          },
+          {
+            "text": "Only as purely imaginary numbers",
+            "rationale": "The real part need not be zero. In what paired form do complex roots appear?"
+          },
+          {
+            "text": "As repeated real roots",
+            "rationale": "Complex roots are not real. What conjugate structure do they have?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vA3MjD0cfS4_5",
+        "prompt": "Once you have $n$ independent solutions of an $n$-th order constant-coefficient equation, the general solution is what?",
+        "hint": "Combine all the independent pieces with arbitrary constants.",
+        "answerOptions": [
+          {
+            "text": "A linear combination of all $n$ solutions with $n$ arbitrary constants",
+            "correct": true,
+            "rationale": "Yes. Summing the $n$ independent solutions, each with its own constant, gives the general solution."
+          },
+          {
+            "text": "The product of the $n$ solutions",
+            "rationale": "Solutions combine by addition, not multiplication. How are the $n$ pieces assembled?"
+          },
+          {
+            "text": "Only the solution from the largest root",
+            "rationale": "Every independent solution contributes. How many terms and constants appear?"
+          },
+          {
+            "text": "A combination of just two of them",
+            "rationale": "Two terms suffice only at second order. How many independent solutions span order $n$?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_9_1",
+      "prompt": "What is the general form of a linear second-order differential equation?",
+      "hint": "Each of $y$, $y'$, $y''$ appears to the first power with coefficients in $x$.",
+      "answerOptions": [
+        {
+          "text": "$a(x)\\,y'' + b(x)\\,y' + c(x)\\,y = g(x)$",
+          "correct": true,
+          "rationale": "Yes. All derivative terms are first power with $x$-dependent coefficients and a forcing $g$."
+        },
+        {
+          "text": "$a(x)\\,(y'')^2 + c(x)\\,y = g(x)$",
+          "rationale": "Squaring $y''$ breaks linearity. To what power may each derivative appear?"
+        },
+        {
+          "text": "$y'' = g(x,y,y')$ with $g$ nonlinear in $y$",
+          "rationale": "Nonlinear dependence on $y$ is not allowed. How must $y$ and its derivatives enter?"
+        },
+        {
+          "text": "$a(x)\\,y''' + c(x)\\,y = g(x)$",
+          "rationale": "A $y'''$ term makes it third order. What is the highest derivative in a second-order equation?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_2",
+      "prompt": "How many arbitrary constants does the general solution of a second-order linear equation contain?",
+      "hint": "Match the constant count to the order.",
+      "answerOptions": [
+        {
+          "text": "Two",
+          "correct": true,
+          "rationale": "Yes. Order two gives two arbitrary constants, fixed by two side conditions."
+        },
+        {
+          "text": "One",
+          "rationale": "One constant fits a first-order equation. How does the count relate to order two?"
+        },
+        {
+          "text": "Three",
+          "rationale": "Three would suit third order. What is the order here?"
+        },
+        {
+          "text": "Zero",
+          "rationale": "A general solution is a family with free parameters. How many for order two?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_3",
+      "prompt": "For $y'' + p(x)y' + q(x)y = g(x)$, the existence and uniqueness theorem guarantees a unique solution through $x_0$ when what holds?",
+      "hint": "The hypothesis is continuity of the coefficients and forcing on an interval around $x_0$.",
+      "answerOptions": [
+        {
+          "text": "$p$, $q$, $g$ are continuous on an interval containing $x_0$",
+          "correct": true,
+          "rationale": "Yes. Continuity on an interval around $x_0$ guarantees a unique solution there."
+        },
+        {
+          "text": "$p$, $q$, $g$ are constants",
+          "rationale": "Constancy is stronger than required. What weaker condition suffices?"
+        },
+        {
+          "text": "$g = 0$",
+          "rationale": "The theorem covers nonhomogeneous equations. What must be true of $p$, $q$, $g$?"
+        },
+        {
+          "text": "The equation is exact",
+          "rationale": "Exactness is a first-order concept. What continuity hypothesis is needed?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_4",
+      "prompt": "Why does superposition produce new solutions for $L[y]=0$ but not directly for $L[y]=g$ with $g \\neq 0$?",
+      "hint": "Apply $L$ to the sum of two solutions in each case.",
+      "answerOptions": [
+        {
+          "text": "Adding two solutions of $L[y]=g$ gives $L=2g$, while for $L[y]=0$ the sum still gives zero",
+          "correct": true,
+          "rationale": "Yes. Zero is preserved under addition, but a nonzero forcing doubles."
+        },
+        {
+          "text": "Superposition works the same for both",
+          "rationale": "Test $L[y]=g$: the sum gives $2g$. Does that equal $g$?"
+        },
+        {
+          "text": "The nonhomogeneous equation has no solutions",
+          "rationale": "It does. What goes wrong when you add two particular solutions?"
+        },
+        {
+          "text": "Because $g$ must be discontinuous",
+          "rationale": "Continuity is not the issue. What value does $L$ give for the sum of two particular solutions?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_5",
+      "prompt": "Two solutions form a fundamental set for a second-order homogeneous equation precisely when they are what?",
+      "hint": "They must span the full two-parameter solution space.",
+      "answerOptions": [
+        {
+          "text": "Linearly independent",
+          "correct": true,
+          "rationale": "Yes. Two independent solutions span every solution through linear combinations."
+        },
+        {
+          "text": "Proportional",
+          "rationale": "Proportional solutions are dependent and span too little. What must they be instead?"
+        },
+        {
+          "text": "Both zero",
+          "rationale": "The zero function carries no information. What independence is required?"
+        },
+        {
+          "text": "Equal",
+          "rationale": "Equal solutions are dependent. What property defines a fundamental set?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_6",
+      "prompt": "The Wronskian of $y_1, y_2$ is which expression?",
+      "hint": "It is the determinant of functions over their first derivatives.",
+      "answerOptions": [
+        {
+          "text": "$W = y_1 y_2' - y_2 y_1'$",
+          "correct": true,
+          "rationale": "Yes. The Wronskian is this determinant of the two solutions and their derivatives."
+        },
+        {
+          "text": "$W = y_1 y_2' + y_2 y_1'$",
+          "rationale": "A determinant subtracts. Which sign joins the cross products?"
+        },
+        {
+          "text": "$W = y_1 y_2 - y_1' y_2'$",
+          "rationale": "The pairing crosses functions with derivatives. What are the correct products?"
+        },
+        {
+          "text": "$W = y_1' y_2 - y_2' y_1$",
+          "rationale": "That is the negative of the standard form; the conventional order pairs $y_1$ with $y_2'$ first. What is the usual definition?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_7",
+      "prompt": "Compute the Wronskian of $y_1 = e^{x}$ and $y_2 = e^{3x}$.",
+      "hint": "Use $W = y_1 y_2' - y_2 y_1'$ with $y_2' = 3e^{3x}$.",
+      "answerOptions": [
+        {
+          "text": "$W = 2e^{4x}$",
+          "correct": true,
+          "rationale": "Correct. $e^x\\cdot 3e^{3x} - e^{3x}\\cdot e^x = 3e^{4x} - e^{4x} = 2e^{4x}$."
+        },
+        {
+          "text": "$W = e^{4x}$",
+          "rationale": "Check the coefficient: $3e^{4x} - e^{4x}$. What is $3 - 1$ times $e^{4x}$?"
+        },
+        {
+          "text": "$W = 0$",
+          "rationale": "These exponentials are independent. Recompute $y_1 y_2' - y_2 y_1'$."
+        },
+        {
+          "text": "$W = 4e^{4x}$",
+          "rationale": "Add and subtract carefully: $3 - 1 = 2$, not $4$. What is the result?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_8",
+      "prompt": "A nonzero Wronskian on an interval establishes which property of the two functions?",
+      "hint": "Recall the conclusion a nonvanishing Wronskian supports.",
+      "answerOptions": [
+        {
+          "text": "Linear independence",
+          "correct": true,
+          "rationale": "Yes. A nonzero Wronskian certifies independence."
+        },
+        {
+          "text": "Linear dependence",
+          "rationale": "That is the opposite conclusion. What does $W \\neq 0$ establish?"
+        },
+        {
+          "text": "They are equal",
+          "rationale": "Equal functions give $W = 0$. What does a nonzero value imply?"
+        },
+        {
+          "text": "They are both constant",
+          "rationale": "Constancy is unrelated. What independence does $W \\neq 0$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_9",
+      "prompt": "If two solutions of a homogeneous linear equation are linearly dependent, their Wronskian is what?",
+      "hint": "Dependence means one is a constant multiple of the other.",
+      "answerOptions": [
+        {
+          "text": "Identically zero",
+          "correct": true,
+          "rationale": "Yes. Dependence forces the determinant to vanish everywhere."
+        },
+        {
+          "text": "Nonzero everywhere",
+          "rationale": "Dependence makes $W$ vanish, not stay nonzero. What value does it take?"
+        },
+        {
+          "text": "Sometimes zero, sometimes not",
+          "rationale": "For solutions, Abel's theorem forbids mixed behavior. What single value results from dependence?"
+        },
+        {
+          "text": "Equal to one",
+          "rationale": "A dependent pair gives a vanishing determinant. What is $W$?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_10",
+      "prompt": "Abel's identity gives the Wronskian of solutions of $y'' + p y' + q y = 0$ as which expression?",
+      "hint": "The Wronskian solves $W' = -pW$.",
+      "answerOptions": [
+        {
+          "text": "$W = W(x_0)\\,\\exp\\!\\left(-\\int p\\,dx\\right)$",
+          "correct": true,
+          "rationale": "Yes. Abel's identity gives $W$ as a constant times $\\exp(-\\int p\\,dx)$."
+        },
+        {
+          "text": "$W = W(x_0)\\,\\exp\\!\\left(\\int p\\,dx\\right)$",
+          "rationale": "Check the sign of the exponent. Is it $+\\int p$ or $-\\int p$?"
+        },
+        {
+          "text": "$W = W(x_0)\\,\\exp\\!\\left(-\\int q\\,dx\\right)$",
+          "rationale": "The exponent uses $p$, the $y'$ coefficient, not $q$. Which appears?"
+        },
+        {
+          "text": "$W = W(x_0) - \\int p\\,dx$",
+          "rationale": "The dependence is exponential, not additive. What wraps the integral?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_11",
+      "prompt": "For $y'' - 3y' + 2y = 0$, Abel's identity gives the Wronskian proportional to which function?",
+      "hint": "Here $p = -3$, so the exponent is $-\\int(-3)\\,dx = 3x$.",
+      "answerOptions": [
+        {
+          "text": "$e^{3x}$",
+          "correct": true,
+          "rationale": "Correct. With $p = -3$, $W \\propto e^{3x}$."
+        },
+        {
+          "text": "$e^{-3x}$",
+          "rationale": "Mind the double negative: $-\\int(-3)\\,dx$. What is the exponent?"
+        },
+        {
+          "text": "$e^{2x}$",
+          "rationale": "The exponent comes from $p$, not from the constant term $2$. What is $-\\int p\\,dx$?"
+        },
+        {
+          "text": "a constant",
+          "rationale": "A constant requires $p = 0$, but $p = -3$. What exponential results?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_12",
+      "prompt": "Reduction of order seeks a second solution in which form, given a known $y_1$?",
+      "hint": "Multiply the known solution by an unknown function.",
+      "answerOptions": [
+        {
+          "text": "$y_2 = v(x)\\,y_1$",
+          "correct": true,
+          "rationale": "Yes. Writing $y_2 = v y_1$ reduces the problem to first order in $v'$."
+        },
+        {
+          "text": "$y_2 = v(x) + y_1$",
+          "rationale": "The method scales $y_1$, not adds to it. What product form is used?"
+        },
+        {
+          "text": "$y_2 = c\\,y_1$ for a constant $c$",
+          "rationale": "A constant multiple is dependent. What nonconstant multiplier is allowed?"
+        },
+        {
+          "text": "$y_2 = y_1^2$",
+          "rationale": "Squaring is not the ansatz. What multiplicative unknown is introduced?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_13",
+      "prompt": "For $y'' - 2y' + y = 0$ with $y_1 = e^{x}$, reduction of order gives which second solution?",
+      "hint": "This is the repeated-root case, yielding the known exponential times $x$.",
+      "answerOptions": [
+        {
+          "text": "$y_2 = x e^{x}$",
+          "correct": true,
+          "rationale": "Correct. The double root at $1$ gives $v = x$, so $y_2 = x e^x$."
+        },
+        {
+          "text": "$y_2 = e^{-x}$",
+          "rationale": "The root here is repeated, not a $\\pm$ pair. What factor times $e^x$ results?"
+        },
+        {
+          "text": "$y_2 = e^{2x}$",
+          "rationale": "The repeated root is $1$, not $2$. What second solution does it give?"
+        },
+        {
+          "text": "$y_2 = x^2 e^{x}$",
+          "rationale": "A simple double root adds one factor of $x$, not two. What is $y_2$?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_14",
+      "prompt": "Why must the function $v(x)$ in $y_2 = v y_1$ be nonconstant?",
+      "hint": "Consider what $y_2$ becomes if $v$ is constant.",
+      "answerOptions": [
+        {
+          "text": "A constant $v$ makes $y_2$ proportional to $y_1$, hence dependent",
+          "correct": true,
+          "rationale": "Yes. Only a nonconstant $v$ yields an independent second solution."
+        },
+        {
+          "text": "A constant $v$ makes $y_2$ undefined",
+          "rationale": "$y_2$ stays defined; it is just not new. What dependence issue arises?"
+        },
+        {
+          "text": "A constant $v$ changes the equation",
+          "rationale": "The equation is unchanged. What happens to independence if $v$ is constant?"
+        },
+        {
+          "text": "It need not be nonconstant",
+          "rationale": "It must be, for independence. What does a constant $v$ do to $y_2$?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_15",
+      "prompt": "The reduction-of-order integrand $\\exp(-\\int p\\,dx)/y_1^2$ contains the factor $\\exp(-\\int p\\,dx)$, which is proportional to what?",
+      "hint": "Recall Abel's identity.",
+      "answerOptions": [
+        {
+          "text": "The Wronskian of the two solutions",
+          "correct": true,
+          "rationale": "Yes. Abel's identity makes that factor proportional to $W$, which is why it appears."
+        },
+        {
+          "text": "The known solution $y_1$",
+          "rationale": "It is not $y_1$ itself. Which Wronskian quantity is it?"
+        },
+        {
+          "text": "The coefficient $q$",
+          "rationale": "It is built from $p$, not $q$. What is it proportional to?"
+        },
+        {
+          "text": "Always one",
+          "rationale": "It equals one only when $p = 0$. In general, what does it represent?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_16",
+      "prompt": "Substituting $y = e^{rx}$ into $a y'' + b y' + c y = 0$ yields which characteristic equation?",
+      "hint": "Each derivative brings a factor of $r$, and $e^{rx}$ cancels.",
+      "answerOptions": [
+        {
+          "text": "$a r^2 + b r + c = 0$",
+          "correct": true,
+          "rationale": "Yes. The exponential cancels, leaving this quadratic in $r$."
+        },
+        {
+          "text": "$a r + b = 0$",
+          "rationale": "That ignores the second derivative. What quadratic results?"
+        },
+        {
+          "text": "$a r^2 - b r + c = 0$",
+          "rationale": "The sign on $br$ should match $b$. What is the correct quadratic?"
+        },
+        {
+          "text": "$r^2 + 1 = 0$",
+          "rationale": "The coefficients are $a, b, c$, not fixed numbers. What is the general form?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_17",
+      "prompt": "Solve $y'' - 5y' + 6y = 0$. What is the general solution?",
+      "hint": "Factor $r^2 - 5r + 6 = (r-2)(r-3)$.",
+      "answerOptions": [
+        {
+          "text": "$y = c_1 e^{2x} + c_2 e^{3x}$",
+          "correct": true,
+          "rationale": "Correct. Distinct roots $2, 3$ give two independent exponentials."
+        },
+        {
+          "text": "$y = c_1 e^{-2x} + c_2 e^{-3x}$",
+          "rationale": "Check the signs of the roots of $(r-2)(r-3)$. Are they positive?"
+        },
+        {
+          "text": "$y = (c_1 + c_2 x)e^{2x}$",
+          "rationale": "That is the repeated-root form. Are the roots equal here?"
+        },
+        {
+          "text": "$y = c_1\\cos 2x + c_2\\sin 3x$",
+          "rationale": "Trig forms need complex roots. Are these roots real?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_18",
+      "prompt": "Solve $y'' - 4y' + 4y = 0$. What is the general solution?",
+      "hint": "The characteristic equation is a perfect square $(r-2)^2$.",
+      "answerOptions": [
+        {
+          "text": "$y = (c_1 + c_2 x)\\,e^{2x}$",
+          "correct": true,
+          "rationale": "Correct. The double root $2$ gives the factor $x$ on the second solution."
+        },
+        {
+          "text": "$y = c_1 e^{2x} + c_2 e^{-2x}$",
+          "rationale": "The root is repeated, not a $\\pm$ pair. What form fits a double root?"
+        },
+        {
+          "text": "$y = c_1 e^{2x} + c_2 e^{4x}$",
+          "rationale": "The equation is $(r-2)^2$, not $(r-2)(r-4)$. What single root repeats?"
+        },
+        {
+          "text": "$y = e^{2x}\\cos 2x$",
+          "rationale": "The root is real and repeated, not complex. What is the correct form?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_19",
+      "prompt": "Solve $y'' + 4y' + 13y = 0$. What is the general solution?",
+      "hint": "The roots are $r = -2 \\pm 3i$.",
+      "answerOptions": [
+        {
+          "text": "$y = e^{-2x}(c_1\\cos 3x + c_2\\sin 3x)$",
+          "correct": true,
+          "rationale": "Correct. The complex roots give decay $e^{-2x}$ and oscillation at frequency $3$."
+        },
+        {
+          "text": "$y = e^{2x}(c_1\\cos 3x + c_2\\sin 3x)$",
+          "rationale": "Check the real part of the roots. Is it $+2$ or $-2$?"
+        },
+        {
+          "text": "$y = e^{-2x}(c_1\\cos 2x + c_2\\sin 2x)$",
+          "rationale": "The frequency is the imaginary part. Is it $2$ or $3$?"
+        },
+        {
+          "text": "$y = c_1 e^{-2x} + c_2 e^{3x}$",
+          "rationale": "Complex roots give oscillation, not two real exponentials. What form results?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_20",
+      "prompt": "Which quantity of the characteristic equation decides whether you get distinct real, repeated, or complex roots?",
+      "hint": "The discriminant of the quadratic governs the cases.",
+      "answerOptions": [
+        {
+          "text": "The discriminant $b^2 - 4ac$",
+          "correct": true,
+          "rationale": "Yes. Positive, zero, or negative discriminant gives distinct real, repeated, or complex roots."
+        },
+        {
+          "text": "The sign of $c$ alone",
+          "rationale": "The constant term alone does not classify the roots. What governs the cases?"
+        },
+        {
+          "text": "Whether $a = 1$",
+          "rationale": "Normalizing does not change the root type. What quantity decides it?"
+        },
+        {
+          "text": "The value of $y(0)$",
+          "rationale": "Initial data does not affect the roots. What part of the quadratic does?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_21",
+      "prompt": "For complex roots $\\alpha \\pm \\beta i$, what does the real part $\\alpha$ control in the solution?",
+      "hint": "Split the solution into an envelope and an oscillation.",
+      "answerOptions": [
+        {
+          "text": "The exponential growth or decay envelope $e^{\\alpha x}$",
+          "correct": true,
+          "rationale": "Yes. The real part sets the envelope; the imaginary part sets the frequency."
+        },
+        {
+          "text": "The oscillation frequency",
+          "rationale": "Frequency comes from $\\beta$. What does $\\alpha$ control?"
+        },
+        {
+          "text": "The period of the sinusoid",
+          "rationale": "The period depends on $\\beta$. What does $\\alpha$ set?"
+        },
+        {
+          "text": "The number of solutions",
+          "rationale": "There are always two. What growth or decay does $\\alpha$ govern?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_22",
+      "prompt": "A Cauchy-Euler equation $a x^2 y'' + b x y' + c y = 0$ uses which trial solution?",
+      "hint": "Match the powers of $x$ in the coefficients.",
+      "answerOptions": [
+        {
+          "text": "$y = x^r$",
+          "correct": true,
+          "rationale": "Yes. The power trial $x^r$ matches the $x^k$ coefficients and gives an indicial equation."
+        },
+        {
+          "text": "$y = e^{rx}$",
+          "rationale": "Exponentials suit constant coefficients, not these $x$-powers. What trial fits?"
+        },
+        {
+          "text": "$y = \\ln x$",
+          "rationale": "A logarithm appears only in the repeated-root case. What is the basic trial?"
+        },
+        {
+          "text": "$y = r x + c$",
+          "rationale": "A linear trial misses the needed family. What power trial is standard?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_23",
+      "prompt": "Substituting $y = x^r$ into $x^2 y'' - 2x y' - 4y = 0$ gives which indicial equation?",
+      "hint": "Use $x^2 y'' = r(r-1)x^r$ and $x y' = r x^r$.",
+      "answerOptions": [
+        {
+          "text": "$r^2 - 3r - 4 = 0$",
+          "correct": true,
+          "rationale": "Correct. $r(r-1) - 2r - 4 = r^2 - 3r - 4$."
+        },
+        {
+          "text": "$r^2 - 2r - 4 = 0$",
+          "rationale": "Combine $-r$ and $-2r$ from the first two terms. What is their sum?"
+        },
+        {
+          "text": "$r^2 + 3r - 4 = 0$",
+          "rationale": "Check the sign of the linear term after combining. Is it $+3r$ or $-3r$?"
+        },
+        {
+          "text": "$r^2 - 3r + 4 = 0$",
+          "rationale": "The constant from $-4y$ is $-4$. What is the correct constant?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_24",
+      "prompt": "The indicial equation $r^2 - 3r - 4 = 0$ gives which general solution?",
+      "hint": "Factor $(r-4)(r+1)$.",
+      "answerOptions": [
+        {
+          "text": "$y = c_1 x^4 + c_2 x^{-1}$",
+          "correct": true,
+          "rationale": "Correct. Roots $4$ and $-1$ give the power solutions $x^4$ and $x^{-1}$."
+        },
+        {
+          "text": "$y = c_1 x^4 + c_2 x$",
+          "rationale": "The root $-1$ gives $x^{-1}$, not $x$. What is the second power?"
+        },
+        {
+          "text": "$y = c_1 e^{4x} + c_2 e^{-x}$",
+          "rationale": "Cauchy-Euler solutions are powers, not exponentials. What form results?"
+        },
+        {
+          "text": "$y = c_1 x^{-4} + c_2 x$",
+          "rationale": "The factor $(r-4)$ gives $r = 4$, so $x^4$, not $x^{-4}$. What are the powers?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_25",
+      "prompt": "How many independent solutions span the solution space of an $n$-th order linear homogeneous equation?",
+      "hint": "The dimension equals the order.",
+      "answerOptions": [
+        {
+          "text": "$n$",
+          "correct": true,
+          "rationale": "Yes. The solution space has dimension $n$, spanned by $n$ independent solutions."
+        },
+        {
+          "text": "Two, regardless of $n$",
+          "rationale": "Two is the second-order case. How does it scale with $n$?"
+        },
+        {
+          "text": "$n - 1$",
+          "rationale": "The count equals the order, not one less. How many?"
+        },
+        {
+          "text": "One",
+          "rationale": "One cannot span a higher-dimensional space. How many independent solutions?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_26",
+      "prompt": "How many initial conditions does a unique solution of an $n$-th order linear equation require?",
+      "hint": "Match conditions to arbitrary constants.",
+      "answerOptions": [
+        {
+          "text": "$n$, typically $y, y', \\dots, y^{(n-1)}$ at a point",
+          "correct": true,
+          "rationale": "Yes. The $n$ constants need $n$ conditions."
+        },
+        {
+          "text": "Two",
+          "rationale": "Two fits second order only. How many for order $n$?"
+        },
+        {
+          "text": "$n + 1$",
+          "rationale": "That is one too many. How many match $n$ constants?"
+        },
+        {
+          "text": "One",
+          "rationale": "One leaves most constants undetermined. How many are needed?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_27",
+      "prompt": "A root of multiplicity $m$ in a constant-coefficient characteristic polynomial contributes which solutions?",
+      "hint": "Add one power of $x$ per repetition.",
+      "answerOptions": [
+        {
+          "text": "$e^{rx}, x e^{rx}, \\dots, x^{m-1} e^{rx}$",
+          "correct": true,
+          "rationale": "Yes. Multiplicity $m$ gives $m$ independent solutions with powers up to $x^{m-1}$."
+        },
+        {
+          "text": "$e^{rx}$ repeated $m$ times",
+          "rationale": "Repeating one function gives one independent solution. What factors make them independent?"
+        },
+        {
+          "text": "$e^{rx}$ and $e^{-rx}$",
+          "rationale": "Multiplicity does not flip the sign of the exponent. What powers of $x$ appear?"
+        },
+        {
+          "text": "$m\\,e^{rx}$",
+          "rationale": "A constant multiple is still one solution. What independent set does multiplicity $m$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_28",
+      "prompt": "Solve $y''' - y' = 0$. What is the general solution?",
+      "hint": "Factor $r^3 - r = r(r-1)(r+1)$.",
+      "answerOptions": [
+        {
+          "text": "$y = c_1 + c_2 e^{x} + c_3 e^{-x}$",
+          "correct": true,
+          "rationale": "Correct. Roots $0, 1, -1$ give the constant, $e^x$, and $e^{-x}$."
+        },
+        {
+          "text": "$y = c_1 e^{x} + c_2 e^{-x}$",
+          "rationale": "The root $r = 0$ is missing. What solution corresponds to it?"
+        },
+        {
+          "text": "$y = c_1 + c_2 x + c_3 x^2$",
+          "rationale": "Those come from a repeated zero root, not $r(r-1)(r+1)$. What are the roots?"
+        },
+        {
+          "text": "$y = (c_1 + c_2 x + c_3 x^2)e^{x}$",
+          "rationale": "That is for a triple root at $1$. What are the three distinct roots?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_29",
+      "prompt": "In a constant-coefficient equation with real coefficients, complex roots must appear how?",
+      "hint": "Real polynomials have complex roots in conjugate pairs.",
+      "answerOptions": [
+        {
+          "text": "In conjugate pairs $\\alpha \\pm \\beta i$",
+          "correct": true,
+          "rationale": "Yes. Real coefficients force conjugate pairs, giving $e^{\\alpha x}\\cos\\beta x$ and $e^{\\alpha x}\\sin\\beta x$."
+        },
+        {
+          "text": "Singly, with no partner",
+          "rationale": "A lone complex root violates real coefficients. How must they pair?"
+        },
+        {
+          "text": "Only as purely imaginary numbers",
+          "rationale": "The real part need not vanish. In what form do they appear?"
+        },
+        {
+          "text": "As repeated real roots",
+          "rationale": "Complex roots are not real. What conjugate structure do they have?"
+        }
+      ]
+    },
+    {
+      "id": "um_9_30",
+      "prompt": "Does superposition extend to higher-order linear homogeneous equations?",
+      "hint": "Linearity does not depend on the order being two.",
+      "answerOptions": [
+        {
+          "text": "Yes, any linear combination of solutions is again a solution",
+          "correct": true,
+          "rationale": "Yes. Linearity holds at every order, so combinations of homogeneous solutions remain solutions."
+        },
+        {
+          "text": "No, only for second order",
+          "rationale": "Order does not limit linearity. Why does superposition persist?"
+        },
+        {
+          "text": "Only for even $n$",
+          "rationale": "Parity is irrelevant. What property guarantees superposition?"
+        },
+        {
+          "text": "Only with constant coefficients",
+          "rationale": "Variable coefficients still give a linear operator. What underlies superposition?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

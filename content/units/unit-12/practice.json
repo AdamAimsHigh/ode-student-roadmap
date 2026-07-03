@@ -1,0 +1,65 @@
+{
+  "unitNumber": 12,
+  "problems": [
+    {
+      "id": "ps_12_1",
+      "problem": "(From the definition) Using only the defining integral $\\int_0^\\infty e^{-st}f\\,dt$, compute $\\mathcal{L}\\{e^{3t}\\}$ and state the half-plane of convergence.",
+      "solution": "Merge the two exponentials and integrate: $$ \\int_0^\\infty e^{-st}e^{3t}\\,dt = \\int_0^\\infty e^{-(s-3)t}\\,dt = \\left[-\\tfrac{1}{s-3}e^{-(s-3)t}\\right]_0^\\infty = \\frac{1}{s-3}. $$ The boundary term at $\\infty$ vanishes only when $s-3>0$, so the transform converges for $s>3$."
+    },
+    {
+      "id": "ps_12_2",
+      "problem": "(Linearity and the table) Find $\\mathcal{L}\\{3t^2 - 2\\cos 4t + 5\\}$.",
+      "solution": "Apply linearity term by term with $\\mathcal{L}\\{t^2\\}=2/s^3$, $\\mathcal{L}\\{\\cos 4t\\}=s/(s^2+16)$, $\\mathcal{L}\\{1\\}=1/s$: $$ \\mathcal{L}\\{3t^2 - 2\\cos 4t + 5\\} = \\frac{6}{s^3} - \\frac{2s}{s^2+16} + \\frac{5}{s}. $$"
+    },
+    {
+      "id": "ps_12_3",
+      "problem": "(First shift theorem) Find $\\mathcal{L}\\{e^{-2t}\\sin 3t\\}$.",
+      "solution": "Start from $\\mathcal{L}\\{\\sin 3t\\}=\\dfrac{3}{s^2+9}$ and apply the first shift $s\\mapsto s+2$: $$ \\mathcal{L}\\{e^{-2t}\\sin 3t\\} = \\left.\\frac{3}{s^2+9}\\right|_{s\\to s+2} = \\frac{3}{(s+2)^2+9}. $$ The completed-square denominator $(s+2)^2+9$ is the fingerprint of a damped oscillation."
+    },
+    {
+      "id": "ps_12_4",
+      "problem": "(Derivative rule on an IVP) Transform $y'' + 4y = 0$ with $y(0)=1$, $y'(0)=0$, solve for $Y(s)$, and invert to find $y(t)$.",
+      "solution": "Transform with $\\mathcal{L}\\{y''\\}=s^2Y-sy(0)-y'(0)$ and substitute $y(0)=1$, $y'(0)=0$: $$ (s^2 Y - s) + 4Y = 0 \\;\\Rightarrow\\; (s^2+4)Y = s \\;\\Rightarrow\\; Y(s) = \\frac{s}{s^2+4}. $$ This is exactly $\\mathcal{L}\\{\\cos 2t\\}$, so $$ y(t) = \\cos 2t. $$"
+    },
+    {
+      "id": "ps_12_5",
+      "problem": "($t$-multiplication rule) Find $\\mathcal{L}\\{t\\,e^{2t}\\}$ using $\\mathcal{L}\\{t f(t)\\} = -F'(s)$.",
+      "solution": "With $F(s)=\\mathcal{L}\\{e^{2t}\\}=\\dfrac{1}{s-2}$, apply $\\mathcal{L}\\{tf\\}=-F'(s)$: $$ \\mathcal{L}\\{t e^{2t}\\} = -\\frac{d}{ds}\\!\\left(\\frac{1}{s-2}\\right) = -\\left(-\\frac{1}{(s-2)^2}\\right) = \\frac{1}{(s-2)^2}. $$ Equivalently, this is the first shift applied to $\\mathcal{L}\\{t\\}=1/s^2$."
+    },
+    {
+      "id": "ps_12_6",
+      "problem": "(Inverse — distinct roots) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{s+7}{(s-1)(s+3)}\\right\\}$.",
+      "solution": "Decompose $\\dfrac{s+7}{(s-1)(s+3)} = \\dfrac{A}{s-1} + \\dfrac{B}{s+3}$. Clearing denominators, $s+7 = A(s+3) + B(s-1)$. Set $s=1$: $8=4A\\Rightarrow A=2$. Set $s=-3$: $4=-4B\\Rightarrow B=-1$: $$ \\frac{s+7}{(s-1)(s+3)} = \\frac{2}{s-1} - \\frac{1}{s+3} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 2e^{t} - e^{-3t}. $$"
+    },
+    {
+      "id": "ps_12_7",
+      "problem": "(Inverse — complete the square) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{1}{s^2+4s+13}\\right\\}$.",
+      "solution": "Complete the square in the denominator: $s^2+4s+13 = (s+2)^2 + 9$. This matches the shifted $\\sin$ with $a=-2$, $\\omega=3$, and a $1/\\omega$ scale: $$ \\frac{1}{(s+2)^2+3^2} = \\frac{1}{3}\\cdot\\frac{3}{(s+2)^2+3^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = \\frac{1}{3}\\,e^{-2t}\\sin 3t. $$"
+    },
+    {
+      "id": "ps_12_8",
+      "problem": "(Inverse — repeated root) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{3s+1}{(s+2)^2}\\right\\}$.",
+      "solution": "A repeated factor needs two terms, $\\dfrac{3s+1}{(s+2)^2} = \\dfrac{A}{s+2} + \\dfrac{B}{(s+2)^2}$. Then $3s+1 = A(s+2)+B$, so $A=3$ and $B = 1-2A = -5$: $$ \\frac{3}{s+2} - \\frac{5}{(s+2)^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 3e^{-2t} - 5t\\,e^{-2t} = (3-5t)\\,e^{-2t}. $$ The $t e^{-2t}$ term is the signature of the repeated real root."
+    },
+    {
+      "id": "ps_12_9",
+      "problem": "(Full five-step IVP) Solve $y'' + 3y' + 2y = 0$ with $y(0)=1$, $y'(0)=0$ by the Laplace method.",
+      "solution": "Transform and substitute $y(0)=1$, $y'(0)=0$: $$ (s^2 Y - s) + 3(sY - 1) + 2Y = 0 \\;\\Rightarrow\\; (s^2+3s+2)Y = s+3. $$ Factor $s^2+3s+2=(s+1)(s+2)$ and decompose $\\dfrac{s+3}{(s+1)(s+2)} = \\dfrac{A}{s+1}+\\dfrac{B}{s+2}$ with $A=2$, $B=-1$: $$ Y(s) = \\frac{2}{s+1} - \\frac{1}{s+2} \\;\\Longrightarrow\\; y(t) = 2e^{-t} - e^{-2t}. $$"
+    },
+    {
+      "id": "ps_12_10",
+      "problem": "(Heaviside shifting, forward) Find $\\mathcal{L}\\{u(t-3)\\cos(t-3)\\}$, then find $\\mathcal{L}\\{u(t-2)\\,t^2\\}$ by first re-expressing $t^2$ in $(t-2)$.",
+      "solution": "The first part is the second shift applied to $\\mathcal{L}\\{\\cos t\\}=\\dfrac{s}{s^2+1}$ with $c=3$: $$ \\mathcal{L}\\{u(t-3)\\cos(t-3)\\} = e^{-3s}\\,\\frac{s}{s^2+1}. $$ For the second part, the argument $t^2$ must be rewritten in $(t-2)$ before the theorem applies: $t^2 = (t-2)^2 + 4(t-2) + 4$. Transform each shifted piece ($\\mathcal{L}\\{t^2\\}=2/s^3$, $\\mathcal{L}\\{t\\}=1/s^2$, $\\mathcal{L}\\{1\\}=1/s$) and attach $e^{-2s}$: $$ \\mathcal{L}\\{u(t-2)\\,t^2\\} = e^{-2s}\\!\\left(\\frac{2}{s^3} + \\frac{4}{s^2} + \\frac{4}{s}\\right). $$"
+    },
+    {
+      "id": "ps_12_11",
+      "problem": "(Heaviside shifting, inverse) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{e^{-2s}}{s^2}\\right\\}$.",
+      "solution": "The factor $e^{-2s}$ signals a delay by $c=2$. Since $\\mathcal{L}^{-1}\\{1/s^2\\}=t$, the second shift gives $$ \\mathcal{L}^{-1}\\!\\left\\{\\frac{e^{-2s}}{s^2}\\right\\} = u(t-2)\\,(t-2). $$ The response is a ramp that stays flat at zero until it switches on at $t=2$."
+    },
+    {
+      "id": "ps_12_12",
+      "problem": "(Dirac impulse response, capstone) Solve $y'' + 4y = \\delta(t-\\pi)$ with $y(0)=0$, $y'(0)=0$, and describe the motion before and after the kick.",
+      "solution": "Transform with $\\mathcal{L}\\{\\delta(t-\\pi)\\}=e^{-\\pi s}$ and zero initial data: $$ (s^2+4)Y = e^{-\\pi s} \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\,\\frac{1}{s^2+4}. $$ Since $\\mathcal{L}^{-1}\\{1/(s^2+4)\\} = \\tfrac{1}{2}\\sin 2t$, the second shift gives $$ y(t) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin\\big(2(t-\\pi)\\big) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin 2t. $$ The mass sits at rest until the impulse at $t=\\pi$, which jolts the velocity and launches free oscillation thereafter — the impulse response switched on at the kick."
+    }
+  ]
+}

@@ -1,0 +1,2192 @@
+{
+  "unitNumber": 17,
+  "microPractice": {
+    "Izmkk1Ry3Wc": [
+      {
+        "id": "mp_Izmkk1Ry3Wc_1",
+        "prompt": "What is the defining difference between an initial value problem and a boundary value problem?",
+        "hint": "Think about where along the interval the side conditions are imposed.",
+        "answerOptions": [
+          {
+            "text": "An IVP gives all conditions at one point; a BVP gives conditions at two different points",
+            "correct": true,
+            "rationale": "Yes. An initial value problem fixes the state at a single point, while a boundary value problem imposes conditions at two endpoints."
+          },
+          {
+            "text": "An IVP is linear and a BVP is nonlinear",
+            "rationale": "Linearity is unrelated to this distinction; both kinds can be linear. Where are the conditions specified in each?"
+          },
+          {
+            "text": "An IVP has no solution but a BVP always does",
+            "rationale": "Existence is not the dividing line, and BVPs need not have solutions. What about the location of the conditions?"
+          },
+          {
+            "text": "An IVP is first order and a BVP is second order",
+            "rationale": "Order does not separate them; both can be second order. What distinguishes where conditions are placed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Izmkk1Ry3Wc_2",
+        "prompt": "Which side conditions on $y'' + y = 0$ make it a boundary value problem?",
+        "hint": "Look for conditions imposed at two distinct values of the variable.",
+        "answerOptions": [
+          {
+            "text": "$y(0) = 1$ and $y(\\pi) = 2$",
+            "correct": true,
+            "rationale": "Yes. Conditions at the two separate points $0$ and $\\pi$ make this a boundary value problem."
+          },
+          {
+            "text": "$y(0) = 1$ and $y'(0) = 2$",
+            "rationale": "Both of these are imposed at the single point $0$. Does that match an IVP or a BVP?"
+          },
+          {
+            "text": "$y(0) = 1$ only",
+            "rationale": "One condition underdetermines a second-order equation, and it sits at one point. What setup uses two endpoints?"
+          },
+          {
+            "text": "$y'(0) = 1$ and $y''(0) = 2$",
+            "rationale": "These are both at $0$ and use derivatives at one point. Which option places conditions at two points?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Izmkk1Ry3Wc_3",
+        "prompt": "How many side conditions does a second-order linear equation require to single out a particular solution?",
+        "hint": "The number of conditions matches the order of the equation.",
+        "answerOptions": [
+          {
+            "text": "Two",
+            "correct": true,
+            "rationale": "Yes. A second-order equation has two arbitrary constants, so two conditions are needed."
+          },
+          {
+            "text": "One",
+            "rationale": "One condition leaves an arbitrary constant unfixed. How many constants does the general solution carry?"
+          },
+          {
+            "text": "Three",
+            "rationale": "That exceeds the number of arbitrary constants. How many constants does a second-order general solution have?"
+          },
+          {
+            "text": "Zero",
+            "rationale": "Without conditions the solution stays general. How many constants must be pinned down?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Izmkk1Ry3Wc_4",
+        "prompt": "Compared with initial value problems, what is true of existence and uniqueness for boundary value problems?",
+        "hint": "Recall the IVP guarantee, then ask whether the two-endpoint setup keeps it.",
+        "answerOptions": [
+          {
+            "text": "A BVP may have no solution, one solution, or infinitely many",
+            "correct": true,
+            "rationale": "Yes. Unlike the IVP guarantee, a boundary value problem can fail to have a solution or can have many."
+          },
+          {
+            "text": "A BVP always has exactly one solution",
+            "rationale": "The clean IVP uniqueness does not carry over. What range of outcomes is possible at two endpoints?"
+          },
+          {
+            "text": "A BVP never has a solution",
+            "rationale": "Many boundary value problems do have solutions. What set of outcomes is actually possible?"
+          },
+          {
+            "text": "A BVP has the same guarantee as an IVP",
+            "rationale": "The two-endpoint structure breaks the IVP guarantee. What outcomes become possible?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Izmkk1Ry3Wc_5",
+        "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$ and $y'(0) = 1$ is which type?",
+        "hint": "Check whether both conditions sit at the same point.",
+        "answerOptions": [
+          {
+            "text": "An initial value problem",
+            "correct": true,
+            "rationale": "Yes. Both conditions are given at the single point $0$, so it is an initial value problem."
+          },
+          {
+            "text": "A boundary value problem",
+            "rationale": "A BVP needs conditions at two different points. Are these at one point or two?"
+          },
+          {
+            "text": "Neither, since it has two conditions",
+            "rationale": "Two conditions are exactly right for second order. Where are they placed here?"
+          },
+          {
+            "text": "A partial differential equation",
+            "rationale": "There is one independent variable, so it is an ODE. Where are its conditions located?"
+          }
+        ]
+      }
+    ],
+    "E97SZm2ZrBo": [
+      {
+        "id": "mp_E97SZm2ZrBo_1",
+        "prompt": "On an interval $[a, b]$, a typical pair of boundary conditions specifies what?",
+        "hint": "Boundary conditions live at the ends of the spatial interval.",
+        "answerOptions": [
+          {
+            "text": "Values (or derivative values) of $y$ at $x = a$ and at $x = b$",
+            "correct": true,
+            "rationale": "Yes. Boundary conditions constrain the solution at the two endpoints of the interval."
+          },
+          {
+            "text": "The value and first derivative of $y$ at $x = a$ only",
+            "rationale": "That is the initial-value pattern at one end. Where does the other condition belong for a BVP?"
+          },
+          {
+            "text": "The values of $y$ at infinitely many interior points",
+            "rationale": "Two conditions suffice for second order, placed at the ends. Which points carry them?"
+          },
+          {
+            "text": "The coefficients of the differential equation",
+            "rationale": "Coefficients define the equation, not the side conditions. What do boundary conditions constrain?"
+          }
+        ]
+      },
+      {
+        "id": "mp_E97SZm2ZrBo_2",
+        "prompt": "A Dirichlet boundary condition specifies which quantity at an endpoint?",
+        "hint": "Dirichlet fixes the function value itself.",
+        "answerOptions": [
+          {
+            "text": "The value of $y$",
+            "correct": true,
+            "rationale": "Yes. A Dirichlet condition prescribes the value of the unknown function at the endpoint."
+          },
+          {
+            "text": "The value of $y'$",
+            "rationale": "Prescribing the derivative is a different (Neumann) condition. What does Dirichlet fix directly?"
+          },
+          {
+            "text": "The value of $y''$",
+            "rationale": "Second derivatives are not what boundary conditions usually set. Which quantity does Dirichlet name?"
+          },
+          {
+            "text": "The integral of $y$ over the interval",
+            "rationale": "An integral constraint is a different kind of condition. What pointwise value does Dirichlet give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_E97SZm2ZrBo_3",
+        "prompt": "A Neumann boundary condition specifies which quantity at an endpoint?",
+        "hint": "Neumann constrains the slope of the solution.",
+        "answerOptions": [
+          {
+            "text": "The value of the derivative $y'$",
+            "correct": true,
+            "rationale": "Yes. A Neumann condition prescribes the derivative of the function at the endpoint."
+          },
+          {
+            "text": "The value of $y$",
+            "rationale": "Fixing the value itself is the Dirichlet condition. What does Neumann fix instead?"
+          },
+          {
+            "text": "The product $y \\, y'$",
+            "rationale": "No nonlinear product is involved. Which single derivative does Neumann set?"
+          },
+          {
+            "text": "The second derivative $y''$",
+            "rationale": "Boundary conditions normally use $y$ or $y'$. Which one does Neumann name?"
+          }
+        ]
+      },
+      {
+        "id": "mp_E97SZm2ZrBo_4",
+        "prompt": "A steady temperature distribution in a rod with both ends held at fixed temperatures is modeled by which kind of problem?",
+        "hint": "Conditions are imposed at the two ends of the rod.",
+        "answerOptions": [
+          {
+            "text": "A boundary value problem",
+            "correct": true,
+            "rationale": "Yes. Fixing the temperature at each end of the rod imposes conditions at two points, a boundary value problem."
+          },
+          {
+            "text": "An initial value problem",
+            "rationale": "The conditions are at the two ends in space, not at a single starting instant. What type is that?"
+          },
+          {
+            "text": "A problem with no conditions",
+            "rationale": "Two fixed end temperatures are two conditions. Where in the domain do they sit?"
+          },
+          {
+            "text": "A purely algebraic equation",
+            "rationale": "The model is a differential equation in position. What kind of side conditions does it carry?"
+          }
+        ]
+      },
+      {
+        "id": "mp_E97SZm2ZrBo_5",
+        "prompt": "In many boundary value problems the independent variable represents what?",
+        "hint": "Boundary conditions are tied to the ends of a physical region.",
+        "answerOptions": [
+          {
+            "text": "A spatial position",
+            "correct": true,
+            "rationale": "Yes. Boundary value problems typically involve a spatial variable with conditions at the edges of the region."
+          },
+          {
+            "text": "Always time",
+            "rationale": "Time-based conditions at one instant give initial value problems. What variable do endpoints usually represent?"
+          },
+          {
+            "text": "A probability",
+            "rationale": "The variable is a physical coordinate, not a probability. What does it usually measure?"
+          },
+          {
+            "text": "A dimensionless constant",
+            "rationale": "The variable ranges over an interval with two ends. What does that interval usually represent?"
+          }
+        ]
+      }
+    ],
+    "AnyGw-gOY0U": [
+      {
+        "id": "mp_AnyGw-gOY0U_1",
+        "prompt": "Solve $y'' = 0$ with $y(0) = 0$ and $y(1) = 2$.",
+        "hint": "The general solution of $y'' = 0$ is a straight line; fit the two endpoints.",
+        "answerOptions": [
+          {
+            "text": "$y = 2x$",
+            "correct": true,
+            "rationale": "Correct. The general solution is $y = c_1 + c_2 x$; $y(0) = 0$ gives $c_1 = 0$ and $y(1) = 2$ gives $c_2 = 2$."
+          },
+          {
+            "text": "$y = 2$",
+            "rationale": "A constant cannot satisfy both $y(0) = 0$ and $y(1) = 2$. What linear function fits both ends?"
+          },
+          {
+            "text": "$y = x^2$",
+            "rationale": "The general solution of $y'' = 0$ is linear, not quadratic. What line passes through $(0,0)$ and $(1,2)$?"
+          },
+          {
+            "text": "$y = x$",
+            "rationale": "This gives $y(1) = 1$, not $2$. What slope makes $y(1) = 2$ with $y(0) = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AnyGw-gOY0U_2",
+        "prompt": "What is the standard procedure for solving a linear two-point boundary value problem?",
+        "hint": "Find every solution first, then use the endpoints.",
+        "answerOptions": [
+          {
+            "text": "Find the general solution, then apply both boundary conditions to fix the constants",
+            "correct": true,
+            "rationale": "Yes. You build the general solution and then impose the two endpoint conditions to determine the constants."
+          },
+          {
+            "text": "Apply the boundary conditions before solving the equation",
+            "rationale": "You need the general solution in hand before the constants can be fixed. What comes first?"
+          },
+          {
+            "text": "Differentiate the boundary conditions",
+            "rationale": "The conditions are used as given, not differentiated. What do you do with the general solution?"
+          },
+          {
+            "text": "Guess the answer and check only one endpoint",
+            "rationale": "Both endpoints must be satisfied. What systematic procedure uses the general solution?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AnyGw-gOY0U_3",
+        "prompt": "Solve $y'' + y = 0$ with $y(0) = 0$ and $y(\\pi/2) = 1$.",
+        "hint": "The general solution is $y = A\\cos x + B\\sin x$; apply each condition.",
+        "answerOptions": [
+          {
+            "text": "$y = \\sin x$",
+            "correct": true,
+            "rationale": "Correct. $y(0) = 0$ forces $A = 0$, and $y(\\pi/2) = B = 1$, so $y = \\sin x$."
+          },
+          {
+            "text": "$y = \\cos x$",
+            "rationale": "Then $y(0) = 1$, violating $y(0) = 0$. Which trig function vanishes at $0$?"
+          },
+          {
+            "text": "$y = \\sin x + \\cos x$",
+            "rationale": "The cosine term makes $y(0) = 1 \\neq 0$. Which term must drop out?"
+          },
+          {
+            "text": "$y = \\cos x - \\sin x$",
+            "rationale": "The cosine piece breaks $y(0) = 0$. What remains after $A = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AnyGw-gOY0U_4",
+        "prompt": "A homogeneous boundary value problem such as $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ always admits which solution?",
+        "hint": "Ask what happens if the function is identically zero.",
+        "answerOptions": [
+          {
+            "text": "The trivial solution $y \\equiv 0$",
+            "correct": true,
+            "rationale": "Yes. The zero function satisfies the equation and both homogeneous boundary conditions for every $\\lambda$."
+          },
+          {
+            "text": "A unique nonzero solution for every $\\lambda$",
+            "rationale": "Nonzero solutions appear only for special $\\lambda$. What solution works for all $\\lambda$?"
+          },
+          {
+            "text": "No solution at all",
+            "rationale": "At least one solution always exists here. Which simple function always fits?"
+          },
+          {
+            "text": "A constant nonzero solution",
+            "rationale": "A nonzero constant cannot meet $y(0) = y(L) = 0$. What function does?"
+          }
+        ]
+      },
+      {
+        "id": "mp_AnyGw-gOY0U_5",
+        "prompt": "For the homogeneous problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, nontrivial solutions exist only when what holds?",
+        "hint": "Only special separation values let a nonzero solution meet both ends.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda$ takes one of certain special (eigenvalue) values",
+            "correct": true,
+            "rationale": "Yes. Nonzero solutions occur only at the discrete eigenvalues of the problem."
+          },
+          {
+            "text": "$\\lambda$ is any real number",
+            "rationale": "Most values give only the trivial solution. What kind of values allow nonzero solutions?"
+          },
+          {
+            "text": "$\\lambda$ is negative",
+            "rationale": "Negative $\\lambda$ yields only the trivial solution for these conditions. What special values work?"
+          },
+          {
+            "text": "$\\lambda$ equals zero",
+            "rationale": "At $\\lambda = 0$ the only solution is trivial here. Which discrete values permit nonzero solutions?"
+          }
+        ]
+      }
+    ],
+    "8y0IcYqPIgA": [
+      {
+        "id": "mp_8y0IcYqPIgA_1",
+        "prompt": "How many boundary conditions does a second-order two-point boundary value problem carry?",
+        "hint": "The count matches the order of the differential equation.",
+        "answerOptions": [
+          {
+            "text": "Two, one at each endpoint",
+            "correct": true,
+            "rationale": "Yes. A second-order equation needs two conditions, here placed one at each end."
+          },
+          {
+            "text": "One, at the left endpoint",
+            "rationale": "One condition underdetermines second order. How many endpoints carry a condition?"
+          },
+          {
+            "text": "Three, two at one end and one at the other",
+            "rationale": "That exceeds the number of constants to fix. How many conditions does second order need?"
+          },
+          {
+            "text": "Four, two at each endpoint",
+            "rationale": "Only two constants exist to determine. How many conditions are required?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8y0IcYqPIgA_2",
+        "prompt": "Solve $y'' = 6x$ with $y(0) = 0$ and $y(1) = 1$.",
+        "hint": "Integrate twice to get $y = x^3 + c_1 x + c_2$, then apply the endpoints.",
+        "answerOptions": [
+          {
+            "text": "$y = x^3$",
+            "correct": true,
+            "rationale": "Correct. Integrating gives $y = x^3 + c_1 x + c_2$; $y(0) = 0$ gives $c_2 = 0$ and $y(1) = 1 + c_1 = 1$ gives $c_1 = 0$."
+          },
+          {
+            "text": "$y = x^3 + x$",
+            "rationale": "Then $y(1) = 2$, not $1$. What value of $c_1$ makes $y(1) = 1$?"
+          },
+          {
+            "text": "$y = 3x^2$",
+            "rationale": "That is $y'$, not the solution of $y'' = 6x$. What do you get after integrating twice?"
+          },
+          {
+            "text": "$y = x^3 + 1$",
+            "rationale": "This violates $y(0) = 0$. What constant term satisfies the left endpoint?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8y0IcYqPIgA_3",
+        "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$ and $y(\\pi) = 0$ has how many solutions?",
+        "hint": "Apply $y(0) = 0$ to $y = A\\cos x + B\\sin x$, then test the second condition.",
+        "answerOptions": [
+          {
+            "text": "Infinitely many, $y = B\\sin x$ for any $B$",
+            "correct": true,
+            "rationale": "Yes. $y(0) = 0$ gives $A = 0$, and $y(\\pi) = B\\sin\\pi = 0$ holds for every $B$, so all $B\\sin x$ work."
+          },
+          {
+            "text": "Exactly one, $y \\equiv 0$",
+            "rationale": "The second condition is satisfied automatically by $\\sin x$. What family of nonzero solutions survives?"
+          },
+          {
+            "text": "None",
+            "rationale": "At least $y \\equiv 0$ works, and in fact more do. What does $y(\\pi) = B\\sin\\pi = 0$ allow?"
+          },
+          {
+            "text": "Exactly two",
+            "rationale": "The free constant $B$ is unrestricted here. How many values can $B$ take?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8y0IcYqPIgA_4",
+        "prompt": "When a homogeneous two-point problem yields only $y \\equiv 0$, the boundary value problem is called what?",
+        "hint": "Compare with the eigenvalue case where nonzero solutions appear.",
+        "answerOptions": [
+          {
+            "text": "It has only the trivial solution (the value is not an eigenvalue)",
+            "correct": true,
+            "rationale": "Yes. If the parameter is not an eigenvalue, the trivial solution is the only one."
+          },
+          {
+            "text": "It has infinitely many solutions",
+            "rationale": "Infinitely many appear only at eigenvalues. What is true when only zero solves it?"
+          },
+          {
+            "text": "It is an initial value problem",
+            "rationale": "It is still a boundary value problem. What does getting only $y \\equiv 0$ tell you about the parameter?"
+          },
+          {
+            "text": "It is unsolvable",
+            "rationale": "The zero function is a valid solution. What name fits when it is the only one?"
+          }
+        ]
+      },
+      {
+        "id": "mp_8y0IcYqPIgA_5",
+        "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(L) = 0$, the parameter values giving nonzero solutions are which?",
+        "hint": "The sine must vanish at $x = L$, forcing $\\sqrt{\\lambda}\\,L$ to be a multiple of $\\pi$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2$ for $n = 1, 2, 3, \\dots$",
+            "correct": true,
+            "rationale": "Correct. With $A = 0$, requiring $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\sqrt{\\lambda}\\,L = n\\pi$, so $\\lambda_n = (n\\pi/L)^2$."
+          },
+          {
+            "text": "$\\lambda_n = \\frac{n\\pi}{L}$",
+            "rationale": "The condition $\\sin(\\sqrt{\\lambda}\\,L) = 0$ involves the square root of $\\lambda$. What must you square to solve for $\\lambda$?"
+          },
+          {
+            "text": "$\\lambda_n = n\\pi L$",
+            "rationale": "Solve $\\sqrt{\\lambda}\\,L = n\\pi$ for $\\lambda$, dividing by $L$ first. What expression results?"
+          },
+          {
+            "text": "$\\lambda_n = n^2$ for any $L$",
+            "rationale": "That only holds when $L = \\pi$. How does the length $L$ enter the formula?"
+          }
+        ]
+      }
+    ],
+    "vGwyyXWGR3Y": [
+      {
+        "id": "mp_vGwyyXWGR3Y_1",
+        "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(L) = 0$, what are the eigenvalues?",
+        "hint": "Nontrivial sines must vanish at both ends.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2$, $n = 1, 2, 3, \\dots$",
+            "correct": true,
+            "rationale": "Correct. The condition $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\sqrt{\\lambda}\\,L = n\\pi$, hence $\\lambda_n = (n\\pi/L)^2$."
+          },
+          {
+            "text": "$\\lambda_n = n\\pi/L$",
+            "rationale": "You must square the relation $\\sqrt{\\lambda}\\,L = n\\pi$. What is $\\lambda$ itself?"
+          },
+          {
+            "text": "$\\lambda_n = -\\left(\\frac{n\\pi}{L}\\right)^2$",
+            "rationale": "Negative values give only the trivial solution here. What sign of $\\lambda$ produces oscillating sines?"
+          },
+          {
+            "text": "$\\lambda_n = (n\\pi)^2$",
+            "rationale": "The interval length $L$ must appear. How does $L$ enter the eigenvalue?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vGwyyXWGR3Y_2",
+        "prompt": "The eigenfunctions of $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ are which functions?",
+        "hint": "They must vanish at both endpoints.",
+        "answerOptions": [
+          {
+            "text": "$y_n(x) = \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)$",
+            "correct": true,
+            "rationale": "Correct. These sines vanish at $x = 0$ and $x = L$, matching the boundary conditions."
+          },
+          {
+            "text": "$y_n(x) = \\cos\\!\\left(\\frac{n\\pi x}{L}\\right)$",
+            "rationale": "Cosine does not vanish at $x = 0$. Which function is zero at both ends?"
+          },
+          {
+            "text": "$y_n(x) = e^{n x}$",
+            "rationale": "Exponentials do not satisfy these zero boundary conditions. What oscillatory function does?"
+          },
+          {
+            "text": "$y_n(x) = x^n$",
+            "rationale": "Powers of $x$ do not vanish at $x = L$ in general. What sine fits both endpoints?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vGwyyXWGR3Y_3",
+        "prompt": "For the interval length $L = \\pi$, the eigenvalues of $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$ are which numbers?",
+        "hint": "Set $L = \\pi$ in $\\lambda_n = (n\\pi/L)^2$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda_n = n^2$, $n = 1, 2, 3, \\dots$",
+            "correct": true,
+            "rationale": "Correct. With $L = \\pi$, $(n\\pi/\\pi)^2 = n^2$."
+          },
+          {
+            "text": "$\\lambda_n = n$",
+            "rationale": "The formula squares the index. What is $(n\\pi/\\pi)^2$?"
+          },
+          {
+            "text": "$\\lambda_n = \\pi^2 n^2$",
+            "rationale": "The factors of $\\pi$ cancel when $L = \\pi$. What is left after cancelling?"
+          },
+          {
+            "text": "$\\lambda_n = 2n$",
+            "rationale": "There is no factor of $2$ here. What does $n^2$ give for the eigenvalues?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vGwyyXWGR3Y_4",
+        "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, what do $\\lambda = 0$ and $\\lambda < 0$ produce?",
+        "hint": "Check whether linear or exponential solutions can vanish at both ends.",
+        "answerOptions": [
+          {
+            "text": "Only the trivial solution $y \\equiv 0$",
+            "correct": true,
+            "rationale": "Yes. For $\\lambda \\le 0$ the solutions are lines or hyperbolic functions, which cannot vanish at both ends except trivially."
+          },
+          {
+            "text": "New families of nonzero eigenfunctions",
+            "rationale": "Nonzero solutions need oscillation, which requires positive $\\lambda$. What do nonpositive $\\lambda$ give?"
+          },
+          {
+            "text": "Infinitely many sine modes",
+            "rationale": "Sine modes require $\\lambda > 0$. What is the only solution when $\\lambda \\le 0$?"
+          },
+          {
+            "text": "Complex eigenfunctions",
+            "rationale": "The solutions here are real. What real solution survives for $\\lambda \\le 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_vGwyyXWGR3Y_5",
+        "prompt": "An eigenvalue of a boundary value problem is best defined as what?",
+        "hint": "It is the parameter value that unlocks a nonzero solution.",
+        "answerOptions": [
+          {
+            "text": "A value of $\\lambda$ for which the problem has a nontrivial solution",
+            "correct": true,
+            "rationale": "Yes. Eigenvalues are exactly the parameter values admitting a nonzero solution."
+          },
+          {
+            "text": "Any root of the differential equation",
+            "rationale": "The equation has no roots in that sense; the parameter is what matters. What does an eigenvalue unlock?"
+          },
+          {
+            "text": "The slope of the solution at the origin",
+            "rationale": "A slope is not a parameter value. What property of $\\lambda$ defines an eigenvalue?"
+          },
+          {
+            "text": "The maximum value of the solution",
+            "rationale": "The peak value is not the definition. What must exist for $\\lambda$ to be an eigenvalue?"
+          }
+        ]
+      }
+    ],
+    "Elk0gjSd4c8": [
+      {
+        "id": "mp_Elk0gjSd4c8_1",
+        "prompt": "For $y'' + \\lambda y = 0$ with Neumann conditions $y'(0) = 0$ and $y'(L) = 0$, the eigenfunctions are which functions?",
+        "hint": "The derivative must vanish at both ends.",
+        "answerOptions": [
+          {
+            "text": "$y_n(x) = \\cos\\!\\left(\\frac{n\\pi x}{L}\\right)$, $n = 0, 1, 2, \\dots$",
+            "correct": true,
+            "rationale": "Correct. Cosines have zero slope at $x = 0$ and $x = L$, and $n = 0$ gives the constant mode."
+          },
+          {
+            "text": "$y_n(x) = \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)$",
+            "rationale": "Sine has nonzero slope at $x = 0$. Which function has zero derivative there?"
+          },
+          {
+            "text": "$y_n(x) = e^{-n x}$",
+            "rationale": "Exponentials do not meet zero-slope conditions at both ends. What oscillatory function does?"
+          },
+          {
+            "text": "$y_n(x) = x\\cos(n x)$",
+            "rationale": "A bare factor of $x$ spoils the slope condition at $0$. What pure cosine works?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Elk0gjSd4c8_2",
+        "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$, what is the smallest eigenvalue and its eigenfunction?",
+        "hint": "Use $n = 1$ with $L = \\pi$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda_1 = 1$ with eigenfunction $\\sin x$",
+            "correct": true,
+            "rationale": "Correct. The lowest mode is $n = 1$, giving $\\lambda_1 = 1$ and $\\sin x$."
+          },
+          {
+            "text": "$\\lambda_1 = 0$ with eigenfunction $1$",
+            "rationale": "The constant function cannot vanish at the ends. What is the lowest sine mode?"
+          },
+          {
+            "text": "$\\lambda_1 = \\pi$ with eigenfunction $\\sin(\\pi x)$",
+            "rationale": "With $L = \\pi$ the eigenvalues are $n^2$. What does $n = 1$ give?"
+          },
+          {
+            "text": "$\\lambda_1 = 2$ with eigenfunction $\\sin 2x$",
+            "rationale": "That is the $n$ such that $n^2 = 4$ would not give $2$ either; check $n = 1$. What is $\\lambda_1$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Elk0gjSd4c8_3",
+        "prompt": "How many eigenvalues does a regular two-point eigenvalue problem have?",
+        "hint": "Think about whether the modes ever stop.",
+        "answerOptions": [
+          {
+            "text": "Infinitely many, forming an increasing sequence",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues form an infinite sequence increasing without bound."
+          },
+          {
+            "text": "Exactly two",
+            "rationale": "There is no fixed small count; the modes continue indefinitely. How many are there?"
+          },
+          {
+            "text": "A single eigenvalue",
+            "rationale": "One mode is far too few; higher harmonics exist. How many eigenvalues appear?"
+          },
+          {
+            "text": "Finitely many, depending on $L$",
+            "rationale": "The length scales the eigenvalues but does not cap their number. How many are there in total?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Elk0gjSd4c8_4",
+        "prompt": "As the mode number $n$ increases, the eigenvalues $\\lambda_n = (n\\pi/L)^2$ do what?",
+        "hint": "Track the behavior of $n^2$.",
+        "answerOptions": [
+          {
+            "text": "Increase without bound",
+            "correct": true,
+            "rationale": "Yes. Since $\\lambda_n$ grows like $n^2$, the eigenvalues tend to infinity."
+          },
+          {
+            "text": "Approach a finite limit",
+            "rationale": "There is no ceiling on $n^2$. What happens to $\\lambda_n$ as $n$ grows?"
+          },
+          {
+            "text": "Decrease toward zero",
+            "rationale": "Larger $n$ makes $(n\\pi/L)^2$ larger, not smaller. Which direction do they move?"
+          },
+          {
+            "text": "Oscillate up and down",
+            "rationale": "The sequence is monotonic in $n$. What single trend does $n^2$ follow?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Elk0gjSd4c8_5",
+        "prompt": "For $y'' + \\lambda y = 0$ with $y(0) = 0$ and $y(2) = 0$, the eigenvalues are which?",
+        "hint": "Set $L = 2$ in $\\lambda_n = (n\\pi/L)^2$.",
+        "answerOptions": [
+          {
+            "text": "$\\lambda_n = \\left(\\frac{n\\pi}{2}\\right)^2$",
+            "correct": true,
+            "rationale": "Correct. With $L = 2$, the eigenvalues are $(n\\pi/2)^2$ for $n = 1, 2, 3, \\dots$"
+          },
+          {
+            "text": "$\\lambda_n = (n\\pi)^2$",
+            "rationale": "The length $L = 2$ divides inside the square. Where does the $2$ go?"
+          },
+          {
+            "text": "$\\lambda_n = \\frac{n\\pi}{2}$",
+            "rationale": "You must square the quantity $n\\pi/2$. What is its square?"
+          },
+          {
+            "text": "$\\lambda_n = n^2$",
+            "rationale": "That corresponds to $L = \\pi$, not $L = 2$. How does $L = 2$ change the formula?"
+          }
+        ]
+      }
+    ],
+    "qIfxydBEdzg": [
+      {
+        "id": "mp_qIfxydBEdzg_1",
+        "prompt": "The core idea of the shooting method is to convert a boundary value problem into what?",
+        "hint": "It replaces a far-end condition with a guess at the start.",
+        "answerOptions": [
+          {
+            "text": "An initial value problem with a guessed initial slope",
+            "correct": true,
+            "rationale": "Yes. The method guesses the missing initial slope and integrates forward as an IVP."
+          },
+          {
+            "text": "A system of algebraic equations only",
+            "rationale": "Integration of an IVP is still required. What kind of problem does shooting solve repeatedly?"
+          },
+          {
+            "text": "A partial differential equation",
+            "rationale": "No new independent variable is introduced. What single-point problem replaces the BVP?"
+          },
+          {
+            "text": "A purely graphical sketch",
+            "rationale": "The method computes numerically, not by sketching. What initial-value form does it use?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qIfxydBEdzg_2",
+        "prompt": "In the shooting method, what is adjusted until the far boundary condition is met?",
+        "hint": "You vary the quantity you had to guess at the start.",
+        "answerOptions": [
+          {
+            "text": "The guessed initial slope (or missing initial value)",
+            "correct": true,
+            "rationale": "Yes. You tune the guessed initial slope until the solution hits the target at the far end."
+          },
+          {
+            "text": "The differential equation itself",
+            "rationale": "The equation stays fixed; only the guess changes. What unknown starting quantity is tuned?"
+          },
+          {
+            "text": "The length of the interval",
+            "rationale": "The interval is given by the problem. What free starting value do you adjust?"
+          },
+          {
+            "text": "The order of the equation",
+            "rationale": "The order is fixed. Which guessed initial datum gets varied?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qIfxydBEdzg_3",
+        "prompt": "Finding the correct initial slope amounts to solving which kind of problem?",
+        "hint": "You want the far-end mismatch to be zero.",
+        "answerOptions": [
+          {
+            "text": "A root-finding problem for the boundary mismatch as a function of the guess",
+            "correct": true,
+            "rationale": "Yes. You seek the guess that makes the endpoint error zero, a root-finding problem."
+          },
+          {
+            "text": "A maximization problem",
+            "rationale": "You want zero error, not a maximum. What value of the mismatch are you seeking?"
+          },
+          {
+            "text": "An integration-by-parts problem",
+            "rationale": "No integration by parts is involved. What condition on the mismatch must hold?"
+          },
+          {
+            "text": "A matrix diagonalization",
+            "rationale": "Diagonalization is not the tool here. What numerical goal does the slope satisfy?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qIfxydBEdzg_4",
+        "prompt": "For a linear boundary value problem, how many shots are needed to find the exact slope by interpolation?",
+        "hint": "Linear dependence on the guess means a straight-line fit.",
+        "answerOptions": [
+          {
+            "text": "Two shots, then linear interpolation",
+            "correct": true,
+            "rationale": "Yes. The endpoint value depends linearly on the guess, so two shots determine the exact slope by interpolation."
+          },
+          {
+            "text": "A single shot",
+            "rationale": "One shot gives one data point, not enough to interpolate. How many are needed for a line?"
+          },
+          {
+            "text": "Infinitely many shots",
+            "rationale": "Linearity makes the process finite. How many points define the needed line?"
+          },
+          {
+            "text": "Exactly ten shots",
+            "rationale": "There is no fixed count like ten; linearity needs only enough for a line. How many is that?"
+          }
+        ]
+      },
+      {
+        "id": "mp_qIfxydBEdzg_5",
+        "prompt": "Each shot in the shooting method is carried out using what?",
+        "hint": "Forward integration of an initial value problem needs a numerical integrator.",
+        "answerOptions": [
+          {
+            "text": "A standard initial value problem solver such as Runge-Kutta",
+            "correct": true,
+            "rationale": "Yes. Each shot integrates the IVP numerically, typically with a Runge-Kutta method."
+          },
+          {
+            "text": "A symbolic factoring routine",
+            "rationale": "The steps are numerical integrations, not symbolic factoring. What solver advances each shot?"
+          },
+          {
+            "text": "A Fourier series expansion",
+            "rationale": "Fourier methods are not used for a single shot. What numerical integrator is used?"
+          },
+          {
+            "text": "A determinant calculation",
+            "rationale": "No determinant is computed per shot. What kind of solver integrates the IVP?"
+          }
+        ]
+      }
+    ],
+    "tMO28AakkZ8": [
+      {
+        "id": "mp_tMO28AakkZ8_1",
+        "prompt": "If $y(b; s)$ is the computed endpoint value for guessed slope $s$ and the target is $\\beta$, what equation does shooting solve?",
+        "hint": "You want the computed endpoint to match the target.",
+        "answerOptions": [
+          {
+            "text": "$F(s) = y(b; s) - \\beta = 0$",
+            "correct": true,
+            "rationale": "Yes. The mismatch $F(s) = y(b; s) - \\beta$ is driven to zero to satisfy the far boundary condition."
+          },
+          {
+            "text": "$F(s) = y(b; s) + \\beta = 0$",
+            "rationale": "The condition is a match, so you subtract the target. What sign relates $y(b; s)$ and $\\beta$?"
+          },
+          {
+            "text": "$F(s) = s - \\beta = 0$",
+            "rationale": "The guess $s$ is a slope, not directly the endpoint value. What computed quantity must equal $\\beta$?"
+          },
+          {
+            "text": "$F(s) = y(b; s)\\,\\beta = 0$",
+            "rationale": "A product is not the condition. What difference should vanish?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tMO28AakkZ8_2",
+        "prompt": "For a nonlinear boundary value problem, the root $F(s) = 0$ is typically found using what?",
+        "hint": "Nonlinear mismatch functions call for iterative root finders.",
+        "answerOptions": [
+          {
+            "text": "An iterative method such as Newton's method or bisection",
+            "correct": true,
+            "rationale": "Yes. Nonlinear mismatch functions require iterative root finding like Newton or bisection."
+          },
+          {
+            "text": "A single linear interpolation",
+            "rationale": "Linear interpolation is exact only for linear problems. What is needed when $F$ is nonlinear?"
+          },
+          {
+            "text": "Direct substitution with no iteration",
+            "rationale": "A nonlinear root rarely yields to one substitution. What iterative tool is used?"
+          },
+          {
+            "text": "Separation of variables",
+            "rationale": "That technique applies to certain ODEs, not to root finding. What numerical iteration solves $F(s) = 0$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tMO28AakkZ8_3",
+        "prompt": "A practical advantage of the shooting method is that it lets you reuse what?",
+        "hint": "It leans on machinery already built for one-point problems.",
+        "answerOptions": [
+          {
+            "text": "Robust, well-developed initial value problem integrators",
+            "correct": true,
+            "rationale": "Yes. Shooting reduces a BVP to repeated IVPs, reusing mature initial value solvers."
+          },
+          {
+            "text": "Exact closed-form solution formulas",
+            "rationale": "Closed forms are usually unavailable; the method is numerical. What existing solvers does it reuse?"
+          },
+          {
+            "text": "A table of Fourier coefficients",
+            "rationale": "No Fourier table is required. What kind of solver does shooting build on?"
+          },
+          {
+            "text": "Matrix inversion of the boundary data",
+            "rationale": "Direct inversion is a different approach. What IVP machinery does shooting exploit?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tMO28AakkZ8_4",
+        "prompt": "How do boundary value problems differ from initial value problems in where conditions are imposed?",
+        "hint": "Compare a single starting point with two separated points.",
+        "answerOptions": [
+          {
+            "text": "BVP conditions are split across two endpoints; IVP conditions are all at one point",
+            "correct": true,
+            "rationale": "Yes. That split is exactly what forces the indirect shooting approach."
+          },
+          {
+            "text": "BVP and IVP conditions are imposed identically",
+            "rationale": "If they were the same, no special method would be needed. How are they placed differently?"
+          },
+          {
+            "text": "BVP conditions are imposed at infinitely many points",
+            "rationale": "Two endpoints carry the conditions, not infinitely many. How are they distributed?"
+          },
+          {
+            "text": "IVP conditions are imposed at two endpoints",
+            "rationale": "That describes a BVP. Where are IVP conditions actually placed?"
+          }
+        ]
+      },
+      {
+        "id": "mp_tMO28AakkZ8_5",
+        "prompt": "Why can a single forward integration not directly solve a two-point boundary value problem?",
+        "hint": "One end is missing a needed starting datum.",
+        "answerOptions": [
+          {
+            "text": "The initial data needed to start the integration is incomplete at one end",
+            "correct": true,
+            "rationale": "Yes. One endpoint lacks the slope (or value) needed to begin, so the missing datum must be guessed."
+          },
+          {
+            "text": "Forward integration is always unstable",
+            "rationale": "Instability is not the central issue here. What starting information is missing?"
+          },
+          {
+            "text": "The equation has no solution",
+            "rationale": "The problem can be perfectly solvable. What prevents a direct single integration?"
+          },
+          {
+            "text": "Boundary value problems are not differential equations",
+            "rationale": "They certainly are differential equations. What initial datum is unavailable at one end?"
+          }
+        ]
+      }
+    ],
+    "J3S4lBADQVw": [
+      {
+        "id": "mp_J3S4lBADQVw_1",
+        "prompt": "The inner product of two functions $f$ and $g$ on $[a, b]$ is defined as which expression?",
+        "hint": "It generalizes the dot product to functions by integrating their product.",
+        "answerOptions": [
+          {
+            "text": "$\\int_a^b f(x)\\,g(x)\\,dx$",
+            "correct": true,
+            "rationale": "Yes. The function inner product integrates the product of $f$ and $g$ over the interval."
+          },
+          {
+            "text": "$f(b)\\,g(b) - f(a)\\,g(a)$",
+            "rationale": "That is a boundary difference, not an integral. What operation over $[a,b]$ defines the inner product?"
+          },
+          {
+            "text": "$\\int_a^b \\big(f(x) + g(x)\\big)\\,dx$",
+            "rationale": "You multiply the functions, not add them. What integrand appears in the inner product?"
+          },
+          {
+            "text": "$\\frac{f(x)}{g(x)}$ evaluated at $x = a$",
+            "rationale": "A pointwise quotient is not an inner product. What integral of a product is used?"
+          }
+        ]
+      },
+      {
+        "id": "mp_J3S4lBADQVw_2",
+        "prompt": "Two functions are orthogonal on $[a, b]$ when which quantity equals zero?",
+        "hint": "Orthogonality is the function analog of perpendicular vectors.",
+        "answerOptions": [
+          {
+            "text": "Their inner product $\\int_a^b f g\\,dx$",
+            "correct": true,
+            "rationale": "Yes. Orthogonality means the inner product, the integral of the product, vanishes."
+          },
+          {
+            "text": "Their sum $f + g$",
+            "rationale": "A zero sum would make them negatives, not orthogonal. What integral must vanish?"
+          },
+          {
+            "text": "Their difference at the endpoints",
+            "rationale": "Endpoint differences are unrelated to orthogonality. What integral equals zero?"
+          },
+          {
+            "text": "Their pointwise product at every $x$",
+            "rationale": "The product need not vanish pointwise, only its integral. What integral is zero?"
+          }
+        ]
+      },
+      {
+        "id": "mp_J3S4lBADQVw_3",
+        "prompt": "For integers $m \\neq n$, what is $\\int_{-\\pi}^{\\pi} \\sin(mx)\\sin(nx)\\,dx$?",
+        "hint": "Distinct sine harmonics are mutually orthogonal on this interval.",
+        "answerOptions": [
+          {
+            "text": "$0$",
+            "correct": true,
+            "rationale": "Correct. Different sine harmonics are orthogonal on $[-\\pi, \\pi]$, so the integral is zero."
+          },
+          {
+            "text": "$\\pi$",
+            "rationale": "A nonzero value occurs only when $m = n$. What is the integral when $m \\neq n$?"
+          },
+          {
+            "text": "$2\\pi$",
+            "rationale": "That is closer to a normalization for $m = n$ in a different convention. What does orthogonality give for $m \\neq n$?"
+          },
+          {
+            "text": "$1$",
+            "rationale": "The integral is not normalized to one here. What value reflects orthogonality?"
+          }
+        ]
+      },
+      {
+        "id": "mp_J3S4lBADQVw_4",
+        "prompt": "What is $\\int_0^L \\sin\\!\\left(\\frac{n\\pi x}{L}\\right)\\sin\\!\\left(\\frac{m\\pi x}{L}\\right)dx$ when $m = n$?",
+        "hint": "The same harmonic against itself gives the squared norm.",
+        "answerOptions": [
+          {
+            "text": "$\\frac{L}{2}$",
+            "correct": true,
+            "rationale": "Correct. The integral of $\\sin^2(n\\pi x/L)$ over $[0, L]$ equals $L/2$."
+          },
+          {
+            "text": "$0$",
+            "rationale": "A zero value happens only when $m \\neq n$. What is the self inner product when $m = n$?"
+          },
+          {
+            "text": "$L$",
+            "rationale": "The average of $\\sin^2$ is $1/2$, so the integral is $L/2$, not $L$. What halves it?"
+          },
+          {
+            "text": "$\\frac{L}{4}$",
+            "rationale": "The mean value of $\\sin^2$ over a full set of modes is $1/2$. What does that give over length $L$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_J3S4lBADQVw_5",
+        "prompt": "The norm of a function $f$ with respect to the inner product is defined as what?",
+        "hint": "It is the function analog of vector length.",
+        "answerOptions": [
+          {
+            "text": "$\\sqrt{\\int_a^b f(x)^2\\,dx}$",
+            "correct": true,
+            "rationale": "Yes. The norm is the square root of the inner product of $f$ with itself."
+          },
+          {
+            "text": "$\\int_a^b f(x)\\,dx$",
+            "rationale": "That is the plain integral, not the norm. What square root of a self inner product is used?"
+          },
+          {
+            "text": "$\\max_{[a,b]} |f(x)|$",
+            "rationale": "The peak value is a different norm; here we use the integral form. What square root defines it?"
+          },
+          {
+            "text": "$f(b) - f(a)$",
+            "rationale": "An endpoint difference is unrelated to length. What integral expression gives the norm?"
+          }
+        ]
+      }
+    ],
+    "ZYf0tz9oVz8": [
+      {
+        "id": "mp_ZYf0tz9oVz8_1",
+        "prompt": "Why is orthogonality so useful for expanding a function in a series of basis functions?",
+        "hint": "Orthogonality decouples one coefficient from all the others.",
+        "answerOptions": [
+          {
+            "text": "It lets each coefficient be computed independently by a single inner product",
+            "correct": true,
+            "rationale": "Yes. Orthogonality isolates each coefficient through one inner product, with no coupling between terms."
+          },
+          {
+            "text": "It makes the basis functions identical",
+            "rationale": "Orthogonal functions are distinct, not identical. What does orthogonality let you compute term by term?"
+          },
+          {
+            "text": "It removes the need for any integration",
+            "rationale": "Coefficients still come from integrals; orthogonality just decouples them. What does it isolate?"
+          },
+          {
+            "text": "It guarantees a finite number of terms",
+            "rationale": "Series can still be infinite. What computational simplification does orthogonality provide?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ZYf0tz9oVz8_2",
+        "prompt": "For integers $m \\neq n$, what is $\\int_{-\\pi}^{\\pi} \\cos(mx)\\cos(nx)\\,dx$?",
+        "hint": "Distinct cosine harmonics are orthogonal on this interval.",
+        "answerOptions": [
+          {
+            "text": "$0$",
+            "correct": true,
+            "rationale": "Correct. Different cosine harmonics are orthogonal on $[-\\pi, \\pi]$."
+          },
+          {
+            "text": "$\\pi$",
+            "rationale": "A nonzero value arises only for $m = n$. What is the integral when $m \\neq n$?"
+          },
+          {
+            "text": "$2\\pi$",
+            "rationale": "That would relate to the $m = n = 0$ case. What does orthogonality give for distinct nonzero harmonics?"
+          },
+          {
+            "text": "$-\\pi$",
+            "rationale": "Orthogonality gives a clean zero, not a negative value. What is the integral for $m \\neq n$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ZYf0tz9oVz8_3",
+        "prompt": "For all integers $m$ and $n$, what is $\\int_{-\\pi}^{\\pi} \\sin(mx)\\cos(nx)\\,dx$?",
+        "hint": "Sines are odd and cosines are even; consider the parity of the product.",
+        "answerOptions": [
+          {
+            "text": "$0$",
+            "correct": true,
+            "rationale": "Correct. The product of a sine and a cosine integrates to zero over the symmetric interval, so sines and cosines are mutually orthogonal."
+          },
+          {
+            "text": "$\\pi$ when $m = n$",
+            "rationale": "Sine against cosine never matches the way sine against sine does. What is the integral for every $m$ and $n$?"
+          },
+          {
+            "text": "$1$ for all $m, n$",
+            "rationale": "The integral is not normalized to one. What value reflects sine-cosine orthogonality?"
+          },
+          {
+            "text": "Undefined",
+            "rationale": "The integral is perfectly well defined. What value does the odd integrand give?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ZYf0tz9oVz8_4",
+        "prompt": "The set $\\{1, \\cos x, \\sin x, \\cos 2x, \\sin 2x, \\dots\\}$ has which property on $[-\\pi, \\pi]$?",
+        "hint": "Every distinct pair integrates to zero against each other.",
+        "answerOptions": [
+          {
+            "text": "It is an orthogonal set",
+            "correct": true,
+            "rationale": "Yes. Every distinct pair from this set is orthogonal on $[-\\pi, \\pi]$, which underlies Fourier series."
+          },
+          {
+            "text": "It is linearly dependent",
+            "rationale": "These functions are independent. What stronger relation does pairwise zero inner product give?"
+          },
+          {
+            "text": "Every pair has inner product $1$",
+            "rationale": "Distinct pairs integrate to zero, not one. What name describes that?"
+          },
+          {
+            "text": "It spans only constant functions",
+            "rationale": "The set reaches far beyond constants. What orthogonality property does it have?"
+          }
+        ]
+      },
+      {
+        "id": "mp_ZYf0tz9oVz8_5",
+        "prompt": "An orthonormal set of functions is an orthogonal set with which extra property?",
+        "hint": "Normalize each function to unit length.",
+        "answerOptions": [
+          {
+            "text": "Each function has norm equal to one",
+            "correct": true,
+            "rationale": "Yes. Orthonormal means orthogonal plus every function having unit norm."
+          },
+          {
+            "text": "Each function integrates to zero",
+            "rationale": "Many useful functions do not integrate to zero. What normalization makes a set orthonormal?"
+          },
+          {
+            "text": "All functions are equal",
+            "rationale": "Orthonormal functions are distinct. What unit property is added to orthogonality?"
+          },
+          {
+            "text": "The functions are all polynomials",
+            "rationale": "Orthonormality is not about being polynomial. What norm condition is required?"
+          }
+        ]
+      }
+    ],
+    "Oz_cnaz9zSo": [
+      {
+        "id": "mp_Oz_cnaz9zSo_1",
+        "prompt": "A Sturm-Liouville equation is written in which standard form?",
+        "hint": "It packages the derivative terms into a single divergence-style expression.",
+        "answerOptions": [
+          {
+            "text": "$\\big(p(x)\\,y'\\big)' + \\big(q(x) + \\lambda\\, w(x)\\big)y = 0$",
+            "correct": true,
+            "rationale": "Yes. The self-adjoint Sturm-Liouville form collects the second-order term as $(p y')'$ with a weight $w$ multiplying $\\lambda$."
+          },
+          {
+            "text": "$y'' + \\lambda^2 y = 0$ only",
+            "rationale": "That is one special case, not the general form. What general structure with $p$, $q$, and $w$ is used?"
+          },
+          {
+            "text": "$p(x)\\,y'' + \\lambda y = q(x)$",
+            "rationale": "The leading term must be the derivative of $p y'$, not $p y''$. What self-adjoint form is standard?"
+          },
+          {
+            "text": "$y' = \\lambda w(x) y$",
+            "rationale": "A first-order form does not capture Sturm-Liouville problems. What second-order self-adjoint form is correct?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Oz_cnaz9zSo_2",
+        "prompt": "A regular Sturm-Liouville problem is posed on a finite interval with which kind of boundary conditions?",
+        "hint": "The conditions act separately at each endpoint.",
+        "answerOptions": [
+          {
+            "text": "Separated boundary conditions at each endpoint",
+            "correct": true,
+            "rationale": "Yes. A regular problem uses separated conditions, one at each end, with $p$ and $w$ positive on the interval."
+          },
+          {
+            "text": "No boundary conditions at all",
+            "rationale": "Boundary conditions are essential to the eigenvalue problem. What separated conditions are imposed?"
+          },
+          {
+            "text": "Conditions only at the left endpoint",
+            "rationale": "Both ends must be constrained. What kind of conditions does a regular problem use?"
+          },
+          {
+            "text": "Periodic conditions only",
+            "rationale": "Periodic conditions define a different (periodic) Sturm-Liouville problem. What does the regular case use?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Oz_cnaz9zSo_3",
+        "prompt": "For a regular Sturm-Liouville problem, the eigenvalues are guaranteed to be what?",
+        "hint": "A key theorem rules out complex eigenvalues.",
+        "answerOptions": [
+          {
+            "text": "Real",
+            "correct": true,
+            "rationale": "Yes. The self-adjoint structure guarantees that all eigenvalues are real."
+          },
+          {
+            "text": "Always complex",
+            "rationale": "The self-adjoint form forbids genuinely complex eigenvalues. What kind must they be?"
+          },
+          {
+            "text": "Always negative",
+            "rationale": "Eigenvalues are not forced to be negative. What property is actually guaranteed?"
+          },
+          {
+            "text": "Always equal to one",
+            "rationale": "There is no such normalization. What does the theory guarantee about the eigenvalues?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Oz_cnaz9zSo_4",
+        "prompt": "Eigenfunctions of a Sturm-Liouville problem belonging to distinct eigenvalues are what?",
+        "hint": "They satisfy a weighted orthogonality relation.",
+        "answerOptions": [
+          {
+            "text": "Orthogonal with respect to the weight $w(x)$",
+            "correct": true,
+            "rationale": "Yes. Distinct-eigenvalue eigenfunctions are orthogonal under the weighted inner product with weight $w$."
+          },
+          {
+            "text": "Always identical",
+            "rationale": "Distinct eigenvalues give distinct eigenfunctions. What relation holds between them?"
+          },
+          {
+            "text": "Parallel (scalar multiples)",
+            "rationale": "They are not multiples of one another. What weighted relation do they satisfy?"
+          },
+          {
+            "text": "Orthogonal only without any weight",
+            "rationale": "The orthogonality uses the weight $w$, not the unweighted inner product. What weight appears?"
+          }
+        ]
+      },
+      {
+        "id": "mp_Oz_cnaz9zSo_5",
+        "prompt": "The eigenvalues of a regular Sturm-Liouville problem form which kind of sequence?",
+        "hint": "They line up in order and never stop increasing.",
+        "answerOptions": [
+          {
+            "text": "An increasing sequence tending to infinity",
+            "correct": true,
+            "rationale": "Yes. The eigenvalues are real, simple, ordered, and grow without bound."
+          },
+          {
+            "text": "A finite list",
+            "rationale": "The eigenvalues do not stop after finitely many. How many are there, and how are they ordered?"
+          },
+          {
+            "text": "A decreasing sequence toward zero",
+            "rationale": "They increase rather than decrease. Which direction does the sequence go?"
+          },
+          {
+            "text": "A random unordered set",
+            "rationale": "They follow a strict increasing order. What pattern does the sequence have?"
+          }
+        ]
+      }
+    ],
+    "l9Dc1ab9RaU": [
+      {
+        "id": "mp_l9Dc1ab9RaU_1",
+        "prompt": "Writing $y'' + \\lambda y = 0$ in Sturm-Liouville form $(p y')' + (q + \\lambda w)y = 0$ uses which functions?",
+        "hint": "Match the plain second derivative to $(p y')'$ with no extra factors.",
+        "answerOptions": [
+          {
+            "text": "$p = 1$, $q = 0$, $w = 1$",
+            "correct": true,
+            "rationale": "Correct. With $p = 1$ the term $(p y')' = y''$, and $q = 0$, $w = 1$ recover $y'' + \\lambda y = 0$."
+          },
+          {
+            "text": "$p = 0$, $q = 1$, $w = 1$",
+            "rationale": "If $p = 0$ the second-derivative term disappears. What value of $p$ gives $(p y')' = y''$?"
+          },
+          {
+            "text": "$p = x$, $q = 0$, $w = 1$",
+            "rationale": "A nonconstant $p$ would introduce a $y'$ term. What constant $p$ reproduces $y''$?"
+          },
+          {
+            "text": "$p = 1$, $q = \\lambda$, $w = 0$",
+            "rationale": "With $w = 0$ the eigenvalue term vanishes. Which function should multiply $\\lambda$?"
+          }
+        ]
+      },
+      {
+        "id": "mp_l9Dc1ab9RaU_2",
+        "prompt": "In a Sturm-Liouville problem, the weight function $w(x)$ does what?",
+        "hint": "It appears inside the inner product that defines orthogonality.",
+        "answerOptions": [
+          {
+            "text": "Defines the weighted inner product under which eigenfunctions are orthogonal",
+            "correct": true,
+            "rationale": "Yes. The weight $w$ sets the inner product $\\int f g\\, w\\, dx$ that makes the eigenfunctions orthogonal."
+          },
+          {
+            "text": "Multiplies the highest derivative",
+            "rationale": "That role belongs to $p$, not $w$. Where does the weight $w$ appear?"
+          },
+          {
+            "text": "Sets the boundary conditions",
+            "rationale": "Boundary conditions are imposed separately. What integral structure does $w$ define?"
+          },
+          {
+            "text": "Has no effect on the problem",
+            "rationale": "The weight is central to orthogonality. What inner product does it determine?"
+          }
+        ]
+      },
+      {
+        "id": "mp_l9Dc1ab9RaU_3",
+        "prompt": "The orthogonality of Sturm-Liouville eigenfunctions ultimately follows from which structural property?",
+        "hint": "The operator equals its own adjoint.",
+        "answerOptions": [
+          {
+            "text": "The self-adjoint (symmetric) form of the operator",
+            "correct": true,
+            "rationale": "Yes. Writing the operator in self-adjoint form is exactly what forces real eigenvalues and orthogonal eigenfunctions."
+          },
+          {
+            "text": "The nonlinearity of the equation",
+            "rationale": "Sturm-Liouville problems are linear. What symmetry of the operator drives orthogonality?"
+          },
+          {
+            "text": "The absence of boundary conditions",
+            "rationale": "Boundary conditions are required and help establish self-adjointness. What operator property is key?"
+          },
+          {
+            "text": "The presence of a forcing term",
+            "rationale": "These eigenvalue problems are homogeneous. What structural property guarantees orthogonality?"
+          }
+        ]
+      },
+      {
+        "id": "mp_l9Dc1ab9RaU_4",
+        "prompt": "A central payoff of Sturm-Liouville theory is that the eigenfunctions form what?",
+        "hint": "Any reasonable function can be expanded in them.",
+        "answerOptions": [
+          {
+            "text": "A complete basis for expanding functions in eigenfunction series",
+            "correct": true,
+            "rationale": "Yes. The eigenfunctions are complete, so general functions can be expanded in eigenfunction (generalized Fourier) series."
+          },
+          {
+            "text": "A finite set spanning only polynomials",
+            "rationale": "The set is infinite and far richer than polynomials. What expansion property do they provide?"
+          },
+          {
+            "text": "A basis only for the constant functions",
+            "rationale": "They represent much more than constants. What completeness do they have?"
+          },
+          {
+            "text": "A set that cannot represent any function",
+            "rationale": "They can represent broad classes of functions. What basis property do they possess?"
+          }
+        ]
+      },
+      {
+        "id": "mp_l9Dc1ab9RaU_5",
+        "prompt": "How does the Dirichlet eigenvalue problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ relate to Sturm-Liouville theory?",
+        "hint": "Recognize it as a particular choice of $p$, $q$, and $w$.",
+        "answerOptions": [
+          {
+            "text": "It is a special case of a regular Sturm-Liouville problem",
+            "correct": true,
+            "rationale": "Yes. It is the Sturm-Liouville problem with $p = 1$, $q = 0$, $w = 1$ and separated conditions."
+          },
+          {
+            "text": "It is unrelated to Sturm-Liouville theory",
+            "rationale": "It fits the framework exactly. Which choice of $p$, $q$, $w$ makes it Sturm-Liouville?"
+          },
+          {
+            "text": "It is a nonlinear exception",
+            "rationale": "The problem is linear and self-adjoint. How does it sit inside the theory?"
+          },
+          {
+            "text": "It is a first-order example",
+            "rationale": "The equation is second order. What kind of Sturm-Liouville case is it?"
+          }
+        ]
+      }
+    ]
+  },
+  "unitMastery": [
+    {
+      "id": "um_17_1",
+      "prompt": "What distinguishes a boundary value problem from an initial value problem?",
+      "hint": "Consider where the side conditions are imposed.",
+      "answerOptions": [
+        {
+          "text": "Conditions are imposed at two different points rather than all at one point",
+          "correct": true,
+          "rationale": "Yes. A BVP spreads its conditions across two endpoints, unlike the single-point IVP."
+        },
+        {
+          "text": "It must be nonlinear",
+          "rationale": "Linearity is not the distinction; both kinds can be linear. Where are the conditions placed?"
+        },
+        {
+          "text": "It is always first order",
+          "rationale": "Order is unrelated to this distinction. What about the placement of conditions?"
+        },
+        {
+          "text": "It has no side conditions",
+          "rationale": "A BVP has conditions, just at two ends. How are they distributed compared with an IVP?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_2",
+      "prompt": "A second-order differential equation requires how many side conditions to pin down a particular solution?",
+      "hint": "Match the count to the number of arbitrary constants.",
+      "answerOptions": [
+        {
+          "text": "Two",
+          "correct": true,
+          "rationale": "Yes. Two arbitrary constants require two conditions."
+        },
+        {
+          "text": "One",
+          "rationale": "One leaves a constant unfixed. How many constants does second order carry?"
+        },
+        {
+          "text": "Four",
+          "rationale": "That exceeds the number of constants. How many does second order need?"
+        },
+        {
+          "text": "None",
+          "rationale": "Without conditions the solution stays general. How many are required?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_3",
+      "prompt": "Regarding existence and uniqueness, boundary value problems differ from initial value problems in what way?",
+      "hint": "Recall the clean IVP guarantee and whether two endpoints preserve it.",
+      "answerOptions": [
+        {
+          "text": "A BVP may have no solution, one solution, or infinitely many",
+          "correct": true,
+          "rationale": "Yes. The two-endpoint structure breaks the IVP uniqueness guarantee."
+        },
+        {
+          "text": "A BVP always has a unique solution",
+          "rationale": "That clean guarantee is exactly what fails. What outcomes are possible at two endpoints?"
+        },
+        {
+          "text": "A BVP never has solutions",
+          "rationale": "Many do have solutions. What range of outcomes is possible?"
+        },
+        {
+          "text": "They behave identically",
+          "rationale": "The structures differ in outcomes. How does the BVP differ?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_4",
+      "prompt": "A Dirichlet boundary condition prescribes which quantity, and a Neumann condition prescribes which?",
+      "hint": "One fixes the value, the other fixes the slope.",
+      "answerOptions": [
+        {
+          "text": "Dirichlet fixes $y$; Neumann fixes $y'$",
+          "correct": true,
+          "rationale": "Yes. Dirichlet sets the function value and Neumann sets the derivative at the endpoint."
+        },
+        {
+          "text": "Dirichlet fixes $y'$; Neumann fixes $y$",
+          "rationale": "The roles are reversed here. Which condition names the value itself?"
+        },
+        {
+          "text": "Both fix $y''$",
+          "rationale": "Second derivatives are not what these conditions set. Which derivatives or values do they name?"
+        },
+        {
+          "text": "Both fix the integral of $y$",
+          "rationale": "These are pointwise conditions, not integrals. What does each prescribe at the endpoint?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_5",
+      "prompt": "Steady-state heat conduction in a rod with fixed end temperatures is modeled as which type of problem?",
+      "hint": "Conditions sit at the two ends in space.",
+      "answerOptions": [
+        {
+          "text": "A boundary value problem",
+          "correct": true,
+          "rationale": "Yes. Fixing temperatures at both ends imposes conditions at two points in space."
+        },
+        {
+          "text": "An initial value problem",
+          "rationale": "The conditions are spatial endpoints, not a single starting time. What type is that?"
+        },
+        {
+          "text": "An unconstrained problem",
+          "rationale": "Two fixed end temperatures are real conditions. Where do they sit?"
+        },
+        {
+          "text": "A purely algebraic problem",
+          "rationale": "The model is a differential equation. What kind of conditions does it carry?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_6",
+      "prompt": "Solve $y'' = 0$ with $y(0) = 1$ and $y(2) = 5$.",
+      "hint": "The general solution is a line; fit both points.",
+      "answerOptions": [
+        {
+          "text": "$y = 1 + 2x$",
+          "correct": true,
+          "rationale": "Correct. From $y = c_1 + c_2 x$, $y(0) = 1$ gives $c_1 = 1$, and $y(2) = 1 + 2c_2 = 5$ gives $c_2 = 2$."
+        },
+        {
+          "text": "$y = 1 + 5x$",
+          "rationale": "Check $y(2)$: it must equal $5$, not $11$. What slope makes $y(2) = 5$?"
+        },
+        {
+          "text": "$y = 5x$",
+          "rationale": "This violates $y(0) = 1$. What constant term satisfies the left endpoint?"
+        },
+        {
+          "text": "$y = x^2 + 1$",
+          "rationale": "The solution of $y'' = 0$ is linear, not quadratic. What line fits both points?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_7",
+      "prompt": "What is the standard method for a linear two-point boundary value problem?",
+      "hint": "Build the general solution first.",
+      "answerOptions": [
+        {
+          "text": "Find the general solution, then impose both boundary conditions",
+          "correct": true,
+          "rationale": "Yes. The constants are fixed by applying the two endpoint conditions to the general solution."
+        },
+        {
+          "text": "Apply the conditions before solving",
+          "rationale": "The general solution must come first. What is the proper order?"
+        },
+        {
+          "text": "Use only one endpoint",
+          "rationale": "Both endpoints must be satisfied. What systematic approach uses the general solution?"
+        },
+        {
+          "text": "Differentiate the boundary data",
+          "rationale": "The conditions are applied as given. What do you do with the general solution?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_8",
+      "prompt": "The problem $y'' + y = 0$ with $y(0) = 0$, $y(\\pi) = 0$ has how many solutions?",
+      "hint": "After $A = 0$, test whether the second condition restricts $B$.",
+      "answerOptions": [
+        {
+          "text": "Infinitely many, $y = B\\sin x$",
+          "correct": true,
+          "rationale": "Yes. $y(0) = 0$ forces $A = 0$, and $\\sin\\pi = 0$ leaves $B$ free."
+        },
+        {
+          "text": "Exactly one, $y \\equiv 0$",
+          "rationale": "The second condition holds for any $B$. What family of nonzero solutions remains?"
+        },
+        {
+          "text": "None",
+          "rationale": "At least the zero solution exists, and more. What does $\\sin\\pi = 0$ allow?"
+        },
+        {
+          "text": "Exactly two",
+          "rationale": "The constant $B$ is unrestricted. How many values can it take?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_9",
+      "prompt": "A homogeneous boundary value problem $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ always admits which solution?",
+      "hint": "Consider the identically zero function.",
+      "answerOptions": [
+        {
+          "text": "The trivial solution $y \\equiv 0$",
+          "correct": true,
+          "rationale": "Yes. The zero function satisfies the equation and both conditions for every $\\lambda$."
+        },
+        {
+          "text": "A unique nonzero solution",
+          "rationale": "Nonzero solutions appear only at eigenvalues. What always works?"
+        },
+        {
+          "text": "No solution",
+          "rationale": "The zero function always solves it. What is that solution?"
+        },
+        {
+          "text": "A nonzero constant",
+          "rationale": "A nonzero constant cannot vanish at the ends. What trivial solution fits?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_10",
+      "prompt": "Solve $y'' = 2$ with $y(0) = 0$ and $y(1) = 0$.",
+      "hint": "Integrate twice to get $y = x^2 + c_1 x + c_2$, then apply the endpoints.",
+      "answerOptions": [
+        {
+          "text": "$y = x^2 - x$",
+          "correct": true,
+          "rationale": "Correct. $y = x^2 + c_1 x + c_2$ with $y(0) = 0$ gives $c_2 = 0$, and $y(1) = 1 + c_1 = 0$ gives $c_1 = -1$."
+        },
+        {
+          "text": "$y = x^2$",
+          "rationale": "This gives $y(1) = 1 \\neq 0$. What linear term makes $y(1) = 0$?"
+        },
+        {
+          "text": "$y = x^2 + x$",
+          "rationale": "Then $y(1) = 2$, not $0$. What sign should the linear coefficient have?"
+        },
+        {
+          "text": "$y = 2x$",
+          "rationale": "That solves $y'' = 0$, not $y'' = 2$. What quadratic results from integrating twice?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_11",
+      "prompt": "For $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$, the eigenvalues are which?",
+      "hint": "Sine must vanish at $x = L$.",
+      "answerOptions": [
+        {
+          "text": "$\\lambda_n = (n\\pi/L)^2$, $n = 1, 2, 3, \\dots$",
+          "correct": true,
+          "rationale": "Correct. Requiring $\\sin(\\sqrt{\\lambda}\\,L) = 0$ gives $\\lambda_n = (n\\pi/L)^2$."
+        },
+        {
+          "text": "$\\lambda_n = n\\pi/L$",
+          "rationale": "You must square $\\sqrt{\\lambda}\\,L = n\\pi$. What is $\\lambda$ itself?"
+        },
+        {
+          "text": "$\\lambda_n = -(n\\pi/L)^2$",
+          "rationale": "Negative values give only the trivial solution. What sign gives oscillation?"
+        },
+        {
+          "text": "$\\lambda_n = (n\\pi)^2$",
+          "rationale": "The length $L$ must appear. How does $L$ enter the formula?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_12",
+      "prompt": "The eigenfunctions of $y'' + \\lambda y = 0$, $y(0) = y(L) = 0$ are which?",
+      "hint": "They vanish at both ends.",
+      "answerOptions": [
+        {
+          "text": "$\\sin(n\\pi x/L)$",
+          "correct": true,
+          "rationale": "Correct. These sines are zero at $x = 0$ and $x = L$."
+        },
+        {
+          "text": "$\\cos(n\\pi x/L)$",
+          "rationale": "Cosine is nonzero at $x = 0$. Which function vanishes at both ends?"
+        },
+        {
+          "text": "$e^{nx}$",
+          "rationale": "Exponentials cannot meet zero conditions at both ends. What oscillatory function does?"
+        },
+        {
+          "text": "$x^n$",
+          "rationale": "Powers do not vanish at $x = L$ in general. What sine fits?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_13",
+      "prompt": "For $L = \\pi$, the eigenvalues of $y'' + \\lambda y = 0$, $y(0) = y(\\pi) = 0$ are which numbers?",
+      "hint": "Set $L = \\pi$ in $(n\\pi/L)^2$.",
+      "answerOptions": [
+        {
+          "text": "$\\lambda_n = n^2$",
+          "correct": true,
+          "rationale": "Correct. With $L = \\pi$ the factors of $\\pi$ cancel, leaving $n^2$."
+        },
+        {
+          "text": "$\\lambda_n = n$",
+          "rationale": "The formula squares the index. What is $(n\\pi/\\pi)^2$?"
+        },
+        {
+          "text": "$\\lambda_n = \\pi^2 n^2$",
+          "rationale": "The $\\pi$ cancels when $L = \\pi$. What remains?"
+        },
+        {
+          "text": "$\\lambda_n = 2n$",
+          "rationale": "There is no factor of $2$. What does $n^2$ give?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_14",
+      "prompt": "For Neumann conditions $y'(0) = y'(L) = 0$, the eigenfunctions of $y'' + \\lambda y = 0$ are which?",
+      "hint": "The derivative must vanish at both ends, and a constant mode is allowed.",
+      "answerOptions": [
+        {
+          "text": "$\\cos(n\\pi x/L)$, $n = 0, 1, 2, \\dots$",
+          "correct": true,
+          "rationale": "Correct. Cosines have zero slope at both ends, and $n = 0$ gives the constant mode."
+        },
+        {
+          "text": "$\\sin(n\\pi x/L)$",
+          "rationale": "Sine has nonzero slope at $x = 0$. Which function has zero derivative there?"
+        },
+        {
+          "text": "$x^n$",
+          "rationale": "Powers do not satisfy zero-slope conditions. What pure cosine works?"
+        },
+        {
+          "text": "$e^{-nx}$",
+          "rationale": "Exponentials fail the slope conditions. What oscillatory function fits?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_15",
+      "prompt": "As the mode number $n$ grows, the eigenvalues $\\lambda_n = (n\\pi/L)^2$ behave how?",
+      "hint": "Track the growth of $n^2$.",
+      "answerOptions": [
+        {
+          "text": "They increase without bound",
+          "correct": true,
+          "rationale": "Yes. Growing like $n^2$, the eigenvalues tend to infinity."
+        },
+        {
+          "text": "They approach a finite limit",
+          "rationale": "There is no ceiling on $n^2$. Which direction do they go?"
+        },
+        {
+          "text": "They decrease to zero",
+          "rationale": "Larger $n$ makes them larger. Which way do they move?"
+        },
+        {
+          "text": "They alternate in sign",
+          "rationale": "They are all positive here. What single trend do they follow?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_16",
+      "prompt": "The shooting method converts a boundary value problem into what?",
+      "hint": "It guesses the missing starting datum.",
+      "answerOptions": [
+        {
+          "text": "An initial value problem with a guessed initial slope",
+          "correct": true,
+          "rationale": "Yes. It guesses the missing initial slope and integrates as an IVP."
+        },
+        {
+          "text": "A partial differential equation",
+          "rationale": "No new variable is introduced. What single-point problem replaces the BVP?"
+        },
+        {
+          "text": "A purely algebraic system",
+          "rationale": "Integration is still required. What initial-value problem does it solve?"
+        },
+        {
+          "text": "A Fourier series",
+          "rationale": "Shooting uses IVP integration, not Fourier expansion. What problem form does it create?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_17",
+      "prompt": "In the shooting method, the guessed initial slope is adjusted until what holds?",
+      "hint": "You want the far-end condition met.",
+      "answerOptions": [
+        {
+          "text": "The solution matches the far boundary condition",
+          "correct": true,
+          "rationale": "Yes. The slope is tuned until the integrated solution hits the target at the far end."
+        },
+        {
+          "text": "The solution becomes constant",
+          "rationale": "A constant solution is not the goal. What far-end requirement is enforced?"
+        },
+        {
+          "text": "The differential equation changes",
+          "rationale": "The equation is fixed. What endpoint condition must be satisfied?"
+        },
+        {
+          "text": "The interval length changes",
+          "rationale": "The interval is given. What boundary value is matched?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_18",
+      "prompt": "For a linear boundary value problem, how many shots determine the exact initial slope?",
+      "hint": "Linear dependence on the guess means a straight-line fit.",
+      "answerOptions": [
+        {
+          "text": "Two, followed by linear interpolation",
+          "correct": true,
+          "rationale": "Yes. The endpoint depends linearly on the guess, so two shots fix it exactly."
+        },
+        {
+          "text": "One",
+          "rationale": "One point is not enough to interpolate a line. How many points are needed?"
+        },
+        {
+          "text": "Infinitely many",
+          "rationale": "Linearity makes it finite. How many define the line?"
+        },
+        {
+          "text": "It cannot be found by shooting",
+          "rationale": "Linear problems are the easiest case for shooting. How many shots suffice?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_19",
+      "prompt": "With $F(s) = y(b; s) - \\beta$ the boundary mismatch, the shooting method seeks what?",
+      "hint": "You want the mismatch to vanish.",
+      "answerOptions": [
+        {
+          "text": "A root $F(s) = 0$",
+          "correct": true,
+          "rationale": "Yes. The guess that makes the endpoint error zero solves the problem."
+        },
+        {
+          "text": "A maximum of $F(s)$",
+          "rationale": "You want zero error, not a maximum. What value of $F$ is sought?"
+        },
+        {
+          "text": "The derivative $F'(s) = 0$",
+          "rationale": "You drive $F$ itself to zero, not its derivative. What condition is the goal?"
+        },
+        {
+          "text": "A constant value of $F$",
+          "rationale": "The mismatch should vanish, not merely stay constant. What root is sought?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_20",
+      "prompt": "A key practical benefit of the shooting method is that it lets you reuse what?",
+      "hint": "It builds on well-tested one-point machinery.",
+      "answerOptions": [
+        {
+          "text": "Robust initial value problem integrators such as Runge-Kutta",
+          "correct": true,
+          "rationale": "Yes. Each shot is an IVP integration, reusing mature solvers."
+        },
+        {
+          "text": "Closed-form solution formulas",
+          "rationale": "Closed forms are usually unavailable. What numerical machinery is reused?"
+        },
+        {
+          "text": "Tables of Fourier coefficients",
+          "rationale": "No Fourier table is needed. What solvers does shooting rely on?"
+        },
+        {
+          "text": "Matrix eigenvalue routines",
+          "rationale": "Eigenvalue routines are a different approach. What IVP tools does shooting reuse?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_21",
+      "prompt": "The inner product of functions $f$ and $g$ on $[a, b]$ is which expression?",
+      "hint": "It integrates the product of the two functions.",
+      "answerOptions": [
+        {
+          "text": "$\\int_a^b f(x) g(x)\\,dx$",
+          "correct": true,
+          "rationale": "Yes. The function inner product integrates the product over the interval."
+        },
+        {
+          "text": "$f(b) g(b) - f(a) g(a)$",
+          "rationale": "That is a boundary difference. What integral defines the inner product?"
+        },
+        {
+          "text": "$\\int_a^b (f + g)\\,dx$",
+          "rationale": "You multiply, not add. What integrand appears?"
+        },
+        {
+          "text": "$f(a)/g(a)$",
+          "rationale": "A pointwise quotient is not an inner product. What integral of a product is used?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_22",
+      "prompt": "Two functions are orthogonal on $[a, b]$ when which quantity is zero?",
+      "hint": "It is the function analog of perpendicular vectors.",
+      "answerOptions": [
+        {
+          "text": "Their inner product $\\int_a^b f g\\,dx$",
+          "correct": true,
+          "rationale": "Yes. Orthogonality means the integral of the product vanishes."
+        },
+        {
+          "text": "Their sum",
+          "rationale": "A zero sum makes them negatives, not orthogonal. What integral vanishes?"
+        },
+        {
+          "text": "Their product at every point",
+          "rationale": "The product need not vanish pointwise, only its integral. What integral is zero?"
+        },
+        {
+          "text": "Their values at the endpoints",
+          "rationale": "Endpoint values are unrelated. What integral must equal zero?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_23",
+      "prompt": "For $m \\neq n$, what is $\\int_0^L \\sin(n\\pi x/L)\\sin(m\\pi x/L)\\,dx$, and what is it for $m = n$?",
+      "hint": "Distinct modes are orthogonal; a mode against itself gives the squared norm.",
+      "answerOptions": [
+        {
+          "text": "$0$ for $m \\neq n$ and $L/2$ for $m = n$",
+          "correct": true,
+          "rationale": "Correct. The sine modes are orthogonal, with self inner product $L/2$."
+        },
+        {
+          "text": "$0$ for both cases",
+          "rationale": "The $m = n$ case is nonzero. What is the self inner product?"
+        },
+        {
+          "text": "$L$ for both cases",
+          "rationale": "Distinct modes give zero. What does orthogonality say for $m \\neq n$?"
+        },
+        {
+          "text": "$L/2$ for $m \\neq n$ and $0$ for $m = n$",
+          "rationale": "The cases are reversed. Which case gives zero?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_24",
+      "prompt": "The set $\\{1, \\cos x, \\sin x, \\cos 2x, \\sin 2x, \\dots\\}$ on $[-\\pi, \\pi]$ has which property?",
+      "hint": "Every distinct pair integrates to zero against each other.",
+      "answerOptions": [
+        {
+          "text": "It is an orthogonal set",
+          "correct": true,
+          "rationale": "Yes. Every distinct pair is orthogonal on $[-\\pi, \\pi]$, the foundation of Fourier series."
+        },
+        {
+          "text": "It is linearly dependent",
+          "rationale": "These functions are independent. What stronger relation holds?"
+        },
+        {
+          "text": "Each pair has inner product $1$",
+          "rationale": "Distinct pairs integrate to zero, not one. What is that called?"
+        },
+        {
+          "text": "It spans only constants",
+          "rationale": "The set reaches far beyond constants. What orthogonality property holds?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_25",
+      "prompt": "Why does orthogonality make computing series coefficients easy?",
+      "hint": "Integrating against one basis function isolates its coefficient.",
+      "answerOptions": [
+        {
+          "text": "Each coefficient is found independently by one inner product",
+          "correct": true,
+          "rationale": "Yes. Orthogonality decouples the coefficients, each from a single inner product."
+        },
+        {
+          "text": "It makes all the basis functions equal",
+          "rationale": "They remain distinct. What does orthogonality let you compute term by term?"
+        },
+        {
+          "text": "It eliminates all integration",
+          "rationale": "Coefficients still come from integrals. What does orthogonality decouple?"
+        },
+        {
+          "text": "It forces a finite number of terms",
+          "rationale": "Series may be infinite. What computational simplification does it give?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_26",
+      "prompt": "The standard Sturm-Liouville form of a second-order equation is which?",
+      "hint": "It collects the leading term as a single derivative of $p y'$.",
+      "answerOptions": [
+        {
+          "text": "$\\big(p(x) y'\\big)' + \\big(q(x) + \\lambda w(x)\\big)y = 0$",
+          "correct": true,
+          "rationale": "Yes. The self-adjoint form uses $(p y')'$ with a weight $w$ multiplying $\\lambda$."
+        },
+        {
+          "text": "$p(x) y'' + \\lambda y = q(x)$",
+          "rationale": "The leading term must be $(p y')'$, not $p y''$. What self-adjoint form is standard?"
+        },
+        {
+          "text": "$y' = \\lambda w(x) y$",
+          "rationale": "A first-order form misses the structure. What second-order form is used?"
+        },
+        {
+          "text": "$y'' = \\lambda^2 y$",
+          "rationale": "That is a narrow special case. What general $p$, $q$, $w$ form is standard?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_27",
+      "prompt": "For a regular Sturm-Liouville problem, the eigenvalues are guaranteed to be what?",
+      "hint": "The self-adjoint structure rules out complex values.",
+      "answerOptions": [
+        {
+          "text": "Real",
+          "correct": true,
+          "rationale": "Yes. Self-adjointness forces all eigenvalues to be real."
+        },
+        {
+          "text": "Always complex",
+          "rationale": "The structure forbids genuinely complex eigenvalues. What must they be?"
+        },
+        {
+          "text": "Always zero",
+          "rationale": "They are generally nonzero and varied. What property is guaranteed?"
+        },
+        {
+          "text": "Always negative",
+          "rationale": "They need not be negative. What is guaranteed about them?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_28",
+      "prompt": "Eigenfunctions of a Sturm-Liouville problem for distinct eigenvalues are orthogonal with respect to what?",
+      "hint": "A weight function enters the inner product.",
+      "answerOptions": [
+        {
+          "text": "The weight function $w(x)$",
+          "correct": true,
+          "rationale": "Yes. They are orthogonal under the weighted inner product with weight $w$."
+        },
+        {
+          "text": "No weight at all",
+          "rationale": "The orthogonality is weighted by $w$. Which function provides the weight?"
+        },
+        {
+          "text": "The coefficient $p(x)$ alone",
+          "rationale": "The weight in the inner product is $w$, not $p$. Which function weights the orthogonality?"
+        },
+        {
+          "text": "The eigenvalue $\\lambda$",
+          "rationale": "The eigenvalue is not the weight. What function $w$ defines the inner product?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_29",
+      "prompt": "Writing $y'' + \\lambda y = 0$ in Sturm-Liouville form uses which functions?",
+      "hint": "Match $(p y')'$ to a plain $y''$.",
+      "answerOptions": [
+        {
+          "text": "$p = 1$, $q = 0$, $w = 1$",
+          "correct": true,
+          "rationale": "Correct. With $p = 1$ the term $(p y')' = y''$, and $q = 0$, $w = 1$ recover the equation."
+        },
+        {
+          "text": "$p = 0$, $q = 1$, $w = 1$",
+          "rationale": "If $p = 0$ the second-derivative term disappears. What $p$ gives $y''$?"
+        },
+        {
+          "text": "$p = x$, $q = 0$, $w = 1$",
+          "rationale": "A nonconstant $p$ adds a $y'$ term. What constant $p$ works?"
+        },
+        {
+          "text": "$p = 1$, $q = \\lambda$, $w = 0$",
+          "rationale": "With $w = 0$ the eigenvalue term vanishes. Which function multiplies $\\lambda$?"
+        }
+      ]
+    },
+    {
+      "id": "um_17_30",
+      "prompt": "A central payoff of Sturm-Liouville theory is that its eigenfunctions form what?",
+      "hint": "They can represent broad classes of functions.",
+      "answerOptions": [
+        {
+          "text": "A complete basis for eigenfunction (generalized Fourier) expansions",
+          "correct": true,
+          "rationale": "Yes. The eigenfunctions are complete, enabling expansions of general functions."
+        },
+        {
+          "text": "A finite set spanning only polynomials",
+          "rationale": "The set is infinite and richer than polynomials. What expansion power do they have?"
+        },
+        {
+          "text": "A basis only for constants",
+          "rationale": "They represent far more than constants. What completeness do they possess?"
+        },
+        {
+          "text": "A set that represents no functions",
+          "rationale": "They represent broad function classes. What basis property do they have?"
+        }
+      ]
+    }
+  ],
+  "retiredIds": []
+}

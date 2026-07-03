@@ -1,0 +1,341 @@
+{
+  "unitNumber": 17,
+  "title": "Boundary Value Problems and Sturm--Liouville Theory",
+  "subtitle": "Eigenfunctions, Orthogonality, and the Functional Basis",
+  "description": "Replacing the single-point side data of an initial value problem with conditions at two endpoints turns an ODE into a boundary value problem (BVP), and the change is not cosmetic: a linear BVP may have no solution, exactly one, or infinitely many. The homogeneous eigenvalue BVP X''+lambda X=0 with X(0)=X(L)=0 admits the trivial solution always, and nontrivial eigenfunctions sin(n pi x / L) only at the discrete eigenvalues lambda_n=(n pi/L)^2. These eigenfunctions are mutually orthogonal on [a,b] with respect to a weight w(x), and that single fact lets any reasonable f be expanded as f(x)=sum c_n y_n(x) with each coefficient extracted by one inner product. The Sturm-Liouville operator (p y')'+(q+lambda w)y=0 is the unifying framework: for a regular S-L problem the eigenvalues are real and increase without bound, and the eigenfunctions for distinct eigenvalues are w-orthogonal and form a complete basis -- the generalization of Fourier series.",
+  "atAGlance": {
+    "title": "Unit 17 at a Glance: From Side Conditions to a Functional Basis",
+    "summary": "An \\highlight{initial} value problem pins a solution down with all its side data at one point; a \\highlight{boundary} value problem spreads that data across two endpoints, and existence and uniqueness are no longer guaranteed. The interesting case is the homogeneous eigenvalue BVP $X''+\\lambda X=0$, which is silent (only $X\\equiv 0$) except at a discrete ladder of \\highlight{eigenvalues} $\\lambda_n$, where it rings with \\highlight{eigenfunctions} $X_n$. Those eigenfunctions are mutually \\emph{orthogonal}, and orthogonality is the master key: it turns the infinite expansion $f=\\sum c_n y_n$ into a list of one-line coefficient integrals. The \\highlight{Sturm--Liouville} form $(p\\,y')'+(q+\\lambda w)y=0$ packages every such problem and guarantees the eigenfunctions form a complete, weighted-orthogonal basis.",
+    "bullets": [
+      {
+        "lead": "IVP vs.\\ BVP",
+        "body": "moving the side conditions to two endpoints can make a linear problem have \\emph{no} solution, \\emph{one}, or \\emph{infinitely many}."
+      },
+      {
+        "lead": "Eigenvalues / eigenfunctions",
+        "body": "$X''+\\lambda X=0$, $X(0)=X(L)=0$ is nontrivial only at $\\lambda_n=(n\\pi/L)^2$ with $X_n=\\sin\\frac{n\\pi x}{L}$."
+      },
+      {
+        "lead": "The shooting method",
+        "body": "recast a BVP as an IVP with a \\emph{guessed} initial slope, then adjust the slope until the far boundary condition is met."
+      },
+      {
+        "lead": "Orthogonality",
+        "body": "$\\int_a^b y_n y_m\\,w\\,dx=0$ for $n\\neq m$ makes each coefficient $c_n=\\langle f,y_n\\rangle/\\langle y_n,y_n\\rangle$ an independent integral."
+      },
+      {
+        "lead": "Sturm--Liouville",
+        "body": "$(p\\,y')'+(q+\\lambda w)y=0$ has real eigenvalues $\\lambda_n\\to\\infty$ and $w$-orthogonal eigenfunctions that form a complete basis $f=\\sum c_n y_n$."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "17.1",
+      "title": "Initial versus Boundary Value Problems",
+      "topics": "Side conditions at one point (IVP) versus two endpoints (BVP); Dirichlet ($y$), Neumann ($y'$), and Robin conditions; the loss of the existence--uniqueness guarantee; steady-state heat conduction as the model BVP.",
+      "formulas": [
+        {
+          "title": "IVP versus BVP --- Where the Data Lives",
+          "body": "\\strong{IVP:}\\ \\ y''=F(x,y,y'),\\ \\ y(x_0)=y_0,\\ y'(x_0)=y_0' \\quad\\text{(all data at one point } x_0); \\qquad \\strong{BVP:}\\ \\ y(a)=\\alpha,\\ y(b)=\\beta \\quad\\text{(data split across } a,b)."
+        },
+        {
+          "title": "The Three Standard Boundary Conditions",
+          "body": "\\text{Dirichlet: } y(a)=\\alpha \\ \\text{(fixes the value)}; \\quad \\text{Neumann: } y'(a)=\\alpha \\ \\text{(fixes the slope/flux)}; \\quad \\text{Robin: } c_1 y(a)+c_2 y'(a)=\\alpha."
+        },
+        {
+          "title": "Existence and Uniqueness --- The Contrast",
+          "body": "\\text{A linear IVP (continuous coefficients)} \\Rightarrow \\strong{exactly one} \\text{ solution}; \\qquad \\text{a linear BVP} \\Rightarrow \\strong{none, one, or infinitely many}."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Solve a Linear Two-Point BVP",
+        "steps": [
+          "Find the general solution of the ODE, carrying both arbitrary constants $c_1,c_2$.",
+          "Impose the condition at the left endpoint $x=a$ to get one equation in $c_1,c_2$.",
+          "Impose the condition at the right endpoint $x=b$ to get a second equation.",
+          "Solve the $2\\times 2$ system: a unique $(c_1,c_2)$ gives one solution; an inconsistent system gives none; a dependent system gives infinitely many."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- A Simple Dirichlet BVP",
+          "setup": "Solve $y''=0$ on $[0,2]$ with $y(0)=1$ and $y(2)=5$.",
+          "steps": [
+            "\\strong{General solution: } y''=0 \\Rightarrow y(x)=c_1+c_2 x.",
+            "\\strong{Left BC: } y(0)=c_1=1 \\Rightarrow c_1=1.",
+            "\\strong{Right BC: } y(2)=c_1+2c_2=5 \\Rightarrow 1+2c_2=5 \\Rightarrow c_2=2.",
+            "\\strong{Unique solution: } y(x)=1+2x \\ \\text{(a single straight line meeting both endpoints).}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "An initial value problem stacks all its side data at \\highlight{one} point and is rewarded with a unique solution; a boundary value problem spreads the data across \\highlight{two} endpoints and forfeits that guarantee. The same ODE can then have no solution, one, or infinitely many --- which is exactly what makes BVPs the natural home for eigenvalues."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Do not carry the IVP intuition --- ``a second-order equation always has a unique solution given two conditions'' --- into BVPs. \\warn{Two boundary conditions need not pin down a unique solution.} Whether you get none, one, or infinitely many depends on how the conditions interact with the general solution, not merely on counting constants."
+      }
+    },
+    {
+      "id": "17.2",
+      "title": "Two-Point Boundary Value Problems",
+      "topics": "The standard solve-then-impose method for linear two-point BVPs; the three possible outcomes; homogeneous BVPs and the omnipresent trivial solution; nonhomogeneous BVPs with forcing.",
+      "formulas": [
+        {
+          "title": "The Linear Two-Point BVP",
+          "body": "y'' + P(x)y' + Q(x)y = R(x), \\qquad y(a)=\\alpha,\\quad y(b)=\\beta; \\qquad y=c_1 y_1+c_2 y_2+y_p \\ \\text{before imposing the BCs.}"
+        },
+        {
+          "title": "Three Possible Outcomes",
+          "body": "\\det\\begin{pmatrix} y_1(a) & y_2(a) \\\\ y_1(b) & y_2(b) \\end{pmatrix} \\neq 0 \\ \\Rightarrow\\ \\strong{unique}; \\qquad =0 \\ \\Rightarrow\\ \\strong{none or } \\infty\\text{-many (depending on } \\alpha,\\beta)."
+        },
+        {
+          "title": "Homogeneous BVP --- The Trivial Solution",
+          "body": "y''+\\lambda y=0,\\ \\ y(0)=y(L)=0 \\ \\Rightarrow\\ y\\equiv 0 \\ \\text{ always solves it; nontrivial } y \\text{ exist only at special } \\lambda."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Resolve a Two-Point BVP",
+        "steps": [
+          "Solve the ODE completely, including a particular solution $y_p$ if the equation is nonhomogeneous.",
+          "Substitute the two boundary conditions to obtain a linear system in $c_1,c_2$.",
+          "Compute the boundary determinant: nonzero means a unique solution exists --- solve for $c_1,c_2$.",
+          "If the determinant is zero, test consistency: an impossible equation gives no solution, a redundant one gives a one-parameter family of solutions."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- A Nonhomogeneous BVP",
+          "setup": "Solve $y''=2$ on $[0,1]$ with $y(0)=0$ and $y(1)=0$.",
+          "steps": [
+            "\\strong{General solution: } y''=2 \\Rightarrow y'=2x+c_2 \\Rightarrow y(x)=x^2+c_2 x+c_1.",
+            "\\strong{Left BC: } y(0)=c_1=0 \\Rightarrow c_1=0.",
+            "\\strong{Right BC: } y(1)=1+c_2+0=0 \\Rightarrow c_2=-1.",
+            "\\strong{Unique solution: } y(x)=x^2-x \\ \\text{(a downward parabola pinned to } 0 \\text{ at both ends).}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Every linear two-point BVP is solved the same way: find the \\highlight{general solution first}, then let the two boundary conditions decide the constants. The boundary determinant is the referee --- nonzero awards a unique solution, while zero throws the problem into the no-solution or infinitely-many camp, the very fork that produces eigenvalues."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Never impose a boundary condition before you have the \\emph{full} general solution (including $y_p$). \\warn{Dropping a homogeneous piece or the particular solution} silently discards the freedom the BCs need, and you will report a unique answer where the true problem has none or infinitely many."
+      }
+    },
+    {
+      "id": "17.3",
+      "title": "Eigenvalues and Eigenfunctions of Boundary Value Problems",
+      "topics": "The eigenvalue BVP $X''+\\lambda X=0$ with homogeneous BCs; the three-case analysis $\\lambda<0,\\ \\lambda=0,\\ \\lambda>0$; Dirichlet eigenvalues $\\lambda_n=(n\\pi/L)^2$ with eigenfunctions $\\sin(n\\pi x/L)$; the Neumann variant with cosines.",
+      "formulas": [
+        {
+          "title": "The Eigenvalue Boundary Value Problem",
+          "body": "X'' + \\lambda X = 0, \\qquad X(0)=0,\\ X(L)=0; \\qquad \\lambda \\text{ is an \\emph{eigenvalue} if a nontrivial } X \\text{ (the \\emph{eigenfunction}) exists.}"
+        },
+        {
+          "title": "Dirichlet Spectrum",
+          "body": "\\lambda_n = \\left(\\frac{n\\pi}{L}\\right)^2, \\qquad X_n(x)=\\sin\\frac{n\\pi x}{L}, \\qquad n=1,2,3,\\dots \\quad (\\lambda_n\\to\\infty)."
+        },
+        {
+          "title": "Neumann Spectrum",
+          "body": "X'(0)=X'(L)=0:\\quad \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\quad X_n(x)=\\cos\\frac{n\\pi x}{L},\\quad n=0,1,2,\\dots \\ (\\lambda_0=0 \\text{ allowed}, X_0=1)."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Find the Eigenvalues and Eigenfunctions",
+        "steps": [
+          "Split into three cases by the sign of $\\lambda$, since the form of the general solution differs for $\\lambda<0$, $\\lambda=0$, and $\\lambda>0$.",
+          "For $\\lambda<0$ (write $\\lambda=-\\mu^2$) and $\\lambda=0$, impose the BCs and show only the trivial solution survives --- no negative or zero eigenvalues here.",
+          "For $\\lambda>0$ (write $\\lambda=\\mu^2$) use $X=A\\cos\\mu x+B\\sin\\mu x$; the left BC kills $A$, and the right BC forces $\\sin\\mu L=0$.",
+          "Solve the quantization condition $\\mu L=n\\pi$ to read off $\\lambda_n=(n\\pi/L)^2$ and the eigenfunctions $X_n=\\sin(n\\pi x/L)$."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Full Three-Case Analysis on $0\\le x\\le \\pi$",
+          "setup": "Find all eigenvalues and eigenfunctions of $X''+\\lambda X=0$ with $X(0)=0$, $X(\\pi)=0$.",
+          "steps": [
+            "\\strong{Case } \\lambda<0\\ (\\lambda=-\\mu^2):\\ X=A\\cosh\\mu x+B\\sinh\\mu x;\\ X(0)=A=0,\\ X(\\pi)=B\\sinh\\mu\\pi=0\\Rightarrow B=0.\\ \\text{Only } X\\equiv 0.",
+            "\\strong{Case } \\lambda=0:\\ X=A+Bx;\\ X(0)=A=0,\\ X(\\pi)=B\\pi=0\\Rightarrow B=0.\\ \\text{Only } X\\equiv 0.",
+            "\\strong{Case } \\lambda>0\\ (\\lambda=\\mu^2):\\ X=A\\cos\\mu x+B\\sin\\mu x;\\ X(0)=A=0 \\Rightarrow X=B\\sin\\mu x.",
+            "\\strong{Quantization: } X(\\pi)=B\\sin\\mu\\pi=0,\\ B\\neq 0 \\Rightarrow \\sin\\mu\\pi=0 \\Rightarrow \\mu\\pi=n\\pi \\Rightarrow \\mu=n.",
+            "\\strong{Spectrum: } \\lambda_n=n^2,\\quad X_n(x)=\\sin(nx),\\quad n=1,2,3,\\dots"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A homogeneous BVP is a \\highlight{filter}: it passes only the trivial solution except at a discrete ladder of eigenvalues $\\lambda_n=(n\\pi/L)^2$, where it resonates with the eigenfunctions $\\sin(n\\pi x/L)$. The negative and zero cases always collapse to $X\\equiv 0$; the entire spectrum lives in $\\lambda>0$ and marches off to infinity."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "You \\warn{must check all three sign cases} of $\\lambda$ --- skipping the $\\lambda\\le 0$ analysis is only safe once you have \\emph{shown} it yields nothing. Also, $n=0$ gives $X\\equiv 0$ for Dirichlet (so start at $n=1$), but $n=0$ \\warn{is} a genuine eigenvalue $\\lambda_0=0$ with $X_0=1$ in the Neumann case."
+      }
+    },
+    {
+      "id": "17.4",
+      "title": "The Shooting Method",
+      "topics": "Recasting a BVP as an IVP with a guessed initial slope $s$; the boundary-mismatch function $F(s)=y(b;s)-\\beta$; root-finding on $F$; for linear BVPs, exactly two shots plus linear interpolation; reuse of Runge--Kutta integrators.",
+      "formulas": [
+        {
+          "title": "BVP Recast as a Parameterized IVP",
+          "body": "y''=f(x,y,y'),\\ y(a)=\\alpha,\\ y(b)=\\beta \\ \\longrightarrow\\ y''=f,\\ y(a)=\\alpha,\\ y'(a)=s \\ (\\text{guess the slope } s)."
+        },
+        {
+          "title": "The Boundary-Mismatch Function",
+          "body": "F(s) = y(b;\\,s) - \\beta, \\qquad \\text{the shooting method seeks a root } F(s)=0 \\ \\text{so the far BC is met.}"
+        },
+        {
+          "title": "Linear BVP --- Two Shots and Interpolate",
+          "body": "F \\text{ affine in } s \\Rightarrow s^\\star = s_0 + (s_1-s_0)\\,\\frac{\\beta - y(b;s_0)}{y(b;s_1)-y(b;s_0)} \\ \\text{(exact after two shots).}"
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Shoot a Boundary Value Problem",
+        "steps": [
+          "Convert the BVP to an IVP by replacing the far condition $y(b)=\\beta$ with a guessed slope $y'(a)=s$.",
+          "Integrate the IVP numerically (e.g.\\ Runge--Kutta) from $a$ to $b$ and read off the overshoot/undershoot $F(s)=y(b;s)-\\beta$.",
+          "Adjust $s$ to drive $F(s)\\to 0$: bisection or Newton in general; for a \\emph{linear} BVP, two shots fix the affine $F$ exactly.",
+          "Interpolate to the exact slope $s^\\star$ and integrate once more to produce the solution that meets both boundary conditions."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Two Shots on a Linear BVP",
+          "setup": "Solve $y''=y$ on $[0,1]$ with $y(0)=0$, $y(1)=1$ by shooting (the problem is linear, so two shots suffice).",
+          "steps": [
+            "\\strong{Recast: } y''=y,\\ y(0)=0,\\ y'(0)=s;\\ \\text{the exact IVP solution is } y(x;s)=s\\sinh x.",
+            "\\strong{Shot } s_0=0:\\ y(1;0)=0 \\Rightarrow F(0)=0-1=-1.",
+            "\\strong{Shot } s_1=1:\\ y(1;1)=\\sinh 1\\approx 1.1752 \\Rightarrow F(1)=1.1752-1=0.1752.",
+            "\\strong{Interpolate: } s^\\star=0+(1-0)\\,\\dfrac{1-0}{\\,1.1752-0\\,}=\\dfrac{1}{\\sinh 1}\\approx 0.8509.",
+            "\\strong{Final shot: } y(x)=\\dfrac{\\sinh x}{\\sinh 1},\\ \\text{which satisfies } y(0)=0,\\ y(1)=1 \\text{ exactly.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The shooting method trades a hard BVP for a familiar IVP by \\highlight{guessing the missing initial slope} and then correcting it until the far boundary condition is hit. Root-finding on the mismatch $F(s)=y(b;s)-\\beta$ does the correcting --- and because $F$ is affine for a linear BVP, \\highlight{two shots and a straight-line interpolation} land it exactly, all while reusing standard Runge--Kutta machinery."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "The clean two-shot interpolation is a \\warn{linear-problem privilege}. For a nonlinear BVP $F(s)$ is curved, so two shots do not suffice --- you must iterate (Newton/bisection), and the IVP can be \\warn{unstable}, amplifying small slope errors over $[a,b]$ and ruining the far value."
+      }
+    },
+    {
+      "id": "17.5",
+      "title": "Orthogonal Functions",
+      "topics": "The inner product $\\langle f,g\\rangle=\\int_a^b fg\\,dx$; orthogonality as a vanishing inner product; the sine orthogonality integral ($0$ for $m\\neq n$, $L/2$ for $m=n$); the functional basis and the generalized Fourier coefficient $c_n=\\langle f,y_n\\rangle/\\langle y_n,y_n\\rangle$.",
+      "formulas": [
+        {
+          "title": "Inner Product and Orthogonality",
+          "body": "\\langle f,g\\rangle = \\int_a^b f(x)\\,g(x)\\,dx; \\qquad f\\perp g \\iff \\langle f,g\\rangle = 0 \\ \\text{(weighted: } \\langle f,g\\rangle_w=\\int_a^b fg\\,w\\,dx)."
+        },
+        {
+          "title": "The Sine Orthogonality Integral",
+          "body": "\\int_0^L \\sin\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,dx = \\begin{cases} 0, & m\\neq n, \\\\[2pt] \\dfrac{L}{2}, & m=n. \\end{cases}"
+        },
+        {
+          "title": "Functional Basis --- Generalized Fourier Expansion",
+          "body": "f(x) = \\sum_{n=1}^{\\infty} c_n\\, y_n(x), \\qquad c_n = \\frac{\\langle f,\\,y_n\\rangle_w}{\\langle y_n,\\,y_n\\rangle_w} = \\frac{\\displaystyle\\int_a^b f\\,y_n\\,w\\,dx}{\\displaystyle\\int_a^b y_n^2\\,w\\,dx}."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Expand a Function in an Eigenfunction Series",
+        "steps": [
+          "Identify the orthogonal eigenfunctions $\\{y_n\\}$ and the weight $w$ for the underlying BVP (for a string, $y_n=\\sin(n\\pi x/L)$, $w=1$).",
+          "Write the target expansion $f(x)=\\sum_n c_n y_n(x)$ and isolate a single coefficient by taking the inner product of both sides with $y_m$.",
+          "Apply orthogonality: every term with $n\\neq m$ vanishes, collapsing the infinite sum to one surviving term $c_m\\langle y_m,y_m\\rangle$.",
+          "Solve $c_m=\\langle f,y_m\\rangle/\\langle y_m,y_m\\rangle$ by evaluating the numerator and the (known) normalization integral in full."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- Vibrating String: Eigenfunction Expansion of $f(x)=x$",
+          "setup": "A string of length $L$ is fixed at both ends, so its spatial modes solve the eigenvalue BVP $X''+\\lambda X=0$, $X(0)=X(L)=0$. (1)~Set up the operator and BVP, (2)~find the eigenvalues and eigenfunctions, (3)~build the coefficient formula from orthogonality, and (4)~expand the initial profile $f(x)=x$ on $[0,L]$ as $f(x)=\\sum_{n=1}^{\\infty}c_n\\sin\\frac{n\\pi x}{L}$, computing every integral in full.",
+          "steps": [
+            "\\strong{Step 1 --- Operator and BVP.}\\quad \\mathcal{L}[X]=-X''=\\lambda X,\\quad X(0)=X(L)=0:\\ \\text{a regular Sturm--Liouville problem with } p=1,\\ q=0,\\ w=1.",
+            "\\strong{Step 2 --- Eigenvalues.}\\quad \\text{Only } \\lambda=\\mu^2>0 \\text{ is nontrivial: } X=A\\cos\\mu x+B\\sin\\mu x,\\ X(0)=A=0,\\ X(L)=B\\sin\\mu L=0\\Rightarrow \\mu L=n\\pi.",
+            "\\strong{Eigenpairs: } \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\qquad X_n(x)=\\sin\\frac{n\\pi x}{L},\\qquad n=1,2,3,\\dots",
+            "\\strong{Step 3 --- Coefficient formula.}\\quad \\text{Take } \\langle\\,\\cdot\\,,\\sin\\frac{n\\pi x}{L}\\rangle \\text{ of } f=\\sum_m c_m\\sin\\frac{m\\pi x}{L};\\ \\text{orthogonality kills } m\\neq n:\\quad c_n=\\frac{\\displaystyle\\int_0^L f(x)\\sin\\frac{n\\pi x}{L}\\,dx}{\\displaystyle\\int_0^L \\sin^2\\frac{n\\pi x}{L}\\,dx}.",
+            "\\strong{Denominator (normalization).}\\quad \\int_0^L \\sin^2\\frac{n\\pi x}{L}\\,dx=\\int_0^L \\frac{1-\\cos\\frac{2n\\pi x}{L}}{2}\\,dx=\\frac12\\left[x-\\frac{L}{2n\\pi}\\sin\\frac{2n\\pi x}{L}\\right]_0^L=\\frac12\\big(L-0\\big)=\\frac{L}{2}.",
+            "\\strong{Numerator --- set up by parts.}\\quad I_n=\\int_0^L x\\sin\\frac{n\\pi x}{L}\\,dx;\\quad u=x,\\ dv=\\sin\\frac{n\\pi x}{L}\\,dx \\ \\Rightarrow\\ du=dx,\\ v=-\\frac{L}{n\\pi}\\cos\\frac{n\\pi x}{L}.",
+            "I_n=\\Big[-\\frac{Lx}{n\\pi}\\cos\\frac{n\\pi x}{L}\\Big]_0^L+\\frac{L}{n\\pi}\\int_0^L \\cos\\frac{n\\pi x}{L}\\,dx \\quad(\\text{integration by parts}).",
+            "\\strong{Boundary term: } \\Big[-\\frac{Lx}{n\\pi}\\cos\\frac{n\\pi x}{L}\\Big]_0^L=-\\frac{L^2}{n\\pi}\\cos n\\pi-0=-\\frac{L^2}{n\\pi}(-1)^n=(-1)^{n+1}\\frac{L^2}{n\\pi}.",
+            "\\strong{Remaining integral: } \\frac{L}{n\\pi}\\int_0^L\\cos\\frac{n\\pi x}{L}\\,dx=\\frac{L}{n\\pi}\\Big[\\frac{L}{n\\pi}\\sin\\frac{n\\pi x}{L}\\Big]_0^L=\\frac{L^2}{n^2\\pi^2}\\big(\\sin n\\pi-0\\big)=0.",
+            "\\strong{Combine: } I_n=(-1)^{n+1}\\frac{L^2}{n\\pi}+0=(-1)^{n+1}\\frac{L^2}{n\\pi}.",
+            "\\strong{Coefficient: } c_n=\\frac{I_n}{L/2}=(-1)^{n+1}\\frac{L^2}{n\\pi}\\cdot\\frac{2}{L}=(-1)^{n+1}\\frac{2L}{n\\pi}.",
+            "\\strong{Step 4 --- Expansion.}\\quad x=\\sum_{n=1}^{\\infty}(-1)^{n+1}\\frac{2L}{n\\pi}\\sin\\frac{n\\pi x}{L}=\\frac{2L}{\\pi}\\left(\\sin\\frac{\\pi x}{L}-\\tfrac12\\sin\\frac{2\\pi x}{L}+\\tfrac13\\sin\\frac{3\\pi x}{L}-\\cdots\\right)."
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Orthogonality is the engine of every eigenfunction expansion. Because $\\langle y_n,y_m\\rangle=0$ for $n\\neq m$, taking the inner product of $f=\\sum c_m y_m$ with a single $y_n$ \\highlight{annihilates the entire sum but one term}, so each coefficient $c_n=\\langle f,y_n\\rangle/\\langle y_n,y_n\\rangle$ is computed \\emph{independently} by one integral --- never by solving an infinite coupled system."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Do not forget to \\warn{divide by the normalization} $\\langle y_n,y_n\\rangle$ --- here the $L/2$, not $1$. Writing $c_n=\\int_0^L f\\sin(n\\pi x/L)\\,dx$ alone is off by the factor $2/L$. And when a \\warn{weight $w(x)\\neq 1$} is present, both integrals must carry it: $c_n=\\int f y_n w\\,dx \\big/ \\int y_n^2 w\\,dx$."
+      }
+    },
+    {
+      "id": "17.6",
+      "title": "Sturm--Liouville Theory",
+      "topics": "The Sturm--Liouville form $(p\\,y')'+(q+\\lambda w)y=0$; regular S--L problems and their guarantees (real eigenvalues, $\\lambda_n\\to\\infty$, $w$-orthogonal eigenfunctions, completeness); the Lagrange-identity proof of orthogonality; converting an equation to S--L form.",
+      "formulas": [
+        {
+          "title": "The Sturm--Liouville Form",
+          "body": "\\big(p(x)\\,y'\\big)' + \\big(q(x) + \\lambda\\,w(x)\\big)y = 0, \\qquad p,w>0 \\ \\text{on } [a,b], \\quad \\text{with homogeneous (separated) BCs.}"
+        },
+        {
+          "title": "Guarantees of a Regular S--L Problem",
+          "body": "\\text{(i) eigenvalues } \\lambda_n \\text{ real},\\ \\lambda_1<\\lambda_2<\\cdots\\to\\infty; \\quad \\text{(ii) } \\langle y_n,y_m\\rangle_w=0\\ (n\\neq m); \\quad \\text{(iii) } \\{y_n\\}\\ \\text{complete.}"
+        },
+        {
+          "title": "Putting an Equation in S--L Form",
+          "body": "a_2 y''+a_1 y'+a_0 y+\\lambda y=0 \\ \\xrightarrow{\\ \\mu=\\frac1{a_2}e^{\\int a_1/a_2\\,dx}\\ } \\ (p y')'+(q+\\lambda w)y=0,\\ \\ p=\\mu a_2,\\ w=\\mu."
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Prove Eigenfunction Orthogonality",
+        "steps": [
+          "Take two eigenpairs $(\\lambda_n,y_n)$ and $(\\lambda_m,y_m)$, $\\lambda_n\\neq\\lambda_m$: $(p y_n')'+(q+\\lambda_n w)y_n=0$ and $(p y_m')'+(q+\\lambda_m w)y_m=0$.",
+          "Multiply the first by $y_m$ and the second by $y_n$, then subtract; the $q$-terms cancel, leaving $(\\lambda_n-\\lambda_m)w\\,y_n y_m = y_n(p y_m')'-y_m(p y_n')'$.",
+          "Recognize the right side as an exact derivative (Lagrange's identity): $y_n(p y_m')'-y_m(p y_n')' = \\dfrac{d}{dx}\\!\\big[p\\,(y_n y_m'-y_m y_n')\\big]$.",
+          "Integrate over $[a,b]$: $(\\lambda_n-\\lambda_m)\\displaystyle\\int_a^b w\\,y_n y_m\\,dx = \\big[p(y_n y_m'-y_m y_n')\\big]_a^b$.",
+          "The separated homogeneous BCs make the bracket vanish at both ends; since $\\lambda_n\\neq\\lambda_m$, conclude $\\displaystyle\\int_a^b y_n(x)y_m(x)\\,w(x)\\,dx=0$."
+        ]
+      },
+      "examples": [
+        {
+          "title": "Worked Example --- The String Problem as a Sturm--Liouville Problem",
+          "setup": "Cast $X''+\\lambda X=0$, $X(0)=X(L)=0$ in Sturm--Liouville form, name $p,q,w$, and confirm the eigenfunctions $\\sin(n\\pi x/L)$ are $w$-orthogonal.",
+          "steps": [
+            "\\strong{Match the form: } (p X')'+(q+\\lambda w)X=0 \\ \\text{with } X''+\\lambda X=0 \\Rightarrow p(x)=1,\\ q(x)=0,\\ w(x)=1.",
+            "\\strong{Regularity: } p=1>0,\\ w=1>0 \\text{ on } [0,L] \\text{ with separated BCs } X(0)=X(L)=0 \\Rightarrow \\text{a regular S--L problem.}",
+            "\\strong{Boundary term vanishes: } \\big[p(y_n y_m'-y_m y_n')\\big]_0^L=0 \\ \\text{since } \\sin\\frac{n\\pi x}{L}=0 \\text{ at } x=0,L.",
+            "\\strong{Orthogonality confirmed: } \\int_0^L \\sin\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,(1)\\,dx=0 \\ (n\\neq m),\\ =\\frac{L}{2}\\ (n=m).",
+            "\\strong{Conclusion: } \\{\\sin(n\\pi x/L)\\} \\text{ is the complete, } w\\text{-orthogonal eigenbasis predicted by S--L theory.}"
+          ]
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Sturm--Liouville theory is the structural payoff of the unit: \\emph{any} second-order linear eigenvalue problem can be written as $(p\\,y')'+(q+\\lambda w)y=0$, and once it is \\highlight{regular}, three gifts follow automatically --- the eigenvalues are \\highlight{real and unbounded}, the eigenfunctions are \\highlight{orthogonal with respect to the weight $w$}, and they form a \\highlight{complete basis}. That completeness is exactly what licenses the generalized Fourier expansion $f=\\sum c_n y_n$."
+      },
+      "warning": {
+        "title": "Common Pitfall",
+        "body": "Eigenfunctions are orthogonal with respect to the \\warn{weight $w(x)$, not plain $dx$} --- whenever $w\\neq 1$, the inner product and every coefficient integral must carry it. Also, the orthogonality proof leans on the boundary bracket $[p(y_n y_m'-y_m y_n')]_a^b$ vanishing; this requires \\warn{genuinely separated homogeneous BCs}, so the guarantees can fail for a problem that is not a regular S--L problem."
+      }
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Two-Point BVPs, Eigenvalues $\\lambda_n=(n\\pi/L)^2$, and the Sturm--Liouville Operator $(p\\,y')'+(q+\\lambda w)y=0$",
+    "takeaway": {
+      "title": "Unit 17 Cheat-Sheet Takeaway",
+      "body": "Move the side conditions to two endpoints and a unique solution is no longer promised; the homogeneous BVP $X''+\\lambda X=0$ answers only at the \\highlight{eigenvalues} $\\lambda_n=(n\\pi/L)^2$ with \\highlight{eigenfunctions} $\\sin(n\\pi x/L)$. Those eigenfunctions are \\highlight{$w$-orthogonal}, so $f=\\sum c_n y_n$ with $c_n=\\langle f,y_n\\rangle/\\langle y_n,y_n\\rangle$ --- and the \\highlight{Sturm--Liouville} form $(p\\,y')'+(q+\\lambda w)y=0$ guarantees all of it."
+    }
+  }
+}

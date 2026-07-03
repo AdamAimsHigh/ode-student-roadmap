@@ -1,0 +1,162 @@
+{
+  "unitNumber": 3,
+  "richBodies": true,
+  "title": "Existence, Uniqueness, and Geometry",
+  "subtitle": "The geometric and theoretical heart of first-order theory: visual fields, the phase plane, and why solutions exist and are unique.",
+  "description": "The geometric and theoretical heart of first-order theory: visual fields, the phase plane, and why solutions exist and are unique.",
+  "atAGlance": {
+    "title": "Unit 3 at a Glance: Core Sub-Topics",
+    "summary": "This unit is the geometric and theoretical heart of first-order theory. It trades formula-hunting for understanding: how to read an equation as a picture, and why a solution should exist and be the only one.",
+    "bullets": [
+      {
+        "lead": "Slope Fields and Vector Fields",
+        "body": "the equation $y' = f(x,y)$ as a field of tiny tangent segments, traced by integral curves."
+      },
+      {
+        "lead": "The Phase Plane and Phase Portraits",
+        "body": "states, trajectories, equilibria, and nullclines for a system of equations."
+      },
+      {
+        "lead": "Existence and Uniqueness",
+        "body": "the two continuity hypotheses that guarantee exactly one solution through a point."
+      },
+      {
+        "lead": "Fixed Points and Iteration",
+        "body": "solving $g(x)=x$ by repeated application, and when the iteration is attracting."
+      },
+      {
+        "lead": "The Banach Fixed Point Theorem",
+        "body": "a contraction on a complete space has one fixed point, reached from any start."
+      },
+      {
+        "lead": "Picard Iteration",
+        "body": "recasting an IVP as an integral equation and converging to its solution."
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "3.1",
+      "title": "Slope Fields and Vector Fields",
+      "topics": "A first order equation $\\frac{dy}{dx} = f(x,y)$ hands you a \\emph{number} at every point of the plane, and a derivative is a slope. So the equation is secretly a picture: at each point plant a short segment whose slope is $f(x,y)$. A \\emph{solution} is any curve that stays tangent to those segments everywhere it goes.",
+      "formulas": [
+        {
+          "title": "Slope Field, Integral Curves, and Isoclines",
+          "body": "At each point $(x,y)$ the field draws a segment of slope $f(x,y)$.\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item An \\strong{integral curve} is a solution that is tangent to the field\n          at every point it crosses.\n    \\item An \\strong{isocline} is the curve $f(x,y) = c$ of all points sharing\n          one slope $c$; the isocline $f(x,y)=0$ marks the flat segments.\n\\end{itemize}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 3.1: The field of $\\frac{dy}{dx}=x+y$",
+          "setup": "\\strong{Step 1.} Read off a slope by substituting coordinates. At $(1,2)$:\n\\[ f(1,2) = 1 + 2 = 3. \\]\n\\strong{Step 2.} Find the flat isocline by setting $f=0$:\n\\[ x + y = 0 \\;\\Longrightarrow\\; y = -x. \\]\nAlong $y=-x$ every segment is horizontal; integral curves cross it with zero\nslope.",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "3.2",
+      "title": "The Phase Plane and Phase Portraits",
+      "topics": "For a \\emph{system} $x' = f(x,y)$, $y' = g(x,y)$, the plane no longer carries time on an axis --- each point is a complete \\emph{state}, and as $t$ runs the state point sweeps out a \\emph{trajectory}. A \\emph{phase portrait} is a representative bundle of trajectories that reveals the global flow.",
+      "formulas": [
+        {
+          "title": "Equilibria, Nullclines, and Linear Classification",
+          "body": "An \\strong{equilibrium} satisfies $x'=0$ and $y'=0$ simultaneously. The\n$x$-nullcline is $\\{x'=0\\}$ and the $y$-nullcline is $\\{y'=0\\}$. For a linear\nsystem the eigenvalues of the coefficient matrix classify the origin:\n\\[\n\\begin{array}{ll}\n\\text{real, same sign} & \\text{node (source if } +,\\ \\text{sink if } -)\\\\\n\\text{real, opposite signs} & \\text{saddle}\\\\\n\\text{complex, nonzero real part} & \\text{spiral}\\\\\n\\text{purely imaginary} & \\text{center (closed orbits)}\n\\end{array}\n\\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 3.2: Classify $x'=y,\\ y'=-x$",
+          "setup": "\\strong{Step 1.} Set both right sides to zero for the equilibrium:\n\\[ y = 0 \\text{ and } -x = 0 \\;\\Longrightarrow\\; (0,0). \\]\n\\strong{Step 2.} The coefficient matrix\n$\\left(\\begin{smallmatrix}0&1\\\\-1&0\\end{smallmatrix}\\right)$\nhas eigenvalues $\\pm i$ --- purely imaginary.\n\\[ \\text{Purely imaginary} \\;\\Longrightarrow\\; \\text{a center: closed orbits around the origin.} \\]",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "3.3",
+      "title": "Existence and Uniqueness of Solutions",
+      "topics": "Before solving, ask whether a solution even exists and whether it is the \\emph{only} one. The Big Theorem answers both with two continuity hypotheses --- one for each conclusion.",
+      "formulas": [
+        {
+          "title": "The Existence and Uniqueness Theorem",
+          "body": "For $\\dfrac{dy}{dx} = f(x,y)$, $\\;y(x_0)=y_0$: if $f$ \\strong{and}\n$\\dfrac{\\partial f}{\\partial y}$ are continuous on a rectangle containing\n$(x_0,y_0)$, then there is a \\strong{unique} solution on \\emph{some} open\ninterval around $x_0$. Continuity of $f$ alone delivers \\emph{existence};\ncontinuity of $\\dfrac{\\partial f}{\\partial y}$ secures \\emph{uniqueness}."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 3.3: Where uniqueness fails for $\\frac{dy}{dx}=\\frac{x}{y-2}$",
+          "setup": "\\strong{Step 1.} Identify where $f$ and $\\frac{\\partial f}{\\partial y}$ lose\ncontinuity --- watch the denominator:\n\\[ f(x,y) = \\frac{x}{y-2} \\text{ is undefined when } y - 2 = 0. \\]\n\\strong{Step 2.} Conclude:\n\\[ \\text{The theorem fails along the line } y = 2. \\]\nOff that line both $f$ and $\\frac{\\partial f}{\\partial y} = -\\frac{x}{(y-2)^2}$\nare continuous, so a unique solution threads each such point.",
+          "steps": []
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: Existence Is Not Uniqueness",
+        "body": "A continuous $f$ with a \\emph{discontinuous} $\\frac{\\partial f}{\\partial y}$\nstill has a solution --- just maybe more than one. For $y' = \\sqrt{y}$,\n$y(0)=0$, the derivative $\\frac{1}{2\\sqrt{y}}$ blows up at $y=0$, and indeed\nboth $y=0$ and $y=\\frac{x^2}{4}$ pass through the origin. The guarantee is also\nonly \\emph{local}: never read it as a promise for all $x$."
+      }
+    },
+    {
+      "id": "3.4",
+      "title": "Fixed Points and Iteration",
+      "topics": "A \\emph{fixed point} of $g$ is a value left unmoved by the map: $g(x^*)=x^*$. Geometrically it is where $y=g(x)$ meets the line $y=x$. Feeding outputs back as inputs --- $x_{n+1}=g(x_n)$ --- either pulls toward such a point or pushes away.",
+      "formulas": [
+        {
+          "title": "Fixed Point and Stability Test",
+          "body": "\\[ x^* \\text{ is a fixed point} \\iff g(x^*) = x^*. \\]\nThe iteration $x_{n+1} = g(x_n)$ is \\strong{attracting} (stable) at $x^*$ when\n\\[ |g'(x^*)| < 1, \\qquad \\text{and \\strong{repelling} when } |g'(x^*)| > 1. \\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 3.4: Fixed points of $g(x)=x^{2}$",
+          "setup": "\\strong{Step 1.} Solve $g(x)=x$:\n\\[ x^2 = x \\;\\Longrightarrow\\; x(x-1)=0 \\;\\Longrightarrow\\; x=0 \\text{ or } x=1. \\]\n\\strong{Step 2.} Test stability with $|g'(x)| = |2x|$:\n\\[ |g'(0)| = 0 < 1 \\ (\\text{attracting}), \\qquad |g'(1)| = 2 > 1 \\ (\\text{repelling}). \\]",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "3.5",
+      "title": "The Banach Fixed Point Theorem",
+      "topics": "The deepest reason iteration converges is \\emph{contraction}: a map that shrinks the gap between any two points. On a complete space such a map cannot help but funnel everything to a single point.",
+      "formulas": [
+        {
+          "title": "Contraction Mapping and Banach's Conclusion",
+          "body": "$g$ is a \\strong{contraction} with constant $0 \\le k < 1$ if\n\\[ |g(x) - g(y)| \\le k\\,|x - y| \\quad \\text{for all } x,y. \\]\nOn a \\strong{complete} space mapped into itself, Banach guarantees a\n\\strong{unique} fixed point $x^*$, reached by iteration from \\emph{any} start,\nwith the error bound\n\\[ |x_n - x^*| \\le \\frac{k^n}{1-k}\\,|x_1 - x_0|. \\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "{Worked Example 3.5: $g(x)=\\cos x$ is a contraction on $[0,1]$}",
+          "setup": "\\strong{Step 1.} A bound $|g'(x)| \\le k < 1$ makes $g$ a contraction. Here\n\\[ |g'(x)| = |\\sin x|, \\quad \\text{increasing on } [0,1]. \\]\n\\strong{Step 2.} Its largest value on the interval is at $x=1$:\n\\[ |\\sin x| \\le \\sin 1 \\approx 0.841 < 1. \\]\nSo $g$ is a contraction, and iterating cosine converges to its unique fixed\npoint (the Dottie number, $\\approx 0.739$) from any start.",
+          "steps": []
+        }
+      ],
+      "warning": {
+        "title": "Common Pitfall: $k=1$ Is Not Enough",
+        "body": "The constant must be \\emph{strictly} below one. With $k=1$ distances need not\nshrink, so the iterates may never converge --- e.g. $g(x)=x+1$ satisfies\n$|g(x)-g(y)|=|x-y|$ ($k=1$) and has \\emph{no} fixed point at all."
+      }
+    },
+    {
+      "id": "3.6",
+      "title": "Picard Iteration",
+      "topics": "Picard iteration is Banach's principle in action on differential equations. First the IVP is recast as an \\emph{integral equation}; then repeated substitution builds the solution as a limit.",
+      "formulas": [
+        {
+          "title": "Integral Equation and the Picard Scheme",
+          "body": "The IVP $y' = f(x,y)$, $y(x_0)=y_0$ is equivalent to\n\\[ y(x) = y_0 + \\int_{x_0}^{x} f\\big(t, y(t)\\big)\\,dt. \\]\nIterate from $\\varphi_0 = y_0$:\n\\[ \\varphi_{n+1}(x) = y_0 + \\int_{x_0}^{x} f\\big(t, \\varphi_n(t)\\big)\\,dt. \\]\n\\strong{Picard--Lindel\\\"of:} if $f$ is continuous and \\strong{Lipschitz} in $y$\n($|f(x,y_1)-f(x,y_2)| \\le L\\,|y_1-y_2|$), the operator is a contraction, so the\nsolution exists and is unique on some interval."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example 3.6: Picard iterates for $y'=y,\\ y(0)=1$",
+          "setup": "\\strong{Step 1.} Start at $\\varphi_0 = 1$ and integrate:\n\\[ \\varphi_1 = 1 + \\int_0^x 1\\,dt = 1 + x. \\]\n\\strong{Step 2.} Feed it back:\n\\[ \\varphi_2 = 1 + \\int_0^x (1+t)\\,dt = 1 + x + \\frac{x^2}{2}. \\]\n\\strong{Step 3.} The iterates are the partial sums of a familiar series:\n\\[ \\varphi_n \\to 1 + x + \\frac{x^2}{2} + \\cdots = e^{x}, \\]\nwhich is exactly the true solution.",
+          "steps": []
+        }
+      ]
+    }
+  ],
+  "cheat": {
+    "subtitle": "Condensed Cheat Sheet: Existence, Uniqueness, and Geometry",
+    "takeaway": {
+      "title": "Unit 3 Key Takeaway",
+      "body": "This unit reads differential equations as \\highlight{geometry and\nguarantees} rather than formulas. A \\highlight{slope field} turns\n$y'=f(x,y)$ into a picture its integral curves follow; the\n\\highlight{phase plane} does the same for systems. The\n\\highlight{existence and uniqueness theorem} ($f$ and\n$\\partial f/\\partial y$ continuous) says exactly one curve threads each point,\nand \\highlight{Picard iteration via the Banach contraction\nprinciple} is the machine that proves it."
+    }
+  }
+}

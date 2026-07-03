@@ -25,7 +25,12 @@
           "problem": { "$ref": "common.defs.schema.json#/$defs/mathText" },
           "solution": {
             "$ref": "common.defs.schema.json#/$defs/mathText",
-            "description": "Complete worked solution. No 'Solution N.' label and no workpurple wrapping — print decoration is the compiler's job."
+            "description": "Complete worked solution body. No label prefix — the print compiler re-emits '\\strong{<label>}' with the default 'Solution N.' or the explicit solutionLabel."
+          },
+          "solutionLabel": {
+            "type": "string",
+            "pattern": "^Solution[^{}]*$",
+            "description": "Only when the label deviates from the default 'Solution N.' (e.g. 'Solution (Capstone).'). Stored verbatim without the \\noindent\\textbf wrapper."
           },
           "tags": {
             "type": "array",
