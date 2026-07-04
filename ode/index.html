@@ -150,7 +150,15 @@
     <script src="js/checkpoints/widgets-unit18.js"></script>
     <script src="js/quiz-data.js"></script>
     <script src="js/quiz-engine.js"></script>
+    <!-- View layer, decomposed from router.js. Order matters at load time:
+         sandboxes.js defines the engine functions that views-interactives.js's
+         catalog consts reference by name during evaluation; router.js dispatches
+         into every view file, so it loads last. -->
     <script src="js/sandboxes.js"></script>
+    <script src="js/views-materials.js"></script>
+    <script src="js/views-interactives.js"></script>
+    <script src="js/views-practice.js"></script>
+    <script src="js/views-quizzes.js"></script>
     <script src="js/router.js"></script>
 </body>
 </html>
