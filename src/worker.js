@@ -540,19 +540,47 @@ async function handleContact(request, env) {
     return json(200, { ok: true });
 }
 
-/* Route matrix: /api/sync (GET and POST enforced inside handleSync, 405
-   otherwise) runs the auth and KV loops; /api/contact (POST only) runs the
-   Turnstile-gated lead intake; every other request falls through seamlessly
-   to the static asset pipeline. */
+/* Route matrix: /api/sync, /api/contact, and SEO support files. */
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
+
+        // --- SEO Support Files ---
+        if (url.pathname === "/robots.txt") {
+            return new Response("User-agent: *\nAllow: /\nSitemap: https://stapleseducation.com/sitemap.xml", {
+                headers: { "Content-Type": "text/plain" }
+            });
+        }
+        if (url.pathname === "/sitemap.xml") {
+            const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://stapleseducation.com/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://stapleseducation.com/ode/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`;
+            return new Response(sitemap, {
+                headers: { "Content-Type": "application/xml" }
+            });
+        }
+
+        // --- API Endpoints ---
         if (url.pathname === "/api/sync") {
             return handleSync(request, env);
         }
         if (url.pathname === "/api/contact") {
             return handleContact(request, env);
         }
+
+        // --- Static Asset Fallback ---
         if (env.ASSETS) {
             return env.ASSETS.fetch(request);
         }
