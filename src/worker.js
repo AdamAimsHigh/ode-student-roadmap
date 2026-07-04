@@ -422,13 +422,14 @@ const TURNSTILE_TOKEN_MAX_LENGTH = 2048;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LEAD_KV_PREFIX = "lead:";
 const LEAD_TTL_S = 90 * 24 * 60 * 60;
-/* Lead-notification email routing. Requires (a) stapleseducation.com
-   onboarded to Cloudflare Email Sending (npx wrangler email sending enable
-   stapleseducation.com) and (b) the EMAIL send_email binding in
-   wrangler.jsonc. When either is missing, the notification is skipped and
-   lead capture is completely unaffected. */
-const LEAD_NOTIFY_FROM = { email: "notifications@stapleseducation.com", name: "Staples Education" };
-const LEAD_NOTIFY_TO = "addstaples@gmail.com";
+/* Lead-notification email routing, delivered through the Brevo
+   transactional v3 REST API. The credential is a Worker secret (never in
+   vars or the repo): npx wrangler secret put EMAIL_API_KEY. When the
+   secret is missing, the notification is skipped and lead capture is
+   completely unaffected. */
+const BREVO_SEND_URL = "https://api.brevo.com/v3/smtp/email";
+const LEAD_NOTIFY_FROM = { name: "Staples Education Notifications", email: "notifications@stapleseducation.com" };
+const LEAD_NOTIFY_TO = [{ email: "addstaples@gmail.com", name: "Adam Staples" }];
 
 /* Server-side Turnstile verification. The secret NEVER appears in the
    codebase or wrangler.jsonc vars — it is a Worker secret provisioned with:
@@ -477,30 +478,43 @@ function escapeHtml(s) {
    logged (error code only, never lead contents) and swallowed — the student
    always keeps their 200. */
 async function sendLeadNotification(lead, env) {
-    if (!env.EMAIL) {
-        console.log("Lead notification skipped: EMAIL binding not configured");
+    if (!env.EMAIL_API_KEY) {
+        console.log("Lead notification skipped: EMAIL_API_KEY secret not configured");
         return;
     }
     /* sanitizeLead only trims ends; strip interior CR/LF so a crafted name
-       can never smuggle extra headers into the Subject line. */
+       can never smuggle extra headers into the Subject or Reply-To lines. */
     const safeName = lead.name.replace(/[\r\n]+/g, " ");
     try {
-        await env.EMAIL.send({
-            to: LEAD_NOTIFY_TO,
-            from: LEAD_NOTIFY_FROM,
-            replyTo: lead.email,
-            subject: "New student inquiry from " + safeName,
-            text: "New student inquiry via stapleseducation.com\n\n" +
-                "Name: " + lead.name + "\nEmail: " + lead.email +
-                "\n\n" + lead.message,
-            html: "<h2>New student inquiry</h2>" +
-                "<p><strong>Name:</strong> " + escapeHtml(lead.name) + "<br>" +
-                "<strong>Email:</strong> " + escapeHtml(lead.email) + "</p>" +
-                "<p style=\"white-space:pre-wrap\">" + escapeHtml(lead.message) + "</p>"
+        const res = await fetch(BREVO_SEND_URL, {
+            method: "POST",
+            headers: {
+                "api-key": env.EMAIL_API_KEY,
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                sender: LEAD_NOTIFY_FROM,
+                to: LEAD_NOTIFY_TO,
+                replyTo: { email: lead.email, name: safeName },
+                subject: "New student inquiry from " + safeName,
+                textContent: "New student inquiry via stapleseducation.com\n\n" +
+                    "Name: " + lead.name + "\nEmail: " + lead.email +
+                    "\n\n" + lead.message,
+                htmlContent: "<h2>New student inquiry</h2>" +
+                    "<p><strong>Name:</strong> " + escapeHtml(lead.name) + "<br>" +
+                    "<strong>Email:</strong> " + escapeHtml(lead.email) + "</p>" +
+                    "<p style=\"white-space:pre-wrap\">" + escapeHtml(lead.message) + "</p>"
+            })
         });
-        console.log("Lead notification email sent");
+        /* Log status only — a Brevo error body could echo lead contents,
+           and Worker logs must stay PII-free. */
+        if (res.ok) {
+            console.log("Lead notification email accepted by Brevo:", res.status);
+        } else {
+            console.error("Lead notification email rejected by Brevo:", res.status);
+        }
     } catch (e) {
-        console.error("Lead notification email failed:", e && e.code ? e.code : "unknown");
+        console.error("Lead notification email failed:", e instanceof Error ? e.name : "unknown");
     }
 }
 
