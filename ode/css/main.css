@@ -31,6 +31,19 @@ body {
     flex-wrap: wrap;
 }
 
+/* The brand wordmark links back to the site root (stapleseducation.com).
+   Suppress default anchor styling so it reads as masthead branding, not a
+   body-copy hyperlink; the accent color comes from .brand-name itself. */
+.brand-home-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.brand-home-link:hover .brand-name,
+.brand-home-link:focus-visible .brand-name {
+    opacity: 0.8;
+}
+
 .brand-name {
     font-size: 0.8rem;
     font-weight: 700;
