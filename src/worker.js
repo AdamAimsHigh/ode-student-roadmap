@@ -462,6 +462,7 @@ async function handleContact(request, env) {
         return new Response(null, { status: 405, headers: { Allow: "POST" } });
     }
     if (!env.ODE_PROGRESS_KV || !env.TURNSTILE_SECRET_KEY) {
+        console.error("Configuration error: Missing KV or Secret Key");
         return json(503, { error: "Contact service is not configured." });
     }
 
@@ -485,8 +486,13 @@ async function handleContact(request, env) {
         return json(400, { error: "Body must be valid JSON." });
     }
 
+    /* Log outcomes and shapes only — never lead contents or raw payloads.
+       Worker logs are a second data store; student PII must not land there. */
     const lead = sanitizeLead(parsed);
+    console.log("Lead sanitization result:", lead === null ? "rejected" : "ok");
     if (lead === null) {
+        console.log("Sanitization rejected payload with keys:",
+            isPlainObject(parsed) ? Object.keys(parsed).join(",") : typeof parsed);
         return json(400, {
             error: "Please provide a valid name, email, and message."
         });
@@ -495,6 +501,7 @@ async function handleContact(request, env) {
     const turnstileToken = parsed.turnstileToken;
     if (typeof turnstileToken !== "string" || turnstileToken.length === 0 ||
         turnstileToken.length > TURNSTILE_TOKEN_MAX_LENGTH) {
+        console.log("Missing or invalid Turnstile token");
         return json(400, { error: "Missing human-verification token." });
     }
 
@@ -502,25 +509,33 @@ async function handleContact(request, env) {
     let human;
     try {
         human = await verifyTurnstile(turnstileToken, ip, env);
-    } catch {
+        console.log("Turnstile verification result:", human);
+    } catch (e) {
+        console.error("Turnstile verification exception:", e);
         return json(502, { error: "Verification service unavailable. Please retry." });
     }
     if (!human) {
+        console.log("Human verification failed");
         return json(403, { error: "Human verification failed. Please retry the check." });
     }
 
-    /* Leads land in the same KV namespace under their own prefix, keyed for
-       chronological listing (wrangler kv key list --prefix lead:), with a
-       random suffix so simultaneous submissions can never collide. */
     const suffix = new Uint8Array(6);
     crypto.getRandomValues(suffix);
     const key = LEAD_KV_PREFIX + new Date().toISOString() + "_" +
         Array.from(suffix).map((b) => b.toString(16).padStart(2, "0")).join("");
-    await env.ODE_PROGRESS_KV.put(
-        key,
-        JSON.stringify({ ...lead, ip, submittedAt: new Date().toISOString() }),
-        { expirationTtl: LEAD_TTL_S }
-    );
+    
+    try {
+        console.log("Attempting KV put for key:", key);
+        await env.ODE_PROGRESS_KV.put(
+            key,
+            JSON.stringify({ ...lead, ip, submittedAt: new Date().toISOString() }),
+            { expirationTtl: LEAD_TTL_S }
+        );
+        console.log("KV put successful");
+    } catch (e) {
+        console.error("KV put failed:", e);
+        return json(500, { error: "Failed to save inquiry." });
+    }
 
     return json(200, { ok: true });
 }
