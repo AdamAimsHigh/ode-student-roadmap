@@ -1,10 +1,15 @@
-/* 15-case end-to-end cryptographic validation suite for src/worker.js.
+/* 22-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
  * WebCrypto against a mocked JWKS endpoint) and the long-lived odesess_*
  * edge session tokens (hashed KV records, 30-day TTL). Malformed, tampered,
  * expired, and oversized inputs must all be rejected with 401/413/405.
+ *
+ * Also covers the Phase 3 hardening surface: the POST /api/contact lead
+ * endpoint (strict payload shape, Turnstile siteverify against a mocked
+ * challenges.cloudflare.com, KV lead records) and the per-IP fixed-window
+ * rate limiter on both API routes (429 + Retry-After past the window cap).
  *
  * Run from the repo root:  node scripts/test_sync_worker.mjs
  * Exit code 0 = all cases pass.
@@ -74,9 +79,22 @@ async function signToken(payloadOverrides = {}, headerOverrides = {}) {
 
 /* ---- Mocked platform: JWKS endpoint + TTL-aware KV ---------------------- */
 
-globalThis.fetch = async (resource) => {
+const TURNSTILE_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const TURNSTILE_SECRET = "test-turnstile-secret";
+let lastSiteverifyParams = null;
+
+globalThis.fetch = async (resource, init) => {
     if (String(resource) === JWKS_URL) {
         return new Response(JSON.stringify({ keys: [publicJwk] }), {
+            headers: { "Content-Type": "application/json" }
+        });
+    }
+    if (String(resource) === TURNSTILE_URL) {
+        const params = new URLSearchParams(String(init.body));
+        lastSiteverifyParams = params;
+        const success = params.get("secret") === TURNSTILE_SECRET &&
+            params.get("response") === "PASS";
+        return new Response(JSON.stringify({ success }), {
             headers: { "Content-Type": "application/json" }
         });
     }
@@ -112,7 +130,11 @@ class MockKV {
 }
 
 const kv = new MockKV();
-const env = { ODE_PROGRESS_KV: kv, GOOGLE_CLIENT_ID: CLIENT_ID };
+const env = {
+    ODE_PROGRESS_KV: kv,
+    GOOGLE_CLIENT_ID: CLIENT_ID,
+    TURNSTILE_SECRET_KEY: TURNSTILE_SECRET
+};
 
 function apiRequest(method, token, body) {
     const headers = {};
@@ -308,6 +330,122 @@ await testCase("oversized POST body is refused with 413", async () => {
         "x".repeat(130 * 1024) + '"]}}';
     const res = await worker.fetch(apiRequest("POST", sessionToken, padded), env);
     check(res.status === 413, `expected 413, got ${res.status}`);
+});
+
+/* ---- Phase 3: /api/contact + rate limiting ------------------------------ */
+
+/* Each case uses a dedicated CF-Connecting-IP so the in-isolate fixed-window
+   buckets (keyed route:ip) never bleed between cases. */
+function contactRequest(body, opts = {}) {
+    const headers = { "CF-Connecting-IP": opts.ip || "203.0.113.1" };
+    if (body !== undefined) {
+        headers["Content-Type"] = opts.contentType || "application/json";
+    }
+    return new Request("https://stapleseducation.com/api/contact", {
+        method: opts.method || "POST",
+        headers,
+        body: body === undefined ? undefined
+            : typeof body === "string" ? body : JSON.stringify(body)
+    });
+}
+
+const GOOD_LEAD = {
+    name: "Ada Student",
+    email: "ada@example.com",
+    message: "I need help with Laplace transforms before my final.",
+    turnstileToken: "PASS"
+};
+
+await testCase("contact: non-POST methods are refused with 405", async () => {
+    const res = await worker.fetch(
+        contactRequest(undefined, { method: "GET", ip: "203.0.113.10" }), env);
+    check(res.status === 405, `expected 405, got ${res.status}`);
+    check(res.headers.get("Allow") === "POST", "Allow header lists POST");
+});
+
+await testCase("contact: malformed payload shapes are 400", async () => {
+    const missing = await worker.fetch(contactRequest(
+        { name: "Ada", turnstileToken: "PASS" }, { ip: "203.0.113.11" }), env);
+    check(missing.status === 400, `missing fields: expected 400, got ${missing.status}`);
+    const badEmail = await worker.fetch(contactRequest(
+        { ...GOOD_LEAD, email: "not-an-email" }, { ip: "203.0.113.11" }), env);
+    check(badEmail.status === 400, `bad email: expected 400, got ${badEmail.status}`);
+    const overlong = await worker.fetch(contactRequest(
+        { ...GOOD_LEAD, name: "x".repeat(200) }, { ip: "203.0.113.11" }), env);
+    check(overlong.status === 400, `overlong name: expected 400, got ${overlong.status}`);
+    const noToken = await worker.fetch(contactRequest(
+        { ...GOOD_LEAD, turnstileToken: "" }, { ip: "203.0.113.11" }), env);
+    check(noToken.status === 400, `empty token: expected 400, got ${noToken.status}`);
+    check(kv.keysWithPrefix("lead:").length === 0, "no lead record written");
+});
+
+await testCase("contact: oversized body is 413, wrong content-type is 415", async () => {
+    const huge = { ...GOOD_LEAD, message: "x".repeat(20 * 1024) };
+    const res = await worker.fetch(
+        contactRequest(huge, { ip: "203.0.113.12" }), env);
+    check(res.status === 413, `oversized: expected 413, got ${res.status}`);
+    const wrongType = await worker.fetch(contactRequest(
+        GOOD_LEAD, { ip: "203.0.113.12", contentType: "text/plain" }), env);
+    check(wrongType.status === 415, `wrong type: expected 415, got ${wrongType.status}`);
+});
+
+await testCase("contact: failed Turnstile verification is 403, no KV write", async () => {
+    const res = await worker.fetch(contactRequest(
+        { ...GOOD_LEAD, turnstileToken: "FAIL" }, { ip: "203.0.113.13" }), env);
+    check(res.status === 403, `expected 403, got ${res.status}`);
+    check(kv.keysWithPrefix("lead:").length === 0, "bot lead never persisted");
+});
+
+await testCase("contact: verified submission persists a TTL'd lead record", async () => {
+    lastSiteverifyParams = null;
+    const res = await worker.fetch(
+        contactRequest(GOOD_LEAD, { ip: "203.0.113.14" }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check((await res.json()).ok === true, "response body is { ok: true }");
+    check(lastSiteverifyParams !== null &&
+        lastSiteverifyParams.get("remoteip") === "203.0.113.14",
+        "siteverify call forwards the caller IP");
+    const leadKeys = kv.keysWithPrefix("lead:");
+    check(leadKeys.length === 1, "exactly one lead record in KV");
+    const record = JSON.parse(kv.store.get(leadKeys[0]).value);
+    check(record.name === GOOD_LEAD.name && record.email === GOOD_LEAD.email &&
+        record.message === GOOD_LEAD.message, "lead fields round-trip");
+    check(!("turnstileToken" in record), "challenge token never persisted");
+    check(kv.store.get(leadKeys[0]).expiresAt !== null, "lead carries a TTL");
+});
+
+await testCase("contact: 6th request in the window is rate-limited 429", async () => {
+    const ip = "203.0.113.15";
+    for (let i = 0; i < 5; i++) {
+        const res = await worker.fetch(contactRequest(
+            { ...GOOD_LEAD, turnstileToken: "FAIL" }, { ip }), env);
+        check(res.status === 403, `warm-up ${i + 1}: expected 403, got ${res.status}`);
+    }
+    const blocked = await worker.fetch(contactRequest(GOOD_LEAD, { ip }), env);
+    check(blocked.status === 429, `expected 429, got ${blocked.status}`);
+    check(Number(blocked.headers.get("Retry-After")) >= 1,
+        "429 carries a Retry-After header");
+});
+
+await testCase("sync: 61st request in the window is rate-limited 429", async () => {
+    const ip = "198.51.100.99";
+    let last;
+    for (let i = 0; i < 61; i++) {
+        const req = new Request("https://stapleseducation.com/api/sync", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer garbage-token",
+                "CF-Connecting-IP": ip
+            }
+        });
+        last = await worker.fetch(req, env);
+        if (i < 60) {
+            check(last.status === 401, `req ${i + 1}: expected 401, got ${last.status}`);
+        }
+    }
+    check(last.status === 429, `req 61: expected 429, got ${last.status}`);
+    check(Number(last.headers.get("Retry-After")) >= 1,
+        "429 carries a Retry-After header");
 });
 
 /* ---- Verdict ------------------------------------------------------------ */

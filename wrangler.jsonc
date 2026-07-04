@@ -4,11 +4,17 @@
 //   /            → business landing shell (root index.html, reviews.html, style.css)
 //   /ode/        → the interactive ODE roadmap SPA (zero-dependency standalone shell)
 //   /api/sync    → serverless progress-sync endpoint (src/worker.js)
+//   /api/contact → Turnstile-gated lead-generation endpoint (src/worker.js)
 //
 // Routing model: requests matching an uploaded asset are served directly;
 // everything else (i.e. /api/*) invokes the "main" Worker, which handles
-// /api/sync and delegates any other miss back to the ASSETS binding so
-// not_found_handling still applies.
+// /api/sync and /api/contact and delegates any other miss back to the
+// ASSETS binding so not_found_handling still applies.
+//
+// SECRETS (never in "vars", never in the repo): the Turnstile server-side
+// secret is a Worker secret provisioned once from the shell with
+//   npx wrangler secret put TURNSTILE_SECRET_KEY
+// and surfaces at runtime as env.TURNSTILE_SECRET_KEY.
 //
 // The asset directory is the repository root, so the allowlist in
 // .assetsignore is load-bearing: it excludes EVERYTHING by default and

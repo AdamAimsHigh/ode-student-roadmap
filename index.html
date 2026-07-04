@@ -18,7 +18,7 @@
         <nav>
             <a href="#services">Services</a>
             <a href="reviews.html">Reviews</a>
-            <a href="http://tinyurl.com/StaplesEducation" class="btn-secondary">Contact</a>
+            <a href="#contact" class="btn-secondary">Contact</a>
             <a href="/ode/" class="btn-primary">ODE Roadmap</a>
         </nav>
     </header>
@@ -59,9 +59,33 @@
                 </div>
             </div>
         </section>
+        <section id="contact" class="contact-section">
+            <h2>Start Your Confidence Reset</h2>
+            <p class="contact-lede">Tell us where you are and where you want to be. We read every inquiry and reply within one business day.</p>
+            <form id="contact-form" class="contact-form" novalidate>
+                <div class="form-field">
+                    <label for="contact-name">Name</label>
+                    <input id="contact-name" name="name" type="text" maxlength="100" autocomplete="name" required>
+                </div>
+                <div class="form-field">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+                </div>
+                <div class="form-field">
+                    <label for="contact-message">How can we help?</label>
+                    <textarea id="contact-message" name="message" rows="5" maxlength="4000" required></textarea>
+                </div>
+                <!-- Turnstile widget (implicit render): the api.js script scans for
+                     .cf-turnstile and injects a hidden cf-turnstile-response input
+                     that the submit handler forwards to POST /api/contact. -->
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADvT-1PlPvun0Xm_" data-theme="dark"></div>
+                <button type="submit" id="contact-submit" class="btn-primary">Send Inquiry</button>
+                <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
     </main>
 
-    <footer id="contact">
+    <footer>
         <div class="footer-content">
             <div class="logo">
                 <span class="sigma">&Sigma;</span>
@@ -70,5 +94,79 @@
             <p>&copy; 2026 Staples Education. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Cloudflare Turnstile (managed challenge widget for the contact form). -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <!-- Cloudflare Web Analytics beacon (public site token, cookie-free). -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14c519923cd24565bcbd4b336c6bb429"}'></script>
+
+    <script>
+    /* Contact form wiring: POSTs the inquiry plus the Turnstile response
+       token to the /api/contact Worker route. Root-absolute endpoint, so the
+       protocol guard below keeps a file:// open of this page from firing a
+       broken request — the form degrades to the direct booking link. */
+    (function () {
+        var form = document.getElementById("contact-form");
+        if (!form) return;
+        var statusEl = document.getElementById("contact-status");
+        var submitBtn = document.getElementById("contact-submit");
+        var httpContext = window.location.protocol === "http:" ||
+            window.location.protocol === "https:";
+
+        function setStatus(kind, text) {
+            statusEl.className = "form-status" + (kind ? " is-" + kind : "");
+            statusEl.textContent = text;
+        }
+
+        if (!httpContext) {
+            submitBtn.disabled = true;
+            setStatus("error", "The inquiry form needs the live site. Visit stapleseducation.com, or book directly at tinyurl.com/StaplesEducation.");
+            return;
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var tokenInput = form.querySelector('[name="cf-turnstile-response"]');
+            var turnstileToken = tokenInput ? tokenInput.value : "";
+            var payload = {
+                name: form.name.value.trim(),
+                email: form.email.value.trim(),
+                message: form.message.value.trim(),
+                turnstileToken: turnstileToken
+            };
+            if (!payload.name || !payload.email || !payload.message) {
+                setStatus("error", "Please fill in your name, email, and message.");
+                return;
+            }
+            if (!turnstileToken) {
+                setStatus("error", "Please complete the verification check first.");
+                return;
+            }
+            submitBtn.disabled = true;
+            setStatus("", "Sending your inquiry...");
+            fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(function (res) {
+                return res.json().catch(function () { return {}; })
+                    .then(function (body) { return { ok: res.ok, body: body }; });
+            }).then(function (result) {
+                if (result.ok) {
+                    setStatus("success", "Thank you! Your inquiry is in. We'll reply within one business day.");
+                    form.reset();
+                } else {
+                    setStatus("error", result.body.error || "Something went wrong. Please try again.");
+                }
+                if (window.turnstile) window.turnstile.reset();
+                submitBtn.disabled = false;
+            }).catch(function () {
+                setStatus("error", "Network error. Please try again in a moment.");
+                if (window.turnstile) window.turnstile.reset();
+                submitBtn.disabled = false;
+            });
+        });
+    })();
+    </script>
 </body>
 </html>

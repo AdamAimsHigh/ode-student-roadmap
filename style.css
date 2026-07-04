@@ -8,6 +8,13 @@
     --color-text-main: #b0b8c1; /* Light slate gray */
     --color-text-heading: #ffffff;
     --color-border: #333333;
+
+    /* State feedback tokens (shared success/error language; mirrors the
+       token-driven approach of the SPA's dual-theme framework) */
+    --color-success: #34c27b;
+    --color-success-soft: rgba(52, 194, 123, 0.12);
+    --color-error: #e05260;
+    --color-error-soft: rgba(224, 82, 96, 0.12);
     
     /* Typography */
     --font-sans: 'Inter', sans-serif;
@@ -277,6 +284,108 @@ a {
 .card h3 {
     font-size: 1.25rem;
     margin-bottom: var(--spacing-sm);
+}
+
+/* Contact Section */
+.contact-section {
+    padding: var(--spacing-xl) 5%;
+    border-top: 1px solid var(--color-border);
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-lede {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.contact-form {
+    max-width: 640px;
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-field label {
+    color: var(--color-text-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-field input,
+.form-field textarea {
+    background-color: var(--color-bg);
+    color: var(--color-text-heading);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color var(--transition-fast);
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.contact-form .btn-primary {
+    border: 1px solid var(--color-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    align-self: flex-start;
+}
+
+.contact-form .btn-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.form-status {
+    display: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    border: 1px solid var(--color-border);
+}
+
+.form-status.is-success,
+.form-status.is-error,
+.form-status:not(:empty) {
+    display: block;
+}
+
+.form-status.is-success {
+    color: var(--color-success);
+    background-color: var(--color-success-soft);
+    border-color: var(--color-success);
+}
+
+.form-status.is-error {
+    color: var(--color-error);
+    background-color: var(--color-error-soft);
+    border-color: var(--color-error);
 }
 
 /* Footer */

@@ -20,3 +20,14 @@
 # (No trailing slash: wrangler tests bare path strings, so "/ode/" would
 # fail to match the directory entry itself.)
 !/ode
+
+# 4. Credential hard-deny (belt and suspenders). Later rules win in
+# gitignore syntax, so even if a future edit broadens the allowlist above,
+# these files can never reach a Cloudflare upload.
+token.json
+client_secrets.json
+client_secret*.json
+credentials.json
+*.pem
+.env
+.env.*

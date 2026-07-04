@@ -1,8 +1,16 @@
 /* Worker entry point (wrangler.jsonc "main") for stapleseducation.com.
  *
  * Owns the authenticated /api/sync progress-synchronization endpoint and
- * falls through to the static asset pipeline (env.ASSETS) for every other
+ * the Turnstile-protected /api/contact lead-generation endpoint, and falls
+ * through to the static asset pipeline (env.ASSETS) for every other
  * request: the landing page at /, the ODE roadmap SPA at /ode/.
+ *
+ * Abuse controls: every API route sits behind a lightweight in-isolate
+ * fixed-window rate limiter keyed on CF-Connecting-IP (best-effort by
+ * design — each isolate keeps its own counters, which is exactly the
+ * blast radius that matters for a single hot client hammering one PoP).
+ * POST bodies are size-capped twice (declared Content-Length before the
+ * read, actual text after) and must declare application/json.
  *
  * Auth (hybrid, two verification modes on one Bearer header):
  *
@@ -21,9 +29,10 @@
  *    TTL expiry or eviction yields a 401 challenge and the client falls
  *    back to a fresh Google sign-in.
  *
- * Storage: env.ODE_PROGRESS_KV, two record families:
+ * Storage: env.ODE_PROGRESS_KV, three record families:
  *   "progress:<google sub>"  { progress: <sanitized ode_* map>, email, updatedAt }
  *   "session:<sha256 hex>"   { sub, email, createdAt }  (30-day TTL)
+ *   "lead:<iso>_<rand>"      { name, email, message, ip, submittedAt }  (90-day TTL)
  */
 
 const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
@@ -252,14 +261,71 @@ function sanitizeProgress(raw) {
 
 /* ---- HTTP plumbing ----------------------------------------------------- */
 
-function json(status, body) {
+function json(status, body, extraHeaders) {
     return new Response(JSON.stringify(body), {
         status,
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            "Cache-Control": "no-store"
+            "Cache-Control": "no-store",
+            ...extraHeaders
         }
     });
+}
+
+/* ---- Edge rate limiting ------------------------------------------------- */
+
+/* Fixed-window counters held in isolate memory. Deliberately not KV-backed:
+   a KV read+write per request would double the endpoint's latency and cost
+   to defend against abuse that per-isolate counters already absorb. Sync is
+   generous (the real client debounces at 2.5 s ≈ 24 req/min); contact is
+   tight because humans submit a form once. */
+const RATE_LIMITS = {
+    sync: { limit: 60, windowS: 60 },
+    contact: { limit: 5, windowS: 60 }
+};
+/* Sweep threshold keeps a scanning attacker with rotating IPs from growing
+   the bucket map without bound inside a long-lived isolate. */
+const RATE_BUCKET_SWEEP_SIZE = 4096;
+const rateBuckets = new Map();
+
+/* Counts the request against its route:ip window. Returns 0 when allowed,
+   or the whole seconds remaining in the window (a ready-made Retry-After)
+   when the caller should refuse with 429. */
+function rateLimitRetryAfter(route, request) {
+    const { limit, windowS } = RATE_LIMITS[route];
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    const key = route + ":" + ip;
+    const now = Date.now();
+    if (rateBuckets.size >= RATE_BUCKET_SWEEP_SIZE) {
+        for (const [k, bucket] of rateBuckets) {
+            if (bucket.resetAt <= now) rateBuckets.delete(k);
+        }
+    }
+    let bucket = rateBuckets.get(key);
+    if (!bucket || bucket.resetAt <= now) {
+        bucket = { count: 0, resetAt: now + windowS * 1000 };
+        rateBuckets.set(key, bucket);
+    }
+    bucket.count++;
+    if (bucket.count <= limit) return 0;
+    return Math.max(1, Math.ceil((bucket.resetAt - now) / 1000));
+}
+
+function tooManyRequests(retryAfterS) {
+    return json(429, { error: "Too many requests. Please slow down." },
+        { "Retry-After": String(retryAfterS) });
+}
+
+/* Declared-size guard: rejects an oversized upload from the headers alone,
+   before the body stream is ever read into memory. */
+function declaredLengthExceeds(request, maxBytes) {
+    const declared = Number(request.headers.get("Content-Length"));
+    return Number.isFinite(declared) && declared > maxBytes;
+}
+
+function isJsonRequest(request) {
+    const contentType = request.headers.get("Content-Type") || "";
+    return contentType.toLowerCase().includes("application/json");
 }
 
 async function handleSync(request, env) {
@@ -269,6 +335,11 @@ async function handleSync(request, env) {
     if (!env.ODE_PROGRESS_KV || !env.GOOGLE_CLIENT_ID) {
         return json(500, { error: "Sync service is not configured." });
     }
+
+    /* Rate-limit before auth so a flood cannot burn RS256 verifications
+       or KV session lookups. */
+    const retryAfterS = rateLimitRetryAfter("sync", request);
+    if (retryAfterS) return tooManyRequests(retryAfterS);
 
     const auth = request.headers.get("Authorization") || "";
     if (!auth.startsWith("Bearer ")) {
@@ -305,6 +376,12 @@ async function handleSync(request, env) {
         return json(200, body);
     }
 
+    if (!isJsonRequest(request)) {
+        return json(415, { error: "Body must be application/json." });
+    }
+    if (declaredLengthExceeds(request, MAX_BODY_BYTES)) {
+        return json(413, { error: "Progress payload too large." });
+    }
     const bodyText = await request.text();
     if (bodyText.length > MAX_BODY_BYTES) {
         return json(413, { error: "Progress payload too large." });
@@ -314,6 +391,9 @@ async function handleSync(request, env) {
         parsed = JSON.parse(bodyText);
     } catch {
         return json(400, { error: "Body must be valid JSON." });
+    }
+    if (!isPlainObject(parsed)) {
+        return json(400, { error: "Body must be a JSON object." });
     }
     const progress = sanitizeProgress(parsed.progress !== undefined ? parsed.progress : parsed);
     if (progress === null) {
@@ -331,14 +411,132 @@ async function handleSync(request, env) {
     return json(200, response);
 }
 
+/* ---- Lead generation: POST /api/contact --------------------------------- */
+
+const TURNSTILE_VERIFY_URL =
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const CONTACT_MAX_BODY_BYTES = 16 * 1024;
+const CONTACT_FIELD_LIMITS = { name: 100, email: 254, message: 4000 };
+/* Turnstile documents its response token at up to 2048 characters. */
+const TURNSTILE_TOKEN_MAX_LENGTH = 2048;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LEAD_KV_PREFIX = "lead:";
+const LEAD_TTL_S = 90 * 24 * 60 * 60;
+
+/* Server-side Turnstile verification. The secret NEVER appears in the
+   codebase or wrangler.jsonc vars — it is a Worker secret provisioned with:
+   npx wrangler secret put TURNSTILE_SECRET_KEY */
+async function verifyTurnstile(token, ip, env) {
+    const params = new URLSearchParams({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: token
+    });
+    if (ip) params.set("remoteip", ip);
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+        method: "POST",
+        body: params
+    });
+    if (!res.ok) throw new Error("siteverify unreachable: " + res.status);
+    const outcome = await res.json();
+    return outcome && outcome.success === true;
+}
+
+/* Strict payload shape: exactly the string fields the landing-page form
+   sends, each trimmed and length-capped. Returns the clean lead or null. */
+function sanitizeLead(raw) {
+    if (!isPlainObject(raw)) return null;
+    const lead = {};
+    for (const [field, max] of Object.entries(CONTACT_FIELD_LIMITS)) {
+        const value = raw[field];
+        if (typeof value !== "string") return null;
+        const trimmed = value.trim();
+        if (trimmed.length === 0 || trimmed.length > max) return null;
+        lead[field] = trimmed;
+    }
+    if (!EMAIL_PATTERN.test(lead.email)) return null;
+    return lead;
+}
+
+async function handleContact(request, env) {
+    if (request.method !== "POST") {
+        return new Response(null, { status: 405, headers: { Allow: "POST" } });
+    }
+    if (!env.ODE_PROGRESS_KV || !env.TURNSTILE_SECRET_KEY) {
+        return json(503, { error: "Contact service is not configured." });
+    }
+
+    const retryAfterS = rateLimitRetryAfter("contact", request);
+    if (retryAfterS) return tooManyRequests(retryAfterS);
+
+    if (!isJsonRequest(request)) {
+        return json(415, { error: "Body must be application/json." });
+    }
+    if (declaredLengthExceeds(request, CONTACT_MAX_BODY_BYTES)) {
+        return json(413, { error: "Inquiry payload too large." });
+    }
+    const bodyText = await request.text();
+    if (bodyText.length > CONTACT_MAX_BODY_BYTES) {
+        return json(413, { error: "Inquiry payload too large." });
+    }
+    let parsed;
+    try {
+        parsed = JSON.parse(bodyText);
+    } catch {
+        return json(400, { error: "Body must be valid JSON." });
+    }
+
+    const lead = sanitizeLead(parsed);
+    if (lead === null) {
+        return json(400, {
+            error: "Please provide a valid name, email, and message."
+        });
+    }
+
+    const turnstileToken = parsed.turnstileToken;
+    if (typeof turnstileToken !== "string" || turnstileToken.length === 0 ||
+        turnstileToken.length > TURNSTILE_TOKEN_MAX_LENGTH) {
+        return json(400, { error: "Missing human-verification token." });
+    }
+
+    const ip = request.headers.get("CF-Connecting-IP") || null;
+    let human;
+    try {
+        human = await verifyTurnstile(turnstileToken, ip, env);
+    } catch {
+        return json(502, { error: "Verification service unavailable. Please retry." });
+    }
+    if (!human) {
+        return json(403, { error: "Human verification failed. Please retry the check." });
+    }
+
+    /* Leads land in the same KV namespace under their own prefix, keyed for
+       chronological listing (wrangler kv key list --prefix lead:), with a
+       random suffix so simultaneous submissions can never collide. */
+    const suffix = new Uint8Array(6);
+    crypto.getRandomValues(suffix);
+    const key = LEAD_KV_PREFIX + new Date().toISOString() + "_" +
+        Array.from(suffix).map((b) => b.toString(16).padStart(2, "0")).join("");
+    await env.ODE_PROGRESS_KV.put(
+        key,
+        JSON.stringify({ ...lead, ip, submittedAt: new Date().toISOString() }),
+        { expirationTtl: LEAD_TTL_S }
+    );
+
+    return json(200, { ok: true });
+}
+
 /* Route matrix: /api/sync (GET and POST enforced inside handleSync, 405
-   otherwise) runs the auth and KV loops; every other request falls through
-   seamlessly to the static asset pipeline. */
+   otherwise) runs the auth and KV loops; /api/contact (POST only) runs the
+   Turnstile-gated lead intake; every other request falls through seamlessly
+   to the static asset pipeline. */
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         if (url.pathname === "/api/sync") {
             return handleSync(request, env);
+        }
+        if (url.pathname === "/api/contact") {
+            return handleContact(request, env);
         }
         if (env.ASSETS) {
             return env.ASSETS.fetch(request);
