@@ -1,5 +1,5 @@
 /* GENERATED from content/ by scripts/compile_web.py — do not hand-edit.
-   QUIZ_DATA (micro-practice + unit mastery) and PRACTICE_DATA (the practice problem matrix).
+   QUIZ_DATA (micro-practice keyed by video id; unit mastery keyed by unit number) and PRACTICE_DATA (the practice problem matrix; problem/solution strings are HTML-ready for innerHTML + KaTeX).
    Content API schemaVersion 1.0.0. Edit content/ and re-run the compiler. */
 
 const QUIZ_DATA = {
@@ -30506,7 +30506,7 @@ const QUIZ_DATA = {
         ]
     },
     "unit_mastery": {
-        "Unit 0: What are Differential Equations": [
+        "0": [
             {
                 "id": "um_0_1",
                 "prompt": "Which feature most fundamentally identifies an equation as a differential equation?",
@@ -31228,7 +31228,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 1: Foundations and Prerequisites": [
+        "1": [
             {
                 "id": "um_1_1",
                 "prompt": "Using the power rule, what is $\\frac{d}{dx}x^{7}$?",
@@ -31950,7 +31950,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 2: First Order Linear Differential Equations": [
+        "2": [
             {
                 "id": "um_2_1",
                 "prompt": "Which of the following first order equations is separable?",
@@ -32672,7 +32672,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 3: Existence, Uniqueness, and Geometry": [
+        "3": [
             {
                 "id": "um_3_1",
                 "prompt": "For $\\frac{dy}{dx} = f(x,y)$, a slope field places at each point of the plane which object?",
@@ -33394,7 +33394,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability": [
+        "4": [
             {
                 "id": "um_4_1",
                 "prompt": "An equilibrium solution of $\\frac{dy}{dt} = f(y)$ is a constant $y = c$ for which condition?",
@@ -34116,7 +34116,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 5: Numerical Methods": [
+        "5": [
             {
                 "id": "um_5_1",
                 "prompt": "Euler's method advances the solution using which update?",
@@ -34838,7 +34838,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 6: Multivariable Calculus Foundations": [
+        "6": [
             {
                 "id": "um_6_1",
                 "prompt": "To compute $f_x$ for $f(x, y)$, you differentiate in $x$ while doing what?",
@@ -35560,7 +35560,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 7: First-Order Exactness and Methods": [
+        "7": [
             {
                 "id": "um_7_1",
                 "prompt": "The differential equation $M\\,dx + N\\,dy = 0$ is exact precisely when which equation holds?",
@@ -36282,7 +36282,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 8: Special Equations and Classical Models": [
+        "8": [
             {
                 "id": "um_8_1",
                 "prompt": "A Clairaut equation has which general form, with $p = \\frac{dy}{dx}$?",
@@ -37004,7 +37004,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 9: Second-Order Linear Equations, Theory and Structure": [
+        "9": [
             {
                 "id": "um_9_1",
                 "prompt": "What is the general form of a linear second-order differential equation?",
@@ -37726,7 +37726,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 10: Nonhomogeneous Equations and Forced Response": [
+        "10": [
             {
                 "id": "um_10_1",
                 "prompt": "The general solution of a nonhomogeneous linear equation $L[y] = g$ is which sum?",
@@ -38448,7 +38448,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 11: Mechanical Vibrations and Oscillators": [
+        "11": [
             {
                 "id": "um_11_1",
                 "prompt": "Hooke's law for an ideal spring states the restoring force is which expression?",
@@ -39170,7 +39170,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 12: The Laplace Transform": [
+        "12": [
             {
                 "id": "um_12_1",
                 "prompt": "The Laplace transform of $f(t)$ is defined by which integral?",
@@ -39892,7 +39892,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 13: Series Solutions": [
+        "13": [
             {
                 "id": "um_13_1",
                 "prompt": "The Taylor coefficient of $(x - a)^n$ for a function $f$ expanded about $a$ is which expression?",
@@ -40614,7 +40614,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 14: Linear Algebra Foundations for Systems": [
+        "14": [
             {
                 "id": "um_14_1",
                 "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
@@ -41336,7 +41336,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 15: Systems of Linear Differential Equations": [
+        "15": [
             {
                 "id": "um_15_1",
                 "prompt": "To convert $y'' + 5y' + 6y = 0$ into a first-order system with $x_1 = y$, $x_2 = y'$, what is $x_2'$?",
@@ -42058,7 +42058,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 16: Phase Plane Analysis and Nonlinear Dynamics": [
+        "16": [
             {
                 "id": "um_16_1",
                 "prompt": "A phase portrait of $\\mathbf{x}' = A\\mathbf{x}$ plots what?",
@@ -42780,7 +42780,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 17: Boundary Value Problems and Sturm-Liouville Theory": [
+        "17": [
             {
                 "id": "um_17_1",
                 "prompt": "What distinguishes a boundary value problem from an initial value problem?",
@@ -43502,7 +43502,7 @@ const QUIZ_DATA = {
                 ]
             }
         ],
-        "Unit 18: Fourier Series and Partial Differential Equations": [
+        "18": [
             {
                 "id": "um_18_1",
                 "prompt": "A Fourier series represents a periodic function as a sum of what?",
@@ -44237,12 +44237,12 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_0_2",
-                "problem": "State the order of each equation: (a) $\\dfrac{dy}{dx} + y^{2} = x$, \\quad (b) $\\dfrac{d^{2}y}{dx^{2}} + 3\\dfrac{dy}{dx} + 2y = 0$, \\quad (c) $\\dfrac{d^{3}y}{dx^{3}} + \\left(\\dfrac{dy}{dx}\\right)^{5} = \\sin x$.",
-                "solution": "The order is the highest derivative present. $$ \\text{(a) first order}, \\quad \\text{(b) second order}, \\quad \\text{(c) third order}. $$ In (c) the fifth \\emph{power} on $\\frac{dy}{dx}$ is a degree, not an order — the highest derivative is still the third."
+                "problem": "State the order of each equation: <strong>(a)</strong> $\\dfrac{dy}{dx} + y^{2} = x$, \\quad <strong>(b)</strong> $\\dfrac{d^{2}y}{dx^{2}} + 3\\dfrac{dy}{dx} + 2y = 0$, \\quad <strong>(c)</strong> $\\dfrac{d^{3}y}{dx^{3}} + \\left(\\dfrac{dy}{dx}\\right)^{5} = \\sin x$.",
+                "solution": "The order is the highest derivative present. $$ \\text{(a) first order}, \\quad \\text{(b) second order}, \\quad \\text{(c) third order}. $$ In (c) the fifth <em>power</em> on $\\frac{dy}{dx}$ is a degree, not an order — the highest derivative is still the third."
             },
             {
                 "id": "ps_0_3",
-                "problem": "Classify each equation as linear or nonlinear, and name the offending term when it is nonlinear: (a) $\\dfrac{dy}{dx} + x^{2}y = e^{x}$, \\quad (b) $\\dfrac{dy}{dx} = y^{2}$, \\quad (c) $\\dfrac{d^{2}y}{dx^{2}} + \\sin y = 0$.",
+                "problem": "Classify each equation as linear or nonlinear, and name the offending term when it is nonlinear: <strong>(a)</strong> $\\dfrac{dy}{dx} + x^{2}y = e^{x}$, \\quad <strong>(b)</strong> $\\dfrac{dy}{dx} = y^{2}$, \\quad <strong>(c)</strong> $\\dfrac{d^{2}y}{dx^{2}} + \\sin y = 0$.",
                 "solution": "An equation is linear when $y$ and its derivatives appear only to the first power and are never composed inside another function. $$ \\text{(a) linear}, \\quad \\text{(b) nonlinear: the term } y^{2}, \\quad \\text{(c) nonlinear: the term } \\sin y. $$"
             },
             {
@@ -44262,7 +44262,7 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_0_7",
-                "problem": "Classify each as an ordinary or a partial differential equation: (a) $\\dfrac{dy}{dt} = ky$, \\quad (b) $\\dfrac{\\partial u}{\\partial t} = \\dfrac{\\partial^{2}u}{\\partial x^{2}}$, \\quad (c) $\\dfrac{d^{2}x}{dt^{2}} + x = 0$.",
+                "problem": "Classify each as an ordinary or a partial differential equation: <strong>(a)</strong> $\\dfrac{dy}{dt} = ky$, \\quad <strong>(b)</strong> $\\dfrac{\\partial u}{\\partial t} = \\dfrac{\\partial^{2}u}{\\partial x^{2}}$, \\quad <strong>(c)</strong> $\\dfrac{d^{2}x}{dt^{2}} + x = 0$.",
                 "solution": "An ordinary equation has a single independent variable; a partial equation has several. $$ \\text{(a) ODE (only } t), \\quad \\text{(b) PDE (}t \\text{ and } x), \\quad \\text{(c) ODE (only } t). $$"
             },
             {
@@ -44272,12 +44272,12 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_0_9",
-                "problem": "(Application) A population grows at a rate proportional to its size, $\\dfrac{dP}{dt} = kP$, with $P(0) = 500$. If the population doubles in $4$ hours, find $k$ and write $P(t)$ explicitly.",
+                "problem": "<strong>(Application)</strong> A population grows at a rate proportional to its size, $\\dfrac{dP}{dt} = kP$, with $P(0) = 500$. If the population doubles in $4$ hours, find $k$ and write $P(t)$ explicitly.",
                 "solution": "A rate proportional to size gives exponential growth, $P(t) = P_{0}e^{kt}$, and here $P_{0} = 500$: $$ P(t) = 500\\,e^{kt}. $$ Doubling in $4$ hours means $P(4) = 1000$: $$ 1000 = 500\\,e^{4k} \\;\\Longrightarrow\\; e^{4k} = 2 \\;\\Longrightarrow\\; 4k = \\ln 2 $$ $$ k = \\frac{\\ln 2}{4}. $$ Hence $$ P(t) = 500\\,e^{(\\ln 2 / 4)\\,t} = 500\\cdot 2^{\\,t/4}. $$"
             },
             {
                 "id": "ps_0_10",
-                "problem": "(Application) A radioactive sample obeys $\\dfrac{dN}{dt} = -\\lambda N$ with $N(0) = N_{0}$. Verify that $N(t) = N_{0}e^{-\\lambda t}$ is a solution, then find $\\lambda$ given a half-life of $10$ years.",
+                "problem": "<strong>(Application)</strong> A radioactive sample obeys $\\dfrac{dN}{dt} = -\\lambda N$ with $N(0) = N_{0}$. Verify that $N(t) = N_{0}e^{-\\lambda t}$ is a solution, then find $\\lambda$ given a half-life of $10$ years.",
                 "solution": "First verify the candidate by differentiating: $$ \\frac{dN}{dt} = -\\lambda N_{0}e^{-\\lambda t} = -\\lambda N \\qquad\\checkmark $$ so $N(t) = N_{0}e^{-\\lambda t}$ solves the decay law. A half-life of $10$ years means $N(10) = \\tfrac{1}{2}N_{0}$: $$ \\tfrac{1}{2}N_{0} = N_{0}e^{-10\\lambda} \\;\\Longrightarrow\\; e^{-10\\lambda} = \\tfrac{1}{2} $$ $$ -10\\lambda = -\\ln 2 \\;\\Longrightarrow\\; \\lambda = \\frac{\\ln 2}{10} \\text{ per year}. $$"
             }
         ]
@@ -44385,7 +44385,7 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_2_10",
-                "problem": "(Application) An object at $100^{\\circ}$ is placed in a room held at $20^{\\circ}$. After $10$ minutes its temperature is $60^{\\circ}$. Find the temperature function $T(t)$ and determine how long it takes the object to reach $30^{\\circ}$.",
+                "problem": "<strong>(Application)</strong> An object at $100^{\\circ}$ is placed in a room held at $20^{\\circ}$. After $10$ minutes its temperature is $60^{\\circ}$. Find the temperature function $T(t)$ and determine how long it takes the object to reach $30^{\\circ}$.",
                 "solution": "Newton's law of cooling with surrounding temperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives $$ T(t) = 20 + (100 - 20)\\,e^{-kt} = 20 + 80\\,e^{-kt}. $$ Use the reading $T(10) = 60$ to find $k$: $$ 60 = 20 + 80\\,e^{-10k} \\;\\Longrightarrow\\; 80\\,e^{-10k} = 40 $$ $$ e^{-10k} = \\tfrac{1}{2} \\;\\Longrightarrow\\; -10k = -\\ln 2 \\;\\Longrightarrow\\; k = \\frac{\\ln 2}{10}. $$ Hence the temperature function is $$ T(t) = 20 + 80\\,e^{-(\\ln 2 / 10)\\,t} = 20 + 80\\left(\\tfrac{1}{2}\\right)^{t/10}. $$ To reach $30^{\\circ}$, solve $T(t) = 30$: $$ 30 = 20 + 80\\,e^{-kt} \\;\\Longrightarrow\\; 80\\,e^{-kt} = 10 \\;\\Longrightarrow\\; e^{-kt} = \\tfrac{1}{8} $$ $$ -kt = -\\ln 8 = -3\\ln 2 \\;\\Longrightarrow\\; t = \\frac{3\\ln 2}{k} = \\frac{3\\ln 2}{\\ln 2 / 10} = 30 \\text{ minutes}. $$"
             }
         ]
@@ -44410,12 +44410,12 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_3_4",
                 "problem": "For the system $x' = y$, $y' = -x$, locate the equilibrium and classify it using the eigenvalues of its coefficient matrix.",
-                "solution": "Equilibria need both derivatives zero: $$ y = 0 \\text{ and } -x = 0 \\;\\Longrightarrow\\; (0,0). $$ The coefficient matrix $\\left(\\begin{smallmatrix}0&1\\\\-1&0\\end{smallmatrix}\\right)$ has characteristic equation $\\lambda^2 + 1 = 0$: $$ \\lambda = \\pm i \\;\\;(\\text{purely imaginary}). $$ Purely imaginary eigenvalues give a center: trajectories are closed orbits circling the origin."
+                "solution": "Equilibria need both derivatives zero: $$ y = 0 \\text{ and } -x = 0 \\;\\Longrightarrow\\; (0,0). $$ The coefficient matrix $\\left(\\begin{smallmatrix}0&amp;1\\\\-1&amp;0\\end{smallmatrix}\\right)$ has characteristic equation $\\lambda^2 + 1 = 0$: $$ \\lambda = \\pm i \\;\\;(\\text{purely imaginary}). $$ Purely imaginary eigenvalues give a <span class=\"tx-work\">center</span>: trajectories are closed orbits circling the origin."
             },
             {
                 "id": "ps_3_5",
                 "problem": "For the linear system $x' = 2x$, $y' = 3y$, write the eigenvalues of the coefficient matrix and classify the origin.",
-                "solution": "The system is decoupled, so the coefficient matrix $\\left(\\begin{smallmatrix}2&0\\\\0&3\\end{smallmatrix}\\right)$ is diagonal and its eigenvalues sit on the diagonal: $$ \\lambda_1 = 2, \\quad \\lambda_2 = 3. $$ Both are real and positive, so the origin is an unstable node (a source) — every nearby trajectory flows outward."
+                "solution": "The system is decoupled, so the coefficient matrix $\\left(\\begin{smallmatrix}2&amp;0\\\\0&amp;3\\end{smallmatrix}\\right)$ is diagonal and its eigenvalues sit on the diagonal: $$ \\lambda_1 = 2, \\quad \\lambda_2 = 3. $$ Both are real and positive, so the origin is an <span class=\"tx-work\">unstable node (a source)</span> — every nearby trajectory flows outward."
             },
             {
                 "id": "ps_3_6",
@@ -44425,21 +44425,21 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_3_7",
                 "problem": "Show that the initial value problem $\\dfrac{dy}{dx} = \\sqrt{y}$, $y(0) = 0$ has more than one solution, and explain which hypothesis of the theorem fails.",
-                "solution": "Here $f = \\sqrt{y}$ is continuous at $y=0$, but $$ \\frac{\\partial f}{\\partial y} = \\frac{1}{2\\sqrt{y}} $$ is \\emph{not} continuous at $y = 0$ — it blows up. So uniqueness is not guaranteed, and indeed two solutions pass through the origin: $$ y = 0 \\qquad\\text{and}\\qquad y = \\frac{x^{2}}{4} \\quad (x \\ge 0), $$ since $\\frac{d}{dx}\\!\\left(\\frac{x^2}{4}\\right) = \\frac{x}{2} = \\sqrt{x^2/4}$. The failed hypothesis is continuity of $\\frac{\\partial f}{\\partial y}$."
+                "solution": "Here $f = \\sqrt{y}$ is continuous at $y=0$, but $$ \\frac{\\partial f}{\\partial y} = \\frac{1}{2\\sqrt{y}} $$ is <em>not</em> continuous at $y = 0$ — it blows up. So uniqueness is not guaranteed, and indeed two solutions pass through the origin: $$ y = 0 \\qquad\\text{and}\\qquad y = \\frac{x^{2}}{4} \\quad (x \\ge 0), $$ since $\\frac{d}{dx}\\!\\left(\\frac{x^2}{4}\\right) = \\frac{x}{2} = \\sqrt{x^2/4}$. The failed hypothesis is continuity of $\\frac{\\partial f}{\\partial y}$."
             },
             {
                 "id": "ps_3_8",
                 "problem": "Find every fixed point of $g(x) = x^{2}$ and classify each as attracting or repelling.",
-                "solution": "Solve $g(x) = x$: $$ x^{2} = x \\;\\Longrightarrow\\; x(x-1) = 0 \\;\\Longrightarrow\\; x = 0,\\ 1. $$ Classify with $|g'(x)| = |2x|$: $$ |g'(0)| = 0 < 1 \\ (\\text{attracting}), \\qquad |g'(1)| = 2 > 1 \\ (\\text{repelling}). $$"
+                "solution": "Solve $g(x) = x$: $$ x^{2} = x \\;\\Longrightarrow\\; x(x-1) = 0 \\;\\Longrightarrow\\; x = 0,\\ 1. $$ Classify with $|g'(x)| = |2x|$: $$ |g'(0)| = 0 &lt; 1 \\ (\\text{attracting}), \\qquad |g'(1)| = 2 &gt; 1 \\ (\\text{repelling}). $$"
             },
             {
                 "id": "ps_3_9",
                 "problem": "Show that $g(x) = \\cos x$ is a contraction on $[0,1]$, and state what the Banach fixed point theorem then concludes.",
-                "solution": "A bound $|g'(x)| \\le k < 1$ on an interval makes $g$ a contraction there. With $g(x) = \\cos x$, $$ |g'(x)| = |\\sin x|, $$ which increases on $[0,1]$ and so is largest at $x = 1$: $$ |\\sin x| \\le \\sin 1 \\approx 0.841 < 1. $$ Thus $g$ is a contraction with $k = \\sin 1$. By Banach, $g$ has a unique fixed point in $[0,1]$, and iterating cosine from \\emph{any} start converges to it."
+                "solution": "A bound $|g'(x)| \\le k &lt; 1$ on an interval makes $g$ a contraction there. With $g(x) = \\cos x$, $$ |g'(x)| = |\\sin x|, $$ which increases on $[0,1]$ and so is largest at $x = 1$: $$ |\\sin x| \\le \\sin 1 \\approx 0.841 &lt; 1. $$ Thus $g$ is a contraction with $k = \\sin 1$. By Banach, $g$ has a <span class=\"tx-work\">unique</span> fixed point in $[0,1]$, and iterating cosine from <em>any</em> start converges to it."
             },
             {
                 "id": "ps_3_10",
-                "problem": "(Capstone) For $\\dfrac{dy}{dx} = y$ with $y(0) = 1$, carry out Picard iteration from $\\varphi_0 = 1$: compute $\\varphi_1$, $\\varphi_2$, $\\varphi_3$, and identify the function the iterates converge to.",
+                "problem": "<strong>(Capstone)</strong> For $\\dfrac{dy}{dx} = y$ with $y(0) = 1$, carry out Picard iteration from $\\varphi_0 = 1$: compute $\\varphi_1$, $\\varphi_2$, $\\varphi_3$, and identify the function the iterates converge to.",
                 "solution": "Use $\\varphi_{n+1}(x) = 1 + \\int_0^x \\varphi_n(t)\\,dt$ from $\\varphi_0 = 1$. $$ \\varphi_1 = 1 + \\int_0^x 1\\,dt = 1 + x. $$ $$ \\varphi_2 = 1 + \\int_0^x (1+t)\\,dt = 1 + x + \\frac{x^2}{2}. $$ $$ \\varphi_3 = 1 + \\int_0^x \\left(1 + t + \\frac{t^2}{2}\\right)dt = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6}. $$ These are the partial sums of the exponential series, so $$ \\varphi_n \\to 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\cdots = e^{x}, $$ the true solution of $y' = y$, $y(0) = 1$."
             }
         ]
@@ -44454,27 +44454,27 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_4_2",
                 "problem": "Classify the equilibrium $y = 2$ of $\\dfrac{dy}{dt} = y - 2$ using the sign of $f'$.",
-                "solution": "Here $f(y) = y - 2$, so $f'(y) = 1$: $$ f'(2) = 1 > 0 \\;\\Longrightarrow\\; \\text{unstable (a source).} $$ A positive slope of $f$ at the equilibrium repels nearby solutions."
+                "solution": "Here $f(y) = y - 2$, so $f'(y) = 1$: $$ f'(2) = 1 &gt; 0 \\;\\Longrightarrow\\; \\text{unstable (a source).} $$ A positive slope of $f$ at the equilibrium repels nearby solutions."
             },
             {
                 "id": "ps_4_3",
                 "problem": "For $\\dfrac{dy}{dt} = y - y^{3}$, find every equilibrium and classify each with the linearized test.",
-                "solution": "Factor for the equilibria, then apply $f'(y) = 1 - 3y^{2}$: $$ y - y^{3} = y(1-y)(1+y) = 0 \\;\\Longrightarrow\\; y = -1,\\,0,\\,1. $$ $$ f'(0) = 1 > 0\\ (\\text{unstable}), \\qquad f'(\\pm 1) = 1 - 3 = -2 < 0\\ (\\text{stable}). $$ So $y = \\pm 1$ are sinks and $y = 0$ is a source."
+                "solution": "Factor for the equilibria, then apply $f'(y) = 1 - 3y^{2}$: $$ y - y^{3} = y(1-y)(1+y) = 0 \\;\\Longrightarrow\\; y = -1,\\,0,\\,1. $$ $$ f'(0) = 1 &gt; 0\\ (\\text{unstable}), \\qquad f'(\\pm 1) = 1 - 3 = -2 &lt; 0\\ (\\text{stable}). $$ So $y = \\pm 1$ are sinks and $y = 0$ is a source."
             },
             {
                 "id": "ps_4_4",
                 "problem": "Classify the equilibrium $y = 1$ of $\\dfrac{dy}{dt} = (y-1)^{2}$. Why does the $f'$ test alone not settle it?",
-                "solution": "The only equilibrium is $y = 1$. The linearized test is inconclusive because $$ f'(y) = 2(y-1) \\;\\Longrightarrow\\; f'(1) = 0. $$ Fall back on the sign of $f(y) = (y-1)^{2}$, which is $\\ge 0$ everywhere and \\emph{never} changes sign across $y = 1$: $$ y<1:\\ f>0\\ (\\uparrow), \\qquad y>1:\\ f>0\\ (\\uparrow). $$ Solutions rise toward $1$ from below but away from $1$ above, so $y = 1$ is semi-stable."
+                "solution": "The only equilibrium is $y = 1$. The linearized test is inconclusive because $$ f'(y) = 2(y-1) \\;\\Longrightarrow\\; f'(1) = 0. $$ Fall back on the sign of $f(y) = (y-1)^{2}$, which is $\\ge 0$ everywhere and <em>never</em> changes sign across $y = 1$: $$ y&lt;1:\\ f&gt;0\\ (\\uparrow), \\qquad y&gt;1:\\ f&gt;0\\ (\\uparrow). $$ Solutions rise toward $1$ from below but away from $1$ above, so $y = 1$ is <strong>semi-stable</strong>."
             },
             {
                 "id": "ps_4_5",
                 "problem": "Build the phase line for $\\dfrac{dy}{dt} = y^{2} - 4$: mark the equilibria, set the arrows, and classify each.",
-                "solution": "Equilibria where the rate vanishes: $$ y^{2} - 4 = 0 \\;\\Longrightarrow\\; y = -2,\\,2. $$ Test the rate sign on each interval: $$ y<-2:\\ (+)\\,\\uparrow, \\qquad -2<y<2:\\ (-)\\,\\downarrow, \\qquad y>2:\\ (+)\\,\\uparrow. $$ Arrows converge on $-2$ (stable) and diverge from $2$ (unstable)."
+                "solution": "Equilibria where the rate vanishes: $$ y^{2} - 4 = 0 \\;\\Longrightarrow\\; y = -2,\\,2. $$ Test the rate sign on each interval: $$ y&lt;-2:\\ (+)\\,\\uparrow, \\qquad -2&lt;y&lt;2:\\ (-)\\,\\downarrow, \\qquad y&gt;2:\\ (+)\\,\\uparrow. $$ Arrows converge on $-2$ (<strong>stable</strong>) and diverge from $2$ (<strong>unstable</strong>)."
             },
             {
                 "id": "ps_4_6",
-                "problem": "For the logistic equation $\\dfrac{dP}{dt} = rP\\!\\left(1-\\dfrac{P}{K}\\right)$ with $r > 0$, find both equilibria, classify them, and give the population of fastest growth.",
-                "solution": "Set the product to zero: $$ rP\\!\\left(1-\\frac{P}{K}\\right) = 0 \\;\\Longrightarrow\\; P = 0 \\text{ and } P = K. $$ Classify with $f'(P) = r\\!\\left(1 - \\dfrac{2P}{K}\\right)$: $$ f'(0) = r > 0\\ (\\text{unstable}), \\qquad f'(K) = r(1-2) = -r < 0\\ (\\text{stable}). $$ The growth rate, a downward parabola in $P$ with roots $0$ and $K$, peaks at the midpoint: $$ P = \\frac{K}{2}. $$"
+                "problem": "For the logistic equation $\\dfrac{dP}{dt} = rP\\!\\left(1-\\dfrac{P}{K}\\right)$ with $r &gt; 0$, find both equilibria, classify them, and give the population of fastest growth.",
+                "solution": "Set the product to zero: $$ rP\\!\\left(1-\\frac{P}{K}\\right) = 0 \\;\\Longrightarrow\\; P = 0 \\text{ and } P = K. $$ Classify with $f'(P) = r\\!\\left(1 - \\dfrac{2P}{K}\\right)$: $$ f'(0) = r &gt; 0\\ (\\text{unstable}), \\qquad f'(K) = r(1-2) = -r &lt; 0\\ (\\text{stable}). $$ The growth rate, a downward parabola in $P$ with roots $0$ and $K$, peaks at the midpoint: $$ P = \\frac{K}{2}. $$"
             },
             {
                 "id": "ps_4_7",
@@ -44488,12 +44488,12 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_4_9",
-                "problem": "Reduce $y' + \\dfrac{1}{x}\\,y = x\\,y^{2}$ to a first-order \\emph{linear} equation in $v = y^{1-n}$ (do not solve it yet).",
+                "problem": "Reduce $y' + \\dfrac{1}{x}\\,y = x\\,y^{2}$ to a first-order <em>linear</em> equation in $v = y^{1-n}$ (do not solve it yet).",
                 "solution": "Here $n = 2$, so $v = y^{-1}$ and $v' = -y^{-2}y'$. Divide every term by $y^{2}$: $$ y^{-2}y' + \\frac{1}{x}\\,y^{-1} = x. $$ Replace $y^{-1} = v$ and $y^{-2}y' = -v'$: $$ -v' + \\frac{1}{x}\\,v = x \\;\\Longrightarrow\\; v' - \\frac{1}{x}\\,v = -x, $$ a first-order linear equation in $v$."
             },
             {
                 "id": "ps_4_10",
-                "problem": "(Capstone) Solve the Bernoulli equation $y' + y = y^{2}$ completely: reduce it with $v = y^{-1}$, solve the linear equation, and back-substitute for $y$.",
+                "problem": "<strong>(Capstone)</strong> Solve the Bernoulli equation $y' + y = y^{2}$ completely: reduce it with $v = y^{-1}$, solve the linear equation, and back-substitute for $y$.",
                 "solution": "With $n = 2$, set $v = y^{-1}$, $v' = -y^{-2}y'$. Divide $y' + y = y^{2}$ by $y^{2}$: $$ y^{-2}y' + y^{-1} = 1. $$ Substitute $y^{-1} = v$, $y^{-2}y' = -v'$: $$ -v' + v = 1 \\;\\Longrightarrow\\; v' - v = -1. $$ Integrating factor $\\mu = e^{-x}$: $$ \\left(e^{-x}v\\right)' = -e^{-x} \\;\\Longrightarrow\\; e^{-x}v = e^{-x} + C. $$ So $v = 1 + Ce^{x}$, and back-substituting $v = y^{-1}$: $$ y = \\frac{1}{v} = \\frac{1}{1 + Ce^{x}}. $$"
             }
         ]
@@ -44507,22 +44507,22 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_5_2",
-                "problem": "Continue from Problem 1 and take a \\emph{second} Euler step to find $y_2$ at $t_2 = 0.4$.",
+                "problem": "Continue from Problem 1 and take a <em>second</em> Euler step to find $y_2$ at $t_2 = 0.4$.",
                 "solution": "From $(t_1,y_1) = (0.2,\\,1.2)$ the slope is $f(0.2,1.2) = 0.2 + 1.2 = 1.4$: $$ y_2 = 1.2 + 0.2\\cdot 1.4 = 1.48, \\qquad t_2 = 0.4. $$"
             },
             {
                 "id": "ps_5_3",
                 "problem": "State the local and global truncation error orders of Euler's method, and the factor by which the global error changes when $h$ is halved.",
-                "solution": "A single Euler step drops the $\\tfrac{h^{2}}{2}y''$ term, so the local truncation error is $O(h^{2})$. Accumulated over $\\sim 1/h$ steps, the global error is $O(h)$, making Euler a first-order method. Halving $h$ therefore $$ \\text{cuts the global error by about a factor of } 2. $$"
+                "solution": "A single Euler step drops the $\\tfrac{h^{2}}{2}y''$ term, so the <strong>local</strong> truncation error is $O(h^{2})$. Accumulated over $\\sim 1/h$ steps, the <strong>global</strong> error is $O(h)$, making Euler a first-order method. Halving $h$ therefore $$ \\text{cuts the global error by about a factor of } 2. $$"
             },
             {
                 "id": "ps_5_4",
-                "problem": "Take one \\emph{improved Euler} step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
+                "problem": "Take one <em>improved Euler</em> step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
                 "solution": "Improved Euler uses $k_1 = f(t_n,y_n)$ and $k_2 = f(t_n+h,\\,y_n+hk_1)$, then averages: $$ k_1 = f(0,1) = 1, \\qquad k_2 = f(0.2,\\;1 + 0.2\\cdot 1) = f(0.2,\\,1.2) = 1.4. $$ $$ y_1 = 1 + \\frac{0.2}{2}\\left(1 + 1.4\\right) = 1 + 0.1\\cdot 2.4 = 1.24. $$"
             },
             {
                 "id": "ps_5_5",
-                "problem": "Take one \\emph{modified Euler} (midpoint) step for the same problem, $\\dfrac{dy}{dt} = t + y$, $y(0)=1$, $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
+                "problem": "Take one <em>modified Euler</em> (midpoint) step for the same problem, $\\dfrac{dy}{dt} = t + y$, $y(0)=1$, $h = 0.2$. Show $k_1$, $k_2$, and $y_1$.",
                 "solution": "Modified Euler reads the slope at the midpoint after a half-step prediction: $$ k_1 = f(0,1) = 1, \\qquad k_2 = f\\!\\left(0.1,\\; 1 + 0.1\\cdot 1\\right) = f(0.1,\\,1.1) = 1.2. $$ $$ y_1 = 1 + h\\,k_2 = 1 + 0.2\\cdot 1.2 = 1.24. $$ Here both second-order methods agree to the digits shown."
             },
             {
@@ -44543,16 +44543,16 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_5_9",
                 "problem": "Rank Euler, improved/modified Euler, Heun, and RK4 by order of accuracy, and give the factor by which each method's global error drops when $h$ is halved.",
-                "solution": "Ranked by order of accuracy: $$ \\begin{array}{lll} \\text{Euler} & \\text{1st order } O(h) & \\text{halving } h \\Rightarrow \\div 2\\\\ \\text{Improved / Modified Euler} & \\text{2nd order } O(h^{2}) & \\text{halving } h \\Rightarrow \\div 4\\\\ \\text{Heun} & \\text{2nd order } O(h^{2}) & \\text{halving } h \\Rightarrow \\div 4\\\\ \\text{RK4} & \\text{4th order } O(h^{4}) & \\text{halving } h \\Rightarrow \\div 16 \\end{array} $$"
+                "solution": "Ranked by order of accuracy: $$ \\begin{array}{lll} \\text{Euler} &amp; \\text{1st order } O(h) &amp; \\text{halving } h \\Rightarrow \\div 2\\\\ \\text{Improved / Modified Euler} &amp; \\text{2nd order } O(h^{2}) &amp; \\text{halving } h \\Rightarrow \\div 4\\\\ \\text{Heun} &amp; \\text{2nd order } O(h^{2}) &amp; \\text{halving } h \\Rightarrow \\div 4\\\\ \\text{RK4} &amp; \\text{4th order } O(h^{4}) &amp; \\text{halving } h \\Rightarrow \\div 16 \\end{array} $$"
             },
             {
                 "id": "ps_5_10",
-                "problem": "Explain how an adaptive solver uses two estimates of \\emph{different} order to decide whether to shrink or grow the step size $h$.",
-                "solution": "An adaptive solver advances each step two ways of \\emph{different} order — for example an embedded RK4/RK5 pair, or one full step compared against two half steps. The difference between the two estimates approximates the local error. If that estimate exceeds the tolerance, the solver shrinks $h$ and retries the step; if it sits comfortably under the tolerance, the solver grows $h$ for the next step, so the work concentrates where the solution changes fastest."
+                "problem": "Explain how an adaptive solver uses two estimates of <em>different</em> order to decide whether to shrink or grow the step size $h$.",
+                "solution": "An adaptive solver advances each step two ways of <em>different</em> order — for example an embedded RK4/RK5 pair, or one full step compared against two half steps. The difference between the two estimates approximates the local error. If that estimate <strong>exceeds</strong> the tolerance, the solver <strong>shrinks</strong> $h$ and retries the step; if it sits comfortably <strong>under</strong> the tolerance, the solver <strong>grows</strong> $h$ for the next step, so the work concentrates where the solution changes fastest."
             },
             {
                 "id": "ps_5_11",
-                "problem": "(Capstone) Take one RK4 step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Compute $y_1$, then compare it against the Euler result (Problem 1) and the improved Euler result (Problem 4) using the exact solution $y = 2e^{t} - t - 1$.",
+                "problem": "<strong>(Capstone)</strong> Take one RK4 step for $\\dfrac{dy}{dt} = t + y$ with $y(0) = 1$ and $h = 0.2$. Compute $y_1$, then compare it against the Euler result (Problem 1) and the improved Euler result (Problem 4) using the exact solution $y = 2e^{t} - t - 1$.",
                 "solution": "Solution (Capstone). RK4 for $f(t,y)=t+y$, $y(0)=1$, $h=0.2$: $$ k_1 = f(0,1) = 1, \\qquad k_2 = f(0.1,\\;1+0.1\\cdot 1) = f(0.1,\\,1.1) = 1.2, $$ $$ k_3 = f(0.1,\\;1+0.1\\cdot 1.2) = f(0.1,\\,1.12) = 1.22, \\qquad k_4 = f(0.2,\\;1+0.2\\cdot 1.22) = f(0.2,\\,1.244) = 1.444. $$ $$ y_1 = 1 + \\frac{0.2}{6}\\big(1 + 2(1.2) + 2(1.22) + 1.444\\big) = 1 + \\frac{0.2}{6}(7.284) = 1.242805. $$ The exact solution gives $y(0.2) = 2e^{0.2} - 0.2 - 1 = 1.242806$, so RK4 is correct to six figures. Compare the one-step estimates: $$ \\text{Euler } 1.2 \\;(\\text{err }\\approx 4.3\\times 10^{-2}), \\quad \\text{Improved } 1.24 \\;(\\text{err }\\approx 2.8\\times 10^{-3}), \\quad \\text{RK4 } 1.242805 \\;(\\text{err }\\approx 10^{-6}). $$"
             }
         ]
@@ -44597,17 +44597,17 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_6_8",
                 "problem": "Find and classify the single critical point of $f(x,y) = x^2 + y^2 - 4x - 6y + 13$, and give the extreme value.",
-                "solution": "Set the gradient to zero: $$ f_x = 2x - 4 = 0 \\Rightarrow x = 2, \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3, $$ so the only critical point is $(2,3)$. The second partials are $f_{xx}=2$, $f_{yy}=2$, $f_{xy}=0$, giving $$ D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0, \\quad f_{xx} = 2 > 0, $$ a local minimum. The value is $f(2,3) = 4 + 9 - 8 - 18 + 13 = 0$."
+                "solution": "Set the gradient to zero: $$ f_x = 2x - 4 = 0 \\Rightarrow x = 2, \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3, $$ so the only critical point is $(2,3)$. The second partials are $f_{xx}=2$, $f_{yy}=2$, $f_{xy}=0$, giving $$ D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 &gt; 0, \\quad f_{xx} = 2 &gt; 0, $$ a <strong>local minimum</strong>. The value is $f(2,3) = 4 + 9 - 8 - 18 + 13 = 0$."
             },
             {
                 "id": "ps_6_9",
                 "problem": "Find and classify the critical point of $f(x,y) = x^2 - y^2$ using the second-derivative test.",
-                "solution": "Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone critical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$: $$ D = (2)(-2) - 0 = -4 < 0, $$ so $(0,0)$ is a saddle point — $f$ rises along $x$ and falls along $y$, and the sign of $f_{xx}$ is irrelevant once $D<0$."
+                "solution": "Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone critical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$: $$ D = (2)(-2) - 0 = -4 &lt; 0, $$ so $(0,0)$ is a <strong>saddle point</strong> — $f$ rises along $x$ and falls along $y$, and the sign of $f_{xx}$ is irrelevant once $D&lt;0$."
             },
             {
                 "id": "ps_6_10",
-                "problem": "(Capstone) Find \\emph{all} critical points of $f(x,y) = x^3 - 3x + y^2$ and classify each with the second-derivative test, reporting any extreme values.",
-                "solution": "Solution (Capstone). Set both partials to zero: $$ f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1, \\qquad f_y = 2y = 0 \\Rightarrow y = 0, $$ giving critical points $(1,0)$ and $(-1,0)$. The second partials are $f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$. $$ (1,0):\\ D = 12 > 0,\\ f_{xx} = 6 > 0 \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2. $$ $$ (-1,0):\\ D = -12 < 0 \\Rightarrow \\text{saddle point}. $$ So $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the cubic term means there is no global extremum."
+                "problem": "<strong>(Capstone)</strong> Find <em>all</em> critical points of $f(x,y) = x^3 - 3x + y^2$ and classify each with the second-derivative test, reporting any extreme values.",
+                "solution": "Solution (Capstone). Set both partials to zero: $$ f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1, \\qquad f_y = 2y = 0 \\Rightarrow y = 0, $$ giving critical points $(1,0)$ and $(-1,0)$. The second partials are $f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$. $$ (1,0):\\ D = 12 &gt; 0,\\ f_{xx} = 6 &gt; 0 \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2. $$ $$ (-1,0):\\ D = -12 &lt; 0 \\Rightarrow \\text{saddle point}. $$ So $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the cubic term means there is no global extremum."
             }
         ]
     },
@@ -44616,52 +44616,52 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_7_1",
                 "problem": "For the equation $(2x + 3y)\\,dx + (3x + 2y)\\,dy = 0$, compute $M_y$ and $N_x$, confirm the equation is exact, and reconstruct the potential function $F(x,y) = C$.",
-                "solution": "Identify $M = 2x + 3y$ and $N = 3x + 2y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2x + 3y) = 3, \\qquad N_x = \\frac{\\partial}{\\partial x}(3x + 2y) = 3. $$ Since $M_y = N_x = 3$, the equation is exact. Integrate $M$ with respect to $x$, holding $y$ fixed: $$ F(x,y) = \\int(2x + 3y)\\,dx = x^2 + 3xy + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = 3x + g'(y) = N = 3x + 2y \\quad\\Longrightarrow\\quad g'(y) = 2y. $$ Integrate $g'(y)$: $$ g(y) = \\int 2y\\,dy = y^2. $$ The general solution is $$ F(x,y) = x^2 + 3xy + y^2 = C. $$"
+                "solution": "Identify $M = 2x + 3y$ and $N = 3x + 2y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2x + 3y) = 3, \\qquad N_x = \\frac{\\partial}{\\partial x}(3x + 2y) = 3. $$ Since $M_y = N_x = 3$, the equation is <strong>exact</strong>. Integrate $M$ with respect to $x$, holding $y$ fixed: $$ F(x,y) = \\int(2x + 3y)\\,dx = x^2 + 3xy + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = 3x + g'(y) = N = 3x + 2y \\quad\\Longrightarrow\\quad g'(y) = 2y. $$ Integrate $g'(y)$: $$ g(y) = \\int 2y\\,dy = y^2. $$ The general solution is $$ F(x,y) = x^2 + 3xy + y^2 = C. $$"
             },
             {
                 "id": "ps_7_2",
                 "problem": "Verify that $(2xy - \\sec^2\\!x)\\,dx + (x^2 + 2y)\\,dy = 0$ is exact, then determine $F(x,y)$ by integrating $M$ with respect to $x$ and solving for the integration term $g(y)$.",
-                "solution": "Identify $M = 2xy - \\sec^2\\!x$ and $N = x^2 + 2y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2xy - \\sec^2\\!x) = 2x, \\qquad N_x = \\frac{\\partial}{\\partial x}(x^2 + 2y) = 2x. $$ Since $M_y = N_x = 2x$, the equation is exact. Integrate $M$ with respect to $x$, using $\\int\\sec^2\\!x\\,dx = \\tan x$: $$ F(x,y) = \\int(2xy - \\sec^2\\!x)\\,dx = x^2 y - \\tan x + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = x^2 + g'(y) = x^2 + 2y \\quad\\Longrightarrow\\quad g'(y) = 2y. $$ Integrate $g'(y)$: $$ g(y) = y^2. $$ The general solution is $$ F(x,y) = x^2 y - \\tan x + y^2 = C. $$"
+                "solution": "Identify $M = 2xy - \\sec^2\\!x$ and $N = x^2 + 2y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2xy - \\sec^2\\!x) = 2x, \\qquad N_x = \\frac{\\partial}{\\partial x}(x^2 + 2y) = 2x. $$ Since $M_y = N_x = 2x$, the equation is <strong>exact</strong>. Integrate $M$ with respect to $x$, using $\\int\\sec^2\\!x\\,dx = \\tan x$: $$ F(x,y) = \\int(2xy - \\sec^2\\!x)\\,dx = x^2 y - \\tan x + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = x^2 + g'(y) = x^2 + 2y \\quad\\Longrightarrow\\quad g'(y) = 2y. $$ Integrate $g'(y)$: $$ g(y) = y^2. $$ The general solution is $$ F(x,y) = x^2 y - \\tan x + y^2 = C. $$"
             },
             {
                 "id": "ps_7_3",
                 "problem": "Show that $(e^x\\sin y + 2y)\\,dx + (e^x\\cos y + 2x - 2)\\,dy = 0$ is exact and find the implicit solution $F(x,y) = C$.",
-                "solution": "Identify $M = e^x\\sin y + 2y$ and $N = e^x\\cos y + 2x - 2$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(e^x\\sin y + 2y) = e^x\\cos y + 2. $$ $$ N_x = \\frac{\\partial}{\\partial x}(e^x\\cos y + 2x - 2) = e^x\\cos y + 2. $$ Since $M_y = N_x = e^x\\cos y + 2$, the equation is exact. Integrate $M$ with respect to $x$: $$ F(x,y) = \\int(e^x\\sin y + 2y)\\,dx = e^x\\sin y + 2xy + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = e^x\\cos y + 2x + g'(y) = e^x\\cos y + 2x - 2 \\quad\\Longrightarrow\\quad g'(y) = -2. $$ Integrate $g'(y)$: $$ g(y) = -2y. $$ The general solution is $$ F(x,y) = e^x\\sin y + 2xy - 2y = C. $$"
+                "solution": "Identify $M = e^x\\sin y + 2y$ and $N = e^x\\cos y + 2x - 2$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(e^x\\sin y + 2y) = e^x\\cos y + 2. $$ $$ N_x = \\frac{\\partial}{\\partial x}(e^x\\cos y + 2x - 2) = e^x\\cos y + 2. $$ Since $M_y = N_x = e^x\\cos y + 2$, the equation is <strong>exact</strong>. Integrate $M$ with respect to $x$: $$ F(x,y) = \\int(e^x\\sin y + 2y)\\,dx = e^x\\sin y + 2xy + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = e^x\\cos y + 2x + g'(y) = e^x\\cos y + 2x - 2 \\quad\\Longrightarrow\\quad g'(y) = -2. $$ Integrate $g'(y)$: $$ g(y) = -2y. $$ The general solution is $$ F(x,y) = e^x\\sin y + 2xy - 2y = C. $$"
             },
             {
                 "id": "ps_7_4",
-                "problem": "Given $\\bigl(\\tfrac{y}{x} + 6x\\bigr)\\,dx + (\\ln x - 2)\\,dy = 0$ for $x > 0$, test for exactness, reconstruct $F(x,y)$ including the full evaluation of $g(y)$, and then solve the initial-value problem with $y(1) = 4$.",
-                "solution": "Identify $M = y/x + 6x$ and $N = \\ln x - 2$ (with $x>0$). Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}\\!\\left(\\frac{y}{x} + 6x\\right) = \\frac{1}{x}, \\qquad N_x = \\frac{\\partial}{\\partial x}(\\ln x - 2) = \\frac{1}{x}. $$ Since $M_y = N_x = 1/x$, the equation is exact. Integrate $M$ with respect to $x$: $$ F(x,y) = \\int\\!\\left(\\frac{y}{x} + 6x\\right)dx = y\\ln x + 3x^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = \\ln x + g'(y) = \\ln x - 2 \\quad\\Longrightarrow\\quad g'(y) = -2. $$ Integrate $g'(y)$: $$ g(y) = -2y. $$ The general solution is $y\\ln x + 3x^2 - 2y = C$. Apply the initial condition $y(1) = 4$; since $\\ln 1 = 0$: $$ (4)\\ln 1 + 3(1)^2 - 2(4) = 0 + 3 - 8 = -5 = C. $$ The particular implicit solution is $y\\ln x + 3x^2 - 2y = -5$. Collecting $y$ terms and solving explicitly: $$ y(\\ln x - 2) = -5 - 3x^2 \\quad\\Longrightarrow\\quad y = \\frac{-5 - 3x^2}{\\ln x - 2} = \\frac{3x^2 + 5}{2 - \\ln x}. $$"
+                "problem": "Given $\\bigl(\\tfrac{y}{x} + 6x\\bigr)\\,dx + (\\ln x - 2)\\,dy = 0$ for $x &gt; 0$, test for exactness, reconstruct $F(x,y)$ including the full evaluation of $g(y)$, and then solve the initial-value problem with $y(1) = 4$.",
+                "solution": "Identify $M = y/x + 6x$ and $N = \\ln x - 2$ (with $x&gt;0$). Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}\\!\\left(\\frac{y}{x} + 6x\\right) = \\frac{1}{x}, \\qquad N_x = \\frac{\\partial}{\\partial x}(\\ln x - 2) = \\frac{1}{x}. $$ Since $M_y = N_x = 1/x$, the equation is <strong>exact</strong>. Integrate $M$ with respect to $x$: $$ F(x,y) = \\int\\!\\left(\\frac{y}{x} + 6x\\right)dx = y\\ln x + 3x^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N$: $$ F_y = \\ln x + g'(y) = \\ln x - 2 \\quad\\Longrightarrow\\quad g'(y) = -2. $$ Integrate $g'(y)$: $$ g(y) = -2y. $$ The general solution is $y\\ln x + 3x^2 - 2y = C$. Apply the initial condition $y(1) = 4$; since $\\ln 1 = 0$: $$ (4)\\ln 1 + 3(1)^2 - 2(4) = 0 + 3 - 8 = -5 = C. $$ The particular implicit solution is $y\\ln x + 3x^2 - 2y = -5$. Collecting $y$ terms and solving explicitly: $$ y(\\ln x - 2) = -5 - 3x^2 \\quad\\Longrightarrow\\quad y = \\frac{-5 - 3x^2}{\\ln x - 2} = \\frac{3x^2 + 5}{2 - \\ln x}. $$"
             },
             {
                 "id": "ps_7_5",
                 "problem": "The equation $(3xy + y^2)\\,dx + (x^2 + xy)\\,dy = 0$ is not exact. Determine whether an integrating factor of the form $\\mu(x)$ exists, find it, and solve the resulting exact equation.",
-                "solution": "Identify $M = 3xy + y^2$ and $N = x^2 + xy$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(3xy + y^2) = 3x + 2y, \\qquad N_x = \\frac{\\partial}{\\partial x}(x^2 + xy) = 2x + y. $$ Since $M_y = 3x + 2y \\neq 2x + y = N_x$, the equation is not exact. Compute the exactness defect: $$ \\Delta = M_y - N_x = (3x + 2y) - (2x + y) = x + y. $$ Test for $\\mu(x)$ by forming $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{x + y}{x^2 + xy} = \\frac{x + y}{x(x + y)} = \\frac{1}{x}. $$ This is a function of $x$ alone, so $\\mu(x)$ exists: $$ \\mu(x) = e^{\\int (1/x)\\,dx} = e^{\\ln x} = x. $$ Multiply the ODE by $\\mu = x$; the new coefficients are $M^* = x(3xy + y^2) = 3x^2 y + xy^2$ and $N^* = x(x^2 + xy) = x^3 + x^2 y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(3x^2 y + xy^2) = 3x^2 + 2xy, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(x^3 + x^2 y) = 3x^2 + 2xy. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int(3x^2 y + xy^2)\\,dx = x^3 y + \\tfrac{1}{2}x^2 y^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = x^3 + x^2 y + g'(y) = x^3 + x^2 y \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ The general solution is $$ F(x,y) = x^3 y + \\tfrac{1}{2}x^2 y^2 = C. $$"
+                "solution": "Identify $M = 3xy + y^2$ and $N = x^2 + xy$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(3xy + y^2) = 3x + 2y, \\qquad N_x = \\frac{\\partial}{\\partial x}(x^2 + xy) = 2x + y. $$ Since $M_y = 3x + 2y \\neq 2x + y = N_x$, the equation is <strong>not exact</strong>. Compute the exactness defect: $$ \\Delta = M_y - N_x = (3x + 2y) - (2x + y) = x + y. $$ Test for $\\mu(x)$ by forming $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{x + y}{x^2 + xy} = \\frac{x + y}{x(x + y)} = \\frac{1}{x}. $$ This is a function of $x$ alone, so $\\mu(x)$ exists: $$ \\mu(x) = e^{\\int (1/x)\\,dx} = e^{\\ln x} = x. $$ Multiply the ODE by $\\mu = x$; the new coefficients are $M^* = x(3xy + y^2) = 3x^2 y + xy^2$ and $N^* = x(x^2 + xy) = x^3 + x^2 y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(3x^2 y + xy^2) = 3x^2 + 2xy, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(x^3 + x^2 y) = 3x^2 + 2xy. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int(3x^2 y + xy^2)\\,dx = x^3 y + \\tfrac{1}{2}x^2 y^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = x^3 + x^2 y + g'(y) = x^3 + x^2 y \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ The general solution is $$ F(x,y) = x^3 y + \\tfrac{1}{2}x^2 y^2 = C. $$"
             },
             {
                 "id": "ps_7_6",
                 "problem": "Show that $(2y^2 + 3x)\\,dx + 2xy\\,dy = 0$ fails the exactness test, find an integrating factor depending on $x$ alone, and produce the solution $F(x,y) = C$.",
-                "solution": "Identify $M = 2y^2 + 3x$ and $N = 2xy$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2y^2 + 3x) = 4y, \\qquad N_x = \\frac{\\partial}{\\partial x}(2xy) = 2y. $$ Since $M_y = 4y \\neq 2y = N_x$, the equation is not exact. Compute the exactness defect: $$ \\Delta = M_y - N_x = 4y - 2y = 2y. $$ Test for $\\mu(x)$ by forming $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{2y}{2xy} = \\frac{1}{x}. $$ Pure in $x$. The integrating factor is: $$ \\mu(x) = e^{\\int (1/x)\\,dx} = e^{\\ln x} = x. $$ Multiply the ODE by $\\mu = x$; the new coefficients are $M^* = x(2y^2 + 3x) = 2xy^2 + 3x^2$ and $N^* = x\\cdot 2xy = 2x^2 y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(2xy^2 + 3x^2) = 4xy, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(2x^2 y) = 4xy. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int(2xy^2 + 3x^2)\\,dx = x^2 y^2 + x^3 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = 2x^2 y + g'(y) = 2x^2 y \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ The general solution is $$ F(x,y) = x^2 y^2 + x^3 = C. $$"
+                "solution": "Identify $M = 2y^2 + 3x$ and $N = 2xy$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(2y^2 + 3x) = 4y, \\qquad N_x = \\frac{\\partial}{\\partial x}(2xy) = 2y. $$ Since $M_y = 4y \\neq 2y = N_x$, the equation is <strong>not exact</strong>. Compute the exactness defect: $$ \\Delta = M_y - N_x = 4y - 2y = 2y. $$ Test for $\\mu(x)$ by forming $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{2y}{2xy} = \\frac{1}{x}. $$ Pure in $x$. The integrating factor is: $$ \\mu(x) = e^{\\int (1/x)\\,dx} = e^{\\ln x} = x. $$ Multiply the ODE by $\\mu = x$; the new coefficients are $M^* = x(2y^2 + 3x) = 2xy^2 + 3x^2$ and $N^* = x\\cdot 2xy = 2x^2 y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(2xy^2 + 3x^2) = 4xy, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(2x^2 y) = 4xy. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int(2xy^2 + 3x^2)\\,dx = x^2 y^2 + x^3 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = 2x^2 y + g'(y) = 2x^2 y \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ The general solution is $$ F(x,y) = x^2 y^2 + x^3 = C. $$"
             },
             {
                 "id": "ps_7_7",
                 "problem": "For $y\\,dx + (2x - ye^y)\\,dy = 0$, demonstrate that no integrating factor $\\mu(x)$ works but an integrating factor $\\mu(y)$ does; determine $\\mu(y)$ and solve.",
-                "solution": "Identify $M = y$ and $N = 2x - ye^y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(y) = 1, \\qquad N_x = \\frac{\\partial}{\\partial x}(2x - ye^y) = 2. $$ Since $M_y = 1 \\neq 2 = N_x$, the equation is not exact. Compute $\\Delta = M_y - N_x = 1 - 2 = -1$. \\textit{Test $\\mu(x)$:} Form $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{-1}{2x - ye^y}. $$ This contains $y$, so it is not a function of $x$ alone. No $\\mu(x)$ exists. \\textit{Test $\\mu(y)$:} Form $-\\Delta/M = (N_x - M_y)/M$: $$ \\frac{N_x - M_y}{M} = \\frac{2 - 1}{y} = \\frac{1}{y}. $$ Pure in $y$. The integrating factor is: $$ \\mu(y) = e^{\\int (1/y)\\,dy} = e^{\\ln y} = y. $$ Multiply the ODE by $\\mu = y$; the new coefficients are $M^* = y\\cdot y = y^2$ and $N^* = y(2x - ye^y) = 2xy - y^2 e^y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(y^2) = 2y, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(2xy - y^2 e^y) = 2y. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int y^2\\,dx = xy^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = 2xy + g'(y) = 2xy - y^2 e^y \\quad\\Longrightarrow\\quad g'(y) = -y^2 e^y. $$ Evaluate $g(y) = -\\int y^2 e^y\\,dy$ by integration by parts twice. First application, $u = y^2$ and $dv = e^y\\,dy$: $$ \\int y^2 e^y\\,dy = y^2 e^y - 2\\int y e^y\\,dy. $$ Second application for $\\int y e^y\\,dy$, with $u = y$ and $dv = e^y\\,dy$: $$ \\int y e^y\\,dy = ye^y - \\int e^y\\,dy = ye^y - e^y = e^y(y - 1). $$ Combining: $$ \\int y^2 e^y\\,dy = y^2 e^y - 2e^y(y-1) = e^y(y^2 - 2y + 2). $$ Therefore: $$ g(y) = -e^y(y^2 - 2y + 2). $$ The general solution is $$ F(x,y) = xy^2 - e^y(y^2 - 2y + 2) = C. $$"
+                "solution": "Identify $M = y$ and $N = 2x - ye^y$. Compute the cross-partial derivatives: $$ M_y = \\frac{\\partial}{\\partial y}(y) = 1, \\qquad N_x = \\frac{\\partial}{\\partial x}(2x - ye^y) = 2. $$ Since $M_y = 1 \\neq 2 = N_x$, the equation is <strong>not exact</strong>. Compute $\\Delta = M_y - N_x = 1 - 2 = -1$. <em>Test $\\mu(x)$:</em> Form $\\Delta/N$: $$ \\frac{\\Delta}{N} = \\frac{-1}{2x - ye^y}. $$ This contains $y$, so it is not a function of $x$ alone. <strong>No $\\mu(x)$ exists.</strong> <em>Test $\\mu(y)$:</em> Form $-\\Delta/M = (N_x - M_y)/M$: $$ \\frac{N_x - M_y}{M} = \\frac{2 - 1}{y} = \\frac{1}{y}. $$ Pure in $y$. The integrating factor is: $$ \\mu(y) = e^{\\int (1/y)\\,dy} = e^{\\ln y} = y. $$ Multiply the ODE by $\\mu = y$; the new coefficients are $M^* = y\\cdot y = y^2$ and $N^* = y(2x - ye^y) = 2xy - y^2 e^y$. Re-verify exactness: $$ (M^*)_y = \\frac{\\partial}{\\partial y}(y^2) = 2y, \\qquad (N^*)_x = \\frac{\\partial}{\\partial x}(2xy - y^2 e^y) = 2y. $$ Equal. Now exact. Integrate $M^*$ with respect to $x$: $$ F(x,y) = \\int y^2\\,dx = xy^2 + g(y). $$ Differentiate $F$ with respect to $y$ and match to $N^*$: $$ F_y = 2xy + g'(y) = 2xy - y^2 e^y \\quad\\Longrightarrow\\quad g'(y) = -y^2 e^y. $$ Evaluate $g(y) = -\\int y^2 e^y\\,dy$ by integration by parts twice. First application, $u = y^2$ and $dv = e^y\\,dy$: $$ \\int y^2 e^y\\,dy = y^2 e^y - 2\\int y e^y\\,dy. $$ Second application for $\\int y e^y\\,dy$, with $u = y$ and $dv = e^y\\,dy$: $$ \\int y e^y\\,dy = ye^y - \\int e^y\\,dy = ye^y - e^y = e^y(y - 1). $$ Combining: $$ \\int y^2 e^y\\,dy = y^2 e^y - 2e^y(y-1) = e^y(y^2 - 2y + 2). $$ Therefore: $$ g(y) = -e^y(y^2 - 2y + 2). $$ The general solution is $$ F(x,y) = xy^2 - e^y(y^2 - 2y + 2) = C. $$"
             },
             {
                 "id": "ps_7_8",
                 "problem": "Consider the vector field $\\mathbf{F}(x,y) = \\langle 2xy + y^3,\\; x^2 + 3xy^2 \\rangle$. Show that $\\mathbf{F}$ is conservative, find a scalar potential $\\varphi$ with $\\nabla\\varphi = \\mathbf{F}$, and use it to evaluate $\\displaystyle\\int_C \\mathbf{F}\\cdot d\\mathbf{r}$ along any path from $(0,0)$ to $(2,1)$.",
-                "solution": "Let $P = 2xy + y^3$ and $Q = x^2 + 3xy^2$. Compute the cross-partial derivatives: $$ P_y = \\frac{\\partial}{\\partial y}(2xy + y^3) = 2x + 3y^2, \\qquad Q_x = \\frac{\\partial}{\\partial x}(x^2 + 3xy^2) = 2x + 3y^2. $$ Since $P_y = Q_x = 2x + 3y^2$ on all of $\\mathbb{R}^2$ (a simply connected domain), $\\mathbf{F}$ is conservative. Find the scalar potential $\\varphi$ by integrating $P$ with respect to $x$: $$ \\varphi(x,y) = \\int(2xy + y^3)\\,dx = x^2 y + xy^3 + g(y). $$ Differentiate $\\varphi$ with respect to $y$ and match to $Q$: $$ \\varphi_y = x^2 + 3xy^2 + g'(y) = x^2 + 3xy^2 \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ Therefore: $$ \\varphi(x,y) = x^2 y + xy^3. $$ By the Fundamental Theorem for Line Integrals, the integral is path independent: $$ \\int_C \\mathbf{F}\\cdot d\\mathbf{r} = \\varphi(2,1) - \\varphi(0,0). $$ Evaluate each endpoint: $$ \\varphi(2,1) = (2)^2(1) + (2)(1)^3 = 4 + 2 = 6, \\qquad \\varphi(0,0) = 0. $$ Therefore: $$ \\int_C \\mathbf{F}\\cdot d\\mathbf{r} = 6 - 0 = 6. $$"
+                "solution": "Let $P = 2xy + y^3$ and $Q = x^2 + 3xy^2$. Compute the cross-partial derivatives: $$ P_y = \\frac{\\partial}{\\partial y}(2xy + y^3) = 2x + 3y^2, \\qquad Q_x = \\frac{\\partial}{\\partial x}(x^2 + 3xy^2) = 2x + 3y^2. $$ Since $P_y = Q_x = 2x + 3y^2$ on all of $\\mathbb{R}^2$ (a simply connected domain), $\\mathbf{F}$ is <strong>conservative</strong>. Find the scalar potential $\\varphi$ by integrating $P$ with respect to $x$: $$ \\varphi(x,y) = \\int(2xy + y^3)\\,dx = x^2 y + xy^3 + g(y). $$ Differentiate $\\varphi$ with respect to $y$ and match to $Q$: $$ \\varphi_y = x^2 + 3xy^2 + g'(y) = x^2 + 3xy^2 \\quad\\Longrightarrow\\quad g'(y) = 0,\\quad g(y) = 0. $$ Therefore: $$ \\varphi(x,y) = x^2 y + xy^3. $$ By the Fundamental Theorem for Line Integrals, the integral is path independent: $$ \\int_C \\mathbf{F}\\cdot d\\mathbf{r} = \\varphi(2,1) - \\varphi(0,0). $$ Evaluate each endpoint: $$ \\varphi(2,1) = (2)^2(1) + (2)(1)^3 = 4 + 2 = 6, \\qquad \\varphi(0,0) = 0. $$ Therefore: $$ \\int_C \\mathbf{F}\\cdot d\\mathbf{r} = 6 - 0 = 6. $$"
             },
             {
                 "id": "ps_7_9",
                 "problem": "For an ideal gas the inexact heat differential is $\\delta Q = C_V\\,dT + \\tfrac{nRT}{V}\\,dV$. Show that $\\delta Q$ is not exact, then verify that multiplying by the integrating factor $1/T$ produces an exact differential $dS = \\delta Q/T$, and reconstruct the state function $S(T,V)$.",
-                "solution": "Treat $T$ and $V$ as the two independent variables. The differential is $\\delta Q = C_V\\,dT + \\tfrac{nRT}{V}\\,dV$, so $M = C_V$ (coefficient of $dT$) and $N = nRT/V$ (coefficient of $dV$). Compute the cross-partial derivatives: $$ \\frac{\\partial M}{\\partial V} = \\frac{\\partial C_V}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{\\partial}{\\partial T}\\!\\left(\\frac{nRT}{V}\\right) = \\frac{nR}{V}. $$ Since $0 \\neq nR/V$, the cross partials are unequal: $\\delta Q$ is not exact and heat is not a state function. Multiply by the integrating factor $1/T$ to define $dS = \\delta Q/T$: $$ dS = \\frac{\\delta Q}{T} = \\frac{C_V}{T}\\,dT + \\frac{nR}{V}\\,dV. $$ Now $M^* = C_V/T$ and $N^* = nR/V$. Re-verify exactness: $$ \\frac{\\partial M^*}{\\partial V} = \\frac{\\partial}{\\partial V}\\!\\left(\\frac{C_V}{T}\\right) = 0, \\qquad \\frac{\\partial N^*}{\\partial T} = \\frac{\\partial}{\\partial T}\\!\\left(\\frac{nR}{V}\\right) = 0. $$ Both cross partials equal zero; $dS$ is exact, confirming $1/T$ is a valid integrating factor and $S$ is a state function. Reconstruct $S$ by integrating $M^* = C_V/T$ with respect to $T$ ($C_V$ constant): $$ S(T,V) = \\int \\frac{C_V}{T}\\,dT + g(V) = C_V\\ln T + g(V). $$ Differentiate $S$ with respect to $V$ and match to $N^*$: $$ \\frac{\\partial S}{\\partial V} = g'(V) = \\frac{nR}{V} \\quad\\Longrightarrow\\quad g(V) = nR\\ln V. $$ The entropy state function is: $$ S(T,V) = C_V\\ln T + nR\\ln V + \\text{const.} $$"
+                "solution": "Treat $T$ and $V$ as the two independent variables. The differential is $\\delta Q = C_V\\,dT + \\tfrac{nRT}{V}\\,dV$, so $M = C_V$ (coefficient of $dT$) and $N = nRT/V$ (coefficient of $dV$). Compute the cross-partial derivatives: $$ \\frac{\\partial M}{\\partial V} = \\frac{\\partial C_V}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{\\partial}{\\partial T}\\!\\left(\\frac{nRT}{V}\\right) = \\frac{nR}{V}. $$ Since $0 \\neq nR/V$, the cross partials are unequal: $\\delta Q$ is <strong>not exact</strong> and heat is not a state function. Multiply by the integrating factor $1/T$ to define $dS = \\delta Q/T$: $$ dS = \\frac{\\delta Q}{T} = \\frac{C_V}{T}\\,dT + \\frac{nR}{V}\\,dV. $$ Now $M^* = C_V/T$ and $N^* = nR/V$. Re-verify exactness: $$ \\frac{\\partial M^*}{\\partial V} = \\frac{\\partial}{\\partial V}\\!\\left(\\frac{C_V}{T}\\right) = 0, \\qquad \\frac{\\partial N^*}{\\partial T} = \\frac{\\partial}{\\partial T}\\!\\left(\\frac{nR}{V}\\right) = 0. $$ Both cross partials equal zero; $dS$ is <strong>exact</strong>, confirming $1/T$ is a valid integrating factor and $S$ is a state function. Reconstruct $S$ by integrating $M^* = C_V/T$ with respect to $T$ ($C_V$ constant): $$ S(T,V) = \\int \\frac{C_V}{T}\\,dT + g(V) = C_V\\ln T + g(V). $$ Differentiate $S$ with respect to $V$ and match to $N^*$: $$ \\frac{\\partial S}{\\partial V} = g'(V) = \\frac{nR}{V} \\quad\\Longrightarrow\\quad g(V) = nR\\ln V. $$ The entropy state function is: $$ S(T,V) = C_V\\ln T + nR\\ln V + \\text{const.} $$"
             },
             {
                 "id": "ps_7_10",
-                "problem": "(Capstone) Given $dU = C_V\\,dT$ (internal energy) and $\\delta Q = dU + P\\,dV$ with $P = nRT/V$ for an ideal gas, determine which of $dU$ and $\\delta Q$ is an exact (state) differential by the $M_y = N_x$ criterion applied to each. Confirm that $1/T$ converts the inexact form into the exact entropy differential $dS$, and exhibit the recovered $S(T,V)$ up to an additive constant.",
-                "solution": "Solution 10 (Capstone). The internal energy of an ideal gas depends only on temperature (Joule's theorem), so the genuine state-function differential is $dU = C_V\\,dT + 0\\cdot dV$. With $M = C_V$ (coefficient of $dT$) and $N = 0$ (coefficient of $dV$), test exactness: $$ \\frac{\\partial M}{\\partial V} = \\frac{\\partial C_V}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{\\partial (0)}{\\partial T} = 0. $$ The cross partials are equal: $dU = C_V\\,dT$ is exact. Integrate to confirm the potential: $$ U(T) = \\int C_V\\,dT = C_V T + \\text{const.} $$ $U$ is a genuine state function depending only on $T$. Now build $\\delta Q$ using $dU = C_V\\,dT$ and $P\\,dV = (nRT/V)\\,dV$: $$ \\delta Q = dU + P\\,dV = C_V\\,dT + \\frac{nRT}{V}\\,dV. $$ With $M = C_V$ and $N = nRT/V$, test exactness: $$ \\frac{\\partial M}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{nR}{V}. $$ Since $0 \\neq nR/V$, $\\delta Q$ is not exact: heat is not a state function. Of the two, $dU$ is the exact (state) differential and $\\delta Q$ is the inexact one. Apply the integrating factor $1/T$ to $\\delta Q$: $$ dS = \\frac{\\delta Q}{T} = \\frac{C_V}{T}\\,dT + \\frac{nR}{V}\\,dV. $$ Test exactness of $dS$ with $M^* = C_V/T$ and $N^* = nR/V$: $$ \\frac{\\partial M^*}{\\partial V} = 0, \\qquad \\frac{\\partial N^*}{\\partial T} = 0. $$ Equal. $dS$ is exact. Integrate $M^*$ with respect to $T$: $$ S(T,V) = \\int\\frac{C_V}{T}\\,dT + g(V) = C_V\\ln T + g(V). $$ Match $\\partial S/\\partial V$ to $N^*$: $$ g'(V) = \\frac{nR}{V} \\quad\\Longrightarrow\\quad g(V) = nR\\ln V. $$ The entropy state function recovered from $\\delta Q/T$ is: $$ S(T,V) = C_V\\ln T + nR\\ln V + \\text{const.} $$"
+                "problem": "<strong>(Capstone)</strong> Given $dU = C_V\\,dT$ (internal energy) and $\\delta Q = dU + P\\,dV$ with $P = nRT/V$ for an ideal gas, determine which of $dU$ and $\\delta Q$ is an exact (state) differential by the $M_y = N_x$ criterion applied to each. Confirm that $1/T$ converts the inexact form into the exact entropy differential $dS$, and exhibit the recovered $S(T,V)$ up to an additive constant.",
+                "solution": "Solution 10 (Capstone). The internal energy of an ideal gas depends only on temperature (Joule's theorem), so the genuine state-function differential is $dU = C_V\\,dT + 0\\cdot dV$. With $M = C_V$ (coefficient of $dT$) and $N = 0$ (coefficient of $dV$), test exactness: $$ \\frac{\\partial M}{\\partial V} = \\frac{\\partial C_V}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{\\partial (0)}{\\partial T} = 0. $$ The cross partials are equal: $dU = C_V\\,dT$ is <strong>exact</strong>. Integrate to confirm the potential: $$ U(T) = \\int C_V\\,dT = C_V T + \\text{const.} $$ $U$ is a genuine state function depending only on $T$. Now build $\\delta Q$ using $dU = C_V\\,dT$ and $P\\,dV = (nRT/V)\\,dV$: $$ \\delta Q = dU + P\\,dV = C_V\\,dT + \\frac{nRT}{V}\\,dV. $$ With $M = C_V$ and $N = nRT/V$, test exactness: $$ \\frac{\\partial M}{\\partial V} = 0, \\qquad \\frac{\\partial N}{\\partial T} = \\frac{nR}{V}. $$ Since $0 \\neq nR/V$, $\\delta Q$ is <strong>not exact</strong>: heat is not a state function. Of the two, $dU$ is the exact (state) differential and $\\delta Q$ is the inexact one. Apply the integrating factor $1/T$ to $\\delta Q$: $$ dS = \\frac{\\delta Q}{T} = \\frac{C_V}{T}\\,dT + \\frac{nR}{V}\\,dV. $$ Test exactness of $dS$ with $M^* = C_V/T$ and $N^* = nR/V$: $$ \\frac{\\partial M^*}{\\partial V} = 0, \\qquad \\frac{\\partial N^*}{\\partial T} = 0. $$ Equal. $dS$ is <strong>exact</strong>. Integrate $M^*$ with respect to $T$: $$ S(T,V) = \\int\\frac{C_V}{T}\\,dT + g(V) = C_V\\ln T + g(V). $$ Match $\\partial S/\\partial V$ to $N^*$: $$ g'(V) = \\frac{nR}{V} \\quad\\Longrightarrow\\quad g(V) = nR\\ln V. $$ The entropy state function recovered from $\\delta Q/T$ is: $$ S(T,V) = C_V\\ln T + nR\\ln V + \\text{const.} $$"
             }
         ]
     },
@@ -44670,12 +44670,12 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_8_1",
                 "problem": "Find the general solution and the singular solution of the Clairaut equation $y = xy' + (y')^2$. Verify that the singular solution is the envelope of the general straight-line family.",
-                "solution": "Set $p = y'$. The Clairaut equation is $y = xp + p^2$. Differentiate both sides with respect to $x$: $$ p = p + x\\,\\frac{dp}{dx} + 2p\\,\\frac{dp}{dx} = p + (x + 2p)\\,\\frac{dp}{dx}. $$ Cancel $p$: $$ (x + 2p)\\,\\frac{dp}{dx} = 0. $$ \\textit{Case A:} $dp/dx = 0 \\Rightarrow p = C$. General solution: $y = Cx + C^2$. \\textit{Case B:} $x + 2p = 0 \\Rightarrow p = -x/2$. Substitute: $$ y = x\\!\\left(-\\frac{x}{2}\\right) + \\left(-\\frac{x}{2}\\right)^2 = -\\frac{x^2}{2} + \\frac{x^2}{4} = -\\frac{x^2}{4}. $$ Envelope check: $F = y - Cx - C^2$; $\\partial F/\\partial C = -x - 2C = 0$, so $C = -x/2$. Substituting: $$ y + \\frac{x^2}{2} - \\frac{x^2}{4} = y + \\frac{x^2}{4} = 0 \\;\\Longrightarrow\\; y = -\\frac{x^2}{4}. $$ Direct check: $y' = -x/2$, $(y')^2 = x^2/4$, $xy' + (y')^2 = -x^2/2 + x^2/4 = -x^2/4 = y$. \\checkmark"
+                "solution": "Set $p = y'$. The Clairaut equation is $y = xp + p^2$. Differentiate both sides with respect to $x$: $$ p = p + x\\,\\frac{dp}{dx} + 2p\\,\\frac{dp}{dx} = p + (x + 2p)\\,\\frac{dp}{dx}. $$ Cancel $p$: $$ (x + 2p)\\,\\frac{dp}{dx} = 0. $$ <em>Case A:</em> $dp/dx = 0 \\Rightarrow p = C$. <strong>General solution:</strong> $y = Cx + C^2$. <em>Case B:</em> $x + 2p = 0 \\Rightarrow p = -x/2$. Substitute: $$ y = x\\!\\left(-\\frac{x}{2}\\right) + \\left(-\\frac{x}{2}\\right)^2 = -\\frac{x^2}{2} + \\frac{x^2}{4} = -\\frac{x^2}{4}. $$ Envelope check: $F = y - Cx - C^2$; $\\partial F/\\partial C = -x - 2C = 0$, so $C = -x/2$. Substituting: $$ y + \\frac{x^2}{2} - \\frac{x^2}{4} = y + \\frac{x^2}{4} = 0 \\;\\Longrightarrow\\; y = -\\frac{x^2}{4}. $$ Direct check: $y' = -x/2$, $(y')^2 = x^2/4$, $xy' + (y')^2 = -x^2/2 + x^2/4 = -x^2/4 = y$. \\checkmark"
             },
             {
                 "id": "ps_8_2",
-                "problem": "For the Clairaut equation $y = xy' - \\ln(y')$ (with $y' > 0$), find the one-parameter family of straight-line solutions and the singular solution. Confirm that the singular solution satisfies the ODE directly.",
-                "solution": "Set $p = y' > 0$. The equation is $y = xp - \\ln p$. Differentiate: $$ p = p + \\!\\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx} \\quad\\Longrightarrow\\quad \\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx} = 0. $$ \\textit{Case A:} $p = C$. General solution: $y = Cx - \\ln C$. \\textit{Case B:} $p = 1/x$. Substitute: $$ y = x\\cdot\\frac{1}{x} - \\ln\\!\\frac{1}{x} = 1 + \\ln x. $$ Singular solution: $y = 1 + \\ln x$. Envelope: $F = y - Cx + \\ln C$; $\\partial F/\\partial C = -x + 1/C = 0$, so $C = 1/x$. Then $y - 1 - \\ln x = 0$. \\checkmark Direct check: $y' = 1/x$; $xy' - \\ln y' = 1 + \\ln x = y$. \\checkmark"
+                "problem": "For the Clairaut equation $y = xy' - \\ln(y')$ (with $y' &gt; 0$), find the one-parameter family of straight-line solutions and the singular solution. Confirm that the singular solution satisfies the ODE directly.",
+                "solution": "Set $p = y' &gt; 0$. The equation is $y = xp - \\ln p$. Differentiate: $$ p = p + \\!\\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx} \\quad\\Longrightarrow\\quad \\left(x - \\frac{1}{p}\\right)\\frac{dp}{dx} = 0. $$ <em>Case A:</em> $p = C$. <strong>General solution:</strong> $y = Cx - \\ln C$. <em>Case B:</em> $p = 1/x$. Substitute: $$ y = x\\cdot\\frac{1}{x} - \\ln\\!\\frac{1}{x} = 1 + \\ln x. $$ <strong>Singular solution:</strong> $y = 1 + \\ln x$. Envelope: $F = y - Cx + \\ln C$; $\\partial F/\\partial C = -x + 1/C = 0$, so $C = 1/x$. Then $y - 1 - \\ln x = 0$. \\checkmark Direct check: $y' = 1/x$; $xy' - \\ln y' = 1 + \\ln x = y$. \\checkmark"
             },
             {
                 "id": "ps_8_3",
@@ -44684,8 +44684,8 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_8_4",
-                "problem": "A dog at the origin always runs directly toward its owner, who walks along $x = c$ at speed $v_m$. The dog runs at speed $v_d > v_m$ with $k = v_m/v_d$. Derive $x\\,y'' = k\\sqrt{1+(y')^2}$, $y(c) = 0$, $y'(c) = 0$. Set $p = y'$, solve the separable equation in $p$, integrate to find $y(x)$, and state the finite capture height $y(0)$.",
-                "solution": "Tangency condition at dog position $(x,y)$ with owner at $(c,Y)$: $Y - y = (c-x)y'$. Differentiate in $x$: $dY/dx = (c-x)y''$. Speed ratio: $dY/dx = k\\sqrt{1+(y')^2}$. Equating: $(c-x)y'' = k\\sqrt{1+(y')^2}$, i.e.\\ $xy'' = k\\sqrt{1+(y')^2}$ (after shifting). Let $p = y'$; separate $dp/\\sqrt{1+p^2} = k\\,dx/x$: $$ \\operatorname{arcsinh}(p) = k\\ln x + C_1 \\;\\Longrightarrow\\; p + \\sqrt{1+p^2} = A\\,x^k. $$ $y'(c) = 0$: $A = c^{-k}$. Using $(\\sqrt{1+p^2}+p)(\\sqrt{1+p^2}-p) = 1$: $$ 2p = (x/c)^k - (x/c)^{-k} \\;\\Longrightarrow\\; y' = \\frac{1}{2}\\!\\left[(x/c)^k - (x/c)^{-k}\\right]. $$ Integrate ($k \\ne 1$): $$ y = \\frac{1}{2}\\!\\left[\\frac{x^{k+1}}{(k+1)c^k} - \\frac{c^k x^{1-k}}{1-k}\\right] + C_2. $$ $y(c) = 0$: $C_2 = ck/(1-k^2)$. Solution: $y(x) = \\tfrac{1}{2}\\bigl[x^{k+1}/((k+1)c^k) - c^k x^{1-k}/(1-k)\\bigr] + ck/(1-k^2)$. Capture height: $y(0) = ck/(1-k^2)$."
+                "problem": "A dog at the origin always runs directly toward its owner, who walks along $x = c$ at speed $v_m$. The dog runs at speed $v_d &gt; v_m$ with $k = v_m/v_d$. Derive $x\\,y'' = k\\sqrt{1+(y')^2}$, $y(c) = 0$, $y'(c) = 0$. Set $p = y'$, solve the separable equation in $p$, integrate to find $y(x)$, and state the finite capture height $y(0)$.",
+                "solution": "Tangency condition at dog position $(x,y)$ with owner at $(c,Y)$: $Y - y = (c-x)y'$. Differentiate in $x$: $dY/dx = (c-x)y''$. Speed ratio: $dY/dx = k\\sqrt{1+(y')^2}$. Equating: $(c-x)y'' = k\\sqrt{1+(y')^2}$, i.e.\\ $xy'' = k\\sqrt{1+(y')^2}$ (after shifting). Let $p = y'$; separate $dp/\\sqrt{1+p^2} = k\\,dx/x$: $$ \\operatorname{arcsinh}(p) = k\\ln x + C_1 \\;\\Longrightarrow\\; p + \\sqrt{1+p^2} = A\\,x^k. $$ $y'(c) = 0$: $A = c^{-k}$. Using $(\\sqrt{1+p^2}+p)(\\sqrt{1+p^2}-p) = 1$: $$ 2p = (x/c)^k - (x/c)^{-k} \\;\\Longrightarrow\\; y' = \\frac{1}{2}\\!\\left[(x/c)^k - (x/c)^{-k}\\right]. $$ Integrate ($k \\ne 1$): $$ y = \\frac{1}{2}\\!\\left[\\frac{x^{k+1}}{(k+1)c^k} - \\frac{c^k x^{1-k}}{1-k}\\right] + C_2. $$ $y(c) = 0$: $C_2 = ck/(1-k^2)$. <strong>Solution:</strong> $y(x) = \\tfrac{1}{2}\\bigl[x^{k+1}/((k+1)c^k) - c^k x^{1-k}/(1-k)\\bigr] + ck/(1-k^2)$. Capture height: $y(0) = ck/(1-k^2)$."
             },
             {
                 "id": "ps_8_5",
@@ -44699,23 +44699,23 @@ const PRACTICE_DATA = {
             },
             {
                 "id": "ps_8_7",
-                "problem": "Price obeys $dp/dt = k(D - S)$ with $D = a - bp$, $S = -c + dp$ ($a,b,c,d,k > 0$). Write the ODE, solve via integrating factor with $p(0) = p_0$, find $p^*$, and state the convergence condition.",
-                "solution": "$$ \\frac{dp}{dt} = k\\bigl[(a+c)-(b+d)p\\bigr] \\;\\Longrightarrow\\; \\frac{dp}{dt} + k(b+d)p = k(a+c). $$ $\\mu = e^{k(b+d)t}$; integrate: $$ p(t) = \\frac{a+c}{b+d} + \\!\\left(p_0 - \\frac{a+c}{b+d}\\right)e^{-k(b+d)t}. $$ $p^* = (a+c)/(b+d)$. Convergence: $k(b+d) > 0$ (automatic). \\checkmark"
+                "problem": "Price obeys $dp/dt = k(D - S)$ with $D = a - bp$, $S = -c + dp$ ($a,b,c,d,k &gt; 0$). Write the ODE, solve via integrating factor with $p(0) = p_0$, find $p^*$, and state the convergence condition.",
+                "solution": "$$ \\frac{dp}{dt} = k\\bigl[(a+c)-(b+d)p\\bigr] \\;\\Longrightarrow\\; \\frac{dp}{dt} + k(b+d)p = k(a+c). $$ $\\mu = e^{k(b+d)t}$; integrate: $$ p(t) = \\frac{a+c}{b+d} + \\!\\left(p_0 - \\frac{a+c}{b+d}\\right)e^{-k(b+d)t}. $$ $p^* = (a+c)/(b+d)$. Convergence: $k(b+d) &gt; 0$ (automatic). \\checkmark"
             },
             {
                 "id": "ps_8_8",
-                "problem": "For $\\dot{x} = ax - bxy$, $\\dot{y} = -cy + dxy$ ($a,b,c,d > 0$): interpret each parameter; find both equilibria; derive the conserved quantity $H(x,y) = dx - c\\ln x + by - a\\ln y$; verify $H$ is minimized at $(c/d, a/b)$.",
-                "solution": "\\textit{Parameters:} $a$ = prey growth rate; $b$ = predation coefficient; $c$ = predator death rate; $d$ = conversion efficiency. \\textit{Equilibria:} $\\dot{x} = 0 \\Rightarrow x = 0$ or $y = a/b$; $\\dot{y} = 0 \\Rightarrow y = 0$ or $x = c/d$: $$ E_0 = (0,0), \\qquad E^* = (c/d,\\; a/b). $$ \\textit{Conserved quantity.} $dy/dx = y(-c+dx)/[x(a-by)]$; separate: $$ \\left(\\frac{a}{y}-b\\right)dy = \\left(-\\frac{c}{x}+d\\right)dx. $$ Integrate: $$ a\\ln y - by = -c\\ln x + dx + \\text{const} \\;\\Longrightarrow\\; H = dx - c\\ln x + by - a\\ln y = \\text{const}. $$ $\\partial H/\\partial x = d - c/x = 0 \\Rightarrow x = c/d$; $\\partial H/\\partial y = b - a/y = 0 \\Rightarrow y = a/b$. Hessian: $\\partial^2 H/\\partial x^2 = c/x^2 > 0$, $\\partial^2 H/\\partial y^2 = a/y^2 > 0$, cross term $= 0$: positive definite. $E^*$ is the unique minimum of $H$."
+                "problem": "For $\\dot{x} = ax - bxy$, $\\dot{y} = -cy + dxy$ ($a,b,c,d &gt; 0$): interpret each parameter; find both equilibria; derive the conserved quantity $H(x,y) = dx - c\\ln x + by - a\\ln y$; verify $H$ is minimized at $(c/d, a/b)$.",
+                "solution": "<em>Parameters:</em> $a$ = prey growth rate; $b$ = predation coefficient; $c$ = predator death rate; $d$ = conversion efficiency. <em>Equilibria:</em> $\\dot{x} = 0 \\Rightarrow x = 0$ or $y = a/b$; $\\dot{y} = 0 \\Rightarrow y = 0$ or $x = c/d$: $$ E_0 = (0,0), \\qquad E^* = (c/d,\\; a/b). $$ <em>Conserved quantity.</em> $dy/dx = y(-c+dx)/[x(a-by)]$; separate: $$ \\left(\\frac{a}{y}-b\\right)dy = \\left(-\\frac{c}{x}+d\\right)dx. $$ Integrate: $$ a\\ln y - by = -c\\ln x + dx + \\text{const} \\;\\Longrightarrow\\; H = dx - c\\ln x + by - a\\ln y = \\text{const}. $$ $\\partial H/\\partial x = d - c/x = 0 \\Rightarrow x = c/d$; $\\partial H/\\partial y = b - a/y = 0 \\Rightarrow y = a/b$. Hessian: $\\partial^2 H/\\partial x^2 = c/x^2 &gt; 0$, $\\partial^2 H/\\partial y^2 = a/y^2 &gt; 0$, cross term $= 0$: positive definite. $E^*$ is the unique minimum of $H$."
             },
             {
                 "id": "ps_8_9",
                 "problem": "For the competition system with parameters $r_1, r_2, K_1, K_2, \\alpha, \\beta$: find all four equilibria; write the nullclines; state the inequalities governing stable coexistence, bistable exclusion, and single-species dominance; derive $(x^*, y^*)$ explicitly.",
-                "solution": "\\textit{Equilibria:} $(0,0)$, $(K_1, 0)$, $(0, K_2)$, and $$ (x^*,y^*) = \\!\\left(\\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta},\\; \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta}\\right). $$ Derivation: $x + \\alpha y = K_1$ and $\\beta x + y = K_2$; substitute $x = K_1 - \\alpha y$ into the second: $$ \\beta K_1 + y(1-\\alpha\\beta) = K_2 \\;\\Longrightarrow\\; y^* = \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta}, \\quad x^* = \\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta}. $$ \\textit{Nullclines:} $x + \\alpha y = K_1$ (axes intercepts $(K_1,0)$ and $(0,K_1/\\alpha)$); $\\beta x + y = K_2$ (axes intercepts $(K_2/\\beta,0)$ and $(0,K_2)$). \\textit{Outcome inequalities:} $$ \\text{Coexistence}:\\;K_1 < K_2/\\beta\\;\\text{and}\\;K_2 < K_1/\\alpha \\;\\;(\\alpha\\beta < 1). $$ $$ \\text{Bistable exclusion}:\\;K_1 > K_2/\\beta\\;\\text{and}\\;K_2 > K_1/\\alpha \\;\\;(\\alpha\\beta > 1). $$ $$ x\\text{ wins}:\\;K_1 > K_2/\\beta\\;\\text{and}\\;K_2 < K_1/\\alpha. \\qquad y\\text{ wins}:\\;K_1 < K_2/\\beta\\;\\text{and}\\;K_2 > K_1/\\alpha. $$"
+                "solution": "<em>Equilibria:</em> $(0,0)$, $(K_1, 0)$, $(0, K_2)$, and $$ (x^*,y^*) = \\!\\left(\\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta},\\; \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta}\\right). $$ Derivation: $x + \\alpha y = K_1$ and $\\beta x + y = K_2$; substitute $x = K_1 - \\alpha y$ into the second: $$ \\beta K_1 + y(1-\\alpha\\beta) = K_2 \\;\\Longrightarrow\\; y^* = \\frac{K_2 - \\beta K_1}{1-\\alpha\\beta}, \\quad x^* = \\frac{K_1 - \\alpha K_2}{1-\\alpha\\beta}. $$ <em>Nullclines:</em> $x + \\alpha y = K_1$ (axes intercepts $(K_1,0)$ and $(0,K_1/\\alpha)$); $\\beta x + y = K_2$ (axes intercepts $(K_2/\\beta,0)$ and $(0,K_2)$). <em>Outcome inequalities:</em> $$ \\text{Coexistence}:\\;K_1 &lt; K_2/\\beta\\;\\text{and}\\;K_2 &lt; K_1/\\alpha \\;\\;(\\alpha\\beta &lt; 1). $$ $$ \\text{Bistable exclusion}:\\;K_1 &gt; K_2/\\beta\\;\\text{and}\\;K_2 &gt; K_1/\\alpha \\;\\;(\\alpha\\beta &gt; 1). $$ $$ x\\text{ wins}:\\;K_1 &gt; K_2/\\beta\\;\\text{and}\\;K_2 &lt; K_1/\\alpha. \\qquad y\\text{ wins}:\\;K_1 &lt; K_2/\\beta\\;\\text{and}\\;K_2 &gt; K_1/\\alpha. $$"
             },
             {
                 "id": "ps_8_10",
                 "problem": "Classify and solve completely: (a) $dy/dx = x(1+y^2)/(1+x^2)$;\\; (b) $dy/dx + (2/x)y = x^3$;\\; (c) $dy/dx + y = xy^3$;\\; (d) $(2xy + \\cos x)\\,dx + (x^2 - \\sin y)\\,dy = 0$.",
-                "solution": "\\textit{(a) Separable.} $$ \\frac{dy}{1+y^2} = \\frac{x\\,dx}{1+x^2} \\;\\Longrightarrow\\; \\arctan y = \\frac{1}{2}\\ln(1+x^2) + C \\;\\Longrightarrow\\; y = \\tan\\!\\left(\\tfrac{1}{2}\\ln(1+x^2)+C\\right). $$ \\textit{(b) Linear, integrating factor.} $\\mu = x^2$; $d(x^2 y)/dx = x^5$; integrate: $$ x^2 y = \\frac{x^6}{6} + C \\;\\Longrightarrow\\; y = \\frac{x^4}{6} + \\frac{C}{x^2}. $$ \\textit{(c) Bernoulli, $n = 3$.} Let $v = y^{-2}$: $v' - 2v = -2x$. $\\mu = e^{-2x}$: $$ \\frac{d}{dx}(v\\,e^{-2x}) = -2x\\,e^{-2x}. $$ Integrate by parts: $\\int -2x e^{-2x}\\,dx = xe^{-2x} + e^{-2x}/2$: $$ v = x + \\tfrac{1}{2} + Ce^{2x} \\;\\Longrightarrow\\; y^2 = \\frac{1}{x + \\tfrac{1}{2} + Ce^{2x}}. $$ \\textit{(d) Exact.} $M_y = 2x = N_x$. Integrate $M$ in $x$: $$ F = x^2 y + \\sin x + g(y);\\quad F_y = x^2 + g'(y) = x^2 - \\sin y \\;\\Longrightarrow\\; g(y) = \\cos y. $$ $$ x^2 y + \\sin x + \\cos y = C. $$"
+                "solution": "<em>(a) Separable.</em> $$ \\frac{dy}{1+y^2} = \\frac{x\\,dx}{1+x^2} \\;\\Longrightarrow\\; \\arctan y = \\frac{1}{2}\\ln(1+x^2) + C \\;\\Longrightarrow\\; y = \\tan\\!\\left(\\tfrac{1}{2}\\ln(1+x^2)+C\\right). $$ <em>(b) Linear, integrating factor.</em> $\\mu = x^2$; $d(x^2 y)/dx = x^5$; integrate: $$ x^2 y = \\frac{x^6}{6} + C \\;\\Longrightarrow\\; y = \\frac{x^4}{6} + \\frac{C}{x^2}. $$ <em>(c) Bernoulli, $n = 3$.</em> Let $v = y^{-2}$: $v' - 2v = -2x$. $\\mu = e^{-2x}$: $$ \\frac{d}{dx}(v\\,e^{-2x}) = -2x\\,e^{-2x}. $$ Integrate by parts: $\\int -2x e^{-2x}\\,dx = xe^{-2x} + e^{-2x}/2$: $$ v = x + \\tfrac{1}{2} + Ce^{2x} \\;\\Longrightarrow\\; y^2 = \\frac{1}{x + \\tfrac{1}{2} + Ce^{2x}}. $$ <em>(d) Exact.</em> $M_y = 2x = N_x$. Integrate $M$ in $x$: $$ F = x^2 y + \\sin x + g(y);\\quad F_y = x^2 + g'(y) = x^2 - \\sin y \\;\\Longrightarrow\\; g(y) = \\cos y. $$ $$ x^2 y + \\sin x + \\cos y = C. $$"
             }
         ]
     },
@@ -44723,52 +44723,52 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_9_1",
-                "problem": "(Real distinct roots) Solve $y'' - 5y' + 6y = 0$. Write the characteristic equation, factor it, and give the general solution.",
+                "problem": "<strong>(Real distinct roots)</strong> Solve $y'' - 5y' + 6y = 0$. Write the characteristic equation, factor it, and give the general solution.",
                 "solution": "Try $y=e^{rx}$ to get the characteristic equation, then factor: $$ r^2 - 5r + 6 = (r-2)(r-3) = 0 \\;\\Rightarrow\\; r_1 = 2,\\; r_2 = 3. $$ The roots are real and distinct, so $$ y = c_1 e^{2x} + c_2 e^{3x}. $$"
             },
             {
                 "id": "ps_9_2",
-                "problem": "(Repeated root) Solve $y'' - 6y' + 9y = 0$. Identify the double root and explain why the factor $x$ appears in the second solution.",
+                "problem": "<strong>(Repeated root)</strong> Solve $y'' - 6y' + 9y = 0$. Identify the double root and explain why the factor $x$ appears in the second solution.",
                 "solution": "The characteristic equation is a perfect square: $$ r^2 - 6r + 9 = (r-3)^2 = 0 \\;\\Rightarrow\\; r = 3 \\text{ (double)}. $$ A double root supplies only one exponential $e^{3x}$; reduction of order furnishes the second solution $x e^{3x}$, so $$ y = (c_1 + c_2 x)\\,e^{3x}. $$"
             },
             {
                 "id": "ps_9_3",
-                "problem": "(Complex conjugate roots) Solve $y'' + 4y' + 13y = 0$. Report the complex roots $\\alpha\\pm\\beta i$ and the real general solution.",
+                "problem": "<strong>(Complex conjugate roots)</strong> Solve $y'' + 4y' + 13y = 0$. Report the complex roots $\\alpha\\pm\\beta i$ and the real general solution.",
                 "solution": "Complete the discriminant: $$ r = \\frac{-4 \\pm \\sqrt{16 - 52}}{2} = \\frac{-4 \\pm \\sqrt{-36}}{2} = -2 \\pm 3i. $$ With $\\alpha=-2$ and $\\beta=3$, $$ y = e^{-2x}\\big(c_1\\cos 3x + c_2\\sin 3x\\big). $$"
             },
             {
                 "id": "ps_9_4",
-                "problem": "(Real-root IVP) Solve the initial value problem $y'' - y' - 2y = 0$, $y(0) = 1$, $y'(0) = 0$.",
+                "problem": "<strong>(Real-root IVP)</strong> Solve the initial value problem $y'' - y' - 2y = 0$, $y(0) = 1$, $y'(0) = 0$.",
                 "solution": "Characteristic equation $r^2 - r - 2 = (r-2)(r+1)=0$ gives $r=2,-1$, so $y = c_1 e^{2x} + c_2 e^{-x}$. Apply the initial conditions: $$ y(0) = c_1 + c_2 = 1, \\qquad y'(0) = 2c_1 - c_2 = 0. $$ Adding the equations, $3c_1 = 1$, so $$ c_1 = \\tfrac{1}{3},\\quad c_2 = \\tfrac{2}{3}, \\qquad y = \\tfrac{1}{3} e^{2x} + \\tfrac{2}{3} e^{-x}. $$"
             },
             {
                 "id": "ps_9_5",
-                "problem": "(Wronskian) Compute the Wronskian of $y_1 = e^{2x}$ and $y_2 = e^{3x}$, and state what it certifies.",
-                "solution": "With $y_1=e^{2x}$, $y_2=e^{3x}$: $$ W = y_1 y_2' - y_2 y_1' = e^{2x}\\cdot 3e^{3x} - e^{3x}\\cdot 2e^{2x} = (3-2)e^{5x} = e^{5x}. $$ Since $e^{5x}\\neq 0$ for all $x$, the two solutions are linearly independent and $\\{e^{2x},e^{3x}\\}$ is a fundamental set."
+                "problem": "<strong>(Wronskian)</strong> Compute the Wronskian of $y_1 = e^{2x}$ and $y_2 = e^{3x}$, and state what it certifies.",
+                "solution": "With $y_1=e^{2x}$, $y_2=e^{3x}$: $$ W = y_1 y_2' - y_2 y_1' = e^{2x}\\cdot 3e^{3x} - e^{3x}\\cdot 2e^{2x} = (3-2)e^{5x} = e^{5x}. $$ Since $e^{5x}\\neq 0$ for all $x$, the two solutions are <strong>linearly independent</strong> and $\\{e^{2x},e^{3x}\\}$ is a fundamental set."
             },
             {
                 "id": "ps_9_6",
-                "problem": "(Abel's identity) For $y'' + 3y' + 2y = 0$, use Abel's formula to find the Wronskian up to a constant, then verify it directly from the fundamental solutions.",
+                "problem": "<strong>(Abel's identity)</strong> For $y'' + 3y' + 2y = 0$, use Abel's formula to find the Wronskian up to a constant, then verify it directly from the fundamental solutions.",
                 "solution": "Here $p(x)=3$, so Abel's formula gives $$ W(x) = C\\,\\exp\\!\\left(-\\int 3\\,dx\\right) = C\\,e^{-3x}. $$ Check directly: the roots of $r^2+3r+2=(r+1)(r+2)=0$ are $r=-1,-2$, so $y_1=e^{-x}$, $y_2=e^{-2x}$ and $$ W = e^{-x}(-2e^{-2x}) - e^{-2x}(-e^{-x}) = (-2+1)e^{-3x} = -e^{-3x}, $$ which matches $C e^{-3x}$ with $C=-1$."
             },
             {
                 "id": "ps_9_7",
-                "problem": "(Reduction of order) The equation $x^2 y'' - 3x y' + 4y = 0$ has the solution $y_1 = x^2$. Use reduction of order to find a second, independent solution $y_2$.",
+                "problem": "<strong>(Reduction of order)</strong> The equation $x^2 y'' - 3x y' + 4y = 0$ has the solution $y_1 = x^2$. Use reduction of order to find a second, independent solution $y_2$.",
                 "solution": "Normalize to $y'' - \\tfrac{3}{x}y' + \\tfrac{4}{x^2}y = 0$, so $p(x) = -3/x$ and $e^{-\\int p\\,dx} = e^{\\int (3/x)\\,dx} = e^{3\\ln x} = x^3$. With $y_1=x^2$, $$ y_2 = y_1\\int \\frac{e^{-\\int p\\,dx}}{y_1^2}\\,dx = x^2\\int \\frac{x^3}{x^4}\\,dx = x^2\\int \\frac{1}{x}\\,dx = x^2\\ln x. $$ The second independent solution is $y_2 = x^2\\ln x$ (the repeated-root Cauchy–Euler form)."
             },
             {
                 "id": "ps_9_8",
-                "problem": "(Cauchy–Euler) Solve $x^2 y'' + 2x y' - 6y = 0$ for $x>0$.",
-                "solution": "Try $y=x^m$ in $x^2y''+2xy'-6y=0$. The indicial equation is $$ m(m-1) + 2m - 6 = m^2 + m - 6 = (m+3)(m-2) = 0 \\;\\Rightarrow\\; m = 2,\\,-3. $$ The roots are real and distinct, so for $x>0$ $$ y = c_1 x^2 + c_2 x^{-3}. $$"
+                "problem": "<strong>(Cauchy–Euler)</strong> Solve $x^2 y'' + 2x y' - 6y = 0$ for $x&gt;0$.",
+                "solution": "Try $y=x^m$ in $x^2y''+2xy'-6y=0$. The indicial equation is $$ m(m-1) + 2m - 6 = m^2 + m - 6 = (m+3)(m-2) = 0 \\;\\Rightarrow\\; m = 2,\\,-3. $$ The roots are real and distinct, so for $x&gt;0$ $$ y = c_1 x^2 + c_2 x^{-3}. $$"
             },
             {
                 "id": "ps_9_9",
-                "problem": "(Repeated-root IVP) Solve $y'' - 4y' + 4y = 0$, $y(0) = 1$, $y'(0) = 1$.",
+                "problem": "<strong>(Repeated-root IVP)</strong> Solve $y'' - 4y' + 4y = 0$, $y(0) = 1$, $y'(0) = 1$.",
                 "solution": "The characteristic equation $r^2 - 4r + 4 = (r-2)^2 = 0$ has the double root $r=2$, so $y = (c_1 + c_2 x)e^{2x}$. Differentiate: $y' = \\big(c_2 + 2(c_1 + c_2 x)\\big)e^{2x}$. Apply the conditions: $$ y(0) = c_1 = 1, \\qquad y'(0) = c_2 + 2c_1 = 1 \\;\\Rightarrow\\; c_2 = -1. $$ Therefore $$ y = (1 - x)\\,e^{2x}. $$"
             },
             {
                 "id": "ps_9_10",
-                "problem": "(Capstone, higher order) Solve $y''' - 3y'' + 3y' - y = 0$. Identify the multiplicity of the characteristic root and write the general solution.",
+                "problem": "<strong>(Capstone, higher order)</strong> Solve $y''' - 3y'' + 3y' - y = 0$. Identify the multiplicity of the characteristic root and write the general solution.",
                 "solution": "Solution (Capstone). The characteristic equation is a perfect cube: $$ r^3 - 3r^2 + 3r - 1 = (r-1)^3 = 0 \\;\\Rightarrow\\; r = 1 \\text{ (multiplicity 3)}. $$ A triple root contributes $e^{x}$, $x e^{x}$, and $x^2 e^{x}$, so $$ y = (c_1 + c_2 x + c_3 x^2)\\,e^{x}. $$"
             }
         ]
@@ -44777,52 +44777,52 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_10_1",
-                "problem": "(Undetermined coefficients — exponential) Solve $y'' - y = e^{2x}$. Give $y_h$, the trial, and the general solution.",
+                "problem": "<strong>(Undetermined coefficients — exponential)</strong> Solve $y'' - y = e^{2x}$. Give $y_h$, the trial, and the general solution.",
                 "solution": "The homogeneous equation $y''-y=0$ has roots $r=\\pm 1$, so $y_h = c_1 e^{x} + c_2 e^{-x}$. Since $e^{2x}$ does not overlap $y_h$, try $y_p = A e^{2x}$, so $y_p'' = 4A e^{2x}$: $$ 4A e^{2x} - A e^{2x} = 3A e^{2x} = e^{2x} \\;\\Rightarrow\\; A = \\tfrac{1}{3}. $$ $$ y = c_1 e^{x} + c_2 e^{-x} + \\tfrac{1}{3} e^{2x}. $$"
             },
             {
                 "id": "ps_10_2",
-                "problem": "(Undetermined coefficients — polynomial) Solve $y'' - y' - 2y = 4x^2$. Use a full quadratic trial.",
+                "problem": "<strong>(Undetermined coefficients — polynomial)</strong> Solve $y'' - y' - 2y = 4x^2$. Use a full quadratic trial.",
                 "solution": "Roots of $r^2 - r - 2 = (r-2)(r+1)=0$ give $y_h = c_1 e^{2x} + c_2 e^{-x}$. Use the complete quadratic trial $y_p = Ax^2 + Bx + C$, with $y_p' = 2Ax+B$, $y_p'' = 2A$: $$ 2A - (2Ax+B) - 2(Ax^2+Bx+C) = -2A x^2 + (-2A-2B)x + (2A - B - 2C). $$ Matching $-2Ax^2 + \\cdots = 4x^2$ term by term: $$ -2A = 4 \\Rightarrow A=-2; \\quad -2A-2B = 0 \\Rightarrow B = 2; \\quad 2A - B - 2C = 0 \\Rightarrow C = -3. $$ $$ y = c_1 e^{2x} + c_2 e^{-x} - 2x^2 + 2x - 3. $$"
             },
             {
                 "id": "ps_10_3",
-                "problem": "(Undetermined coefficients — sinusoid) Solve $y'' + 4y = \\sin x$. Explain why no factor of $x$ is needed here.",
-                "solution": "Here $y''+4y=0$ has roots $\\pm 2i$, so $y_h = c_1\\cos 2x + c_2 \\sin 2x$. The forcing $\\sin x$ has frequency $1\\neq 2$, so there is \\emph{no} overlap and no factor of $x$ is needed. Try $y_p = A\\cos x + B\\sin x$; then $y_p'' = -A\\cos x - B\\sin x$: $$ (-A + 4A)\\cos x + (-B + 4B)\\sin x = 3A\\cos x + 3B\\sin x = \\sin x. $$ So $A = 0$, $B = \\tfrac{1}{3}$, giving $$ y = c_1\\cos 2x + c_2\\sin 2x + \\tfrac{1}{3}\\sin x. $$"
+                "problem": "<strong>(Undetermined coefficients — sinusoid)</strong> Solve $y'' + 4y = \\sin x$. Explain why no factor of $x$ is needed here.",
+                "solution": "Here $y''+4y=0$ has roots $\\pm 2i$, so $y_h = c_1\\cos 2x + c_2 \\sin 2x$. The forcing $\\sin x$ has frequency $1\\neq 2$, so there is <em>no</em> overlap and no factor of $x$ is needed. Try $y_p = A\\cos x + B\\sin x$; then $y_p'' = -A\\cos x - B\\sin x$: $$ (-A + 4A)\\cos x + (-B + 4B)\\sin x = 3A\\cos x + 3B\\sin x = \\sin x. $$ So $A = 0$, $B = \\tfrac{1}{3}$, giving $$ y = c_1\\cos 2x + c_2\\sin 2x + \\tfrac{1}{3}\\sin x. $$"
             },
             {
                 "id": "ps_10_4",
-                "problem": "(Resonance, trig) Solve $y'' + y = \\cos x$. Identify the overlap with the homogeneous solution and use the corrected resonant trial.",
-                "solution": "For $y''+y=0$ the roots are $\\pm i$, so $y_h = c_1\\cos x + c_2\\sin x$. The natural guess $A\\cos x + B\\sin x$ \\emph{is} $y_h$ — a resonance. Multiply by $x$: $y_p = x(A\\cos x + B\\sin x)$. Differentiating, $y_p'' = -x(A\\cos x + B\\sin x) + 2(-A\\sin x + B\\cos x)$, so $$ y_p'' + y_p = 2(-A\\sin x + B\\cos x) = \\cos x \\;\\Rightarrow\\; B = \\tfrac{1}{2},\\ A = 0. $$ $$ y = c_1\\cos x + c_2\\sin x + \\tfrac{x}{2}\\sin x. $$"
+                "problem": "<strong>(Resonance, trig)</strong> Solve $y'' + y = \\cos x$. Identify the overlap with the homogeneous solution and use the corrected resonant trial.",
+                "solution": "For $y''+y=0$ the roots are $\\pm i$, so $y_h = c_1\\cos x + c_2\\sin x$. The natural guess $A\\cos x + B\\sin x$ <em>is</em> $y_h$ — a resonance. Multiply by $x$: $y_p = x(A\\cos x + B\\sin x)$. Differentiating, $y_p'' = -x(A\\cos x + B\\sin x) + 2(-A\\sin x + B\\cos x)$, so $$ y_p'' + y_p = 2(-A\\sin x + B\\cos x) = \\cos x \\;\\Rightarrow\\; B = \\tfrac{1}{2},\\ A = 0. $$ $$ y = c_1\\cos x + c_2\\sin x + \\tfrac{x}{2}\\sin x. $$"
             },
             {
                 "id": "ps_10_5",
-                "problem": "(Resonance, exponential) Solve $y'' - 3y' + 2y = e^{x}$. Show why the guess gains a factor of $x$.",
+                "problem": "<strong>(Resonance, exponential)</strong> Solve $y'' - 3y' + 2y = e^{x}$. Show why the guess gains a factor of $x$.",
                 "solution": "Roots of $r^2 - 3r + 2 = (r-1)(r-2)=0$ give $y_h = c_1 e^{x} + c_2 e^{2x}$. The forcing $e^{x}$ overlaps the $e^{x}$ solution, so the bare guess $Ae^{x}$ fails; multiply by $x$: $y_p = A x e^{x}$. Then $y_p' = A e^{x}(1+x)$ and $y_p'' = A e^{x}(2+x)$, so $$ A e^{x}\\big[(2+x) - 3(1+x) + 2x\\big] = A e^{x}(-1) = e^{x} \\;\\Rightarrow\\; A = -1. $$ $$ y = c_1 e^{x} + c_2 e^{2x} - x e^{x}. $$"
             },
             {
                 "id": "ps_10_6",
-                "problem": "(Annihilator method) For $y'' - y' - 2y = 2e^{3x} + x$, write the annihilator of the forcing, deduce the trial form, and solve for $y_p$.",
+                "problem": "<strong>(Annihilator method)</strong> For $y'' - y' - 2y = 2e^{3x} + x$, write the annihilator of the forcing, deduce the trial form, and solve for $y_p$.",
                 "solution": "The operator is $L(D) = D^2 - D - 2 = (D-2)(D+1)$, so $y_h = c_1 e^{2x} + c_2 e^{-x}$. The forcing $2e^{3x} + x$ is annihilated by $$ A(D) = (D-3)\\,D^2, $$ since $(D-3)$ kills $e^{3x}$ and $D^2$ kills the linear term $x$. Neither $e^{3x}$ nor $\\{1, x\\}$ overlaps $y_h$, so the trial is $y_p = A e^{3x} + Bx + C$. Substitute the exponential piece $Ae^{3x}$ ($y''-y'-2y = 9A - 3A - 2A = 4A$): $$ 4A e^{3x} = 2 e^{3x} \\;\\Rightarrow\\; A = \\tfrac{1}{2}. $$ For the polynomial piece $Bx + C$ ($y'' = 0$, $y' = B$): $$ -B - 2(Bx + C) = -2Bx + (-B - 2C) = x \\;\\Rightarrow\\; B = -\\tfrac{1}{2},\\ C = \\tfrac{1}{4}. $$ $$ y = c_1 e^{2x} + c_2 e^{-x} + \\tfrac{1}{2} e^{3x} - \\tfrac{1}{2}x + \\tfrac{1}{4}. $$"
             },
             {
                 "id": "ps_10_7",
-                "problem": "(Variation of parameters) Solve $y'' + y = \\sec x$, where undetermined coefficients cannot be applied.",
+                "problem": "<strong>(Variation of parameters)</strong> Solve $y'' + y = \\sec x$, where undetermined coefficients cannot be applied.",
                 "solution": "The equation is already in standard form with $y_1 = \\cos x$, $y_2 = \\sin x$, and Wronskian $W = \\cos x\\cos x - \\sin x(-\\sin x) = 1$. With $g = \\sec x$, $$ u_1' = -\\frac{y_2 g}{W} = -\\sin x \\sec x = -\\tan x \\;\\Rightarrow\\; u_1 = \\ln|\\cos x|, $$ $$ u_2' = \\frac{y_1 g}{W} = \\cos x \\sec x = 1 \\;\\Rightarrow\\; u_2 = x. $$ Hence $y_p = u_1 y_1 + u_2 y_2$: $$ y = c_1\\cos x + c_2\\sin x + \\cos x\\,\\ln|\\cos x| + x\\sin x. $$"
             },
             {
                 "id": "ps_10_8",
-                "problem": "(Variation of parameters, repeated root) Find a particular solution of $y'' - 2y' + y = \\dfrac{e^{x}}{x}$ for $x>0$.",
+                "problem": "<strong>(Variation of parameters, repeated root)</strong> Find a particular solution of $y'' - 2y' + y = \\dfrac{e^{x}}{x}$ for $x&gt;0$.",
                 "solution": "The repeated root $r=1$ of $(r-1)^2$ gives $y_1 = e^{x}$, $y_2 = x e^{x}$, with $W = e^{x}(e^{x} + x e^{x}) - x e^{x}\\cdot e^{x} = e^{2x}$. In standard form $g = e^{x}/x$, so $$ u_1' = -\\frac{x e^{x}\\cdot (e^{x}/x)}{e^{2x}} = -1 \\Rightarrow u_1 = -x, \\qquad u_2' = \\frac{e^{x}\\cdot (e^{x}/x)}{e^{2x}} = \\frac{1}{x} \\Rightarrow u_2 = \\ln x. $$ Then $y_p = -x e^{x} + x e^{x}\\ln x$; the term $-x e^{x}$ already lives in $y_h$, so $$ y = (c_1 + c_2 x)e^{x} + x e^{x}\\ln x. $$"
             },
             {
                 "id": "ps_10_9",
-                "problem": "(Transient and steady-state IVP) Solve $y'' + 4y' + 3y = 6$, $y(0)=0$, $y'(0)=0$. Identify the transient and the steady-state pieces.",
-                "solution": "Roots of $r^2 + 4r + 3 = (r+1)(r+3)=0$ are $r=-1,-3$, both negative, so $y_h = c_1 e^{-t} + c_2 e^{-3t}$ is the transient. A constant forcing calls for $y_p = K$ with $3K = 6$, so the steady-state is $y_p = 2$. Apply $y(0)=0$, $y'(0)=0$ to $y = c_1 e^{-t} + c_2 e^{-3t} + 2$: $$ c_1 + c_2 + 2 = 0, \\qquad -c_1 - 3c_2 = 0 \\;\\Rightarrow\\; c_1 = -3c_2. $$ $$ -3c_2 + c_2 + 2 = 0 \\Rightarrow c_2 = 1,\\ c_1 = -3, \\qquad y = -3e^{-t} + e^{-3t} + 2. $$ As $t\\to\\infty$ the transient $-3e^{-t}+e^{-3t}\\to 0$, leaving the steady-state value $2$."
+                "problem": "<strong>(Transient and steady-state IVP)</strong> Solve $y'' + 4y' + 3y = 6$, $y(0)=0$, $y'(0)=0$. Identify the transient and the steady-state pieces.",
+                "solution": "Roots of $r^2 + 4r + 3 = (r+1)(r+3)=0$ are $r=-1,-3$, both negative, so $y_h = c_1 e^{-t} + c_2 e^{-3t}$ is the <strong>transient</strong>. A constant forcing calls for $y_p = K$ with $3K = 6$, so the <strong>steady-state</strong> is $y_p = 2$. Apply $y(0)=0$, $y'(0)=0$ to $y = c_1 e^{-t} + c_2 e^{-3t} + 2$: $$ c_1 + c_2 + 2 = 0, \\qquad -c_1 - 3c_2 = 0 \\;\\Rightarrow\\; c_1 = -3c_2. $$ $$ -3c_2 + c_2 + 2 = 0 \\Rightarrow c_2 = 1,\\ c_1 = -3, \\qquad y = -3e^{-t} + e^{-3t} + 2. $$ As $t\\to\\infty$ the transient $-3e^{-t}+e^{-3t}\\to 0$, leaving the steady-state value $2$."
             },
             {
                 "id": "ps_10_10",
-                "problem": "(Impulse response and Duhamel, capstone) Find the impulse response $w(t)$ of $y'' + 3y' + 2y = f(t)$ (rest initial conditions), then write Duhamel's convolution for a general input $f$.",
+                "problem": "<strong>(Impulse response and Duhamel, capstone)</strong> Find the impulse response $w(t)$ of $y'' + 3y' + 2y = f(t)$ (rest initial conditions), then write Duhamel's convolution for a general input $f$.",
                 "solution": "Solution (Capstone). The impulse response solves $w'' + 3w' + 2w = \\delta(t)$ from rest, which for a second-order system means $w(0)=0$, $w'(0)=1$. Roots of $r^2+3r+2=(r+1)(r+2)$ are $r=-1,-2$, so $w = A e^{-t} + B e^{-2t}$: $$ w(0) = A + B = 0, \\qquad w'(0) = -A - 2B = 1 \\;\\Rightarrow\\; B = -1,\\ A = 1. $$ $$ w(t) = e^{-t} - e^{-2t}, \\quad t \\ge 0. $$ By Duhamel's principle the forced response from rest to any input $f$ is $$ y_p(t) = \\int_0^t w(t-\\tau)\\,f(\\tau)\\,d\\tau = \\int_0^t \\Big(e^{-(t-\\tau)} - e^{-2(t-\\tau)}\\Big) f(\\tau)\\,d\\tau. $$"
             }
         ]
@@ -44831,53 +44831,53 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_11_1",
-                "problem": "(SHM setup) For $2x'' + 18x = 0$, find the natural angular frequency $\\omega_0$, the period $T$, and the ordinary frequency $f$.",
-                "solution": "Divide by the mass $2$ to reach standard form: $$ 2x'' + 18x = 0 \\;\\Longrightarrow\\; x'' + 9x = 0 \\;\\Longrightarrow\\; \\omega_0^{2} = 9,\\ \\omega_0 = 3. $$ Then the period and ordinary frequency follow from $\\omega_0$: $$ T = \\frac{2\\pi}{\\omega_0} = \\frac{2\\pi}{3}, \\qquad f = \\frac{\\omega_0}{2\\pi} = \\frac{3}{2\\pi}. $$ Reading $\\omega_0$ off the \\emph{undivided} coefficient $18$ is the classic error; the mass divides out first."
+                "problem": "<strong>(SHM setup)</strong> For $2x'' + 18x = 0$, find the natural angular frequency $\\omega_0$, the period $T$, and the ordinary frequency $f$.",
+                "solution": "Divide by the mass $2$ to reach standard form: $$ 2x'' + 18x = 0 \\;\\Longrightarrow\\; x'' + 9x = 0 \\;\\Longrightarrow\\; \\omega_0^{2} = 9,\\ \\omega_0 = 3. $$ Then the period and ordinary frequency follow from $\\omega_0$: $$ T = \\frac{2\\pi}{\\omega_0} = \\frac{2\\pi}{3}, \\qquad f = \\frac{\\omega_0}{2\\pi} = \\frac{3}{2\\pi}. $$ Reading $\\omega_0$ off the <em>undivided</em> coefficient $18$ is the classic error; the mass divides out first."
             },
             {
                 "id": "ps_11_2",
-                "problem": "(Free undamped IVP) Solve $x'' + 9x = 0$ with $x(0)=0$, $x'(0)=6$.",
+                "problem": "<strong>(Free undamped IVP)</strong> Solve $x'' + 9x = 0$ with $x(0)=0$, $x'(0)=6$.",
                 "solution": "The roots of $r^2+9=0$ are $\\pm 3i$, so $x = c_1\\cos 3t + c_2\\sin 3t$. Apply the data: $$ x(0) = c_1 = 0, \\qquad x'(t) = 3c_2\\cos 3t,\\quad x'(0) = 3c_2 = 6 \\;\\Rightarrow\\; c_2 = 2. $$ $$ x(t) = 2\\sin 3t. $$ The derivative pulls down a factor of $\\omega_0 = 3$, so $c_2$ is $6/3=2$, not $6$."
             },
             {
                 "id": "ps_11_3",
-                "problem": "(Amplitude-phase form) Write $x(t) = 5\\cos 2t + 12\\sin 2t$ as a single sinusoid $C\\cos(2t-\\phi)$; give the amplitude $C$ and phase $\\phi$.",
+                "problem": "<strong>(Amplitude-phase form)</strong> Write $x(t) = 5\\cos 2t + 12\\sin 2t$ as a single sinusoid $C\\cos(2t-\\phi)$; give the amplitude $C$ and phase $\\phi$.",
                 "solution": "Combine the coefficients into one amplitude: $$ C = \\sqrt{c_1^2 + c_2^2} = \\sqrt{5^2 + 12^2} = \\sqrt{169} = 13. $$ The phase satisfies $\\tan\\phi = c_2/c_1 = 12/5$ with both components positive (first quadrant): $$ \\phi = \\arctan\\tfrac{12}{5} \\approx 1.176\\ \\text{rad}, \\qquad x(t) = 13\\cos(2t - 1.176). $$"
             },
             {
                 "id": "ps_11_4",
-                "problem": "(Hooke's law calibration) A weight of $mg = 10$ N stretches a spring by $L = 0.2$ m. Find the stiffness $k$, and with $g=10\\ \\mathrm{m/s^2}$ find the resulting natural frequency $\\omega_0$.",
+                "problem": "<strong>(Hooke's law calibration)</strong> A weight of $mg = 10$ N stretches a spring by $L = 0.2$ m. Find the stiffness $k$, and with $g=10\\ \\mathrm{m/s^2}$ find the resulting natural frequency $\\omega_0$.",
                 "solution": "The static balance $mg = kL$ gives the stiffness directly: $$ k = \\frac{mg}{L} = \\frac{10}{0.2} = 50\\ \\mathrm{N/m}. $$ With $g = 10\\ \\mathrm{m/s^2}$ the weight $mg = 10$ N gives mass $m = 1$ kg, so $$ \\omega_0 = \\sqrt{\\frac{k}{m}} = \\sqrt{\\frac{50}{1}} = 5\\sqrt{2} \\approx 7.07\\ \\mathrm{rad/s}. $$"
             },
             {
                 "id": "ps_11_5",
-                "problem": "(Damping — overdamped) Solve $x'' + 5x' + 6x = 0$, evaluate the discriminant, and name the damping regime.",
-                "solution": "The characteristic equation factors: $$ r^2 + 5r + 6 = (r+2)(r+3) = 0 \\;\\Rightarrow\\; r = -2,\\,-3. $$ The discriminant $\\Delta = c^2 - 4mk = 25 - 24 = 1 > 0$ confirms two distinct real roots, so the motion is overdamped — pure decay, no oscillation: $$ x(t) = c_1 e^{-2t} + c_2 e^{-3t}. $$"
+                "problem": "<strong>(Damping — overdamped)</strong> Solve $x'' + 5x' + 6x = 0$, evaluate the discriminant, and name the damping regime.",
+                "solution": "The characteristic equation factors: $$ r^2 + 5r + 6 = (r+2)(r+3) = 0 \\;\\Rightarrow\\; r = -2,\\,-3. $$ The discriminant $\\Delta = c^2 - 4mk = 25 - 24 = 1 &gt; 0$ confirms two distinct real roots, so the motion is <strong>overdamped</strong> — pure decay, no oscillation: $$ x(t) = c_1 e^{-2t} + c_2 e^{-3t}. $$"
             },
             {
                 "id": "ps_11_6",
-                "problem": "(Damping — critically damped) Solve $x'' + 2x' + x = 0$ and identify the regime from the discriminant.",
-                "solution": "The characteristic equation is a perfect square: $$ r^2 + 2r + 1 = (r+1)^2 = 0 \\;\\Rightarrow\\; r = -1\\ \\text{(double)}. $$ Here $\\Delta = 4 - 4 = 0$, the boundary case, so the system is critically damped and the repeated root carries a factor of $t$: $$ x(t) = (c_1 + c_2 t)\\,e^{-t}. $$"
+                "problem": "<strong>(Damping — critically damped)</strong> Solve $x'' + 2x' + x = 0$ and identify the regime from the discriminant.",
+                "solution": "The characteristic equation is a perfect square: $$ r^2 + 2r + 1 = (r+1)^2 = 0 \\;\\Rightarrow\\; r = -1\\ \\text{(double)}. $$ Here $\\Delta = 4 - 4 = 0$, the boundary case, so the system is <strong>critically damped</strong> and the repeated root carries a factor of $t$: $$ x(t) = (c_1 + c_2 t)\\,e^{-t}. $$"
             },
             {
                 "id": "ps_11_7",
-                "problem": "(Damping — underdamped) Solve $x'' + 2x' + 5x = 0$, name the regime, and state the quasi-frequency.",
-                "solution": "The quadratic formula on $r^2 + 2r + 5 = 0$ gives complex roots: $$ r = \\frac{-2 \\pm \\sqrt{4 - 20}}{2} = -1 \\pm 2i. $$ With $\\Delta = 4 - 20 = -16 < 0$ the motion is underdamped: a decaying envelope times an oscillation, $$ x(t) = e^{-t}\\big(c_1\\cos 2t + c_2\\sin 2t\\big). $$ The quasi-frequency is $\\mu = 2$, just below the undamped value $\\omega_0 = \\sqrt{5}\\approx 2.236$."
+                "problem": "<strong>(Damping — underdamped)</strong> Solve $x'' + 2x' + 5x = 0$, name the regime, and state the quasi-frequency.",
+                "solution": "The quadratic formula on $r^2 + 2r + 5 = 0$ gives complex roots: $$ r = \\frac{-2 \\pm \\sqrt{4 - 20}}{2} = -1 \\pm 2i. $$ With $\\Delta = 4 - 20 = -16 &lt; 0$ the motion is <strong>underdamped</strong>: a decaying envelope times an oscillation, $$ x(t) = e^{-t}\\big(c_1\\cos 2t + c_2\\sin 2t\\big). $$ The quasi-frequency is $\\mu = 2$, just below the undamped value $\\omega_0 = \\sqrt{5}\\approx 2.236$."
             },
             {
                 "id": "ps_11_8",
-                "problem": "(Critical damping coefficient) For $m=1$ and $k=9$, find the damping coefficient $c$ that makes the system critically damped.",
-                "solution": "Critical damping is the boundary $\\Delta = 0$, i.e. $c^2 = 4mk$, so $$ c = 2\\sqrt{mk} = 2\\sqrt{(1)(9)} = 2\\cdot 3 = 6. $$ Any $c > 6$ overdamps the system and any $c < 6$ underdamps it."
+                "problem": "<strong>(Critical damping coefficient)</strong> For $m=1$ and $k=9$, find the damping coefficient $c$ that makes the system critically damped.",
+                "solution": "Critical damping is the boundary $\\Delta = 0$, i.e. $c^2 = 4mk$, so $$ c = 2\\sqrt{mk} = 2\\sqrt{(1)(9)} = 2\\cdot 3 = 6. $$ Any $c &gt; 6$ overdamps the system and any $c &lt; 6$ underdamps it."
             },
             {
                 "id": "ps_11_9",
-                "problem": "(Resonance identification) For $x'' + 25x = \\cos(\\omega t)$, find the forcing frequency $\\omega$ that produces resonance, and compute the resonant particular solution at that frequency.",
+                "problem": "<strong>(Resonance identification)</strong> For $x'' + 25x = \\cos(\\omega t)$, find the forcing frequency $\\omega$ that produces resonance, and compute the resonant particular solution at that frequency.",
                 "solution": "From $x'' + 25x = 0$ the natural frequency is $\\omega_0 = \\sqrt{25} = 5$, so resonance occurs at $$ \\omega = \\omega_0 = 5. $$ At resonance the bare trial $A\\cos 5t + B\\sin 5t$ already solves the homogeneous equation, so it gains a factor of $t$: try $x_p = t(A\\cos 5t + B\\sin 5t)$. Differentiating twice, $$ x_p'' = -25\\,t(A\\cos 5t + B\\sin 5t) + 10(-A\\sin 5t + B\\cos 5t), $$ so $x_p'' + 25 x_p = 10(-A\\sin 5t + B\\cos 5t)$. Matching to $\\cos 5t$: $$ 10 B = 1,\\ \\ -10 A = 0 \\;\\Rightarrow\\; A = 0,\\ B = \\tfrac{1}{10}, \\qquad x_p(t) = \\frac{t}{10}\\sin 5t. $$ The $t$ out front is the signature of resonance: the amplitude grows without bound."
             },
             {
                 "id": "ps_11_10",
-                "problem": "(Coupled oscillators, capstone) For $x_1'' = -2x_1 + x_2$ and $x_2'' = x_1 - 2x_2$, find the normal-mode frequencies from the eigenvalues $\\lambda = -1, -3$, identify the mode shapes, and write the general solution.",
-                "solution": "Solution 10 (Capstone). In matrix form $\\mathbf{x}'' = A\\mathbf{x}$ with $$ A = \\begin{pmatrix} -2 & 1 \\\\ 1 & -2 \\end{pmatrix}, \\qquad \\lambda = -1,\\,-3. $$ Each mode frequency comes from $\\omega^2 = -\\lambda$: $$ \\omega_1 = \\sqrt{-(-1)} = 1, \\qquad \\omega_2 = \\sqrt{-(-3)} = \\sqrt{3}. $$ The eigenvectors give the mode shapes. For $\\lambda = -1$, $(A+I)\\mathbf{v}=0$ yields $\\mathbf{v}_1 = (1,1)^{\\mathsf T}$, the in-phase mode (lower frequency); for $\\lambda = -3$, $(A+3I)\\mathbf{v}=0$ yields $\\mathbf{v}_2 = (1,-1)^{\\mathsf T}$, the out-of-phase mode (higher frequency, since it stretches the coupling spring more). The general motion is a superposition of the two modes: $$ \\mathbf{x}(t) = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}\\!\\big(a_1\\cos t + b_1\\sin t\\big) + \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}\\!\\big(a_2\\cos\\sqrt{3}\\,t + b_2\\sin\\sqrt{3}\\,t\\big). $$"
+                "problem": "<strong>(Coupled oscillators, capstone)</strong> For $x_1'' = -2x_1 + x_2$ and $x_2'' = x_1 - 2x_2$, find the normal-mode frequencies from the eigenvalues $\\lambda = -1, -3$, identify the mode shapes, and write the general solution.",
+                "solution": "Solution 10 (Capstone). In matrix form $\\mathbf{x}'' = A\\mathbf{x}$ with $$ A = \\begin{pmatrix} -2 &amp; 1 \\\\ 1 &amp; -2 \\end{pmatrix}, \\qquad \\lambda = -1,\\,-3. $$ Each mode frequency comes from $\\omega^2 = -\\lambda$: $$ \\omega_1 = \\sqrt{-(-1)} = 1, \\qquad \\omega_2 = \\sqrt{-(-3)} = \\sqrt{3}. $$ The eigenvectors give the mode shapes. For $\\lambda = -1$, $(A+I)\\mathbf{v}=0$ yields $\\mathbf{v}_1 = (1,1)^{\\mathsf T}$, the <strong>in-phase</strong> mode (lower frequency); for $\\lambda = -3$, $(A+3I)\\mathbf{v}=0$ yields $\\mathbf{v}_2 = (1,-1)^{\\mathsf T}$, the <strong>out-of-phase</strong> mode (higher frequency, since it stretches the coupling spring more). The general motion is a superposition of the two modes: $$ \\mathbf{x}(t) = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}\\!\\big(a_1\\cos t + b_1\\sin t\\big) + \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}\\!\\big(a_2\\cos\\sqrt{3}\\,t + b_2\\sin\\sqrt{3}\\,t\\big). $$"
             }
         ]
     },
@@ -44886,7 +44886,7 @@ const PRACTICE_DATA = {
             {
                 "id": "ps_12_1",
                 "problem": "(From the definition) Using only the defining integral $\\int_0^\\infty e^{-st}f\\,dt$, compute $\\mathcal{L}\\{e^{3t}\\}$ and state the half-plane of convergence.",
-                "solution": "Merge the two exponentials and integrate: $$ \\int_0^\\infty e^{-st}e^{3t}\\,dt = \\int_0^\\infty e^{-(s-3)t}\\,dt = \\left[-\\tfrac{1}{s-3}e^{-(s-3)t}\\right]_0^\\infty = \\frac{1}{s-3}. $$ The boundary term at $\\infty$ vanishes only when $s-3>0$, so the transform converges for $s>3$."
+                "solution": "Merge the two exponentials and integrate: $$ \\int_0^\\infty e^{-st}e^{3t}\\,dt = \\int_0^\\infty e^{-(s-3)t}\\,dt = \\left[-\\tfrac{1}{s-3}e^{-(s-3)t}\\right]_0^\\infty = \\frac{1}{s-3}. $$ The boundary term at $\\infty$ vanishes only when $s-3&gt;0$, so the transform converges for $s&gt;3$."
             },
             {
                 "id": "ps_12_2",
@@ -44949,52 +44949,52 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_13_1",
-                "problem": "(Maclaurin series) Write the Maclaurin series of $e^x$ and state the coefficient of $x^4$.",
+                "problem": "<strong>(Maclaurin series)</strong> Write the Maclaurin series of $e^x$ and state the coefficient of $x^4$.",
                 "solution": "Every derivative of $e^x$ equals $e^x$, which is $1$ at $x=0$, so $a_n=f^{(n)}(0)/n!=1/n!$: $$ e^x = \\sum_{n=0}^{\\infty}\\frac{x^n}{n!} = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\frac{x^4}{24} + \\cdots $$ The coefficient of $x^4$ is $\\dfrac{1}{4!}=\\dfrac{1}{24}$."
             },
             {
                 "id": "ps_13_2",
-                "problem": "(Standard library) Write the Maclaurin series of $\\cos x$ in summation form.",
+                "problem": "<strong>(Standard library)</strong> Write the Maclaurin series of $\\cos x$ in summation form.",
                 "solution": "Only even powers survive, with alternating sign: $$ \\cos x = \\sum_{n=0}^{\\infty}\\frac{(-1)^n x^{2n}}{(2n)!} = 1 - \\frac{x^2}{2!} + \\frac{x^4}{4!} - \\cdots $$"
             },
             {
                 "id": "ps_13_3",
-                "problem": "(Radius of convergence) Use the ratio test to find the radius of convergence of $\\sum_{n=0}^{\\infty} \\dfrac{x^n}{2^n}$.",
+                "problem": "<strong>(Radius of convergence)</strong> Use the ratio test to find the radius of convergence of $\\sum_{n=0}^{\\infty} \\dfrac{x^n}{2^n}$.",
                 "solution": "With $a_n=1/2^n$, the ratio test gives $$ \\frac{1}{R} = \\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right| = \\lim_{n\\to\\infty}\\frac{1/2^{n+1}}{1/2^n} = \\frac{1}{2} \\;\\Longrightarrow\\; R = 2. $$"
             },
             {
                 "id": "ps_13_4",
-                "problem": "(Series at an ordinary point) Substitute $y=\\sum a_n x^n$ into $y''+y=0$, derive the recurrence for $a_{n+2}$, and identify the two independent solutions.",
+                "problem": "<strong>(Series at an ordinary point)</strong> Substitute $y=\\sum a_n x^n$ into $y''+y=0$, derive the recurrence for $a_{n+2}$, and identify the two independent solutions.",
                 "solution": "Re-index $y''=\\sum_{n\\ge 0}(n+2)(n+1)a_{n+2}x^n$ and add $y$: $$ \\sum_{n=0}^{\\infty}\\big[(n+2)(n+1)a_{n+2}+a_n\\big]x^n = 0 \\;\\Longrightarrow\\; a_{n+2} = \\frac{-a_n}{(n+2)(n+1)}. $$ The $a_0$ branch builds $1-\\tfrac{x^2}{2!}+\\tfrac{x^4}{4!}-\\cdots=\\cos x$ and the $a_1$ branch builds $\\sin x$, so $$ y = a_0\\cos x + a_1\\sin x. $$"
             },
             {
                 "id": "ps_13_5",
-                "problem": "(Re-indexing) For $y=\\sum_{n=0}^{\\infty} a_n x^n$, write $y''$ re-indexed so every term carries the common power $x^n$.",
+                "problem": "<strong>(Re-indexing)</strong> For $y=\\sum_{n=0}^{\\infty} a_n x^n$, write $y''$ re-indexed so every term carries the common power $x^n$.",
                 "solution": "Differentiate twice and shift the index by two so the power is $x^n$: $$ y'' = \\sum_{n=0}^{\\infty}(n+2)(n+1)\\,a_{n+2}\\,x^n. $$ Forgetting the $(n+2)(n+1)$ factor here is the most common source of a wrong recurrence."
             },
             {
                 "id": "ps_13_6",
-                "problem": "(Frobenius classification) For $x^2 y'' + x y' - y = 0$, show $x=0$ is a regular singular point, compute $p_0$ and $q_0$, and solve the indicial equation.",
+                "problem": "<strong>(Frobenius classification)</strong> For $x^2 y'' + x y' - y = 0$, show $x=0$ is a regular singular point, compute $p_0$ and $q_0$, and solve the indicial equation.",
                 "solution": "In standard form $y'' + \\tfrac{1}{x}y' - \\tfrac{1}{x^2}y = 0$, so $p=\\tfrac1x$, $q=-\\tfrac1{x^2}$. Since $xp=1$ and $x^2q=-1$ are analytic at $0$, the point is a regular singular point. Then $$ p_0 = \\lim_{x\\to 0} x\\,p = 1, \\qquad q_0 = \\lim_{x\\to 0} x^2 q = -1, $$ $$ r(r-1)+r-1 = r^2-1 = 0 \\;\\Longrightarrow\\; r = \\pm 1. $$"
             },
             {
                 "id": "ps_13_7",
-                "problem": "(Indicial roots) Given $p_0=\\tfrac{3}{2}$ and $q_0=-\\tfrac{1}{2}$, solve the indicial equation $r(r-1)+p_0 r+q_0=0$.",
+                "problem": "<strong>(Indicial roots)</strong> Given $p_0=\\tfrac{3}{2}$ and $q_0=-\\tfrac{1}{2}$, solve the indicial equation $r(r-1)+p_0 r+q_0=0$.",
                 "solution": "Substitute into the indicial equation and clear the fraction: $$ r(r-1) + \\tfrac{3}{2}r - \\tfrac{1}{2} = r^2 + \\tfrac{1}{2}r - \\tfrac{1}{2} = 0 \\;\\Longrightarrow\\; 2r^2 + r - 1 = 0. $$ Factor $(2r-1)(r+1)=0$: $$ r = \\tfrac{1}{2} \\quad\\text{and}\\quad r = -1. $$"
             },
             {
                 "id": "ps_13_8",
-                "problem": "(Legendre polynomial) For $n=2$, Legendre's equation has a terminating solution. Find it and normalize so $P_2(1)=1$.",
+                "problem": "<strong>(Legendre polynomial)</strong> For $n=2$, Legendre's equation has a terminating solution. Find it and normalize so $P_2(1)=1$.",
                 "solution": "For $n=2$ the even series terminates: $a_2 = -\\tfrac{n(n+1)}{2}a_0 = -3a_0$ and $a_4=0$, so $y=a_0(1-3x^2)$. Normalize with $P_2(1)=1$: $$ a_0(1-3) = -2a_0 = 1 \\;\\Longrightarrow\\; a_0 = -\\tfrac{1}{2}, $$ $$ P_2(x) = -\\tfrac{1}{2}(1-3x^2) = \\tfrac{1}{2}(3x^2-1). $$"
             },
             {
                 "id": "ps_13_9",
-                "problem": "(Bessel's equation) State Bessel's equation of order $\\nu$, classify the point $x=0$, and give the indicial roots.",
+                "problem": "<strong>(Bessel's equation)</strong> State Bessel's equation of order $\\nu$, classify the point $x=0$, and give the indicial roots.",
                 "solution": "Bessel's equation of order $\\nu$ is $$ x^2 y'' + x y' + (x^2 - \\nu^2)y = 0. $$ At $x=0$ the coefficients blow up but $xp$ and $x^2q$ are analytic, so it is a regular singular point; the indicial equation $r^2-\\nu^2=0$ gives $$ r = \\nu \\quad\\text{and}\\quad r = -\\nu. $$"
             },
             {
                 "id": "ps_13_10",
-                "problem": "(Classical families, capstone) Using the Hermite recurrence $H_{n+1}=2xH_n-2nH_{n-1}$ and the Chebyshev recurrence $T_{n+1}=2xT_n-T_{n-1}$ (with $H_0=1,H_1=2x,T_0=1,T_1=x$), compute $H_2$ and $T_2$, and contrast them with $P_2$.",
+                "problem": "<strong>(Classical families, capstone)</strong> Using the Hermite recurrence $H_{n+1}=2xH_n-2nH_{n-1}$ and the Chebyshev recurrence $T_{n+1}=2xT_n-T_{n-1}$ (with $H_0=1,H_1=2x,T_0=1,T_1=x$), compute $H_2$ and $T_2$, and contrast them with $P_2$.",
                 "solution": "Apply each recurrence once: $$ H_2 = 2xH_1 - 2(1)H_0 = 2x(2x) - 2 = 4x^2 - 2, $$ $$ T_2 = 2xT_1 - T_0 = 2x(x) - 1 = 2x^2 - 1. $$ All three degree-2 members look alike but come from different equations and weights: $$ H_2 = 4x^2-2, \\quad T_2 = 2x^2-1, \\quad P_2 = \\tfrac{1}{2}(3x^2-1). $$"
             }
         ]
@@ -45003,53 +45003,53 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_14_1",
-                "problem": "(Linear combination) Compute the linear combination $2(1,0) + 3(0,1)$.",
+                "problem": "<strong>(Linear combination)</strong> Compute the linear combination $2(1,0) + 3(0,1)$.",
                 "solution": "Scale each vector and add componentwise: $$ 2(1,0) + 3(0,1) = (2,0) + (0,3) = (2,3). $$ The scalars stay attached to their own directions; they do not merge into a single axis."
             },
             {
                 "id": "ps_14_2",
-                "problem": "(Basis test) State the two conditions a set must meet to be a basis, then decide whether $(1,0)$ and $(2,0)$ form a basis of $\\mathbb{R}^2$.",
-                "solution": "A basis must be \\emph{linearly independent} and must \\emph{span} the space. The vectors $(1,0)$ and $(2,0)$ are parallel, since $(2,0)=2(1,0)$, so they are dependent and span only the $x$-axis: $$ \\operatorname{span}\\{(1,0),(2,0)\\} = \\{(t,0)\\} \\neq \\mathbb{R}^2. $$ They are not a basis of $\\mathbb{R}^2$."
+                "problem": "<strong>(Basis test)</strong> State the two conditions a set must meet to be a basis, then decide whether $(1,0)$ and $(2,0)$ form a basis of $\\mathbb{R}^2$.",
+                "solution": "A basis must be <em>linearly independent</em> and must <em>span</em> the space. The vectors $(1,0)$ and $(2,0)$ are parallel, since $(2,0)=2(1,0)$, so they are dependent and span only the $x$-axis: $$ \\operatorname{span}\\{(1,0),(2,0)\\} = \\{(t,0)\\} \\neq \\mathbb{R}^2. $$ They are <strong>not</strong> a basis of $\\mathbb{R}^2$."
             },
             {
                 "id": "ps_14_3",
-                "problem": "(Matrix of a transformation) For the matrix $A$ with rows $(1,2)$ and $(3,4)$, compute the image $A\\mathbf{x}$ of $\\mathbf{x}=(1,1)$.",
-                "solution": "Dot each row with the input $\\mathbf{x}=(1,1)$: $$ A\\mathbf{x} = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}\\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1+2 \\\\ 3+4 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\end{pmatrix}. $$"
+                "problem": "<strong>(Matrix of a transformation)</strong> For the matrix $A$ with rows $(1,2)$ and $(3,4)$, compute the image $A\\mathbf{x}$ of $\\mathbf{x}=(1,1)$.",
+                "solution": "Dot each row with the input $\\mathbf{x}=(1,1)$: $$ A\\mathbf{x} = \\begin{pmatrix} 1 &amp; 2 \\\\ 3 &amp; 4 \\end{pmatrix}\\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1+2 \\\\ 3+4 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\end{pmatrix}. $$"
             },
             {
                 "id": "ps_14_4",
-                "problem": "(Determinant, compute) Find the determinant of the matrix with rows $(3,1)$ and $(2,4)$, and state the factor by which it scales area.",
-                "solution": "Use $\\det = ad-bc$ with $a=3,b=1,c=2,d=4$: $$ \\det A = (3)(4) - (1)(2) = 12 - 2 = 10. $$ The map scales every area by a factor of $\\lvert\\det A\\rvert = 10$, and since $\\det A>0$ it preserves orientation."
+                "problem": "<strong>(Determinant, compute)</strong> Find the determinant of the matrix with rows $(3,1)$ and $(2,4)$, and state the factor by which it scales area.",
+                "solution": "Use $\\det = ad-bc$ with $a=3,b=1,c=2,d=4$: $$ \\det A = (3)(4) - (1)(2) = 12 - 2 = 10. $$ The map scales every area by a factor of $\\lvert\\det A\\rvert = 10$, and since $\\det A&gt;0$ it preserves orientation."
             },
             {
                 "id": "ps_14_5",
-                "problem": "(Determinant, meaning) Compute the determinant of the matrix with rows $(1,2)$ and $(2,4)$. Is the matrix invertible? What does this say about its columns?",
-                "solution": "Compute the determinant: $$ \\det\\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix} = (1)(4) - (2)(2) = 4 - 4 = 0. $$ A zero determinant means the matrix is not invertible: it collapses the plane onto a line, so its columns are linearly dependent (indeed $(2,4)=2(1,2)$)."
+                "problem": "<strong>(Determinant, meaning)</strong> Compute the determinant of the matrix with rows $(1,2)$ and $(2,4)$. Is the matrix invertible? What does this say about its columns?",
+                "solution": "Compute the determinant: $$ \\det\\begin{pmatrix} 1 &amp; 2 \\\\ 2 &amp; 4 \\end{pmatrix} = (1)(4) - (2)(2) = 4 - 4 = 0. $$ A zero determinant means the matrix is <strong>not invertible</strong>: it collapses the plane onto a line, so its columns are linearly dependent (indeed $(2,4)=2(1,2)$)."
             },
             {
                 "id": "ps_14_6",
-                "problem": "(Change of basis) Write the formula that expresses a matrix $A$ in the basis given by a change-of-basis matrix $P$, and state what makes the result diagonal.",
-                "solution": "The similarity transform rewrites $A$ in the new coordinates: $$ B = P^{-1} A P, $$ where the columns of $P$ are the new basis vectors in the old coordinates. If those columns are eigenvectors of $A$, then $B$ is diagonal, with the eigenvalues on the diagonal."
+                "problem": "<strong>(Change of basis)</strong> Write the formula that expresses a matrix $A$ in the basis given by a change-of-basis matrix $P$, and state what makes the result diagonal.",
+                "solution": "The similarity transform rewrites $A$ in the new coordinates: $$ B = P^{-1} A P, $$ where the columns of $P$ are the new basis vectors in the old coordinates. If those columns are eigenvectors of $A$, then $B$ is <strong>diagonal</strong>, with the eigenvalues on the diagonal."
             },
             {
                 "id": "ps_14_7",
-                "problem": "(Characteristic equation) Write the $2\\times 2$ characteristic equation in terms of the trace and determinant, then find the eigenvalues of the matrix with rows $(2,1)$ and $(1,2)$.",
+                "problem": "<strong>(Characteristic equation)</strong> Write the $2\\times 2$ characteristic equation in terms of the trace and determinant, then find the eigenvalues of the matrix with rows $(2,1)$ and $(1,2)$.",
                 "solution": "The characteristic equation is $$ \\lambda^2 - (\\operatorname{tr}A)\\lambda + \\det A = 0. $$ For rows $(2,1),(1,2)$: $\\operatorname{tr}A=4$, $\\det A=3$, so $$ \\lambda^2 - 4\\lambda + 3 = (\\lambda-3)(\\lambda-1) = 0 \\;\\Rightarrow\\; \\lambda = 3,\\ 1. $$"
             },
             {
                 "id": "ps_14_8",
-                "problem": "(Eigenvectors) For that same matrix (rows $(2,1)$, $(1,2)$), find an eigenvector for each eigenvalue.",
-                "solution": "Solve $(A-\\lambda I)\\mathbf{v}=\\mathbf{0}$ for each eigenvalue: $$ \\lambda=3:\\ \\begin{pmatrix} -1 & 1 \\\\ 1 & -1 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_1=(1,1); $$ $$ \\lambda=1:\\ \\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_2=(1,-1). $$"
+                "problem": "<strong>(Eigenvectors)</strong> For that same matrix (rows $(2,1)$, $(1,2)$), find an eigenvector for each eigenvalue.",
+                "solution": "Solve $(A-\\lambda I)\\mathbf{v}=\\mathbf{0}$ for each eigenvalue: $$ \\lambda=3:\\ \\begin{pmatrix} -1 &amp; 1 \\\\ 1 &amp; -1 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_1=(1,1); $$ $$ \\lambda=1:\\ \\begin{pmatrix} 1 &amp; 1 \\\\ 1 &amp; 1 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_2=(1,-1). $$"
             },
             {
                 "id": "ps_14_9",
-                "problem": "(Eigen-ansatz) Show that substituting $\\mathbf{x}=e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}'=A\\mathbf{x}$ produces the eigenvalue equation $A\\mathbf{v}=\\lambda\\mathbf{v}$.",
+                "problem": "<strong>(Eigen-ansatz)</strong> Show that substituting $\\mathbf{x}=e^{\\lambda t}\\mathbf{v}$ into $\\mathbf{x}'=A\\mathbf{x}$ produces the eigenvalue equation $A\\mathbf{v}=\\lambda\\mathbf{v}$.",
                 "solution": "Differentiate the trial $\\mathbf{x}=e^{\\lambda t}\\mathbf{v}$ (with $\\mathbf{v}$ constant) and substitute: $$ \\mathbf{x}' = \\lambda e^{\\lambda t}\\mathbf{v}, \\qquad A\\mathbf{x} = e^{\\lambda t} A\\mathbf{v}. $$ Setting $\\mathbf{x}'=A\\mathbf{x}$ and cancelling the nonzero scalar $e^{\\lambda t}$ leaves $$ \\lambda\\mathbf{v} = A\\mathbf{v}, $$ exactly the eigenvalue problem."
             },
             {
                 "id": "ps_14_10",
-                "problem": "(Capstone — solve a system) Using the eigenpairs from Problems 7–8, write the general solution of $\\mathbf{x}'=A\\mathbf{x}$ for $A$ with rows $(2,1)$ and $(1,2)$, and classify the equilibrium at the origin.",
-                "solution": "Each eigenpair contributes one exponential mode; superpose them: $$ \\mathbf{x}(t) = c_1 e^{3t}\\begin{pmatrix}1\\\\1\\end{pmatrix} + c_2 e^{t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}. $$ Both eigenvalues are real and positive, so every trajectory grows without bound: the origin is an unstable node (a source)."
+                "problem": "<strong>(Capstone — solve a system)</strong> Using the eigenpairs from Problems 7–8, write the general solution of $\\mathbf{x}'=A\\mathbf{x}$ for $A$ with rows $(2,1)$ and $(1,2)$, and classify the equilibrium at the origin.",
+                "solution": "Each eigenpair contributes one exponential mode; superpose them: $$ \\mathbf{x}(t) = c_1 e^{3t}\\begin{pmatrix}1\\\\1\\end{pmatrix} + c_2 e^{t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}. $$ Both eigenvalues are real and positive, so every trajectory grows without bound: the origin is an <strong>unstable node</strong> (a source)."
             }
         ]
     },
@@ -45057,53 +45057,53 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_15_1",
-                "problem": "(To a system) Convert $y'' + 5y' + 6y = 0$ into a first-order system $\\mathbf{x}'=A\\mathbf{x}$, and state the companion matrix $A$.",
-                "solution": "Let $x_1=y$, $x_2=y'$, so $x_1'=x_2$ and $x_2'=y''=-6y-5y'=-6x_1-5x_2$: $$ \\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}' = \\begin{pmatrix} 0 & 1 \\\\ -6 & -5 \\end{pmatrix}\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}, \\qquad A = \\begin{pmatrix} 0 & 1 \\\\ -6 & -5 \\end{pmatrix}. $$ The coefficients enter the bottom row with flipped signs."
+                "problem": "<strong>(To a system)</strong> Convert $y'' + 5y' + 6y = 0$ into a first-order system $\\mathbf{x}'=A\\mathbf{x}$, and state the companion matrix $A$.",
+                "solution": "Let $x_1=y$, $x_2=y'$, so $x_1'=x_2$ and $x_2'=y''=-6y-5y'=-6x_1-5x_2$: $$ \\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}' = \\begin{pmatrix} 0 &amp; 1 \\\\ -6 &amp; -5 \\end{pmatrix}\\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix}, \\qquad A = \\begin{pmatrix} 0 &amp; 1 \\\\ -6 &amp; -5 \\end{pmatrix}. $$ The coefficients enter the bottom row with flipped signs."
             },
             {
                 "id": "ps_15_2",
-                "problem": "(Eigenvalues) For $A=\\begin{pmatrix} 1 & 2 \\\\ 3 & 2 \\end{pmatrix}$, compute $\\det(A-\\lambda I)$ and find both eigenvalues.",
+                "problem": "<strong>(Eigenvalues)</strong> For $A=\\begin{pmatrix} 1 &amp; 2 \\\\ 3 &amp; 2 \\end{pmatrix}$, compute $\\det(A-\\lambda I)$ and find both eigenvalues.",
                 "solution": "Expand the determinant: $$ \\det(A-\\lambda I) = (1-\\lambda)(2-\\lambda) - (2)(3) = \\lambda^2 - 3\\lambda - 4 = (\\lambda-4)(\\lambda+1). $$ So $\\lambda_1=4$ and $\\lambda_2=-1$."
             },
             {
                 "id": "ps_15_3",
-                "problem": "(Eigenvectors and $P$) For that same $A$, find an eigenvector for each eigenvalue and assemble the modal matrix $P=[\\mathbf{v}_1\\mid\\mathbf{v}_2]$.",
-                "solution": "Solve $(A-\\lambda I)\\mathbf{v}=\\mathbf{0}$ for each eigenvalue: $$ \\lambda=4:\\ \\begin{pmatrix} -3 & 2 \\\\ 3 & -2 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_1=(2,3); $$ $$ \\lambda=-1:\\ \\begin{pmatrix} 2 & 2 \\\\ 3 & 3 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_2=(1,-1). $$ Hence $P=\\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix}$."
+                "problem": "<strong>(Eigenvectors and $P$)</strong> For that same $A$, find an eigenvector for each eigenvalue and assemble the modal matrix $P=[\\mathbf{v}_1\\mid\\mathbf{v}_2]$.",
+                "solution": "Solve $(A-\\lambda I)\\mathbf{v}=\\mathbf{0}$ for each eigenvalue: $$ \\lambda=4:\\ \\begin{pmatrix} -3 &amp; 2 \\\\ 3 &amp; -2 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_1=(2,3); $$ $$ \\lambda=-1:\\ \\begin{pmatrix} 2 &amp; 2 \\\\ 3 &amp; 3 \\end{pmatrix}\\mathbf{v}=\\mathbf{0} \\Rightarrow \\mathbf{v}_2=(1,-1). $$ Hence $P=\\begin{pmatrix} 2 &amp; 1 \\\\ 3 &amp; -1 \\end{pmatrix}$."
             },
             {
                 "id": "ps_15_4",
-                "problem": "(Inverse) Compute $P^{-1}$ for $P=\\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix}$, showing $\\det P$ explicitly.",
-                "solution": "The determinant and inverse are $$ \\det P = (2)(-1)-(1)(3) = -5, \\qquad P^{-1} = \\frac{1}{-5}\\begin{pmatrix} -1 & -1 \\\\ -3 & 2 \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 1 & 1 \\\\ 3 & -2 \\end{pmatrix}. $$"
+                "problem": "<strong>(Inverse)</strong> Compute $P^{-1}$ for $P=\\begin{pmatrix} 2 &amp; 1 \\\\ 3 &amp; -1 \\end{pmatrix}$, showing $\\det P$ explicitly.",
+                "solution": "The determinant and inverse are $$ \\det P = (2)(-1)-(1)(3) = -5, \\qquad P^{-1} = \\frac{1}{-5}\\begin{pmatrix} -1 &amp; -1 \\\\ -3 &amp; 2 \\end{pmatrix} = \\frac{1}{5}\\begin{pmatrix} 1 &amp; 1 \\\\ 3 &amp; -2 \\end{pmatrix}. $$"
             },
             {
                 "id": "ps_15_5",
-                "problem": "(Verify decoupling) Confirm $P^{-1}AP=D$ for the $A$, $P$, $P^{-1}$ above, and state the decoupled system $\\mathbf{y}'=D\\mathbf{y}$.",
-                "solution": "Multiply in two steps, $AP$ then $P^{-1}(AP)$: $$ AP = \\begin{pmatrix} 8 & -1 \\\\ 12 & 1 \\end{pmatrix}, \\qquad P^{-1}AP = \\frac{1}{5}\\begin{pmatrix} 20 & 0 \\\\ 0 & -5 \\end{pmatrix} = \\begin{pmatrix} 4 & 0 \\\\ 0 & -1 \\end{pmatrix} = D. $$ The decoupled system is $y_1'=4y_1$, $y_2'=-y_2$."
+                "problem": "<strong>(Verify decoupling)</strong> Confirm $P^{-1}AP=D$ for the $A$, $P$, $P^{-1}$ above, and state the decoupled system $\\mathbf{y}'=D\\mathbf{y}$.",
+                "solution": "Multiply in two steps, $AP$ then $P^{-1}(AP)$: $$ AP = \\begin{pmatrix} 8 &amp; -1 \\\\ 12 &amp; 1 \\end{pmatrix}, \\qquad P^{-1}AP = \\frac{1}{5}\\begin{pmatrix} 20 &amp; 0 \\\\ 0 &amp; -5 \\end{pmatrix} = \\begin{pmatrix} 4 &amp; 0 \\\\ 0 &amp; -1 \\end{pmatrix} = D. $$ The decoupled system is $y_1'=4y_1$, $y_2'=-y_2$."
             },
             {
                 "id": "ps_15_6",
-                "problem": "(General solution) Write the general solution $\\mathbf{x}(t)$ of $\\mathbf{x}'=A\\mathbf{x}$ from the eigenpairs $\\lambda_1=4,\\ \\mathbf{v}_1=(2,3)$ and $\\lambda_2=-1,\\ \\mathbf{v}_2=(1,-1)$.",
-                "solution": "Each eigenpair contributes one exponential mode: $$ \\mathbf{x}(t) = c_1 e^{4t}\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix} + c_2 e^{-t}\\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}. $$ With $\\lambda_1=4>0>\\lambda_2=-1$ the origin is a saddle."
+                "problem": "<strong>(General solution)</strong> Write the general solution $\\mathbf{x}(t)$ of $\\mathbf{x}'=A\\mathbf{x}$ from the eigenpairs $\\lambda_1=4,\\ \\mathbf{v}_1=(2,3)$ and $\\lambda_2=-1,\\ \\mathbf{v}_2=(1,-1)$.",
+                "solution": "Each eigenpair contributes one exponential mode: $$ \\mathbf{x}(t) = c_1 e^{4t}\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix} + c_2 e^{-t}\\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}. $$ With $\\lambda_1=4&gt;0&gt;\\lambda_2=-1$ the origin is a saddle."
             },
             {
                 "id": "ps_15_7",
-                "problem": "(Matrix exponential) Using $A=PDP^{-1}$ with $D=\\operatorname{diag}(4,-1)$, build $e^{At}=Pe^{Dt}P^{-1}$ in closed form.",
-                "solution": "Exponentiate the diagonal and reassemble $e^{At}=Pe^{Dt}P^{-1}$: $$ Pe^{Dt} = \\begin{pmatrix} 2e^{4t} & e^{-t} \\\\ 3e^{4t} & -e^{-t} \\end{pmatrix}, \\quad e^{At} = \\frac{1}{5}\\begin{pmatrix} 2e^{4t}+3e^{-t} & 2e^{4t}-2e^{-t} \\\\ 3e^{4t}-3e^{-t} & 3e^{4t}+2e^{-t} \\end{pmatrix}. $$ At $t=0$ this is $I$, as it must be."
+                "problem": "<strong>(Matrix exponential)</strong> Using $A=PDP^{-1}$ with $D=\\operatorname{diag}(4,-1)$, build $e^{At}=Pe^{Dt}P^{-1}$ in closed form.",
+                "solution": "Exponentiate the diagonal and reassemble $e^{At}=Pe^{Dt}P^{-1}$: $$ Pe^{Dt} = \\begin{pmatrix} 2e^{4t} &amp; e^{-t} \\\\ 3e^{4t} &amp; -e^{-t} \\end{pmatrix}, \\quad e^{At} = \\frac{1}{5}\\begin{pmatrix} 2e^{4t}+3e^{-t} &amp; 2e^{4t}-2e^{-t} \\\\ 3e^{4t}-3e^{-t} &amp; 3e^{4t}+2e^{-t} \\end{pmatrix}. $$ At $t=0$ this is $I$, as it must be."
             },
             {
                 "id": "ps_15_8",
-                "problem": "(Fundamental matrix) Write a fundamental matrix $\\Psi(t)$ for this system and compute its Wronskian $\\det\\Psi(t)$.",
-                "solution": "Stack the two eigensolutions as columns: $$ \\Psi(t) = \\begin{pmatrix} 2e^{4t} & e^{-t} \\\\ 3e^{4t} & -e^{-t} \\end{pmatrix}, \\qquad \\det\\Psi = -2e^{3t}-3e^{3t} = -5e^{3t} \\neq 0. $$ The nonzero Wronskian confirms the columns are independent."
+                "problem": "<strong>(Fundamental matrix)</strong> Write a fundamental matrix $\\Psi(t)$ for this system and compute its Wronskian $\\det\\Psi(t)$.",
+                "solution": "Stack the two eigensolutions as columns: $$ \\Psi(t) = \\begin{pmatrix} 2e^{4t} &amp; e^{-t} \\\\ 3e^{4t} &amp; -e^{-t} \\end{pmatrix}, \\qquad \\det\\Psi = -2e^{3t}-3e^{3t} = -5e^{3t} \\neq 0. $$ The nonzero Wronskian confirms the columns are independent."
             },
             {
                 "id": "ps_15_9",
-                "problem": "(Normalization) Explain why $e^{At}=\\Psi(t)\\Psi(0)^{-1}$, and identify $\\Psi(0)$ for the $\\Psi$ above.",
-                "solution": "Both $\\Psi(t)$ and $e^{At}$ solve $X'=AX$; they agree once normalized to the same value at $t=0$. Since $e^{A\\cdot 0}=I$, $$ e^{At} = \\Psi(t)\\,\\Psi(0)^{-1}, \\qquad \\Psi(0) = \\begin{pmatrix} 2 & 1 \\\\ 3 & -1 \\end{pmatrix} = P. $$ Right-multiplying by $\\Psi(0)^{-1}$ forces the value $I$ at $t=0$."
+                "problem": "<strong>(Normalization)</strong> Explain why $e^{At}=\\Psi(t)\\Psi(0)^{-1}$, and identify $\\Psi(0)$ for the $\\Psi$ above.",
+                "solution": "Both $\\Psi(t)$ and $e^{At}$ solve $X'=AX$; they agree once normalized to the same value at $t=0$. Since $e^{A\\cdot 0}=I$, $$ e^{At} = \\Psi(t)\\,\\Psi(0)^{-1}, \\qquad \\Psi(0) = \\begin{pmatrix} 2 &amp; 1 \\\\ 3 &amp; -1 \\end{pmatrix} = P. $$ Right-multiplying by $\\Psi(0)^{-1}$ forces the value $I$ at $t=0$."
             },
             {
                 "id": "ps_15_10",
-                "problem": "(Complex capstone) Solve $\\mathbf{x}'=A\\mathbf{x}$ for $A=\\begin{pmatrix} 2 & -3 \\\\ 3 & 2 \\end{pmatrix}$, giving the real general solution and the spiral direction.",
-                "solution": "Here $\\det(A-\\lambda I)=\\lambda^2-4\\lambda+13=0$ gives $\\lambda=2\\pm 3i$. With $\\mathbf{v}=(1,-i)$ for $\\lambda=2+3i$, Euler's formula yields $$ \\mathbf{x}(t) = e^{2t}\\left[ c_1\\begin{pmatrix} \\cos 3t \\\\ \\sin 3t \\end{pmatrix} + c_2\\begin{pmatrix} \\sin 3t \\\\ -\\cos 3t \\end{pmatrix} \\right]. $$ Since $\\alpha=2>0$, every trajectory spirals outward."
+                "problem": "<strong>(Complex capstone)</strong> Solve $\\mathbf{x}'=A\\mathbf{x}$ for $A=\\begin{pmatrix} 2 &amp; -3 \\\\ 3 &amp; 2 \\end{pmatrix}$, giving the real general solution and the spiral direction.",
+                "solution": "Here $\\det(A-\\lambda I)=\\lambda^2-4\\lambda+13=0$ gives $\\lambda=2\\pm 3i$. With $\\mathbf{v}=(1,-i)$ for $\\lambda=2+3i$, Euler's formula yields $$ \\mathbf{x}(t) = e^{2t}\\left[ c_1\\begin{pmatrix} \\cos 3t \\\\ \\sin 3t \\end{pmatrix} + c_2\\begin{pmatrix} \\sin 3t \\\\ -\\cos 3t \\end{pmatrix} \\right]. $$ Since $\\alpha=2&gt;0$, every trajectory spirals outward."
             }
         ]
     },
@@ -45111,53 +45111,53 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_16_1",
-                "problem": "(Classify a linear system) For $A=\\begin{pmatrix} -1 & 2 \\\\ 0 & -4 \\end{pmatrix}$, compute $\\tau$ and $\\Delta$ and classify the origin of $\\mathbf{x}'=A\\mathbf{x}$.",
-                "solution": "Trace and determinant give the type directly: $$ \\tau=\\operatorname{tr}A=-5,\\quad \\Delta=\\det A=(-1)(-4)-0=4>0,\\quad \\tau^2-4\\Delta=25-16=9>0. $$ With $\\Delta>0$, discriminant $>0$, and $\\tau<0$, the origin is a stable node (eigenvalues $-1,-4$)."
+                "problem": "<strong>(Classify a linear system)</strong> For $A=\\begin{pmatrix} -1 &amp; 2 \\\\ 0 &amp; -4 \\end{pmatrix}$, compute $\\tau$ and $\\Delta$ and classify the origin of $\\mathbf{x}'=A\\mathbf{x}$.",
+                "solution": "Trace and determinant give the type directly: $$ \\tau=\\operatorname{tr}A=-5,\\quad \\Delta=\\det A=(-1)(-4)-0=4&gt;0,\\quad \\tau^2-4\\Delta=25-16=9&gt;0. $$ With $\\Delta&gt;0$, discriminant $&gt;0$, and $\\tau&lt;0$, the origin is a <strong>stable node</strong> (eigenvalues $-1,-4$)."
             },
             {
                 "id": "ps_16_2",
-                "problem": "(Spiral or node?) For $A=\\begin{pmatrix} 0 & -2 \\\\ 2 & 0 \\end{pmatrix}$, find the eigenvalues and classify the origin.",
-                "solution": "Here $\\tau=0$ and $\\Delta=0\\cdot 0-(-2)(2)=4>0$: $$ \\det(A-\\lambda I)=\\lambda^2+4=0 \\;\\Rightarrow\\; \\lambda=\\pm 2i. $$ Pure imaginary eigenvalues with $\\tau=0$ make the origin a center — closed orbits around the origin."
+                "problem": "<strong>(Spiral or node?)</strong> For $A=\\begin{pmatrix} 0 &amp; -2 \\\\ 2 &amp; 0 \\end{pmatrix}$, find the eigenvalues and classify the origin.",
+                "solution": "Here $\\tau=0$ and $\\Delta=0\\cdot 0-(-2)(2)=4&gt;0$: $$ \\det(A-\\lambda I)=\\lambda^2+4=0 \\;\\Rightarrow\\; \\lambda=\\pm 2i. $$ Pure imaginary eigenvalues with $\\tau=0$ make the origin a <strong>center</strong> — closed orbits around the origin."
             },
             {
                 "id": "ps_16_3",
-                "problem": "(Eigendirections) For $A=\\begin{pmatrix} 1 & 1 \\\\ 4 & 1 \\end{pmatrix}$, find the eigenvalues and eigenvectors and state the equilibrium type.",
-                "solution": "Expand the characteristic polynomial and solve: $$ \\det(A-\\lambda I)=(1-\\lambda)^2-4=\\lambda^2-2\\lambda-3=(\\lambda-3)(\\lambda+1) \\Rightarrow \\lambda_1=3,\\ \\lambda_2=-1. $$ $$ \\lambda_1=3:\\ \\mathbf{v}_1=(1,2); \\qquad \\lambda_2=-1:\\ \\mathbf{v}_2=(1,-2). $$ Opposite signs $\\Rightarrow$ a saddle: out along $(1,2)$, in along $(1,-2)$."
+                "problem": "<strong>(Eigendirections)</strong> For $A=\\begin{pmatrix} 1 &amp; 1 \\\\ 4 &amp; 1 \\end{pmatrix}$, find the eigenvalues and eigenvectors and state the equilibrium type.",
+                "solution": "Expand the characteristic polynomial and solve: $$ \\det(A-\\lambda I)=(1-\\lambda)^2-4=\\lambda^2-2\\lambda-3=(\\lambda-3)(\\lambda+1) \\Rightarrow \\lambda_1=3,\\ \\lambda_2=-1. $$ $$ \\lambda_1=3:\\ \\mathbf{v}_1=(1,2); \\qquad \\lambda_2=-1:\\ \\mathbf{v}_2=(1,-2). $$ Opposite signs $\\Rightarrow$ a <strong>saddle</strong>: out along $(1,2)$, in along $(1,-2)$."
             },
             {
                 "id": "ps_16_4",
-                "problem": "(Build the Jacobian) For the system $x'=x-xy,\\ y'=-y+xy$, write the Jacobian matrix $J(x,y)$ symbolically.",
-                "solution": "Here $f=x-xy$ and $g=-y+xy$, so the four partials are $$ J(x,y)=\\begin{pmatrix} f_x & f_y \\\\ g_x & g_y \\end{pmatrix} = \\begin{pmatrix} 1-y & -x \\\\ y & -1+x \\end{pmatrix}. $$"
+                "problem": "<strong>(Build the Jacobian)</strong> For the system $x'=x-xy,\\ y'=-y+xy$, write the Jacobian matrix $J(x,y)$ symbolically.",
+                "solution": "Here $f=x-xy$ and $g=-y+xy$, so the four partials are $$ J(x,y)=\\begin{pmatrix} f_x &amp; f_y \\\\ g_x &amp; g_y \\end{pmatrix} = \\begin{pmatrix} 1-y &amp; -x \\\\ y &amp; -1+x \\end{pmatrix}. $$"
             },
             {
                 "id": "ps_16_5",
-                "problem": "(Fixed points by nullclines) Find all fixed points of $x'=x(3-x-2y),\\ y'=y(2-x-y)$.",
+                "problem": "<strong>(Fixed points by nullclines)</strong> Find all fixed points of $x'=x(3-x-2y),\\ y'=y(2-x-y)$.",
                 "solution": "Factor each velocity. The $x$-nullclines are $x=0$ or $3-x-2y=0$; the $y$-nullclines are $y=0$ or $2-x-y=0$. Pairing branches: $$ (0,0),\\quad (0,2),\\quad (3,0),\\quad \\text{and } 3-x-2y=0,\\ 2-x-y=0 \\Rightarrow (1,1). $$ Four fixed points: $(0,0),(0,2),(3,0),(1,1)$."
             },
             {
                 "id": "ps_16_6",
-                "problem": "(Linearize the pendulum) For $x'=y,\\ y'=-\\sin x$, compute $J(x,y)$ and evaluate it at the fixed points $(0,0)$ and $(\\pi,0)$.",
-                "solution": "With $f=y,\\ g=-\\sin x$: $$ J(x,y)=\\begin{pmatrix} 0 & 1 \\\\ -\\cos x & 0 \\end{pmatrix}; \\quad J(0,0)=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix},\\quad J(\\pi,0)=\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}. $$ (Using $\\cos 0=1$ and $\\cos\\pi=-1$.)"
+                "problem": "<strong>(Linearize the pendulum)</strong> For $x'=y,\\ y'=-\\sin x$, compute $J(x,y)$ and evaluate it at the fixed points $(0,0)$ and $(\\pi,0)$.",
+                "solution": "With $f=y,\\ g=-\\sin x$: $$ J(x,y)=\\begin{pmatrix} 0 &amp; 1 \\\\ -\\cos x &amp; 0 \\end{pmatrix}; \\quad J(0,0)=\\begin{pmatrix} 0 &amp; 1 \\\\ -1 &amp; 0 \\end{pmatrix},\\quad J(\\pi,0)=\\begin{pmatrix} 0 &amp; 1 \\\\ 1 &amp; 0 \\end{pmatrix}. $$ (Using $\\cos 0=1$ and $\\cos\\pi=-1$.)"
             },
             {
                 "id": "ps_16_7",
-                "problem": "(Classify the pendulum equilibria) Using the matrices from Problem 6, find the eigenvalues at $(0,0)$ and $(\\pi,0)$ and classify each.",
+                "problem": "<strong>(Classify the pendulum equilibria)</strong> Using the matrices from Problem 6, find the eigenvalues at $(0,0)$ and $(\\pi,0)$ and classify each.",
                 "solution": "Take the characteristic polynomial of each: $$ (0,0):\\ \\lambda^2+1=0 \\Rightarrow \\lambda=\\pm i \\ \\text{(center)}; \\qquad (\\pi,0):\\ \\lambda^2-1=0 \\Rightarrow \\lambda=\\pm 1 \\ \\text{(saddle)}. $$ The hanging-down equilibrium oscillates (center); the inverted equilibrium is an unstable saddle."
             },
             {
                 "id": "ps_16_8",
-                "problem": "(Predator–prey fixed points) For $x'=x(2-y),\\ y'=y(-3+x)$, find both equilibria.",
+                "problem": "<strong>(Predator–prey fixed points)</strong> For $x'=x(2-y),\\ y'=y(-3+x)$, find both equilibria.",
                 "solution": "Factor: $x(2-y)=0 \\Rightarrow x=0$ or $y=2$; $\\ y(-3+x)=0 \\Rightarrow y=0$ or $x=3$. Pairing the branches, $$ (0,0)\\ \\text{(extinction)} \\qquad \\text{and} \\qquad (3,2)\\ \\text{(coexistence)}. $$"
             },
             {
                 "id": "ps_16_9",
-                "problem": "(Predator–prey Jacobian) For the system in Problem 8, evaluate the Jacobian at the coexistence equilibrium and classify it.",
-                "solution": "Here $f=2x-xy,\\ g=-3y+xy$, so $J=\\left(\\begin{smallmatrix} 2-y & -x \\\\ y & -3+x \\end{smallmatrix}\\right)$. At the coexistence point $(3,2)$, $$ J(3,2)=\\begin{pmatrix} 0 & -3 \\\\ 2 & 0 \\end{pmatrix},\\quad \\det(J-\\lambda I)=\\lambda^2+6=0 \\Rightarrow \\lambda=\\pm i\\sqrt{6}. $$ Pure imaginary eigenvalues $\\Rightarrow$ a center: predator and prey populations cycle around $(3,2)$."
+                "problem": "<strong>(Predator–prey Jacobian)</strong> For the system in Problem 8, evaluate the Jacobian at the coexistence equilibrium and classify it.",
+                "solution": "Here $f=2x-xy,\\ g=-3y+xy$, so $J=\\left(\\begin{smallmatrix} 2-y &amp; -x \\\\ y &amp; -3+x \\end{smallmatrix}\\right)$. At the coexistence point $(3,2)$, $$ J(3,2)=\\begin{pmatrix} 0 &amp; -3 \\\\ 2 &amp; 0 \\end{pmatrix},\\quad \\det(J-\\lambda I)=\\lambda^2+6=0 \\Rightarrow \\lambda=\\pm i\\sqrt{6}. $$ Pure imaginary eigenvalues $\\Rightarrow$ a <strong>center</strong>: predator and prey populations cycle around $(3,2)$."
             },
             {
                 "id": "ps_16_10",
-                "problem": "(Nonlinear capstone) For $x'=y,\\ y'=-x+x^3$, find all fixed points, evaluate the Jacobian at each, classify them, and describe the global phase portrait.",
-                "solution": "Fixed points: $y=0$ and $-x+x^3=x(x^2-1)=0 \\Rightarrow (0,0),(\\pm 1,0)$. The Jacobian is $J=\\left(\\begin{smallmatrix} 0 & 1 \\\\ -1+3x^2 & 0 \\end{smallmatrix}\\right)$: $$ J(0,0)=\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm i \\ \\text{(center)}; \\quad J(\\pm 1,0)=\\begin{pmatrix} 0 & 1 \\\\ 2 & 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm\\sqrt{2} \\ \\text{(saddles)}. $$ Globally: closed orbits around the origin, hemmed in by the separatrices joining the two saddles at $(\\pm 1,0)$ — a conservative double-well picture."
+                "problem": "<strong>(Nonlinear capstone)</strong> For $x'=y,\\ y'=-x+x^3$, find all fixed points, evaluate the Jacobian at each, classify them, and describe the global phase portrait.",
+                "solution": "Fixed points: $y=0$ and $-x+x^3=x(x^2-1)=0 \\Rightarrow (0,0),(\\pm 1,0)$. The Jacobian is $J=\\left(\\begin{smallmatrix} 0 &amp; 1 \\\\ -1+3x^2 &amp; 0 \\end{smallmatrix}\\right)$: $$ J(0,0)=\\begin{pmatrix} 0 &amp; 1 \\\\ -1 &amp; 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm i \\ \\text{(center)}; \\quad J(\\pm 1,0)=\\begin{pmatrix} 0 &amp; 1 \\\\ 2 &amp; 0 \\end{pmatrix} \\Rightarrow \\lambda=\\pm\\sqrt{2} \\ \\text{(saddles)}. $$ Globally: closed orbits around the origin, hemmed in by the separatrices joining the two saddles at $(\\pm 1,0)$ — a conservative double-well picture."
             }
         ]
     },
@@ -45165,53 +45165,53 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_17_1",
-                "problem": "(IVP vs.\\ BVP) State what distinguishes a boundary value problem from an initial value problem, and identify which of $y(0)=1,\\,y'(0)=2$ versus $y(0)=1,\\,y(2)=5$ is which.",
-                "solution": "A BVP imposes its side conditions at \\emph{two different points}, whereas an IVP stacks all of them at a single point. Hence $$ y(0)=1,\\ y'(0)=2 \\ \\text{(both at } x=0\\text{)} \\Rightarrow IVP; \\qquad y(0)=1,\\ y(2)=5 \\ \\text{(at } x=0,2\\text{)} \\Rightarrow BVP. $$ Unlike the IVP, the BVP carries no automatic existence–uniqueness guarantee."
+                "problem": "<strong>(IVP vs.\\ BVP)</strong> State what distinguishes a boundary value problem from an initial value problem, and identify which of $y(0)=1,\\,y'(0)=2$ versus $y(0)=1,\\,y(2)=5$ is which.",
+                "solution": "A BVP imposes its side conditions at <em>two different points</em>, whereas an IVP stacks all of them at a single point. Hence $$ y(0)=1,\\ y'(0)=2 \\ \\text{(both at } x=0\\text{)} \\Rightarrow IVP; \\qquad y(0)=1,\\ y(2)=5 \\ \\text{(at } x=0,2\\text{)} \\Rightarrow BVP. $$ Unlike the IVP, the BVP carries no automatic existence–uniqueness guarantee."
             },
             {
                 "id": "ps_17_2",
-                "problem": "(Simple Dirichlet BVP) Solve $y''=0$ on $[0,2]$ with $y(0)=1$, $y(2)=5$.",
+                "problem": "<strong>(Simple Dirichlet BVP)</strong> Solve $y''=0$ on $[0,2]$ with $y(0)=1$, $y(2)=5$.",
                 "solution": "The general solution of $y''=0$ is $y=c_1+c_2 x$. Imposing the endpoints, $$ y(0)=c_1=1; \\qquad y(2)=1+2c_2=5 \\Rightarrow c_2=2. $$ Unique solution: $y(x)=1+2x$."
             },
             {
                 "id": "ps_17_3",
-                "problem": "(Nonhomogeneous BVP) Solve $y''=2$ on $[0,1]$ with $y(0)=0$, $y(1)=0$.",
+                "problem": "<strong>(Nonhomogeneous BVP)</strong> Solve $y''=2$ on $[0,1]$ with $y(0)=0$, $y(1)=0$.",
                 "solution": "Integrate twice: $y=x^2+c_2 x+c_1$. Then $$ y(0)=c_1=0; \\qquad y(1)=1+c_2=0 \\Rightarrow c_2=-1. $$ Unique solution: $y(x)=x^2-x$."
             },
             {
                 "id": "ps_17_4",
-                "problem": "(Infinitely many solutions) Show that $y''+y=0$ with $y(0)=0$, $y(\\pi)=0$ has infinitely many solutions, and give their form.",
-                "solution": "The general solution is $y=A\\cos x+B\\sin x$. The conditions give $$ y(0)=A=0; \\qquad y(\\pi)=A\\cos\\pi+B\\sin\\pi=-A=0, $$ which is satisfied for \\emph{every} $B$. Thus $y=B\\sin x$ is a solution for all $B$ — infinitely many (here $\\lambda=1$ is an eigenvalue)."
+                "problem": "<strong>(Infinitely many solutions)</strong> Show that $y''+y=0$ with $y(0)=0$, $y(\\pi)=0$ has infinitely many solutions, and give their form.",
+                "solution": "The general solution is $y=A\\cos x+B\\sin x$. The conditions give $$ y(0)=A=0; \\qquad y(\\pi)=A\\cos\\pi+B\\sin\\pi=-A=0, $$ which is satisfied for <em>every</em> $B$. Thus $y=B\\sin x$ is a solution for all $B$ — infinitely many (here $\\lambda=1$ is an eigenvalue)."
             },
             {
                 "id": "ps_17_5",
-                "problem": "(Eigenvalues, three cases) For $y''+\\lambda y=0$, $y(0)=y(L)=0$, carry out the $\\lambda<0,\\ \\lambda=0,\\ \\lambda>0$ analysis and state $\\lambda_n$ and $y_n$.",
-                "solution": "For $\\lambda<0$ and $\\lambda=0$ the BCs force $y\\equiv 0$. For $\\lambda=\\mu^2>0$, $y=A\\cos\\mu x+B\\sin\\mu x$ with $y(0)=A=0$, so $y=B\\sin\\mu x$ and $y(L)=B\\sin\\mu L=0$: $$ \\sin\\mu L=0 \\Rightarrow \\mu L=n\\pi \\Rightarrow \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\quad y_n=\\sin\\frac{n\\pi x}{L},\\quad n=1,2,3,\\dots $$"
+                "problem": "<strong>(Eigenvalues, three cases)</strong> For $y''+\\lambda y=0$, $y(0)=y(L)=0$, carry out the $\\lambda&lt;0,\\ \\lambda=0,\\ \\lambda&gt;0$ analysis and state $\\lambda_n$ and $y_n$.",
+                "solution": "For $\\lambda&lt;0$ and $\\lambda=0$ the BCs force $y\\equiv 0$. For $\\lambda=\\mu^2&gt;0$, $y=A\\cos\\mu x+B\\sin\\mu x$ with $y(0)=A=0$, so $y=B\\sin\\mu x$ and $y(L)=B\\sin\\mu L=0$: $$ \\sin\\mu L=0 \\Rightarrow \\mu L=n\\pi \\Rightarrow \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\quad y_n=\\sin\\frac{n\\pi x}{L},\\quad n=1,2,3,\\dots $$"
             },
             {
                 "id": "ps_17_6",
-                "problem": "(Neumann spectrum) Find the eigenvalues and eigenfunctions of $y''+\\lambda y=0$ with $y'(0)=y'(L)=0$.",
+                "problem": "<strong>(Neumann spectrum)</strong> Find the eigenvalues and eigenfunctions of $y''+\\lambda y=0$ with $y'(0)=y'(L)=0$.",
                 "solution": "With $y=A\\cos\\mu x+B\\sin\\mu x$, $y'=\\mu(-A\\sin\\mu x+B\\cos\\mu x)$. Then $y'(0)=\\mu B=0\\Rightarrow B=0$, and $y'(L)=-\\mu A\\sin\\mu L=0$: $$ \\sin\\mu L=0 \\Rightarrow \\lambda_n=\\left(\\frac{n\\pi}{L}\\right)^2,\\quad y_n=\\cos\\frac{n\\pi x}{L},\\quad n=0,1,2,\\dots $$ The Neumann case keeps $n=0$: $\\lambda_0=0$ with constant eigenfunction $y_0=1$."
             },
             {
                 "id": "ps_17_7",
-                "problem": "(Shooting method) Solve $y''=y$ on $[0,1]$, $y(0)=0$, $y(1)=1$ by two shots and linear interpolation.",
+                "problem": "<strong>(Shooting method)</strong> Solve $y''=y$ on $[0,1]$, $y(0)=0$, $y(1)=1$ by two shots and linear interpolation.",
                 "solution": "Recast as $y''=y$, $y(0)=0$, $y'(0)=s$, with exact IVP solution $y(x;s)=s\\sinh x$. Two shots: $$ F(0)=0-1=-1; \\quad F(1)=\\sinh 1-1\\approx 0.1752; \\quad s^\\star=\\frac{1}{\\sinh 1}\\approx 0.8509. $$ Final solution: $y(x)=\\dfrac{\\sinh x}{\\sinh 1}$, exact since the problem is linear."
             },
             {
                 "id": "ps_17_8",
-                "problem": "(Orthogonality integral) Evaluate $\\int_0^L \\sin\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,dx$ for $m\\neq n$ and for $m=n$.",
+                "problem": "<strong>(Orthogonality integral)</strong> Evaluate $\\int_0^L \\sin\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}\\,dx$ for $m\\neq n$ and for $m=n$.",
                 "solution": "Use $\\sin\\alpha\\sin\\beta=\\tfrac12[\\cos(\\alpha-\\beta)-\\cos(\\alpha+\\beta)]$. For $m\\neq n$ both cosine integrals vanish over $[0,L]$, giving $0$. For $m=n$, $$ \\int_0^L \\sin^2\\frac{n\\pi x}{L}\\,dx=\\int_0^L\\frac{1-\\cos\\frac{2n\\pi x}{L}}{2}\\,dx=\\frac{L}{2}. $$ So the integral is $0$ for $m\\neq n$ and $L/2$ for $m=n$."
             },
             {
                 "id": "ps_17_9",
-                "problem": "(Eigenfunction expansion) Expand $f(x)=x$ on $[0,L]$ in the sine series $\\sum_{n\\ge 1}c_n\\sin\\frac{n\\pi x}{L}$, computing $c_n$ in full.",
+                "problem": "<strong>(Eigenfunction expansion)</strong> Expand $f(x)=x$ on $[0,L]$ in the sine series $\\sum_{n\\ge 1}c_n\\sin\\frac{n\\pi x}{L}$, computing $c_n$ in full.",
                 "solution": "With weight $w=1$, $c_n=\\big(\\int_0^L x\\sin\\frac{n\\pi x}{L}dx\\big)\\big/\\big(\\int_0^L\\sin^2\\frac{n\\pi x}{L}dx\\big)$. The denominator is $L/2$; integrating the numerator by parts, $$ \\int_0^L x\\sin\\frac{n\\pi x}{L}\\,dx=\\Big[-\\frac{Lx}{n\\pi}\\cos\\frac{n\\pi x}{L}\\Big]_0^L+\\frac{L}{n\\pi}\\int_0^L\\cos\\frac{n\\pi x}{L}\\,dx=(-1)^{n+1}\\frac{L^2}{n\\pi}+0. $$ $$ c_n=\\frac{(-1)^{n+1}L^2/(n\\pi)}{L/2}=(-1)^{n+1}\\frac{2L}{n\\pi} \\ \\Rightarrow\\ x=\\sum_{n=1}^{\\infty}(-1)^{n+1}\\frac{2L}{n\\pi}\\sin\\frac{n\\pi x}{L}. $$"
             },
             {
                 "id": "ps_17_10",
-                "problem": "(Sturm–Liouville capstone) Write $X''+\\lambda X=0$, $X(0)=X(L)=0$ in S–L form (name $p,q,w$), then prove $\\int_a^b y_n y_m w\\,dx=0$ for $\\lambda_n\\neq\\lambda_m$.",
-                "solution": "Matching $(pX')'+(q+\\lambda w)X=0$ to $X''+\\lambda X=0$ gives $p=1,\\ q=0,\\ w=1$ (regular, since $p,w>0$ with separated BCs). For the proof, multiply $(py_n')'+\\lambda_n w y_n=0$ by $y_m$, the $m$-equation by $y_n$, subtract, and integrate: $$ (\\lambda_n-\\lambda_m)\\int_a^b w\\,y_n y_m\\,dx=\\big[p\\,(y_n y_m'-y_m y_n')\\big]_a^b=0, $$ where the bracket vanishes by the homogeneous BCs. Since $\\lambda_n\\neq\\lambda_m$, $\\int_a^b y_n y_m w\\,dx=0$."
+                "problem": "<strong>(Sturm–Liouville capstone)</strong> Write $X''+\\lambda X=0$, $X(0)=X(L)=0$ in S–L form (name $p,q,w$), then prove $\\int_a^b y_n y_m w\\,dx=0$ for $\\lambda_n\\neq\\lambda_m$.",
+                "solution": "Matching $(pX')'+(q+\\lambda w)X=0$ to $X''+\\lambda X=0$ gives $p=1,\\ q=0,\\ w=1$ (regular, since $p,w&gt;0$ with separated BCs). For the proof, multiply $(py_n')'+\\lambda_n w y_n=0$ by $y_m$, the $m$-equation by $y_n$, subtract, and integrate: $$ (\\lambda_n-\\lambda_m)\\int_a^b w\\,y_n y_m\\,dx=\\big[p\\,(y_n y_m'-y_m y_n')\\big]_a^b=0, $$ where the bracket vanishes by the homogeneous BCs. Since $\\lambda_n\\neq\\lambda_m$, $\\int_a^b y_n y_m w\\,dx=0$."
             }
         ]
     },
@@ -45219,52 +45219,52 @@ const PRACTICE_DATA = {
         "problems": [
             {
                 "id": "ps_18_1",
-                "problem": "(Harmonics) For $f(x)=4-3\\cos(2\\pi x)+\\sin(\\pi x)$ with period $2$ ($L=1$), state $a_0$, the nonzero $a_n$, and the nonzero $b_n$.",
+                "problem": "<strong>(Harmonics)</strong> For $f(x)=4-3\\cos(2\\pi x)+\\sin(\\pi x)$ with period $2$ ($L=1$), state $a_0$, the nonzero $a_n$, and the nonzero $b_n$.",
                 "solution": "Match $f=\\frac{a_0}{2}+\\sum_n(a_n\\cos n\\pi x+b_n\\sin n\\pi x)$ with $L=1$. The constant $\\tfrac{a_0}{2}=4$, so $$ a_0=8; \\qquad a_2=-3 \\ (\\text{from } -3\\cos 2\\pi x); \\qquad b_1=1 \\ (\\text{from } \\sin\\pi x). $$ All other coefficients are $0$."
             },
             {
                 "id": "ps_18_2",
-                "problem": "(Euler–Fourier setup) Write the Euler–Fourier formulas for $a_n$ and $b_n$ of a $2L$-periodic function, and state the orthogonality relations that justify them.",
+                "problem": "<strong>(Euler–Fourier setup)</strong> Write the Euler–Fourier formulas for $a_n$ and $b_n$ of a $2L$-periodic function, and state the orthogonality relations that justify them.",
                 "solution": "For a $2L$-periodic $f$, $$ a_n=\\frac1L\\int_{-L}^{L}f\\cos\\frac{n\\pi x}{L}\\,dx,\\qquad b_n=\\frac1L\\int_{-L}^{L}f\\sin\\frac{n\\pi x}{L}\\,dx. $$ They follow from orthogonality: $\\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\cos\\frac{m\\pi x}{L}dx=L\\delta_{nm}$, the same for sines, and $\\int_{-L}^{L}\\cos\\frac{n\\pi x}{L}\\sin\\frac{m\\pi x}{L}dx=0$ — integrating $f$ against one basis wave isolates its coefficient."
             },
             {
                 "id": "ps_18_3",
-                "problem": "(Odd function series) Find the Fourier series of the $2\\pi$-periodic extension of $f(x)=x$ on $-\\pi\\le x\\le\\pi$, computing $b_n$ in full.",
+                "problem": "<strong>(Odd function series)</strong> Find the Fourier series of the $2\\pi$-periodic extension of $f(x)=x$ on $-\\pi\\le x\\le\\pi$, computing $b_n$ in full.",
                 "solution": "$f(x)=x$ is odd, so $a_n=0$ and only $b_n$ survive. With $L=\\pi$, integration by parts gives $$ b_n=\\frac1\\pi\\int_{-\\pi}^{\\pi}x\\sin(nx)\\,dx=\\frac2\\pi\\Big[-\\frac{\\pi}{n}(-1)^n\\Big]=(-1)^{n+1}\\frac2n. $$ Hence $x=\\sum_{n\\ge1}(-1)^{n+1}\\frac2n\\sin(nx)=2(\\sin x-\\tfrac12\\sin2x+\\tfrac13\\sin3x-\\cdots)$."
             },
             {
                 "id": "ps_18_4",
-                "problem": "(Symmetry shortcut) Without integrating, explain why $f(x)=x^2$ on $-\\pi\\le x\\le\\pi$ has $b_n=0$ for all $n$, and which series type it has.",
-                "solution": "$f(x)=x^2$ is \\emph{even} ($f(-x)=f(x)$). The integrand $x^2\\sin\\frac{n\\pi x}{L}$ is then odd, so $$ b_n=\\frac1L\\int_{-L}^{L}x^2\\sin\\frac{n\\pi x}{L}\\,dx=0 \\quad(\\text{odd integrand over a symmetric interval}). $$ It therefore has a pure \\emph{cosine} series (only $a_0$ and $a_n$)."
+                "problem": "<strong>(Symmetry shortcut)</strong> Without integrating, explain why $f(x)=x^2$ on $-\\pi\\le x\\le\\pi$ has $b_n=0$ for all $n$, and which series type it has.",
+                "solution": "$f(x)=x^2$ is <em>even</em> ($f(-x)=f(x)$). The integrand $x^2\\sin\\frac{n\\pi x}{L}$ is then odd, so $$ b_n=\\frac1L\\int_{-L}^{L}x^2\\sin\\frac{n\\pi x}{L}\\,dx=0 \\quad(\\text{odd integrand over a symmetric interval}). $$ It therefore has a pure <em>cosine</em> series (only $a_0$ and $a_n$)."
             },
             {
                 "id": "ps_18_5",
-                "problem": "(Half-range sine) Expand $f(x)=1$ on $0\\le x\\le L$ in a half-range sine series, giving $b_n$ and the resulting series.",
-                "solution": "Half-range sine: $b_n=\\frac2L\\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx$. Then $$ b_n=\\frac2L\\cdot\\frac{L}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{2}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{4}{n\\pi}\\ (n\\text{ odd}),\\ 0\\ (n\\text{ even}). $$ So $1=\\frac4\\pi\\sum_{k\\ge0}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}$ on $0<x<L$."
+                "problem": "<strong>(Half-range sine)</strong> Expand $f(x)=1$ on $0\\le x\\le L$ in a half-range sine series, giving $b_n$ and the resulting series.",
+                "solution": "Half-range sine: $b_n=\\frac2L\\int_0^L\\sin\\frac{n\\pi x}{L}\\,dx$. Then $$ b_n=\\frac2L\\cdot\\frac{L}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{2}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{4}{n\\pi}\\ (n\\text{ odd}),\\ 0\\ (n\\text{ even}). $$ So $1=\\frac4\\pi\\sum_{k\\ge0}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}$ on $0&lt;x&lt;L$."
             },
             {
                 "id": "ps_18_6",
-                "problem": "(Separation of variables) Separate $u_t=\\alpha^2 u_{xx}$ via $u=X(x)T(t)$; state the two ODEs and, with $u(0,t)=u(L,t)=0$, the spatial eigenpairs and time factor.",
+                "problem": "<strong>(Separation of variables)</strong> Separate $u_t=\\alpha^2 u_{xx}$ via $u=X(x)T(t)$; state the two ODEs and, with $u(0,t)=u(L,t)=0$, the spatial eigenpairs and time factor.",
                 "solution": "Substituting $u=XT$ into $u_t=\\alpha^2u_{xx}$ and dividing by $\\alpha^2XT$ gives $\\frac{T'}{\\alpha^2T}=\\frac{X''}{X}=-\\lambda$. Thus $$ \\begin{gathered} X''+\\lambda X=0,\\ X(0)=X(L)=0\\ \\Rightarrow\\ \\lambda_n=\\Big(\\tfrac{n\\pi}{L}\\Big)^2,\\ X_n=\\sin\\tfrac{n\\pi x}{L}; \\\\ T'+\\alpha^2\\lambda_n T=0\\ \\Rightarrow\\ T_n=e^{-\\alpha^2(n\\pi/L)^2t}. \\end{gathered} $$"
             },
             {
                 "id": "ps_18_7",
-                "problem": "(Laplacian / harmonic) Determine whether $u(x,y)=x^2-y^2$ and $v(x,y)=e^{x}\\sin y$ are harmonic by computing $\\nabla^2$ of each.",
+                "problem": "<strong>(Laplacian / harmonic)</strong> Determine whether $u(x,y)=x^2-y^2$ and $v(x,y)=e^{x}\\sin y$ are harmonic by computing $\\nabla^2$ of each.",
                 "solution": "For $u=x^2-y^2$: $u_{xx}=2$, $u_{yy}=-2$, so $$ \\nabla^2u=2-2=0 \\ (\\text{harmonic}). $$ For $v=e^x\\sin y$: $v_{xx}=e^x\\sin y$, $v_{yy}=-e^x\\sin y$, so $$ \\nabla^2v=e^x\\sin y-e^x\\sin y=0 \\ (\\text{also harmonic}). $$"
             },
             {
                 "id": "ps_18_8",
-                "problem": "(Classification) Classify $u_t=\\alpha^2u_{xx}$, $u_{tt}=c^2u_{xx}$, and $u_{xx}+u_{yy}=0$ as parabolic, hyperbolic, or elliptic, and name the phenomenon each models.",
-                "solution": "By the second-order classification: $$ \\begin{aligned} &u_t=\\alpha^2u_{xx}: \\ \\text{parabolic (diffusion/heat)},\\\\ &u_{tt}=c^2u_{xx}: \\ \\text{hyperbolic (vibration/waves)},\\\\ &u_{xx}+u_{yy}=0: \\ \\text{elliptic (steady state).}\\end{aligned} $$"
+                "problem": "<strong>(Classification)</strong> Classify $u_t=\\alpha^2u_{xx}$, $u_{tt}=c^2u_{xx}$, and $u_{xx}+u_{yy}=0$ as parabolic, hyperbolic, or elliptic, and name the phenomenon each models.",
+                "solution": "By the second-order classification: $$ \\begin{aligned} &amp;u_t=\\alpha^2u_{xx}: \\ \\text{parabolic (diffusion/heat)},\\\\ &amp;u_{tt}=c^2u_{xx}: \\ \\text{hyperbolic (vibration/waves)},\\\\ &amp;u_{xx}+u_{yy}=0: \\ \\text{elliptic (steady state).}\\end{aligned} $$"
             },
             {
                 "id": "ps_18_9",
-                "problem": "(Heat equation capstone) Solve $u_t=\\alpha^2u_{xx}$ on $0\\le x\\le L$, $u(0,t)=u(L,t)=0$, $u(x,0)=100$, computing the coefficients in full.",
+                "problem": "<strong>(Heat equation capstone)</strong> Solve $u_t=\\alpha^2u_{xx}$ on $0\\le x\\le L$, $u(0,t)=u(L,t)=0$, $u(x,0)=100$, computing the coefficients in full.",
                 "solution": "Separation gives $X_n=\\sin\\frac{n\\pi x}{L}$, $T_n=e^{-\\alpha^2(n\\pi/L)^2t}$, so $u=\\sum_n b_n\\sin\\frac{n\\pi x}{L}e^{-\\alpha^2(n\\pi/L)^2t}$. Matching $u(x,0)=100$, $$ b_n=\\frac2L\\int_0^L 100\\sin\\frac{n\\pi x}{L}\\,dx=\\frac{200}{n\\pi}\\big(1-(-1)^n\\big)=\\frac{400}{n\\pi}\\ (n\\text{ odd}),\\ 0\\ (n\\text{ even}). $$ $$ u(x,t)=\\frac{400}{\\pi}\\sum_{k\\ge0}\\frac{1}{2k+1}\\sin\\frac{(2k+1)\\pi x}{L}\\,e^{-\\alpha^2((2k+1)\\pi/L)^2t}\\ \\xrightarrow{t\\to\\infty}0. $$"
             },
             {
                 "id": "ps_18_10",
-                "problem": "(Wave equation) Use d'Alembert's formula to solve $u_{tt}=c^2u_{xx}$ on the line with $u(x,0)=f(x)$ and $u_t(x,0)=0$, and describe the motion.",
+                "problem": "<strong>(Wave equation)</strong> Use d'Alembert's formula to solve $u_{tt}=c^2u_{xx}$ on the line with $u(x,0)=f(x)$ and $u_t(x,0)=0$, and describe the motion.",
                 "solution": "With initial velocity $g\\equiv0$, d'Alembert's formula reduces to $$ u(x,t)=\\tfrac12\\big[f(x-ct)+f(x+ct)\\big]. $$ The initial shape splits into two half-amplitude copies, one traveling right at speed $c$ and one left at speed $c$; their sum reconstructs $f$ at $t=0$ and separates thereafter."
             }
         ]

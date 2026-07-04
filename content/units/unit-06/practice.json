@@ -10,52 +10,52 @@
     {
       "id": "ps_6_1",
       "problem": "For $f(x,y) = x^2 y + y^3$, compute both first partials $f_x$ and $f_y$.",
-      "solution": " Hold $y$ constant for $f_x$, then $x$ constant\nfor $f_y$. The pure-$y$ term $y^3$ vanishes under $\\partial_x$:\n\\[ \\work{f_x = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]\n\n\\medskip"
+      "solution": " Hold $y$ constant for $f_x$, then $x$ constant\nfor $f_y$. The pure-$y$ term $y^3$ vanishes under $\\partial_x$:\n\\[ \\work{f_x = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]"
     },
     {
       "id": "ps_6_2",
       "problem": "For $f(x,y) = x^2 y^3$, compute the mixed partials $f_{xy}$ and $f_{yx}$ and confirm Clairaut's theorem.",
-      "solution": " Differentiate in $x$ first, then $y$ --- and\nin the reverse order:\n\\[ \\work{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth equal $6xy^2$, so $f_{xy}=f_{yx}$ --- Clairaut's theorem holds because the\nsecond partials are continuous everywhere.\n\n\\medskip"
+      "solution": " Differentiate in $x$ first, then $y$ --- and\nin the reverse order:\n\\[ \\work{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth equal $6xy^2$, so $f_{xy}=f_{yx}$ --- Clairaut's theorem holds because the\nsecond partials are continuous everywhere."
     },
     {
       "id": "ps_6_3",
       "problem": "For $f(x,y) = x^2 + xy + y^2$, find the gradient $\\nabla f$ and evaluate it at the point $(1,2)$.",
-      "solution": " Differentiate componentwise:\n\\[ \\work{\\nabla f = (2x + y,\\; x + 2y),\n   \\qquad \\nabla f(1,2) = (2+2,\\; 1+4) = (4,5).} \\]\n\n\\medskip"
+      "solution": " Differentiate componentwise:\n\\[ \\work{\\nabla f = (2x + y,\\; x + 2y),\n   \\qquad \\nabla f(1,2) = (2+2,\\; 1+4) = (4,5).} \\]"
     },
     {
       "id": "ps_6_4",
       "problem": "Using the gradient from Problem 3, compute the directional derivative of $f$ at $(1,2)$ in the direction of $\\mathbf v = (3,4)$. Remember to normalize.",
-      "solution": " The raw direction $\\mathbf v=(3,4)$ has\n$\\lvert\\mathbf v\\rvert=\\sqrt{9+16}=5$, so the unit direction is\n$\\mathbf u=(\\tfrac35,\\tfrac45)$. Then\n\\[ \\work{D_{\\mathbf u}f = \\nabla f(1,2)\\cdot\\mathbf u\n   = (4,5)\\cdot\\left(\\tfrac35,\\tfrac45\\right)\n   = \\tfrac{12}{5} + \\tfrac{20}{5} = \\tfrac{32}{5} = 6.4.} \\]\n\n\\medskip"
+      "solution": " The raw direction $\\mathbf v=(3,4)$ has\n$\\lvert\\mathbf v\\rvert=\\sqrt{9+16}=5$, so the unit direction is\n$\\mathbf u=(\\tfrac35,\\tfrac45)$. Then\n\\[ \\work{D_{\\mathbf u}f = \\nabla f(1,2)\\cdot\\mathbf u\n   = (4,5)\\cdot\\left(\\tfrac35,\\tfrac45\\right)\n   = \\tfrac{12}{5} + \\tfrac{20}{5} = \\tfrac{32}{5} = 6.4.} \\]"
     },
     {
       "id": "ps_6_5",
       "problem": "At the same point $(1,2)$, state the direction of steepest ascent of $f=x^2+xy+y^2$ and the maximum rate of increase there.",
-      "solution": " Steepest ascent points along the gradient\nitself, $\\nabla f(1,2)=(4,5)$, i.e.\\ the unit direction\n$(4,5)/\\sqrt{41}$. The maximum rate of increase is the gradient's magnitude:\n\\[ \\work{\\lvert\\nabla f(1,2)\\rvert = \\sqrt{4^2+5^2}\n   = \\sqrt{41} \\approx 6.40.} \\]\n\n\\medskip"
+      "solution": " Steepest ascent points along the gradient\nitself, $\\nabla f(1,2)=(4,5)$, i.e.\\ the unit direction\n$(4,5)/\\sqrt{41}$. The maximum rate of increase is the gradient's magnitude:\n\\[ \\work{\\lvert\\nabla f(1,2)\\rvert = \\sqrt{4^2+5^2}\n   = \\sqrt{41} \\approx 6.40.} \\]"
     },
     {
       "id": "ps_6_6",
       "problem": "For $z = x^2 + y^2$ with $x = \\cos t$ and $y = \\sin t$, use the chain rule to find $\\dfrac{dz}{dt}$, and explain the result geometrically.",
-      "solution": " With $z_x=2x$, $z_y=2y$, $x'=-\\sin t$,\n$y'=\\cos t$:\n\\[ \\work{\\frac{dz}{dt} = (2x)(-\\sin t) + (2y)(\\cos t)\n   = 2\\cos t(-\\sin t) + 2\\sin t(\\cos t) = 0.} \\]\nGeometrically the path $(\\cos t,\\sin t)$ rides the unit circle, where\n$z=x^2+y^2=1$ is constant --- so its rate of change is zero, and the velocity is\ntangent to the level curve, perpendicular to $\\nabla z$.\n\n\\medskip"
+      "solution": " With $z_x=2x$, $z_y=2y$, $x'=-\\sin t$,\n$y'=\\cos t$:\n\\[ \\work{\\frac{dz}{dt} = (2x)(-\\sin t) + (2y)(\\cos t)\n   = 2\\cos t(-\\sin t) + 2\\sin t(\\cos t) = 0.} \\]\nGeometrically the path $(\\cos t,\\sin t)$ rides the unit circle, where\n$z=x^2+y^2=1$ is constant --- so its rate of change is zero, and the velocity is\ntangent to the level curve, perpendicular to $\\nabla z$."
     },
     {
       "id": "ps_6_7",
       "problem": "For $z = x^2 y$ with $x = s + t$ and $y = st$, use the chain-rule tree to find $\\dfrac{\\partial z}{\\partial s}$.",
-      "solution": " The tree has two branches to $s$:\n$\\dfrac{\\partial z}{\\partial s}=z_x\\,x_s+z_y\\,y_s$ with $z_x=2xy$, $z_y=x^2$,\n$x_s=1$, $y_s=t$:\n\\[ \\work{\\frac{\\partial z}{\\partial s}\n   = (2xy)(1) + (x^2)(t)\n   = 2(s+t)(st) + (s+t)^2\\,t.} \\]\nFactoring $t(s+t)$ gives\n\\[ \\work{\\frac{\\partial z}{\\partial s}\n   = t(s+t)\\big[\\,2s + (s+t)\\,\\big] = t(s+t)(3s+t).} \\]\n\n\\medskip"
+      "solution": " The tree has two branches to $s$:\n$\\dfrac{\\partial z}{\\partial s}=z_x\\,x_s+z_y\\,y_s$ with $z_x=2xy$, $z_y=x^2$,\n$x_s=1$, $y_s=t$:\n\\[ \\work{\\frac{\\partial z}{\\partial s}\n   = (2xy)(1) + (x^2)(t)\n   = 2(s+t)(st) + (s+t)^2\\,t.} \\]\nFactoring $t(s+t)$ gives\n\\[ \\work{\\frac{\\partial z}{\\partial s}\n   = t(s+t)\\big[\\,2s + (s+t)\\,\\big] = t(s+t)(3s+t).} \\]"
     },
     {
       "id": "ps_6_8",
       "problem": "Find and classify the single critical point of $f(x,y) = x^2 + y^2 - 4x - 6y + 13$, and give the extreme value.",
-      "solution": " Set the gradient to zero:\n\\[ \\work{f_x = 2x - 4 = 0 \\Rightarrow x = 2,\n   \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3,} \\]\nso the only critical point is $(2,3)$. The second partials are $f_{xx}=2$,\n$f_{yy}=2$, $f_{xy}=0$, giving\n\\[ \\work{D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0,\n   \\quad f_{xx} = 2 > 0,} \\]\na \\strong{local minimum}. The value is\n$\\work{f(2,3) = 4 + 9 - 8 - 18 + 13 = 0}$.\n\n\\medskip"
+      "solution": " Set the gradient to zero:\n\\[ \\work{f_x = 2x - 4 = 0 \\Rightarrow x = 2,\n   \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3,} \\]\nso the only critical point is $(2,3)$. The second partials are $f_{xx}=2$,\n$f_{yy}=2$, $f_{xy}=0$, giving\n\\[ \\work{D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0,\n   \\quad f_{xx} = 2 > 0,} \\]\na \\strong{local minimum}. The value is\n$\\work{f(2,3) = 4 + 9 - 8 - 18 + 13 = 0}$."
     },
     {
       "id": "ps_6_9",
       "problem": "Find and classify the critical point of $f(x,y) = x^2 - y^2$ using the second-derivative test.",
-      "solution": " Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone\ncritical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$:\n\\[ \\work{D = (2)(-2) - 0 = -4 < 0,} \\]\nso $(0,0)$ is a \\strong{saddle point} --- $f$ rises along $x$ and falls along\n$y$, and the sign of $f_{xx}$ is irrelevant once $D<0$.\n\n\\medskip"
+      "solution": " Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone\ncritical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$:\n\\[ \\work{D = (2)(-2) - 0 = -4 < 0,} \\]\nso $(0,0)$ is a \\strong{saddle point} --- $f$ rises along $x$ and falls along\n$y$, and the sign of $f_{xx}$ is irrelevant once $D<0$."
     },
     {
       "id": "ps_6_10",
       "problem": "\\strong{(Capstone)} Find \\emph{all} critical points of $f(x,y) = x^3 - 3x + y^2$ and classify each with the second-derivative test, reporting any extreme values.",
-      "solution": " Set both partials to zero:\n\\[ \\work{f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1,\n   \\qquad f_y = 2y = 0 \\Rightarrow y = 0,} \\]\ngiving critical points $(1,0)$ and $(-1,0)$. The second partials are\n$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$.\n\\[ \\work{(1,0):\\ D = 12 > 0,\\ f_{xx} = 6 > 0\n   \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2.} \\]\n\\[ \\work{(-1,0):\\ D = -12 < 0\n   \\Rightarrow \\text{saddle point}.} \\]\nSo $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the\ncubic term means there is no global extremum.\n\n\\vspace{0.8em}",
+      "solution": " Set both partials to zero:\n\\[ \\work{f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1,\n   \\qquad f_y = 2y = 0 \\Rightarrow y = 0,} \\]\ngiving critical points $(1,0)$ and $(-1,0)$. The second partials are\n$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$.\n\\[ \\work{(1,0):\\ D = 12 > 0,\\ f_{xx} = 6 > 0\n   \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2.} \\]\n\\[ \\work{(-1,0):\\ D = -12 < 0\n   \\Rightarrow \\text{saddle point}.} \\]\nSo $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the\ncubic term means there is no global extremum.",
       "solutionLabel": "Solution (Capstone)."
     }
   ]

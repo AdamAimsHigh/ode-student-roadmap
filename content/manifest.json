@@ -172,13 +172,14 @@
       "unitNumber": 12,
       "slug": "unit-12",
       "status": {
-        "guide": "missing",
+        "guide": "complete",
         "practice": "complete",
         "quizzes": "complete"
       },
       "provenance": {
         "practice": "backfill",
-        "quizzes": "authored"
+        "quizzes": "authored",
+        "guide": "authored"
       }
     },
     {

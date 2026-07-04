@@ -481,6 +481,18 @@ body {
     border-radius: 0 8px 8px 0;
 }
 
+/* Semantic text spans emitted by the content compiler's HTML macro lowering
+   (\highlight / \work / \warn in canonical prose). Hues mirror the print
+   palette in ode/assets/markdowns/preamble.tex, lightened in dark mode to
+   keep AA contrast on the dark panel background. */
+.tx-highlight { color: #e27a1e; font-weight: 600; }
+.tx-work      { color: #a020f0; }
+.tx-warn      { color: #c0392b; font-weight: 600; }
+
+[data-theme="dark"] .tx-highlight { color: #f5a05a; }
+[data-theme="dark"] .tx-work      { color: #c77bff; }
+[data-theme="dark"] .tx-warn      { color: #ef7a6d; }
+
 /* Progress banner */
 
 .progress-banner {

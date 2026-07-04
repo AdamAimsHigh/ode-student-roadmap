@@ -2,7 +2,7 @@
   "unitNumber": 13,
   "title": "Series Solutions of Differential Equations",
   "subtitle": "Power Series, the Frobenius Method, and the Classical Special Functions",
-  "description": "Power series and Frobenius methods, leading to the classical special functions of mathematical physics. When constant-coefficient tricks fail, we posit an unknown analytic solution and solve for its coefficients term by term — a method that reaches its full power at singular points and gives birth to the Legendre, Bessel, Hermite, Laguerre, and Chebyshev families.",
+  "description": "Power series and Frobenius methods, leading to the classical special functions of mathematical physics. When constant-coefficient tricks fail, we posit an unknown analytic solution and solve for its coefficients term by term --- a method that reaches its full power at singular points and gives birth to the Legendre, Bessel, Hermite, Laguerre, and Chebyshev families.",
   "atAGlance": {
     "title": "Unit 13 at a Glance: Series Solutions",
     "summary": "Most differential equations have no closed-form elementary solution. The series method assumes the solution is an (possibly singular) analytic function $y = \\sum a_n x^n$, substitutes it into the equation, and matches coefficients of each power of $x$ to extract a recurrence for the $a_n$. At an ordinary point a plain power series works; at a regular singular point the Frobenius factor $x^r$ is required. Applied to the great equations of mathematical physics, the method manufactures the classical special functions.",
@@ -173,7 +173,7 @@
       ],
       "concept": {
         "title": "Key Takeaway",
-        "body": "At an ordinary point the two free constants \\highlight{$a_0$ and $a_1$} are precisely the two arbitrary constants of a second-order ODE — the even-indexed and odd-indexed coefficients build the two independent solutions."
+        "body": "At an ordinary point the two free constants \\highlight{$a_0$ and $a_1$} are precisely the two arbitrary constants of a second-order ODE --- the even-indexed and odd-indexed coefficients build the two independent solutions."
       },
       "warning": {
         "title": "Common Pitfall",
@@ -278,7 +278,7 @@
       },
       "warning": {
         "title": "Common Pitfall",
-        "body": "When the indicial roots are equal, or differ by a positive integer, the two series can collide. Do not assume two clean series — the smaller-root solution may require a \\warn{logarithmic term} $y_1\\ln x$ for independence."
+        "body": "When the indicial roots are equal, or differ by a positive integer, the two series can collide. Do not assume two clean series --- the smaller-root solution may require a \\warn{logarithmic term} $y_1\\ln x$ for independence."
       },
       "flashQuiz": [
         {
@@ -378,7 +378,7 @@
       },
       "warning": {
         "title": "Common Pitfall",
-        "body": "Bessel's equation at $x=0$ is a \\emph{regular singular point}, not an ordinary point — the coefficients blow up there. A plain power series fails; you must use Frobenius with indicial roots $r=\\pm\\nu$."
+        "body": "Bessel's equation at $x=0$ is a \\emph{regular singular point}, not an ordinary point --- the coefficients blow up there. A plain power series fails; you must use Frobenius with indicial roots $r=\\pm\\nu$."
       },
       "flashQuiz": [
         {
@@ -388,7 +388,7 @@
         },
         {
           "id": "mp_3e5BUrtUKZc_2",
-          "prompt": "For integer $n$, one Legendre solution is special — what is it?",
+          "prompt": "For integer $n$, one Legendre solution is special --- what is it?",
           "answer": "A polynomial of degree $n$, the Legendre polynomial $P_n(x)$."
         },
         {

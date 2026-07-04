@@ -10,52 +10,52 @@
     {
       "id": "ps_4_1",
       "problem": "Find all equilibrium solutions of $\\dfrac{dy}{dt} = y(y-3)$.",
-      "solution": " Equilibria are the roots of $f(y)=0$:\n\\[ \\work{y(y-3) = 0 \\;\\Longrightarrow\\; y = 0 \\text{ and } y = 3.} \\]\n\n\\medskip"
+      "solution": " Equilibria are the roots of $f(y)=0$:\n\\[ \\work{y(y-3) = 0 \\;\\Longrightarrow\\; y = 0 \\text{ and } y = 3.} \\]"
     },
     {
       "id": "ps_4_2",
       "problem": "Classify the equilibrium $y = 2$ of $\\dfrac{dy}{dt} = y - 2$ using the sign of $f'$.",
-      "solution": " Here $f(y) = y - 2$, so $f'(y) = 1$:\n\\[ \\work{f'(2) = 1 > 0 \\;\\Longrightarrow\\; \\text{unstable (a source).}} \\]\nA positive slope of $f$ at the equilibrium repels nearby solutions.\n\n\\medskip"
+      "solution": " Here $f(y) = y - 2$, so $f'(y) = 1$:\n\\[ \\work{f'(2) = 1 > 0 \\;\\Longrightarrow\\; \\text{unstable (a source).}} \\]\nA positive slope of $f$ at the equilibrium repels nearby solutions."
     },
     {
       "id": "ps_4_3",
       "problem": "For $\\dfrac{dy}{dt} = y - y^{3}$, find every equilibrium and classify each with the linearized test.",
-      "solution": " Factor for the equilibria, then apply\n$f'(y) = 1 - 3y^{2}$:\n\\[ \\work{y - y^{3} = y(1-y)(1+y) = 0 \\;\\Longrightarrow\\; y = -1,\\,0,\\,1.} \\]\n\\[ \\work{f'(0) = 1 > 0\\ (\\text{unstable}), \\qquad f'(\\pm 1) = 1 - 3 = -2 < 0\\ (\\text{stable}).} \\]\nSo $y = \\pm 1$ are sinks and $y = 0$ is a source.\n\n\\medskip"
+      "solution": " Factor for the equilibria, then apply\n$f'(y) = 1 - 3y^{2}$:\n\\[ \\work{y - y^{3} = y(1-y)(1+y) = 0 \\;\\Longrightarrow\\; y = -1,\\,0,\\,1.} \\]\n\\[ \\work{f'(0) = 1 > 0\\ (\\text{unstable}), \\qquad f'(\\pm 1) = 1 - 3 = -2 < 0\\ (\\text{stable}).} \\]\nSo $y = \\pm 1$ are sinks and $y = 0$ is a source."
     },
     {
       "id": "ps_4_4",
       "problem": "Classify the equilibrium $y = 1$ of $\\dfrac{dy}{dt} = (y-1)^{2}$. Why does the $f'$ test alone not settle it?",
-      "solution": " The only equilibrium is $y = 1$. The\nlinearized test is inconclusive because\n\\[ \\work{f'(y) = 2(y-1) \\;\\Longrightarrow\\; f'(1) = 0.} \\]\nFall back on the sign of $f(y) = (y-1)^{2}$, which is $\\ge 0$ everywhere and\n\\emph{never} changes sign across $y = 1$:\n\\[ \\work{y<1:\\ f>0\\ (\\uparrow), \\qquad y>1:\\ f>0\\ (\\uparrow).} \\]\nSolutions rise toward $1$ from below but away from $1$ above, so $y = 1$ is\n\\strong{semi-stable}.\n\n\\medskip"
+      "solution": " The only equilibrium is $y = 1$. The\nlinearized test is inconclusive because\n\\[ \\work{f'(y) = 2(y-1) \\;\\Longrightarrow\\; f'(1) = 0.} \\]\nFall back on the sign of $f(y) = (y-1)^{2}$, which is $\\ge 0$ everywhere and\n\\emph{never} changes sign across $y = 1$:\n\\[ \\work{y<1:\\ f>0\\ (\\uparrow), \\qquad y>1:\\ f>0\\ (\\uparrow).} \\]\nSolutions rise toward $1$ from below but away from $1$ above, so $y = 1$ is\n\\strong{semi-stable}."
     },
     {
       "id": "ps_4_5",
       "problem": "Build the phase line for $\\dfrac{dy}{dt} = y^{2} - 4$: mark the equilibria, set the arrows, and classify each.",
-      "solution": " Equilibria where the rate vanishes:\n\\[ \\work{y^{2} - 4 = 0 \\;\\Longrightarrow\\; y = -2,\\,2.} \\]\nTest the rate sign on each interval:\n\\[ \\work{y<-2:\\ (+)\\,\\uparrow, \\qquad -2<y<2:\\ (-)\\,\\downarrow, \\qquad y>2:\\ (+)\\,\\uparrow.} \\]\nArrows converge on $-2$ (\\strong{stable}) and diverge from $2$\n(\\strong{unstable}).\n\n\\medskip"
+      "solution": " Equilibria where the rate vanishes:\n\\[ \\work{y^{2} - 4 = 0 \\;\\Longrightarrow\\; y = -2,\\,2.} \\]\nTest the rate sign on each interval:\n\\[ \\work{y<-2:\\ (+)\\,\\uparrow, \\qquad -2<y<2:\\ (-)\\,\\downarrow, \\qquad y>2:\\ (+)\\,\\uparrow.} \\]\nArrows converge on $-2$ (\\strong{stable}) and diverge from $2$\n(\\strong{unstable})."
     },
     {
       "id": "ps_4_6",
       "problem": "For the logistic equation $\\dfrac{dP}{dt} = rP\\!\\left(1-\\dfrac{P}{K}\\right)$ with $r > 0$, find both equilibria, classify them, and give the population of fastest growth.",
-      "solution": " Set the product to zero:\n\\[ \\work{rP\\!\\left(1-\\frac{P}{K}\\right) = 0 \\;\\Longrightarrow\\; P = 0 \\text{ and } P = K.} \\]\nClassify with $f'(P) = r\\!\\left(1 - \\dfrac{2P}{K}\\right)$:\n\\[ \\work{f'(0) = r > 0\\ (\\text{unstable}), \\qquad f'(K) = r(1-2) = -r < 0\\ (\\text{stable}).} \\]\nThe growth rate, a downward parabola in $P$ with roots $0$ and $K$, peaks at the\nmidpoint:\n\\[ \\work{P = \\frac{K}{2}.} \\]\n\n\\medskip"
+      "solution": " Set the product to zero:\n\\[ \\work{rP\\!\\left(1-\\frac{P}{K}\\right) = 0 \\;\\Longrightarrow\\; P = 0 \\text{ and } P = K.} \\]\nClassify with $f'(P) = r\\!\\left(1 - \\dfrac{2P}{K}\\right)$:\n\\[ \\work{f'(0) = r > 0\\ (\\text{unstable}), \\qquad f'(K) = r(1-2) = -r < 0\\ (\\text{stable}).} \\]\nThe growth rate, a downward parabola in $P$ with roots $0$ and $K$, peaks at the\nmidpoint:\n\\[ \\work{P = \\frac{K}{2}.} \\]"
     },
     {
       "id": "ps_4_7",
       "problem": "With $r = 0.5$ and $K = 100$, compute $\\dfrac{dP}{dt}$ at $P = 25$ and state the population at which the growth rate is greatest.",
-      "solution": " Substitute into $rP\\!\\left(1-\\frac{P}{K}\\right)$:\n\\[ \\work{\\frac{dP}{dt} = 0.5 \\cdot 25\\!\\left(1 - \\frac{25}{100}\\right) = 12.5 \\cdot 0.75 = 9.375.} \\]\nThe greatest growth occurs at\n$\\work{P = \\frac{K}{2} = 50}$.\n\n\\medskip"
+      "solution": " Substitute into $rP\\!\\left(1-\\frac{P}{K}\\right)$:\n\\[ \\work{\\frac{dP}{dt} = 0.5 \\cdot 25\\!\\left(1 - \\frac{25}{100}\\right) = 12.5 \\cdot 0.75 = 9.375.} \\]\nThe greatest growth occurs at\n$\\work{P = \\frac{K}{2} = 50}$."
     },
     {
       "id": "ps_4_8",
       "problem": "For $y' + y = xy^{3}$, identify $n$, write the substitution $v$, and compute $\\dfrac{dv}{dx}$ in terms of $y'$.",
-      "solution": " The right side is $y^{3}$, so $n = 3$ and the\nlinearizing exponent is $1 - n = -2$:\n\\[ \\work{v = y^{1-n} = y^{-2}, \\qquad \\frac{dv}{dx} = (1-n)y^{-n}\\,\\frac{dy}{dx} = -2\\,y^{-3}\\,y'.} \\]\n\n\\medskip"
+      "solution": " The right side is $y^{3}$, so $n = 3$ and the\nlinearizing exponent is $1 - n = -2$:\n\\[ \\work{v = y^{1-n} = y^{-2}, \\qquad \\frac{dv}{dx} = (1-n)y^{-n}\\,\\frac{dy}{dx} = -2\\,y^{-3}\\,y'.} \\]"
     },
     {
       "id": "ps_4_9",
       "problem": "Reduce $y' + \\dfrac{1}{x}\\,y = x\\,y^{2}$ to a first-order \\emph{linear} equation in $v = y^{1-n}$ (do not solve it yet).",
-      "solution": " Here $n = 2$, so $v = y^{-1}$ and\n$v' = -y^{-2}y'$. Divide every term by $y^{2}$:\n\\[ \\work{y^{-2}y' + \\frac{1}{x}\\,y^{-1} = x.} \\]\nReplace $y^{-1} = v$ and $y^{-2}y' = -v'$:\n\\[ \\work{-v' + \\frac{1}{x}\\,v = x \\;\\Longrightarrow\\; v' - \\frac{1}{x}\\,v = -x,} \\]\na first-order linear equation in $v$.\n\n\\medskip"
+      "solution": " Here $n = 2$, so $v = y^{-1}$ and\n$v' = -y^{-2}y'$. Divide every term by $y^{2}$:\n\\[ \\work{y^{-2}y' + \\frac{1}{x}\\,y^{-1} = x.} \\]\nReplace $y^{-1} = v$ and $y^{-2}y' = -v'$:\n\\[ \\work{-v' + \\frac{1}{x}\\,v = x \\;\\Longrightarrow\\; v' - \\frac{1}{x}\\,v = -x,} \\]\na first-order linear equation in $v$."
     },
     {
       "id": "ps_4_10",
       "problem": "\\strong{(Capstone)} Solve the Bernoulli equation $y' + y = y^{2}$ completely: reduce it with $v = y^{-1}$, solve the linear equation, and back-substitute for $y$.",
-      "solution": " With $n = 2$, set $v = y^{-1}$,\n$v' = -y^{-2}y'$. Divide $y' + y = y^{2}$ by $y^{2}$:\n\\[ \\work{y^{-2}y' + y^{-1} = 1.} \\]\nSubstitute $y^{-1} = v$, $y^{-2}y' = -v'$:\n\\[ \\work{-v' + v = 1 \\;\\Longrightarrow\\; v' - v = -1.} \\]\nIntegrating factor $\\mu = e^{-x}$:\n\\[ \\work{\\left(e^{-x}v\\right)' = -e^{-x} \\;\\Longrightarrow\\; e^{-x}v = e^{-x} + C.} \\]\nSo $\\work{v = 1 + Ce^{x}}$, and back-substituting $v = y^{-1}$:\n\\[ \\work{y = \\frac{1}{v} = \\frac{1}{1 + Ce^{x}}.} \\]\n\n\\vspace{0.8em}"
+      "solution": " With $n = 2$, set $v = y^{-1}$,\n$v' = -y^{-2}y'$. Divide $y' + y = y^{2}$ by $y^{2}$:\n\\[ \\work{y^{-2}y' + y^{-1} = 1.} \\]\nSubstitute $y^{-1} = v$, $y^{-2}y' = -v'$:\n\\[ \\work{-v' + v = 1 \\;\\Longrightarrow\\; v' - v = -1.} \\]\nIntegrating factor $\\mu = e^{-x}$:\n\\[ \\work{\\left(e^{-x}v\\right)' = -e^{-x} \\;\\Longrightarrow\\; e^{-x}v = e^{-x} + C.} \\]\nSo $\\work{v = 1 + Ce^{x}}$, and back-substituting $v = y^{-1}$:\n\\[ \\work{y = \\frac{1}{v} = \\frac{1}{1 + Ce^{x}}.} \\]"
     }
   ]
 }

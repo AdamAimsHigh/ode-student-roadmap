@@ -10,52 +10,52 @@
     {
       "id": "ps_11_1",
       "problem": "\\strong{(SHM setup)} For $2x'' + 18x = 0$, find the natural angular frequency $\\omega_0$, the period $T$, and the ordinary frequency $f$.",
-      "solution": " Divide by the mass $2$ to reach standard form:\n\\[ \\work{2x'' + 18x = 0 \\;\\Longrightarrow\\; x'' + 9x = 0 \\;\\Longrightarrow\\; \\omega_0^{2} = 9,\\ \\omega_0 = 3.} \\]\nThen the period and ordinary frequency follow from $\\omega_0$:\n\\[ \\work{T = \\frac{2\\pi}{\\omega_0} = \\frac{2\\pi}{3}, \\qquad f = \\frac{\\omega_0}{2\\pi} = \\frac{3}{2\\pi}.} \\]\nReading $\\omega_0$ off the \\emph{undivided} coefficient $18$ is the classic error;\nthe mass divides out first.\n\n\\medskip"
+      "solution": " Divide by the mass $2$ to reach standard form:\n\\[ \\work{2x'' + 18x = 0 \\;\\Longrightarrow\\; x'' + 9x = 0 \\;\\Longrightarrow\\; \\omega_0^{2} = 9,\\ \\omega_0 = 3.} \\]\nThen the period and ordinary frequency follow from $\\omega_0$:\n\\[ \\work{T = \\frac{2\\pi}{\\omega_0} = \\frac{2\\pi}{3}, \\qquad f = \\frac{\\omega_0}{2\\pi} = \\frac{3}{2\\pi}.} \\]\nReading $\\omega_0$ off the \\emph{undivided} coefficient $18$ is the classic error;\nthe mass divides out first."
     },
     {
       "id": "ps_11_2",
       "problem": "\\strong{(Free undamped IVP)} Solve $x'' + 9x = 0$ with $x(0)=0$, $x'(0)=6$.",
-      "solution": " The roots of $r^2+9=0$ are $\\pm 3i$, so\n$x = c_1\\cos 3t + c_2\\sin 3t$. Apply the data:\n\\[ \\work{x(0) = c_1 = 0, \\qquad x'(t) = 3c_2\\cos 3t,\\quad x'(0) = 3c_2 = 6 \\;\\Rightarrow\\; c_2 = 2.} \\]\n\\[ \\work{x(t) = 2\\sin 3t.} \\]\nThe derivative pulls down a factor of $\\omega_0 = 3$, so $c_2$ is $6/3=2$, not $6$.\n\n\\medskip"
+      "solution": " The roots of $r^2+9=0$ are $\\pm 3i$, so\n$x = c_1\\cos 3t + c_2\\sin 3t$. Apply the data:\n\\[ \\work{x(0) = c_1 = 0, \\qquad x'(t) = 3c_2\\cos 3t,\\quad x'(0) = 3c_2 = 6 \\;\\Rightarrow\\; c_2 = 2.} \\]\n\\[ \\work{x(t) = 2\\sin 3t.} \\]\nThe derivative pulls down a factor of $\\omega_0 = 3$, so $c_2$ is $6/3=2$, not $6$."
     },
     {
       "id": "ps_11_3",
       "problem": "\\strong{(Amplitude-phase form)} Write $x(t) = 5\\cos 2t + 12\\sin 2t$ as a single sinusoid $C\\cos(2t-\\phi)$; give the amplitude $C$ and phase $\\phi$.",
-      "solution": " Combine the coefficients into one amplitude:\n\\[ \\work{C = \\sqrt{c_1^2 + c_2^2} = \\sqrt{5^2 + 12^2} = \\sqrt{169} = 13.} \\]\nThe phase satisfies $\\tan\\phi = c_2/c_1 = 12/5$ with both components positive\n(first quadrant):\n\\[ \\work{\\phi = \\arctan\\tfrac{12}{5} \\approx 1.176\\ \\text{rad}, \\qquad x(t) = 13\\cos(2t - 1.176).} \\]\n\n\\medskip"
+      "solution": " Combine the coefficients into one amplitude:\n\\[ \\work{C = \\sqrt{c_1^2 + c_2^2} = \\sqrt{5^2 + 12^2} = \\sqrt{169} = 13.} \\]\nThe phase satisfies $\\tan\\phi = c_2/c_1 = 12/5$ with both components positive\n(first quadrant):\n\\[ \\work{\\phi = \\arctan\\tfrac{12}{5} \\approx 1.176\\ \\text{rad}, \\qquad x(t) = 13\\cos(2t - 1.176).} \\]"
     },
     {
       "id": "ps_11_4",
       "problem": "\\strong{(Hooke's law calibration)} A weight of $mg = 10$ N stretches a spring by $L = 0.2$ m. Find the stiffness $k$, and with $g=10\\ \\mathrm{m/s^2}$ find the resulting natural frequency $\\omega_0$.",
-      "solution": " The static balance $mg = kL$ gives the stiffness\ndirectly:\n\\[ \\work{k = \\frac{mg}{L} = \\frac{10}{0.2} = 50\\ \\mathrm{N/m}.} \\]\nWith $g = 10\\ \\mathrm{m/s^2}$ the weight $mg = 10$ N gives mass $m = 1$ kg, so\n\\[ \\work{\\omega_0 = \\sqrt{\\frac{k}{m}} = \\sqrt{\\frac{50}{1}} = 5\\sqrt{2} \\approx 7.07\\ \\mathrm{rad/s}.} \\]\n\n\\medskip"
+      "solution": " The static balance $mg = kL$ gives the stiffness\ndirectly:\n\\[ \\work{k = \\frac{mg}{L} = \\frac{10}{0.2} = 50\\ \\mathrm{N/m}.} \\]\nWith $g = 10\\ \\mathrm{m/s^2}$ the weight $mg = 10$ N gives mass $m = 1$ kg, so\n\\[ \\work{\\omega_0 = \\sqrt{\\frac{k}{m}} = \\sqrt{\\frac{50}{1}} = 5\\sqrt{2} \\approx 7.07\\ \\mathrm{rad/s}.} \\]"
     },
     {
       "id": "ps_11_5",
       "problem": "\\strong{(Damping --- overdamped)} Solve $x'' + 5x' + 6x = 0$, evaluate the discriminant, and name the damping regime.",
-      "solution": " The characteristic equation factors:\n\\[ \\work{r^2 + 5r + 6 = (r+2)(r+3) = 0 \\;\\Rightarrow\\; r = -2,\\,-3.} \\]\nThe discriminant $\\Delta = c^2 - 4mk = 25 - 24 = 1 > 0$ confirms two distinct real\nroots, so the motion is \\strong{overdamped} --- pure decay, no oscillation:\n\\[ \\work{x(t) = c_1 e^{-2t} + c_2 e^{-3t}.} \\]\n\n\\medskip"
+      "solution": " The characteristic equation factors:\n\\[ \\work{r^2 + 5r + 6 = (r+2)(r+3) = 0 \\;\\Rightarrow\\; r = -2,\\,-3.} \\]\nThe discriminant $\\Delta = c^2 - 4mk = 25 - 24 = 1 > 0$ confirms two distinct real\nroots, so the motion is \\strong{overdamped} --- pure decay, no oscillation:\n\\[ \\work{x(t) = c_1 e^{-2t} + c_2 e^{-3t}.} \\]"
     },
     {
       "id": "ps_11_6",
       "problem": "\\strong{(Damping --- critically damped)} Solve $x'' + 2x' + x = 0$ and identify the regime from the discriminant.",
-      "solution": " The characteristic equation is a perfect square:\n\\[ \\work{r^2 + 2r + 1 = (r+1)^2 = 0 \\;\\Rightarrow\\; r = -1\\ \\text{(double)}.} \\]\nHere $\\Delta = 4 - 4 = 0$, the boundary case, so the system is \\strong{critically\ndamped} and the repeated root carries a factor of $t$:\n\\[ \\work{x(t) = (c_1 + c_2 t)\\,e^{-t}.} \\]\n\n\\medskip"
+      "solution": " The characteristic equation is a perfect square:\n\\[ \\work{r^2 + 2r + 1 = (r+1)^2 = 0 \\;\\Rightarrow\\; r = -1\\ \\text{(double)}.} \\]\nHere $\\Delta = 4 - 4 = 0$, the boundary case, so the system is \\strong{critically\ndamped} and the repeated root carries a factor of $t$:\n\\[ \\work{x(t) = (c_1 + c_2 t)\\,e^{-t}.} \\]"
     },
     {
       "id": "ps_11_7",
       "problem": "\\strong{(Damping --- underdamped)} Solve $x'' + 2x' + 5x = 0$, name the regime, and state the quasi-frequency.",
-      "solution": " The quadratic formula on $r^2 + 2r + 5 = 0$ gives\ncomplex roots:\n\\[ \\work{r = \\frac{-2 \\pm \\sqrt{4 - 20}}{2} = -1 \\pm 2i.} \\]\nWith $\\Delta = 4 - 20 = -16 < 0$ the motion is \\strong{underdamped}: a decaying\nenvelope times an oscillation,\n\\[ \\work{x(t) = e^{-t}\\big(c_1\\cos 2t + c_2\\sin 2t\\big).} \\]\nThe quasi-frequency is $\\mu = 2$, just below the undamped value\n$\\omega_0 = \\sqrt{5}\\approx 2.236$.\n\n\\medskip"
+      "solution": " The quadratic formula on $r^2 + 2r + 5 = 0$ gives\ncomplex roots:\n\\[ \\work{r = \\frac{-2 \\pm \\sqrt{4 - 20}}{2} = -1 \\pm 2i.} \\]\nWith $\\Delta = 4 - 20 = -16 < 0$ the motion is \\strong{underdamped}: a decaying\nenvelope times an oscillation,\n\\[ \\work{x(t) = e^{-t}\\big(c_1\\cos 2t + c_2\\sin 2t\\big).} \\]\nThe quasi-frequency is $\\mu = 2$, just below the undamped value\n$\\omega_0 = \\sqrt{5}\\approx 2.236$."
     },
     {
       "id": "ps_11_8",
       "problem": "\\strong{(Critical damping coefficient)} For $m=1$ and $k=9$, find the damping coefficient $c$ that makes the system critically damped.",
-      "solution": " Critical damping is the boundary $\\Delta = 0$,\ni.e. $c^2 = 4mk$, so\n\\[ \\work{c = 2\\sqrt{mk} = 2\\sqrt{(1)(9)} = 2\\cdot 3 = 6.} \\]\nAny $c > 6$ overdamps the system and any $c < 6$ underdamps it.\n\n\\medskip"
+      "solution": " Critical damping is the boundary $\\Delta = 0$,\ni.e. $c^2 = 4mk$, so\n\\[ \\work{c = 2\\sqrt{mk} = 2\\sqrt{(1)(9)} = 2\\cdot 3 = 6.} \\]\nAny $c > 6$ overdamps the system and any $c < 6$ underdamps it."
     },
     {
       "id": "ps_11_9",
       "problem": "\\strong{(Resonance identification)} For $x'' + 25x = \\cos(\\omega t)$, find the forcing frequency $\\omega$ that produces resonance, and compute the resonant particular solution at that frequency.",
-      "solution": " From $x'' + 25x = 0$ the natural frequency is\n$\\omega_0 = \\sqrt{25} = 5$, so resonance occurs at\n\\[ \\work{\\omega = \\omega_0 = 5.} \\]\nAt resonance the bare trial $A\\cos 5t + B\\sin 5t$ already solves the homogeneous\nequation, so it gains a factor of $t$: try $x_p = t(A\\cos 5t + B\\sin 5t)$.\nDifferentiating twice,\n\\[ \\work{x_p'' = -25\\,t(A\\cos 5t + B\\sin 5t) + 10(-A\\sin 5t + B\\cos 5t),} \\]\nso $x_p'' + 25 x_p = 10(-A\\sin 5t + B\\cos 5t)$. Matching to $\\cos 5t$:\n\\[ \\work{10 B = 1,\\ \\ -10 A = 0 \\;\\Rightarrow\\; A = 0,\\ B = \\tfrac{1}{10}, \\qquad x_p(t) = \\frac{t}{10}\\sin 5t.} \\]\nThe $t$ out front is the signature of resonance: the amplitude grows without bound.\n\n\\medskip"
+      "solution": " From $x'' + 25x = 0$ the natural frequency is\n$\\omega_0 = \\sqrt{25} = 5$, so resonance occurs at\n\\[ \\work{\\omega = \\omega_0 = 5.} \\]\nAt resonance the bare trial $A\\cos 5t + B\\sin 5t$ already solves the homogeneous\nequation, so it gains a factor of $t$: try $x_p = t(A\\cos 5t + B\\sin 5t)$.\nDifferentiating twice,\n\\[ \\work{x_p'' = -25\\,t(A\\cos 5t + B\\sin 5t) + 10(-A\\sin 5t + B\\cos 5t),} \\]\nso $x_p'' + 25 x_p = 10(-A\\sin 5t + B\\cos 5t)$. Matching to $\\cos 5t$:\n\\[ \\work{10 B = 1,\\ \\ -10 A = 0 \\;\\Rightarrow\\; A = 0,\\ B = \\tfrac{1}{10}, \\qquad x_p(t) = \\frac{t}{10}\\sin 5t.} \\]\nThe $t$ out front is the signature of resonance: the amplitude grows without bound."
     },
     {
       "id": "ps_11_10",
       "problem": "\\strong{(Coupled oscillators, capstone)} For $x_1'' = -2x_1 + x_2$ and $x_2'' = x_1 - 2x_2$, find the normal-mode frequencies from the eigenvalues $\\lambda = -1, -3$, identify the mode shapes, and write the general solution.",
-      "solution": " In matrix form $\\mathbf{x}'' = A\\mathbf{x}$ with\n\\[ A = \\begin{pmatrix} -2 & 1 \\\\ 1 & -2 \\end{pmatrix}, \\qquad \\lambda = -1,\\,-3. \\]\nEach mode frequency comes from $\\omega^2 = -\\lambda$:\n\\[ \\work{\\omega_1 = \\sqrt{-(-1)} = 1, \\qquad \\omega_2 = \\sqrt{-(-3)} = \\sqrt{3}.} \\]\nThe eigenvectors give the mode shapes. For $\\lambda = -1$, $(A+I)\\mathbf{v}=0$ yields\n$\\mathbf{v}_1 = (1,1)^{\\mathsf T}$, the \\strong{in-phase} mode (lower frequency); for\n$\\lambda = -3$, $(A+3I)\\mathbf{v}=0$ yields $\\mathbf{v}_2 = (1,-1)^{\\mathsf T}$, the\n\\strong{out-of-phase} mode (higher frequency, since it stretches the coupling\nspring more). The general motion is a superposition of the two modes:\n\\[ \\work{\\mathbf{x}(t) = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}\\!\\big(a_1\\cos t + b_1\\sin t\\big) + \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}\\!\\big(a_2\\cos\\sqrt{3}\\,t + b_2\\sin\\sqrt{3}\\,t\\big).} \\]\n\n\\vspace{0.8em}",
+      "solution": " In matrix form $\\mathbf{x}'' = A\\mathbf{x}$ with\n\\[ A = \\begin{pmatrix} -2 & 1 \\\\ 1 & -2 \\end{pmatrix}, \\qquad \\lambda = -1,\\,-3. \\]\nEach mode frequency comes from $\\omega^2 = -\\lambda$:\n\\[ \\work{\\omega_1 = \\sqrt{-(-1)} = 1, \\qquad \\omega_2 = \\sqrt{-(-3)} = \\sqrt{3}.} \\]\nThe eigenvectors give the mode shapes. For $\\lambda = -1$, $(A+I)\\mathbf{v}=0$ yields\n$\\mathbf{v}_1 = (1,1)^{\\mathsf T}$, the \\strong{in-phase} mode (lower frequency); for\n$\\lambda = -3$, $(A+3I)\\mathbf{v}=0$ yields $\\mathbf{v}_2 = (1,-1)^{\\mathsf T}$, the\n\\strong{out-of-phase} mode (higher frequency, since it stretches the coupling\nspring more). The general motion is a superposition of the two modes:\n\\[ \\work{\\mathbf{x}(t) = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}\\!\\big(a_1\\cos t + b_1\\sin t\\big) + \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}\\!\\big(a_2\\cos\\sqrt{3}\\,t + b_2\\sin\\sqrt{3}\\,t\\big).} \\]",
       "solutionLabel": "Solution 10 (Capstone)."
     }
   ]

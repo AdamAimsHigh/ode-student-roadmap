@@ -1,10 +1,8 @@
 {
   "unit": "Unit 6: Multivariable Calculus Foundations",
   "unitNumber": 6,
-  "is_rich_source": true,
   "title": "Multivariable Calculus Foundations",
   "subtitle": "The multivariable bridge to exactness: partial derivatives, the chain rule, line integrals, potential functions, and curve geometry.",
-  "cheatSubtitle": "Condensed Cheat Sheet: Multivariable Calculus Foundations",
   "description": "The multivariable bridge to exactness: partial derivatives, the chain rule, line integrals, potential functions, and curve geometry.",
   "atAGlance": {
     "title": "Unit 6 at a Glance: Core Sub-Topics",
@@ -18,6 +16,12 @@
       "\\textbf{Level Curves and Exactness} --- $f(x,y)=c$, $\\nabla f$ normal to the curve, and the exact-differential test $\\partial_y M=\\partial_x N$."
     ]
   },
+  "cheatSubtitle": "Condensed Cheat Sheet: Multivariable Calculus Foundations",
+  "cheatTakeaway": {
+    "title": "Unit 6 Key Takeaway",
+    "body": "The workflow is uniform: \\textcolor{accentorange}{partials} build the\n\\textcolor{accentorange}{gradient $\\nabla f$}; the gradient drives directional\nderivatives $\\textcolor{accentorange}{D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u}$\n(always on a \\emph{unit} $\\mathbf u$) and points along steepest ascent\n$\\textcolor{accentorange}{\\lvert\\nabla f\\rvert}$; the\n\\textcolor{accentorange}{chain rule} sums one term per path; and\n\\textcolor{accentorange}{optimization} solves $\\nabla f=\\mathbf 0$ then sorts each\npoint with $\\textcolor{accentorange}{D=f_{xx}f_{yy}-f_{xy}^{\\,2}}$ --- $D>0$ an\nextremum (sign of $f_{xx}$ decides min vs.\\ max), $D<0$ a saddle."
+  },
+  "is_rich_source": true,
   "modules": [
     {
       "id": "6.1",
@@ -29,16 +33,13 @@
           "body": "\\[ f_x = \\frac{\\partial f}{\\partial x} = \\lim_{h\\to 0}\\frac{f(x+h,y)-f(x,y)}{h},\n   \\qquad\n   f_y = \\frac{\\partial f}{\\partial y} = \\lim_{h\\to 0}\\frac{f(x,y+h)-f(x,y)}{h}. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item To compute $f_x$, \\textbf{hold $y$ constant} and differentiate in $x$\n          with the ordinary rules; any pure-$y$ term is a constant and dies.\n    \\item Holding a variable \\emph{constant} is not the same as\n          \\emph{setting it to zero}: the symbol stays in the answer.\n\\end{itemize}"
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 6.1: First partials of $f=x^2y+y^3$",
           "setup": "Treat $y$ as constant for $f_x$, then $x$ as constant for $f_y$:\n\\[ \\textcolor{workpurple}{f_x = 2xy + 0 = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]\nThe $y^3$ term vanishes under $\\partial_x$, while the $x^2$ term contributes its\ncoefficient $x^2$ under $\\partial_y$.",
           "steps": []
         }
-      ],
-      "concept": null,
-      "warning": null
+      ]
     },
     {
       "id": "6.2",
@@ -50,16 +51,13 @@
           "body": "If the second partial derivatives of $f$ are \\textbf{continuous} near a point,\nthen the mixed partials are equal there:\n\\[ f_{xy} = \\frac{\\partial^2 f}{\\partial y\\,\\partial x}\n          = \\frac{\\partial^2 f}{\\partial x\\,\\partial y} = f_{yx}. \\]\nThe order of differentiation does not matter --- a function of two variables has\n\\textbf{four} second partials but only \\textbf{three} distinct values."
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 6.2: Mixed partials of $f=x^2y^3$",
           "setup": "Differentiate in $x$ first, then in $y$ --- and the reverse:\n\\[ \\textcolor{workpurple}{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth routes land on $6xy^2$, exactly as Clairaut guarantees.",
           "steps": []
         }
-      ],
-      "concept": null,
-      "warning": null
+      ]
     },
     {
       "id": "6.3",
@@ -71,7 +69,6 @@
           "body": "\\[ \\nabla f = \\left(\\frac{\\partial f}{\\partial x},\\ \\frac{\\partial f}{\\partial y}\\right),\n   \\qquad\n   D_{\\mathbf u} f = \\nabla f \\cdot \\mathbf u \\quad(\\mathbf u \\text{ a unit vector}). \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item The \\textbf{maximum} rate of increase at a point is $\\lvert\\nabla f\\rvert$,\n          attained in the direction $\\mathbf u = \\nabla f/\\lvert\\nabla f\\rvert$.\n    \\item $\\nabla f$ is \\textbf{perpendicular} to the level curve through the point.\n\\end{itemize}"
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 6.3: Directional derivative of $f=x^2+xy+y^2$",
@@ -79,7 +76,6 @@
           "steps": []
         }
       ],
-      "concept": null,
       "warning": {
         "title": "Common Pitfall: The Direction Must Be a Unit Vector",
         "body": "$D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u$ is only valid when $\\mathbf u$ is\n\\textbf{normalized}. Given a raw direction $\\mathbf v$, divide first:\n$\\mathbf u=\\mathbf v/\\lvert\\mathbf v\\rvert$. Skipping the normalization rescales\nthe answer by $\\lvert\\mathbf v\\rvert$ and silently corrupts every directional\nderivative and max-rate computation that follows."
@@ -90,14 +86,6 @@
       "title": "The Multivariable Chain Rule",
       "topics": "When the inputs of $f$ are themselves functions, differentiate by summing one product term for every path from the output down to the variable you are differentiating with respect to. A small \\emph{tree diagram} bookkeeps the paths.",
       "formulas": [],
-      "methodology": {
-        "title": "Chain Rule Trees: Counting the Paths",
-        "steps": [
-          "Draw a branch from $z$ to each intermediate variable ($x,y$).",
-          "Extend a branch from each intermediate variable to the target ($t$).",
-          "\\textbf{Multiply} along each branch, then \\textbf{add} the branches."
-        ]
-      },
       "examples": [
         {
           "title": "Worked Example 6.4: Chain rule for $z=x^2y$, $x=t^2$, $y=t^3$",
@@ -105,8 +93,14 @@
           "steps": []
         }
       ],
-      "concept": null,
-      "warning": null
+      "methodology": {
+        "title": "Chain Rule Trees: Counting the Paths",
+        "steps": [
+          "Draw a branch from $z$ to each intermediate variable ($x,y$).",
+          "Extend a branch from each intermediate variable to the target ($t$).",
+          "\\textbf{Multiply} along each branch, then \\textbf{add} the branches."
+        ]
+      }
     },
     {
       "id": "6.5",
@@ -118,6 +112,7 @@
           "body": "\\[ D = f_{xx}\\,f_{yy} - \\left(f_{xy}\\right)^2. \\]\n\\begin{itemize}[leftmargin=1.4em, itemsep=2pt]\n    \\item $D>0,\\ f_{xx}>0$: \\textbf{local minimum}.\n    \\item $D>0,\\ f_{xx}<0$: \\textbf{local maximum}.\n    \\item $D<0$: \\textbf{saddle point} (no extremum).\n    \\item $D=0$: the test is \\textbf{inconclusive}.\n\\end{itemize}"
         }
       ],
+      "examples": [],
       "methodology": {
         "title": "Locating and Classifying Critical Points",
         "steps": [
@@ -126,8 +121,6 @@
           "\\textbf{Classify} with $D$ and $f_{xx}$ (Step in the box below)."
         ]
       },
-      "examples": [],
-      "concept": null,
       "warning": {
         "title": "Common Pitfall: Reading the Sign Boundary Wrong",
         "body": "The sign of $f_{xx}$ only decides min vs.\\ max \\emph{after} $D>0$ confirms an\nextremum. When $D<0$ the point is a \\textbf{saddle} regardless of $f_{xx}$, and\nwhen $D=0$ the test says \\emph{nothing} --- do not declare a saddle by default.\nA single mishandled sign flips a minimum into a maximum."
@@ -143,19 +136,13 @@
           "body": "A \\textbf{level curve} is the set $\\{(x,y):f(x,y)=c\\}$; $\\nabla f$ is normal to\nit. A differential $M(x,y)\\,dx+N(x,y)\\,dy$ is \\textbf{exact} on a simply\nconnected region exactly when\n\\[ \\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}, \\]\nin which case it equals $df$ for a potential $f$ with $f_x=M,\\ f_y=N$ --- and the\nfield $\\mathbf F=(M,N)=\\nabla f$ is \\textbf{conservative}."
         }
       ],
-      "methodology": null,
       "examples": [],
-      "concept": null,
       "warning": {
         "title": "Common Pitfall: Path Dependence and the Wrong Cross Partials",
         "body": "The exactness/conservative test compares the \\emph{cross} partials\n$\\partial_y M$ and $\\partial_x N$ --- not $\\partial_x M$ and $\\partial_y N$. When\nthey differ the field is path-dependent: $\\int_C\\mathbf F\\cdot d\\mathbf r$\ndepends on the route, so there is \\emph{no} single potential to read off."
       }
     }
   ],
-  "cheatTakeaway": {
-    "title": "Unit 6 Key Takeaway",
-    "body": "The workflow is uniform: \\textcolor{accentorange}{partials} build the\n\\textcolor{accentorange}{gradient $\\nabla f$}; the gradient drives directional\nderivatives $\\textcolor{accentorange}{D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u}$\n(always on a \\emph{unit} $\\mathbf u$) and points along steepest ascent\n$\\textcolor{accentorange}{\\lvert\\nabla f\\rvert}$; the\n\\textcolor{accentorange}{chain rule} sums one term per path; and\n\\textcolor{accentorange}{optimization} solves $\\nabla f=\\mathbf 0$ then sorts each\npoint with $\\textcolor{accentorange}{D=f_{xx}f_{yy}-f_{xy}^{\\,2}}$ --- $D>0$ an\nextremum (sign of $f_{xx}$ decides min vs.\\ max), $D<0$ a saddle."
-  },
   "practice": {
     "subtitle": "Practice Set: Problems and Complete Solutions",
     "intro": "Work the following ten problems in order. They climb from first and mixed partial derivatives, through the gradient and directional derivatives, into the multivariable chain rule, and close with a full optimization sweep --- finding and classifying critical points with the second-derivative test. Solutions follow in Part III.",
@@ -172,16 +159,16 @@
       "\\textbf{(Capstone)} Find \\emph{all} critical points of $f(x,y) = x^3 - 3x + y^2$ and classify each with the second-derivative test, reporting any extreme values."
     ],
     "solutions": [
-      "\\noindent\\textbf{Solution 1.}\\quad Hold $y$ constant for $f_x$, then $x$ constant\nfor $f_y$. The pure-$y$ term $y^3$ vanishes under $\\partial_x$:\n\\[ \\textcolor{workpurple}{f_x = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 2.}\\quad Differentiate in $x$ first, then $y$ --- and\nin the reverse order:\n\\[ \\textcolor{workpurple}{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth equal $6xy^2$, so $f_{xy}=f_{yx}$ --- Clairaut's theorem holds because the\nsecond partials are continuous everywhere.\n\n\\medskip",
-      "\\noindent\\textbf{Solution 3.}\\quad Differentiate componentwise:\n\\[ \\textcolor{workpurple}{\\nabla f = (2x + y,\\; x + 2y),\n   \\qquad \\nabla f(1,2) = (2+2,\\; 1+4) = (4,5).} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 4.}\\quad The raw direction $\\mathbf v=(3,4)$ has\n$\\lvert\\mathbf v\\rvert=\\sqrt{9+16}=5$, so the unit direction is\n$\\mathbf u=(\\tfrac35,\\tfrac45)$. Then\n\\[ \\textcolor{workpurple}{D_{\\mathbf u}f = \\nabla f(1,2)\\cdot\\mathbf u\n   = (4,5)\\cdot\\left(\\tfrac35,\\tfrac45\\right)\n   = \\tfrac{12}{5} + \\tfrac{20}{5} = \\tfrac{32}{5} = 6.4.} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 5.}\\quad Steepest ascent points along the gradient\nitself, $\\nabla f(1,2)=(4,5)$, i.e.\\ the unit direction\n$(4,5)/\\sqrt{41}$. The maximum rate of increase is the gradient's magnitude:\n\\[ \\textcolor{workpurple}{\\lvert\\nabla f(1,2)\\rvert = \\sqrt{4^2+5^2}\n   = \\sqrt{41} \\approx 6.40.} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 6.}\\quad With $z_x=2x$, $z_y=2y$, $x'=-\\sin t$,\n$y'=\\cos t$:\n\\[ \\textcolor{workpurple}{\\frac{dz}{dt} = (2x)(-\\sin t) + (2y)(\\cos t)\n   = 2\\cos t(-\\sin t) + 2\\sin t(\\cos t) = 0.} \\]\nGeometrically the path $(\\cos t,\\sin t)$ rides the unit circle, where\n$z=x^2+y^2=1$ is constant --- so its rate of change is zero, and the velocity is\ntangent to the level curve, perpendicular to $\\nabla z$.\n\n\\medskip",
-      "\\noindent\\textbf{Solution 7.}\\quad The tree has two branches to $s$:\n$\\dfrac{\\partial z}{\\partial s}=z_x\\,x_s+z_y\\,y_s$ with $z_x=2xy$, $z_y=x^2$,\n$x_s=1$, $y_s=t$:\n\\[ \\textcolor{workpurple}{\\frac{\\partial z}{\\partial s}\n   = (2xy)(1) + (x^2)(t)\n   = 2(s+t)(st) + (s+t)^2\\,t.} \\]\nFactoring $t(s+t)$ gives\n\\[ \\textcolor{workpurple}{\\frac{\\partial z}{\\partial s}\n   = t(s+t)\\big[\\,2s + (s+t)\\,\\big] = t(s+t)(3s+t).} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 8.}\\quad Set the gradient to zero:\n\\[ \\textcolor{workpurple}{f_x = 2x - 4 = 0 \\Rightarrow x = 2,\n   \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3,} \\]\nso the only critical point is $(2,3)$. The second partials are $f_{xx}=2$,\n$f_{yy}=2$, $f_{xy}=0$, giving\n\\[ \\textcolor{workpurple}{D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0,\n   \\quad f_{xx} = 2 > 0,} \\]\na \\textbf{local minimum}. The value is\n$\\textcolor{workpurple}{f(2,3) = 4 + 9 - 8 - 18 + 13 = 0}$.\n\n\\medskip",
-      "\\noindent\\textbf{Solution 9.}\\quad Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone\ncritical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$:\n\\[ \\textcolor{workpurple}{D = (2)(-2) - 0 = -4 < 0,} \\]\nso $(0,0)$ is a \\textbf{saddle point} --- $f$ rises along $x$ and falls along\n$y$, and the sign of $f_{xx}$ is irrelevant once $D<0$.\n\n\\medskip",
-      "\\noindent\\textbf{Solution (Capstone).}\\quad Set both partials to zero:\n\\[ \\textcolor{workpurple}{f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1,\n   \\qquad f_y = 2y = 0 \\Rightarrow y = 0,} \\]\ngiving critical points $(1,0)$ and $(-1,0)$. The second partials are\n$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$.\n\\[ \\textcolor{workpurple}{(1,0):\\ D = 12 > 0,\\ f_{xx} = 6 > 0\n   \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2.} \\]\n\\[ \\textcolor{workpurple}{(-1,0):\\ D = -12 < 0\n   \\Rightarrow \\text{saddle point}.} \\]\nSo $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the\ncubic term means there is no global extremum.\n\n\\vspace{0.8em}"
+      "\\noindent\\textbf{Solution 1.}\\quad Hold $y$ constant for $f_x$, then $x$ constant\nfor $f_y$. The pure-$y$ term $y^3$ vanishes under $\\partial_x$:\n\\[ \\textcolor{workpurple}{f_x = 2xy, \\qquad f_y = x^2 + 3y^2.} \\]",
+      "\\noindent\\textbf{Solution 2.}\\quad Differentiate in $x$ first, then $y$ --- and\nin the reverse order:\n\\[ \\textcolor{workpurple}{f_x = 2xy^3 \\;\\Rightarrow\\; f_{xy} = 6xy^2,\n   \\qquad f_y = 3x^2y^2 \\;\\Rightarrow\\; f_{yx} = 6xy^2.} \\]\nBoth equal $6xy^2$, so $f_{xy}=f_{yx}$ --- Clairaut's theorem holds because the\nsecond partials are continuous everywhere.",
+      "\\noindent\\textbf{Solution 3.}\\quad Differentiate componentwise:\n\\[ \\textcolor{workpurple}{\\nabla f = (2x + y,\\; x + 2y),\n   \\qquad \\nabla f(1,2) = (2+2,\\; 1+4) = (4,5).} \\]",
+      "\\noindent\\textbf{Solution 4.}\\quad The raw direction $\\mathbf v=(3,4)$ has\n$\\lvert\\mathbf v\\rvert=\\sqrt{9+16}=5$, so the unit direction is\n$\\mathbf u=(\\tfrac35,\\tfrac45)$. Then\n\\[ \\textcolor{workpurple}{D_{\\mathbf u}f = \\nabla f(1,2)\\cdot\\mathbf u\n   = (4,5)\\cdot\\left(\\tfrac35,\\tfrac45\\right)\n   = \\tfrac{12}{5} + \\tfrac{20}{5} = \\tfrac{32}{5} = 6.4.} \\]",
+      "\\noindent\\textbf{Solution 5.}\\quad Steepest ascent points along the gradient\nitself, $\\nabla f(1,2)=(4,5)$, i.e.\\ the unit direction\n$(4,5)/\\sqrt{41}$. The maximum rate of increase is the gradient's magnitude:\n\\[ \\textcolor{workpurple}{\\lvert\\nabla f(1,2)\\rvert = \\sqrt{4^2+5^2}\n   = \\sqrt{41} \\approx 6.40.} \\]",
+      "\\noindent\\textbf{Solution 6.}\\quad With $z_x=2x$, $z_y=2y$, $x'=-\\sin t$,\n$y'=\\cos t$:\n\\[ \\textcolor{workpurple}{\\frac{dz}{dt} = (2x)(-\\sin t) + (2y)(\\cos t)\n   = 2\\cos t(-\\sin t) + 2\\sin t(\\cos t) = 0.} \\]\nGeometrically the path $(\\cos t,\\sin t)$ rides the unit circle, where\n$z=x^2+y^2=1$ is constant --- so its rate of change is zero, and the velocity is\ntangent to the level curve, perpendicular to $\\nabla z$.",
+      "\\noindent\\textbf{Solution 7.}\\quad The tree has two branches to $s$:\n$\\dfrac{\\partial z}{\\partial s}=z_x\\,x_s+z_y\\,y_s$ with $z_x=2xy$, $z_y=x^2$,\n$x_s=1$, $y_s=t$:\n\\[ \\textcolor{workpurple}{\\frac{\\partial z}{\\partial s}\n   = (2xy)(1) + (x^2)(t)\n   = 2(s+t)(st) + (s+t)^2\\,t.} \\]\nFactoring $t(s+t)$ gives\n\\[ \\textcolor{workpurple}{\\frac{\\partial z}{\\partial s}\n   = t(s+t)\\big[\\,2s + (s+t)\\,\\big] = t(s+t)(3s+t).} \\]",
+      "\\noindent\\textbf{Solution 8.}\\quad Set the gradient to zero:\n\\[ \\textcolor{workpurple}{f_x = 2x - 4 = 0 \\Rightarrow x = 2,\n   \\qquad f_y = 2y - 6 = 0 \\Rightarrow y = 3,} \\]\nso the only critical point is $(2,3)$. The second partials are $f_{xx}=2$,\n$f_{yy}=2$, $f_{xy}=0$, giving\n\\[ \\textcolor{workpurple}{D = f_{xx}f_{yy} - (f_{xy})^2 = (2)(2) - 0 = 4 > 0,\n   \\quad f_{xx} = 2 > 0,} \\]\na \\textbf{local minimum}. The value is\n$\\textcolor{workpurple}{f(2,3) = 4 + 9 - 8 - 18 + 13 = 0}$.",
+      "\\noindent\\textbf{Solution 9.}\\quad Here $f_x=2x=0$ and $f_y=-2y=0$ give the lone\ncritical point $(0,0)$. With $f_{xx}=2$, $f_{yy}=-2$, $f_{xy}=0$:\n\\[ \\textcolor{workpurple}{D = (2)(-2) - 0 = -4 < 0,} \\]\nso $(0,0)$ is a \\textbf{saddle point} --- $f$ rises along $x$ and falls along\n$y$, and the sign of $f_{xx}$ is irrelevant once $D<0$.",
+      "\\noindent\\textbf{Solution (Capstone).}\\quad Set both partials to zero:\n\\[ \\textcolor{workpurple}{f_x = 3x^2 - 3 = 0 \\Rightarrow x = \\pm 1,\n   \\qquad f_y = 2y = 0 \\Rightarrow y = 0,} \\]\ngiving critical points $(1,0)$ and $(-1,0)$. The second partials are\n$f_{xx}=6x$, $f_{yy}=2$, $f_{xy}=0$, so $D=12x$.\n\\[ \\textcolor{workpurple}{(1,0):\\ D = 12 > 0,\\ f_{xx} = 6 > 0\n   \\Rightarrow \\text{local minimum},\\quad f(1,0) = 1 - 3 = -2.} \\]\n\\[ \\textcolor{workpurple}{(-1,0):\\ D = -12 < 0\n   \\Rightarrow \\text{saddle point}.} \\]\nSo $f$ has a local minimum value $-2$ at $(1,0)$ and a saddle at $(-1,0)$; the\ncubic term means there is no global extremum."
     ],
     "takeaway": {
       "title": "Unit 6 Key Takeaway",

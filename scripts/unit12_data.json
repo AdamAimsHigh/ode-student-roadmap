@@ -1,0 +1,712 @@
+{
+  "unit": "Unit 12: The Laplace Transform",
+  "unitNumber": 12,
+  "title": "The Laplace Transform",
+  "subtitle": "Foundations, Toolkit, Solving ODEs, Convolution, Advanced Applications, and Master Tables",
+  "description": "The Laplace transform converts a differential equation in $t$ into an algebraic equation in $s$. Initial data is baked in from the start, discontinuous and impulsive forcing become ordinary algebra, and the structure of a system shows up as poles in the complex plane. The entire unit is one pipeline: transform, solve the algebra, invert.",
+  "atAGlance": {
+    "title": "Unit 12 at a Glance: The Laplace Transform",
+    "summary": "The Laplace transform converts a differential equation in $t$ into an algebraic equation in $s$. Initial data is baked in from the start, discontinuous and impulsive forcing become ordinary algebra, and the structure of a system shows up as poles in the complex plane. The entire unit is one pipeline: transform, solve the algebra, invert.",
+    "bullets": [
+      "\\textbf{Foundations} --- the defining integral, existence (exponential order), the Euler trick, and the $t=0$ initial-condition traps.",
+      "\\textbf{The toolkit} --- linearity, the two shift theorems, Heaviside and Dirac packaging, and the transforms of derivatives and integrals.",
+      "\\textbf{Solving ODEs} --- the five-step method, partial fractions, discontinuous and impulse forcing, systems, and periodic inputs.",
+      "\\textbf{Convolution} --- the convolution theorem, Duhamel's principle, Volterra integral equations, transfer functions, and stability.",
+      "\\textbf{Advanced} --- PDEs by Laplace, Abel's integral equation, and resonance read off the $s$-plane.",
+      "\\textbf{Reference} --- the master transform and property tables, the inversion playbook, and the initial/final-value (steady-state) theorems."
+    ]
+  },
+  "cheatSubtitle": "Condensed Cheat Sheet: Transforms, Inversion, Discontinuous Forcing, and the $s$-Plane",
+  "cheatTakeaway": {
+    "title": "Unit Key Takeaway",
+    "body": "The Laplace transform is one disciplined pipeline:\n\\textcolor{accentorange}{transform $\\to$ solve the algebra $\\to$ invert}. Initial data\nrides in through the derivative rules, discontinuities become $e^{-cs}$ and $\\delta$\nbookkeeping, products become convolutions, and the\n\\textcolor{accentorange}{geometry of the poles} tells you whether a system decays,\noscillates, or blows up before you invert a single term."
+  },
+  "is_rich_source": true,
+  "modules": [
+    {
+      "id": "12.1",
+      "title": "Intuition and Motivation",
+      "topics": "What the transform does and why: the frequency-domain picture, poles as the fingerprint of a signal, and the trade of calculus in $t$ for algebra in $s$.",
+      "formulas": [
+        {
+          "title": "The Transform as an Operator",
+          "body": "The Laplace transform takes a function $f(t)$ defined for $t \\ge 0$ and produces a\nfunction $F(s)$ of a new variable $s$. It is an \\emph{integral operator}: it acts on\na whole function and returns a whole function. Reading $F(s)$ as a function of $s$ is\nreading $f$ in the \\textcolor{accentorange}{frequency domain}: each value of $s$ asks ``how much of\nthe mode $e^{st}$ is inside $f$?'' Sharp features and oscillations in $t$ become poles\nand resonances in $s$. The transform is a change of coordinates that makes the\n\\emph{structure} of a signal --- its decay rates and frequencies --- visible as the\n\\textcolor{accentorange}{location of poles} in the complex plane."
+        }
+      ],
+      "examples": [],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The transform is a machine that trades \\textcolor{accentorange}{calculus in $t$}\nfor \\textcolor{accentorange}{algebra in $s$}. Differentiation becomes multiplication\nby $s$, integration becomes division by $s$, and that is the entire reason the method\nsolves differential equations."
+      },
+      "quiz": [
+        {
+          "id": "mp_j0wJBEZdwLs_1",
+          "prompt": "The Laplace transform of $f(t)$ is defined by which integral?",
+          "answer": "$F(s) = \\int_0^{\\infty} e^{-st} f(t)\\,dt$"
+        },
+        {
+          "id": "mp_j0wJBEZdwLs_2",
+          "prompt": "The Laplace transform converts a function of $t$ into a function of which variable?",
+          "answer": "$s$, the complex frequency variable"
+        },
+        {
+          "id": "mp_-j8PzkZ70Lg_1",
+          "prompt": "Euler's formula expresses $e^{i\\theta}$ as which combination?",
+          "answer": "$\\cos\\theta + i\\sin\\theta$"
+        },
+        {
+          "id": "mp_-j8PzkZ70Lg_2",
+          "prompt": "In the complex exponential $e^{st}$ with $s = \\sigma + i\\omega$, what does the imaginary part $\\omega$ control?",
+          "answer": "The oscillation frequency"
+        },
+        {
+          "id": "mp_n2y7n6jw5d0_1",
+          "prompt": "Conceptually, the Laplace transform decomposes a signal into a combination of which building blocks?",
+          "answer": "Complex exponentials $e^{st}$"
+        },
+        {
+          "id": "mp_n2y7n6jw5d0_2",
+          "prompt": "In the $s$-domain, what do the pole locations of a system's transform tell you?",
+          "answer": "The system's natural frequencies and growth or decay rates"
+        }
+      ]
+    },
+    {
+      "id": "12.2",
+      "title": "Definition and Computing Transforms",
+      "topics": "The defining integral and its decaying kernel $e^{-st}$, the base transforms $\\mathcal{L}\\{1\\}$ and $\\mathcal{L}\\{e^{at}\\}$ computed from the definition, and the master transform table.",
+      "formulas": [
+        {
+          "title": "The Defining Integral",
+          "body": "\\[ \\mathcal{L}\\{f(t)\\} = F(s) = \\int_{0}^{\\infty} e^{-st} f(t)\\,dt. \\]\nThe integral runs over $[0,\\infty)$, so the transform sees only the future\n($t \\ge 0$). The kernel $e^{-st}$ is a decaying weight (for $\\operatorname{Re}(s)>0$)\nthat tames the growth of $f$ and guarantees the integral converges in a half-plane."
+        },
+        {
+          "title": "The Base Transforms, Straight from the Definition",
+          "body": "For $f(t)=1$:\n\\[ \\mathcal{L}\\{1\\} = \\int_{0}^{\\infty} e^{-st}\\,dt\n   = \\textcolor{workpurple}{\\left[ -\\tfrac{1}{s} e^{-st} \\right]_{0}^{\\infty}}\n   = \\textcolor{workpurple}{0 - \\left(-\\tfrac{1}{s}\\right)} = \\frac{1}{s}, \\quad s>0. \\]\nFor $f(t)=e^{at}$ the two exponentials merge:\n\\[ \\mathcal{L}\\{e^{at}\\} = \\int_{0}^{\\infty} e^{-(s-a)t}\\,dt\n   = \\textcolor{workpurple}{\\left[ -\\tfrac{1}{s-a} e^{-(s-a)t} \\right]_{0}^{\\infty}}\n   = \\frac{1}{s-a}, \\quad s>a. \\]"
+        },
+        {
+          "title": "Master Transform Table",
+          "body": "\\renewcommand{\\arraystretch}{1.5}\n\\[\n\\begin{array}{ll|ll}\nf(t) & F(s) & f(t) & F(s) \\\\ \\hline\n1 & \\dfrac{1}{s} & e^{at} & \\dfrac{1}{s-a} \\\\\nt^n & \\dfrac{n!}{s^{n+1}} & t^{a}\\;(a>-1) & \\dfrac{\\Gamma(a+1)}{s^{a+1}} \\\\\n\\sin\\omega t & \\dfrac{\\omega}{s^2+\\omega^2} & \\cos\\omega t & \\dfrac{s}{s^2+\\omega^2} \\\\\n\\sinh\\omega t & \\dfrac{\\omega}{s^2-\\omega^2} & \\cosh\\omega t & \\dfrac{s}{s^2-\\omega^2} \\\\\ne^{at}\\sin\\omega t & \\dfrac{\\omega}{(s-a)^2+\\omega^2} & e^{at}\\cos\\omega t & \\dfrac{s-a}{(s-a)^2+\\omega^2} \\\\\nt\\sin\\omega t & \\dfrac{2\\omega s}{(s^2+\\omega^2)^2} & t\\cos\\omega t & \\dfrac{s^2-\\omega^2}{(s^2+\\omega^2)^2} \\\\\nu(t-c) & \\dfrac{e^{-cs}}{s} & \\delta(t-c) & e^{-cs} \\\\\n\\end{array}\n\\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- $\\mathcal{L}\\{t\\}$ from the Definition",
+          "setup": "The power rule $\\mathcal{L}\\{t^n\\}=n!/s^{n+1}$ is itself a consequence of the\ndefinition. Integrate $\\int_0^\\infty t\\,e^{-st}\\,dt$ by parts with $u=t$,\n$dv=e^{-st}dt$:\n\\[ \\textcolor{workpurple}{\\left[ -\\frac{t}{s}e^{-st}\\right]_0^\\infty\n   + \\frac{1}{s}\\int_0^\\infty e^{-st}\\,dt}\n   = \\textcolor{workpurple}{0 + \\frac{1}{s}\\cdot\\frac{1}{s}} = \\frac{1}{s^2}. \\]\nThe boundary term vanishes because $e^{-st}$ kills the linear growth at infinity.\nRepeating the integration by parts $n$ times produces the factorial and the\n$s^{n+1}$ in the denominator.",
+          "steps": []
+        }
+      ],
+      "quiz": [
+        {
+          "id": "mp_KqokoYr_h1A_1",
+          "prompt": "Compute the Laplace transform of $f(t) = 1$.",
+          "answer": "$\\frac{1}{s}$"
+        },
+        {
+          "id": "mp_KqokoYr_h1A_2",
+          "prompt": "Compute the Laplace transform of $f(t) = e^{at}$.",
+          "answer": "$\\frac{1}{s - a}$"
+        },
+        {
+          "id": "mp_hfKycVR4kSw_1",
+          "prompt": "What is the general formula for the Laplace transform of $t^n$?",
+          "answer": "$\\frac{n!}{s^{n+1}}$"
+        },
+        {
+          "id": "mp_hfKycVR4kSw_2",
+          "prompt": "Compute the Laplace transform of $t^3$.",
+          "answer": "$\\frac{6}{s^4}$"
+        }
+      ]
+    },
+    {
+      "id": "12.3",
+      "title": "Properties, Linearity, Existence, and Inverses",
+      "topics": "Linearity of the transform and its inverse, sufficient conditions for existence (piecewise continuity and exponential order), the first shift theorem, the Euler trick for trig, and the master operational table.",
+      "formulas": [
+        {
+          "title": "Linearity",
+          "body": "\\[ \\mathcal{L}\\{a f(t) + b g(t)\\} = a\\,\\mathcal{L}\\{f\\} + b\\,\\mathcal{L}\\{g\\}. \\]\nThe same holds for the inverse: $\\mathcal{L}^{-1}\\{aF+bG\\} = af + bg$. Linearity is\nwhat lets us break any input into a sum of known pieces."
+        },
+        {
+          "title": "Sufficient Conditions for Existence",
+          "body": "If $f$ is \\textbf{piecewise continuous} on $[0,\\infty)$ and of \\textbf{exponential\norder} --- meaning there exist constants $M>0$, $a$, and $T$ with\n\\[ |f(t)| \\le M e^{at} \\quad \\text{for all } t \\ge T, \\]\nthen $F(s)$ exists for all $s > a$, and $F(s)\\to 0$ as $s\\to\\infty$."
+        },
+        {
+          "title": "First Shift Theorem ($s$-Shift)",
+          "body": "\\[ \\mathcal{L}\\{e^{at} f(t)\\} = F(s-a). \\]\nEquivalently, $\\mathcal{L}^{-1}\\{F(s-a)\\} = e^{at} f(t)$: multiplying $f(t)$ by\n$e^{at}$ in the time domain \\emph{shifts the variable} in the $s$-domain."
+        },
+        {
+          "title": "Master Properties / Operational Table",
+          "body": "\\renewcommand{\\arraystretch}{1.6}\n\\[\n\\begin{array}{ll}\n\\text{Linearity} & \\mathcal{L}\\{af+bg\\} = aF+bG \\\\\n\\text{First shift } (s) & \\mathcal{L}\\{e^{at}f(t)\\} = F(s-a) \\\\\n\\text{Second shift } (t) & \\mathcal{L}\\{u(t-c)f(t-c)\\} = e^{-cs}F(s) \\\\\n\\text{Derivative} & \\mathcal{L}\\{f^{(n)}\\} = s^n F - s^{n-1}f(0)-\\cdots-f^{(n-1)}(0) \\\\\n\\text{Integral} & \\mathcal{L}\\left\\{\\int_0^t f\\right\\} = F(s)/s \\\\\n\\text{Multiply by } t^n & \\mathcal{L}\\{t^n f\\} = (-1)^n F^{(n)}(s) \\\\\n\\text{Divide by } t & \\mathcal{L}\\{f/t\\} = \\int_s^\\infty F(\\sigma)\\,d\\sigma \\\\\n\\text{Convolution} & \\mathcal{L}\\{f*g\\} = F(s)G(s) \\\\\n\\text{Periodic } (T) & \\mathcal{L}\\{f\\} = \\dfrac{1}{1-e^{-sT}}\\int_0^T e^{-st}f\\,dt \\\\\n\\end{array}\n\\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- A Damped Cosine",
+          "setup": "Find $\\mathcal{L}\\{e^{-2t}\\cos 3t\\}$. Start from $\\mathcal{L}\\{\\cos 3t\\}\n= \\dfrac{s}{s^2+9}$ and shift $s \\mapsto s+2$:\n\\[ \\textcolor{workpurple}{\\mathcal{L}\\{e^{-2t}\\cos 3t\\}\n   = \\left.\\frac{s}{s^2+9}\\right|_{s\\to s+2}\n   = \\frac{s+2}{(s+2)^2+9}.} \\]\nThe denominator $(s+2)^2+9$ is exactly a completed square --- the fingerprint of a\ndamped oscillation hiding in any inverse transform.",
+          "steps": []
+        }
+      ],
+      "methodology": {
+        "title": "Method --- Transforming Trig via $e^{i\\omega t}$",
+        "steps": [
+          "Write $e^{i\\omega t} = \\cos(\\omega t) + i\\sin(\\omega t)$.",
+          "Transform it as an ordinary exponential with $a = i\\omega$:\n\\[ \\mathcal{L}\\{e^{i\\omega t}\\} = \\frac{1}{s - i\\omega}. \\]",
+          "Rationalize by multiplying by $\\dfrac{s+i\\omega}{s+i\\omega}$:\n\\[ \\textcolor{workpurple}{\\frac{s+i\\omega}{s^2+\\omega^2}\n   = \\frac{s}{s^2+\\omega^2} + i\\,\\frac{\\omega}{s^2+\\omega^2}.} \\]",
+          "Match real and imaginary parts:\n\\[ \\mathcal{L}\\{\\cos\\omega t\\} = \\frac{s}{s^2+\\omega^2}, \\qquad\n   \\mathcal{L}\\{\\sin\\omega t\\} = \\frac{\\omega}{s^2+\\omega^2}. \\]"
+        ]
+      },
+      "warning": {
+        "title": "Common Pitfall: Functions That Grow Too Fast",
+        "body": "$f(t)=e^{t^2}$ is \\emph{not} of exponential order --- it outruns every $Me^{at}$ ---\nso its Laplace transform does not exist. By contrast every polynomial, every\n$e^{at}$, every $\\sin$ and $\\cos$, and any product of these is of exponential order.\nA quick existence test: if $\\lim_{s\\to\\infty}F(s)\\ne 0$, the candidate $F$ cannot be\na Laplace transform of a well-behaved $f$."
+      },
+      "quiz": [
+        {
+          "id": "mp_zModDQ-ST30_1",
+          "prompt": "The linearity of the Laplace transform states that $\\mathcal{L}\\{a f(t) + b g(t)\\}$ equals what?",
+          "answer": "$a\\,\\mathcal{L}\\{f\\} + b\\,\\mathcal{L}\\{g\\}$"
+        },
+        {
+          "id": "mp_zModDQ-ST30_2",
+          "prompt": "Which conditions guarantee that the Laplace transform of $f$ exists?",
+          "answer": "$f$ is piecewise continuous and of exponential order"
+        },
+        {
+          "id": "mp_D7CP4WTQpBo_1",
+          "prompt": "The proof that the Laplace transform is linear rests on which underlying property?",
+          "answer": "The linearity of integration"
+        },
+        {
+          "id": "mp_D7CP4WTQpBo_2",
+          "prompt": "For a constant $c$, what does $\\mathcal{L}\\{c f(t)\\}$ equal?",
+          "answer": "$c\\,\\mathcal{L}\\{f\\}$"
+        }
+      ]
+    },
+    {
+      "id": "12.4",
+      "title": "Transforms of Derivatives and Integrals",
+      "topics": "The derivative rules that power the whole method, the integral rule, multiplication and division by $t$, and the one-sided-limit traps at $t=0$.",
+      "formulas": [
+        {
+          "title": "Derivative Rules",
+          "body": "\\[ \\mathcal{L}\\{f'\\} = sF(s) - f(0), \\]\n\\[ \\mathcal{L}\\{f''\\} = s^2 F(s) - s f(0) - f'(0), \\]\n\\[ \\mathcal{L}\\{f^{(n)}\\} = s^n F(s) - s^{n-1} f(0) - s^{n-2} f'(0) - \\cdots - f^{(n-1)}(0). \\]\nThe pattern: each derivative contributes one power of $s$ and peels off one initial\nvalue, highest-order data attached to the highest power of $s$."
+        },
+        {
+          "title": "Integral and Weight Rules",
+          "body": "\\[ \\mathcal{L}\\!\\left\\{ \\int_0^t f(\\tau)\\,d\\tau \\right\\} = \\frac{F(s)}{s}, \\qquad\n   \\mathcal{L}^{-1}\\!\\left\\{\\frac{F(s)}{s}\\right\\} = \\int_0^t f(\\tau)\\,d\\tau. \\]\n\\[ \\mathcal{L}\\{t^n f(t)\\} = (-1)^n \\frac{d^n F}{ds^n}, \\qquad\n   \\mathcal{L}\\!\\left\\{\\frac{f(t)}{t}\\right\\} = \\int_s^\\infty F(\\sigma)\\,d\\sigma. \\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Multiplication by $t$",
+          "setup": "Find $\\mathcal{L}\\{t\\sin\\omega t\\}$. With $F(s)=\\dfrac{\\omega}{s^2+\\omega^2}$,\napply $\\mathcal{L}\\{t f(t)\\} = -F'(s)$:\n\\[ \\textcolor{workpurple}{-\\frac{d}{ds}\\!\\left(\\frac{\\omega}{s^2+\\omega^2}\\right)\n   = -\\omega \\cdot \\frac{-2s}{(s^2+\\omega^2)^2}\n   = \\frac{2\\omega s}{(s^2+\\omega^2)^2}.} \\]\nThe squared denominator is the algebraic signature of \\emph{resonance} --- a\nrepeated complex pole.",
+          "steps": []
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The transform method is an \\textcolor{accentorange}{initial-value} method by\nconstruction: the data $f(0), f'(0), \\dots$ enters the algebra immediately through\nthe derivative rules, so there is never a separate ``apply the initial conditions''\nstep at the end the way there is with undetermined coefficients."
+      },
+      "warning": {
+        "title": "Common Pitfall: Which Zero?",
+        "body": "In $\\mathcal{L}\\{f'\\} = sF(s) - f(0)$ the term $f(0)$ is the initial value\n\\emph{carried by the problem}, the one-sided limit $f(0^+)$ (or $f(0^-)$ in the\nconvention that places impulses just before $t=0$). When forcing contains a\n$\\delta(t)$ at the origin, the $0^-$ convention is the safe one: it captures the\nimpulse \\emph{inside} the integral instead of losing it at the lower limit. State\nyour convention and use it consistently across every derivative term."
+      },
+      "quiz": [
+        {
+          "id": "mp_zfhyeXbb0d4_1",
+          "prompt": "With $Y(s) = \\mathcal{L}\\{y(t)\\}$, what is $\\mathcal{L}\\{y'(t)\\}$?",
+          "answer": "$sY(s) - y(0)$"
+        },
+        {
+          "id": "mp_zfhyeXbb0d4_2",
+          "prompt": "What is the Laplace transform $\\mathcal{L}\\{y''(t)\\}$ in terms of $Y(s)$?",
+          "answer": "$s^2 Y(s) - s\\,y(0) - y'(0)$"
+        },
+        {
+          "id": "mp_F21roAB7Zy0_1",
+          "prompt": "The derivative theorem $\\mathcal{L}\\{y''\\} = s^2 Y - s\\,y(0) - y'(0)$ requires which pieces of data?",
+          "answer": "The initial position $y(0)$ and initial velocity $y'(0)$"
+        },
+        {
+          "id": "mp_F21roAB7Zy0_2",
+          "prompt": "For $y(0) = 1$ and $y'(0) = 0$, what is $\\mathcal{L}\\{y''\\}$ in terms of $Y(s)$?",
+          "answer": "$s^2 Y(s) - s$"
+        }
+      ]
+    },
+    {
+      "id": "12.5",
+      "title": "Inverse Transforms and Partial Fractions",
+      "topics": "The partial-fraction playbook for rational $Y(s)$, the four shifted-trig inversion patterns from a completed square, and how to choose an inversion route.",
+      "formulas": [
+        {
+          "title": "The Four Shifted-Trig Inverses",
+          "body": "Almost every irreducible-quadratic inversion reduces to one of four shifted-trig\npatterns. Complete the square, $s^2+bs+c \\to (s+a)^2+\\omega^2$ with $a=b/2$ and\n$\\omega = \\sqrt{c - a^2}$, rewrite the numerator in terms of $(s+a)$, and match:\n\\renewcommand{\\arraystretch}{1.8}\n\\[\n\\begin{array}{ll}\nF(s) & f(t) \\\\ \\hline\n\\dfrac{\\omega}{(s+a)^2+\\omega^2} & e^{-at}\\sin\\omega t \\\\\n\\dfrac{s+a}{(s+a)^2+\\omega^2} & e^{-at}\\cos\\omega t \\\\\n\\dfrac{1}{(s+a)^2+\\omega^2} & \\dfrac{1}{\\omega}\\,e^{-at}\\sin\\omega t \\\\\n\\dfrac{s}{(s+a)^2+\\omega^2} & e^{-at}\\!\\left(\\cos\\omega t - \\dfrac{a}{\\omega}\\sin\\omega t\\right) \\\\\n\\end{array}\n\\]\nThe $(s+a)$ part becomes a $\\cos$ term; the leftover constant becomes a $\\sin$ term\n(scaled by $1/\\omega$)."
+        },
+        {
+          "title": "Choosing an Inversion Route",
+          "body": "(1) \\textbf{Table match} --- recognize the pair directly, after completing the\nsquare or factoring out an $e^{-cs}$. (2) \\textbf{Partial fractions} --- for any\nproper rational $Y(s)=P/Q$; the workhorse. (3) \\textbf{First/second shift} --- peel\noff $e^{at}$ factors ($s$-shift) and delays ($e^{-cs}$, $t$-shift).\n(4) \\textbf{Convolution} --- when $Y=F\\cdot G$ is a product with no clean\npartial-fraction split. (5) \\textbf{Derivative-of-transform} --- when $Y$ looks like\n$-G'(s)$, read it as $t\\,g(t)$."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- A Repeated Root",
+          "setup": "Invert $Y(s) = \\dfrac{s+3}{(s+1)^2}$. A repeated factor needs two terms,\n$\\dfrac{A}{s+1}+\\dfrac{B}{(s+1)^2}$. Clear denominators:\n\\[ \\textcolor{workpurple}{s+3 = A(s+1) + B\n   \\;\\Rightarrow\\; A = 1,\\; B = 2.} \\]\nEach term has a known inverse ($1/(s+1)\\to e^{-t}$ and $1/(s+1)^2\\to t e^{-t}$):\n\\[ \\textcolor{workpurple}{y(t) = e^{-t} + 2t\\,e^{-t} = (1+2t)\\,e^{-t}.} \\]\nThe $t e^{-t}$ term --- a polynomial times an exponential --- is the fingerprint of a\nrepeated real root, exactly as in the homogeneous solution from undetermined\ncoefficients.",
+          "steps": []
+        }
+      ],
+      "methodology": {
+        "title": "Partial-Fraction Playbook",
+        "steps": [
+          "\\textbf{Distinct real roots} $(s-r)$: term $\\dfrac{A}{s-r}\\to Ae^{rt}$.",
+          "\\textbf{Repeated root} $(s-r)^m$: terms $\\dfrac{A_1}{s-r}+\\cdots+\\dfrac{A_m}{(s-r)^m}$,\nwith $\\dfrac{A_k}{(s-r)^k} \\to A_k \\dfrac{t^{k-1}}{(k-1)!}e^{rt}$.",
+          "\\textbf{Irreducible quadratic} $s^2+bs+c$: \\textbf{complete the square} to\n$(s+\\alpha)^2+\\beta^2$, then match to shifted $\\sin/\\cos$ via the first\nshift theorem."
+        ]
+      },
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A completed square $(s+a)^2+\\omega^2$ \\emph{is} the pole pair\n$s=-a\\pm i\\omega$ written algebraically. Reading $a$ and $\\omega$ off the denominator\nhands you the \\textcolor{accentorange}{decay rate} and the \\textcolor{accentorange}{oscillation frequency} of the\nanswer before you finish the inversion --- the same information the pole diagram\nshows geometrically."
+      },
+      "warning": {
+        "title": "Common Pitfall: Don't Factor a Complex-Root Quadratic",
+        "body": "When $Q$ has complex roots, resist factoring it into complex linear terms. Complete\nthe square instead: $s^2+2s+5 = (s+1)^2+4$ inverts cleanly to $e^{-t}$ times a\n$\\sin/\\cos$ in $2t$. Factoring into $(s-(-1+2i))(s-(-1-2i))$ is correct but invites\narithmetic mistakes a real reader will not catch."
+      },
+      "quiz": [
+        {
+          "id": "mp_yz-_EKIzz80_1",
+          "prompt": "Why are partial fractions used when inverting a rational function $F(s)$?",
+          "answer": "They break $F(s)$ into simple terms whose inverse transforms are known"
+        },
+        {
+          "id": "mp_yz-_EKIzz80_2",
+          "prompt": "Find $\\mathcal{L}^{-1}\\!\\left\\{\\frac{1}{s^2 + 4}\\right\\}$.",
+          "answer": "$\\frac{1}{2}\\sin 2t$"
+        },
+        {
+          "id": "mp_c6YnYr8KsSo_1",
+          "prompt": "Find $\\mathcal{L}^{-1}\\!\\left\\{\\frac{1}{s(s-2)}\\right\\}$ using partial fractions.",
+          "answer": "$-\\frac{1}{2} + \\frac{1}{2}e^{2t}$"
+        },
+        {
+          "id": "mp_c6YnYr8KsSo_2",
+          "prompt": "Find $\\mathcal{L}^{-1}\\!\\left\\{\\frac{1}{(s-1)^2}\\right\\}$.",
+          "answer": "$t e^{t}$"
+        }
+      ]
+    },
+    {
+      "id": "12.6",
+      "title": "Solving Initial Value Problems",
+      "topics": "The five-step transform method, worked end to end on a distinct-root IVP and an underdamped IVP with both initial conditions nonzero.",
+      "formulas": [],
+      "examples": [
+        {
+          "title": "Worked Example --- A Full IVP",
+          "setup": "Solve $y'' - 3y' + 2y = 0$, $y(0)=1$, $y'(0)=0$. Transform and substitute:\n\\[ \\textcolor{workpurple}{\\big(s^2 Y - s\\big) - 3\\big(sY - 1\\big) + 2Y = 0}\n   \\;\\Rightarrow\\; (s^2-3s+2)Y = s-3. \\]\nSolve and factor the denominator $s^2-3s+2=(s-1)(s-2)$:\n\\[ \\textcolor{workpurple}{Y(s) = \\frac{s-3}{(s-1)(s-2)}\n   = \\frac{2}{s-1} - \\frac{1}{s-2}.} \\]\nInvert each term:\n\\[ \\textcolor{workpurple}{y(t) = 2e^{t} - e^{2t}.} \\]",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- An Underdamped IVP, End to End",
+          "setup": "Solve $y'' + 2y' + 5y = 0$, $y(0)=2$, $y'(0)=-2$. Transform with both derivative\nrules and substitute the data:\n\\[ \\textcolor{workpurple}{\\big(s^2 Y - 2s + 2\\big) + 2\\big(sY - 2\\big) + 5Y = 0.} \\]\nCollect $Y$ and the constants:\n\\[ \\textcolor{workpurple}{(s^2 + 2s + 5)\\,Y = 2s + 2\n   \\;\\Rightarrow\\; Y(s) = \\frac{2s + 2}{s^2 + 2s + 5}.} \\]\nComplete the square in the denominator, $s^2+2s+5 = (s+1)^2 + 4$, and align the\nnumerator to the shifted variable $s+1$:\n\\[ \\textcolor{workpurple}{Y(s) = \\frac{2(s+1)}{(s+1)^2 + 2^2}.} \\]\nThis is exactly $2$ times a shifted cosine ($a=-1$, $\\omega=2$):\n\\[ \\textcolor{workpurple}{y(t) = 2\\,e^{-t}\\cos 2t.} \\]\nThe $e^{-t}$ envelope (from the real part of the poles) and the $2t$ oscillation\n(from the imaginary part) are read straight off the completed square.",
+          "steps": []
+        }
+      ],
+      "methodology": {
+        "title": "The Five-Step Method",
+        "steps": [
+          "\\textbf{Transform} both sides of the ODE, applying the derivative rules so\nthe initial conditions enter immediately.",
+          "\\textbf{Substitute} the given $y(0), y'(0), \\dots$",
+          "\\textbf{Solve algebraically} for $Y(s)$ --- it is always a rational\nfunction (times $e^{-cs}$ factors if the forcing is delayed).",
+          "\\textbf{Decompose} $Y(s)$ by partial fractions / completing the square into\ntable-ready pieces.",
+          "\\textbf{Invert} term by term to recover $y(t)$."
+        ]
+      },
+      "quiz": [
+        {
+          "id": "mp_fuxFrpaMLtw_1",
+          "prompt": "What are the three main stages of solving an IVP with Laplace transforms?",
+          "answer": "Transform the equation, solve algebraically for $Y(s)$, then invert"
+        },
+        {
+          "id": "mp_fuxFrpaMLtw_2",
+          "prompt": "Transform the IVP $y' - y = 0$, $y(0) = 1$. What equation for $Y(s)$ results?",
+          "answer": "$(s - 1)Y = 1$"
+        },
+        {
+          "id": "mp_Kdli4yUyu94_1",
+          "prompt": "Solve $y' + 2y = 0$ with $y(0) = 3$ by transforming. What is $Y(s)$?",
+          "answer": "$Y = \\frac{3}{s + 2}$"
+        },
+        {
+          "id": "mp_Kdli4yUyu94_2",
+          "prompt": "Continuing, $Y = 3/(s+2)$. What is $y(t)$?",
+          "answer": "$y = 3e^{-2t}$"
+        }
+      ]
+    },
+    {
+      "id": "12.7",
+      "title": "Heaviside and Piecewise Functions",
+      "topics": "The unit step as a switch, the second shift theorem, packaging piecewise forcing into shifted form, and solving a step-forced IVP without patching across breakpoints.",
+      "formulas": [
+        {
+          "title": "Heaviside and the Second Shift",
+          "body": "\\[ u(t-c) = \\begin{cases} 0, & t<c\\\\ 1, & t\\ge c \\end{cases}, \\qquad\n   \\mathcal{L}\\{u(t-c)\\} = \\frac{e^{-cs}}{s}. \\]\n\\[ \\boxed{\\;\\mathcal{L}\\{u(t-c)\\,f(t-c)\\} = e^{-cs} F(s)\\;} \\qquad\n   \\mathcal{L}^{-1}\\{e^{-cs}F(s)\\} = u(t-c)\\,f(t-c). \\]\nA delay by $c$ in time multiplies the transform by $e^{-cs}$."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Packaging a Two-Piece Function",
+          "setup": "Transform $f(t) = \\begin{cases} t, & 0\\le t<2 \\\\ 1, & t\\ge 2 \\end{cases}$. Write it as\na base piece plus a switched correction at $c=2$:\n\\[ \\textcolor{workpurple}{f(t) = t - u(t-2)\\,(t-1).} \\]\nThe correction must be expressed in $(t-2)$: since $t-1 = (t-2)+1$,\n\\[ \\textcolor{workpurple}{f(t) = t - u(t-2)\\big[(t-2)+1\\big].} \\]\nTransform term by term with $\\mathcal{L}\\{t\\}=1/s^2$ and the second shift:\n\\[ \\textcolor{workpurple}{F(s) = \\frac{1}{s^2}\n   - e^{-2s}\\!\\left(\\frac{1}{s^2} + \\frac{1}{s}\\right).} \\]",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- Step-Forced System",
+          "setup": "Solve $y'' + y = u(t-\\pi)$, $y(0)=0$, $y'(0)=0$. Transform, using\n$\\mathcal{L}\\{u(t-\\pi)\\}=e^{-\\pi s}/s$:\n\\[ \\textcolor{workpurple}{(s^2+1)Y = \\frac{e^{-\\pi s}}{s}\n   \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\cdot\\frac{1}{s(s^2+1)}.} \\]\nDecompose the $s$-free factor: $\\dfrac{1}{s(s^2+1)} = \\dfrac{1}{s} - \\dfrac{s}{s^2+1}$,\nwhich inverts to $1-\\cos t$. Now apply the second shift ($t\\mapsto t-\\pi$, switched at\n$\\pi$):\n\\[ \\textcolor{workpurple}{y(t) = u(t-\\pi)\\,\\big[\\,1 - \\cos(t-\\pi)\\,\\big]\n   = u(t-\\pi)\\,\\big[\\,1 + \\cos t\\,\\big].} \\]\nThe system sits still until $t=\\pi$, then oscillates about its new equilibrium.",
+          "steps": []
+        }
+      ],
+      "methodology": {
+        "title": "Packaging a Piecewise Function for the Transform",
+        "steps": [
+          "Rewrite the piecewise $f(t)$ as a sum of steps:\n$f(t) = f_0(t) + \\sum_k u(t-c_k)\\,[\\,f_{k+1}(t)-f_k(t)\\,]$.",
+          "For each step, force the trailing factor into the shifted form\n$g(t-c_k)$ --- i.e. \\textbf{re-express every $t$ as $(t-c_k)+c_k$}.",
+          "Transform term by term using $\\mathcal{L}\\{u(t-c)g(t-c)\\}=e^{-cs}G(s)$."
+        ]
+      },
+      "warning": {
+        "title": "Common Pitfall: Forgetting to Shift the Argument",
+        "body": "$\\mathcal{L}\\{u(t-c)\\,f(t)\\}$ is \\textbf{not} $e^{-cs}F(s)$. The theorem requires the\n\\emph{same} shift inside $f$. If the factor is $f(t)=t^2$ switched on at $c=3$, write\n$t^2 = \\big((t-3)+3\\big)^2 = (t-3)^2 + 6(t-3) + 9$ first, then transform each shifted\npiece. Skipping this step is the single most common Heaviside error."
+      },
+      "quiz": [
+        {
+          "id": "mp_zo4Stc-raQE_1",
+          "prompt": "How is the Heaviside step function $u(t - a)$ defined?",
+          "answer": "$0$ for $t < a$ and $1$ for $t \\ge a$"
+        },
+        {
+          "id": "mp_zo4Stc-raQE_2",
+          "prompt": "What is the Laplace transform of the Heaviside step $u(t - a)$?",
+          "answer": "$\\frac{e^{-as}}{s}$"
+        },
+        {
+          "id": "mp_kRyOk1Ab90Q_1",
+          "prompt": "Compute $\\mathcal{L}\\{u(t - 2)\\}$.",
+          "answer": "$\\frac{e^{-2s}}{s}$"
+        },
+        {
+          "id": "mp_kRyOk1Ab90Q_2",
+          "prompt": "Find $\\mathcal{L}^{-1}\\!\\left\\{\\frac{e^{-3s}}{s}\\right\\}$.",
+          "answer": "$u(t - 3)$"
+        }
+      ]
+    },
+    {
+      "id": "12.8",
+      "title": "The Dirac Delta and Impulse Forcing",
+      "topics": "The delta as a distribution, the sifting property and its transform, the delta as the derivative of the step, and the impulse response of an oscillator.",
+      "formulas": [
+        {
+          "title": "The Sifting Property and Its Transform",
+          "body": "\\[ \\int_{-\\infty}^{\\infty} \\delta(t-c)\\,g(t)\\,dt = g(c) \\quad(\\text{sifting}), \\qquad\n   \\mathcal{L}\\{\\delta(t-c)\\} = e^{-cs}, \\quad \\mathcal{L}\\{\\delta(t)\\}=1. \\]\nThe delta is the derivative of the Heaviside step: $\\delta(t-c) = \\dfrac{d}{dt}u(t-c)$,\nwhich is why its transform is $s$ times that of the step."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Impulse-Forced Oscillator",
+          "setup": "Solve $y'' + y = \\delta(t-\\pi)$, $y(0)=0$, $y'(0)=0$. Transform with\n$\\mathcal{L}\\{\\delta(t-\\pi)\\}=e^{-\\pi s}$:\n\\[ \\textcolor{workpurple}{(s^2+1)Y = e^{-\\pi s}\n   \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\cdot\\frac{1}{s^2+1}.} \\]\nSince $\\mathcal{L}^{-1}\\{1/(s^2+1)\\}=\\sin t$, the second shift gives\n\\[ \\textcolor{workpurple}{y(t) = u(t-\\pi)\\,\\sin(t-\\pi) = -u(t-\\pi)\\,\\sin t.} \\]\nThe mass is at rest until the kick at $t=\\pi$, then oscillates freely --- a clean\npicture of the impulse response switched on at the moment of the blow.",
+          "steps": []
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A $\\delta$-forcing produces a \\textcolor{accentorange}{jump in the highest-order\nstate}: for $y''+\\dots = \\delta(t-c)$ the velocity $y'$ jumps by $1$ at $t=c$ while\n$y$ itself stays continuous. The response after the kick is exactly the system's\nfree response restarted with that jolted initial condition --- the\n\\textcolor{accentorange}{impulse response}."
+      },
+      "quiz": [
+        {
+          "id": "mp_SxNVcCVj-3c_1",
+          "prompt": "What is the defining behavior of the Dirac delta $\\delta(t)$?",
+          "answer": "It is zero everywhere except at $t = 0$, with total integral equal to one"
+        },
+        {
+          "id": "mp_SxNVcCVj-3c_2",
+          "prompt": "The sifting property says $\\int_{-\\infty}^{\\infty} f(t)\\,\\delta(t - a)\\,dt$ equals what?",
+          "answer": "$f(a)$"
+        },
+        {
+          "id": "mp_LOoM3qlpYuU_1",
+          "prompt": "What is the Laplace transform of $\\delta(t - a)$?",
+          "answer": "$e^{-as}$"
+        },
+        {
+          "id": "mp_LOoM3qlpYuU_2",
+          "prompt": "What is $\\mathcal{L}\\{\\delta(t)\\}$, the transform of an impulse at the origin?",
+          "answer": "$1$"
+        }
+      ]
+    },
+    {
+      "id": "12.9",
+      "title": "Convolution and Periodic Functions",
+      "topics": "The convolution theorem, Duhamel's principle and the impulse response, Volterra integral equations, and the transform of a periodic forcing function.",
+      "formulas": [
+        {
+          "title": "Convolution Theorem",
+          "body": "\\[ (f * g)(t) = \\int_0^t f(\\tau)\\,g(t-\\tau)\\,d\\tau, \\qquad\n   \\mathcal{L}\\{f*g\\} = F(s)\\,G(s). \\]\nConvolution is commutative ($f*g=g*f$), associative, and distributes over addition."
+        },
+        {
+          "title": "Duhamel / Zero-State Response",
+          "body": "For a system with transfer function $H(s)$ and input $r(t)$ (zero initial state),\n\\[ Y(s) = H(s)R(s) \\;\\Longleftrightarrow\\; y(t) = (h * r)(t)\n   = \\int_0^t h(t-\\tau)\\,r(\\tau)\\,d\\tau, \\]\nwhere $h(t) = \\mathcal{L}^{-1}\\{H(s)\\}$ is the impulse response --- the system's\nreaction to a unit $\\delta$-kick."
+        },
+        {
+          "title": "Transform of a $T$-Periodic Function",
+          "body": "If $f(t+T)=f(t)$ for $t\\ge 0$, then\n\\[ \\mathcal{L}\\{f(t)\\} = \\frac{1}{1 - e^{-sT}} \\int_{0}^{T} e^{-st} f(t)\\,dt. \\]\nThe factor $\\dfrac{1}{1-e^{-sT}} = \\sum_{n\\ge 0} e^{-nsT}$ is exactly the\nsecond-shift bookkeeping for the infinitely repeated copies of one period."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Inverting a Product by Convolution",
+          "setup": "Invert $Y(s) = \\dfrac{1}{s^2(s^2+1)}$ by reading it as\n$\\dfrac{1}{s^2}\\cdot\\dfrac{1}{s^2+1}$, i.e. $f(t)=t$ convolved with $g(t)=\\sin t$:\n\\[ \\textcolor{workpurple}{y(t) = \\int_0^t \\tau\\,\\sin(t-\\tau)\\,d\\tau.} \\]\nIntegrate by parts (or use the angle expansion):\n\\[ \\textcolor{workpurple}{y(t) = \\big[\\tau\\cos(t-\\tau)\\big]_0^t\n   - \\int_0^t \\cos(t-\\tau)\\,d\\tau = t - \\sin t.} \\]\nA check confirms it: partial fractions give\n$\\frac{1}{s^2(s^2+1)} = \\frac{1}{s^2} - \\frac{1}{s^2+1}$, which also inverts to\n$t - \\sin t$.",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- A Convolution-Type Volterra Equation",
+          "setup": "Solve $y(t) = t + \\displaystyle\\int_0^t y(\\tau)\\sin(t-\\tau)\\,d\\tau$. The integral is\n$y * \\sin t$, so transform both sides with $\\mathcal{L}\\{\\sin t\\}=\\frac{1}{s^2+1}$:\n\\[ \\textcolor{workpurple}{Y = \\frac{1}{s^2} + Y\\cdot\\frac{1}{s^2+1}\n   \\;\\Rightarrow\\; Y\\left(1 - \\frac{1}{s^2+1}\\right) = \\frac{1}{s^2}.} \\]\nSimplify $1-\\frac{1}{s^2+1} = \\frac{s^2}{s^2+1}$:\n\\[ \\textcolor{workpurple}{Y\\cdot\\frac{s^2}{s^2+1} = \\frac{1}{s^2}\n   \\;\\Rightarrow\\; Y(s) = \\frac{s^2+1}{s^4} = \\frac{1}{s^2} + \\frac{1}{s^4}.} \\]\n\\[ \\textcolor{workpurple}{y(t) = t + \\frac{t^3}{6}.} \\]",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- Square Wave",
+          "setup": "For the square wave that is $1$ on $[0,a)$ and $0$ on $[a,2a)$ with period $T=2a$,\nonly the first half-period contributes to the integral:\n\\[ \\textcolor{workpurple}{\\int_0^{2a} e^{-st}f(t)\\,dt = \\int_0^{a} e^{-st}\\,dt\n   = \\frac{1-e^{-as}}{s}.} \\]\n\\[ \\textcolor{workpurple}{\\mathcal{L}\\{f\\} = \\frac{1-e^{-as}}{s\\,(1-e^{-2as})}\n   = \\frac{1}{s\\,(1+e^{-as})},} \\]\nusing $1-e^{-2as}=(1-e^{-as})(1+e^{-as})$.",
+          "steps": []
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Know the \\textcolor{accentorange}{impulse response} and you know the response to\neverything: steps, ramps, sinusoids, arbitrary signals --- all obtained by one\nconvolution. This is why $h(t)$ (equivalently $H(s)$) is treated as the complete\ncharacterization of a linear time-invariant system."
+      },
+      "warning": {
+        "title": "Common Pitfall: $\\mathcal{L}\\{fg\\}\\ne F(s)G(s)$",
+        "body": "The transform of a \\emph{product} is not the product of transforms. $F(s)G(s)$\ninverts to the \\emph{convolution} $f*g$, never to $f(t)g(t)$. Use convolution to\ninvert a transform that is naturally a product --- especially $Y(s)=H(s)\\cdot R(s)$,\nsystem times input."
+      },
+      "quiz": [
+        {
+          "id": "mp_AgKQQtEc9dk_1",
+          "prompt": "How is the convolution $(f * g)(t)$ defined?",
+          "answer": "$\\int_0^t f(\\tau)\\,g(t - \\tau)\\,d\\tau$"
+        },
+        {
+          "id": "mp_AgKQQtEc9dk_2",
+          "prompt": "The convolution theorem states that $\\mathcal{L}\\{f * g\\}$ equals what?",
+          "answer": "$F(s)\\,G(s)$"
+        },
+        {
+          "id": "mp_GqsYBeKGdgA_1",
+          "prompt": "For a function periodic with period $T$, the Laplace transform is given by which formula?",
+          "answer": "$\\frac{1}{1 - e^{-sT}}\\int_0^T e^{-st} f(t)\\,dt$"
+        },
+        {
+          "id": "mp_GqsYBeKGdgA_2",
+          "prompt": "In the periodic transform formula, what does $T$ represent?",
+          "answer": "The period of the function"
+        }
+      ]
+    },
+    {
+      "id": "12.10",
+      "title": "The Fourier Connection",
+      "topics": "The Laplace transform as a damped, one-sided Fourier transform, and the imaginary axis as the Fourier axis where the frequency response lives.",
+      "formulas": [
+        {
+          "title": "Laplace as a Damped Fourier Transform",
+          "body": "Write $s = \\sigma + i\\omega$. Then\n\\[ F(s) = \\int_0^\\infty e^{-(\\sigma + i\\omega)t} f(t)\\,dt\n   = \\int_0^\\infty \\big[\\,e^{-\\sigma t} f(t)\\,\\big]\\,e^{-i\\omega t}\\,dt. \\]\nThis is the Fourier transform of the \\emph{damped, one-sided} signal\n$e^{-\\sigma t}f(t)$. Setting $\\sigma=0$ (evaluating on the imaginary axis $s=i\\omega$)\nrecovers the Fourier transform itself, when it exists."
+        }
+      ],
+      "examples": [],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "The imaginary axis $s = i\\omega$ is the \\textcolor{accentorange}{Fourier axis}: the\nsystem's frequency response is just $H(s)$ evaluated there, $H(i\\omega)$. The real\npart $\\sigma$ of $s$ is the convergence knob Fourier lacks --- it is what lets Laplace\nhandle growing and switched-on transients that pure Fourier analysis cannot."
+      },
+      "quiz": [
+        {
+          "id": "mp_3gjJDuCAEQQ_1",
+          "prompt": "How do the Fourier and Laplace transforms differ in the frequencies they use?",
+          "answer": "Fourier uses purely imaginary frequencies, while Laplace uses general complex $s$"
+        },
+        {
+          "id": "mp_3gjJDuCAEQQ_2",
+          "prompt": "What does the Laplace transform add to the Fourier kernel that aids convergence?",
+          "answer": "A real decaying factor $e^{-\\sigma t}$"
+        },
+        {
+          "id": "mp_7UvtU75NXTg_1",
+          "prompt": "Setting $s = i\\omega$ in the Laplace transform recovers which transform?",
+          "answer": "The Fourier transform"
+        },
+        {
+          "id": "mp_7UvtU75NXTg_2",
+          "prompt": "In what sense is the Laplace transform a generalization of the Fourier transform?",
+          "answer": "It evaluates the kernel for complex $s$, not just the imaginary axis"
+        }
+      ]
+    },
+    {
+      "id": "12.11",
+      "title": "Frequency Domain and Pole Diagrams",
+      "topics": "Transfer functions, poles as natural frequencies, stability from pole locations, resonance as a repeated pole, and the initial- and final-value theorems for steady-state analysis.",
+      "formulas": [
+        {
+          "title": "Transfer Function",
+          "body": "For a linear time-invariant system $a_n y^{(n)}+\\cdots+a_0 y = r(t)$ at rest,\n\\[ H(s) = \\frac{Y(s)}{R(s)} = \\frac{1}{a_n s^n + a_{n-1}s^{n-1} + \\cdots + a_0}\n   = \\frac{1}{p(s)}, \\]\nwhere $p(s)$ is the system's characteristic polynomial. The numerator and denominator\nencode, respectively, the system's zeros and poles."
+        },
+        {
+          "title": "Poles and Behavior",
+          "body": "A pole at $s = \\alpha + i\\beta$ contributes a mode $e^{\\alpha t}\\cos(\\beta t)$ (or\n$\\sin$). Therefore:\n\\[\n\\begin{aligned}\n\\alpha < 0 \\;(\\text{left half-plane}) &\\;\\Rightarrow\\; \\text{decaying mode (stable)},\\\\\n\\alpha = 0 \\;(\\text{imaginary axis}) &\\;\\Rightarrow\\; \\text{sustained oscillation (marginal)},\\\\\n\\alpha > 0 \\;(\\text{right half-plane}) &\\;\\Rightarrow\\; \\text{growing mode (unstable)}.\n\\end{aligned}\n\\]\n$\\beta$ sets the oscillation frequency; $\\alpha$ sets the growth or decay rate."
+        },
+        {
+          "title": "Initial- and Final-Value Theorems",
+          "body": "The endpoints of $f(t)$ can be read \\emph{directly from $F(s)$}, without inverting:\n\\[ f(0^+) = \\lim_{s\\to\\infty} s\\,F(s), \\qquad\n   \\lim_{t\\to\\infty} f(t) = \\lim_{s\\to 0} s\\,F(s). \\]"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Step Response of a First-Order System",
+          "setup": "Take $\\tau y' + y = r(t)$ at rest, so $H(s) = \\dfrac{1}{\\tau s + 1}$. The unit-step\ninput $r(t)=u(t)$ has $R(s)=1/s$, so\n\\[ \\textcolor{workpurple}{Y(s) = H(s)R(s) = \\frac{1}{s(\\tau s + 1)}\n   = \\frac{1}{s} - \\frac{\\tau}{\\tau s + 1}.} \\]\nInverting (the second term is $\\frac{1}{s + 1/\\tau}$ in disguise):\n\\[ \\textcolor{workpurple}{y(t) = 1 - e^{-t/\\tau}.} \\]\nThe output relaxes to its steady state $1$ on the time scale $\\tau$ --- the classic\nexponential-approach step response of a first-order lag.",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- Pure Resonance",
+          "setup": "Solve $y'' + \\omega^2 y = \\cos\\omega t$, $y(0)=y'(0)=0$. Transforming:\n\\[ \\textcolor{workpurple}{(s^2+\\omega^2)Y = \\frac{s}{s^2+\\omega^2}\n   \\;\\Rightarrow\\; Y(s) = \\frac{s}{(s^2+\\omega^2)^2}.} \\]\nThe \\emph{repeated} pole at $s=\\pm i\\omega$ is the signature of resonance. Inverting\n(via $\\mathcal{L}\\{t\\sin\\omega t\\}$):\n\\[ \\textcolor{workpurple}{y(t) = \\frac{t}{2\\omega}\\,\\sin\\omega t.} \\]\nThe factor of $t$ --- a growing envelope --- is exactly what the doubled pole\npredicts.",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- Beats (Near Resonance)",
+          "setup": "Drive off-frequency: $y'' + \\omega^2 y = \\cos\\nu t$ with $\\nu\\ne\\omega$, at rest.\nTransforming,\n\\[ \\textcolor{workpurple}{Y(s) = \\frac{s}{(s^2+\\omega^2)(s^2+\\nu^2)}.} \\]\nNow the poles at $\\pm i\\omega$ and $\\pm i\\nu$ are \\emph{distinct}, so partial\nfractions give a difference of two bounded cosines:\n\\[ \\textcolor{workpurple}{y(t) = \\frac{\\cos\\nu t - \\cos\\omega t}{\\omega^2 - \\nu^2}.} \\]\nAs $\\nu\\to\\omega$ the two frequencies nearly cancel, producing the slow\namplitude-modulated envelope of \\textbf{beats} --- and in the exact limit the\ndenominator $\\omega^2-\\nu^2\\to 0$ forces the repeated pole and the $t$-growth of pure\nresonance.",
+          "steps": []
+        },
+        {
+          "title": "Worked Example --- Steady State Without Inverting",
+          "setup": "Reuse the step response $Y(s) = \\dfrac{1}{s(\\tau s + 1)}$. The final-value theorem\nreads the long-run value straight off:\n\\[ \\textcolor{workpurple}{\\lim_{t\\to\\infty} y(t) = \\lim_{s\\to 0} s\\cdot\n   \\frac{1}{s(\\tau s + 1)} = \\lim_{s\\to 0}\\frac{1}{\\tau s + 1} = 1,} \\]\nmatching $1 - e^{-t/\\tau}\\to 1$ without ever inverting. The initial value checks too:\n$\\lim_{s\\to\\infty} sY(s) = \\lim_{s\\to\\infty}\\frac{1}{\\tau s + 1} = 0 = y(0)$.",
+          "steps": []
+        }
+      ],
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "A system is \\textcolor{accentorange}{BIBO stable} exactly when \\emph{all} poles lie\nstrictly in the left half-plane. A single repeated pole on the imaginary axis is the\nalgebraic face of \\textcolor{accentorange}{resonance}: a bounded input produces an unbounded,\n$t$-growing output. Resonance does not come from a pole being ``large''; it comes\nfrom a pole being \\emph{repeated} --- always check pole \\emph{multiplicity}, not just\nlocation, before declaring a system resonant."
+      },
+      "warning": {
+        "title": "Common Pitfall: The Final-Value Theorem Has Fine Print",
+        "body": "The final-value theorem is valid \\textbf{only when} $\\lim_{t\\to\\infty}f(t)$ actually\nexists --- equivalently, when every pole of $sF(s)$ lies strictly in the left\nhalf-plane. Applied blindly to $F(s)=\\dfrac{\\omega}{s^2+\\omega^2}$ it would\n``predict'' $0$, yet $\\sin\\omega t$ has no limit. Always confirm the poles before\ntrusting the steady-state value."
+      },
+      "quiz": [
+        {
+          "id": "mp_noycLIZbK_k_1",
+          "prompt": "What distinguishes the time domain from the frequency domain?",
+          "answer": "The time domain describes a signal versus $t$; the frequency domain describes its content versus frequency"
+        },
+        {
+          "id": "mp_noycLIZbK_k_2",
+          "prompt": "What is the role of a transform like Laplace or Fourier in this context?",
+          "answer": "It moves a signal between the time and frequency domains"
+        },
+        {
+          "id": "mp_pUFSXhoazY8_1",
+          "prompt": "In a pole diagram, what are the poles of a transform $F(s)$?",
+          "answer": "The values of $s$ where the denominator is zero"
+        },
+        {
+          "id": "mp_pUFSXhoazY8_2",
+          "prompt": "A pole located in the left half-plane (negative real part) corresponds to what time behavior?",
+          "answer": "A decaying term"
+        }
+      ]
+    },
+    {
+      "id": "12.12",
+      "title": "Deriving the Transform from First Principles",
+      "topics": "The transform as the continuous limit of a power series, half-integer powers and the Gamma function, Abel's integral equation, and PDEs dispatched by transforming in $t$.",
+      "formulas": [
+        {
+          "title": "From Power Series to the Transform",
+          "body": "The transform is the continuous limit of a power series. Replacing the discrete\n$\\sum a_n x^n$ with the integral $\\int_0^\\infty f(t)\\,x^t\\,dt$ and writing $x=e^{-s}$\n(so $x^t=e^{-st}$) yields exactly\n\\[ \\int_0^\\infty e^{-st}f(t)\\,dt. \\]\nThe coefficient sequence $a_n$ becomes the function $f(t)$; the variable $x$ inside\nthe unit interval becomes the half-plane variable $s$."
+        },
+        {
+          "title": "Abel's Equation and Its Kernel",
+          "body": "Abel's equation --- the tautochrone problem of finding a curve of constant descent\ntime --- is a convolution against a half-power kernel:\n\\[ \\int_0^t \\frac{\\phi(\\tau)}{\\sqrt{t-\\tau}}\\,d\\tau = f(t), \\qquad\n   \\mathcal{L}\\!\\left\\{ t^{-1/2} \\right\\} = \\sqrt{\\frac{\\pi}{s}}. \\]\nThe left side is $\\phi * t^{-1/2}$, so transforming gives\n$\\Phi(s)\\sqrt{\\pi/s} = F(s)$, hence $\\Phi(s) = \\sqrt{s/\\pi}\\,F(s)$, which inverts to a\n$\\tfrac12$-order derivative of $f$."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Worked Example --- Heat Equation on a Half-Line",
+          "setup": "For $u_t = k\\,u_{xx}$, $x>0$, with $u(x,0)=0$, $u(0,t)=u_0$, and $u$ bounded as\n$x\\to\\infty$, transforming gives\n\\[ \\textcolor{workpurple}{s\\,U = k\\,U_{xx} \\;\\Rightarrow\\; U_{xx} - \\tfrac{s}{k}U = 0.} \\]\nThe bounded solution is $U(x,s)=A(s)e^{-\\sqrt{s/k}\\,x}$, and $U(0,s)=u_0/s$ fixes\n$A=u_0/s$:\n\\[ \\textcolor{workpurple}{U(x,s) = \\frac{u_0}{s}\\,e^{-\\sqrt{s/k}\\,x}\n   \\;\\Longrightarrow\\; u(x,t) = u_0\\,\\operatorname{erfc}\\!\\left(\\frac{x}{2\\sqrt{kt}}\\right).} \\]\nThe $e^{-\\sqrt{s}\\,x}$ signature is the hallmark of diffusion and inverts to the\ncomplementary error function.",
+          "steps": []
+        }
+      ],
+      "methodology": {
+        "title": "Laplace Method for an Evolution PDE",
+        "steps": [
+          "Apply $\\mathcal{L}_t$ to the PDE. Time derivatives become algebra\n($u_t \\to s\\,U - u(x,0)$); spatial derivatives survive as\n$U_{xx}=\\partial_{xx}U(x,s)$.",
+          "Solve the resulting ODE in $x$ for $U(x,s)$, applying the boundary\nconditions (also transformed) and discarding solutions that blow up.",
+          "Invert $U(x,s)$ in $s$ to recover $u(x,t)$."
+        ]
+      },
+      "concept": {
+        "title": "Key Takeaway",
+        "body": "Half-integer powers of $t$ transform to half-integer powers of $s$ through\n$\\mathcal{L}\\{t^{a}\\} = \\dfrac{\\Gamma(a+1)}{s^{a+1}}$. This is what lets the Laplace\nmethod dispatch the \\textcolor{accentorange}{fractional-order} kernels that appear in\nAbel-type and diffusion problems."
+      },
+      "quiz": [
+        {
+          "id": "mp_zNnHr1bjC04_1",
+          "prompt": "The Laplace transform can be motivated as the continuous analog of which discrete object?",
+          "answer": "A power series, or generating function, $\\sum a_n x^n$"
+        },
+        {
+          "id": "mp_zNnHr1bjC04_2",
+          "prompt": "In passing from a power series to the Laplace transform, the discrete sum is replaced by what?",
+          "answer": "An integral over a continuous variable"
+        },
+        {
+          "id": "mp_zvbdoSeGAgI_1",
+          "prompt": "In Mattuck's derivation, a power series $\\sum a_n x^n$ is connected to the Laplace transform by which substitution?",
+          "answer": "$x = e^{-s}$"
+        },
+        {
+          "id": "mp_zvbdoSeGAgI_2",
+          "prompt": "With the substitution $x = e^{-s}$, the term $x^n$ becomes what?",
+          "answer": "$e^{-sn}$"
+        }
+      ]
+    }
+  ],
+  "practice": {
+    "problems": [
+      "(From the definition) Using only the defining integral $\\int_0^\\infty e^{-st}f\\,dt$, compute $\\mathcal{L}\\{e^{3t}\\}$ and state the half-plane of convergence.",
+      "(Linearity and the table) Find $\\mathcal{L}\\{3t^2 - 2\\cos 4t + 5\\}$.",
+      "(First shift theorem) Find $\\mathcal{L}\\{e^{-2t}\\sin 3t\\}$.",
+      "(Derivative rule on an IVP) Transform $y'' + 4y = 0$ with $y(0)=1$, $y'(0)=0$, solve for $Y(s)$, and invert to find $y(t)$.",
+      "($t$-multiplication rule) Find $\\mathcal{L}\\{t\\,e^{2t}\\}$ using $\\mathcal{L}\\{t f(t)\\} = -F'(s)$.",
+      "(Inverse --- distinct roots) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{s+7}{(s-1)(s+3)}\\right\\}$.",
+      "(Inverse --- complete the square) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{1}{s^2+4s+13}\\right\\}$.",
+      "(Inverse --- repeated root) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{3s+1}{(s+2)^2}\\right\\}$.",
+      "(Full five-step IVP) Solve $y'' + 3y' + 2y = 0$ with $y(0)=1$, $y'(0)=0$ by the Laplace method.",
+      "(Heaviside shifting, forward) Find $\\mathcal{L}\\{u(t-3)\\cos(t-3)\\}$, then find $\\mathcal{L}\\{u(t-2)\\,t^2\\}$ by first re-expressing $t^2$ in $(t-2)$.",
+      "(Heaviside shifting, inverse) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{e^{-2s}}{s^2}\\right\\}$.",
+      "(Dirac impulse response, capstone) Solve $y'' + 4y = \\delta(t-\\pi)$ with $y(0)=0$, $y'(0)=0$, and describe the motion before and after the kick."
+    ],
+    "solutions": [
+      "\\noindent\\textbf{Solution 1.}\\quadMerge the two exponentials and integrate: $$ \\int_0^\\infty e^{-st}e^{3t}\\,dt = \\int_0^\\infty e^{-(s-3)t}\\,dt = \\left[-\\tfrac{1}{s-3}e^{-(s-3)t}\\right]_0^\\infty = \\frac{1}{s-3}. $$ The boundary term at $\\infty$ vanishes only when $s-3>0$, so the transform converges for $s>3$.",
+      "\\noindent\\textbf{Solution 2.}\\quadApply linearity term by term with $\\mathcal{L}\\{t^2\\}=2/s^3$, $\\mathcal{L}\\{\\cos 4t\\}=s/(s^2+16)$, $\\mathcal{L}\\{1\\}=1/s$: $$ \\mathcal{L}\\{3t^2 - 2\\cos 4t + 5\\} = \\frac{6}{s^3} - \\frac{2s}{s^2+16} + \\frac{5}{s}. $$",
+      "\\noindent\\textbf{Solution 3.}\\quadStart from $\\mathcal{L}\\{\\sin 3t\\}=\\dfrac{3}{s^2+9}$ and apply the first shift $s\\mapsto s+2$: $$ \\mathcal{L}\\{e^{-2t}\\sin 3t\\} = \\left.\\frac{3}{s^2+9}\\right|_{s\\to s+2} = \\frac{3}{(s+2)^2+9}. $$ The completed-square denominator $(s+2)^2+9$ is the fingerprint of a damped oscillation.",
+      "\\noindent\\textbf{Solution 4.}\\quadTransform with $\\mathcal{L}\\{y''\\}=s^2Y-sy(0)-y'(0)$ and substitute $y(0)=1$, $y'(0)=0$: $$ (s^2 Y - s) + 4Y = 0 \\;\\Rightarrow\\; (s^2+4)Y = s \\;\\Rightarrow\\; Y(s) = \\frac{s}{s^2+4}. $$ This is exactly $\\mathcal{L}\\{\\cos 2t\\}$, so $$ y(t) = \\cos 2t. $$",
+      "\\noindent\\textbf{Solution 5.}\\quadWith $F(s)=\\mathcal{L}\\{e^{2t}\\}=\\dfrac{1}{s-2}$, apply $\\mathcal{L}\\{tf\\}=-F'(s)$: $$ \\mathcal{L}\\{t e^{2t}\\} = -\\frac{d}{ds}\\!\\left(\\frac{1}{s-2}\\right) = -\\left(-\\frac{1}{(s-2)^2}\\right) = \\frac{1}{(s-2)^2}. $$ Equivalently, this is the first shift applied to $\\mathcal{L}\\{t\\}=1/s^2$.",
+      "\\noindent\\textbf{Solution 6.}\\quadDecompose $\\dfrac{s+7}{(s-1)(s+3)} = \\dfrac{A}{s-1} + \\dfrac{B}{s+3}$. Clearing denominators, $s+7 = A(s+3) + B(s-1)$. Set $s=1$: $8=4A\\Rightarrow A=2$. Set $s=-3$: $4=-4B\\Rightarrow B=-1$: $$ \\frac{s+7}{(s-1)(s+3)} = \\frac{2}{s-1} - \\frac{1}{s+3} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 2e^{t} - e^{-3t}. $$",
+      "\\noindent\\textbf{Solution 7.}\\quadComplete the square in the denominator: $s^2+4s+13 = (s+2)^2 + 9$. This matches the shifted $\\sin$ with $a=-2$, $\\omega=3$, and a $1/\\omega$ scale: $$ \\frac{1}{(s+2)^2+3^2} = \\frac{1}{3}\\cdot\\frac{3}{(s+2)^2+3^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = \\frac{1}{3}\\,e^{-2t}\\sin 3t. $$",
+      "\\noindent\\textbf{Solution 8.}\\quadA repeated factor needs two terms, $\\dfrac{3s+1}{(s+2)^2} = \\dfrac{A}{s+2} + \\dfrac{B}{(s+2)^2}$. Then $3s+1 = A(s+2)+B$, so $A=3$ and $B = 1-2A = -5$: $$ \\frac{3}{s+2} - \\frac{5}{(s+2)^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 3e^{-2t} - 5t\\,e^{-2t} = (3-5t)\\,e^{-2t}. $$ The $t e^{-2t}$ term is the signature of the repeated real root.",
+      "\\noindent\\textbf{Solution 9.}\\quadTransform and substitute $y(0)=1$, $y'(0)=0$: $$ (s^2 Y - s) + 3(sY - 1) + 2Y = 0 \\;\\Rightarrow\\; (s^2+3s+2)Y = s+3. $$ Factor $s^2+3s+2=(s+1)(s+2)$ and decompose $\\dfrac{s+3}{(s+1)(s+2)} = \\dfrac{A}{s+1}+\\dfrac{B}{s+2}$ with $A=2$, $B=-1$: $$ Y(s) = \\frac{2}{s+1} - \\frac{1}{s+2} \\;\\Longrightarrow\\; y(t) = 2e^{-t} - e^{-2t}. $$",
+      "\\noindent\\textbf{Solution 10.}\\quadThe first part is the second shift applied to $\\mathcal{L}\\{\\cos t\\}=\\dfrac{s}{s^2+1}$ with $c=3$: $$ \\mathcal{L}\\{u(t-3)\\cos(t-3)\\} = e^{-3s}\\,\\frac{s}{s^2+1}. $$ For the second part, the argument $t^2$ must be rewritten in $(t-2)$ before the theorem applies: $t^2 = (t-2)^2 + 4(t-2) + 4$. Transform each shifted piece ($\\mathcal{L}\\{t^2\\}=2/s^3$, $\\mathcal{L}\\{t\\}=1/s^2$, $\\mathcal{L}\\{1\\}=1/s$) and attach $e^{-2s}$: $$ \\mathcal{L}\\{u(t-2)\\,t^2\\} = e^{-2s}\\!\\left(\\frac{2}{s^3} + \\frac{4}{s^2} + \\frac{4}{s}\\right). $$",
+      "\\noindent\\textbf{Solution 11.}\\quadThe factor $e^{-2s}$ signals a delay by $c=2$. Since $\\mathcal{L}^{-1}\\{1/s^2\\}=t$, the second shift gives $$ \\mathcal{L}^{-1}\\!\\left\\{\\frac{e^{-2s}}{s^2}\\right\\} = u(t-2)\\,(t-2). $$ The response is a ramp that stays flat at zero until it switches on at $t=2$.",
+      "\\noindent\\textbf{Solution 12.}\\quadTransform with $\\mathcal{L}\\{\\delta(t-\\pi)\\}=e^{-\\pi s}$ and zero initial data: $$ (s^2+4)Y = e^{-\\pi s} \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\,\\frac{1}{s^2+4}. $$ Since $\\mathcal{L}^{-1}\\{1/(s^2+4)\\} = \\tfrac{1}{2}\\sin 2t$, the second shift gives $$ y(t) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin\\big(2(t-\\pi)\\big) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin 2t. $$ The mass sits at rest until the impulse at $t=\\pi$, which jolts the velocity and launches free oscillation thereafter --- the impulse response switched on at the kick."
+    ]
+  }
+}

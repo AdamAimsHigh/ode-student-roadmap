@@ -7,15 +7,18 @@ Targets (all carry a GENERATED banner; never hand-edit them):
   ode/data/curriculum.json    legacy-shaped mirror
   ode/data/quizzes.json       legacy-shaped mirror
 
-Legacy shapes are preserved exactly (Pillar 1 and the router contract):
+Router contract (Phase 2, id-keyed + HTML lowering):
   * curriculum modules re-join as "<id> <title>" with video_id /
-    interactive_checkpoint field names;
-  * QUIZ_DATA.unit_mastery is keyed by the exact unit title (until the Phase 2
-    router migration);
-  * PRACTICE_DATA strings are web-lowered: display delimiters normalized to
-    $$, semantic macros unwrapped, print spacing commands stripped, house-style
-    dashes, whitespace collapsed (the faithful port of the retired
-    build_practice_data.py sanitizer).
+    interactive_checkpoint field names (unchanged legacy shape);
+  * QUIZ_DATA.unit_mastery is keyed by the unit number (as a string object
+    key), replacing the Phase 1 title keys;
+  * PRACTICE_DATA strings are HTML-lowered and are injected by the router via
+    innerHTML: display delimiters normalized to $$, literal & < > escaped to
+    entities (KaTeX reads the resulting text nodes verbatim), semantic macros
+    lowered to HTML elements in prose (\\strong -> <strong>, \\emph -> <em>,
+    \\highlight/\\work/\\warn -> classed spans styled in ode/css/main.css) and
+    unwrapped inside math spans exactly as Phase 1 did, print spacing commands
+    stripped, house-style dashes in prose, whitespace collapsed.
 
 Modes:
   python scripts/compile_web.py                  compile and write targets
@@ -46,9 +49,17 @@ TARGETS = {
     "quizzes_mirror": os.path.join("ode", "data", "quizzes.json"),
 }
 
-# Semantic macros unwrapped for the web (Phase 1: drop macro, keep body).
-# \emph is deliberately NOT unwrapped, matching the deployed store.
-WEB_UNWRAP = ["strong", "highlight", "work", "warn"]
+# Semantic macros in prose lower to HTML elements (Phase 2). Inside math spans
+# the same macros are unwrapped (drop macro, keep body) so KaTeX never sees
+# them, preserving the Phase 1 rendering of math content.
+PROSE_TAGS = {
+    "strong": ("<strong>", "</strong>"),
+    "emph": ("<em>", "</em>"),
+    "highlight": ('<span class="tx-highlight">', "</span>"),
+    "work": ('<span class="tx-work">', "</span>"),
+    "warn": ('<span class="tx-warn">', "</span>"),
+}
+MATH_UNWRAP = frozenset(["strong", "highlight", "work", "warn"])
 
 
 def load_json(path):
@@ -73,71 +84,93 @@ def load_content():
 
 
 # ---------------------------------------------------------------------------
-# Web lowering (faithful port of the retired build_practice_data.py sanitizer)
+# Web lowering: canonical MathText -> HTML-ready store string. One math-aware
+# scan tracks $ / $$ state and a brace stack, so a prose macro whose body
+# contains inline math still closes its element at the matching brace, and a
+# macro inside math is unwrapped without disturbing KaTeX grouping braces.
 # ---------------------------------------------------------------------------
-def _unwrap_command(s, cmd, nargs_before=0):
-    """Replace \\cmd{...}{BODY} with BODY, brace-balanced."""
-    needle = "\\" + cmd
-    out = []
-    i = 0
-    n = len(s)
-    while i < n:
-        j = s.find(needle, i)
-        if j == -1:
-            out.append(s[i:])
-            break
-        after = j + len(needle)
-        if after < n and s[after].isalpha():
-            out.append(s[i:after])
-            i = after
-            continue
-        out.append(s[i:j])
-        k = after
-        dropped = 0
-        body = None
-        while k < n:
-            while k < n and s[k] in " \t\n":
-                k += 1
-            if k >= n or s[k] != "{":
-                break
-            depth = 0
-            start = k
-            while k < n:
-                c = s[k]
-                if c == "{":
-                    depth += 1
-                elif c == "}":
-                    depth -= 1
-                    if depth == 0:
-                        k += 1
-                        break
-                k += 1
-            group = s[start + 1:k - 1]
-            if dropped < nargs_before:
-                dropped += 1
-                continue
-            body = group
-            break
-        if body is None:
-            out.append(needle)
-            i = after
-            continue
-        out.append(body)
-        i = k
-    return "".join(out)
+_ENTITIES = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
+
+
+def _esc(c):
+    return _ENTITIES.get(c, c)
 
 
 def web_lower(s):
-    """Lower one canonical MathText string into the web-store dialect."""
+    """Lower one canonical MathText string into the HTML web-store dialect."""
     s = s.replace("\\[", "$$").replace("\\]", "$$")
     s = s.replace("\\(", "$").replace("\\)", "$")
-    for cmd in WEB_UNWRAP:
-        s = _unwrap_command(s, cmd)
     s = re.sub(r"\\(noindent|medskip|smallskip|bigskip|par|clearpage|phantomsection)\b", "", s)
     s = re.sub(r"\\vspace\s*\{[^}]*\}", "", s)
-    s = s.replace("---", "—").replace("--", "–")
-    s = re.sub(r"\s+", " ", s).strip()
-    return s
+
+    out = []
+    stack = []   # per open brace group: ("tag", close) | ("unwrap",) | ("brace",)
+    math = None  # None (prose) | "$" | "$$"
+    i, n = 0, len(s)
+    while i < n:
+        c = s[i]
+        if c == "\\":
+            nxt = s[i + 1] if i + 1 < n else ""
+            if nxt.isalpha():
+                j = i + 1
+                while j < n and s[j].isalpha():
+                    j += 1
+                name = s[i + 1:j]
+                k = j
+                while k < n and s[k] in " \t\n":
+                    k += 1
+                semantic = name in (PROSE_TAGS if math is None else MATH_UNWRAP)
+                if semantic and k < n and s[k] == "{":
+                    if math is None:
+                        open_tag, close_tag = PROSE_TAGS[name]
+                        out.append(open_tag)
+                        stack.append(("tag", close_tag))
+                    else:
+                        stack.append(("unwrap",))
+                    i = k + 1
+                    continue
+                out.append("\\" + name)
+                i = j
+                continue
+            out.append("\\" + _esc(nxt))
+            i += 2
+            continue
+        if c == "$":
+            if math is None:
+                math = "$$" if s.startswith("$$", i) else "$"
+                width = len(math)
+            elif math == "$$" and s.startswith("$$", i):
+                math, width = None, 2
+            else:  # closes an inline span; a lone $ inside $$ cannot occur
+                math, width = None, 1
+            out.append(s[i:i + width])
+            i += width
+            continue
+        if c == "{":
+            stack.append(("brace",))
+            out.append("{")
+            i += 1
+            continue
+        if c == "}":
+            entry = stack.pop() if stack else ("brace",)
+            if entry[0] == "tag":
+                out.append(entry[1])
+            elif entry[0] == "brace":
+                out.append("}")
+            i += 1
+            continue
+        if math is None and s.startswith("---", i):
+            out.append("—")
+            i += 3
+            continue
+        if math is None and s.startswith("--", i):
+            out.append("–")
+            i += 2
+            continue
+        out.append(_esc(c))
+        i += 1
+
+    return re.sub(r"\s+", " ", "".join(out)).strip()
 
 
 # ---------------------------------------------------------------------------
@@ -174,7 +207,9 @@ def build_quiz_data_legacy(curriculum, units):
                 items = q["microPractice"].get(v["videoId"])
                 if items:
                     micro[v["videoId"]] = items
-        mastery[u["title"]] = q["unitMastery"]
+        # Phase 2 router contract: mastery banks are keyed by the unit number
+        # (stringified object key), not the display title.
+        mastery[str(n)] = q["unitMastery"]
     return {"micro_practice": micro, "unit_mastery": mastery}
 
 
@@ -227,8 +262,9 @@ def compile_all():
         + "const ALL_MODULES = CURRICULUM.reduce(function (acc, unit) {\n"
         + "    return acc.concat(unit.modules);\n}, []);\n")
     files["quiz_js"] = (
-        banner("QUIZ_DATA (micro-practice + unit mastery) and PRACTICE_DATA "
-               "(the practice problem matrix).", sv)
+        banner("QUIZ_DATA (micro-practice keyed by video id; unit mastery keyed "
+               "by unit number) and PRACTICE_DATA (the practice problem matrix; "
+               "problem/solution strings are HTML-ready for innerHTML + KaTeX).", sv)
         + "const QUIZ_DATA = " + js_literal(quiz_data) + ";\n\n"
         + "const PRACTICE_DATA = " + js_literal(practice_data) + ";\n")
     files["curriculum_mirror"] = js_literal(curriculum_legacy, indent=2) + "\n"

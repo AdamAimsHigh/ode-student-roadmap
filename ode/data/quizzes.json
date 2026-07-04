@@ -30503,7 +30503,7 @@
     ]
   },
   "unit_mastery": {
-    "Unit 0: What are Differential Equations": [
+    "0": [
       {
         "id": "um_0_1",
         "prompt": "Which feature most fundamentally identifies an equation as a differential equation?",
@@ -31225,7 +31225,7 @@
         ]
       }
     ],
-    "Unit 1: Foundations and Prerequisites": [
+    "1": [
       {
         "id": "um_1_1",
         "prompt": "Using the power rule, what is $\\frac{d}{dx}x^{7}$?",
@@ -31947,7 +31947,7 @@
         ]
       }
     ],
-    "Unit 2: First Order Linear Differential Equations": [
+    "2": [
       {
         "id": "um_2_1",
         "prompt": "Which of the following first order equations is separable?",
@@ -32669,7 +32669,7 @@
         ]
       }
     ],
-    "Unit 3: Existence, Uniqueness, and Geometry": [
+    "3": [
       {
         "id": "um_3_1",
         "prompt": "For $\\frac{dy}{dx} = f(x,y)$, a slope field places at each point of the plane which object?",
@@ -33391,7 +33391,7 @@
         ]
       }
     ],
-    "Unit 4: Autonomous Equations, Equilibrium Solutions, and Stability": [
+    "4": [
       {
         "id": "um_4_1",
         "prompt": "An equilibrium solution of $\\frac{dy}{dt} = f(y)$ is a constant $y = c$ for which condition?",
@@ -34113,7 +34113,7 @@
         ]
       }
     ],
-    "Unit 5: Numerical Methods": [
+    "5": [
       {
         "id": "um_5_1",
         "prompt": "Euler's method advances the solution using which update?",
@@ -34835,7 +34835,7 @@
         ]
       }
     ],
-    "Unit 6: Multivariable Calculus Foundations": [
+    "6": [
       {
         "id": "um_6_1",
         "prompt": "To compute $f_x$ for $f(x, y)$, you differentiate in $x$ while doing what?",
@@ -35557,7 +35557,7 @@
         ]
       }
     ],
-    "Unit 7: First-Order Exactness and Methods": [
+    "7": [
       {
         "id": "um_7_1",
         "prompt": "The differential equation $M\\,dx + N\\,dy = 0$ is exact precisely when which equation holds?",
@@ -36279,7 +36279,7 @@
         ]
       }
     ],
-    "Unit 8: Special Equations and Classical Models": [
+    "8": [
       {
         "id": "um_8_1",
         "prompt": "A Clairaut equation has which general form, with $p = \\frac{dy}{dx}$?",
@@ -37001,7 +37001,7 @@
         ]
       }
     ],
-    "Unit 9: Second-Order Linear Equations, Theory and Structure": [
+    "9": [
       {
         "id": "um_9_1",
         "prompt": "What is the general form of a linear second-order differential equation?",
@@ -37723,7 +37723,7 @@
         ]
       }
     ],
-    "Unit 10: Nonhomogeneous Equations and Forced Response": [
+    "10": [
       {
         "id": "um_10_1",
         "prompt": "The general solution of a nonhomogeneous linear equation $L[y] = g$ is which sum?",
@@ -38445,7 +38445,7 @@
         ]
       }
     ],
-    "Unit 11: Mechanical Vibrations and Oscillators": [
+    "11": [
       {
         "id": "um_11_1",
         "prompt": "Hooke's law for an ideal spring states the restoring force is which expression?",
@@ -39167,7 +39167,7 @@
         ]
       }
     ],
-    "Unit 12: The Laplace Transform": [
+    "12": [
       {
         "id": "um_12_1",
         "prompt": "The Laplace transform of $f(t)$ is defined by which integral?",
@@ -39889,7 +39889,7 @@
         ]
       }
     ],
-    "Unit 13: Series Solutions": [
+    "13": [
       {
         "id": "um_13_1",
         "prompt": "The Taylor coefficient of $(x - a)^n$ for a function $f$ expanded about $a$ is which expression?",
@@ -40611,7 +40611,7 @@
         ]
       }
     ],
-    "Unit 14: Linear Algebra Foundations for Systems": [
+    "14": [
       {
         "id": "um_14_1",
         "prompt": "What is a linear combination of vectors $\\mathbf{v}$ and $\\mathbf{w}$?",
@@ -41333,7 +41333,7 @@
         ]
       }
     ],
-    "Unit 15: Systems of Linear Differential Equations": [
+    "15": [
       {
         "id": "um_15_1",
         "prompt": "To convert $y'' + 5y' + 6y = 0$ into a first-order system with $x_1 = y$, $x_2 = y'$, what is $x_2'$?",
@@ -42055,7 +42055,7 @@
         ]
       }
     ],
-    "Unit 16: Phase Plane Analysis and Nonlinear Dynamics": [
+    "16": [
       {
         "id": "um_16_1",
         "prompt": "A phase portrait of $\\mathbf{x}' = A\\mathbf{x}$ plots what?",
@@ -42777,7 +42777,7 @@
         ]
       }
     ],
-    "Unit 17: Boundary Value Problems and Sturm-Liouville Theory": [
+    "17": [
       {
         "id": "um_17_1",
         "prompt": "What distinguishes a boundary value problem from an initial value problem?",
@@ -43499,7 +43499,7 @@
         ]
       }
     ],
-    "Unit 18: Fourier Series and Partial Differential Equations": [
+    "18": [
       {
         "id": "um_18_1",
         "prompt": "A Fourier series represents a periodic function as a sum of what?",

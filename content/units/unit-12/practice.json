@@ -28,17 +28,17 @@
     },
     {
       "id": "ps_12_6",
-      "problem": "(Inverse — distinct roots) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{s+7}{(s-1)(s+3)}\\right\\}$.",
+      "problem": "(Inverse --- distinct roots) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{s+7}{(s-1)(s+3)}\\right\\}$.",
       "solution": "Decompose $\\dfrac{s+7}{(s-1)(s+3)} = \\dfrac{A}{s-1} + \\dfrac{B}{s+3}$. Clearing denominators, $s+7 = A(s+3) + B(s-1)$. Set $s=1$: $8=4A\\Rightarrow A=2$. Set $s=-3$: $4=-4B\\Rightarrow B=-1$: $$ \\frac{s+7}{(s-1)(s+3)} = \\frac{2}{s-1} - \\frac{1}{s+3} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 2e^{t} - e^{-3t}. $$"
     },
     {
       "id": "ps_12_7",
-      "problem": "(Inverse — complete the square) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{1}{s^2+4s+13}\\right\\}$.",
+      "problem": "(Inverse --- complete the square) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{1}{s^2+4s+13}\\right\\}$.",
       "solution": "Complete the square in the denominator: $s^2+4s+13 = (s+2)^2 + 9$. This matches the shifted $\\sin$ with $a=-2$, $\\omega=3$, and a $1/\\omega$ scale: $$ \\frac{1}{(s+2)^2+3^2} = \\frac{1}{3}\\cdot\\frac{3}{(s+2)^2+3^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = \\frac{1}{3}\\,e^{-2t}\\sin 3t. $$"
     },
     {
       "id": "ps_12_8",
-      "problem": "(Inverse — repeated root) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{3s+1}{(s+2)^2}\\right\\}$.",
+      "problem": "(Inverse --- repeated root) Find $\\mathcal{L}^{-1}\\!\\left\\{\\dfrac{3s+1}{(s+2)^2}\\right\\}$.",
       "solution": "A repeated factor needs two terms, $\\dfrac{3s+1}{(s+2)^2} = \\dfrac{A}{s+2} + \\dfrac{B}{(s+2)^2}$. Then $3s+1 = A(s+2)+B$, so $A=3$ and $B = 1-2A = -5$: $$ \\frac{3}{s+2} - \\frac{5}{(s+2)^2} \\;\\Longrightarrow\\; \\mathcal{L}^{-1} = 3e^{-2t} - 5t\\,e^{-2t} = (3-5t)\\,e^{-2t}. $$ The $t e^{-2t}$ term is the signature of the repeated real root."
     },
     {
@@ -59,7 +59,7 @@
     {
       "id": "ps_12_12",
       "problem": "(Dirac impulse response, capstone) Solve $y'' + 4y = \\delta(t-\\pi)$ with $y(0)=0$, $y'(0)=0$, and describe the motion before and after the kick.",
-      "solution": "Transform with $\\mathcal{L}\\{\\delta(t-\\pi)\\}=e^{-\\pi s}$ and zero initial data: $$ (s^2+4)Y = e^{-\\pi s} \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\,\\frac{1}{s^2+4}. $$ Since $\\mathcal{L}^{-1}\\{1/(s^2+4)\\} = \\tfrac{1}{2}\\sin 2t$, the second shift gives $$ y(t) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin\\big(2(t-\\pi)\\big) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin 2t. $$ The mass sits at rest until the impulse at $t=\\pi$, which jolts the velocity and launches free oscillation thereafter — the impulse response switched on at the kick."
+      "solution": "Transform with $\\mathcal{L}\\{\\delta(t-\\pi)\\}=e^{-\\pi s}$ and zero initial data: $$ (s^2+4)Y = e^{-\\pi s} \\;\\Rightarrow\\; Y(s) = e^{-\\pi s}\\,\\frac{1}{s^2+4}. $$ Since $\\mathcal{L}^{-1}\\{1/(s^2+4)\\} = \\tfrac{1}{2}\\sin 2t$, the second shift gives $$ y(t) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin\\big(2(t-\\pi)\\big) = \\frac{1}{2}\\,u(t-\\pi)\\,\\sin 2t. $$ The mass sits at rest until the impulse at $t=\\pi$, which jolts the velocity and launches free oscillation thereafter --- the impulse response switched on at the kick."
     }
   ]
 }

@@ -1,10 +1,8 @@
 {
   "unit": "Unit 2: First Order Linear Differential Equations",
   "unitNumber": 2,
-  "is_rich_source": true,
   "title": "First Order Linear Differential Equations",
   "subtitle": "The core solving toolkit: separation of variables, integrating factors, initial value problems, substitutions, and first physical models.",
-  "cheatSubtitle": "Condensed Cheat Sheet: First Order Linear Differential Equations",
   "description": "The core solving toolkit: separation of variables, integrating factors, initial value problems, substitutions, and first physical models.",
   "atAGlance": {
     "title": "Unit 2 at a Glance: Core Sub-Topics",
@@ -17,6 +15,12 @@
       "\\textbf{Applications: Growth, Decay, and Newton's Law of Cooling} --- the exponential models that these methods unlock."
     ]
   },
+  "cheatSubtitle": "Condensed Cheat Sheet: First Order Linear Differential Equations",
+  "cheatTakeaway": {
+    "title": "Unit 2 Key Takeaway",
+    "body": "Every method in this unit reduces to a single move --- rewrite the equation\ninto a form you can integrate. \\textcolor{accentorange}{Separation of variables}\nsplits a factored rate law; the \\textcolor{accentorange}{integrating factor\n$\\mu = e^{\\int P\\,dx}$} collapses a linear left side into one derivative; and\nthe \\textcolor{accentorange}{substitution $y = vx$} turns a homogeneous equation\nseparable. Read the structure first, and the technique always follows."
+  },
+  "is_rich_source": true,
   "modules": [
     {
       "id": "2.1",
@@ -28,7 +32,6 @@
           "body": "A separable equation and its solution scheme:\n\\[\n    \\frac{dy}{dx} = g(x)\\,h(y)\n    \\quad\\Longrightarrow\\quad\n    \\int \\frac{1}{h(y)}\\,dy = \\int g(x)\\,dx + C.\n\\]\nOne constant $C$ suffices, since the two constants of integration merge into\na single arbitrary constant."
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 2.1: Solve $\\frac{dy}{dx} = 6x^{2}y$",
@@ -36,7 +39,6 @@
           "steps": []
         }
       ],
-      "concept": null,
       "warning": {
         "title": "Common Pitfall: Lost Equilibrium Solutions",
         "body": "Dividing by $h(y)$ silently assumes $h(y) \\neq 0$. Any constant value of $y$ that\nmakes $h(y) = 0$ is an equilibrium solution that this step can quietly discard ---\nalways check it separately."
@@ -52,6 +54,13 @@
           "body": "Standard form, integrating factor, and solution:\n\\[\n    \\frac{dy}{dx} + P(x)\\,y = Q(x),\n    \\qquad\n    \\mu(x) = e^{\\int P(x)\\,dx},\n\\]\n\\[\n    \\frac{d}{dx}\\big[\\mu(x)\\,y\\big] = \\mu(x)\\,Q(x)\n    \\quad\\Longrightarrow\\quad\n    y = \\frac{1}{\\mu(x)}\\left( \\int \\mu(x)\\,Q(x)\\,dx + C \\right).\n\\]"
         }
       ],
+      "examples": [
+        {
+          "title": "Worked Example 2.2: Solve $\\frac{dy}{dx} + y = e^{x}$",
+          "setup": "\\textbf{Step 1.} Read off $P(x) = 1$, so the integrating factor is\n\\[ \\mu = e^{\\int 1\\,dx} = e^{x}. \\]\n\\textbf{Step 2.} Multiply through; the left side collapses to a derivative:\n\\[ \\frac{d}{dx}\\big[e^{x}y\\big] = e^{x}\\cdot e^{x} = e^{2x}. \\]\n\\textbf{Step 3.} Integrate both sides:\n\\[ e^{x}y = \\frac{1}{2}e^{2x} + C. \\]\n\\textbf{Step 4.} Divide by $e^{x}$:\n\\[ y = \\frac{1}{2}e^{x} + C e^{-x}. \\]",
+          "steps": []
+        }
+      ],
       "methodology": {
         "title": "Algorithm: Solving a First-Order Linear Equation",
         "steps": [
@@ -60,16 +69,7 @@
           "Multiply through by $\\mu(x)$; the left side collapses to the single derivative $\\frac{d}{dx}\\big[\\mu(x)\\,y\\big]$.",
           "Integrate both sides, then divide by $\\mu(x)$ to isolate $y$."
         ]
-      },
-      "examples": [
-        {
-          "title": "Worked Example 2.2: Solve $\\frac{dy}{dx} + y = e^{x}$",
-          "setup": "\\textbf{Step 1.} Read off $P(x) = 1$, so the integrating factor is\n\\[ \\mu = e^{\\int 1\\,dx} = e^{x}. \\]\n\\textbf{Step 2.} Multiply through; the left side collapses to a derivative:\n\\[ \\frac{d}{dx}\\big[e^{x}y\\big] = e^{x}\\cdot e^{x} = e^{2x}. \\]\n\\textbf{Step 3.} Integrate both sides:\n\\[ e^{x}y = \\frac{1}{2}e^{2x} + C. \\]\n\\textbf{Step 4.} Divide by $e^{x}$:\n\\[ y = \\frac{1}{2}e^{x} + C e^{-x}. \\]",
-          "steps": []
-        }
-      ],
-      "concept": null,
-      "warning": null
+      }
     },
     {
       "id": "2.3",
@@ -81,16 +81,13 @@
           "body": "A first order equation needs exactly \\textbf{one} initial condition. The\ngeneral solution carries the free constant; the particular solution has it\ndetermined:\n\\[\n    y = F(x) + C \\;\\;\\xrightarrow{\\;y(x_0)=y_0\\;}\\;\\; C = y_0 - F(x_0).\n\\]"
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 2.3: Solve $\\frac{dy}{dx} = 3x^{2}$, $\\;y(1)=5$",
           "setup": "\\textbf{Step 1.} Integrate for the general solution:\n\\[ y = x^{3} + C. \\]\n\\textbf{Step 2.} Apply $y(1) = 5$:\n\\[ 5 = (1)^{3} + C \\;\\Longrightarrow\\; C = 4. \\]\n\\textbf{Step 3.} State the particular solution:\n\\[ y = x^{3} + 4. \\]",
           "steps": []
         }
-      ],
-      "concept": null,
-      "warning": null
+      ]
     },
     {
       "id": "2.4",
@@ -102,16 +99,13 @@
           "body": "For a homogeneous equation, set\n\\[\n    y = vx, \\qquad \\frac{dy}{dx} = v + x\\frac{dv}{dx},\n\\]\nwhich always reduces the equation to a \\emph{separable} one in $v$ and $x$.\nAfter solving for $v$, back-substitute $v = \\dfrac{y}{x}$."
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 2.4: Solve $\\frac{dy}{dx} = \\frac{x + 2y}{x}$",
           "setup": "\\textbf{Step 1.} Rewrite the right side and substitute $y = vx$:\n\\[ \\frac{dy}{dx} = 1 + 2\\frac{y}{x} = 1 + 2v, \\qquad v + x\\frac{dv}{dx} = 1 + 2v. \\]\n\\textbf{Step 2.} Cancel $v$ and separate:\n\\[ x\\frac{dv}{dx} = 1 + v \\;\\Longrightarrow\\; \\frac{1}{1+v}\\,dv = \\frac{1}{x}\\,dx. \\]\n\\textbf{Step 3.} Integrate and exponentiate:\n\\[ \\ln|1+v| = \\ln|x| + C \\;\\Longrightarrow\\; 1 + v = Cx. \\]\n\\textbf{Step 4.} Back-substitute $v = \\frac{y}{x}$ and clear:\n\\[ 1 + \\frac{y}{x} = Cx \\;\\Longrightarrow\\; y = Cx^{2} - x. \\]",
           "steps": []
         }
-      ],
-      "concept": null,
-      "warning": null
+      ]
     },
     {
       "id": "2.5",
@@ -123,22 +117,15 @@
           "body": "Growth and decay:\n\\[\n    \\frac{dP}{dt} = kP \\;\\Longrightarrow\\; P(t) = P_{0}e^{kt}\n    \\qquad (k>0 \\text{ grows},\\; k<0 \\text{ decays}),\n\\]\nwith doubling time $t = \\dfrac{\\ln 2}{k}$. Newton's law of cooling:\n\\[\n    \\frac{dT}{dt} = -k\\,(T - T_{s}) \\;\\Longrightarrow\\;\n    T(t) = T_{s} + (T_{0} - T_{s})\\,e^{-kt},\n\\]\nso $T \\to T_{s}$ as $t \\to \\infty$."
         }
       ],
-      "methodology": null,
       "examples": [
         {
           "title": "Worked Example 2.5: A culture doubles in 3 hours",
           "setup": "\\textbf{Step 1.} The model $P = P_{0}e^{kt}$ doubles when $e^{3k} = 2$:\n\\[ 3k = \\ln 2 \\;\\Longrightarrow\\; k = \\frac{\\ln 2}{3}. \\]\n\\textbf{Step 2.} The growth law is therefore\n\\[ P(t) = P_{0}\\,e^{(\\ln 2 / 3)\\,t} = P_{0}\\,2^{\\,t/3}. \\]\nEvery $3$ hours the population multiplies by two, as required.",
           "steps": []
         }
-      ],
-      "concept": null,
-      "warning": null
+      ]
     }
   ],
-  "cheatTakeaway": {
-    "title": "Unit 2 Key Takeaway",
-    "body": "Every method in this unit reduces to a single move --- rewrite the equation\ninto a form you can integrate. \\textcolor{accentorange}{Separation of variables}\nsplits a factored rate law; the \\textcolor{accentorange}{integrating factor\n$\\mu = e^{\\int P\\,dx}$} collapses a linear left side into one derivative; and\nthe \\textcolor{accentorange}{substitution $y = vx$} turns a homogeneous equation\nseparable. Read the structure first, and the technique always follows."
-  },
   "practice": {
     "subtitle": "Practice Set: Problems and Complete Solutions",
     "intro": "Work the following ten problems in order; they are graded from direct separation through linear factors, initial value problems, the homogeneous substitution, and a full physical model. Solutions follow in Part III.",
@@ -155,16 +142,16 @@
       "\\textbf{(Application)} An object at $100^{\\circ}$ is placed in a room held at $20^{\\circ}$. After $10$ minutes its temperature is $60^{\\circ}$. Find the temperature function $T(t)$ and determine how long it takes the object to reach $30^{\\circ}$."
     ],
     "solutions": [
-      "\\noindent\\textbf{Solution 1.}\\quad Separate, then integrate.\n\\[ \\textcolor{workpurple}{y\\,dy = x\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\frac{y^{2}}{2} = \\frac{x^{2}}{2} + C_{1}} \\]\n\\[ \\textcolor{workpurple}{y^{2} = x^{2} + C} \\qquad\\text{(general solution).} \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 2.}\\quad Split the exponential as\n$e^{x-y} = e^{x}e^{-y}$, then separate.\n\\[ \\textcolor{workpurple}{e^{\\,y}\\,dy = e^{\\,x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{e^{\\,y} = e^{\\,x} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\ln\\!\\left(e^{\\,x} + C\\right)}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 3.}\\quad Separate (assuming $y \\neq 0$), integrate,\nand exponentiate.\n\\[ \\textcolor{workpurple}{\\frac{1}{y}\\,dy = \\cos x\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\ln|y| = \\sin x + C} \\]\n\\[ \\textcolor{workpurple}{y = C\\,e^{\\sin x}}. \\]\nDividing by $y$ assumed $y \\neq 0$, so it dropped the equilibrium solution\n$\\textcolor{workpurple}{y = 0}$ --- which is recovered as the special case $C = 0$.\n\n\\medskip",
-      "\\noindent\\textbf{Solution 4.}\\quad Here $P = 3$, so the integrating factor is\n$\\textcolor{workpurple}{\\mu = e^{\\int 3\\,dx} = e^{3x}}$. Multiply through:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[e^{3x}y\\big] = 6\\,e^{3x}} \\]\n\\[ \\textcolor{workpurple}{e^{3x}y = \\int 6\\,e^{3x}\\,dx = 2\\,e^{3x} + C} \\]\n\\[ \\textcolor{workpurple}{y = 2 + C\\,e^{-3x}}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 5.}\\quad Divide by $x$ to reach standard form:\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} + \\frac{1}{x}\\,y = x}, \\qquad\n   \\textcolor{workpurple}{\\mu = e^{\\int (1/x)\\,dx} = e^{\\ln|x|} = x}. \\]\nMultiply through and integrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[xy\\big] = x\\cdot x = x^{2}} \\]\n\\[ \\textcolor{workpurple}{xy = \\frac{x^{3}}{3} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\frac{x^{2}}{3} + \\frac{C}{x}}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 6.}\\quad With $P = \\frac{2}{x}$, integrate the\ncoefficient and exponentiate:\n\\[ \\textcolor{workpurple}{\\mu = e^{\\int (2/x)\\,dx} = e^{2\\ln|x|} = x^{2}}. \\]\nMultiply through and integrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[x^{2}y\\big] = x^{2}\\cdot x = x^{3}} \\]\n\\[ \\textcolor{workpurple}{x^{2}y = \\frac{x^{4}}{4} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\frac{x^{2}}{4} + \\frac{C}{x^{2}}}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 7.}\\quad The integrating factor is\n$\\textcolor{workpurple}{\\mu = e^{\\int 2\\,dx} = e^{2x}}$. Multiply through and\nintegrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[e^{2x}y\\big] = 4\\,e^{2x}} \\]\n\\[ \\textcolor{workpurple}{e^{2x}y = 2\\,e^{2x} + C} \\]\n\\[ \\textcolor{workpurple}{y = 2 + C\\,e^{-2x}}. \\]\nApply the initial condition $y(0) = 1$:\n\\[ \\textcolor{workpurple}{1 = 2 + C \\;\\Longrightarrow\\; C = -1} \\]\n\\[ \\textcolor{workpurple}{y = 2 - e^{-2x}}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 8.}\\quad Rewrite as $\\frac{dy}{dx} = 1 + \\frac{y}{x}$\nand substitute $y = vx$, so $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$:\n\\[ \\textcolor{workpurple}{v + x\\frac{dv}{dx} = 1 + v} \\]\n\\[ \\textcolor{workpurple}{x\\frac{dv}{dx} = 1 \\;\\Longrightarrow\\; dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{v = \\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\textcolor{workpurple}{y = x\\ln|x| + Cx}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 9.}\\quad Substitute $y = vx$. The right side becomes\n\\[ \\textcolor{workpurple}{\\frac{x^{2} + v^{2}x^{2}}{x\\cdot vx} = \\frac{1 + v^{2}}{v}}. \\]\nWith $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$,\n\\[ \\textcolor{workpurple}{v + x\\frac{dv}{dx} = \\frac{1 + v^{2}}{v} = \\frac{1}{v} + v} \\]\n\\[ \\textcolor{workpurple}{x\\frac{dv}{dx} = \\frac{1}{v} \\;\\Longrightarrow\\; v\\,dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\frac{v^{2}}{2} = \\ln|x| + C_{1} \\;\\Longrightarrow\\; v^{2} = 2\\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\textcolor{workpurple}{\\frac{y^{2}}{x^{2}} = 2\\ln|x| + C \\;\\Longrightarrow\\; y^{2} = x^{2}\\big(2\\ln|x| + C\\big)}. \\]\n\n\\medskip",
-      "\\noindent\\textbf{Solution 10.}\\quad Newton's law of cooling with surrounding\ntemperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives\n\\[ \\textcolor{workpurple}{T(t) = 20 + (100 - 20)\\,e^{-kt} = 20 + 80\\,e^{-kt}}. \\]\nUse the reading $T(10) = 60$ to find $k$:\n\\[ \\textcolor{workpurple}{60 = 20 + 80\\,e^{-10k} \\;\\Longrightarrow\\; 80\\,e^{-10k} = 40} \\]\n\\[ \\textcolor{workpurple}{e^{-10k} = \\tfrac{1}{2} \\;\\Longrightarrow\\; -10k = -\\ln 2 \\;\\Longrightarrow\\; k = \\frac{\\ln 2}{10}}. \\]\nHence the temperature function is\n\\[ \\textcolor{workpurple}{T(t) = 20 + 80\\,e^{-(\\ln 2 / 10)\\,t} = 20 + 80\\left(\\tfrac{1}{2}\\right)^{t/10}}. \\]\nTo reach $30^{\\circ}$, solve $T(t) = 30$:\n\\[ \\textcolor{workpurple}{30 = 20 + 80\\,e^{-kt} \\;\\Longrightarrow\\; 80\\,e^{-kt} = 10 \\;\\Longrightarrow\\; e^{-kt} = \\tfrac{1}{8}} \\]\n\\[ \\textcolor{workpurple}{-kt = -\\ln 8 = -3\\ln 2 \\;\\Longrightarrow\\; t = \\frac{3\\ln 2}{k} = \\frac{3\\ln 2}{\\ln 2 / 10} = 30 \\text{ minutes}}. \\]\n\n\\vspace{0.8em}"
+      "\\noindent\\textbf{Solution 1.}\\quad Separate, then integrate.\n\\[ \\textcolor{workpurple}{y\\,dy = x\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\frac{y^{2}}{2} = \\frac{x^{2}}{2} + C_{1}} \\]\n\\[ \\textcolor{workpurple}{y^{2} = x^{2} + C} \\qquad\\text{(general solution).} \\]",
+      "\\noindent\\textbf{Solution 2.}\\quad Split the exponential as\n$e^{x-y} = e^{x}e^{-y}$, then separate.\n\\[ \\textcolor{workpurple}{e^{\\,y}\\,dy = e^{\\,x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{e^{\\,y} = e^{\\,x} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\ln\\!\\left(e^{\\,x} + C\\right)}. \\]",
+      "\\noindent\\textbf{Solution 3.}\\quad Separate (assuming $y \\neq 0$), integrate,\nand exponentiate.\n\\[ \\textcolor{workpurple}{\\frac{1}{y}\\,dy = \\cos x\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\ln|y| = \\sin x + C} \\]\n\\[ \\textcolor{workpurple}{y = C\\,e^{\\sin x}}. \\]\nDividing by $y$ assumed $y \\neq 0$, so it dropped the equilibrium solution\n$\\textcolor{workpurple}{y = 0}$ --- which is recovered as the special case $C = 0$.",
+      "\\noindent\\textbf{Solution 4.}\\quad Here $P = 3$, so the integrating factor is\n$\\textcolor{workpurple}{\\mu = e^{\\int 3\\,dx} = e^{3x}}$. Multiply through:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[e^{3x}y\\big] = 6\\,e^{3x}} \\]\n\\[ \\textcolor{workpurple}{e^{3x}y = \\int 6\\,e^{3x}\\,dx = 2\\,e^{3x} + C} \\]\n\\[ \\textcolor{workpurple}{y = 2 + C\\,e^{-3x}}. \\]",
+      "\\noindent\\textbf{Solution 5.}\\quad Divide by $x$ to reach standard form:\n\\[ \\textcolor{workpurple}{\\frac{dy}{dx} + \\frac{1}{x}\\,y = x}, \\qquad\n   \\textcolor{workpurple}{\\mu = e^{\\int (1/x)\\,dx} = e^{\\ln|x|} = x}. \\]\nMultiply through and integrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[xy\\big] = x\\cdot x = x^{2}} \\]\n\\[ \\textcolor{workpurple}{xy = \\frac{x^{3}}{3} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\frac{x^{2}}{3} + \\frac{C}{x}}. \\]",
+      "\\noindent\\textbf{Solution 6.}\\quad With $P = \\frac{2}{x}$, integrate the\ncoefficient and exponentiate:\n\\[ \\textcolor{workpurple}{\\mu = e^{\\int (2/x)\\,dx} = e^{2\\ln|x|} = x^{2}}. \\]\nMultiply through and integrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[x^{2}y\\big] = x^{2}\\cdot x = x^{3}} \\]\n\\[ \\textcolor{workpurple}{x^{2}y = \\frac{x^{4}}{4} + C} \\]\n\\[ \\textcolor{workpurple}{y = \\frac{x^{2}}{4} + \\frac{C}{x^{2}}}. \\]",
+      "\\noindent\\textbf{Solution 7.}\\quad The integrating factor is\n$\\textcolor{workpurple}{\\mu = e^{\\int 2\\,dx} = e^{2x}}$. Multiply through and\nintegrate:\n\\[ \\textcolor{workpurple}{\\frac{d}{dx}\\big[e^{2x}y\\big] = 4\\,e^{2x}} \\]\n\\[ \\textcolor{workpurple}{e^{2x}y = 2\\,e^{2x} + C} \\]\n\\[ \\textcolor{workpurple}{y = 2 + C\\,e^{-2x}}. \\]\nApply the initial condition $y(0) = 1$:\n\\[ \\textcolor{workpurple}{1 = 2 + C \\;\\Longrightarrow\\; C = -1} \\]\n\\[ \\textcolor{workpurple}{y = 2 - e^{-2x}}. \\]",
+      "\\noindent\\textbf{Solution 8.}\\quad Rewrite as $\\frac{dy}{dx} = 1 + \\frac{y}{x}$\nand substitute $y = vx$, so $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$:\n\\[ \\textcolor{workpurple}{v + x\\frac{dv}{dx} = 1 + v} \\]\n\\[ \\textcolor{workpurple}{x\\frac{dv}{dx} = 1 \\;\\Longrightarrow\\; dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{v = \\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\textcolor{workpurple}{y = x\\ln|x| + Cx}. \\]",
+      "\\noindent\\textbf{Solution 9.}\\quad Substitute $y = vx$. The right side becomes\n\\[ \\textcolor{workpurple}{\\frac{x^{2} + v^{2}x^{2}}{x\\cdot vx} = \\frac{1 + v^{2}}{v}}. \\]\nWith $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$,\n\\[ \\textcolor{workpurple}{v + x\\frac{dv}{dx} = \\frac{1 + v^{2}}{v} = \\frac{1}{v} + v} \\]\n\\[ \\textcolor{workpurple}{x\\frac{dv}{dx} = \\frac{1}{v} \\;\\Longrightarrow\\; v\\,dv = \\frac{1}{x}\\,dx} \\]\n\\[ \\textcolor{workpurple}{\\frac{v^{2}}{2} = \\ln|x| + C_{1} \\;\\Longrightarrow\\; v^{2} = 2\\ln|x| + C}. \\]\nBack-substitute $v = \\frac{y}{x}$:\n\\[ \\textcolor{workpurple}{\\frac{y^{2}}{x^{2}} = 2\\ln|x| + C \\;\\Longrightarrow\\; y^{2} = x^{2}\\big(2\\ln|x| + C\\big)}. \\]",
+      "\\noindent\\textbf{Solution 10.}\\quad Newton's law of cooling with surrounding\ntemperature $T_{s} = 20$ and initial temperature $T_{0} = 100$ gives\n\\[ \\textcolor{workpurple}{T(t) = 20 + (100 - 20)\\,e^{-kt} = 20 + 80\\,e^{-kt}}. \\]\nUse the reading $T(10) = 60$ to find $k$:\n\\[ \\textcolor{workpurple}{60 = 20 + 80\\,e^{-10k} \\;\\Longrightarrow\\; 80\\,e^{-10k} = 40} \\]\n\\[ \\textcolor{workpurple}{e^{-10k} = \\tfrac{1}{2} \\;\\Longrightarrow\\; -10k = -\\ln 2 \\;\\Longrightarrow\\; k = \\frac{\\ln 2}{10}}. \\]\nHence the temperature function is\n\\[ \\textcolor{workpurple}{T(t) = 20 + 80\\,e^{-(\\ln 2 / 10)\\,t} = 20 + 80\\left(\\tfrac{1}{2}\\right)^{t/10}}. \\]\nTo reach $30^{\\circ}$, solve $T(t) = 30$:\n\\[ \\textcolor{workpurple}{30 = 20 + 80\\,e^{-kt} \\;\\Longrightarrow\\; 80\\,e^{-kt} = 10 \\;\\Longrightarrow\\; e^{-kt} = \\tfrac{1}{8}} \\]\n\\[ \\textcolor{workpurple}{-kt = -\\ln 8 = -3\\ln 2 \\;\\Longrightarrow\\; t = \\frac{3\\ln 2}{k} = \\frac{3\\ln 2}{\\ln 2 / 10} = 30 \\text{ minutes}}. \\]"
     ],
     "takeaway": {
       "title": "Unit 2 Key Takeaway",
