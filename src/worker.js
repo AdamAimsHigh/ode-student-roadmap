@@ -422,6 +422,13 @@ const TURNSTILE_TOKEN_MAX_LENGTH = 2048;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LEAD_KV_PREFIX = "lead:";
 const LEAD_TTL_S = 90 * 24 * 60 * 60;
+/* Lead-notification email routing. Requires (a) stapleseducation.com
+   onboarded to Cloudflare Email Sending (npx wrangler email sending enable
+   stapleseducation.com) and (b) the EMAIL send_email binding in
+   wrangler.jsonc. When either is missing, the notification is skipped and
+   lead capture is completely unaffected. */
+const LEAD_NOTIFY_FROM = { email: "notifications@stapleseducation.com", name: "Staples Education" };
+const LEAD_NOTIFY_TO = "addstaples@gmail.com";
 
 /* Server-side Turnstile verification. The secret NEVER appears in the
    codebase or wrangler.jsonc vars — it is a Worker secret provisioned with:
@@ -457,7 +464,47 @@ function sanitizeLead(raw) {
     return lead;
 }
 
-async function handleContact(request, env) {
+/* Minimal HTML entity escape for lead fields interpolated into the
+   notification email body — the message is student-controlled text. */
+function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+}
+
+/* Email the owner about a captured lead. Best-effort by design: the lead is
+   already durable in KV before this runs, so every failure path here is
+   logged (error code only, never lead contents) and swallowed — the student
+   always keeps their 200. */
+async function sendLeadNotification(lead, env) {
+    if (!env.EMAIL) {
+        console.log("Lead notification skipped: EMAIL binding not configured");
+        return;
+    }
+    /* sanitizeLead only trims ends; strip interior CR/LF so a crafted name
+       can never smuggle extra headers into the Subject line. */
+    const safeName = lead.name.replace(/[\r\n]+/g, " ");
+    try {
+        await env.EMAIL.send({
+            to: LEAD_NOTIFY_TO,
+            from: LEAD_NOTIFY_FROM,
+            replyTo: lead.email,
+            subject: "New student inquiry from " + safeName,
+            text: "New student inquiry via stapleseducation.com\n\n" +
+                "Name: " + lead.name + "\nEmail: " + lead.email +
+                "\n\n" + lead.message,
+            html: "<h2>New student inquiry</h2>" +
+                "<p><strong>Name:</strong> " + escapeHtml(lead.name) + "<br>" +
+                "<strong>Email:</strong> " + escapeHtml(lead.email) + "</p>" +
+                "<p style=\"white-space:pre-wrap\">" + escapeHtml(lead.message) + "</p>"
+        });
+        console.log("Lead notification email sent");
+    } catch (e) {
+        console.error("Lead notification email failed:", e && e.code ? e.code : "unknown");
+    }
+}
+
+async function handleContact(request, env, ctx) {
     if (request.method !== "POST") {
         return new Response(null, { status: 405, headers: { Allow: "POST" } });
     }
@@ -537,12 +584,19 @@ async function handleContact(request, env) {
         return json(500, { error: "Failed to save inquiry." });
     }
 
+    /* Owner notification rides after the response via ctx.waitUntil so it
+       never adds latency to the student's submit. The test harness invokes
+       fetch without a ctx — there the promise floats, and it is safe to
+       float because sendLeadNotification catches all of its own failures. */
+    const notified = sendLeadNotification(lead, env);
+    if (ctx) ctx.waitUntil(notified);
+
     return json(200, { ok: true });
 }
 
 /* Route matrix: /api/sync, /api/contact, and SEO support files. */
 export default {
-    async fetch(request, env) {
+    async fetch(request, env, ctx) {
         const url = new URL(request.url);
 
         // --- SEO Support Files ---
@@ -577,7 +631,7 @@ export default {
             return handleSync(request, env);
         }
         if (url.pathname === "/api/contact") {
-            return handleContact(request, env);
+            return handleContact(request, env, ctx);
         }
 
         // --- Static Asset Fallback ---

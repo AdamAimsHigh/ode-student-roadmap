@@ -40,6 +40,14 @@
 		"html_handling": "auto-trailing-slash",
 		"not_found_handling": "404-page"
 	},
+	// Lead-notification email (Phase 4). The Worker guards on env.EMAIL, so
+	// the binding is safe to ship before the domain finishes Email Sending
+	// onboarding — sends are skipped/caught until
+	//   npx wrangler email sending enable stapleseducation.com
+	// completes (needs a wrangler re-login for the new email OAuth scopes).
+	"send_email": [
+		{ "name": "EMAIL" }
+	],
 	"kv_namespaces": [
 		{
 			// Namespace title in the dashboard: ODE_PROGRESS_KV.
