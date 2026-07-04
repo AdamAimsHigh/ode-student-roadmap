@@ -496,6 +496,14 @@ async function sendLeadNotification(lead, env) {
                 sender: LEAD_NOTIFY_FROM,
                 to: LEAD_NOTIFY_TO,
                 replyTo: { email: lead.email, name: safeName },
+                /* Belt and suspenders for Gmail's reply-target resolution:
+                   some clients only honor a strictly formatted Reply-To
+                   header. Display-name is CR/LF-stripped and quoted per
+                   RFC 5322 (inner double quotes downgraded) so a crafted
+                   name cannot break out of the address spec. */
+                headers: {
+                    "Reply-To": "\"" + safeName.replace(/"/g, "'") + "\" <" + lead.email + ">"
+                },
                 subject: "New student inquiry from " + safeName,
                 textContent: "New student inquiry via stapleseducation.com\n\n" +
                     "Name: " + lead.name + "\nEmail: " + lead.email +
