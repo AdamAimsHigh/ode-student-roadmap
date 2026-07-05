@@ -8,8 +8,12 @@
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
     <link rel="icon" type="image/png" href="/favicon.png" sizes="512x512">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <!-- Google Fonts: Inter for main text, Noto Serif (or similar) for Math symbol -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Serif:ital,wght@1,400&display=swap" rel="stylesheet">
+    <!-- Inter for main text, Noto Serif for the Math symbol — self-hosted
+         mirror of the Google Fonts css2 stylesheet (see /fonts/). Serving
+         from our own origin removes the fonts.googleapis.com third-party
+         dependency outright: SRI cannot pin that endpoint because it
+         serves different bytes per browser. -->
+    <link href="/fonts/fonts.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -98,9 +102,13 @@
         </div>
     </footer>
 
-    <!-- Cloudflare Turnstile (managed challenge widget for the contact form). -->
+    <!-- Cloudflare Turnstile (managed challenge widget for the contact form).
+         Deliberately NOT SRI-pinned: api.js is a rolling-release endpoint
+         Cloudflare updates in place, so an integrity hash would silently
+         kill the widget (and every lead) on their next deploy. -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <!-- Cloudflare Web Analytics beacon (public site token, cookie-free). -->
+    <!-- Cloudflare Web Analytics beacon (public site token, cookie-free).
+         Same rolling-release model as Turnstile: not SRI-pinnable. -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14c519923cd24565bcbd4b336c6bb429"}'></script>
 
     <script>

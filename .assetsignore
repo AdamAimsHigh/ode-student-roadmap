@@ -16,6 +16,9 @@
 !/style.css
 !/favicon.ico
 !/favicon.png
+# Self-hosted font mirror (no trailing slash — same wrangler bare-path
+# matching caveat as /ode below).
+!/fonts
 
 # 3. Re-include the ODE roadmap SPA, served under /ode/.
 # (No trailing slash: wrangler tests bare path strings, so "/ode/" would
