@@ -521,6 +521,52 @@ const BREVO_SEND_URL = "https://api.brevo.com/v3/smtp/email";
 const LEAD_NOTIFY_FROM = { name: "Staples Education Notifications", email: "notifications@stapleseducation.com" };
 const LEAD_NOTIFY_TO = [{ email: "addstaples@gmail.com", name: "Adam Staples" }];
 
+/* ---- In-isolate lead de-duplication ------------------------------------- *
+ * A single verified lead can reach us more than once in quick succession: a
+ * double click on submit, or a client retry after a slow siteverify round
+ * trip (the retry fetches a fresh Turnstile token, so it passes human
+ * verification on its own merits). Left alone, each copy cuts another
+ * lead:<iso> KV record and fires another owner-notification email.
+ *
+ * This gate collapses those bursts with a short-TTL map in isolate memory,
+ * keyed on the SHA-256 of the normalized name/email/message. Mirroring the
+ * rate limiter above, it is deliberately NOT KV-backed: an extra KV read per
+ * submit is exactly the persistent-layer overhead this shields against, and a
+ * warm isolate absorbs the rapid duplicates that motivate it. Only the
+ * content hash is held, never the lead text (blinded). Duplicates that land
+ * on a different isolate, or arrive past the TTL, fall through to the durable
+ * path -- the goal is collapsing bursts, not global exactly-once. The hash is
+ * recorded only AFTER a successful KV write, so a failed write never
+ * suppresses the client's legitimate retry. */
+const LEAD_DEDUP_TTL_MS = 10 * 60 * 1000;
+const LEAD_DEDUP_SWEEP_SIZE = 4096;
+const recentLeadHashes = new Map();
+
+function leadSeenRecently(contentHash) {
+    const now = Date.now();
+    if (recentLeadHashes.size >= LEAD_DEDUP_SWEEP_SIZE) {
+        for (const [k, expiresAt] of recentLeadHashes) {
+            if (expiresAt <= now) recentLeadHashes.delete(k);
+        }
+    }
+    const expiresAt = recentLeadHashes.get(contentHash);
+    return typeof expiresAt === "number" && expiresAt > now;
+}
+
+function rememberLeadHash(contentHash) {
+    recentLeadHashes.set(contentHash, Date.now() + LEAD_DEDUP_TTL_MS);
+}
+
+/* Content-blinded idempotency key for a sanitized lead. NUL separators keep
+   field boundaries unambiguous (name "ab" + email "c" never collides with
+   name "a" + email "bc"); the email is lowercased so a case-variant resend of
+   the same address still collapses. */
+async function leadContentHash(lead) {
+    return sha256Hex(
+        lead.name + " " + lead.email.toLowerCase() + " " + lead.message
+    );
+}
+
 /* Server-side Turnstile verification. The secret NEVER appears in the
    codebase or wrangler.jsonc vars — it is a Worker secret provisioned with:
    npx wrangler secret put TURNSTILE_SECRET_KEY */
@@ -678,6 +724,17 @@ async function handleContact(request, env, ctx) {
         return json(403, { error: "Human verification failed. Please retry the check." });
     }
 
+    /* Collapse a rapid duplicate of this exact verified lead before it can cut
+       a second KV record or fire a second notification email. Placed after
+       human verification so an unverified spammer can never probe or poison
+       the dedup map, and so a genuine retry (which re-earns a token) is what
+       we collapse. */
+    const contentHash = await leadContentHash(lead);
+    if (leadSeenRecently(contentHash)) {
+        console.log("Duplicate lead collapsed before KV write");
+        return json(200, { ok: true, deduped: true });
+    }
+
     const suffix = new Uint8Array(6);
     crypto.getRandomValues(suffix);
     const key = LEAD_KV_PREFIX + new Date().toISOString() + "_" +
@@ -691,6 +748,10 @@ async function handleContact(request, env, ctx) {
             { expirationTtl: LEAD_TTL_S }
         );
         console.log("KV put successful");
+        /* Only now is the lead durable, so only now do we arm the dedup gate
+           against its near-term duplicates. A failed put above never records
+           the hash, leaving the client free to retry. */
+        rememberLeadHash(contentHash);
     } catch (e) {
         console.error("KV put failed:", e);
         return json(500, { error: "Failed to save inquiry." });

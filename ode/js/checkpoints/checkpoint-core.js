@@ -23,7 +23,12 @@ const CheckpointCore = (function () {
                 delimiters: [
                     { left: "$$", right: "$$", display: true },
                     { left: "$", right: "$", display: false }
-                ]
+                ],
+                // Scoped re-render guard: skip subtrees KaTeX already typeset
+                // (class "katex"). Checkpoint stages re-render on state changes,
+                // so this keeps a repeat pass from re-descending settled math.
+                // Fresh "$...$" text is never inside a .katex node.
+                ignoredClasses: ["katex"]
             });
         }
     }

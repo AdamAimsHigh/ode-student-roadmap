@@ -1,4 +1,4 @@
-/* 31-case end-to-end validation suite for src/worker.js.
+/* 32-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -15,8 +15,10 @@
  *
  * Also covers the Phase 3 hardening surface: the POST /api/contact lead
  * endpoint (strict payload shape, Turnstile siteverify against a mocked
- * challenges.cloudflare.com, KV lead records) and the per-IP fixed-window
- * rate limiter on both API routes (429 + Retry-After past the window cap).
+ * challenges.cloudflare.com, KV lead records, and in-isolate content-hash
+ * de-duplication that collapses a rapid duplicate verified lead before a
+ * second KV write) and the per-IP fixed-window rate limiter on both API
+ * routes (429 + Retry-After past the window cap).
  *
  * Finally, the programmatic-SEO surface: the dynamic /sitemap.xml handler
  * must deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq,
@@ -521,6 +523,35 @@ await testCase("contact: verified submission persists a TTL'd lead record", asyn
         record.message === GOOD_LEAD.message, "lead fields round-trip");
     check(!("turnstileToken" in record), "challenge token never persisted");
     check(kv.store.get(leadKeys[0]).expiresAt !== null, "lead carries a TTL");
+});
+
+await testCase("contact: a rapid duplicate verified lead is collapsed before a second KV write", async () => {
+    /* Distinct content from GOOD_LEAD so the in-isolate dedup map is not
+       already primed by the case above; two submits stay under the 5/min IP
+       window. */
+    const dupLead = {
+        name: "Bo Repeat",
+        email: "bo.repeat@example.com",
+        message: "Double-clicked submit on the contact form.",
+        turnstileToken: "PASS"
+    };
+    const ip = "203.0.113.16";
+    const before = kv.keysWithPrefix("lead:").length;
+
+    const first = await worker.fetch(contactRequest(dupLead, { ip }), env);
+    check(first.status === 200, `first: expected 200, got ${first.status}`);
+    const firstBody = await first.json();
+    check(firstBody.ok === true && firstBody.deduped === undefined,
+        "first submission is a fresh write, not flagged deduped");
+    check(kv.keysWithPrefix("lead:").length === before + 1,
+        "first submission persists exactly one new lead");
+
+    const second = await worker.fetch(contactRequest(dupLead, { ip }), env);
+    check(second.status === 200, `second: expected 200, got ${second.status}`);
+    check((await second.json()).deduped === true,
+        "second identical submission is reported deduped");
+    check(kv.keysWithPrefix("lead:").length === before + 1,
+        "duplicate did not cut a second KV record");
 });
 
 await testCase("contact: 6th request in the window is rate-limited 429", async () => {

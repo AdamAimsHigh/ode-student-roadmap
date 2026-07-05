@@ -24,7 +24,14 @@ function renderPracticeMath(el) {
             ],
             // Multi-unit content: never let one bad token blank the whole view;
             // KaTeX renders the offending span in red instead of throwing.
-            throwOnError: false
+            throwOnError: false,
+            // Scoped re-render guard: skip any subtree KaTeX has already
+            // typeset (its output root carries class "katex"). A repeat pass
+            // over a partly-hydrated container walks only the un-rendered text
+            // nodes instead of re-descending the whole math subtree. Fresh
+            // "$...$" text is never inside a .katex node, so nothing new is
+            // ever missed.
+            ignoredClasses: ["katex"]
         });
     }
 }

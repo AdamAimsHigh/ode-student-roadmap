@@ -39,7 +39,11 @@ const QuizEngine = (function () {
                 delimiters: [
                     { left: "$$", right: "$$", display: true },
                     { left: "$", right: "$", display: false }
-                ]
+                ],
+                // Scoped re-render guard: skip subtrees KaTeX already typeset
+                // (class "katex"), so a repeat pass never re-descends rendered
+                // math. Fresh "$...$" text is never inside a .katex node.
+                ignoredClasses: ["katex"]
             });
         }
     }
@@ -196,7 +200,13 @@ const QuizEngine = (function () {
                 hintToggle.addEventListener("click", function () {
                     hintBox.hidden = !hintBox.hidden;
                     hintToggle.textContent = hintBox.hidden ? "Need a hint?" : "Hide hint";
-                    if (!hintBox.hidden) renderMath(hintBox);
+                    // Typeset the hint once, on first reveal. Its content never
+                    // changes, so later hide/show toggles must not re-scan an
+                    // already-hydrated subtree.
+                    if (!hintBox.hidden && !hintBox.dataset.mathTypeset) {
+                        renderMath(hintBox);
+                        hintBox.dataset.mathTypeset = "1";
+                    }
                 });
             }
 
