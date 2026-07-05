@@ -1,10 +1,12 @@
-/* 22-case end-to-end validation suite for src/worker.js.
+/* 25-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
  * WebCrypto against a mocked JWKS endpoint) and the long-lived odesess_*
- * edge session tokens (hashed KV records, 30-day TTL). Malformed, tampered,
- * expired, and oversized inputs must all be rejected with 401/413/405.
+ * edge session tokens (hashed KV records, 30-day TTL), plus the DELETE
+ * hard sign-out that revokes a session record server-side. Malformed,
+ * tampered, expired, and oversized inputs must all be rejected with
+ * 401/413/405.
  *
  * Also covers the Phase 3 hardening surface: the POST /api/contact lead
  * endpoint (strict payload shape, Turnstile siteverify against a mocked
@@ -120,6 +122,9 @@ class MockKV {
                 : null
         });
     }
+    async delete(key) {
+        this.store.delete(key);
+    }
     keysWithPrefix(prefix) {
         return [...this.store.keys()].filter((k) => k.startsWith(prefix));
     }
@@ -173,15 +178,16 @@ async function testCase(title, fn) {
     if (failures === before) console.log("    pass");
 }
 
-/* ---- The 15 cases ------------------------------------------------------- */
+/* ---- The cases ----------------------------------------------------------- */
 
 let sessionToken = null;   // captured in case 8, threaded through 10-15
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-await testCase("non-GET/POST methods are refused with 405", async () => {
+await testCase("unsupported methods are refused with 405", async () => {
     const res = await worker.fetch(apiRequest("PUT", await signToken()), env);
     check(res.status === 405, `expected 405, got ${res.status}`);
-    check(res.headers.get("Allow") === "GET, POST", "Allow header lists GET, POST");
+    check(res.headers.get("Allow") === "GET, POST, DELETE",
+        "Allow header lists GET, POST, DELETE");
 });
 
 await testCase("missing bearer credential is a 401 challenge", async () => {
@@ -330,6 +336,51 @@ await testCase("oversized POST body is refused with 413", async () => {
         "x".repeat(130 * 1024) + '"]}}';
     const res = await worker.fetch(apiRequest("POST", sessionToken, padded), env);
     check(res.status === 413, `expected 413, got ${res.status}`);
+});
+
+/* ---- Phase 5: DELETE /api/sync hard sign-out ----------------------------- */
+
+/* The KV key the worker derives for a session token — lets the suite assert
+   on the exact hashed record instead of counting keys (earlier Google-auth
+   cases leave TTL-expired zombie records that MockKV only sweeps on get). */
+async function sessionKvKey(token) {
+    const digest = await crypto.subtle.digest(
+        "SHA-256", new TextEncoder().encode(token));
+    return "session:" + Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+await testCase("sign-out DELETE refuses missing and non-session bearers", async () => {
+    const noBearer = await worker.fetch(apiRequest("DELETE", null), env);
+    check(noBearer.status === 401, `no bearer: expected 401, got ${noBearer.status}`);
+    const googleJwt = await worker.fetch(
+        apiRequest("DELETE", await signToken()), env);
+    check(googleJwt.status === 400,
+        `Google JWT bearer: expected 400, got ${googleJwt.status}`);
+    const oversized = await worker.fetch(
+        apiRequest("DELETE", "odesess_" + "A".repeat(500)), env);
+    check(oversized.status === 401,
+        `oversized token: expected 401, got ${oversized.status}`);
+    check(kv.store.has(await sessionKvKey(sessionToken)),
+        "live session survives every refused sign-out attempt");
+});
+
+await testCase("sign-out DELETE hard-revokes the live session in KV", async () => {
+    const res = await worker.fetch(apiRequest("DELETE", sessionToken), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check((await res.json()).ok === true, "response body is { ok: true }");
+    check(!kv.store.has(await sessionKvKey(sessionToken)),
+        "hashed session record deleted from KV");
+    const replay = await worker.fetch(apiRequest("GET", sessionToken), env);
+    check(replay.status === 401, `revoked token replay: expected 401, got ${replay.status}`);
+    const progress = await kv.get("progress:" + SUB, "json");
+    check(progress !== null && progress.progress.ode_watched_videos.length === 3,
+        "sign-out revokes the credential, never the progress data");
+});
+
+await testCase("repeat DELETE of a revoked token is the standard 401 challenge", async () => {
+    const res = await worker.fetch(apiRequest("DELETE", sessionToken), env);
+    check(res.status === 401, `expected 401, got ${res.status}`);
 });
 
 /* ---- Phase 3: /api/contact + rate limiting ------------------------------ */

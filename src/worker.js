@@ -29,6 +29,10 @@
  *    TTL expiry or eviction yields a 401 challenge and the client falls
  *    back to a fresh Google sign-in.
  *
+ * Sign-out: DELETE /api/sync with an odesess_* bearer hard-revokes that
+ * session server-side — the hashed KV record is deleted, so the token is
+ * dead on every device immediately rather than lingering until TTL expiry.
+ *
  * Storage: env.ODE_PROGRESS_KV, three record families:
  *   "progress:<google sub>"  { progress: <sanitized ode_* map>, email, updatedAt }
  *   "session:<sha256 hex>"   { sub, email, createdAt }  (30-day TTL)
@@ -329,8 +333,10 @@ function isJsonRequest(request) {
 }
 
 async function handleSync(request, env) {
-    if (request.method !== "GET" && request.method !== "POST") {
-        return new Response(null, { status: 405, headers: { Allow: "GET, POST" } });
+    if (request.method !== "GET" && request.method !== "POST" &&
+        request.method !== "DELETE") {
+        return new Response(null,
+            { status: 405, headers: { Allow: "GET, POST, DELETE" } });
     }
     if (!env.ODE_PROGRESS_KV || !env.GOOGLE_CLIENT_ID) {
         return json(500, { error: "Sync service is not configured." });
@@ -346,6 +352,34 @@ async function handleSync(request, env) {
         return json(401, { error: "Missing bearer credential." });
     }
     const token = auth.slice(7).trim();
+
+    /* Hard sign-out. Only odesess_* bearers are revocable — a Google ID
+       token carries no server-side state, so presenting one here is a
+       client bug and gets a 400 rather than a silent no-op. The session is
+       verified before deletion so an unknown, expired, or already-revoked
+       token surfaces as the same 401 the client's re-auth fallback already
+       handles. The KV delete is wrapped separately: a storage fault must
+       become a clean 500 for this request, never an escape into the
+       routing pipeline. */
+    if (request.method === "DELETE") {
+        if (!token.startsWith(SESSION_TOKEN_PREFIX)) {
+            return json(400, { error: "Sign-out requires an odesess_* session token." });
+        }
+        try {
+            await verifySessionToken(token, env);
+        } catch (err) {
+            return json(401, { error: "Invalid credential.", detail: String(err.message || err) });
+        }
+        try {
+            await env.ODE_PROGRESS_KV.delete(
+                SESSION_KV_PREFIX + (await sha256Hex(token)));
+        } catch (err) {
+            console.error("Session revocation failed:",
+                err instanceof Error ? err.name : "unknown");
+            return json(500, { error: "Sign-out could not be completed. Please retry." });
+        }
+        return json(200, { ok: true });
+    }
 
     /* Extended verification: an odesess_* bearer validates directly against
        its hashed KV session record; anything else must be a full Google ID
