@@ -37,8 +37,12 @@
                 <h1>The <span class="highlight">Math Confidence Reset</span> Framework</h1>
                 <p>Unlock your true potential with a structured, personalized approach to mastering mathematics. We don't just teach math; we reshape how you think about it.</p>
                 <div class="cta-group">
-                    <a href="http://tinyurl.com/StaplesEducation" class="btn-primary">Book Your First Session</a>
-                    <a href="http://tinyurl.com/StaplesEducation" class="btn-outline">Learn More</a>
+                    <!-- On-page smooth scroll (native, via html { scroll-behavior: smooth }
+                         in style.css) so both CTAs work identically over file:// and https
+                         with zero JavaScript. "Book" drops to the on-page booking steps;
+                         "Learn More" drops to the Why section (#services). -->
+                    <a href="#booking" class="btn-primary">Book Your First Session</a>
+                    <a href="#services" class="btn-outline">Learn More</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -66,6 +70,36 @@
                 </div>
             </div>
         </section>
+
+        <section id="booking" class="booking">
+            <h2>Booking Your First Session</h2>
+            <p class="booking-lede">Getting started takes three short steps on Wyzant. Follow them in order and your first session can be on the calendar today.</p>
+            <ol class="booking-steps">
+                <li class="booking-step">
+                    <div class="booking-step-number">1</div>
+                    <div class="booking-step-body">
+                        <h3>Create your account</h3>
+                        <p>Open the booking link and set up a free Wyzant student account with your name and email. This gives you a secure place to message, schedule, and join every session.</p>
+                    </div>
+                </li>
+                <li class="booking-step">
+                    <div class="booking-step-number">2</div>
+                    <div class="booking-step-body">
+                        <h3>Share your context</h3>
+                        <p>Send a first message describing your course, your current topic, and the specific goal you want to reach. Clear context lets us shape the very first session around your exact gap.</p>
+                    </div>
+                </li>
+                <li class="booking-step">
+                    <div class="booking-step-number">3</div>
+                    <div class="booking-step-body">
+                        <h3>Schedule your session</h3>
+                        <p>Pick a time that fits your week and confirm the booking. You will receive a confirmation and a session link, and we handle the rest.</p>
+                        <a href="http://tinyurl.com/StaplesEducation" class="btn-primary booking-cta" target="_blank" rel="noopener">Start on Wyzant</a>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
         <section id="contact" class="contact-section">
             <h2>Start Your Confidence Reset</h2>
             <p class="contact-lede">Tell us where you are and where you want to be. We read every inquiry and reply within one business day.</p>

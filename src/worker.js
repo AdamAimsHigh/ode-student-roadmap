@@ -706,6 +706,110 @@ async function handleContact(request, env, ctx) {
     return json(200, { ok: true });
 }
 
+/* ---- Programmatic SEO: unit-targeted metadata for the ODE SPA ----------- *
+ *
+ * The roadmap SPA is one static document at /ode/, but its curriculum spans
+ * 19 first-principles units. A crawler that lands on /ode/?unit=N should see
+ * <title>/<meta description> written for that unit's concept, not the generic
+ * shell copy. This map is the source of truth for that substitution; keys are
+ * the ?unit= selector value (string), matching the curriculum unit numbers in
+ * content/curriculum.json. Copy obeys the §1 constraint: no em-dashes, no
+ * ampersands (WEBSITE_BLUEPRINT Maintenance Contract rule 3).
+ *
+ * This runs only because wrangler.jsonc lists "/ode/" in assets.run_worker_first,
+ * so the Worker sees the request before the asset server does; see the ODE SEO
+ * metadata layer note in WEBSITE_BLUEPRINT.md (Pillar 1). */
+const ODE_SEO_SUFFIX = " | ODE Roadmap by Staples Education";
+const ODE_UNIT_SEO = {
+    "0": { title: "Unit 0: What Are Differential Equations", description: "Learn what a differential equation actually is from first principles: an equation relating a function to its own rate of change, and why that idea models the world." },
+    "1": { title: "Unit 1: Foundations and Prerequisites", description: "Rebuild the calculus and algebra foundations every differential equations course assumes, so derivatives, integrals, and functions feel like tools you own." },
+    "2": { title: "Unit 2: First Order Linear Differential Equations", description: "Master first order linear equations from the ground up: integrating factors, the structure of the general solution, and why the method actually works." },
+    "3": { title: "Unit 3: Existence, Uniqueness, and Geometry", description: "Understand when a differential equation has exactly one solution, and read solution behavior straight from slope fields before solving anything." },
+    "4": { title: "Unit 4: Autonomous Equations, Equilibrium, and Stability", description: "Analyze autonomous equations through their equilibria and stability, predicting long term behavior from the sign of the rate of change alone." },
+    "5": { title: "Unit 5: Numerical Methods", description: "Approximate solutions you cannot solve by hand. Build Euler and Runge Kutta methods from the definition of the derivative and control their error." },
+    "6": { title: "Unit 6: Multivariable Calculus Foundations", description: "The partial derivatives, gradients, and exact differentials you need before exact equations and systems, developed from first principles." },
+    "7": { title: "Unit 7: First-Order Exactness and Methods", description: "Recognize exact equations, recover potential functions, and apply integrating factors, all grounded in the multivariable calculus that makes them work." },
+    "8": { title: "Unit 8: Special Equations and Classical Models", description: "Solve Bernoulli, homogeneous, and classical model equations with the substitutions that turn hard nonlinear forms into ones you already know." },
+    "9": { title: "Unit 9: Second-Order Linear Equations, Theory and Structure", description: "The structure behind second order linear equations: linear independence, the Wronskian, and why two solutions span every solution." },
+    "10": { title: "Unit 10: Nonhomogeneous Equations and Forced Response", description: "Build the full solution to a forced linear equation as its homogeneous part plus one particular response, via undetermined coefficients and variation of parameters." },
+    "11": { title: "Unit 11: Mechanical Vibrations and Oscillators", description: "Watch second order linear equations become real oscillators: damping, resonance, and forced vibration derived from Newton's second law." },
+    "12": { title: "Unit 12: The Laplace Transform", description: "Turn differential equations into algebra with the Laplace transform, from its integral definition through initial value problems and discontinuous forcing." },
+    "13": { title: "Unit 13: Series Solutions", description: "Solve equations with variable coefficients using power series, learning where a series solution converges and how ordinary and singular points differ." },
+    "14": { title: "Unit 14: Linear Algebra Foundations for Systems", description: "The vectors, matrices, eigenvalues, and eigenvectors that systems of differential equations are built on, developed from first principles." },
+    "15": { title: "Unit 15: Systems of Linear Differential Equations", description: "Solve systems of linear differential equations through eigenvalues and eigenvectors, reading coupled behavior as motion in a vector space." },
+    "16": { title: "Unit 16: Phase Plane Analysis and Nonlinear Dynamics", description: "Classify equilibria in the phase plane and linearize nonlinear systems, reading stability and long term dynamics straight from the geometry." },
+    "17": { title: "Unit 17: Boundary Value Problems and Sturm-Liouville Theory", description: "Move from initial value to boundary value problems, discovering eigenvalues, eigenfunctions, and the orthogonality that Sturm Liouville theory guarantees." },
+    "18": { title: "Unit 18: Fourier Series and Partial Differential Equations", description: "Represent functions as Fourier series and separate variables to solve the heat, wave, and Laplace equations from first principles." }
+};
+
+/* ---- Dynamic sitemap ---------------------------------------------------- *
+ *
+ * One <url> for each top-level page plus one deep-linked entry per ODE unit
+ * (/ode/?unit=N), so every unit-targeted SEO variant produced by ODE_UNIT_SEO
+ * is independently crawlable. Unit numbers are emitted in ascending numeric
+ * order and drawn from ODE_UNIT_SEO itself, the single source of truth, so a
+ * new unit appears in the sitemap the moment it is added to the map. Each
+ * <loc> is XML-escaped (via escapeHtml, whose &/</>/"/' entities are valid
+ * XML) so a future multi-parameter URL cannot emit a raw ampersand. */
+const SITE_ORIGIN = "https://stapleseducation.com";
+const SITEMAP_LASTMOD = "2026-07-05";
+
+function sortedUnitNumbers() {
+    return Object.keys(ODE_UNIT_SEO).map(Number).sort((a, b) => a - b);
+}
+
+function sitemapUrlEntry(loc, changefreq, priority) {
+    return "  <url>\n" +
+        "    <loc>" + escapeHtml(loc) + "</loc>\n" +
+        "    <lastmod>" + SITEMAP_LASTMOD + "</lastmod>\n" +
+        "    <changefreq>" + changefreq + "</changefreq>\n" +
+        "    <priority>" + priority + "</priority>\n" +
+        "  </url>";
+}
+
+function buildSitemapXml() {
+    const entries = [
+        sitemapUrlEntry(SITE_ORIGIN + "/", "weekly", "1.0"),
+        sitemapUrlEntry(SITE_ORIGIN + "/ode/", "weekly", "0.8")
+    ];
+    for (const n of sortedUnitNumbers()) {
+        entries.push(sitemapUrlEntry(
+            SITE_ORIGIN + "/ode/?unit=" + n, "weekly", "0.7"));
+    }
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+        entries.join("\n") + "\n</urlset>";
+}
+
+/* Serves /ode/ and, when a recognized ?unit= selector is present, stream-
+ * rewrites only the <title> and <meta name="description"> of the returned
+ * HTML with that unit's metadata. Every miss (no ASSETS binding, non-GET,
+ * non-HTML, unknown unit) returns the untouched asset, so this is a pure
+ * additive layer over the static shell. HTMLRewriter is a Workers-runtime
+ * global referenced lazily here, so the Node test harness (which never hits
+ * this path and has no env.ASSETS) parses the module without needing it. */
+async function handleOdeSeo(request, env, url) {
+    if (!env.ASSETS) return json(404, { error: "Not found." });
+    const assetResponse = await env.ASSETS.fetch(request);
+
+    const unitParam = url.searchParams.get("unit");
+    const meta = unitParam !== null ? ODE_UNIT_SEO[unitParam] : null;
+    const isHtml = (assetResponse.headers.get("Content-Type") || "")
+        .toLowerCase().includes("text/html");
+    if (!meta || request.method !== "GET" || !assetResponse.ok || !isHtml) {
+        return assetResponse;
+    }
+
+    return new HTMLRewriter()
+        .on("title", {
+            element(el) { el.setInnerContent(meta.title + ODE_SEO_SUFFIX); }
+        })
+        .on('meta[name="description"]', {
+            element(el) { el.setAttribute("content", meta.description); }
+        })
+        .transform(assetResponse);
+}
+
 /* Route matrix: /api/sync, /api/contact, and SEO support files. */
 export default {
     async fetch(request, env, ctx) {
@@ -718,24 +822,16 @@ export default {
             });
         }
         if (url.pathname === "/sitemap.xml") {
-            const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://stapleseducation.com/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://stapleseducation.com/ode/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>`;
-            return new Response(sitemap, {
+            return new Response(buildSitemapXml(), {
                 headers: { "Content-Type": "application/xml" }
             });
+        }
+
+        // --- Programmatic SEO: unit-targeted metadata for the ODE SPA ---
+        // Reached only because "/ode/" is in assets.run_worker_first; a bare
+        // /ode/ (no ?unit=) falls straight through to the untouched asset.
+        if (url.pathname === "/ode/" || url.pathname === "/ode/index.html") {
+            return handleOdeSeo(request, env, url);
         }
 
         // --- API Endpoints ---

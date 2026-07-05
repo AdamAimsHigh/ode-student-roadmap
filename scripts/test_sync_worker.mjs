@@ -1,4 +1,4 @@
-/* 28-case end-to-end validation suite for src/worker.js.
+/* 30-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -17,6 +17,10 @@
  * endpoint (strict payload shape, Turnstile siteverify against a mocked
  * challenges.cloudflare.com, KV lead records) and the per-IP fixed-window
  * rate limiter on both API routes (429 + Retry-After past the window cap).
+ *
+ * Finally, the programmatic-SEO surface: the dynamic /sitemap.xml handler
+ * must deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq and
+ * emit valid, entity-safe XML.
  *
  * Run from the repo root:  node scripts/test_sync_worker.mjs
  * Exit code 0 = all cases pass.
@@ -550,6 +554,43 @@ await testCase("sync: 61st request in the window is rate-limited 429", async () 
     check(last.status === 429, `req 61: expected 429, got ${last.status}`);
     check(Number(last.headers.get("Retry-After")) >= 1,
         "429 carries a Retry-After header");
+});
+
+/* ---- Programmatic SEO: dynamic sitemap ---------------------------------- */
+
+function sitemapRequest() {
+    return new Request("https://stapleseducation.com/sitemap.xml");
+}
+
+await testCase("sitemap.xml is served as application/xml with the top-level pages", async () => {
+    const res = await worker.fetch(sitemapRequest(), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check((res.headers.get("Content-Type") || "").includes("application/xml"),
+        "Content-Type is application/xml");
+    const xml = await res.text();
+    check(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'),
+        "well-formed XML prolog");
+    check(xml.includes("<loc>https://stapleseducation.com/</loc>"),
+        "root landing page listed");
+    check(xml.includes("<loc>https://stapleseducation.com/ode/</loc>"),
+        "ODE roadmap listed");
+    check(!/<loc>[^<]*&(?!amp;|lt;|gt;|quot;|#)/.test(xml),
+        "no unescaped ampersand in any <loc>");
+});
+
+await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq", async () => {
+    const res = await worker.fetch(sitemapRequest(), env);
+    const xml = await res.text();
+    for (let n = 0; n <= 18; n++) {
+        check(xml.includes(`<loc>https://stapleseducation.com/ode/?unit=${n}</loc>`),
+            `unit ${n} deep-link present`);
+    }
+    const unitLocs = (xml.match(/<loc>[^<]*\/ode\/\?unit=\d+<\/loc>/g) || []);
+    check(unitLocs.length === 19, `exactly 19 unit URLs, got ${unitLocs.length}`);
+    const urlBlocks = (xml.match(/<url>/g) || []).length;
+    check(urlBlocks === 21, `21 total <url> blocks (2 pages + 19 units), got ${urlBlocks}`);
+    const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
+    check(weekly === 21, `every entry pins weekly changefreq, got ${weekly}`);
 });
 
 /* ---- Verdict ------------------------------------------------------------ */
