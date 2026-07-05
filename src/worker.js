@@ -716,30 +716,39 @@ async function handleContact(request, env, ctx) {
  * content/curriculum.json. Copy obeys the §1 constraint: no em-dashes, no
  * ampersands (WEBSITE_BLUEPRINT Maintenance Contract rule 3).
  *
+ * Each block also carries a `lastmod` (ISO-8601 YYYY-MM-DD) feeding the
+ * sitemap's per-unit <lastmod>. The value is the git last-commit date of that
+ * unit's content package source (`scripts/unitN_data.json`, the per-unit data
+ * that content/units/unit-NN was migrated from) — an accurate, reproducible
+ * per-unit authoring date. Most units share the Content API v1 date, while the
+ * later-track units (1, 14-18) retain their earlier authoring date, so the
+ * sitemap reports genuine per-unit history. buildSitemapXml() falls back to the
+ * global SITEMAP_LASTMOD if any block ever omits lastmod.
+ *
  * This runs only because wrangler.jsonc lists "/ode/" in assets.run_worker_first,
  * so the Worker sees the request before the asset server does; see the ODE SEO
  * metadata layer note in WEBSITE_BLUEPRINT.md (Pillar 1). */
 const ODE_SEO_SUFFIX = " | ODE Roadmap by Staples Education";
 const ODE_UNIT_SEO = {
-    "0": { title: "Unit 0: What Are Differential Equations", description: "Learn what a differential equation actually is from first principles: an equation relating a function to its own rate of change, and why that idea models the world." },
-    "1": { title: "Unit 1: Foundations and Prerequisites", description: "Rebuild the calculus and algebra foundations every differential equations course assumes, so derivatives, integrals, and functions feel like tools you own." },
-    "2": { title: "Unit 2: First Order Linear Differential Equations", description: "Master first order linear equations from the ground up: integrating factors, the structure of the general solution, and why the method actually works." },
-    "3": { title: "Unit 3: Existence, Uniqueness, and Geometry", description: "Understand when a differential equation has exactly one solution, and read solution behavior straight from slope fields before solving anything." },
-    "4": { title: "Unit 4: Autonomous Equations, Equilibrium, and Stability", description: "Analyze autonomous equations through their equilibria and stability, predicting long term behavior from the sign of the rate of change alone." },
-    "5": { title: "Unit 5: Numerical Methods", description: "Approximate solutions you cannot solve by hand. Build Euler and Runge Kutta methods from the definition of the derivative and control their error." },
-    "6": { title: "Unit 6: Multivariable Calculus Foundations", description: "The partial derivatives, gradients, and exact differentials you need before exact equations and systems, developed from first principles." },
-    "7": { title: "Unit 7: First-Order Exactness and Methods", description: "Recognize exact equations, recover potential functions, and apply integrating factors, all grounded in the multivariable calculus that makes them work." },
-    "8": { title: "Unit 8: Special Equations and Classical Models", description: "Solve Bernoulli, homogeneous, and classical model equations with the substitutions that turn hard nonlinear forms into ones you already know." },
-    "9": { title: "Unit 9: Second-Order Linear Equations, Theory and Structure", description: "The structure behind second order linear equations: linear independence, the Wronskian, and why two solutions span every solution." },
-    "10": { title: "Unit 10: Nonhomogeneous Equations and Forced Response", description: "Build the full solution to a forced linear equation as its homogeneous part plus one particular response, via undetermined coefficients and variation of parameters." },
-    "11": { title: "Unit 11: Mechanical Vibrations and Oscillators", description: "Watch second order linear equations become real oscillators: damping, resonance, and forced vibration derived from Newton's second law." },
-    "12": { title: "Unit 12: The Laplace Transform", description: "Turn differential equations into algebra with the Laplace transform, from its integral definition through initial value problems and discontinuous forcing." },
-    "13": { title: "Unit 13: Series Solutions", description: "Solve equations with variable coefficients using power series, learning where a series solution converges and how ordinary and singular points differ." },
-    "14": { title: "Unit 14: Linear Algebra Foundations for Systems", description: "The vectors, matrices, eigenvalues, and eigenvectors that systems of differential equations are built on, developed from first principles." },
-    "15": { title: "Unit 15: Systems of Linear Differential Equations", description: "Solve systems of linear differential equations through eigenvalues and eigenvectors, reading coupled behavior as motion in a vector space." },
-    "16": { title: "Unit 16: Phase Plane Analysis and Nonlinear Dynamics", description: "Classify equilibria in the phase plane and linearize nonlinear systems, reading stability and long term dynamics straight from the geometry." },
-    "17": { title: "Unit 17: Boundary Value Problems and Sturm-Liouville Theory", description: "Move from initial value to boundary value problems, discovering eigenvalues, eigenfunctions, and the orthogonality that Sturm Liouville theory guarantees." },
-    "18": { title: "Unit 18: Fourier Series and Partial Differential Equations", description: "Represent functions as Fourier series and separate variables to solve the heat, wave, and Laplace equations from first principles." }
+    "0": { title: "Unit 0: What Are Differential Equations", description: "Learn what a differential equation actually is from first principles: an equation relating a function to its own rate of change, and why that idea models the world.", lastmod: "2026-07-03" },
+    "1": { title: "Unit 1: Foundations and Prerequisites", description: "Rebuild the calculus and algebra foundations every differential equations course assumes, so derivatives, integrals, and functions feel like tools you own.", lastmod: "2026-06-27" },
+    "2": { title: "Unit 2: First Order Linear Differential Equations", description: "Master first order linear equations from the ground up: integrating factors, the structure of the general solution, and why the method actually works.", lastmod: "2026-07-03" },
+    "3": { title: "Unit 3: Existence, Uniqueness, and Geometry", description: "Understand when a differential equation has exactly one solution, and read solution behavior straight from slope fields before solving anything.", lastmod: "2026-07-03" },
+    "4": { title: "Unit 4: Autonomous Equations, Equilibrium, and Stability", description: "Analyze autonomous equations through their equilibria and stability, predicting long term behavior from the sign of the rate of change alone.", lastmod: "2026-07-03" },
+    "5": { title: "Unit 5: Numerical Methods", description: "Approximate solutions you cannot solve by hand. Build Euler and Runge Kutta methods from the definition of the derivative and control their error.", lastmod: "2026-07-03" },
+    "6": { title: "Unit 6: Multivariable Calculus Foundations", description: "The partial derivatives, gradients, and exact differentials you need before exact equations and systems, developed from first principles.", lastmod: "2026-07-03" },
+    "7": { title: "Unit 7: First-Order Exactness and Methods", description: "Recognize exact equations, recover potential functions, and apply integrating factors, all grounded in the multivariable calculus that makes them work.", lastmod: "2026-07-03" },
+    "8": { title: "Unit 8: Special Equations and Classical Models", description: "Solve Bernoulli, homogeneous, and classical model equations with the substitutions that turn hard nonlinear forms into ones you already know.", lastmod: "2026-07-03" },
+    "9": { title: "Unit 9: Second-Order Linear Equations, Theory and Structure", description: "The structure behind second order linear equations: linear independence, the Wronskian, and why two solutions span every solution.", lastmod: "2026-07-03" },
+    "10": { title: "Unit 10: Nonhomogeneous Equations and Forced Response", description: "Build the full solution to a forced linear equation as its homogeneous part plus one particular response, via undetermined coefficients and variation of parameters.", lastmod: "2026-07-03" },
+    "11": { title: "Unit 11: Mechanical Vibrations and Oscillators", description: "Watch second order linear equations become real oscillators: damping, resonance, and forced vibration derived from Newton's second law.", lastmod: "2026-07-03" },
+    "12": { title: "Unit 12: The Laplace Transform", description: "Turn differential equations into algebra with the Laplace transform, from its integral definition through initial value problems and discontinuous forcing.", lastmod: "2026-07-03" },
+    "13": { title: "Unit 13: Series Solutions", description: "Solve equations with variable coefficients using power series, learning where a series solution converges and how ordinary and singular points differ.", lastmod: "2026-07-03" },
+    "14": { title: "Unit 14: Linear Algebra Foundations for Systems", description: "The vectors, matrices, eigenvalues, and eigenvectors that systems of differential equations are built on, developed from first principles.", lastmod: "2026-06-27" },
+    "15": { title: "Unit 15: Systems of Linear Differential Equations", description: "Solve systems of linear differential equations through eigenvalues and eigenvectors, reading coupled behavior as motion in a vector space.", lastmod: "2026-06-27" },
+    "16": { title: "Unit 16: Phase Plane Analysis and Nonlinear Dynamics", description: "Classify equilibria in the phase plane and linearize nonlinear systems, reading stability and long term dynamics straight from the geometry.", lastmod: "2026-06-27" },
+    "17": { title: "Unit 17: Boundary Value Problems and Sturm-Liouville Theory", description: "Move from initial value to boundary value problems, discovering eigenvalues, eigenfunctions, and the orthogonality that Sturm Liouville theory guarantees.", lastmod: "2026-06-27" },
+    "18": { title: "Unit 18: Fourier Series and Partial Differential Equations", description: "Represent functions as Fourier series and separate variables to solve the heat, wave, and Laplace equations from first principles.", lastmod: "2026-06-27" }
 };
 
 /* ---- Dynamic sitemap ---------------------------------------------------- *
@@ -758,10 +767,12 @@ function sortedUnitNumbers() {
     return Object.keys(ODE_UNIT_SEO).map(Number).sort((a, b) => a - b);
 }
 
-function sitemapUrlEntry(loc, changefreq, priority) {
+/* lastmod is per-entry; a missing/empty value falls back to the global
+   baseline SITEMAP_LASTMOD so an entry can never emit an empty <lastmod>. */
+function sitemapUrlEntry(loc, changefreq, priority, lastmod) {
     return "  <url>\n" +
         "    <loc>" + escapeHtml(loc) + "</loc>\n" +
-        "    <lastmod>" + SITEMAP_LASTMOD + "</lastmod>\n" +
+        "    <lastmod>" + (lastmod || SITEMAP_LASTMOD) + "</lastmod>\n" +
         "    <changefreq>" + changefreq + "</changefreq>\n" +
         "    <priority>" + priority + "</priority>\n" +
         "  </url>";
@@ -773,8 +784,10 @@ function buildSitemapXml() {
         sitemapUrlEntry(SITE_ORIGIN + "/ode/", "weekly", "0.8")
     ];
     for (const n of sortedUnitNumbers()) {
+        const unit = ODE_UNIT_SEO[String(n)];
         entries.push(sitemapUrlEntry(
-            SITE_ORIGIN + "/ode/?unit=" + n, "weekly", "0.7"));
+            SITE_ORIGIN + "/ode/?unit=" + n, "weekly", "0.7",
+            unit && unit.lastmod));
     }
     return '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

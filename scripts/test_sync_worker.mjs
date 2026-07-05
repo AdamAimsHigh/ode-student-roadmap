@@ -1,4 +1,4 @@
-/* 30-case end-to-end validation suite for src/worker.js.
+/* 31-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -19,8 +19,9 @@
  * rate limiter on both API routes (429 + Retry-After past the window cap).
  *
  * Finally, the programmatic-SEO surface: the dynamic /sitemap.xml handler
- * must deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq and
- * emit valid, entity-safe XML.
+ * must deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq,
+ * emit valid, entity-safe XML, and carry per-unit ISO-8601 <lastmod> dates
+ * that vary across units (not one global constant).
  *
  * Run from the repo root:  node scripts/test_sync_worker.mjs
  * Exit code 0 = all cases pass.
@@ -591,6 +592,24 @@ await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq",
     check(urlBlocks === 21, `21 total <url> blocks (2 pages + 19 units), got ${urlBlocks}`);
     const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
     check(weekly === 21, `every entry pins weekly changefreq, got ${weekly}`);
+});
+
+await testCase("sitemap: per-unit <lastmod> dates are ISO-8601 and vary across units", async () => {
+    const res = await worker.fetch(sitemapRequest(), env);
+    const xml = await res.text();
+    // Capture each unit URL's own <lastmod> from its <url> block.
+    const perUnit = {};
+    const re = /<url>\s*<loc>https:\/\/stapleseducation\.com\/ode\/\?unit=(\d+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
+    let m;
+    while ((m = re.exec(xml)) !== null) perUnit[m[1]] = m[2];
+    const dates = Object.keys(perUnit).map((k) => perUnit[k]);
+    check(dates.length === 19, `captured lastmod for all 19 units, got ${dates.length}`);
+    check(dates.every((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)),
+        "every unit lastmod is a well-formed ISO-8601 YYYY-MM-DD date");
+    check(new Set(dates).size >= 2,
+        `unit lastmod values vary across units (distinct=${new Set(dates).size})`);
+    check(perUnit["1"] !== perUnit["0"],
+        "per-unit dates are independent, not one global constant applied to all");
 });
 
 /* ---- Verdict ------------------------------------------------------------ */
