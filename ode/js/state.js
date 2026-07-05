@@ -24,8 +24,14 @@ const ODEState = (function () {
 
     /* Cloud sync constants. The endpoint is root-absolute because the SPA is
        mounted at /ode/ while the API lives at the domain root; the httpContext
-       guard keeps this from ever firing under file://. */
+       guard keeps this from ever firing under file://. SYNC_SUBJECT names
+       this app's curriculum track in the Worker's namespaced progress store
+       ("progress:<subject>:<sub>") — a future Linear Algebra or Calculus SPA
+       ships the same coordinator with its own subject constant and can never
+       touch ode records. Existing pre-namespace progress is migrated
+       server-side on first read; nothing changes in localStorage. */
     const SYNC_ENDPOINT = "/api/sync";
+    const SYNC_SUBJECT = "ode";
     const SYNC_DEBOUNCE_MS = 2500;
     const CREDENTIAL_KEY = "ode_google_credential";
     const SESSION_KEY = "ode_cloud_session";
@@ -162,7 +168,7 @@ const ODEState = (function () {
             init.headers["Content-Type"] = "application/json";
             init.body = options.body;
         }
-        return fetch(SYNC_ENDPOINT, init).then(function (res) {
+        return fetch(SYNC_ENDPOINT + "?subject=" + SYNC_SUBJECT, init).then(function (res) {
             if (res.status === 401 && auth.kind === "session" && !options.retried) {
                 clearStoredSession();
                 options.retried = true;

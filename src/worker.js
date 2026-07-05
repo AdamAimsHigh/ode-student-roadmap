@@ -33,9 +33,16 @@
  * session server-side — the hashed KV record is deleted, so the token is
  * dead on every device immediately rather than lingering until TTL expiry.
  *
- * Storage: env.ODE_PROGRESS_KV, three record families:
- *   "progress:<google sub>"  { progress: <sanitized ode_* map>, email, updatedAt }
+ * Storage: env.ODE_PROGRESS_KV, four record families:
+ *   "progress:<subject>:<google sub>"  { progress, email, updatedAt }
+ *       — per-curriculum progress, subject ∈ KNOWN_SUBJECTS. GET/POST
+ *       /api/sync?subject=<s> selects the namespace; absent → "ode".
+ *   "progress:<google sub>"  — legacy pre-namespace ode records: kept as
+ *       a read-only fallback and lazily copied into "progress:ode:<sub>"
+ *       on first read, so no student progress is ever stranded.
  *   "session:<sha256 hex>"   { sub, email, createdAt }  (30-day TTL)
+ *       — deliberately subject-agnostic: identity is one sign-in across
+ *       every curriculum; only progress data is track-scoped.
  *   "lead:<iso>_<rand>"      { name, email, message, ip, submittedAt }  (90-day TTL)
  */
 
@@ -43,8 +50,28 @@ const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
 const GOOGLE_ISSUERS = ["https://accounts.google.com", "accounts.google.com"];
 const CLOCK_SKEW_S = 60;
 const MAX_BODY_BYTES = 128 * 1024;
-const KV_KEY_PREFIX = "progress:";
 const JWKS_TTL_MS = 60 * 60 * 1000;
+
+/* ---- Subject namespaces ------------------------------------------------- */
+
+/* Progress keys carry an explicit curriculum segment so parallel tracks
+   (linear algebra, calculus, ...) can never cross-pollute. Adding a track
+   is a one-line append to the registry; anything not registered is a 400,
+   so a hostile query string cannot mint unbounded KV namespaces. */
+const KNOWN_SUBJECTS = ["ode", "lin_alg", "calc"];
+const DEFAULT_SUBJECT = "ode";
+const PROGRESS_KV_PREFIX = "progress:";
+
+function progressKey(subject, sub) {
+    return PROGRESS_KV_PREFIX + subject + ":" + sub;
+}
+
+/* Pre-namespace key shape ("progress:<sub>", no subject segment) — the
+   installed base. Never written anymore; read as a fallback and lazily
+   copied into the ode namespace by handleSync. */
+function legacyProgressKey(sub) {
+    return PROGRESS_KV_PREFIX + sub;
+}
 
 const SESSION_TOKEN_PREFIX = "odesess_";
 const SESSION_KV_PREFIX = "session:";
@@ -332,7 +359,7 @@ function isJsonRequest(request) {
     return contentType.toLowerCase().includes("application/json");
 }
 
-async function handleSync(request, env) {
+async function handleSync(request, env, url) {
     if (request.method !== "GET" && request.method !== "POST" &&
         request.method !== "DELETE") {
         return new Response(null,
@@ -346,6 +373,21 @@ async function handleSync(request, env) {
        or KV session lookups. */
     const retryAfterS = rateLimitRetryAfter("sync", request);
     if (retryAfterS) return tooManyRequests(retryAfterS);
+
+    /* Subject context for the GET/POST data routes. Absent or empty means
+       "ode", so every deployed client predating the namespace keeps
+       working untouched. DELETE is exempt: sign-out revokes the identity,
+       which is shared across all subject tracks. */
+    let subject = DEFAULT_SUBJECT;
+    if (request.method !== "DELETE") {
+        const requested = url.searchParams.get("subject");
+        if (requested !== null && requested !== "") {
+            if (!KNOWN_SUBJECTS.includes(requested)) {
+                return json(400, { error: "Unknown subject track." });
+            }
+            subject = requested;
+        }
+    }
 
     const auth = request.headers.get("Authorization") || "";
     if (!auth.startsWith("Bearer ")) {
@@ -398,10 +440,24 @@ async function handleSync(request, env) {
         return json(401, { error: "Invalid credential.", detail: String(err.message || err) });
     }
 
-    const kvKey = KV_KEY_PREFIX + identity.sub;
+    const kvKey = progressKey(subject, identity.sub);
 
     if (request.method === "GET") {
-        const record = await env.ODE_PROGRESS_KV.get(kvKey, "json");
+        let record = await env.ODE_PROGRESS_KV.get(kvKey, "json");
+        /* Lazy lossless migration of the installed base: an ode read that
+           misses the namespaced key falls back to the pre-namespace record
+           and copies it forward, so returning students see their progress
+           on the very first request after this deploy. The legacy record
+           is left in place — the fallback stays idempotent and a rollback
+           to the old worker would still find its data. */
+        if (!record && subject === DEFAULT_SUBJECT) {
+            const legacy = await env.ODE_PROGRESS_KV.get(
+                legacyProgressKey(identity.sub), "json");
+            if (legacy) {
+                record = legacy;
+                await env.ODE_PROGRESS_KV.put(kvKey, JSON.stringify(legacy));
+            }
+        }
         const body = {
             progress: (record && record.progress) || null,
             updatedAt: (record && record.updatedAt) || null
@@ -684,7 +740,7 @@ export default {
 
         // --- API Endpoints ---
         if (url.pathname === "/api/sync") {
-            return handleSync(request, env);
+            return handleSync(request, env, url);
         }
         if (url.pathname === "/api/contact") {
             return handleContact(request, env, ctx);

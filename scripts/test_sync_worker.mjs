@@ -1,4 +1,4 @@
-/* 25-case end-to-end validation suite for src/worker.js.
+/* 28-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -7,6 +7,11 @@
  * hard sign-out that revokes a session record server-side. Malformed,
  * tampered, expired, and oversized inputs must all be rejected with
  * 401/413/405.
+ *
+ * Progress storage is subject-namespaced ("progress:<subject>:<sub>",
+ * ?subject= query param, default ode): covered are registry rejection of
+ * unknown tracks, cross-track isolation, and the lazy lossless migration
+ * of legacy pre-namespace records.
  *
  * Also covers the Phase 3 hardening surface: the POST /api/contact lead
  * endpoint (strict payload shape, Turnstile siteverify against a mocked
@@ -141,11 +146,12 @@ const env = {
     TURNSTILE_SECRET_KEY: TURNSTILE_SECRET
 };
 
-function apiRequest(method, token, body) {
+function apiRequest(method, token, body, subject) {
     const headers = {};
     if (token !== null) headers["Authorization"] = "Bearer " + token;
     if (body !== undefined) headers["Content-Type"] = "application/json";
-    return new Request("https://stapleseducation.com/api/sync", {
+    return new Request("https://stapleseducation.com/api/sync" +
+        (subject ? "?subject=" + encodeURIComponent(subject) : ""), {
         method,
         headers,
         body: body === undefined ? undefined
@@ -267,7 +273,7 @@ await testCase("valid Google POST sanitizes hostile payloads before KV write", a
         }
     }), env);
     check(res.status === 200, `expected 200, got ${res.status}`);
-    const saved = await kv.get("progress:" + SUB, "json");
+    const saved = await kv.get("progress:ode:" + SUB, "json");
     check(JSON.stringify(saved.progress.ode_watched_videos) === '["v1","v2"]',
         "watched list deduped, non-strings dropped");
     check(saved.progress.ode_passed_checkpoints.cp1.score === 5,
@@ -293,7 +299,7 @@ await testCase("session-token POST writes the progress map", async () => {
         progress: { ode_watched_videos: ["v1", "v2", "v3"] }
     }), env);
     check(res.status === 200, `expected 200, got ${res.status}`);
-    const saved = await kv.get("progress:" + SUB, "json");
+    const saved = await kv.get("progress:ode:" + SUB, "json");
     check(saved.progress.ode_watched_videos.length === 3,
         "session-authenticated write persisted");
 });
@@ -306,7 +312,7 @@ await testCase("tampered session token signature misses KV and is 401", async ()
     const res2 = await worker.fetch(apiRequest("POST", flipped,
         { progress: { ode_watched_videos: ["evil"] } }), env);
     check(res2.status === 401, `tampered POST: expected 401, got ${res2.status}`);
-    const saved = await kv.get("progress:" + SUB, "json");
+    const saved = await kv.get("progress:ode:" + SUB, "json");
     check(saved.progress.ode_watched_videos.indexOf("evil") === -1,
         "tampered token never reaches the progress map");
 });
@@ -336,6 +342,53 @@ await testCase("oversized POST body is refused with 413", async () => {
         "x".repeat(130 * 1024) + '"]}}';
     const res = await worker.fetch(apiRequest("POST", sessionToken, padded), env);
     check(res.status === 413, `expected 413, got ${res.status}`);
+});
+
+/* ---- Phase 6: subject-namespaced progress -------------------------------- */
+
+await testCase("unregistered subject parameter is refused with 400", async () => {
+    const res = await worker.fetch(
+        apiRequest("GET", sessionToken, undefined, "underwater_basket_weaving"), env);
+    check(res.status === 400, `unknown subject: expected 400, got ${res.status}`);
+    const hostile = await worker.fetch(apiRequest("POST", sessionToken,
+        { progress: { ode_watched_videos: ["x"] } }, "ode'; DROP TABLE"), env);
+    check(hostile.status === 400, `hostile subject: expected 400, got ${hostile.status}`);
+});
+
+await testCase("parallel subject tracks are isolated namespaces", async () => {
+    const res = await worker.fetch(apiRequest("POST", sessionToken,
+        { progress: { ode_watched_videos: ["la-v1"] } }, "lin_alg"), env);
+    check(res.status === 200, `lin_alg POST: expected 200, got ${res.status}`);
+    const la = await kv.get("progress:lin_alg:" + SUB, "json");
+    check(la !== null && la.progress.ode_watched_videos.length === 1,
+        "lin_alg record lands in its own namespace");
+    const ode = await kv.get("progress:ode:" + SUB, "json");
+    check(ode.progress.ode_watched_videos.length === 3,
+        "ode namespace untouched by the lin_alg write");
+    const odeBody = await (await worker.fetch(
+        apiRequest("GET", sessionToken), env)).json();
+    check(odeBody.progress.ode_watched_videos.indexOf("la-v1") === -1,
+        "subjectless (default ode) GET never sees lin_alg data");
+});
+
+await testCase("legacy pre-namespace record migrates losslessly on first ode read", async () => {
+    const legacySub = "9998887776665554443";
+    await kv.put("progress:" + legacySub, JSON.stringify({
+        progress: { ode_watched_videos: ["old-v1", "old-v2"] },
+        email: "veteran@example.com",
+        updatedAt: "2026-01-01T00:00:00.000Z"
+    }));
+    const res = await worker.fetch(
+        apiRequest("GET", await signToken({ sub: legacySub })), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.json();
+    check(body.progress && body.progress.ode_watched_videos.length === 2,
+        "legacy progress served on the first namespaced read");
+    const migrated = await kv.get("progress:ode:" + legacySub, "json");
+    check(migrated !== null && migrated.progress.ode_watched_videos[0] === "old-v1",
+        "record copied forward into the ode namespace");
+    check((await kv.get("progress:" + legacySub, "json")) !== null,
+        "legacy record retained for rollback safety");
 });
 
 /* ---- Phase 5: DELETE /api/sync hard sign-out ----------------------------- */
@@ -373,7 +426,7 @@ await testCase("sign-out DELETE hard-revokes the live session in KV", async () =
         "hashed session record deleted from KV");
     const replay = await worker.fetch(apiRequest("GET", sessionToken), env);
     check(replay.status === 401, `revoked token replay: expected 401, got ${replay.status}`);
-    const progress = await kv.get("progress:" + SUB, "json");
+    const progress = await kv.get("progress:ode:" + SUB, "json");
     check(progress !== null && progress.progress.ode_watched_videos.length === 3,
         "sign-out revokes the credential, never the progress data");
 });
