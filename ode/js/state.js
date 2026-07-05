@@ -7,9 +7,11 @@
    silent, debounced background POST. Sign-in persistence is long-lived:
    the first Google verification is exchanged by the Worker for an opaque
    30-day session token cached in localStorage, so returning students stay
-   signed in across browser restarts on both mobile and desktop. Cloud
-   calls are strictly best-effort: offline, file://, signed-out, or failing
-   sessions leave the localStorage loop untouched. */
+   signed in across browser restarts on both mobile and desktop. Sign-out
+   is a two-phase teardown: a best-effort DELETE /api/sync revokes the edge
+   session server-side, then local credentials are dumped unconditionally.
+   Cloud calls are strictly best-effort: offline, file://, signed-out, or
+   failing sessions leave the localStorage loop untouched. */
 
 const ODEState = (function () {
     const KEYS = {
@@ -374,7 +376,33 @@ const ODEState = (function () {
         initCloudSync();
     }
 
+    /* Server-side half of sign-out: revokes the edge session's hashed KV
+       record via DELETE /api/sync so the token dies everywhere, not just in
+       this browser's localStorage. Strictly fire-and-forget — the promise is
+       never awaited and every failure path (offline, timeout, file://, 401
+       on an already-dead token) is swallowed, so the local cache dump that
+       follows can never be blocked and a student is never trapped signed-in.
+       keepalive lets the request survive an immediate tab close. */
+    function revokeCloudSession() {
+        const session = getStoredSession();
+        if (!session || !httpContext()) return;
+        try {
+            fetch(SYNC_ENDPOINT, {
+                method: "DELETE",
+                headers: { "Authorization": "Bearer " + session.token },
+                keepalive: true
+            }).catch(function (err) {
+                console.debug("Edge session revocation skipped:", err);
+            });
+        } catch (err) {
+            console.debug("Edge session revocation skipped:", err);
+        }
+    }
+
     function deactivateCloudSession() {
+        /* Revoke server-side first, while the session token is still in
+           localStorage to read; everything below proceeds unconditionally. */
+        revokeCloudSession();
         syncActive = false;
         if (syncTimer) clearTimeout(syncTimer);
         try {
