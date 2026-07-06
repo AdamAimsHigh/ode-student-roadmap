@@ -1,4 +1,4 @@
-/* 32-case end-to-end validation suite for src/worker.js.
+/* 40-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -20,10 +20,17 @@
  * second KV write) and the per-IP fixed-window rate limiter on both API
  * routes (429 + Retry-After past the window cap).
  *
- * Finally, the programmatic-SEO surface: the dynamic /sitemap.xml handler
- * must deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq,
- * emit valid, entity-safe XML, and carry per-unit ISO-8601 <lastmod> dates
- * that vary across units (not one global constant).
+ * The programmatic-SEO surface: the dynamic /sitemap.xml handler must
+ * deep-link all 19 ODE units (/ode/?unit=N) with weekly changefreq, emit
+ * valid, entity-safe XML, and carry per-unit ISO-8601 <lastmod> dates that
+ * vary across units (not one global constant).
+ *
+ * Finally, Bundle 1: the local Geo-SEO landing matrix (neighborhood slugs
+ * resolve to the root storefront template; unknown paths and inherited Object
+ * keys never route; sitemap lists each geo page monthly at 0.9 priority) and
+ * the /api/contact form-session timing gate (an HMAC-signed token is accepted
+ * only for a realistic human dwell >= 2.5 s, and missing / too-fast / forged
+ * tokens are dropped before any KV write when FORM_SESSION_SECRET is set).
  *
  * Run from the repo root:  node scripts/test_sync_worker.mjs
  * Exit code 0 = all cases pass.
@@ -152,6 +159,59 @@ const env = {
     GOOGLE_CLIENT_ID: CLIENT_ID,
     TURNSTILE_SECRET_KEY: TURNSTILE_SECRET
 };
+
+/* ---- Geo-SEO + form-session fixtures ------------------------------------ */
+
+/* The whitelisted neighborhood slugs, mirroring GEO_SEO_REGISTRY in
+   src/worker.js. Kept as a literal here (the worker exports only its default
+   handler) so the sitemap + routing assertions have a source of truth. */
+const GEO_SLUGS = [
+    "scottsdale-calculus-tutor",
+    "paradise-valley-math-tutor",
+    "gilbert-math-tutor",
+    "chandler-math-tutor",
+    "tempe-calculus-tutor",
+    "arcadia-math-tutor",
+    "ahwatukee-math-tutor",
+    "fountain-hills-math-tutor"
+];
+
+/* HMAC-signed form-session timing token, forged with the same construction as
+   issueFormSessionToken() in the worker: "<tsMs>.<base64url(HMAC-SHA256(tsMs))>".
+   Choosing tsMs lets a case simulate a realistic dwell (now - 5 s) or an
+   instant scripted post (now - 0.5 s) without actually waiting. */
+const FORM_SECRET = "test-form-session-secret";
+async function signFormToken(secret, tsMs) {
+    const key = await crypto.subtle.importKey(
+        "raw", new TextEncoder().encode(secret),
+        { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const sig = await crypto.subtle.sign(
+        "HMAC", key, new TextEncoder().encode(String(tsMs)));
+    return String(tsMs) + "." +
+        Buffer.from(new Uint8Array(sig)).toString("base64url");
+}
+
+/* env with the timing gate armed. */
+const envWithFormSecret = { ...env, FORM_SESSION_SECRET: FORM_SECRET };
+
+/* env with a mock ASSETS binding that echoes the fetched pathname into the
+   HTML body, so a routing case can prove WHICH document the storefront/geo
+   handler fetched. The Workers-only HTMLRewriter global is absent under Node,
+   so handleStorefront returns the fetched asset unmodified — exactly the
+   defensive miss path — which is all these routing assertions need. */
+function htmlAssetEnv(extra) {
+    return {
+        ...env,
+        ...extra,
+        ASSETS: {
+            fetch: async (req) => new Response(
+                '<html><head><title>Staples Education</title>' +
+                '<meta name="description" content="default"></head><body>' +
+                new URL(req.url).pathname + "</body></html>",
+                { headers: { "Content-Type": "text/html; charset=utf-8" } })
+        }
+    };
+}
 
 function apiRequest(method, token, body, subject) {
     const headers = {};
@@ -620,9 +680,11 @@ await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq",
     const unitLocs = (xml.match(/<loc>[^<]*\/ode\/\?unit=\d+<\/loc>/g) || []);
     check(unitLocs.length === 19, `exactly 19 unit URLs, got ${unitLocs.length}`);
     const urlBlocks = (xml.match(/<url>/g) || []).length;
-    check(urlBlocks === 21, `21 total <url> blocks (2 pages + 19 units), got ${urlBlocks}`);
+    check(urlBlocks === 21 + GEO_SLUGS.length,
+        `${21 + GEO_SLUGS.length} total <url> blocks (2 pages + 19 units + ${GEO_SLUGS.length} geo), got ${urlBlocks}`);
     const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
-    check(weekly === 21, `every entry pins weekly changefreq, got ${weekly}`);
+    check(weekly === 21,
+        `21 weekly entries (2 pages + 19 units; geo pages are monthly), got ${weekly}`);
 });
 
 await testCase("sitemap: per-unit <lastmod> dates are ISO-8601 and vary across units", async () => {
@@ -641,6 +703,113 @@ await testCase("sitemap: per-unit <lastmod> dates are ISO-8601 and vary across u
         `unit lastmod values vary across units (distinct=${new Set(dates).size})`);
     check(perUnit["1"] !== perUnit["0"],
         "per-unit dates are independent, not one global constant applied to all");
+});
+
+await testCase("sitemap: Geo-SEO landing pages carry monthly changefreq and 0.9 priority", async () => {
+    const res = await worker.fetch(sitemapRequest(), env);
+    const xml = await res.text();
+    for (const slug of GEO_SLUGS) {
+        check(xml.includes(`<loc>https://stapleseducation.com/${slug}</loc>`),
+            `geo slug ${slug} present in sitemap`);
+        const re = new RegExp(
+            "<url>\\s*<loc>https://stapleseducation\\.com/" + slug +
+            "</loc>\\s*<lastmod>\\d{4}-\\d{2}-\\d{2}</lastmod>" +
+            "\\s*<changefreq>monthly</changefreq>\\s*<priority>0\\.9</priority>");
+        check(re.test(xml), `geo slug ${slug} block is monthly changefreq + 0.9 priority`);
+    }
+    const monthly = (xml.match(/<changefreq>monthly<\/changefreq>/g) || []).length;
+    check(monthly === GEO_SLUGS.length,
+        `exactly ${GEO_SLUGS.length} monthly geo entries, got ${monthly}`);
+});
+
+/* ---- Geo-SEO routing ----------------------------------------------------- */
+
+await testCase("geo: a recognized neighborhood slug renders the root storefront template", async () => {
+    const res = await worker.fetch(
+        new Request("https://stapleseducation.com/scottsdale-calculus-tutor"),
+        htmlAssetEnv());
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.text();
+    check(body.includes("<body>/</body>"),
+        "geo slug fetched and returned the root (/) storefront document");
+});
+
+await testCase("geo: unknown paths and inherited Object keys are NOT geo routes", async () => {
+    const miss = await worker.fetch(
+        new Request("https://stapleseducation.com/nope-not-a-slug"),
+        htmlAssetEnv());
+    check((await miss.text()).includes("<body>/nope-not-a-slug</body>"),
+        "unknown path served its own asset, not the storefront root");
+    /* Prototype-pollution guard: /constructor and /toString must not resolve
+       to an inherited Object.prototype member and mint a phantom route. */
+    for (const proto of ["constructor", "toString", "hasOwnProperty"]) {
+        const res = await worker.fetch(
+            new Request("https://stapleseducation.com/" + proto), htmlAssetEnv());
+        check((await res.text()).includes(`<body>/${proto}</body>`),
+            `inherited key /${proto} is not treated as a geo slug`);
+    }
+});
+
+await testCase("storefront: the root path routes through the Worker and returns the landing document", async () => {
+    const res = await worker.fetch(
+        new Request("https://stapleseducation.com/"), htmlAssetEnv());
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check((await res.text()).includes("<title>"),
+        "root returns the storefront HTML document");
+});
+
+/* ---- Form-session timing gate on /api/contact ---------------------------- */
+
+await testCase("contact: a form-session token with a realistic dwell time is accepted", async () => {
+    const token = await signFormToken(FORM_SECRET, Date.now() - 5000);
+    const before = kv.keysWithPrefix("lead:").length;
+    const res = await worker.fetch(contactRequest({
+        name: "Cara Dwell", email: "cara.dwell@example.com",
+        message: "I had a realistic reading window before submitting this.",
+        turnstileToken: "PASS", formSessionToken: token
+    }, { ip: "203.0.113.20" }), envWithFormSecret);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check(kv.keysWithPrefix("lead:").length === before + 1,
+        "verified, well-timed lead persisted exactly one record");
+});
+
+await testCase("contact: a token filled in under 2.5 s is dropped with no KV write", async () => {
+    const token = await signFormToken(FORM_SECRET, Date.now() - 500);
+    const before = kv.keysWithPrefix("lead:").length;
+    const res = await worker.fetch(contactRequest({
+        name: "Flo Flood", email: "flo.flood@example.com",
+        message: "Submitted almost instantly, the way a script would.",
+        turnstileToken: "PASS", formSessionToken: token
+    }, { ip: "203.0.113.21" }), envWithFormSecret);
+    check(res.status === 400, `expected 400, got ${res.status}`);
+    check(kv.keysWithPrefix("lead:").length === before,
+        "too-fast submission cut no lead record");
+});
+
+await testCase("contact: a missing token is dropped when the secret is configured", async () => {
+    const before = kv.keysWithPrefix("lead:").length;
+    const res = await worker.fetch(contactRequest({
+        name: "Mia Notoken", email: "mia.notoken@example.com",
+        message: "No timing token was present on this submission at all.",
+        turnstileToken: "PASS"
+    }, { ip: "203.0.113.22" }), envWithFormSecret);
+    check(res.status === 400, `expected 400, got ${res.status}`);
+    check(kv.keysWithPrefix("lead:").length === before, "no lead persisted");
+});
+
+await testCase("contact: a token with a forged HMAC signature is dropped", async () => {
+    const token = await signFormToken(FORM_SECRET, Date.now() - 5000);
+    const last = token.slice(-1);
+    const forged = token.slice(0, -1) + (last === "A" ? "B" : "A");
+    const before = kv.keysWithPrefix("lead:").length;
+    const res = await worker.fetch(contactRequest({
+        name: "Ted Tamper", email: "ted.tamper@example.com",
+        message: "Signature flipped by one character to test HMAC integrity.",
+        turnstileToken: "PASS", formSessionToken: forged
+    }, { ip: "203.0.113.23" }), envWithFormSecret);
+    check(res.status === 400, `expected 400, got ${res.status}`);
+    check(kv.keysWithPrefix("lead:").length === before,
+        "forged-signature submission cut no lead record");
 });
 
 /* ---- Verdict ------------------------------------------------------------ */

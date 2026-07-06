@@ -16,6 +16,15 @@
 //   npx wrangler secret put TURNSTILE_SECRET_KEY
 // and surfaces at runtime as env.TURNSTILE_SECRET_KEY.
 //
+// FORM_SESSION_SECRET (optional, HMAC key for the contact-form timing gate):
+//   npx wrangler secret put FORM_SESSION_SECRET
+// When set, handleStorefront stamps an HMAC-signed timing token into the
+// hidden contact-form input and POST /api/contact requires a realistic human
+// dwell (>= 2.5 s) before persisting a lead. When UNSET the gate is fully
+// inert (no injection, no check) and lead capture is unaffected, so it can be
+// enabled AFTER this code is live without a flag-day. Rotating the secret
+// simply invalidates in-flight tokens; the next page render mints fresh ones.
+//
 // The asset directory is the repository root, so the allowlist in
 // .assetsignore is load-bearing: it excludes EVERYTHING by default and
 // re-includes only the production web surface. This is what keeps
@@ -45,7 +54,11 @@
 		// list is deliberately narrow — sub-assets (/ode/css, /ode/js,
 		// /ode/data) stay on the direct asset path with zero Worker
 		// overhead. See WEBSITE_BLUEPRINT.md "ODE SEO metadata layer".
-		"run_worker_first": ["/ode/", "/ode/index.html"]
+		// "/" + "/index.html" added so handleStorefront can stamp the hidden
+			// contact-form timing token edge-side and serve the Geo-SEO
+			// neighborhood variants from the same root template. See
+			// WEBSITE_BLUEPRINT.md Pillar 1 ("Local Geo-SEO landing matrix").
+			"run_worker_first": ["/ode/", "/ode/index.html", "/", "/index.html"]
 	},
 	// Lead-notification email (Phase 4) is sent via the Brevo transactional
 	// REST API (no binding needed). The API credential is a Worker secret:

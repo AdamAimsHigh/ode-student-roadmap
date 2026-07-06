@@ -501,6 +501,97 @@ async function handleSync(request, env, url) {
     return json(200, response);
 }
 
+/* ---- Form-session timing tokens ---------------------------------------- *
+ *
+ * A stateless, cryptographically verifiable anti-flood gate layered UNDER
+ * Turnstile on the /api/contact path. When rendering a storefront page the
+ * Worker's HTMLRewriter (handleStorefront) stamps a hidden form input with a
+ * token of the form "<issuedAtMs>.<base64url(HMAC-SHA256(issuedAtMs))>",
+ * signed with the FORM_SESSION_SECRET Worker secret. On submit the handler
+ * recomputes the HMAC and requires the token's age to clear a realistic human
+ * reading window (>= 2.5 s) and stay under a bound (2 h), which drops the
+ * high-frequency manual form flooding and instant scripted posts that a fresh
+ * Turnstile token alone would still let through.
+ *
+ * Stateless BY DESIGN (no KV): the signature is self-authenticating, so there
+ * is no per-render server state to store or sweep, mirroring the deliberately
+ * non-KV rate limiter and lead-dedup gates above. The secret NEVER appears in
+ * the repo or wrangler.jsonc vars — it is provisioned with:
+ *   npx wrangler secret put FORM_SESSION_SECRET
+ * Absent the secret the gate is INERT end to end (no injection, no check), so
+ * lead capture is completely unaffected and a stale cached page can never be
+ * rejected — the same graceful-degradation contract as EMAIL_API_KEY. */
+const FORM_SESSION_MIN_FILL_MS = 2500;
+const FORM_SESSION_MAX_AGE_MS = 2 * 60 * 60 * 1000;
+/* "<=15-digit ms>." + 43-char base64url HMAC-SHA256 is 59 chars; anything far
+   past that is hostile input and is rejected before the HMAC is ever run. */
+const FORM_SESSION_TOKEN_MAX_LENGTH = 256;
+
+async function hmacSha256B64url(secret, message) {
+    const key = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(secret),
+        { name: "HMAC", hash: "SHA-256" },
+        false,
+        ["sign"]
+    );
+    const sig = await crypto.subtle.sign(
+        "HMAC", key, new TextEncoder().encode(message));
+    return bytesToB64url(new Uint8Array(sig));
+}
+
+/* Mints a fresh timing token stamped at nowMs. The timestamp is inside the
+   signed payload, so a client cannot backdate it to fake a longer dwell. */
+async function issueFormSessionToken(secret, nowMs) {
+    const ts = String(nowMs);
+    return ts + "." + (await hmacSha256B64url(secret, ts));
+}
+
+/* Constant-time string compare so a forged signature cannot be recovered byte
+   by byte from response-timing. Unequal lengths short-circuit — the only
+   information that leaks is that the lengths differ, never content. */
+function timingSafeStrEqual(a, b) {
+    if (typeof a !== "string" || typeof b !== "string" ||
+        a.length !== b.length) {
+        return false;
+    }
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) {
+        diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    }
+    return diff === 0;
+}
+
+/* Validates a presented timing token against FORM_SESSION_SECRET and the
+   human-dwell window. Returns { ok, reason }; every failure mode (absent,
+   malformed, forged signature, too fast, expired) surfaces as the same
+   generic rejection to the caller — only the reason is logged. */
+async function verifyFormSessionToken(token, secret, nowMs) {
+    if (typeof token !== "string" || token.length === 0 ||
+        token.length > FORM_SESSION_TOKEN_MAX_LENGTH) {
+        return { ok: false, reason: "missing" };
+    }
+    const dot = token.indexOf(".");
+    if (dot <= 0 || dot === token.length - 1) {
+        return { ok: false, reason: "malformed" };
+    }
+    const tsPart = token.slice(0, dot);
+    const sigPart = token.slice(dot + 1);
+    /* Bound the digit count so Number() can never lose precision on the
+       timestamp and so a giant numeric string cannot reach the HMAC. */
+    if (!/^[0-9]{1,15}$/.test(tsPart)) {
+        return { ok: false, reason: "malformed" };
+    }
+    const expected = await hmacSha256B64url(secret, tsPart);
+    if (!timingSafeStrEqual(sigPart, expected)) {
+        return { ok: false, reason: "bad-signature" };
+    }
+    const age = nowMs - Number(tsPart);
+    if (age < FORM_SESSION_MIN_FILL_MS) return { ok: false, reason: "too-fast" };
+    if (age > FORM_SESSION_MAX_AGE_MS) return { ok: false, reason: "expired" };
+    return { ok: true };
+}
+
 /* ---- Lead generation: POST /api/contact --------------------------------- */
 
 const TURNSTILE_VERIFY_URL =
@@ -710,6 +801,22 @@ async function handleContact(request, env, ctx) {
         return json(400, { error: "Missing human-verification token." });
     }
 
+    /* Form-session timing gate (defense in depth). Checked before the
+       siteverify network round trip so an instant scripted post or a manual
+       flood is dropped as cheaply as possible. Inert unless the secret is
+       provisioned, so a page served (or cached) before this rolled out — one
+       carrying no timing token — is never rejected. */
+    if (env.FORM_SESSION_SECRET) {
+        const verdict = await verifyFormSessionToken(
+            parsed.formSessionToken, env.FORM_SESSION_SECRET, Date.now());
+        if (!verdict.ok) {
+            console.log("Form-session token rejected:", verdict.reason);
+            return json(400, {
+                error: "Please take a moment to complete the form, then send again."
+            });
+        }
+    }
+
     const ip = request.headers.get("CF-Connecting-IP") || null;
     let human;
     try {
@@ -850,6 +957,14 @@ function buildSitemapXml() {
             SITE_ORIGIN + "/ode/?unit=" + n, "weekly", "0.7",
             unit && unit.lastmod));
     }
+    /* Local Geo-SEO landing pages: elevated priority (0.9) and a monthly
+       changefreq, drawn from GEO_SEO_REGISTRY itself (insertion order) so a
+       new neighborhood self-registers in the sitemap the moment it is added
+       to the matrix. Each <loc> is XML-escaped by sitemapUrlEntry. */
+    for (const slug of Object.keys(GEO_SEO_REGISTRY)) {
+        entries.push(sitemapUrlEntry(
+            SITE_ORIGIN + "/" + slug, "monthly", "0.9"));
+    }
     return '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         entries.join("\n") + "\n</urlset>";
@@ -884,6 +999,156 @@ async function handleOdeSeo(request, env, url) {
         .transform(assetResponse);
 }
 
+/* ---- Local Geo-SEO landing matrix --------------------------------------- *
+ *
+ * Clean, keyword-anchored URL slugs for high-intent Phoenix-area
+ * neighborhoods (e.g. /scottsdale-calculus-tutor). Each maps to a localized
+ * <title>, meta description, and hero headline/subhead. A crawler or visitor
+ * on one of these naked paths is served the SAME root storefront template,
+ * stream-rewritten edge-side via HTMLRewriter with the neighborhood's copy:
+ * no new page files, no duplication, and the zero-dependency landing template
+ * is untouched on disk (Pillar 1 holds — the rewrite happens only at the edge).
+ * Copy obeys the §1 constraint: no em-dashes, no ampersands (WEBSITE_BLUEPRINT
+ * Maintenance Contract rule 3), so every headline uses commas and "and".
+ *
+ * The object is frozen, and lookups go through geoRegistryEntry() which guards
+ * with hasOwnProperty, so a path like /constructor or /toString can never
+ * resolve to an inherited Object member and mint a phantom route. */
+const GEO_SEO_SUFFIX = " | Staples Education";
+const GEO_SEO_REGISTRY = Object.freeze({
+    "scottsdale-calculus-tutor": {
+        title: "Scottsdale Calculus Tutor",
+        description: "Private calculus tutoring for Scottsdale students. The Math Confidence Reset framework closes foundational gaps and builds intuitive mastery from limits through integrals.",
+        headline: "Scottsdale's <span class='highlight'>Calculus Confidence</span> Tutor",
+        subhead: "Personalized calculus tutoring for Scottsdale students and families, built on a structured framework that turns test day pressure into genuine understanding."
+    },
+    "paradise-valley-math-tutor": {
+        title: "Paradise Valley Math Tutor",
+        description: "Premium one on one math tutoring for Paradise Valley students. We rebuild the foundations behind every grade so confidence and results follow naturally.",
+        headline: "Paradise Valley's <span class='highlight'>Math Mastery</span> Tutor",
+        subhead: "Focused, discreet math tutoring for Paradise Valley families, shaped around each student's exact gaps in algebra, calculus, and beyond."
+    },
+    "gilbert-math-tutor": {
+        title: "Gilbert Math Tutor",
+        description: "Expert math tutoring for Gilbert students of every level. The Math Confidence Reset framework replaces rote memorization with lasting, intuitive understanding.",
+        headline: "Gilbert's <span class='highlight'>Math Confidence</span> Tutor",
+        subhead: "Patient, structured math tutoring for Gilbert students, from middle school foundations through high school calculus and college coursework."
+    },
+    "chandler-math-tutor": {
+        title: "Chandler Math Tutor",
+        description: "Personalized math tutoring for Chandler students. We pinpoint the exact foundational gaps holding a grade back and rebuild them into real mastery.",
+        headline: "Chandler's <span class='highlight'>Math Confidence</span> Tutor",
+        subhead: "Results driven math tutoring for Chandler families, built on a first principles approach that makes every next topic easier than the last."
+    },
+    "tempe-calculus-tutor": {
+        title: "Tempe Calculus Tutor",
+        description: "Calculus and college math tutoring for Tempe and university students. Clear, first principles instruction that turns a heavy course load into steady progress.",
+        headline: "Tempe's <span class='highlight'>Calculus Confidence</span> Tutor",
+        subhead: "Dedicated calculus tutoring for Tempe and university students, pairing exam strategy with the deep understanding that makes it stick."
+    },
+    "arcadia-math-tutor": {
+        title: "Arcadia Math Tutor",
+        description: "Private math tutoring for Arcadia students and families. The Math Confidence Reset framework builds intuitive mastery from the foundations up.",
+        headline: "Arcadia's <span class='highlight'>Math Confidence</span> Tutor",
+        subhead: "Thoughtful, one on one math tutoring for Arcadia students, designed to replace anxiety with clarity at every level of the curriculum."
+    },
+    "ahwatukee-math-tutor": {
+        title: "Ahwatukee Math Tutor",
+        description: "One on one math tutoring for Ahwatukee students. We close foundational gaps and build the intuitive confidence that lifts every grade that follows.",
+        headline: "Ahwatukee's <span class='highlight'>Math Confidence</span> Tutor",
+        subhead: "Personalized math tutoring for Ahwatukee families, grounded in a structured framework that turns weak spots into genuine strengths."
+    },
+    "fountain-hills-math-tutor": {
+        title: "Fountain Hills Math Tutor",
+        description: "Premium private math tutoring for Fountain Hills students. Structured, first principles instruction that builds lasting mastery and real confidence.",
+        headline: "Fountain Hills <span class='highlight'>Math Confidence</span> Tutor",
+        subhead: "Focused math tutoring for Fountain Hills students and families, built around each learner's exact goals from algebra through calculus."
+    }
+});
+
+/* Own-property-guarded registry lookup: returns the entry or null, never an
+   inherited Object.prototype member. */
+function geoRegistryEntry(slug) {
+    return Object.prototype.hasOwnProperty.call(GEO_SEO_REGISTRY, slug)
+        ? GEO_SEO_REGISTRY[slug] : null;
+}
+
+/* Normalized naked-path slug: leading/trailing slashes stripped and
+   lowercased, so /Scottsdale-Calculus-Tutor/ still resolves. */
+function geoSlugFromPath(pathname) {
+    return pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
+}
+
+/* Serves the root storefront template for both "/" and a recognized Geo-SEO
+ * slug. Two edge-side transforms ride on the returned HTML:
+ *   1. Geo-SEO (slug requests only): <title>, <meta name="description">, and
+ *      the hero headline/subhead are rewritten to the neighborhood's copy.
+ *   2. Form-session token (always, when FORM_SESSION_SECRET is set): the hidden
+ *      contact-form input is stamped with a fresh HMAC-signed timing token.
+ * Every miss (no ASSETS, non-GET, non-HTML, non-200, or a runtime without the
+ * HTMLRewriter global such as the Node test harness) returns the untouched
+ * asset, so this stays a purely additive layer over the static shell. */
+async function handleStorefront(request, env, geoSlug) {
+    if (!env.ASSETS) return json(404, { error: "Not found." });
+    /* A geo slug is not itself an uploaded asset, so fetch the real root
+       document; the plain "/" path is already the asset request. */
+    const assetRequest = geoSlug
+        ? new Request(new URL("/", request.url), request)
+        : request;
+    const assetResponse = await env.ASSETS.fetch(assetRequest);
+
+    const isHtml = (assetResponse.headers.get("Content-Type") || "")
+        .toLowerCase().includes("text/html");
+    if (request.method !== "GET" || !assetResponse.ok || !isHtml ||
+        typeof HTMLRewriter === "undefined") {
+        return assetResponse;
+    }
+
+    const meta = geoSlug ? geoRegistryEntry(geoSlug) : null;
+    const formToken = env.FORM_SESSION_SECRET
+        ? await issueFormSessionToken(env.FORM_SESSION_SECRET, Date.now())
+        : null;
+    if (!meta && !formToken) return assetResponse;
+
+    let rewriter = new HTMLRewriter();
+    if (meta) {
+        rewriter = rewriter
+            .on("title", {
+                element(el) { el.setInnerContent(meta.title + GEO_SEO_SUFFIX); }
+            })
+            .on('meta[name="description"]', {
+                element(el) { el.setAttribute("content", meta.description); }
+            })
+            .on(".hero-content h1", {
+                element(el) { el.setInnerContent(meta.headline, { html: true }); }
+            })
+            .on(".hero-content p", {
+                element(el) { el.setInnerContent(meta.subhead); }
+            });
+    }
+    if (formToken) {
+        rewriter = rewriter.on('input[name="formSessionToken"]', {
+            element(el) { el.setAttribute("value", formToken); }
+        });
+    }
+
+    const transformed = rewriter.transform(assetResponse);
+    /* The embedded timing token is per-render and time-sensitive, so the
+       document must never be served from a shared cache as a stale copy. Only
+       this HTML doc is affected; sub-assets (css, fonts, PDFs) never traverse
+       this path. */
+    if (formToken) {
+        const headers = new Headers(transformed.headers);
+        headers.set("Cache-Control", "no-store");
+        return new Response(transformed.body, {
+            status: transformed.status,
+            statusText: transformed.statusText,
+            headers
+        });
+    }
+    return transformed;
+}
+
 /* Route matrix: /api/sync, /api/contact, and SEO support files. */
 export default {
     async fetch(request, env, ctx) {
@@ -908,12 +1173,30 @@ export default {
             return handleOdeSeo(request, env, url);
         }
 
+        // --- Storefront root: inject the form-session timing token ---
+        // Reached because "/" and "/index.html" are in assets.run_worker_first,
+        // so the landing document traverses the Worker before the asset server
+        // and its hidden contact-form token can be stamped edge-side.
+        if (url.pathname === "/" || url.pathname === "/index.html") {
+            return handleStorefront(request, env, null);
+        }
+
         // --- API Endpoints ---
         if (url.pathname === "/api/sync") {
             return handleSync(request, env, url);
         }
         if (url.pathname === "/api/contact") {
             return handleContact(request, env, ctx);
+        }
+
+        // --- Local Geo-SEO landing pages ---
+        // A naked neighborhood slug (not an uploaded asset) renders the root
+        // storefront template rewritten with that neighborhood's copy. Placed
+        // immediately ahead of the static fallback so it only ever intercepts
+        // paths the asset server would otherwise 404.
+        const geoSlug = geoSlugFromPath(url.pathname);
+        if (geoRegistryEntry(geoSlug)) {
+            return handleStorefront(request, env, geoSlug);
         }
 
         // --- Static Asset Fallback ---

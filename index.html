@@ -116,6 +116,16 @@
                     <label for="contact-message">How can we help?</label>
                     <textarea id="contact-message" name="message" rows="5" maxlength="4000" required></textarea>
                 </div>
+                <!-- Form-session timing token. The value is stamped server-side
+                     by the Worker's HTMLRewriter (handleStorefront) with an
+                     HMAC-signed issue timestamp; POST /api/contact verifies the
+                     signature and requires a realistic human fill time before
+                     saving a lead. Stays empty under file:// (where the form is
+                     already disabled) and when FORM_SESSION_SECRET is unset, in
+                     which case the server skips the check. Zero-dependency,
+                     protocol-agnostic: no script or network beyond the existing
+                     submit handler below. -->
+                <input type="hidden" name="formSessionToken" id="form-session-token" value="">
                 <!-- Turnstile widget (implicit render): the api.js script scans for
                      .cf-turnstile and injects a hidden cf-turnstile-response input
                      that the submit handler forwards to POST /api/contact. -->
@@ -173,11 +183,13 @@
             event.preventDefault();
             var tokenInput = form.querySelector('[name="cf-turnstile-response"]');
             var turnstileToken = tokenInput ? tokenInput.value : "";
+            var sessionInput = form.querySelector('[name="formSessionToken"]');
             var payload = {
                 name: form.name.value.trim(),
                 email: form.email.value.trim(),
                 message: form.message.value.trim(),
-                turnstileToken: turnstileToken
+                turnstileToken: turnstileToken,
+                formSessionToken: sessionInput ? sessionInput.value : ""
             };
             if (!payload.name || !payload.email || !payload.message) {
                 setStatus("error", "Please fill in your name, email, and message.");

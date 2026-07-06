@@ -35,3 +35,37 @@ credentials.json
 *.pem
 .env
 .env.*
+
+# 5. Development, source, and compilation hard-deny (belt and suspenders).
+# The /* rule in §1 already excludes everything not re-included in §2/§3, so
+# these are redundant BY DEFAULT. They exist so a future broadening of the
+# allowlist can never leak raw curriculum data, the Python toolchain, LaTeX
+# build sources, or editor/build caches into the asset upload. Because later
+# rules win, the compilation patterns below ALSO re-exclude the LaTeX sources
+# that sit UNDER the re-included /ode tree (ode/assets/markdowns/*.tex, ~117
+# files, source-only and never fetched at runtime) — trimming edge weight
+# while leaving the shipped cheat-sheet PDFs (ode/assets/pdfs/*.pdf) and the
+# SPA data mirrors (ode/data/*.json) untouched.
+#
+# DELIBERATELY NOT LISTED: *.pdf and *.json. Both would win over the !/ode
+# re-include and silently drop production assets — the 58 cheat-sheet PDFs
+# and the curriculum/quiz JSON mirrors the SPA serves. Prune by directory or
+# extension, never by those two globs.
+scripts/
+content/
+src/
+docs/
+*.py
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+# LaTeX authoring + compilation fragments (curriculum print pipeline).
+*.tex
+*.aux
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+# Per-unit raw data fragments (frozen migration sources under scripts/).
+unit*_data.json
