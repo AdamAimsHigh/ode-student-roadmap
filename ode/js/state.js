@@ -481,6 +481,12 @@ const ODEState = (function () {
             return readJSON(KEYS.passedCheckpoints, {});
         },
 
+        // resultDetail is a free-form object persisted verbatim under the
+        // checkpoint id. Beyond { passed, attempts, checkpoint } it may carry a
+        // `sliders` map of { sliderLabel: finalValue } committed once at pass
+        // time (see checkpoint-core.js), so a passed checkpoint's stable slider
+        // coordinates hydrate on the next app boot. The whole detail is
+        // whitelisted and JSON size-capped by the /api/sync sanitizer.
         setCheckpointPassed: function (checkpointId, resultDetail) {
             const passed = readJSON(KEYS.passedCheckpoints, {});
             passed[checkpointId] = resultDetail || { passed: true };
@@ -492,6 +498,15 @@ const ODEState = (function () {
         isCheckpointPassed: function (checkpointId) {
             const passed = readJSON(KEYS.passedCheckpoints, {});
             return Boolean(passed[checkpointId]);
+        },
+
+        // Returns the persisted result-detail object for one checkpoint, or
+        // null when it has never been passed. Used to rehydrate a passed
+        // checkpoint's saved slider coordinates when its widget is rebuilt.
+        getCheckpointDetail: function (checkpointId) {
+            const passed = readJSON(KEYS.passedCheckpoints, {});
+            const detail = passed[checkpointId];
+            return (detail && typeof detail === "object") ? detail : null;
         },
 
         // Quiz progress is stored as a map of quizId to a list of the question

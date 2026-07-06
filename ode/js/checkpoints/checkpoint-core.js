@@ -15,6 +15,43 @@
 
 const CheckpointCore = (function () {
 
+    /* ---------- Scoped checkpoint slider persistence ----------
+
+       Two slider families are drag widgets whose value would flood the
+       size-capped cloud snapshot if written on every input event:
+         - native range inputs built by rangeControl(), and
+         - Desmos calculator variables watched by observeValue().
+       Both register themselves with the checkpoint currently being built, and
+       their FINAL, stable values are captured exactly once when the checkpoint
+       is passed, nested inside that checkpoint's ode_passed_checkpoints detail:
+       native sliders under `sliders` (keyed by label) and Desmos variables
+       under `desmosSliders` (keyed by latex variable). On a later rebuild of a
+       passed checkpoint each slider hydrates back to its saved coordinate --
+       native inputs by their initial value, Desmos variables by re-injecting
+       the value into the live calculator via setExpression (reusing the
+       existing expression id so the slider definition and its bounds survive).
+       activeSliderCapture is the single build-time context; shell() sets it
+       around buildFn and always restores it, so sliders can only ever attach to
+       the checkpoint that owns them. */
+    let activeSliderCapture = null;
+
+    /* Reads each registered slider's live value into a plain map, keeping only
+       finite numbers. Returns null when nothing was captured, so a slider-free
+       checkpoint stores no empty object. */
+    function snapshotSliders(registered) {
+        if (!registered || !registered.length) return null;
+        const out = {};
+        let count = 0;
+        registered.forEach(function (entry) {
+            const v = entry.holder ? entry.holder.value : undefined;
+            if (typeof v === "number" && isFinite(v)) {
+                out[entry.key] = v;
+                count++;
+            }
+        });
+        return count ? out : null;
+    }
+
     // ---------- KaTeX ----------
 
     function renderMath(el) {
@@ -340,13 +377,27 @@ const CheckpointCore = (function () {
         input.min = String(config.min);
         input.max = String(config.max);
         input.step = String(config.step);
-        input.value = String(config.value);
+
+        /* Hydrate from a passed checkpoint's saved coordinate when one is in
+           range; otherwise fall back to the configured default. Reading it into
+           both the input and the holder means the widget's own initial draw
+           (which reads holder.value) restores the saved position for free. */
+        let initial = config.value;
+        const cap = activeSliderCapture;
+        if (cap && cap.stored && cap.stored.sliders) {
+            const saved = cap.stored.sliders[config.label];
+            if (typeof saved === "number" && isFinite(saved) &&
+                saved >= config.min && saved <= config.max) {
+                initial = saved;
+            }
+        }
+        input.value = String(initial);
 
         const readout = document.createElement("span");
         readout.className = "slider-readout";
-        readout.textContent = String(config.value);
+        readout.textContent = String(initial);
 
-        const holder = { value: config.value };
+        const holder = { value: initial };
         input.addEventListener("input", function () {
             holder.value = parseFloat(input.value);
             readout.textContent = String(holder.value);
@@ -357,6 +408,14 @@ const CheckpointCore = (function () {
         row.appendChild(input);
         row.appendChild(readout);
         parent.appendChild(row);
+
+        /* Register with the checkpoint being built so its final value is
+           committed at pass time. Keyed by label (unique within a checkpoint);
+           a slider built outside a checkpoint (no active capture) is simply not
+           tracked. */
+        if (cap && cap.list) {
+            cap.list.push({ key: config.label, holder: holder });
+        }
         return holder;
     }
 
@@ -382,8 +441,54 @@ const CheckpointCore = (function () {
         }, options || {}));
     }
 
+    /* Re-injects a saved value into a live Desmos variable while preserving the
+       slider that defines it. A bare "C=<value>" expression would collide with
+       the widget's own "C=1" slider definition ("defined multiple times"), so
+       we locate the existing expression that defines this variable and update
+       it by id, which merges the new latex and keeps its sliderBounds. The
+       value is only injected when it falls inside those bounds, mirroring the
+       native-slider range guard. Returns true when the injection landed. */
+    function setDesmosVariable(calculator, variable, value) {
+        if (!calculator || typeof calculator.getExpressions !== "function" ||
+            typeof calculator.setExpression !== "function") return false;
+        if (typeof value !== "number" || !isFinite(value)) return false;
+        let list;
+        try {
+            list = calculator.getExpressions();
+        } catch (err) {
+            return false;
+        }
+        if (!Array.isArray(list)) return false;
+        for (let i = 0; i < list.length; i++) {
+            const expr = list[i];
+            if (!expr || typeof expr.latex !== "string") continue;
+            const eq = expr.latex.indexOf("=");
+            // The defined variable is the token left of the first "=", so
+            // "C=1" matches but "y=Ce^{kx}" (which merely uses C) does not.
+            if (eq <= 0 || expr.latex.slice(0, eq).trim() !== variable) continue;
+            const b = expr.sliderBounds;
+            if (b && b.min !== undefined && b.max !== undefined) {
+                const min = Number(b.min);
+                const max = Number(b.max);
+                if (isFinite(min) && isFinite(max) && (value < min || value > max)) {
+                    return false;
+                }
+            }
+            try {
+                calculator.setExpression({ id: expr.id, latex: variable + "=" + value });
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     /* Observes a slider variable in a Desmos calculator. Returns a holder
-       object whose .value field always carries the latest numeric value. */
+       object whose .value field always carries the latest numeric value. When
+       the checkpoint being rebuilt was already passed, the variable's saved
+       coordinate is re-injected into the calculator before the student sees it,
+       and the holder is registered so its final value is captured on pass. */
     function observeValue(calculator, latexVariable) {
         const holder = { value: NaN };
         if (!calculator) return holder;
@@ -391,6 +496,20 @@ const CheckpointCore = (function () {
         helper.observe("numericValue", function () {
             holder.value = helper.numericValue;
         });
+
+        const cap = activeSliderCapture;
+        if (cap && cap.stored && cap.stored.desmosSliders) {
+            const saved = cap.stored.desmosSliders[latexVariable];
+            if (typeof saved === "number" && isFinite(saved) &&
+                setDesmosVariable(calculator, latexVariable, saved)) {
+                // Seed the holder so an immediate check reads the restored value
+                // even before the async observe callback first fires.
+                holder.value = saved;
+            }
+        }
+        if (cap && cap.desmosList) {
+            cap.desmosList.push({ key: latexVariable, holder: holder });
+        }
         return holder;
     }
 
@@ -432,13 +551,31 @@ const CheckpointCore = (function () {
             feedback.className = "checkpoint-feedback";
             container.appendChild(feedback);
 
-            const api = createApi(moduleData, config, feedback);
-            buildFn(body, api);
+            /* Open a slider-capture context scoped to this checkpoint: native
+               sliders built by buildFn register into `sliders` and Desmos
+               variables into `desmosSliders`, both hydrating from any saved
+               detail, and pass() snapshots them. Always restored in the finally
+               so a build error can never leak the context to the next
+               checkpoint. */
+            const sliders = [];
+            const desmosSliders = [];
+            const api = createApi(moduleData, config, feedback, sliders, desmosSliders);
+            const previousCapture = activeSliderCapture;
+            activeSliderCapture = {
+                list: sliders,
+                desmosList: desmosSliders,
+                stored: ODEState.getCheckpointDetail(moduleData.module)
+            };
+            try {
+                buildFn(body, api);
+            } finally {
+                activeSliderCapture = previousCapture;
+            }
             renderMath(body);
         });
     }
 
-    function createApi(moduleData, config, feedback) {
+    function createApi(moduleData, config, feedback, sliders, desmosSliders) {
         let attempts = 0;
         let passed = false;
 
@@ -471,11 +608,21 @@ const CheckpointCore = (function () {
                 attempts++;
                 feedback.className = "checkpoint-feedback success";
                 feedback.textContent = message || "Checkpoint passed. Your reasoning holds from first principles.";
-                ODEState.setCheckpointPassed(moduleData.module, {
+                const detail = {
                     passed: true,
                     attempts: attempts,
                     checkpoint: moduleData.interactive_checkpoint
-                });
+                };
+                /* Commit only the final, stable slider coordinates, captured
+                   once here rather than on every drag, so the size-capped sync
+                   snapshot is never polluted by real-time input churn. Native
+                   range sliders land under `sliders`; Desmos calculator
+                   variables land under `desmosSliders`. */
+                const sliderValues = snapshotSliders(sliders);
+                if (sliderValues) detail.sliders = sliderValues;
+                const desmosValues = snapshotSliders(desmosSliders);
+                if (desmosValues) detail.desmosSliders = desmosValues;
+                ODEState.setCheckpointPassed(moduleData.module, detail);
                 // Let the student read the success message, then refresh the
                 // layout so Guided Pathway gates open and badges update.
                 setTimeout(function () {

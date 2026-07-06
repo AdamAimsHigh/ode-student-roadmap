@@ -39,6 +39,13 @@
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
     <link rel="icon" type="image/png" href="/favicon.png" sizes="512x512">
     <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Progressive Web App manifest. Document-relative so it resolves the
+         same from /ode/ in production and from a file:// open (where install
+         is simply unavailable, harmlessly). -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#7a00e6">
+
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -164,5 +171,23 @@
     <script src="js/views-practice.js"></script>
     <script src="js/views-quizzes.js"></script>
     <script src="js/router.js"></script>
+
+    <!-- Service worker registration. Gated on both service-worker support and
+         a live HTTPS origin, so a file:// disk open (window.location.protocol
+         === "file:") and any insecure origin register nothing and the app
+         stays a plain zero-dependency SPA. localhost over http is left out on
+         purpose: only the deployed HTTPS site opts into the cache lifecycle. -->
+    <script>
+        (function registerOdeServiceWorker() {
+            if (!("serviceWorker" in navigator)) return;
+            if (window.location.protocol !== "https:") return;
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("sw.js", { scope: "./" })
+                    .catch(function (err) {
+                        console.debug("Service worker registration skipped:", err);
+                    });
+            });
+        })();
+    </script>
 </body>
 </html>
