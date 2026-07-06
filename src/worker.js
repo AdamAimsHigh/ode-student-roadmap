@@ -958,10 +958,12 @@ function buildSitemapXml() {
             unit && unit.lastmod));
     }
     /* Local Geo-SEO landing pages: elevated priority (0.9) and a monthly
-       changefreq, drawn from GEO_SEO_REGISTRY itself (insertion order) so a
-       new neighborhood self-registers in the sitemap the moment it is added
-       to the matrix. Each <loc> is XML-escaped by sitemapUrlEntry. */
-    for (const slug of Object.keys(GEO_SEO_REGISTRY)) {
+       changefreq. allGeoSlugs() enumerates the curated overrides plus every
+       parametric subject x modality x location combination (200+), drawn from
+       the frozen registries themselves so a new subject or neighborhood
+       self-registers in the sitemap the moment it is added to the matrix. Each
+       <loc> is XML-escaped by sitemapUrlEntry. */
+    for (const slug of allGeoSlugs()) {
         entries.push(sitemapUrlEntry(
             SITE_ORIGIN + "/" + slug, "monthly", "0.9"));
     }
@@ -1079,6 +1081,155 @@ function geoSlugFromPath(pathname) {
     return pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
 }
 
+/* ---- Parametric Geo-SEO matrix: subject x modality x location ----------- *
+ *
+ * The curated GEO_SEO_REGISTRY above is a hand-written override layer. Beneath
+ * it sits a parametric engine that mints a landing page for every combination
+ * of an approved SUBJECT and a MODALITY:
+ *
+ *   Modality 1  "Local Neighborhoods"  ->  one page per Phoenix-area
+ *               neighborhood, slug  <neighborhood>-<subject>-tutor
+ *               e.g. /scottsdale-linear-algebra-tutor
+ *   Modality 2  "Online and Remote"    ->  one page, slug
+ *               online-<subject>-tutor
+ *               e.g. /online-discrete-math-tutor
+ *
+ * 13 subjects x (15 neighborhoods + 1 online token) = 208 parametric combos;
+ * de-duplicated against the 8 curated overrides that live in the same slug
+ * space, the sitemap emits 200+ discrete landing URLs. Both source arrays are
+ * frozen (immutable), so a hostile request can never grow the matrix, and every
+ * slug lookup goes through a Map (never a bare object), so an inherited Object
+ * member such as /constructor-... can never resolve to a phantom route.
+ *
+ * Resolution order for any naked slug: curated GEO_SEO_REGISTRY first, then
+ * this parametric layer (resolveGeoMeta). Generated copy obeys the §1 constraint
+ * (no em-dashes, no ampersands; commas and "and"). The returned meta object has
+ * the identical { title, description, headline, subhead } shape as a curated
+ * entry, so handleStorefront rewrites it through the same HTMLRewriter path with
+ * zero server lag. */
+const SEO_SUBJECTS = Object.freeze([
+    { slug: "act-math", label: "ACT Math" },
+    { slug: "algebra-1", label: "Algebra 1" },
+    { slug: "algebra-2", label: "Algebra 2" },
+    { slug: "calculus", label: "Calculus" },
+    { slug: "differential-equations", label: "Differential Equations" },
+    { slug: "discrete-math", label: "Discrete Math" },
+    { slug: "finite-math", label: "Finite Math" },
+    { slug: "linear-algebra", label: "Linear Algebra" },
+    { slug: "prealgebra", label: "Prealgebra" },
+    { slug: "precalculus", label: "Precalculus" },
+    { slug: "sat-math", label: "SAT Math" },
+    { slug: "statistics", label: "Statistics" },
+    { slug: "trigonometry", label: "Trigonometry" }
+]);
+
+/* Modality 1 targets: high-intent Phoenix-metro neighborhoods. */
+const SEO_NEIGHBORHOODS = Object.freeze([
+    { slug: "scottsdale", label: "Scottsdale" },
+    { slug: "paradise-valley", label: "Paradise Valley" },
+    { slug: "gilbert", label: "Gilbert" },
+    { slug: "chandler", label: "Chandler" },
+    { slug: "tempe", label: "Tempe" },
+    { slug: "mesa", label: "Mesa" },
+    { slug: "phoenix", label: "Phoenix" },
+    { slug: "glendale", label: "Glendale" },
+    { slug: "peoria", label: "Peoria" },
+    { slug: "ahwatukee", label: "Ahwatukee" },
+    { slug: "arcadia", label: "Arcadia" },
+    { slug: "fountain-hills", label: "Fountain Hills" },
+    { slug: "queen-creek", label: "Queen Creek" },
+    { slug: "cave-creek", label: "Cave Creek" },
+    { slug: "carefree", label: "Carefree" }
+]);
+
+/* The two modalities as an explicit immutable registry. "local" fans out over
+   every SEO_NEIGHBORHOODS entry; "online" is a single location token. */
+const SEO_MODALITIES = Object.freeze([
+    { slug: "local", label: "Local Neighborhoods" },
+    { slug: "online", label: "Online and Remote" }
+]);
+const ONLINE_LOCATION_SLUG = "online";
+
+/* slug -> { label, online } for every location token: each neighborhood plus
+   the single online-modality token. A Map (not a bare object) so a slug such as
+   "constructor" can never resolve to an inherited Object.prototype member. */
+const SEO_LOCATION_BY_SLUG = (function () {
+    const m = new Map();
+    for (const n of SEO_NEIGHBORHOODS) {
+        m.set(n.slug, { label: n.label, online: false });
+    }
+    m.set(ONLINE_LOCATION_SLUG, { label: "Online", online: true });
+    return m;
+})();
+
+/* Builds the localized { title, description, headline, subhead } for one
+   (location, subject) pairing. §1-clean: no em-dashes, no ampersands. */
+function buildParametricMeta(location, subject) {
+    const S = subject.label;
+    if (location.online) {
+        return {
+            title: "Online " + S + " Tutor",
+            description: "Live online " + S + " tutoring for students anywhere. The Math Confidence Reset framework closes foundational gaps and builds real, intuitive mastery over screen share.",
+            headline: "Online <span class='highlight'>" + S + " Confidence</span> Tutor",
+            subhead: "Remote, one on one " + S + " tutoring over video, built on a structured framework that turns test day pressure into genuine understanding, wherever you are."
+        };
+    }
+    const L = location.label;
+    return {
+        title: L + " " + S + " Tutor",
+        description: "Private " + S + " tutoring for " + L + " students. The Math Confidence Reset framework closes foundational gaps and builds real, intuitive mastery from the ground up.",
+        headline: L + "'s <span class='highlight'>" + S + " Confidence</span> Tutor",
+        subhead: "Personalized " + S + " tutoring for " + L + " students and families, built on a structured framework that turns test day pressure into genuine understanding."
+    };
+}
+
+/* Parses a naked slug of the form <location>-<subject>-tutor and returns its
+   parametric meta, or null. Because both subjects and locations may contain
+   hyphens (linear-algebra, paradise-valley), the split is anchored on the
+   -tutor suffix, then each approved subject is tested as a suffix of the
+   remainder and the leading segment must be a registered location token. The
+   token sets are disjoint, so the first matching subject whose derived location
+   is known is the unambiguous answer. */
+function parametricGeoMeta(slug) {
+    if (!slug.endsWith("-tutor")) return null;
+    const core = slug.slice(0, -"-tutor".length);
+    for (const subject of SEO_SUBJECTS) {
+        const suffix = "-" + subject.slug;
+        if (core.length > suffix.length && core.endsWith(suffix)) {
+            const locSlug = core.slice(0, core.length - suffix.length);
+            const location = SEO_LOCATION_BY_SLUG.get(locSlug);
+            if (location) return buildParametricMeta(location, subject);
+        }
+    }
+    return null;
+}
+
+/* Unified resolver for a naked geo slug: the curated override wins, then the
+   parametric matrix, else null (not a geo route). Used by both the router and
+   handleStorefront so the two can never disagree on what is a landing page. */
+function resolveGeoMeta(slug) {
+    return geoRegistryEntry(slug) || parametricGeoMeta(slug);
+}
+
+/* Every geo landing slug for the sitemap: curated entries first (insertion
+   order), then every parametric (location, subject) combination, each emitted
+   once and skipped when a curated override already claims that slug (so
+   scottsdale-calculus-tutor is listed exactly once). */
+function allGeoSlugs() {
+    const out = Object.keys(GEO_SEO_REGISTRY);
+    const seen = new Set(out);
+    for (const [locSlug] of SEO_LOCATION_BY_SLUG) {
+        for (const subject of SEO_SUBJECTS) {
+            const slug = locSlug + "-" + subject.slug + "-tutor";
+            if (!seen.has(slug)) {
+                seen.add(slug);
+                out.push(slug);
+            }
+        }
+    }
+    return out;
+}
+
 /* Serves the root storefront template for both "/" and a recognized Geo-SEO
  * slug. Two edge-side transforms ride on the returned HTML:
  *   1. Geo-SEO (slug requests only): <title>, <meta name="description">, and
@@ -1104,7 +1255,7 @@ async function handleStorefront(request, env, geoSlug) {
         return assetResponse;
     }
 
-    const meta = geoSlug ? geoRegistryEntry(geoSlug) : null;
+    const meta = geoSlug ? resolveGeoMeta(geoSlug) : null;
     const formToken = env.FORM_SESSION_SECRET
         ? await issueFormSessionToken(env.FORM_SESSION_SECRET, Date.now())
         : null;
@@ -1189,13 +1340,15 @@ export default {
             return handleContact(request, env, ctx);
         }
 
-        // --- Local Geo-SEO landing pages ---
-        // A naked neighborhood slug (not an uploaded asset) renders the root
-        // storefront template rewritten with that neighborhood's copy. Placed
-        // immediately ahead of the static fallback so it only ever intercepts
-        // paths the asset server would otherwise 404.
+        // --- Local Geo-SEO landing pages (curated + parametric matrix) ---
+        // A naked subject/location/modality slug (not an uploaded asset)
+        // renders the root storefront template rewritten with that pairing's
+        // copy. resolveGeoMeta checks the curated overrides first, then the
+        // parametric subject x modality x location matrix. Placed immediately
+        // ahead of the static fallback so it only ever intercepts paths the
+        // asset server would otherwise 404.
         const geoSlug = geoSlugFromPath(url.pathname);
-        if (geoRegistryEntry(geoSlug)) {
+        if (resolveGeoMeta(geoSlug)) {
             return handleStorefront(request, env, geoSlug);
         }
 

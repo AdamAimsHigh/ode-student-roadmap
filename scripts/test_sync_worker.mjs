@@ -1,4 +1,4 @@
-/* 40-case end-to-end validation suite for src/worker.js.
+/* End-to-end validation suite for src/worker.js (Bundle 3: 44 cases).
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -25,12 +25,19 @@
  * valid, entity-safe XML, and carry per-unit ISO-8601 <lastmod> dates that
  * vary across units (not one global constant).
  *
- * Finally, Bundle 1: the local Geo-SEO landing matrix (neighborhood slugs
- * resolve to the root storefront template; unknown paths and inherited Object
- * keys never route; sitemap lists each geo page monthly at 0.9 priority) and
- * the /api/contact form-session timing gate (an HMAC-signed token is accepted
- * only for a realistic human dwell >= 2.5 s, and missing / too-fast / forged
- * tokens are dropped before any KV write when FORM_SESSION_SECRET is set).
+ * Bundle 1: the local Geo-SEO landing matrix (neighborhood slugs resolve to
+ * the root storefront template; unknown paths and inherited Object keys never
+ * route; sitemap lists each geo page monthly at 0.9 priority) and the
+ * /api/contact form-session timing gate (an HMAC-signed token is accepted only
+ * for a realistic human dwell >= 2.5 s, and missing / too-fast / forged tokens
+ * are dropped before any KV write when FORM_SESSION_SECRET is set).
+ *
+ * Finally, Bundle 3: the parametric subject x modality x location SEO matrix
+ * (200+ landing slugs of the form <location>-<subject>-tutor plus online-*,
+ * each resolving to the storefront template and self-registering in the
+ * sitemap monthly at 0.9; unapproved subjects and unknown locations never
+ * route) and the lin_alg subject track round-tripping through its own isolated
+ * KV namespace.
  *
  * Run from the repo root:  node scripts/test_sync_worker.mjs
  * Exit code 0 = all cases pass.
@@ -175,6 +182,39 @@ const GEO_SLUGS = [
     "ahwatukee-math-tutor",
     "fountain-hills-math-tutor"
 ];
+
+/* Bundle 3 parametric matrix — mirrors SEO_SUBJECTS, SEO_NEIGHBORHOODS, and the
+   online-modality token in src/worker.js (the worker exports only its default
+   handler, so the sitemap + routing assertions keep their own source of truth,
+   the same pattern as GEO_SLUGS above). If these drift from the worker the
+   count assertions below fail loudly. */
+const SEO_SUBJECT_SLUGS = [
+    "act-math", "algebra-1", "algebra-2", "calculus", "differential-equations",
+    "discrete-math", "finite-math", "linear-algebra", "prealgebra",
+    "precalculus", "sat-math", "statistics", "trigonometry"
+];
+const SEO_LOCATION_SLUGS = [
+    "scottsdale", "paradise-valley", "gilbert", "chandler", "tempe", "mesa",
+    "phoenix", "glendale", "peoria", "ahwatukee", "arcadia", "fountain-hills",
+    "queen-creek", "cave-creek", "carefree", "online"
+];
+
+/* The full geo slug set the sitemap must emit: curated GEO_SLUGS first, then
+   every location x subject combination, de-duplicated against the curated set
+   (a curated override such as scottsdale-calculus-tutor is listed exactly
+   once). Mirrors allGeoSlugs() in the worker. */
+function computeAllGeoSlugs() {
+    const seen = new Set(GEO_SLUGS);
+    const out = GEO_SLUGS.slice();
+    for (const loc of SEO_LOCATION_SLUGS) {
+        for (const subj of SEO_SUBJECT_SLUGS) {
+            const slug = `${loc}-${subj}-tutor`;
+            if (!seen.has(slug)) { seen.add(slug); out.push(slug); }
+        }
+    }
+    return out;
+}
+const ALL_GEO_SLUGS = computeAllGeoSlugs();
 
 /* HMAC-signed form-session timing token, forged with the same construction as
    issueFormSessionToken() in the worker: "<tsMs>.<base64url(HMAC-SHA256(tsMs))>".
@@ -438,6 +478,20 @@ await testCase("parallel subject tracks are isolated namespaces", async () => {
         "subjectless (default ode) GET never sees lin_alg data");
 });
 
+await testCase("lin_alg track round-trips through its own isolated namespace", async () => {
+    /* Bundle 3 step 5: the lin_alg subject token is primed end to end in
+       env.ODE_PROGRESS_KV. A GET scoped to ?subject=lin_alg reads back exactly
+       the lin_alg record written above and never falls back to the ode legacy
+       key (that lazy migration is ode-only). */
+    const res = await worker.fetch(
+        apiRequest("GET", sessionToken, undefined, "lin_alg"), env);
+    check(res.status === 200, `lin_alg GET: expected 200, got ${res.status}`);
+    const body = await res.json();
+    check(body.progress && body.progress.ode_watched_videos.length === 1 &&
+        body.progress.ode_watched_videos[0] === "la-v1",
+        "lin_alg GET reads back only the lin_alg namespace record");
+});
+
 await testCase("legacy pre-namespace record migrates losslessly on first ode read", async () => {
     const legacySub = "9998887776665554443";
     await kv.put("progress:" + legacySub, JSON.stringify({
@@ -680,8 +734,8 @@ await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq",
     const unitLocs = (xml.match(/<loc>[^<]*\/ode\/\?unit=\d+<\/loc>/g) || []);
     check(unitLocs.length === 19, `exactly 19 unit URLs, got ${unitLocs.length}`);
     const urlBlocks = (xml.match(/<url>/g) || []).length;
-    check(urlBlocks === 21 + GEO_SLUGS.length,
-        `${21 + GEO_SLUGS.length} total <url> blocks (2 pages + 19 units + ${GEO_SLUGS.length} geo), got ${urlBlocks}`);
+    check(urlBlocks === 21 + ALL_GEO_SLUGS.length,
+        `${21 + ALL_GEO_SLUGS.length} total <url> blocks (2 pages + 19 units + ${ALL_GEO_SLUGS.length} geo), got ${urlBlocks}`);
     const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
     check(weekly === 21,
         `21 weekly entries (2 pages + 19 units; geo pages are monthly), got ${weekly}`);
@@ -718,8 +772,8 @@ await testCase("sitemap: Geo-SEO landing pages carry monthly changefreq and 0.9 
         check(re.test(xml), `geo slug ${slug} block is monthly changefreq + 0.9 priority`);
     }
     const monthly = (xml.match(/<changefreq>monthly<\/changefreq>/g) || []).length;
-    check(monthly === GEO_SLUGS.length,
-        `exactly ${GEO_SLUGS.length} monthly geo entries, got ${monthly}`);
+    check(monthly === ALL_GEO_SLUGS.length,
+        `exactly ${ALL_GEO_SLUGS.length} monthly geo entries, got ${monthly}`);
 });
 
 /* ---- Geo-SEO routing ----------------------------------------------------- */
@@ -756,6 +810,81 @@ await testCase("storefront: the root path routes through the Worker and returns 
     check(res.status === 200, `expected 200, got ${res.status}`);
     check((await res.text()).includes("<title>"),
         "root returns the storefront HTML document");
+});
+
+/* ---- Bundle 3: parametric subject x modality x location matrix ----------- */
+
+await testCase("geo (parametric): example subject x modality slugs render the storefront root", async () => {
+    /* The three canonical examples from the sprint brief: an online-modality
+       slug and two neighborhood slugs, each carrying a hyphenated subject or
+       location so the -tutor-anchored parse is exercised. */
+    for (const slug of ["online-discrete-math-tutor",
+                        "scottsdale-linear-algebra-tutor",
+                        "paradise-valley-statistics-tutor"]) {
+        const res = await worker.fetch(
+            new Request("https://stapleseducation.com/" + slug), htmlAssetEnv());
+        check(res.status === 200, `${slug}: expected 200, got ${res.status}`);
+        check((await res.text()).includes("<body>/</body>"),
+            `${slug} fetched and returned the root (/) storefront document`);
+    }
+    /* Case-insensitive: the router lowercases the path before resolving. */
+    const mixed = await worker.fetch(
+        new Request("https://stapleseducation.com/Scottsdale-Linear-Algebra-Tutor"),
+        htmlAssetEnv());
+    check((await mixed.text()).includes("<body>/</body>"),
+        "mixed-case parametric slug still resolves to the storefront root");
+});
+
+await testCase("geo (parametric): an unapproved subject or unknown location is NOT a route", async () => {
+    /* Valid location, subject off the approved list -> falls through to the
+       asset server, never mints a phantom landing page. */
+    const badSubject = await worker.fetch(
+        new Request("https://stapleseducation.com/scottsdale-biology-tutor"),
+        htmlAssetEnv());
+    check((await badSubject.text()).includes("<body>/scottsdale-biology-tutor</body>"),
+        "unapproved subject served its own asset, not the storefront root");
+    /* Approved subject, location not in the matrix -> also not a route. */
+    const badLocation = await worker.fetch(
+        new Request("https://stapleseducation.com/atlantis-calculus-tutor"),
+        htmlAssetEnv());
+    check((await badLocation.text()).includes("<body>/atlantis-calculus-tutor</body>"),
+        "unknown location served its own asset, not the storefront root");
+    /* Bare subject with no location, and a subject-only path -> not routes. */
+    const bare = await worker.fetch(
+        new Request("https://stapleseducation.com/calculus-tutor"), htmlAssetEnv());
+    check((await bare.text()).includes("<body>/calculus-tutor</body>"),
+        "location-less <subject>-tutor is not a parametric route");
+});
+
+await testCase("sitemap (parametric): every subject x modality combination is listed monthly at 0.9", async () => {
+    const res = await worker.fetch(sitemapRequest(), env);
+    const xml = await res.text();
+    /* The matrix must clear the 200-page target set by the sprint brief. */
+    check(ALL_GEO_SLUGS.length > 200,
+        `matrix exceeds 200 landing pages (got ${ALL_GEO_SLUGS.length})`);
+    /* Every parametric combination is present. */
+    let missing = 0;
+    for (const slug of ALL_GEO_SLUGS) {
+        if (!xml.includes(`<loc>https://stapleseducation.com/${slug}</loc>`)) missing++;
+    }
+    check(missing === 0,
+        `all ${ALL_GEO_SLUGS.length} geo slugs present in sitemap (missing ${missing})`);
+    /* A curated override that also lives in the parametric space is emitted
+       exactly once, never duplicated by the parametric loop. */
+    for (const slug of ["scottsdale-calculus-tutor", "tempe-calculus-tutor"]) {
+        const hits = (xml.match(new RegExp(
+            "<loc>https://stapleseducation\\.com/" + slug + "</loc>", "g")) || []).length;
+        check(hits === 1, `curated override ${slug} listed exactly once (got ${hits})`);
+    }
+    /* Every parametric block carries the elevated priority and monthly cadence. */
+    for (const slug of ["online-differential-equations-tutor",
+                        "mesa-precalculus-tutor", "carefree-trigonometry-tutor"]) {
+        const re = new RegExp(
+            "<url>\\s*<loc>https://stapleseducation\\.com/" + slug +
+            "</loc>\\s*<lastmod>\\d{4}-\\d{2}-\\d{2}</lastmod>" +
+            "\\s*<changefreq>monthly</changefreq>\\s*<priority>0\\.9</priority>");
+        check(re.test(xml), `parametric slug ${slug} block is monthly + 0.9 priority`);
+    }
 });
 
 /* ---- Form-session timing gate on /api/contact ---------------------------- */

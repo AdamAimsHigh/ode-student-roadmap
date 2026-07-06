@@ -10,6 +10,91 @@
    ============================================================================ */
 
 /* ============================================================================
+   SandboxKit -- the reusable canvas-playground wrapper (Bundle 3).
+
+   Every engine below hand-rolls the SAME three concerns: build a canvas + 2D
+   context, read theme tokens live at draw time so Light and Dark both render
+   natively, and run a self-terminating requestAnimationFrame loop that stops
+   the instant the canvas leaves the DOM (the back action empties the
+   container). Across ~30 engines that scaffold is copied verbatim -- see the
+   repeated `document.body.contains(canvas)` guard and the per-file
+   *SandboxColor helper.
+
+   SandboxKit factors exactly that boilerplate into one data-driven mount, so a
+   NEW sandbox becomes a small config object plus a draw(ctx, env) function
+   instead of another 150-line copy of the scaffold:
+
+       function myNewSandbox(body) {
+           SandboxKit.mount(body, {
+               width: 640, height: 360,
+               draw: function (ctx, env) {
+                   ctx.fillStyle = env.color("--bg-color", "#fff");
+                   ctx.fillRect(0, 0, env.w, env.h);
+                   // ... engine-specific drawing in CSS pixels ...
+               }
+           });
+       }
+
+   The kit owns the canvas lifecycle (DPR scaling, theme reads, frame teardown);
+   the config owns only the mathematics. The existing u0_/u1_/u2_ engines
+   predate the kit and are deliberately left untouched -- upcoming units adopt
+   it. Zero dependency, file:// safe (pure DOM + canvas), no module system:
+   the same contract as the rest of this file.
+   ============================================================================ */
+const SandboxKit = (function () {
+    /* Theme token reader resolved against whichever light/dark theme is active
+       on this frame (generalizes the per-file u0SandboxColor helper). */
+    function color(varName, fallback) {
+        const v = getComputedStyle(document.documentElement)
+            .getPropertyValue(varName);
+        return (v && v.trim()) || fallback;
+    }
+
+    /* Device-pixel-ratio-aware canvas sized to cssWidth x cssHeight, appended
+       to parent. The context is pre-scaled by the DPR, so draw code always
+       works in CSS pixels and stays crisp on any display density. */
+    function makeCanvas(parent, cssWidth, cssHeight) {
+        const canvas = document.createElement("canvas");
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.round(cssWidth * dpr);
+        canvas.height = Math.round(cssHeight * dpr);
+        canvas.style.width = cssWidth + "px";
+        canvas.style.height = cssHeight + "px";
+        parent.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+        ctx.scale(dpr, dpr);
+        return { canvas: canvas, ctx: ctx };
+    }
+
+    /* Mounts a themed, self-terminating animation surface. config is
+         { width, height, draw(ctx, env) }  where env = { color, canvas, w, h }.
+       The loop stops itself the moment the canvas is detached, leaving no
+       orphan frames -- the exact lifecycle every engine below implements by
+       hand. A draw that throws is caught once and halts the loop rather than
+       spamming the console every frame. Returns the mounted canvas. */
+    function mount(parent, config) {
+        const w = config.width || parent.clientWidth || 640;
+        const h = config.height || 360;
+        const built = makeCanvas(parent, w, h);
+        const env = { color: color, canvas: built.canvas, w: w, h: h };
+        function frame() {
+            if (!document.body.contains(built.canvas)) return; // stop after navigation
+            try {
+                config.draw(built.ctx, env);
+            } catch (err) {
+                console.error("SandboxKit draw halted:", err);
+                return;
+            }
+            requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+        return built.canvas;
+    }
+
+    return { color: color, makeCanvas: makeCanvas, mount: mount };
+})();
+
+/* ============================================================================
    Unit 0 Cluster I sandbox engines
 
    Three self-contained, ungraded exploration surfaces mounted by
