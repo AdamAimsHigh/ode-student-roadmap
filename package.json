@@ -5,7 +5,11 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "deploy:dry-run": "wrangler deploy --dry-run",
-    "test:sync": "node scripts/test_sync_worker.mjs"
+    "test:sync": "node scripts/test_sync_worker.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@playwright/test": "^1.60.0"

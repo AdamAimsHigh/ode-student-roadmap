@@ -170,9 +170,27 @@ The code comments in `ode/css/theme.css` and `ode/js/state.js` cite an `ARCHITEC
 
 ---
 
+## Headless Browser Test Harness (Bundle 4, 2026-07-05)
+
+A Playwright end-to-end harness regression-locks the **student-facing UX state flows** that the unit-test tier (`scripts/test_sync_worker.mjs`, which locks the Worker's crypto/KV contract) cannot see. It drives a real headless Chromium against the production assets and asserts on rendered DOM, animation, and persistence — never mutating a shipped file, so **Pillar 1 holds** (the app is exercised exactly as deployed).
+
+- **Dev-only, zero production footprint.** `@playwright/test` is a dev harness; it never ships to the client and adds no runtime dependency. The `.assetsignore` deny-by-default allowlist (`/*` then re-includes) excludes `tests/`, `playwright.config.js`, `test-results/`, and `playwright-report/` from any Cloudflare upload **by construction** — nothing here can reach the edge. Test output dirs are git-ignored.
+- **Local static emulation (`playwright.config.js`).** A `webServer` block spins up Python's stdlib `http.server` over the repository root (the same lightweight server used for every prior local verification pass — no new install), giving specs an `http://127.0.0.1:4173` origin where `/` is the landing storefront and `/ode/` is the SPA, mirroring the Worker asset pipeline's routing. Running over `http` (not `file://`) exercises the http-context code paths; the `file://` zero-dependency invariant remains a **separate** guarantee owned by the app and its other verification passes.
+- **Chromium-class boundary.** One `chromium` project is provisioned locally; the mobile-viewport check rides the same engine via a Pixel 5 device profile (`defaultBrowserType` stripped, since it is illegal inside a `describe`). WebKit/Firefox projects can be appended to `playwright.config.js` once their binaries are installed (`npx playwright install`).
+- **Lifecycle spec (`tests/roadmap-lifecycle.spec.js`), four critical-path flows:**
+  1. **Mobile responsive** — the landing `header.navbar` navigation stacks on a phone viewport with **no horizontal overflow** (`scrollWidth − clientWidth ≤ 1px`) and no clipping (every nav link's box sits inside the viewport width).
+  2. **Dashboard hydration** — `/ode/` paints all **19** `.toc-card` unit blocks (each with a non-empty `.toc-card-title`), the DOM contract behind the Pillar 2 Table of Contents.
+  3. **Interactive canvas mounting** — the deep-link hash `#interactives-sandbox-unit_0_equation_translator` mounts the SandboxKit-class engine into `#interactive-host-unit_0_equation_translator`; a `canvas` appears with non-zero dimensions and its pixels change across a ~350 ms window (proof the `requestAnimationFrame` physics loop is live).
+  4. **State persistence loop** — a valid passed-checkpoint detail driven through the public `ODEState.setCheckpointPassed` sink (the same API `checkpoint-core.js pass()` commits to) serializes its native range-slider coordinates (`sliders`) and Desmos scalar map (`desmosSliders`) verbatim into the `ode_passed_checkpoints` `localStorage` cache and round-trips back through `getCheckpointDetail` (Pillar 5).
+- **Console policy.** Every flow asserts **zero first-party uncaught exceptions and zero first-party `console.error`**. Third-party noise inherent to running the CDN-backed app on a bare localhost origin — Desmos trial-key notice, Google Identity origin-not-allowed / "accounts list is empty", **Cloudflare Turnstile 110200** (domain-restricted key), analytics-beacon and 401/403 auth-resource loads, favicon — is pattern-and-host allow-listed (matched against message text **and** `msg.location().url`), so a genuine regression in our own code still fails the gate. These environmental entries are the same ones recorded across this project's prior local verification passes.
+- **Script targets (`package.json`):** `npm run test:e2e` (headless run), `test:e2e:headed`, `test:e2e:ui` (interactive runner), `test:e2e:report` (open the last HTML report). The Worker contract suite stays `npm run test:sync`.
+
+---
+
 ## Maintenance Contract
 
 Per `PIPELINE_LEARNINGS.md` → *Architectural Governance and Living Blueprint Rule*:
 1. A structural change to the web shell (script load order, routing matrix, theme tokens, or `ode_*` persistence keys) is **incomplete** until the matching pillar above is updated in the same sprint.
 2. New data layers must preserve **Pillar 1** (embedded globals, no runtime fetch, no build dependency for the client).
 3. New user-facing copy must honor the **§1 copywriting constraint** (no em-dashes, no ampersands).
+4. A change to the testing configuration, spec targets, or `package.json` script hooks obligates an update to the **Headless Browser Test Harness** section above (Living Blueprint Rule), and the DOM/persistence contracts the specs assert on (`.toc-card` count, the sandbox host id, `ode_passed_checkpoints` shape) must move in lockstep with the specs that lock them.
