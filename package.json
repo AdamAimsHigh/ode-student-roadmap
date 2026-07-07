@@ -1,5 +1,5 @@
 {
-  "name": "differential-equations-app",
+  "name": "ode-student-roadmap",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",

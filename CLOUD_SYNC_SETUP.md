@@ -26,7 +26,7 @@ The command prints a namespace `id`. Paste it into `wrangler.jsonc`, replacing
   `env.ODE_PROGRESS_KV` and returns HTTP 500 if the binding is absent.
 - If you manage bindings in the dashboard instead of `wrangler.jsonc`:
   - **Workers project (current setup):** Workers and Pages → your Worker
-    (`differential-equations-app`) → *Settings* → *Bindings* → *Add* →
+    (`ode-student-roadmap`) → *Settings* → *Bindings* → *Add* →
     *KV namespace* → Variable name `ODE_PROGRESS_KV` → select the
     `ODE_PROGRESS_KV` namespace.
   - **Pages project (if ever migrated):** your Pages project → *Settings* →
