@@ -702,13 +702,19 @@ await testCase("sync: 61st request in the window is rate-limited 429", async () 
         "429 carries a Retry-After header");
 });
 
-/* ---- Programmatic SEO: dynamic sitemap ---------------------------------- */
+/* ---- Programmatic SEO: dynamic sitemap (index + child sitemaps) --------- *
+ *
+ * /sitemap.xml is now a <sitemapindex> referencing three child <urlset>
+ * documents split by content family. Each child is fetched from its own path;
+ * the index carries no <url> blocks of its own. */
 
-function sitemapRequest() {
-    return new Request("https://stapleseducation.com/sitemap.xml");
+function sitemapRequest(path) {
+    return new Request("https://stapleseducation.com/" + (path || "sitemap.xml"));
 }
 
-await testCase("sitemap.xml is served as application/xml with the top-level pages", async () => {
+const SITEMAP_CHILD_PATHS = ["sitemap-core.xml", "sitemap-units.xml", "sitemap-geo.xml"];
+
+await testCase("sitemap.xml is a <sitemapindex> pointing at the three child sitemaps", async () => {
     const res = await worker.fetch(sitemapRequest(), env);
     check(res.status === 200, `expected 200, got ${res.status}`);
     check((res.headers.get("Content-Type") || "").includes("application/xml"),
@@ -716,16 +722,55 @@ await testCase("sitemap.xml is served as application/xml with the top-level page
     const xml = await res.text();
     check(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'),
         "well-formed XML prolog");
+    check(xml.includes("<sitemapindex"), "root element is <sitemapindex>");
+    check(!xml.includes("<url>"), "index carries no <url> blocks (it is not a urlset)");
+    for (const path of SITEMAP_CHILD_PATHS) {
+        check(xml.includes(`<loc>https://stapleseducation.com/${path}</loc>`),
+            `index references child ${path}`);
+    }
+    const children = (xml.match(/<sitemap>/g) || []).length;
+    check(children === SITEMAP_CHILD_PATHS.length,
+        `exactly ${SITEMAP_CHILD_PATHS.length} <sitemap> children, got ${children}`);
+    // Every child <loc> is stamped with a well-formed ISO-8601 <lastmod>.
+    const lastmods = (xml.match(/<lastmod>([^<]+)<\/lastmod>/g) || [])
+        .map((s) => s.replace(/<\/?lastmod>/g, ""));
+    check(lastmods.length === SITEMAP_CHILD_PATHS.length &&
+        lastmods.every((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)),
+        "each child carries a well-formed ISO-8601 <lastmod>");
+    check(!/<loc>[^<]*&(?!amp;|lt;|gt;|quot;|#)/.test(xml),
+        "no unescaped ampersand in any index <loc>");
+});
+
+await testCase("each child sitemap is served as application/xml and is well-formed", async () => {
+    for (const path of SITEMAP_CHILD_PATHS) {
+        const res = await worker.fetch(sitemapRequest(path), env);
+        check(res.status === 200, `${path}: expected 200, got ${res.status}`);
+        check((res.headers.get("Content-Type") || "").includes("application/xml"),
+            `${path}: Content-Type is application/xml`);
+        const xml = await res.text();
+        check(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'),
+            `${path}: well-formed XML prolog`);
+        check(xml.includes("<urlset"), `${path}: root element is <urlset>`);
+        check(!/<loc>[^<]*&(?!amp;|lt;|gt;|quot;|#)/.test(xml),
+            `${path}: no unescaped ampersand in any <loc>`);
+    }
+});
+
+await testCase("sitemap-core.xml lists the two top-level pages, both weekly", async () => {
+    const res = await worker.fetch(sitemapRequest("sitemap-core.xml"), env);
+    const xml = await res.text();
     check(xml.includes("<loc>https://stapleseducation.com/</loc>"),
         "root landing page listed");
     check(xml.includes("<loc>https://stapleseducation.com/ode/</loc>"),
         "ODE roadmap listed");
-    check(!/<loc>[^<]*&(?!amp;|lt;|gt;|quot;|#)/.test(xml),
-        "no unescaped ampersand in any <loc>");
+    const urlBlocks = (xml.match(/<url>/g) || []).length;
+    check(urlBlocks === 2, `exactly 2 <url> blocks, got ${urlBlocks}`);
+    const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
+    check(weekly === 2, `both core pages weekly, got ${weekly}`);
 });
 
-await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq", async () => {
-    const res = await worker.fetch(sitemapRequest(), env);
+await testCase("sitemap-units.xml deep-links all 19 ODE units with weekly changefreq", async () => {
+    const res = await worker.fetch(sitemapRequest("sitemap-units.xml"), env);
     const xml = await res.text();
     for (let n = 0; n <= 18; n++) {
         check(xml.includes(`<loc>https://stapleseducation.com/ode/?unit=${n}</loc>`),
@@ -734,15 +779,13 @@ await testCase("sitemap.xml deep-links all 19 ODE units with weekly changefreq",
     const unitLocs = (xml.match(/<loc>[^<]*\/ode\/\?unit=\d+<\/loc>/g) || []);
     check(unitLocs.length === 19, `exactly 19 unit URLs, got ${unitLocs.length}`);
     const urlBlocks = (xml.match(/<url>/g) || []).length;
-    check(urlBlocks === 21 + ALL_GEO_SLUGS.length,
-        `${21 + ALL_GEO_SLUGS.length} total <url> blocks (2 pages + 19 units + ${ALL_GEO_SLUGS.length} geo), got ${urlBlocks}`);
+    check(urlBlocks === 19, `19 total <url> blocks in units child, got ${urlBlocks}`);
     const weekly = (xml.match(/<changefreq>weekly<\/changefreq>/g) || []).length;
-    check(weekly === 21,
-        `21 weekly entries (2 pages + 19 units; geo pages are monthly), got ${weekly}`);
+    check(weekly === 19, `all 19 unit entries weekly, got ${weekly}`);
 });
 
-await testCase("sitemap: per-unit <lastmod> dates are ISO-8601 and vary across units", async () => {
-    const res = await worker.fetch(sitemapRequest(), env);
+await testCase("sitemap-units.xml: per-unit <lastmod> dates are ISO-8601 and vary across units", async () => {
+    const res = await worker.fetch(sitemapRequest("sitemap-units.xml"), env);
     const xml = await res.text();
     // Capture each unit URL's own <lastmod> from its <url> block.
     const perUnit = {};
@@ -759,8 +802,8 @@ await testCase("sitemap: per-unit <lastmod> dates are ISO-8601 and vary across u
         "per-unit dates are independent, not one global constant applied to all");
 });
 
-await testCase("sitemap: Geo-SEO landing pages carry monthly changefreq and 0.9 priority", async () => {
-    const res = await worker.fetch(sitemapRequest(), env);
+await testCase("sitemap-geo.xml: Geo-SEO landing pages carry monthly changefreq and 0.9 priority", async () => {
+    const res = await worker.fetch(sitemapRequest("sitemap-geo.xml"), env);
     const xml = await res.text();
     for (const slug of GEO_SLUGS) {
         check(xml.includes(`<loc>https://stapleseducation.com/${slug}</loc>`),
@@ -774,6 +817,20 @@ await testCase("sitemap: Geo-SEO landing pages carry monthly changefreq and 0.9 
     const monthly = (xml.match(/<changefreq>monthly<\/changefreq>/g) || []).length;
     check(monthly === ALL_GEO_SLUGS.length,
         `exactly ${ALL_GEO_SLUGS.length} monthly geo entries, got ${monthly}`);
+    const urlBlocks = (xml.match(/<url>/g) || []).length;
+    check(urlBlocks === ALL_GEO_SLUGS.length,
+        `${ALL_GEO_SLUGS.length} <url> blocks in geo child, got ${urlBlocks}`);
+});
+
+await testCase("sitemap: children partition the full 235-URL matrix with no loss", async () => {
+    let total = 0;
+    for (const path of SITEMAP_CHILD_PATHS) {
+        const res = await worker.fetch(sitemapRequest(path), env);
+        const xml = await res.text();
+        total += (xml.match(/<url>/g) || []).length;
+    }
+    check(total === 21 + ALL_GEO_SLUGS.length,
+        `children sum to ${21 + ALL_GEO_SLUGS.length} <url> blocks (2 pages + 19 units + ${ALL_GEO_SLUGS.length} geo), got ${total}`);
 });
 
 /* ---- Geo-SEO routing ----------------------------------------------------- */
@@ -857,7 +914,7 @@ await testCase("geo (parametric): an unapproved subject or unknown location is N
 });
 
 await testCase("sitemap (parametric): every subject x modality combination is listed monthly at 0.9", async () => {
-    const res = await worker.fetch(sitemapRequest(), env);
+    const res = await worker.fetch(sitemapRequest("sitemap-geo.xml"), env);
     const xml = await res.text();
     /* The matrix must clear the 200-page target set by the sprint brief. */
     check(ALL_GEO_SLUGS.length > 200,

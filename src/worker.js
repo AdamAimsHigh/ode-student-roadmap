@@ -890,7 +890,7 @@ async function handleContact(request, env, ctx) {
  * that content/units/unit-NN was migrated from) — an accurate, reproducible
  * per-unit authoring date. Most units share the Content API v1 date, while the
  * later-track units (1, 14-18) retain their earlier authoring date, so the
- * sitemap reports genuine per-unit history. buildSitemapXml() falls back to the
+ * sitemap reports genuine per-unit history. sitemapUrlEntry() falls back to the
  * global SITEMAP_LASTMOD if any block ever omits lastmod.
  *
  * This runs only because wrangler.jsonc lists "/ode/" in assets.run_worker_first,
@@ -925,15 +925,26 @@ const ODE_UNIT_SEO = Object.freeze(Object.assign(Object.create(null), {
     "18": { title: "Unit 18: Fourier Series and Partial Differential Equations", description: "Represent functions as Fourier series and separate variables to solve the heat, wave, and Laplace equations from first principles.", lastmod: "2026-06-27" }
 }));
 
-/* ---- Dynamic sitemap ---------------------------------------------------- *
+/* ---- Dynamic sitemap: index + child sitemaps ---------------------------- *
  *
- * One <url> for each top-level page plus one deep-linked entry per ODE unit
- * (/ode/?unit=N), so every unit-targeted SEO variant produced by ODE_UNIT_SEO
- * is independently crawlable. Unit numbers are emitted in ascending numeric
- * order and drawn from ODE_UNIT_SEO itself, the single source of truth, so a
- * new unit appears in the sitemap the moment it is added to the map. Each
- * <loc> is XML-escaped (via escapeHtml, whose &/</>/"/' entities are valid
- * XML) so a future multi-parameter URL cannot emit a raw ampersand. */
+ * /sitemap.xml is a <sitemapindex> pointing at three child <urlset> documents,
+ * split by content family so each stays small, cacheable, and independently
+ * recrawlable, and so the whole set scales far under the 50,000-URL / 50 MiB
+ * per-file protocol ceiling as the parametric matrix grows:
+ *
+ *   /sitemap-core.xml   the root apex "/" and the "/ode/" SPA boundary
+ *   /sitemap-units.xml  one deep-linked <url> per ODE unit (/ode/?unit=N)
+ *   /sitemap-geo.xml    every curated + parametric Geo-SEO landing slug
+ *
+ * The children are one frozen registry (SITEMAP_CHILDREN); the index and the
+ * router both read it, so adding a child sitemap is a single append that
+ * self-registers in the index and gains its own route. Each child's records
+ * still come from the same single sources of truth as before (ODE_UNIT_SEO,
+ * allGeoSlugs), so a new unit or geo slug self-registers in its child. Every
+ * <loc> — in the index and in each child — is XML-escaped (via escapeHtml,
+ * whose &/</>/"/' entities are valid XML) so a future multi-parameter URL
+ * cannot emit a raw ampersand. robots.txt still advertises the single
+ * /sitemap.xml index, the standard crawler discovery entry point. */
 const SITE_ORIGIN = "https://stapleseducation.com";
 const SITEMAP_LASTMOD = "2026-07-05";
 
@@ -941,8 +952,9 @@ function sortedUnitNumbers() {
     return Object.keys(ODE_UNIT_SEO).map(Number).sort((a, b) => a - b);
 }
 
-/* lastmod is per-entry; a missing/empty value falls back to the global
-   baseline SITEMAP_LASTMOD so an entry can never emit an empty <lastmod>. */
+/* One <url> block. lastmod is per-entry; a missing/empty value falls back to
+   the global baseline SITEMAP_LASTMOD so an entry can never emit an empty
+   <lastmod>. */
 function sitemapUrlEntry(loc, changefreq, priority, lastmod) {
     return "  <url>\n" +
         "    <loc>" + escapeHtml(loc) + "</loc>\n" +
@@ -952,30 +964,90 @@ function sitemapUrlEntry(loc, changefreq, priority, lastmod) {
         "  </url>";
 }
 
-function buildSitemapXml() {
-    const entries = [
-        sitemapUrlEntry(SITE_ORIGIN + "/", "weekly", "1.0"),
-        sitemapUrlEntry(SITE_ORIGIN + "/ode/", "weekly", "0.8")
+/* ---- Child-sitemap record sets (each a single source of truth) ---------- */
+
+/* The two top-level pages: the site apex and the ODE SPA entry boundary. */
+function coreUrlRecords() {
+    return [
+        { loc: SITE_ORIGIN + "/", changefreq: "weekly", priority: "1.0" },
+        { loc: SITE_ORIGIN + "/ode/", changefreq: "weekly", priority: "0.8" }
     ];
-    for (const n of sortedUnitNumbers()) {
+}
+
+/* One deep link per ODE unit, ascending, drawn from ODE_UNIT_SEO so a new unit
+   self-registers; each carries that unit's own git-authored <lastmod>. */
+function unitUrlRecords() {
+    return sortedUnitNumbers().map((n) => {
         const unit = ODE_UNIT_SEO[String(n)];
-        entries.push(sitemapUrlEntry(
-            SITE_ORIGIN + "/ode/?unit=" + n, "weekly", "0.7",
-            unit && unit.lastmod));
-    }
-    /* Local Geo-SEO landing pages: elevated priority (0.9) and a monthly
-       changefreq. allGeoSlugs() enumerates the curated overrides plus every
-       parametric subject x modality x location combination (200+), drawn from
-       the frozen registries themselves so a new subject or neighborhood
-       self-registers in the sitemap the moment it is added to the matrix. Each
-       <loc> is XML-escaped by sitemapUrlEntry. */
-    for (const slug of allGeoSlugs()) {
-        entries.push(sitemapUrlEntry(
-            SITE_ORIGIN + "/" + slug, "monthly", "0.9"));
-    }
+        return {
+            loc: SITE_ORIGIN + "/ode/?unit=" + n,
+            changefreq: "weekly",
+            priority: "0.7",
+            lastmod: unit && unit.lastmod
+        };
+    });
+}
+
+/* Every Geo-SEO landing slug (curated overrides + the parametric subject x
+   modality x location matrix), elevated priority (0.9) and a monthly
+   changefreq. allGeoSlugs() enumerates them from the frozen registries
+   themselves, so a new subject or neighborhood self-registers the moment it is
+   added to the matrix. */
+function geoUrlRecords() {
+    return allGeoSlugs().map((slug) => ({
+        loc: SITE_ORIGIN + "/" + slug,
+        changefreq: "monthly",
+        priority: "0.9"
+    }));
+}
+
+/* Renders a record set into a complete <urlset> child-sitemap document. */
+function renderUrlset(records) {
+    const entries = records.map((r) =>
+        sitemapUrlEntry(r.loc, r.changefreq, r.priority, r.lastmod));
     return '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         entries.join("\n") + "\n</urlset>";
+}
+
+/* Latest ISO-8601 lastmod across a record set, for that child's <lastmod> in
+   the index; zero-padded YYYY-MM-DD compares correctly as a plain string.
+   Falls back to the baseline so an index <lastmod> is never empty. */
+function rollupLastmod(records) {
+    let max = "";
+    for (const r of records) {
+        const d = r.lastmod || SITEMAP_LASTMOD;
+        if (d > max) max = d;
+    }
+    return max || SITEMAP_LASTMOD;
+}
+
+/* The child-sitemap registry: the single source the index and the router both
+   read. path is the public route; records() is the lazy record builder. */
+const SITEMAP_CHILDREN = Object.freeze([
+    { path: "/sitemap-core.xml", records: coreUrlRecords },
+    { path: "/sitemap-units.xml", records: unitUrlRecords },
+    { path: "/sitemap-geo.xml", records: geoUrlRecords }
+]);
+
+function sitemapChildByPath(pathname) {
+    for (const child of SITEMAP_CHILDREN) {
+        if (child.path === pathname) return child;
+    }
+    return null;
+}
+
+/* The <sitemapindex> served at /sitemap.xml: one <sitemap> per child, each
+   <loc> XML-escaped and stamped with its record set's rolled-up <lastmod>. */
+function buildSitemapIndexXml() {
+    const entries = SITEMAP_CHILDREN.map((child) =>
+        "  <sitemap>\n" +
+        "    <loc>" + escapeHtml(SITE_ORIGIN + child.path) + "</loc>\n" +
+        "    <lastmod>" + rollupLastmod(child.records()) + "</lastmod>\n" +
+        "  </sitemap>");
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+        entries.join("\n") + "\n</sitemapindex>";
 }
 
 /* Serves /ode/ and, when a recognized ?unit= selector is present, stream-
@@ -1318,8 +1390,17 @@ export default {
                 headers: { "Content-Type": "text/plain" }
             });
         }
+        // /sitemap.xml is the <sitemapindex>; each child <urlset> is served
+        // from its own path (/sitemap-core.xml, /sitemap-units.xml,
+        // /sitemap-geo.xml), all resolved from the SITEMAP_CHILDREN registry.
         if (url.pathname === "/sitemap.xml") {
-            return new Response(buildSitemapXml(), {
+            return new Response(buildSitemapIndexXml(), {
+                headers: { "Content-Type": "application/xml" }
+            });
+        }
+        const sitemapChild = sitemapChildByPath(url.pathname);
+        if (sitemapChild) {
+            return new Response(renderUrlset(sitemapChild.records()), {
                 headers: { "Content-Type": "application/xml" }
             });
         }
