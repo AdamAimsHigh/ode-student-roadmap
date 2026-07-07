@@ -4,7 +4,8 @@ Pipeline: strict luminance-gated flood-fill background removal (only near-black 
 may be background, so the fill cannot tunnel through shadow lines; connectivity preserves
 interior dark metal), largest connected component kept, enclosed holes filled for a
 guaranteed-solid silhouette, 1px softened alpha edge, tight crop with bottom cushion,
-centered square canvas. Descends from commit 432b498's approach.
+centered square canvas, and a final bottom-edge matte slice that removes the dark
+semi-transparent shadow fringe below the baseline. Descends from commit 432b498's approach.
 """
 import sys
 from collections import deque
@@ -148,15 +149,34 @@ canvas = side + 2 * pad
 sq = Image.new("RGBA", (canvas, canvas), (0, 0, 0, 0))
 sq.paste(im2, ((canvas - cw) // 2, (canvas - ch) // 2), im2)
 
-# --- favicon.png @ 512 ---
+# --- slice the semi-transparent shadow fringe below the bottom baseline ---
+# The alpha soften + LANCZOS resize leave a haze of dark (R+G+B <= SHADOW_SUM),
+# partially-transparent pixels hanging just below the base curve. Against a light page
+# this reads as a fuzzy grey fringe. Per column, find the lowest genuinely-opaque row
+# (the clean edge) and force alpha to 0 for any strictly-lower pixel whose colour is in
+# the dark background-shadow spectrum. This is bottom-edge only: rows at or above each
+# column's edge — the whole body, the open jaw, the side outlines — are untouched.
+def slice_bottom_fringe(img, opaque_t=180, shadow_sum=60):
+    a = np.asarray(img).copy()
+    alpha = a[:, :, 3]
+    rgbsum = a[:, :, :3].astype(np.int32).sum(axis=2)
+    rows = np.arange(a.shape[0])[:, None]
+    edge = np.where(alpha >= opaque_t, rows, -1).max(axis=0)  # lowest opaque row / column
+    kill = (rows > edge[None, :]) & (rgbsum <= shadow_sum) & (alpha > 0)
+    a[:, :, 3] = np.where(kill, 0, alpha)
+    return Image.fromarray(a, "RGBA"), int(kill.sum())
+
+# --- favicon.png @ 512, fringe sliced to a razor edge ---
 png = sq.resize((512, 512), Image.LANCZOS)
+png, sliced = slice_bottom_fringe(png)
 png.save(OUT_PNG)
 
-# --- favicon.ico multi-res 16/32/48 ---
-sq.save(OUT_ICO, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+# --- favicon.ico multi-res 16/32/48, from the cleaned master ---
+png.save(OUT_ICO, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
 
 # --- report ---
 cov = 100.0 * (alpha2 > 0).sum() / (h * w)
 print(f"opaque coverage after keying: {cov:.1f}% of source")
 print(f"cropped content: {cw}x{ch}, square canvas: {canvas}px")
+print(f"sliced {sliced} dark semi-transparent fringe px below the baseline")
 print(f"wrote {OUT_PNG} (512x512 RGBA) and {OUT_ICO} (16/32/48)")
