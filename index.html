@@ -15,6 +15,30 @@
          serves different bytes per browser. -->
     <link href="/fonts/fonts.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- BreadcrumbList structured data: communicates the storefront-to-roadmap
+         hierarchy (Home to ODE Roadmap) to search crawlers before they compile
+         rich results. Inline, self-contained, zero dependency; copy honors the
+         §1 constraint (no em-dashes, no ampersands). -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://stapleseducation.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ODE Roadmap",
+          "item": "https://stapleseducation.com/ode/"
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <header class="navbar">
@@ -22,7 +46,7 @@
             <span class="sigma">&Sigma;</span>
             <span class="brand-name">Staples Education</span>
         </div>
-        <nav>
+        <nav role="navigation" aria-label="Main Navigation">
             <a href="#services">Services</a>
             <a href="reviews.html">Reviews</a>
             <a href="#contact" class="btn-secondary">Contact</a>
@@ -31,7 +55,7 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section id="hero" class="hero">
             <div class="hero-content">
                 <span class="badge">Premium Tutoring</span>
                 <h1>The <span class="highlight">Math Confidence Reset</span> Framework</h1>

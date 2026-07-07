@@ -654,7 +654,7 @@ function rememberLeadHash(contentHash) {
    the same address still collapses. */
 async function leadContentHash(lead) {
     return sha256Hex(
-        lead.name + " " + lead.email.toLowerCase() + " " + lead.message
+        lead.name + "\0" + lead.email.toLowerCase() + "\0" + lead.message
     );
 }
 
@@ -897,7 +897,13 @@ async function handleContact(request, env, ctx) {
  * so the Worker sees the request before the asset server does; see the ODE SEO
  * metadata layer note in WEBSITE_BLUEPRINT.md (Pillar 1). */
 const ODE_SEO_SUFFIX = " | ODE Roadmap by Staples Education";
-const ODE_UNIT_SEO = {
+/* Prototype-blank lookup table (Object.create(null)): the ?unit= selector is
+   attacker-controlled, so a hostile value such as "constructor", "__proto__",
+   "toString", or "hasOwnProperty" must resolve to undefined rather than an
+   inherited Object.prototype member that would mint a phantom unit route with
+   garbage metadata. With no prototype chain the direct ODE_UNIT_SEO[unitParam]
+   lookup in handleOdeSeo is inherently safe. Frozen against mutation. */
+const ODE_UNIT_SEO = Object.freeze(Object.assign(Object.create(null), {
     "0": { title: "Unit 0: What Are Differential Equations", description: "Learn what a differential equation actually is from first principles: an equation relating a function to its own rate of change, and why that idea models the world.", lastmod: "2026-07-03" },
     "1": { title: "Unit 1: Foundations and Prerequisites", description: "Rebuild the calculus and algebra foundations every differential equations course assumes, so derivatives, integrals, and functions feel like tools you own.", lastmod: "2026-06-27" },
     "2": { title: "Unit 2: First Order Linear Differential Equations", description: "Master first order linear equations from the ground up: integrating factors, the structure of the general solution, and why the method actually works.", lastmod: "2026-07-03" },
@@ -917,7 +923,7 @@ const ODE_UNIT_SEO = {
     "16": { title: "Unit 16: Phase Plane Analysis and Nonlinear Dynamics", description: "Classify equilibria in the phase plane and linearize nonlinear systems, reading stability and long term dynamics straight from the geometry.", lastmod: "2026-06-27" },
     "17": { title: "Unit 17: Boundary Value Problems and Sturm-Liouville Theory", description: "Move from initial value to boundary value problems, discovering eigenvalues, eigenfunctions, and the orthogonality that Sturm Liouville theory guarantees.", lastmod: "2026-06-27" },
     "18": { title: "Unit 18: Fourier Series and Partial Differential Equations", description: "Represent functions as Fourier series and separate variables to solve the heat, wave, and Laplace equations from first principles.", lastmod: "2026-06-27" }
-};
+}));
 
 /* ---- Dynamic sitemap ---------------------------------------------------- *
  *
@@ -1013,11 +1019,12 @@ async function handleOdeSeo(request, env, url) {
  * Copy obeys the §1 constraint: no em-dashes, no ampersands (WEBSITE_BLUEPRINT
  * Maintenance Contract rule 3), so every headline uses commas and "and".
  *
- * The object is frozen, and lookups go through geoRegistryEntry() which guards
- * with hasOwnProperty, so a path like /constructor or /toString can never
- * resolve to an inherited Object member and mint a phantom route. */
+ * The registry is a prototype-blank dictionary (Object.create(null)) AND frozen,
+ * and lookups additionally go through geoRegistryEntry() which guards with
+ * hasOwnProperty, so a path like /constructor or /toString can never resolve to
+ * an inherited Object member and mint a phantom route. */
 const GEO_SEO_SUFFIX = " | Staples Education";
-const GEO_SEO_REGISTRY = Object.freeze({
+const GEO_SEO_REGISTRY = Object.freeze(Object.assign(Object.create(null), {
     "scottsdale-calculus-tutor": {
         title: "Scottsdale Calculus Tutor",
         description: "Private calculus tutoring for Scottsdale students. The Math Confidence Reset framework closes foundational gaps and builds intuitive mastery from limits through integrals.",
@@ -1066,7 +1073,7 @@ const GEO_SEO_REGISTRY = Object.freeze({
         headline: "Fountain Hills <span class='highlight'>Math Confidence</span> Tutor",
         subhead: "Focused math tutoring for Fountain Hills students and families, built around each learner's exact goals from algebra through calculus."
     }
-});
+}));
 
 /* Own-property-guarded registry lookup: returns the entry or null, never an
    inherited Object.prototype member. */
