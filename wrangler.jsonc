@@ -24,7 +24,7 @@
 // failure mode. Never widen the allowlist without checking file sizes.
 {
 	"$schema": "https://unpkg.com/wrangler/config-schema.json",
-	"name": "differential-equations-app",
+	"name": "ode-student-roadmap",
 	"compatibility_date": "2026-07-01",
 	"main": "src/worker.js",
 	// Custom Domains: Cloudflare creates the DNS records and certificates
