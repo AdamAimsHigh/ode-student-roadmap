@@ -27,6 +27,9 @@
 	"name": "ode-student-roadmap",
 	"compatibility_date": "2026-07-01",
 	"main": "src/worker.js",
+	// Keep the *.workers.dev subdomain live as a fallback URL alongside the
+	// custom domains below (ode-student-roadmap.addstaples.workers.dev).
+	"workers_dev": true,
 	// Custom Domains: Cloudflare creates the DNS records and certificates
 	// automatically on deploy (the zone's nameservers already point here).
 	"routes": [
