@@ -31,7 +31,12 @@ const ODEState = (function () {
        touch ode records. Existing pre-namespace progress is migrated
        server-side on first read; nothing changes in localStorage. */
     const SYNC_ENDPOINT = "/api/sync";
-    const SYNC_SUBJECT = "ode";
+    /* Read from the single subject config (subject-config.js, loaded before
+       this file) so the client's progress track name and the Worker's
+       KNOWN_SUBJECTS registry can never disagree; falls back to "ode" if the
+       config failed to load, preserving the pre-refactor behavior. */
+    const SYNC_SUBJECT = (typeof SUBJECT_CONFIG !== "undefined" &&
+        SUBJECT_CONFIG.subjectId) || "ode";
     const SYNC_DEBOUNCE_MS = 2500;
     const CREDENTIAL_KEY = "ode_google_credential";
     const SESSION_KEY = "ode_cloud_session";

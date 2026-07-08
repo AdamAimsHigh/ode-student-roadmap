@@ -5,7 +5,9 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "deploy:dry-run": "wrangler deploy --dry-run",
-    "test:sync": "node scripts/test_sync_worker.mjs"
+    "test:sync": "node scripts/test_sync_worker.mjs",
+    "test:client": "playwright test",
+    "verify": "python scripts/validate_content.py && python scripts/test_content_pipeline.py && npm run test:sync && node --check src/worker.js && npx playwright test"
   },
   "dependencies": {
     "@playwright/test": "^1.60.0"

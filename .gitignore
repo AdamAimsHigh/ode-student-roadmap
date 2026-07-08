@@ -31,6 +31,10 @@ __pycache__/
 .playwright-mcp/
 quiz-modal-verify.png
 
+# Playwright client smoke suite artifacts (tests/ is tracked; its output is not)
+test-results/
+playwright-report/
+
 # Local AI chat logs (keep on PC, never track)
 Gemini Chats ODE-Manager-Local/
 

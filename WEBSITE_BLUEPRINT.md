@@ -54,12 +54,12 @@ These five pillars are the load-bearing guarantees of the shell. **Changing any 
 - **All first-party code is plain script-injected globals**, never ES modules with `import`/`export` and never a packaged dependency tree. The single source of truth for boot order is the ordered `<script>` block at the bottom of `ode/index.html`:
 
   ```
-  curriculum-data.js   → state.js → theme.js → modes.js
+  curriculum-data.js → subject-config.js → state.js → theme.js → modes.js
   → checkpoints/checkpoint-registry.js → checkpoint-core.js → widgets-unit0..18.js
   → quiz-data.js → quiz-engine.js → router.js   (router is ALWAYS last)
   ```
 
-  **Load order is a contract:** data and the state machine must be parsed *before* the router that consumes them; the router is loaded last and bootstraps the first render.
+  **Load order is a contract:** data and the state machine must be parsed *before* the router that consumes them; the router is loaded last and bootstraps the first render. `subject-config.js` sits immediately after the generated `curriculum-data.js` because it bridges the `CURRICULUM` global into `SUBJECT_CONFIG.units` (see the Universal SPA Content Matrix Specification below), and `state.js` reads `SUBJECT_CONFIG.subjectId` for its sync namespace, so the config must be parsed before both.
 - **Data is embedded, never fetched.** Because `file://` blocks `fetch()` of sibling files, every data layer ships as an in-JS global (`CURRICULUM`, `QUIZ_DATA`, `PRACTICE_DATA`, …). This is why the 193-problem practice store was backfilled *into* `quiz-data.js` rather than loaded from `scripts/unitN_data.json` at runtime.
 - **External libraries are the only network dependency**, all via CDN `<script>`/`<link>` in `<head>`: **KaTeX 0.16.8** (CSS + JS + `auto-render`), **Math.js 11.8.0** (local parsing), **Desmos v1.9** (interactive checkpoints), and **Google Identity Services** (`accounts.google.com/gsi/client`, async/defer, for the optional cloud sync of Pillar 5 — degrades silently on `file://` or offline). Local stylesheets load `theme.css` **before** `main.css` so custom properties exist before components consume them.
 - **Subresource Integrity contract (2026-07-02).** The four immutable versioned CDN artifacts (KaTeX CSS/JS/auto-render 0.16.8 on jsdelivr, Math.js 11.8.0 on cdnjs) carry pinned `integrity="sha384-…"` + `crossorigin="anonymous"` attributes, so a compromised or tampered CDN response is refused by the browser instead of executed — this closes the primary XSS vector against the Pillar 5 localStorage-held credentials. The KaTeX hashes match the officially published 0.16.8 release values. Both CDNs serve `Access-Control-Allow-Origin: *`, so the CORS-mode fetches SRI requires still succeed from the `file://` null origin (Pillar 1 holds). **Deliberately unpinned:** Desmos `v1.9/calculator.js` and `gsi/client` are rolling endpoints redeployed in place by their vendors; a pinned hash would break checkpoints/sign-in on their next release. Version bumps of a pinned library MUST update the matching hash in the same edit.
@@ -168,3 +168,46 @@ Per `PIPELINE_LEARNINGS.md` → *Architectural Governance and Living Blueprint R
 1. A structural change to the web shell (script load order, routing matrix, theme tokens, or `ode_*` persistence keys) is **incomplete** until the matching pillar above is updated in the same sprint.
 2. New data layers must preserve **Pillar 1** (embedded globals, no runtime fetch, no build dependency for the client).
 3. New user-facing copy must honor the **§1 copywriting constraint** (no em-dashes, no ampersands).
+
+---
+
+## 📦 UNIVERSAL SPA CONTENT MATRIX SPECIFICATION (2026-07-07)
+
+The frontend application canvas running under the root assets tree is strictly decoupled from subject-specific content profiles. The interface operates as a stateless structural renderer driven by an active configuration object.
+
+### 1. Invariant Parameters
+- **Subject-Neutral Core:** Hard-coded references to specific course sub-paths or fixed dataset dimensions are structurally prohibited within global layout files.
+- **Dynamic Scale ($n$):** Content structures must scale fluidly across $n$ structural elements, where $n \in \mathbb{Z}^+$. The DOM mapping engine must dynamically evaluate array length attributes rather than static loop iterations.
+- **Taxonomy Abstraction:** Textual display elements for content segments (e.g., "Unit", "Chapter", "Section") must be read directly from the active subject configuration's `structureLabel` property.
+
+### 2. Active Structural Configuration Shapes
+Every current and future course manifest must export a unified metadata configuration conforming to the following structure:
+- `subjectId`: Lowercase alphanumeric string matching the asset's subdirectory namespace.
+- `displayName`: Client-facing plain text string for titles and headings.
+- `structureLabel`: The precise linguistic identifier for content groupings.
+- `units`: Array containing the structural learning matrices, equations, and interactive canvas components.
+
+### 3. Implementation Mapping (as built 2026-07-07)
+The specification above is the durable contract; this subsection records how the ODE shell satisfies it so the two never drift (Living Blueprint Rule).
+
+- **The config object is `SUBJECT_CONFIG`, declared in the hand-authored `ode/js/subject-config.js`** (new file; load order updated in Pillar 1). It is the single master constant the layout reads.
+  ```js
+  const SUBJECT_CONFIG = {
+      subjectId: "ode",            // matches the /ode/ asset namespace and the Worker's KNOWN_SUBJECTS entry
+      displayName: "ODE Roadmap",
+      structureLabel: "Unit",      // "Chapter"/"Section" for a future subject
+      get units() { return typeof CURRICULUM !== "undefined" ? CURRICULUM : []; }
+  };
+  ```
+- **`units` bridges, it does not duplicate.** `CURRICULUM` remains the canonical data global emitted by `scripts/compile_web.py` from the `content/` tree (Pillar 3); `SUBJECT_CONFIG.units` is a live accessor onto it, so the generated-artifact rule is preserved — a new subject swaps its compiled data global and this one config, nothing in the layout.
+- **`subjectId` is now the single source of the sync namespace:** `ode/js/state.js` reads `SUBJECT_CONFIG.subjectId` (was a private `SYNC_SUBJECT = "ode"` literal), keeping the client's `progress:<subject>:<sub>` track name and the Worker's `KNOWN_SUBJECTS` registry in agreement from one declaration.
+- **`structureLabel` drives every constructed segment label and derived asset path** in the layout files (`router.js`, `views-materials.js`, `views-practice.js`, `views-interactives.js`): the unit-reference / cheat-sheet / practice-set PDF path prefixes and the `"Unit N"` display fallback are now `SUBJECT_CONFIG.structureLabel`-composed. Output is byte-identical for ODE (`structureLabel === "Unit"`), but a `structureLabel` of `"Chapter"` re-labels the shell with zero further edits.
+- **`$n$ was already satisfied:** the router and directory views read `SUBJECT_CONFIG.units.length` / `.forEach` (never a literal `19`), so the DOM engine already scales across arbitrary $n$; this refactor added the naming seam, not the iteration dynamism.
+- **Verification gate:** `npm run verify` chains `python scripts/validate_content.py`, `python scripts/test_content_pipeline.py`, `npm run test:sync`, `node --check src/worker.js`, and `npx playwright test` (the client smoke suite below). (Windows note: the invocation is `python`, not `python3`, which resolves to the Microsoft Store shim and fails on this toolchain.)
+
+### 4. Client Smoke Suite (2026-07-07, Audit Rec #2)
+The universal template player is regression-locked at runtime by a headless Playwright suite — `tests/client-smoke.spec.js`, config `playwright.config.js` (chromium only, no dev server), the last stage of `npm run verify` and also runnable as `npm run test:client`.
+
+- **`file://` fidelity, hermetic execution.** Every test boots `ode/index.html` directly over the `file://` scheme (Pillar 1 contract, no dev server, no `webServer` block) and **blocks all cross-origin (http/https) requests**, so the run is deterministic and internet-free. This is only safe because first-party code guards every CDN global (`typeof renderMathInElement === "function"`, `typeof Desmos === "undefined"`, `gisApi()` null-checks): the shell renders its DOM and text with KaTeX / Desmos / Math.js / GIS absent. Consequence: the console guard's surviving errors are unambiguously first-party.
+- **Four assertion cores.** (A) **Console guard** — zero uncaught page exceptions and zero first-party `console.error` on boot and through every navigation, filtering blocked-CDN / Google-GIS / YouTube noise by source. (B) **Route exercise** — walks `#unit-0`, `#unit-1`, and `#unit-{n-1}` (last index read from `SUBJECT_CONFIG.units.length`, never a hardcoded 18) across **desktop / tablet / mobile** viewports, asserting the detail view redraws and the container never overflows the viewport width. (C) **Taxonomy** — drives the Cheat Sheets index, asserts the default copy reads "Open Unit 0 Cheat Sheet", then flips `SUBJECT_CONFIG.structureLabel` to `"Chapter"` live and re-renders, proving the DOM follows the config rather than a literal. (D) **Sandbox mount** — discovers a built engine from the page's own `buildInteractiveItems()` registry, deep-links its `#interactives-sandbox-<id>` route, asserts a `<canvas>` hooks the DOM, then exits the view and asserts every canvas is torn down (the self-terminating RAF contract, observed at the DOM).
+- **Contract:** a change to the shell's boot order, router container-swap, sandbox lifecycle, or the `SUBJECT_CONFIG` seam is **incomplete** until this suite stays green. New subject tracks inherit it unchanged — point `ODE_INDEX` at the new shell (or parametrize it) and the same four cores validate the clone.

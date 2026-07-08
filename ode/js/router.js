@@ -20,16 +20,17 @@ function unitIndexFromHash() {
     const match = /^#unit-(\d+)$/.exec(window.location.hash);
     if (!match) return null;
     const index = parseInt(match[1], 10);
-    return (index >= 0 && index < CURRICULUM.length) ? index : null;
+    return (index >= 0 && index < SUBJECT_CONFIG.units.length) ? index : null;
 }
 
 /* The global flat index of a unit's first module. Locking compares against
    ALL_MODULES, a single sequence across every unit, so the detail view must
    start counting where the prior units left off. */
 function unitFlatOffset(unitIndex) {
+    const units = SUBJECT_CONFIG.units;
     let offset = 0;
     for (let i = 0; i < unitIndex; i++) {
-        offset += CURRICULUM[i].modules.length;
+        offset += units[i].modules.length;
     }
     return offset;
 }
@@ -62,7 +63,7 @@ function renderCurriculum() {
         renderPracticeSets(container);
     } else if (/^#practice-sets-\d+$/.test(hash)) {
         const pi = parseInt(hash.slice("#practice-sets-".length), 10);
-        if (pi >= 0 && pi < CURRICULUM.length) {
+        if (pi >= 0 && pi < SUBJECT_CONFIG.units.length) {
             renderPracticeSetDetail(container, pi);
         } else {
             renderPracticeSets(container);
@@ -73,7 +74,7 @@ function renderCurriculum() {
         renderQuizzesIndex(container);
     } else if (/^#quizzes-index-\d+$/.test(hash)) {
         const qi = parseInt(hash.slice("#quizzes-index-".length), 10);
-        if (qi >= 0 && qi < CURRICULUM.length) {
+        if (qi >= 0 && qi < SUBJECT_CONFIG.units.length) {
             renderUnitQuizzesDetail(container, qi);
         } else {
             renderQuizzesIndex(container);
@@ -129,7 +130,7 @@ function renderTableOfContents(container) {
     const grid = document.createElement("div");
     grid.className = "toc-grid";
 
-    CURRICULUM.forEach(function (unitData, index) {
+    SUBJECT_CONFIG.units.forEach(function (unitData, index) {
         grid.appendChild(buildUnitCard(unitData, index, watched));
     });
 
@@ -182,7 +183,7 @@ function renderUnitDetail(container, unitIndex) {
     container.innerHTML = "";
 
     const watched = ODEState.getWatchedVideos();
-    const unitData = CURRICULUM[unitIndex];
+    const unitData = SUBJECT_CONFIG.units[unitIndex];
 
     const nav = document.createElement("div");
     nav.className = "unit-detail-nav";
@@ -256,7 +257,8 @@ function renderUnitDetail(container, unitIndex) {
 
         const guideLink = document.createElement("a");
         guideLink.className = "pdf-download-btn";
-        guideLink.href = "assets/pdfs/Unit-" + unitIndex + "-Reference-Guide.pdf";
+        guideLink.href = "assets/pdfs/" + SUBJECT_CONFIG.structureLabel +
+            "-" + unitIndex + "-Reference-Guide.pdf";
         guideLink.target = "_blank";
         guideLink.rel = "noopener";
         guideLink.textContent = "View Full Unit Reference Guide (Cheat Sheet, Problems, and Solutions)";

@@ -60,8 +60,9 @@ const INTERACTIVE_VISUALIZERS = [
    so a renamed or retired engine simply drops out of the dashboard instead of
    rendering a broken card. */
 function findModuleByCheckpoint(checkpointId) {
-    for (let unitIndex = 0; unitIndex < CURRICULUM.length; unitIndex++) {
-        const unitData = CURRICULUM[unitIndex];
+    const units = SUBJECT_CONFIG.units;
+    for (let unitIndex = 0; unitIndex < units.length; unitIndex++) {
+        const unitData = units[unitIndex];
         const modules = unitData.modules || [];
         for (let m = 0; m < modules.length; m++) {
             if (modules[m].interactive_checkpoint === checkpointId) {
@@ -544,8 +545,9 @@ function renderInteractives(container) {
             header.className = "unit-lavender-header";
             // Name the unit boundary from the curriculum itself so the header can
             // never drift from the unit it frames; fall back to the bare number.
-            const unitData = CURRICULUM[item.unitNumber];
-            header.textContent = unitData ? unitData.unit : ("Unit " + item.unitNumber);
+            const unitData = SUBJECT_CONFIG.units[item.unitNumber];
+            header.textContent = unitData ? unitData.unit
+                : (SUBJECT_CONFIG.structureLabel + " " + item.unitNumber);
             section.appendChild(header);
 
             currentGrid = document.createElement("div");

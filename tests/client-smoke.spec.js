@@ -1,0 +1,205 @@
+/* Client-side smoke suite for the universal template player (Audit Rec #2).
+ *
+ * Boots ode/index.html over file:// -- the SPA's zero-dependency contract
+ * (WEBSITE_BLUEPRINT Pillar 1) -- and asserts the subject-neutral shell built
+ * in the Universal SPA Content Matrix refactor renders cleanly across viewports.
+ *
+ * HERMETIC BY DESIGN: every cross-origin (http/https) request is blocked, so the
+ * suite is deterministic and internet-free. This is safe because first-party
+ * code guards every CDN global (`typeof renderMathInElement === "function"`,
+ * `typeof Desmos === "undefined"`, `gisApi()` null-checks), so the shell renders
+ * its DOM and text with KaTeX/Desmos/Math.js/GIS absent. The upside: any error
+ * that survives the guard below is unambiguously OURS, never third-party noise
+ * (Google GIS on a null file:// origin, YouTube embeds, Desmos, CDNs).
+ *
+ * Coverage map to the audit spec:
+ *   A CONSOLE GUARD     -> collectFirstPartyErrors, asserted 0 in every test
+ *   B ROUTE EXERCISE    -> "walks unit hash routes" (per viewport)
+ *   C TAXONOMY          -> "renders SUBJECT_CONFIG.structureLabel dynamically"
+ *   D SANDBOX MOUNT     -> "sandbox engine mounts a canvas and tears down"
+ */
+
+const { test, expect } = require("@playwright/test");
+const path = require("path");
+const { pathToFileURL } = require("url");
+
+const ODE_INDEX = pathToFileURL(
+    path.resolve(__dirname, "..", "ode", "index.html")
+).href;
+
+const VIEWPORTS = [
+    { name: "desktop", width: 1280, height: 800 },
+    { name: "tablet", width: 768, height: 1024 },
+    { name: "mobile", width: 375, height: 667 }
+];
+
+/* Errors originating outside our first-party file:// code are not ours to fix:
+   blocked CDN subresources, Google GIS on a null origin, FedCM, YouTube, etc.
+   The console guard ignores anything matching this, or any non-file:// source. */
+const THIRD_PARTY =
+    /accounts\.google\.com|\bgsi\b|GSI_LOGGER|FedCM|gstatic|googleapis|desmos\.com|jsdelivr|cdnjs|youtube|ytimg|doubleclick|cloudflareinsights|net::ERR|ERR_(FAILED|BLOCKED|NAME_NOT_RESOLVED|INTERNET_DISCONNECTED)|Failed to load resource/i;
+
+function isFirstPartyError(text, url) {
+    if (text && THIRD_PARTY.test(text)) return false;
+    if (url && THIRD_PARTY.test(url)) return false;
+    if (url && !url.startsWith("file:")) return false;
+    return true;
+}
+
+/* Attaches the CONSOLE GUARD (spec A). Returns a live array of first-party
+   failures: uncaught page exceptions plus console.error entries that are not
+   attributable to a blocked/third-party source. */
+function collectFirstPartyErrors(page) {
+    const errors = [];
+    page.on("pageerror", (err) => {
+        const text = String((err && (err.stack || err.message)) || err);
+        if (isFirstPartyError(text, "")) errors.push("pageerror: " + text);
+    });
+    page.on("console", (msg) => {
+        if (msg.type() !== "error") return;
+        const loc = msg.location() || {};
+        if (isFirstPartyError(msg.text(), loc.url)) {
+            errors.push("console.error: " + msg.text());
+        }
+    });
+    return errors;
+}
+
+/* Blocks the network so the file:// boot is hermetic and deterministic. Only
+   http/https is aborted; file:/data:/blob: continue so the SPA and its own
+   assets load normally. */
+async function blockExternal(page) {
+    await page.route("**/*", (route) => {
+        return /^https?:/i.test(route.request().url())
+            ? route.abort()
+            : route.continue();
+    });
+}
+
+/* Boots the SPA to its Table of Contents and returns the live subject config. */
+async function bootToToc(page, viewport) {
+    await blockExternal(page);
+    const errors = collectFirstPartyErrors(page);
+    if (viewport) await page.setViewportSize(viewport);
+    await page.goto(ODE_INDEX, { waitUntil: "domcontentloaded" });
+    await page.waitForSelector("#app-content .toc-grid", { timeout: 15000 });
+    const config = await page.evaluate(() => ({
+        subjectId: SUBJECT_CONFIG.subjectId,
+        structureLabel: SUBJECT_CONFIG.structureLabel,
+        unitCount: SUBJECT_CONFIG.units.length
+    }));
+    return { errors, config };
+}
+
+for (const vp of VIEWPORTS) {
+    test.describe(`${vp.name} (${vp.width}x${vp.height})`, () => {
+        test("boots the universal shell with zero first-party console errors", async ({ page }) => {
+            const { errors, config } = await bootToToc(page, vp);
+            // The shell is driven by the abstracted config, not a hardcoded "ode".
+            expect(config.subjectId).toBe("ode");
+            expect(config.unitCount).toBeGreaterThan(0);
+            // Let the debounced boot (cloud-sync init, GIS) settle before judging.
+            await page.waitForTimeout(300);
+            expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+        });
+
+        test("walks unit hash routes and keeps the viewport container intact", async ({ page }) => {
+            const { errors, config } = await bootToToc(page, vp);
+            // Spec B: exercise first, middle-ish, and last unit -- n-dynamic, so
+            // the last index is read from the config, never a hardcoded 18.
+            const targets = [0, 1, config.unitCount - 1];
+            for (const n of targets) {
+                await page.evaluate((h) => { window.location.hash = h; }, `#unit-${n}`);
+                await page.waitForFunction(
+                    () => !!document.querySelector("#app-content .unit-title"),
+                    { timeout: 10000 }
+                );
+                // Viewport container intact: no horizontal overflow blowout.
+                const fits = await page.evaluate(
+                    () => document.documentElement.scrollWidth <= window.innerWidth + 2
+                );
+                expect(fits, `#unit-${n} overflows the viewport width`).toBeTruthy();
+                // The detail view actually redrew to a unit (title is present).
+                const title = await page.textContent("#app-content .unit-title");
+                expect(title && title.trim().length).toBeTruthy();
+            }
+            // Back to ToC redraws the grid (router container swap works both ways).
+            await page.evaluate(() => { window.location.hash = ""; });
+            await page.waitForSelector("#app-content .toc-grid", { timeout: 10000 });
+            expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+        });
+    });
+}
+
+test("renders SUBJECT_CONFIG.structureLabel dynamically (taxonomy abstraction)", async ({ page }) => {
+    const { errors } = await bootToToc(page, VIEWPORTS[0]);
+
+    // Spec C: the Cheat Sheets index composes its button copy from the config's
+    // structureLabel. With the default label the shell prints "Unit".
+    await page.evaluate(() => { window.location.hash = "#cheat-sheets"; });
+    await page.waitForFunction(
+        () => /Open \S+ 0 Cheat Sheet/.test(
+            document.getElementById("app-content").textContent || ""),
+        { timeout: 10000 }
+    );
+    const defaultCopy = await page.textContent("#app-content");
+    expect(defaultCopy).toMatch(/Open Unit 0 Cheat Sheet/);
+
+    // Flip the label live and re-render: if the layout truly reads the config
+    // (and not a hardcoded "Unit"), the DOM must follow to "Chapter".
+    await page.evaluate(() => {
+        window.__origLabel = SUBJECT_CONFIG.structureLabel;
+        SUBJECT_CONFIG.structureLabel = "Chapter";
+        renderCurriculum();
+    });
+    await page.waitForFunction(
+        () => /Open Chapter 0 Cheat Sheet/.test(
+            document.getElementById("app-content").textContent || ""),
+        { timeout: 10000 }
+    );
+    const flippedCopy = await page.textContent("#app-content");
+    expect(flippedCopy).toMatch(/Open Chapter 0 Cheat Sheet/);
+    expect(flippedCopy).not.toMatch(/Open Unit 0 Cheat Sheet/);
+
+    // Restore so nothing leaks between tests (page context is fresh anyway).
+    await page.evaluate(() => {
+        SUBJECT_CONFIG.structureLabel = window.__origLabel;
+        renderCurriculum();
+    });
+    expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+});
+
+test("sandbox engine mounts a canvas and tears down cleanly on exit", async ({ page }) => {
+    const { errors } = await bootToToc(page, VIEWPORTS[0]);
+
+    // Spec D: discover a real built sandbox engine from the page's own registry
+    // rather than hardcoding an id, then deep-link to it.
+    const routeId = await page.evaluate(() => {
+        const items = buildInteractiveItems();
+        const built = items.find((it) => it.isSandbox && it.vis && it.vis.id);
+        return built ? sandboxRouteId(built) : null;
+    });
+    expect(routeId, "a built sandbox engine must exist in the registry").toBeTruthy();
+
+    // Mount: the canvas engine hooks the DOM under #app-content.
+    await page.evaluate((id) => {
+        window.location.hash = "#interactives-sandbox-" + id;
+    }, routeId);
+    await page.waitForFunction(
+        () => document.querySelectorAll("#app-content canvas").length > 0,
+        { timeout: 10000 }
+    );
+    const mounted = await page.evaluate(
+        () => document.querySelectorAll("#app-content canvas").length);
+    expect(mounted, "sandbox mount must attach at least one canvas").toBeGreaterThan(0);
+
+    // Exit the view: the router swaps the container, the RAF loop self-terminates,
+    // and every canvas must leave the DOM (clean teardown, no orphaned engines).
+    await page.evaluate(() => { window.location.hash = ""; });
+    await page.waitForSelector("#app-content .toc-grid", { timeout: 10000 });
+    const afterExit = await page.evaluate(
+        () => document.querySelectorAll("#app-content canvas").length);
+    expect(afterExit, "every sandbox canvas must be torn down on exit").toBe(0);
+
+    expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+});

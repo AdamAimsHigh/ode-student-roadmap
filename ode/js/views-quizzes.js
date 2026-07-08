@@ -19,7 +19,7 @@ function renderQuizzesIndex(container) {
     const grid = document.createElement("div");
     grid.className = "toc-grid";
 
-    CURRICULUM.forEach(function (unitData, index) {
+    SUBJECT_CONFIG.units.forEach(function (unitData, index) {
         const card = document.createElement("div");
         card.className = "materials-card";
 
@@ -54,7 +54,7 @@ function renderQuizzesIndex(container) {
 function renderUnitQuizzesDetail(container, unitIndex) {
     container.innerHTML = "";
 
-    const unitData = CURRICULUM[unitIndex];
+    const unitData = SUBJECT_CONFIG.units[unitIndex];
 
     const nav = document.createElement("div");
     nav.className = "unit-detail-nav";

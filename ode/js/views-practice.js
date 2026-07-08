@@ -38,7 +38,7 @@ function renderPracticeMath(el) {
 function renderPracticeSetDetail(container, unitIndex) {
     container.innerHTML = "";
 
-    const unitData = CURRICULUM[unitIndex];
+    const unitData = SUBJECT_CONFIG.units[unitIndex];
     const practice = PRACTICE_DATA[unitIndex];
     const problems = (practice && practice.problems) || [];
 
@@ -79,10 +79,12 @@ function renderPracticeSetDetail(container, unitIndex) {
 
     const download = document.createElement("a");
     download.className = "pdf-download-btn";
-    download.href = "assets/pdfs/Unit-" + unitIndex + "-Practice-Set.pdf";
+    download.href = "assets/pdfs/" + SUBJECT_CONFIG.structureLabel +
+        "-" + unitIndex + "-Practice-Set.pdf";
     download.target = "_blank";
     download.rel = "noopener";
-    download.textContent = "Open Unit " + unitIndex + " Practice Set (PDF)";
+    download.textContent = "Open " + SUBJECT_CONFIG.structureLabel +
+        " " + unitIndex + " Practice Set (PDF)";
     actionRow.appendChild(download);
     container.appendChild(actionRow);
 

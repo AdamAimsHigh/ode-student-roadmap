@@ -124,7 +124,7 @@ function getUnitSubtopics(unitIndex) {
     if (materials && materials.subtopics && materials.subtopics.length) {
         return materials.subtopics;
     }
-    const unitData = CURRICULUM[unitIndex];
+    const unitData = SUBJECT_CONFIG.units[unitIndex];
     if (!unitData || !unitData.modules) return [];
     return unitData.modules.map(function (moduleData) {
         return { title: stripModuleNumber(moduleData.module) };
@@ -185,7 +185,7 @@ function renderCheatSheets(container) {
     const grid = document.createElement("div");
     grid.className = "toc-grid";
 
-    CURRICULUM.forEach(function (unitData, index) {
+    SUBJECT_CONFIG.units.forEach(function (unitData, index) {
         const card = document.createElement("div");
         card.className = "materials-card";
 
@@ -201,10 +201,12 @@ function renderCheatSheets(container) {
 
         const primary = document.createElement("a");
         primary.className = "pdf-download-btn";
-        primary.href = "assets/pdfs/Unit-" + index + "-Cheat-Sheet.pdf";
+        primary.href = "assets/pdfs/" + SUBJECT_CONFIG.structureLabel +
+            "-" + index + "-Cheat-Sheet.pdf";
         primary.target = "_blank";
         primary.rel = "noopener";
-        primary.textContent = "Open Unit " + index + " Cheat Sheet";
+        primary.textContent = "Open " + SUBJECT_CONFIG.structureLabel +
+            " " + index + " Cheat Sheet";
         card.appendChild(primary);
 
         // Topic guides, as PDF links where a curated guide exists.
@@ -227,7 +229,7 @@ function renderPracticeSets(container) {
     const grid = document.createElement("div");
     grid.className = "toc-grid";
 
-    CURRICULUM.forEach(function (unitData, index) {
+    SUBJECT_CONFIG.units.forEach(function (unitData, index) {
         const card = document.createElement("div");
         card.className = "materials-card";
 
@@ -244,7 +246,8 @@ function renderPracticeSets(container) {
         const open = document.createElement("a");
         open.className = "pdf-download-btn";
         open.href = "#practice-sets-" + index;
-        open.textContent = "Open Unit " + index + " Practice Set";
+        open.textContent = "Open " + SUBJECT_CONFIG.structureLabel +
+            " " + index + " Practice Set";
         card.appendChild(open);
 
         // Topic guides as plain text labels, no PDF links in the Practice Sets hub.
