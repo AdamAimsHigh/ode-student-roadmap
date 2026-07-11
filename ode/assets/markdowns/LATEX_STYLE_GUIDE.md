@@ -1,8 +1,8 @@
 # LaTeX Style Guide — Staples Education Unit Reference Assets
 
 This is the definitive architectural specification for every Unit LaTeX source
-that lives in `ode/assets/markdowns/` and compiles to a PDF in
-`ode/assets/pdfs/`. All unit cheat sheets, practice sets, and master reference
+that lives in `app/assets/markdowns/` and compiles to a PDF in
+`app/assets/pdfs/`. All unit cheat sheets, practice sets, and master reference
 guides must conform to it so the published assets share one visual system.
 
 The Unit 2 sources (`Unit-2-Cheat-Sheet.tex`, `Unit-2-Practice-Set.tex`,
@@ -13,7 +13,7 @@ The Unit 2 sources (`Unit-2-Cheat-Sheet.tex`, `Unit-2-Practice-Set.tex`,
 ## 1. Preamble Configuration
 
 Every source declares the same document class and package set, then defines the
-shared palette and the six custom boxes (Section 3).
+shared palette and the seven custom boxes (Section 3).
 
 ```latex
 \documentclass[11pt]{article}
@@ -27,10 +27,29 @@ shared palette and the six custom boxes (Section 3).
 \usepackage{titlesec}
 \usepackage{hyperref}
 
-% Links map to the structural header blue.
-\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+% Links map to the structural header blue. Bookmarks are numbered to match
+% the visible subsection numbering and pre-expanded one level (the Parts)
+% so the PDF outline is useful without extra clicks.
+\hypersetup{
+    colorlinks=true, linkcolor=headerblue, urlcolor=headerblue,
+    pdfauthor={Staples Education},
+    bookmarksnumbered=true, bookmarksopen=true, bookmarksopenlevel=1
+}
 
 \tcbuselibrary{skins}
+
+% Shared header/footer — see Section 6. Loaded here so every guide gets the
+% StaplesEducation.com footer hyperlink automatically, with no per-guide step
+% that could be forgotten.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[R]{\color{headerblue}\small\thepage}
+\fancyfoot[L]{\color{headerblue}\footnotesize Staples Education}
+\fancyfoot[C]{\color{headerblue}\footnotesize\thepage}
+\fancyfoot[R]{\color{headerblue}\footnotesize\href{https://stapleseducation.com}{StaplesEducation.com}}
 ```
 
 ### 1.1 Palette
@@ -101,6 +120,14 @@ section counter is forced to the unit number so the sub-modules read 2.1, 2.2,
 \subsection{Separable Equations}        % renders and indexes as "2.1 Separable Equations"
 ```
 
+**This same `\phantomsection` + `\addcontentsline` pair is what gives the PDF
+its clickable bookmark/outline panel, not just the printed table of contents.**
+`hyperref` hooks `\addcontentsline`, so every Part gets a top-level bookmark and
+every numbered `\subsection` automatically nests under it as a child bookmark
+— no extra markup needed beyond what this section already requires for the
+TOC. Practice Problems and Complete Solutions get their own top-level bookmark
+the same way, via the same starred-section pattern.
+
 Standalone single-part assets (an isolated Cheat Sheet or Practice Set) do **not**
 carry a table of contents, but use the same numbered `\subsection` convention.
 
@@ -108,8 +135,8 @@ carry a table of contents, but use the same numbered `\subsection` convention.
 
 ## 3. Box System (Unbreakable)
 
-Six custom `tcolorbox` components define the visual vocabulary. Shared rules for
-all six:
+Seven custom `tcolorbox` components define the visual vocabulary. Shared rules for
+all seven:
 
 - **Unbreakable.** No `breakable` parameter — every box stays whole on one page.
   The `breakable` library is *not* loaded; only `skins`.
@@ -180,6 +207,16 @@ all six:
     borderline west={3pt}{0pt}{warnred},
     left=5mm, right=3mm, top=2mm, bottom=2mm
 }
+
+% 7. vocabbox --- Black Thin-Bordered Vocabulary Definition
+\newtcolorbox{vocabbox}[1][Vocabulary]{
+    enhanced,
+    colback=black!4!white, colframe=black,
+    coltitle=white, fonttitle=\bfseries,
+    title={#1},
+    boxrule=0.4pt, arc=0.5mm,
+    left=3mm, right=3mm, top=2mm, bottom=2mm
+}
 ```
 
 | Box          | Frame          | Distinction                                  | Use                                   |
@@ -190,6 +227,7 @@ all six:
 | `examplebox` | `workpurple`   | `3pt` west border, `sharp corners`           | Step-by-step worked examples          |
 | `conceptbox` | `accentorange` | Thin rule `0.3pt`                             | The closing concept takeaway          |
 | `warningbox` | `warnred`      | `3pt` crimson west border, `sharp corners`   | Common pitfalls and cautions          |
+| `vocabbox`   | `black`        | Thin rule `0.4pt`, near-square corners       | New-term definitions, right after a term is first introduced |
 
 ---
 
@@ -233,3 +271,49 @@ A standalone Practice Set keeps the `\clearpage` before Part III (solutions prin
 on their own page) but **not** before Part II, so the document opens directly on
 its problems with no leading blank page. A standalone single-Part Cheat Sheet
 needs no internal `\clearpage` at all.
+
+---
+
+## 6. Header, Footer, and Cross-References
+
+The page style — `fancyhdr` setup, page number, footer text, and the
+**StaplesEducation.com footer hyperlink** — is fixed once in the shared
+preamble (Section 1) and applies automatically to every guide. This is
+deliberate: the footer link being a real `\href`, not plain text, must not
+depend on a guide author remembering to type it correctly each time.
+
+**The only header/footer line a guide file still writes is the header-left
+title**, right after `\input{preamble.tex}`:
+
+```latex
+\fancyhead[L]{\color{headerblue}\bfseries\small <Guide Short Title>}
+\hypersetup{pdftitle={<Guide Full Title>}}
+```
+
+The `pdftitle` line sets the PDF's own metadata title (what a browser tab or
+Acrobat's title bar shows), separate from the header text on the page itself
+— give it the full guide title even when the header uses a shortened form.
+
+Do **not** re-declare `\usepackage{fancyhdr}`, `\pagestyle{fancy}`, `\fancyhf{}`,
+the rule widths, or any `\fancyfoot`/`\fancyhead[R]` line in a guide file —
+they are already set by the shared preamble, and repeating them risks silently
+overriding the footer hyperlink with plain text again.
+
+**Internal "Section N.M" references should be real jump-links too, not just
+typed text.** Add a label right after each `\subsection`, matching its number:
+
+```latex
+\subsection{Modular Arithmetic Operations}
+\label{sec:4.2}
+```
+
+and wrap every inline mention with `\hyperref`, keeping the same visible text a
+plain reference would have had:
+
+```latex
+the well-defined multiplication property, \hyperref[sec:4.2]{Section 4.2}
+```
+
+This uses the same `hyperref`/`linkcolor=headerblue` machinery as the table of
+contents, so a reader can click straight to the referenced sub-module instead of
+hunting for it manually.

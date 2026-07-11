@@ -1,21 +1,25 @@
 % ===========================================================================
-% Unified preamble for Staples Education LaTeX study guides.
-% Per LATEX_STYLE_GUIDE.md. Sits at the workspace root and is pulled in by
-% every guide via
-%   \input{preamble.tex}
-% so the package stack, palette, typography, and box system live in exactly
-% one place. Guide-specific extras (headers/footers, notation shorthand)
-% belong in the calling file, after the \input and before \begin{document}.
+% Unified preamble for Staples Education Unit Reference Assets
+% Extracted from Unit-2-Reference-Guide.tex per LATEX_STYLE_GUIDE.md.
+% Shared by every Unit Cheat Sheet, Practice Set, and Reference Guide via
+%   \input{ode/assets/markdowns/preamble.tex}
+% so the entire package stack, palette, typography, and box system live in
+% exactly one place.
 %
 % NOTE: topicsbox is parameterized with an optional title argument here (it was
 % a fixed "Unit 2 at a Glance" title in the original single-unit source) so the
-% one shared preamble can serve every guide. Pass a per-guide title, e.g.
-%   \begin{topicsbox}[Guide at a Glance: The Architecture of Numbers]
+% one shared preamble can serve every unit. Pass the per-unit title, e.g.
+%   \begin{topicsbox}[Unit 3 at a Glance: Core Sub-Topics]
 % ===========================================================================
 
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
+
+% House style: flush-left paragraphs everywhere. Canonical content strings
+% carry no \noindent (Content API copy rules); indentation is a preamble
+% decision, not an authored one.
+\setlength{\parindent}{0pt}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xcolor}
@@ -106,16 +110,6 @@
     boxrule=0.4pt, sharp corners,
     borderline west={3pt}{0pt}{warnred},
     left=5mm, right=3mm, top=2mm, bottom=2mm
-}
-
-% 7. Black thin-bordered vocabulary box for term definitions.
-\newtcolorbox{vocabbox}[1][Vocabulary]{
-    enhanced,
-    colback=black!4!white, colframe=black,
-    coltitle=white, fonttitle=\bfseries,
-    title={#1},
-    boxrule=0.4pt, arc=0.5mm,
-    left=3mm, right=3mm, top=2mm, bottom=2mm
 }
 
 \setlist[enumerate]{itemsep=4pt, topsep=4pt}

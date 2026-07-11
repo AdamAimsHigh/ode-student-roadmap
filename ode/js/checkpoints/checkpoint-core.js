@@ -464,6 +464,9 @@ const CheckpointCore = (function () {
                 if (passed) return;
                 passed = true;
                 attempts++;
+                if (typeof ODETelemetry !== "undefined") {
+                    ODETelemetry.record("c", moduleData.module, true);
+                }
                 feedback.className = "checkpoint-feedback success";
                 feedback.textContent = message || "Checkpoint passed. Your reasoning holds from first principles.";
                 ODEState.setCheckpointPassed(moduleData.module, {
@@ -484,6 +487,9 @@ const CheckpointCore = (function () {
                questions and never reveals the final answer. */
             fail: function (extra) {
                 attempts++;
+                if (typeof ODETelemetry !== "undefined") {
+                    ODETelemetry.record("c", moduleData.module, false);
+                }
                 const guides = config.guidingQuestions || [];
                 const guide = guides.length
                     ? guides[Math.min(attempts - 1, guides.length - 1)]
@@ -495,6 +501,9 @@ const CheckpointCore = (function () {
                per-question guidance, such as the multiple choice logic gate. */
             guide: function (text, extra) {
                 attempts++;
+                if (typeof ODETelemetry !== "undefined") {
+                    ODETelemetry.record("c", moduleData.module, false);
+                }
                 showGuide(text, extra);
             },
 

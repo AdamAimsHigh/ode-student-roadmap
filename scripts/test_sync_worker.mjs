@@ -1,4 +1,4 @@
-/* 31-case end-to-end validation suite for src/worker.js.
+/* 33-case end-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -394,6 +394,81 @@ await testCase("legacy pre-namespace record migrates losslessly on first ode rea
         "record copied forward into the ode namespace");
     check((await kv.get("progress:" + legacySub, "json")) !== null,
         "legacy record retained for rollback safety");
+});
+
+/* ---- Sprint Rec 1: telemetry layer sanitization --------------------------- */
+
+await testCase("telemetry keys sanitize hostile shapes and round-trip clean data", async () => {
+    const res = await worker.fetch(apiRequest("POST", sessionToken, {
+        progress: {
+            ode_watched_videos: ["v1", "v2", "v3"],
+            ode_events: [
+                "5abcd|q|1|unit0_micro::3",
+                "5abcd|q|1|unit0_micro::3",       // duplicate: dropped
+                42,                                // non-string: dropped
+                "",                                // empty: dropped
+                "x".repeat(100)                    // oversized: dropped
+            ],
+            ode_skill_state: {
+                unit0_micro: { r: 1234.7, a: 10, c: 7, t: 1780000000000, evil: "drop me" },
+                garbage: "not-an-object",
+                zeroed: { r: "NaN-ish", a: -5 }
+            },
+            ode_daily_activity: {
+                "2026-07-10": [5, 3],
+                "not-a-date": [1, 1],
+                "2026-07-11": ["x", 2]
+            }
+        }
+    }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const saved = await kv.get("progress:ode:" + SUB, "json");
+    check(JSON.stringify(saved.progress.ode_events) ===
+        '["5abcd|q|1|unit0_micro::3"]',
+        "events deduped, non-strings and oversized entries dropped");
+    const skill = saved.progress.ode_skill_state.unit0_micro;
+    check(skill.r === 1235 && skill.a === 10 && skill.c === 7 &&
+        skill.t === 1780000000000, "skill record numeric fields round-trip");
+    check(!("evil" in skill), "foreign field inside a skill record dropped");
+    check(!("garbage" in saved.progress.ode_skill_state),
+        "non-object skill entry dropped");
+    const zeroed = saved.progress.ode_skill_state.zeroed;
+    check(zeroed.r === 0 && zeroed.a === 0,
+        "non-numeric and negative fields collapse to 0");
+    check(JSON.stringify(saved.progress.ode_daily_activity["2026-07-10"]) === "[5,3]",
+        "daily counters round-trip");
+    check(!("not-a-date" in saved.progress.ode_daily_activity),
+        "malformed date key dropped");
+    check(saved.progress.ode_daily_activity["2026-07-11"][0] === 0,
+        "non-numeric counter collapses to 0");
+});
+
+await testCase("telemetry entry caps bound events, skills, and daily maps", async () => {
+    const events = [];
+    for (let i = 0; i < 1700; i++) events.push("5ab" + i.toString(36) + "|q|1|q" + i);
+    const skills = {};
+    for (let i = 0; i < 700; i++) skills["skill_" + i] = { r: 1200, a: 1, c: 1, t: 1 };
+    const daily = {};
+    for (let i = 0; i < 500; i++) {
+        const day = new Date(Date.UTC(2025, 0, 1) + i * 86400000);
+        daily[day.toISOString().slice(0, 10)] = [1, 1];
+    }
+    const res = await worker.fetch(apiRequest("POST", sessionToken, {
+        progress: {
+            ode_watched_videos: ["v1", "v2", "v3"],
+            ode_events: events,
+            ode_skill_state: skills,
+            ode_daily_activity: daily
+        }
+    }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const saved = await kv.get("progress:ode:" + SUB, "json");
+    check(saved.progress.ode_events.length === 1600,
+        `events capped at 1600, got ${saved.progress.ode_events.length}`);
+    check(Object.keys(saved.progress.ode_skill_state).length === 600,
+        `skills capped at 600, got ${Object.keys(saved.progress.ode_skill_state).length}`);
+    check(Object.keys(saved.progress.ode_daily_activity).length === 400,
+        `daily map capped at 400, got ${Object.keys(saved.progress.ode_daily_activity).length}`);
 });
 
 /* ---- Phase 5: DELETE /api/sync hard sign-out ----------------------------- */

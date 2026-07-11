@@ -226,6 +226,18 @@ const MAX_LIST_ITEMS = 4000;
 const MAX_MAP_ENTRIES = 2000;
 const MAX_DETAIL_JSON = 2048;
 
+/* Telemetry layer caps (ode_events / ode_skill_state / ode_daily_activity,
+   written by the client's telemetry.js). Tighter than the generic list and
+   map caps above: events are short packed strings and the client trims to
+   1500 of them, so anything far past these bounds is hostile input. */
+const MAX_EVENT_ITEMS = 1600;
+const MAX_EVENT_LENGTH = 64;
+const MAX_SKILL_ENTRIES = 600;
+const MAX_DAILY_ENTRIES = 400;
+const DAILY_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+/* 2100-01-01 in ms: a generous ceiling for any last-seen timestamp. */
+const MAX_EPOCH_MS = 4102444800000;
+
 function cleanId(value) {
     return typeof value === "string" && value.length > 0 &&
         value.length <= MAX_ID_LENGTH ? value : null;
@@ -248,6 +260,28 @@ function cleanStringList(value) {
 
 function isPlainObject(value) {
     return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function cleanEventList(value) {
+    if (!Array.isArray(value)) return [];
+    const out = [];
+    const seen = new Set();
+    for (const item of value) {
+        if (typeof item !== "string" || item.length === 0 ||
+            item.length > MAX_EVENT_LENGTH || seen.has(item)) continue;
+        seen.add(item);
+        out.push(item);
+        if (out.length >= MAX_EVENT_ITEMS) break;
+    }
+    return out;
+}
+
+/* Clamps any value to a finite non-negative integer within [0, max];
+   anything non-numeric collapses to 0 rather than being rejected, so a
+   partially corrupt record degrades instead of dropping data wholesale. */
+function cleanCount(value, max) {
+    if (typeof value !== "number" || !Number.isFinite(value)) return 0;
+    return Math.round(Math.min(max, Math.max(0, value)));
 }
 
 /* Whitelists the ode_* progress keys and clamps every entry so a hostile or
@@ -286,6 +320,40 @@ function sanitizeProgress(raw) {
     }
     if (["light", "dark", "system"].includes(raw.ode_theme_preference)) {
         out.ode_theme_preference = raw.ode_theme_preference;
+    }
+
+    /* Telemetry layers (client telemetry.js). Events are opaque packed
+       strings; skill records carry exactly { r, a, c, t } numeric fields;
+       daily activity maps ISO dates to [events, correct] counter pairs.
+       Everything else is clamped or dropped. */
+    out.ode_events = cleanEventList(raw.ode_events);
+
+    out.ode_skill_state = {};
+    if (isPlainObject(raw.ode_skill_state)) {
+        let count = 0;
+        for (const [k, v] of Object.entries(raw.ode_skill_state)) {
+            if (!cleanId(k) || !isPlainObject(v)) continue;
+            out.ode_skill_state[k] = {
+                r: cleanCount(v.r, 4000),
+                a: cleanCount(v.a, 1000000),
+                c: cleanCount(v.c, 1000000),
+                t: cleanCount(v.t, MAX_EPOCH_MS)
+            };
+            if (++count >= MAX_SKILL_ENTRIES) break;
+        }
+    }
+
+    out.ode_daily_activity = {};
+    if (isPlainObject(raw.ode_daily_activity)) {
+        let count = 0;
+        for (const [k, v] of Object.entries(raw.ode_daily_activity)) {
+            if (!DAILY_KEY_PATTERN.test(k) || !Array.isArray(v)) continue;
+            out.ode_daily_activity[k] = [
+                cleanCount(v[0], 100000),
+                cleanCount(v[1], 100000)
+            ];
+            if (++count >= MAX_DAILY_ENTRIES) break;
+        }
     }
     return out;
 }

@@ -41,6 +41,17 @@ const ODEState = (function () {
     const CREDENTIAL_KEY = "ode_google_credential";
     const SESSION_KEY = "ode_cloud_session";
 
+    /* Telemetry layers (telemetry.js, loaded immediately before this file)
+       ride the same snapshot, cloud merge, and reset loop as the core
+       progress keys. The literal fallback keeps this module standalone if
+       telemetry is ever absent from a shell. */
+    const TELEMETRY_KEYS = (typeof ODETelemetry !== "undefined" &&
+        ODETelemetry.KEYS) || {
+        events: "ode_events",
+        skills: "ode_skill_state",
+        daily: "ode_daily_activity"
+    };
+
     let syncTimer = null;
     let syncActive = false;
 
@@ -192,6 +203,9 @@ const ODEState = (function () {
         if (mode) snapshot[KEYS.learningMode] = mode;
         const theme = localStorage.getItem(KEYS.theme);
         if (theme) snapshot[KEYS.theme] = theme;
+        snapshot[TELEMETRY_KEYS.events] = readJSON(TELEMETRY_KEYS.events, []);
+        snapshot[TELEMETRY_KEYS.skills] = readJSON(TELEMETRY_KEYS.skills, {});
+        snapshot[TELEMETRY_KEYS.daily] = readJSON(TELEMETRY_KEYS.daily, {});
         return snapshot;
     }
 
@@ -243,6 +257,13 @@ const ODEState = (function () {
                 writeJSON(KEYS.quizProgress, localQuiz);
                 changed = true;
             }
+        }
+
+        /* Telemetry merges through its own additive rules (event union,
+           evidence-weighted skill records, elementwise daily maxima). */
+        if (typeof ODETelemetry !== "undefined" &&
+            ODETelemetry.mergeCloudTelemetry(cloud)) {
+            changed = true;
         }
         return changed;
     }
@@ -474,6 +495,9 @@ const ODEState = (function () {
             let watched = readJSON(KEYS.watchedVideos, []);
             if (isWatched && !watched.includes(videoId)) {
                 watched.push(videoId);
+                if (typeof ODETelemetry !== "undefined") {
+                    ODETelemetry.record("v", videoId, true);
+                }
             } else if (!isWatched) {
                 watched = watched.filter(function (id) { return id !== videoId; });
             }
@@ -543,6 +567,9 @@ const ODEState = (function () {
             localStorage.removeItem(KEYS.watchedVideos);
             localStorage.removeItem(KEYS.passedCheckpoints);
             localStorage.removeItem(KEYS.quizProgress);
+            if (typeof ODETelemetry !== "undefined") {
+                ODETelemetry.resetTelemetry();
+            }
             scheduleCloudPush();
         },
 

@@ -252,6 +252,13 @@ const QuizEngine = (function () {
 
                 btn.addEventListener("click", function () {
                     if (solved) return;
+                    /* Every graded click is a telemetry attempt, wrong answers
+                       included: the mastery model needs the misses that the
+                       correct-only persistence loop below never sees. */
+                    if (typeof ODETelemetry !== "undefined") {
+                        ODETelemetry.record("q", qid, option.correct === true,
+                            { skillId: config.id });
+                    }
                     if (option.correct) {
                         solved = true;
                         btn.classList.add("correct");
