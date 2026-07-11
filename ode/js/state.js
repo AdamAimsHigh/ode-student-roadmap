@@ -158,12 +158,15 @@ const ODEState = (function () {
         return null;
     }
 
-    /* Shared authenticated fetch. If a session token bounces with a 401
-       (expired, evicted, or revoked at the edge), it is dropped and the
-       request retries once with the Google credential when one is still
-       valid; otherwise the auth UI quietly resets and GIS auto-select
-       re-establishes the account on the next load. */
-    function syncFetch(options) {
+    /* Shared authenticated fetch against any same-origin API path. If a
+       session token bounces with a 401 (expired, evicted, or revoked at the
+       edge), it is dropped and the request retries once with the Google
+       credential when one is still valid; otherwise the auth UI quietly
+       resets and GIS auto-select re-establishes the account on the next
+       load. Exposed as ODEState.authFetch so role-gated views (the Settings
+       admin console) reuse the exact credential lifecycle instead of
+       reimplementing it. */
+    function authFetch(url, options) {
         const auth = pickAuthToken();
         if (!auth) {
             if (syncActive) {
@@ -184,14 +187,18 @@ const ODEState = (function () {
             init.headers["Content-Type"] = "application/json";
             init.body = options.body;
         }
-        return fetch(SYNC_ENDPOINT + "?subject=" + SYNC_SUBJECT, init).then(function (res) {
+        return fetch(url, init).then(function (res) {
             if (res.status === 401 && auth.kind === "session" && !options.retried) {
                 clearStoredSession();
                 options.retried = true;
-                return syncFetch(options);
+                return authFetch(url, options);
             }
             return res;
         });
+    }
+
+    function syncFetch(options) {
+        return authFetch(SYNC_ENDPOINT + "?subject=" + SYNC_SUBJECT, options);
     }
 
     function snapshotProgress() {
@@ -577,6 +584,30 @@ const ODEState = (function () {
         // pathways can still request a background sync.
         requestCloudSync: function () {
             scheduleCloudPush();
+        },
+
+        /* Authenticated same-origin fetch with the full session lifecycle
+           (session preferred, Google fallback, one 401 retry). Rejects when
+           signed out or under file://, so callers can render their
+           local-only state instead. */
+        authFetch: authFetch,
+
+        /* Adopts a Worker-minted session from any API response body that
+           carries one, exactly like the sync loop does. */
+        adoptSession: adoptSessionFromResponse,
+
+        /* Read-only auth summary for profile surfaces. */
+        getAuthInfo: function () {
+            const session = getStoredSession();
+            const credential = getStoredCredential();
+            const payload = credential
+                ? decodeCredentialPayload(credential) || {}
+                : {};
+            return {
+                signedIn: Boolean(session || credential),
+                email: payload.email || (session && session.email) || null,
+                httpContext: httpContext()
+            };
         }
     };
 })();

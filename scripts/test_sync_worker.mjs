@@ -1,4 +1,4 @@
-/* 33-case end-to-end validation suite for src/worker.js.
+/* End-to-end validation suite for src/worker.js.
  *
  * Exercises the /api/sync handler over both verification modes: full Google
  * ID-token verification (real RS256 signatures minted with node:crypto's
@@ -12,6 +12,12 @@
  * ?subject= query param, default ode): covered are registry rejection of
  * unknown tracks, cross-track isolation, and the lazy lossless migration
  * of legacy pre-namespace records.
+ *
+ * Sprint Rec 5 (2026-07-11): the /api/packages entitlement ledger — the
+ * edge-evaluated OWNER_SUBS role split (student reads only their own sub
+ * namespace, every student write is 403), the forward-only
+ * Quoted -> Active -> Completed lifecycle, session logging bounds, the
+ * group roster cap, and unassigned-record relocation.
  *
  * Also covers the Phase 3 hardening surface: the POST /api/contact lead
  * endpoint (strict payload shape, Turnstile siteverify against a mocked
@@ -135,6 +141,15 @@ class MockKV {
     async delete(key) {
         this.store.delete(key);
     }
+    /* Workers KV list() shape, used by the /api/packages prefix scans. The
+       mock returns everything in one page, so the cursor loop's single-page
+       exit path is what gets exercised. */
+    async list(opts = {}) {
+        const prefix = opts.prefix || "";
+        const names = [...this.store.keys()]
+            .filter((k) => k.startsWith(prefix)).sort();
+        return { keys: names.map((name) => ({ name })), list_complete: true };
+    }
     keysWithPrefix(prefix) {
         return [...this.store.keys()].filter((k) => k.startsWith(prefix));
     }
@@ -144,11 +159,16 @@ class MockKV {
     }
 }
 
+/* The tutor-owner's Google sub for the /api/packages role split. The env
+   value carries stray whitespace on purpose: the allowlist parser must trim. */
+const OWNER_SUB = "77770000111122223333";
+
 const kv = new MockKV();
 const env = {
     ODE_PROGRESS_KV: kv,
     GOOGLE_CLIENT_ID: CLIENT_ID,
-    TURNSTILE_SECRET_KEY: TURNSTILE_SECRET
+    TURNSTILE_SECRET_KEY: TURNSTILE_SECRET,
+    OWNER_SUBS: " " + OWNER_SUB + " , "
 };
 
 function apiRequest(method, token, body, subject) {
@@ -623,6 +643,221 @@ await testCase("sync: 61st request in the window is rate-limited 429", async () 
             }
         });
         last = await worker.fetch(req, env);
+        if (i < 60) {
+            check(last.status === 401, `req ${i + 1}: expected 401, got ${last.status}`);
+        }
+    }
+    check(last.status === 429, `req 61: expected 429, got ${last.status}`);
+    check(Number(last.headers.get("Retry-After")) >= 1,
+        "429 carries a Retry-After header");
+});
+
+/* ---- Sprint Rec 3: adaptive learning mode joins the sync whitelist ------- */
+
+await testCase("sync: adaptive learning mode persists, junk modes still drop", async () => {
+    const res = await worker.fetch(apiRequest("POST", await signToken(), {
+        progress: { ode_learning_mode: "adaptive" }
+    }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const saved = await kv.get("progress:ode:" + SUB, "json");
+    check(saved.progress.ode_learning_mode === "adaptive",
+        "adaptive mode round-trips the sanitizer");
+    const junk = await worker.fetch(apiRequest("POST", await signToken(), {
+        progress: { ode_learning_mode: "speedrun" }
+    }), env);
+    check(junk.status === 200, `junk-mode POST: expected 200, got ${junk.status}`);
+    const resaved = await kv.get("progress:ode:" + SUB, "json");
+    check(!("ode_learning_mode" in resaved.progress),
+        "unregistered mode value dropped");
+});
+
+/* ---- Sprint Rec 5: /api/packages entitlement ledger ---------------------- */
+
+/* Dedicated IPs per case so the packages rate bucket never bleeds. */
+function packagesRequest(method, token, body, ip) {
+    const headers = { "CF-Connecting-IP": ip || "192.0.2.1" };
+    if (token !== null) headers["Authorization"] = "Bearer " + token;
+    if (body !== undefined) headers["Content-Type"] = "application/json";
+    return new Request("https://stapleseducation.com/api/packages", {
+        method,
+        headers,
+        body: body === undefined ? undefined
+            : typeof body === "string" ? body : JSON.stringify(body)
+    });
+}
+
+function ownerToken(overrides = {}) {
+    return signToken({ sub: OWNER_SUB, email: "tutor@example.com", ...overrides });
+}
+
+let trackedPkg = null;     // owner-created package threaded through the cases
+let unassignedPkg = null;  // package awaiting link-student
+
+await testCase("packages: missing bearer is 401, unsupported method is 405", async () => {
+    const noBearer = await worker.fetch(packagesRequest("GET", null), env);
+    check(noBearer.status === 401, `no bearer: expected 401, got ${noBearer.status}`);
+    const put = await worker.fetch(
+        packagesRequest("PUT", await signToken()), env);
+    check(put.status === 405, `PUT: expected 405, got ${put.status}`);
+    check(put.headers.get("Allow") === "GET, POST", "Allow header lists GET, POST");
+});
+
+await testCase("packages: student GET is role student with an empty own-namespace ledger", async () => {
+    const res = await worker.fetch(
+        packagesRequest("GET", await signToken()), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.json();
+    check(body.role === "student", `role student, got ${body.role}`);
+    check(body.sub === SUB, "caller sub echoed for profile display");
+    check(Array.isArray(body.packages) && body.packages.length === 0,
+        "fresh student sees an empty ledger");
+    check(body.catalog && body.catalog["fundamentals-4"].priceUsd === 100 &&
+        body.catalog["fundamentals-4"].wyzantHourlyUsd === 25,
+        "catalog carries the flat price and Wyzant hourly translation");
+});
+
+await testCase("packages: student POST is 403 with no KV write", async () => {
+    const res = await worker.fetch(packagesRequest("POST", await signToken(), {
+        action: "create", studentEmail: "self@example.com", type: "semester-12"
+    }), env);
+    check(res.status === 403, `expected 403, got ${res.status}`);
+    check(kv.keysWithPrefix("package:").length === 0,
+        "student write never reaches the ledger");
+});
+
+await testCase("packages: owner creates a quoted package with the rate translation", async () => {
+    const res = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "create", studentEmail: "ada@example.com",
+        studentSub: SUB, type: "fundamentals-4"
+    }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    const body = await res.json();
+    trackedPkg = body.package;
+    check(trackedPkg.status === "quoted", "new package starts quoted");
+    check(trackedPkg.hours === 4 && trackedPkg.priceUsd === 100 &&
+        trackedPkg.wyzantHourlyUsd === 25,
+        "catalog terms stamped onto the record");
+    check(kv.store.has("package:" + SUB + ":" + trackedPkg.id),
+        "record keyed package:<sub>:<pkgId>");
+    const badType = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "create", studentEmail: "ada@example.com", type: "elite-bootcamp"
+    }), env);
+    check(badType.status === 400, `unknown type: expected 400, got ${badType.status}`);
+});
+
+await testCase("packages: lifecycle is forward-only quoted -> active -> completed", async () => {
+    const activate = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "set-status", sub: SUB, pkgId: trackedPkg.id, status: "active"
+    }), env);
+    check(activate.status === 200, `activate: expected 200, got ${activate.status}`);
+    check((await activate.json()).package.status === "active", "package is active");
+    const backward = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "set-status", sub: SUB, pkgId: trackedPkg.id, status: "quoted"
+    }), env);
+    check(backward.status === 400, `backward step: expected 400, got ${backward.status}`);
+    const second = await (await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "create", studentEmail: "grace@example.com", type: "comprehensive-8"
+    }), env)).json();
+    unassignedPkg = second.package;
+    const skip = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "set-status", sub: "unassigned", pkgId: unassignedPkg.id,
+        status: "completed"
+    }), env);
+    check(skip.status === 400, `quoted -> completed skip: expected 400, got ${skip.status}`);
+});
+
+await testCase("packages: session ledger logs only on active packages within bounds", async () => {
+    const ok = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "log-session", sub: SUB, pkgId: trackedPkg.id,
+        minutes: 90, date: "2026-07-11", note: "Integrating factors review"
+    }), env);
+    check(ok.status === 200, `expected 200, got ${ok.status}`);
+    const logged = (await ok.json()).package;
+    check(logged.minutesLogged === 90 && logged.sessions.length === 1 &&
+        logged.sessions[0].note === "Integrating factors review",
+        "session entry and running minutes persisted");
+    const tiny = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "log-session", sub: SUB, pkgId: trackedPkg.id, minutes: 5
+    }), env);
+    check(tiny.status === 400, `5 minutes: expected 400, got ${tiny.status}`);
+    const onQuoted = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "log-session", sub: "unassigned", pkgId: unassignedPkg.id, minutes: 60
+    }), env);
+    check(onQuoted.status === 400, `quoted package: expected 400, got ${onQuoted.status}`);
+});
+
+await testCase("packages: group builder caps the roster at 4 and dedupes", async () => {
+    const five = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "create-group", title: "Laplace Group Session",
+        studentEmails: ["a@x.com", "b@x.com", "c@x.com", "d@x.com", "e@x.com"]
+    }), env);
+    check(five.status === 400, `5 students: expected 400, got ${five.status}`);
+    const ok = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "create-group", title: "Laplace Group Session",
+        studentEmails: ["a@x.com", "A@x.com", "b@x.com", "c@x.com", "d@x.com"],
+        scheduledFor: "2026-08-01"
+    }), env);
+    check(ok.status === 200, `expected 200, got ${ok.status}`);
+    const group = (await ok.json()).package;
+    check(group.roster.length === 4, "case-insensitive duplicate deduped");
+    check(group.pricePerStudentUsd === 120 && group.wyzantHourlyUsd === 15,
+        "group pricing carries the 15 dollar Wyzant translation");
+    check(kv.store.has("package:group:" + group.id),
+        "group record lives in the reserved group segment");
+});
+
+await testCase("packages: edge role isolation on GET — student sees only their own", async () => {
+    const ownerView = await (await worker.fetch(
+        packagesRequest("GET", await ownerToken()), env)).json();
+    check(ownerView.role === "owner", "allowlisted sub resolves to owner");
+    check(ownerView.packages.length === 3,
+        `owner sees the full ledger, got ${ownerView.packages.length}`);
+    const studentView = await (await worker.fetch(
+        packagesRequest("GET", await signToken()), env)).json();
+    check(studentView.role === "student", "student stays student");
+    check(studentView.packages.length === 1 &&
+        studentView.packages[0].id === trackedPkg.id,
+        "student ledger holds exactly their own package");
+    const leaked = JSON.stringify(studentView);
+    check(leaked.indexOf("grace@example.com") === -1 &&
+        leaked.indexOf("a@x.com") === -1,
+        "no other student's email reaches a student response");
+});
+
+await testCase("packages: link-student relocates an unassigned record atomically", async () => {
+    const otherSub = "5556667778889990001";
+    const res = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "link-student", pkgId: unassignedPkg.id, studentSub: otherSub
+    }), env);
+    check(res.status === 200, `expected 200, got ${res.status}`);
+    check(kv.store.has("package:" + otherSub + ":" + unassignedPkg.id),
+        "record relocated into the student namespace");
+    check(!kv.store.has("package:unassigned:" + unassignedPkg.id),
+        "unassigned original removed after the copy is durable");
+});
+
+await testCase("packages: hostile actions and malformed locators are refused", async () => {
+    const unknown = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "drop-tables"
+    }), env);
+    check(unknown.status === 400, `unknown action: expected 400, got ${unknown.status}`);
+    const traversal = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "set-status", sub: "../../session", pkgId: trackedPkg.id,
+        status: "active"
+    }), env);
+    check(traversal.status === 404, `hostile sub: expected 404, got ${traversal.status}`);
+    const badId = await worker.fetch(packagesRequest("POST", await ownerToken(), {
+        action: "set-status", sub: SUB, pkgId: "pkg_../escape", status: "active"
+    }), env);
+    check(badId.status === 404, `hostile pkgId: expected 404, got ${badId.status}`);
+});
+
+await testCase("packages: 61st request in the window is rate-limited 429", async () => {
+    const ip = "192.0.2.61";
+    let last;
+    for (let i = 0; i < 61; i++) {
+        last = await worker.fetch(
+            packagesRequest("GET", "garbage-token", undefined, ip), env);
         if (i < 60) {
             check(last.status === 401, `req ${i + 1}: expected 401, got ${last.status}`);
         }

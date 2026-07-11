@@ -10,8 +10,13 @@
                             (engines themselves live in sandboxes.js)
      views-practice.js      per-unit Practice Set page (HTML-ready strings)
      views-quizzes.js       Quizzes Index + per-unit quizzes page
-   Gateway locking still runs at the module level when Guided Pathway mode
-   is active, keyed by the global module sequence. */
+     views-dashboard.js     #dashboard statistics view (Sprint Rec 4)
+     views-settings.js      #settings profile view + edge-gated admin console
+     adaptive.js            #session-<kind> composed practice (Sprint Rec 3)
+   Gateway locking still runs at the module level when Guided Pathway or
+   Adaptive Pathway mode is active, keyed by the global module sequence;
+   Adaptive additionally opens weak-prerequisite remediation detours in the
+   unit detail view. */
 
 
 /* Reads the URL hash and returns a valid unit index, or null for the Table
@@ -79,6 +84,23 @@ function renderCurriculum() {
         } else {
             renderQuizzesIndex(container);
         }
+    } else if (hash === "#dashboard") {
+        renderDashboard(container);
+    } else if (hash === "#settings") {
+        renderSettings(container);
+    } else if (hash.indexOf("#session-") === 0) {
+        // Adaptive composed practice (Sprint Rec 3). The kind rides in the
+        // hash; an optional URI-encoded focus (a skill id, or uN for the
+        // remediation detour's unit scope) follows a tilde separator, so a
+        // dashboard suggestion or a branching panel link is bookmarkable.
+        const spec = hash.slice("#session-".length);
+        const tilde = spec.indexOf("~");
+        const kind = tilde === -1 ? spec : spec.slice(0, tilde);
+        let focus = tilde === -1 ? null : spec.slice(tilde + 1);
+        if (focus) {
+            try { focus = decodeURIComponent(focus); } catch (err) { focus = null; }
+        }
+        ODEAdaptive.renderAdaptiveSession(container, kind, focus);
     } else if (hash === "#interactives") {
         renderInteractives(container);
     } else if (hash.indexOf("#interactives-sandbox-") === 0) {
@@ -229,6 +251,16 @@ function renderUnitDetail(container, unitIndex) {
     unitHeader.appendChild(unitTitle);
     unitHeader.appendChild(unitDesc);
     unitSection.appendChild(unitHeader);
+
+    // Adaptive Pathway remediation detour (Sprint Rec 3): when the active
+    // mode is adaptive and prerequisite skills from earlier units are weak
+    // or fading, the composer inserts a detour panel above the module list
+    // that deep-links a remedy session scoped to those skills. Exploration
+    // and Guided renders are untouched (the builder returns null).
+    if (typeof ODEAdaptive !== "undefined") {
+        const detour = ODEAdaptive.buildRemediationPanel(unitIndex);
+        if (detour) unitSection.appendChild(detour);
+    }
 
     const moduleList = document.createElement("div");
     moduleList.className = "unit-modules";

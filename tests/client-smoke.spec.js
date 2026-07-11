@@ -20,6 +20,9 @@
  *   E LAZY BANK         -> "lazy bank chunk hydrates quizzes, practice, and
  *                          readings" (Content Schema v2: dynamic <script>
  *                          chunk injection must work over file://)
+ *   F CAPSTONE ROUTES   -> "#dashboard, #settings, and composed #session
+ *                          routes render over file://" (Day 3: statistics
+ *                          dashboard, profile split view, adaptive composer)
  */
 
 const { test, expect } = require("@playwright/test");
@@ -212,6 +215,75 @@ test("lazy bank chunk hydrates quizzes, practice, and readings on demand", async
         () => (QUIZ_DATA.pool["2"] || []).length > 0 &&
             !JSON.stringify(QUIZ_DATA.pool["2"]).includes("{{"));
     expect(poolReady, "bank pool hydrates with templates expanded").toBeTruthy();
+
+    expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+});
+
+test("#dashboard, #settings, and composed #session routes render over file://", async ({ page }) => {
+    const { errors } = await bootToToc(page, VIEWPORTS[0]);
+
+    // Spec F1: with no telemetry the dashboard renders its empty state and
+    // points at the quizzes index instead of drawing charts.
+    await page.evaluate(() => { window.location.hash = "#dashboard"; });
+    await page.waitForSelector("#app-content .dashboard-empty", { timeout: 10000 });
+
+    // Seed a small mastery history through the real telemetry surface, then
+    // re-render: the tiles, the chart canvases, and at least one suggestion
+    // deep-link into a #session route must appear.
+    await page.evaluate(() => {
+        ODETelemetry.record("q", "bk_2_1", true, { skillId: "sk_2_separation", difficulty: 1150 });
+        ODETelemetry.record("q", "bk_2_1", false, { skillId: "sk_2_separation", difficulty: 1150 });
+        ODETelemetry.record("q", "bk_2_3", false, { skillId: "sk_2_integrating_factor", difficulty: 1250 });
+        ODETelemetry.record("q", "bk_2_3", false, { skillId: "sk_2_integrating_factor", difficulty: 1250 });
+        ODETelemetry.record("q", "q0", true, { skillId: "sk_0_basics" });
+        renderCurriculum();
+    });
+    await page.waitForSelector("#app-content .dashboard-tiles", { timeout: 10000 });
+    const dashState = await page.evaluate(() => ({
+        canvases: document.querySelectorAll("#app-content canvas").length,
+        sessionLinks: document.querySelectorAll(
+            '#app-content .dashboard-suggestions a[href^="#session-"]').length
+    }));
+    expect(dashState.canvases, "chart kernel mounts canvases").toBeGreaterThan(0);
+    expect(dashState.sessionLinks, "suggestions deep-link composed sessions").toBeGreaterThan(0);
+
+    // Spec F2: a composed weak-areas session hydrates its bank chunks lazily
+    // over file:// and mounts the inline quiz runner.
+    await page.evaluate(() => { window.location.hash = "#session-weak"; });
+    await page.waitForSelector("#app-content .quiz-inline-panel", { timeout: 15000 });
+    const sessionOptions = await page.evaluate(
+        () => document.querySelectorAll("#app-content .quiz-option").length);
+    expect(sessionOptions, "composed session offers answer options").toBeGreaterThan(0);
+
+    // Spec F3: the settings split view. The student interface renders fully;
+    // under file:// the role probe never fires and the package section
+    // explains itself. Chart canvases from the dashboard must be gone (the
+    // self-terminating RAF contract, observed at the DOM).
+    await page.evaluate(() => { window.location.hash = "#settings"; });
+    await page.waitForSelector("#app-content .settings-grid", { timeout: 10000 });
+    const settingsState = await page.evaluate(() => ({
+        cards: document.querySelectorAll("#app-content .settings-card").length,
+        canvases: document.querySelectorAll("#app-content canvas").length,
+        roleNote: (document.querySelector("#app-content .settings-role-slot") || {}).textContent || ""
+    }));
+    expect(settingsState.cards).toBeGreaterThanOrEqual(3);
+    expect(settingsState.canvases, "dashboard canvases torn down on exit").toBe(0);
+    expect(settingsState.roleNote).toMatch(/online version/);
+
+    // The theme toggle inside settings flips the Pillar 4 root attribute.
+    await page.evaluate(() => {
+        const buttons = document.querySelectorAll("#app-content .settings-toggle-btn");
+        for (const btn of buttons) {
+            if (btn.textContent === "Dark") { btn.click(); break; }
+        }
+    });
+    const theme = await page.evaluate(
+        () => document.documentElement.getAttribute("data-theme"));
+    expect(theme).toBe("dark");
+
+    const fits = await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth + 2);
+    expect(fits, "#settings overflows the viewport width").toBeTruthy();
 
     expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
 });

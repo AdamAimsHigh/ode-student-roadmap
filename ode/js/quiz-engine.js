@@ -134,6 +134,18 @@ const QuizEngine = (function () {
             message.textContent = "Strong work. You reasoned each one from first principles instead of memorizing steps. Revisit this practice any time to keep the ideas sharp.";
             wrap.appendChild(message);
 
+            /* Post-evaluation branching panel (Sprint Rec 3): the adaptive
+               composer reads the just-updated skill state and offers the
+               next targeted session. Guarded so the engine stands alone in
+               any shell that ships without the composer. */
+            if (typeof ODEAdaptive !== "undefined" &&
+                ODEAdaptive.buildBranchingPanel) {
+                try {
+                    const branches = ODEAdaptive.buildBranchingPanel(config);
+                    if (branches) wrap.appendChild(branches);
+                } catch (err) { /* the summary never breaks on a panel fault */ }
+            }
+
             body.appendChild(wrap);
 
             const retryBtn = document.createElement("button");

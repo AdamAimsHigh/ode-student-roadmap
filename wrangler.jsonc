@@ -66,6 +66,13 @@
 		// OAuth 2.0 Web client ID from Google Cloud Console (APIs and Services
 		// → Credentials). Must match data-client_id in ode/index.html and list
 		// https://stapleseducation.com as an authorized JavaScript origin.
-		"GOOGLE_CLIENT_ID": "422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com"
+		"GOOGLE_CLIENT_ID": "422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com",
+		// Tutor-owner allowlist for /api/packages (comma-separated Google sub
+		// claims). Not a secret: subs are opaque public identifiers, and the
+		// allowlist gates nothing without a cryptographically verified bearer
+		// for the same sub. To find your sub, sign in on the ODE app and open
+		// Settings — the profile card shows "Account id". Empty = no owner:
+		// the admin console stays locked for everyone until this is set.
+		"OWNER_SUBS": ""
 	}
 }

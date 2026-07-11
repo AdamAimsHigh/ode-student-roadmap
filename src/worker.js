@@ -1,7 +1,8 @@
 /* Worker entry point (wrangler.jsonc "main") for stapleseducation.com.
  *
- * Owns the authenticated /api/sync progress-synchronization endpoint and
- * the Turnstile-protected /api/contact lead-generation endpoint, and falls
+ * Owns the authenticated /api/sync progress-synchronization endpoint, the
+ * Turnstile-protected /api/contact lead-generation endpoint, and the
+ * role-gated /api/packages tutoring entitlement ledger, and falls
  * through to the static asset pipeline (env.ASSETS) for every other
  * request: the landing page at /, the ODE roadmap SPA at /ode/.
  *
@@ -33,7 +34,17 @@
  * session server-side — the hashed KV record is deleted, so the token is
  * dead on every device immediately rather than lingering until TTL expiry.
  *
- * Storage: env.ODE_PROGRESS_KV, four record families:
+ * Role model (2026-07-11, Sprint Rec 5): identity is flat SSO — every
+ * verified Google account is a student. The single elevated role is the
+ * tutor-owner, granted exclusively by the env.OWNER_SUBS allowlist (a
+ * comma-separated list of Google sub claims set in wrangler.jsonc vars).
+ * Role evaluation happens only here at the edge, never in the client:
+ * /api/packages answers a student bearer with that student's own records
+ * and nothing else, and answers an allowlisted bearer with the full
+ * ledger and the write actions. The client merely renders whichever
+ * shape it receives.
+ *
+ * Storage: env.ODE_PROGRESS_KV, five record families:
  *   "progress:<subject>:<google sub>"  { progress, email, updatedAt }
  *       — per-curriculum progress, subject ∈ KNOWN_SUBJECTS. GET/POST
  *       /api/sync?subject=<s> selects the namespace; absent → "ode".
@@ -44,6 +55,13 @@
  *       — deliberately subject-agnostic: identity is one sign-in across
  *       every curriculum; only progress data is track-scoped.
  *   "lead:<iso>_<rand>"      { name, email, message, ip, submittedAt }  (90-day TTL)
+ *   "package:<sub>:<pkgId>"  tutoring package entitlement records, the
+ *       Quoted -> Active -> Completed lifecycle ledger (Sprint Rec 5).
+ *       <sub> is the student's Google sub once known, the literal
+ *       "unassigned" for a quoted package awaiting its first sign-in, or
+ *       the literal "group" for a Small Group Session roster record.
+ *       Subs are all-numeric by Google's contract, so the two reserved
+ *       segments can never collide with a real student's namespace.
  */
 
 const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
@@ -315,7 +333,10 @@ function sanitizeProgress(raw) {
         }
     }
 
-    if (raw.ode_learning_mode === "exploration" || raw.ode_learning_mode === "guided") {
+    /* "adaptive" joined the mode registry 2026-07-11 (Sprint Rec 3): the
+       guided gateway sequence plus programmatic remediation detours. */
+    if (raw.ode_learning_mode === "exploration" || raw.ode_learning_mode === "guided" ||
+        raw.ode_learning_mode === "adaptive") {
         out.ode_learning_mode = raw.ode_learning_mode;
     }
     if (["light", "dark", "system"].includes(raw.ode_theme_preference)) {
@@ -380,7 +401,8 @@ function json(status, body, extraHeaders) {
    tight because humans submit a form once. */
 const RATE_LIMITS = {
     sync: { limit: 60, windowS: 60 },
-    contact: { limit: 5, windowS: 60 }
+    contact: { limit: 5, windowS: 60 },
+    packages: { limit: 60, windowS: 60 }
 };
 /* Sweep threshold keeps a scanning attacker with rotating IPs from growing
    the bucket map without bound inside a long-lived isolate. */
@@ -774,6 +796,400 @@ async function handleContact(request, env, ctx) {
     return json(200, { ok: true });
 }
 
+/* ---- Tutoring package entitlement ledger: /api/packages ----------------- *
+ *
+ * Sprint Rec 5. Tracks tutoring package entitlements through the
+ * Quoted -> Active -> Completed lifecycle in KV ("package:<sub>:<pkgId>").
+ * One endpoint, two edge-evaluated roles on the same hybrid bearer:
+ *
+ *   student  GET returns only that student's own records (prefix scan of
+ *            their sub namespace); every write action is refused with 403.
+ *   owner    a Google sub on the env.OWNER_SUBS allowlist. GET returns the
+ *            full ledger; POST accepts the write actions below.
+ *
+ * POST actions (owner only, JSON body { action, ... }):
+ *   create        { studentEmail, studentSub?, type }   -> new quoted package
+ *   set-status    { sub, pkgId, status }                -> forward lifecycle step
+ *   log-session   { sub, pkgId, minutes, date?, note? } -> ledger entry on an
+ *                                                          active package
+ *   link-student  { pkgId, studentSub }                 -> moves an unassigned
+ *                                                          record into the
+ *                                                          student's namespace
+ *   create-group  { title, studentEmails[1..4], scheduledFor? }
+ *
+ * Money never moves through this endpoint: billing stays on Wyzant at the
+ * per-student custom hourly rate each flat package translates to. The
+ * catalog records both framings so the console can show the translation. */
+
+const PACKAGE_KV_PREFIX = "package:";
+const PACKAGES_MAX_BODY_BYTES = 16 * 1024;
+const PACKAGE_UNASSIGNED_SEGMENT = "unassigned";
+const PACKAGE_GROUP_SEGMENT = "group";
+/* Google subs are all-numeric strings; the reserved segments above can
+   therefore never collide with a real student namespace. */
+const STUDENT_SUB_PATTERN = /^\d{5,64}$/;
+const PKG_ID_PATTERN = /^pkg_[a-f0-9]{12}$/;
+const PACKAGE_MAX_SESSIONS = 200;
+const PACKAGE_NOTE_MAX_LENGTH = 400;
+const PACKAGE_TITLE_MAX_LENGTH = 120;
+const PACKAGE_MIN_SESSION_MINUTES = 15;
+const PACKAGE_MAX_SESSION_MINUTES = 480;
+const PACKAGE_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const PACKAGE_GROUP_MAX_STUDENTS = 4;
+
+/* The offering catalog. Flat package pricing with the grounded Wyzant
+   hourly translation (flat price / hours), since all payment runs through
+   Wyzant per-student custom rates. Copy is client-facing: professional
+   terminology only, no em-dashes, no ampersands. */
+const PACKAGE_CATALOG = {
+    "fundamentals-4": {
+        label: "4-Hour Fundamentals Package",
+        hours: 4, priceUsd: 100, wyzantHourlyUsd: 25, scope: "individual"
+    },
+    "comprehensive-8": {
+        label: "8-Hour Comprehensive Package",
+        hours: 8, priceUsd: 200, wyzantHourlyUsd: 25, scope: "individual"
+    },
+    "semester-12": {
+        label: "12-Hour Semester Package",
+        hours: 12, priceUsd: 300, wyzantHourlyUsd: 25, scope: "individual"
+    },
+    "group-8": {
+        label: "Small Group Session (up to 4 students)",
+        hours: 8, pricePerStudentUsd: 120, wyzantHourlyUsd: 15,
+        scope: "group", maxStudents: PACKAGE_GROUP_MAX_STUDENTS
+    }
+};
+
+/* Forward-only lifecycle: a completed package is immutable history. */
+const PACKAGE_STATUS_FLOW = {
+    quoted: ["active"],
+    active: ["completed"],
+    completed: []
+};
+
+function ownerSubs(env) {
+    return String(env.OWNER_SUBS || "")
+        .split(",")
+        .map(function (s) { return s.trim(); })
+        .filter(Boolean);
+}
+
+function isOwner(identity, env) {
+    return ownerSubs(env).includes(identity.sub);
+}
+
+function packageKey(subSegment, pkgId) {
+    return PACKAGE_KV_PREFIX + subSegment + ":" + pkgId;
+}
+
+function newPackageId() {
+    const raw = new Uint8Array(6);
+    crypto.getRandomValues(raw);
+    return "pkg_" + Array.from(raw)
+        .map(function (b) { return b.toString(16).padStart(2, "0"); })
+        .join("");
+}
+
+/* Shared bearer resolution for routes beyond /api/sync. Returns
+   { identity, mintedSession } or { error: Response }. handleSync keeps its
+   own inline copy because its DELETE sign-out path has different rules. */
+async function authenticateBearer(request, env) {
+    const auth = request.headers.get("Authorization") || "";
+    if (!auth.startsWith("Bearer ")) {
+        return { error: json(401, { error: "Missing bearer credential." }) };
+    }
+    const token = auth.slice(7).trim();
+    try {
+        if (token.startsWith(SESSION_TOKEN_PREFIX)) {
+            return { identity: await verifySessionToken(token, env), mintedSession: null };
+        }
+        const identity = await verifyGoogleIdToken(token, env);
+        return { identity, mintedSession: await mintSession(identity, env) };
+    } catch (err) {
+        return {
+            error: json(401, {
+                error: "Invalid credential.",
+                detail: String(err.message || err)
+            })
+        };
+    }
+}
+
+/* Lists every package record under a key prefix. KV list pages at 1000
+   keys; the cursor loop covers a ledger of any realistic tutoring size. */
+async function listPackages(env, prefix) {
+    const records = [];
+    let cursor;
+    do {
+        const page = await env.ODE_PROGRESS_KV.list(
+            cursor ? { prefix: prefix, cursor: cursor } : { prefix: prefix });
+        for (const key of page.keys || []) {
+            const record = await env.ODE_PROGRESS_KV.get(key.name, "json");
+            if (record && record.id) records.push(record);
+        }
+        cursor = page.list_complete ? null : page.cursor;
+    } while (cursor);
+    records.sort(function (a, b) {
+        return String(b.createdAt || "").localeCompare(String(a.createdAt || ""));
+    });
+    return records;
+}
+
+/* Locates one package record by its namespace segment + id, with both
+   parts validated before they can touch a KV key. */
+async function getPackageRecord(env, subSegment, pkgId) {
+    const segmentOk = STUDENT_SUB_PATTERN.test(subSegment) ||
+        subSegment === PACKAGE_UNASSIGNED_SEGMENT ||
+        subSegment === PACKAGE_GROUP_SEGMENT;
+    if (!segmentOk || !PKG_ID_PATTERN.test(pkgId)) return null;
+    return env.ODE_PROGRESS_KV.get(packageKey(subSegment, pkgId), "json");
+}
+
+async function putPackageRecord(env, record) {
+    record.updatedAt = new Date().toISOString();
+    await env.ODE_PROGRESS_KV.put(
+        packageKey(record.subSegment, record.id), JSON.stringify(record));
+    return record;
+}
+
+function packageError(status, message) {
+    return json(status, { error: message });
+}
+
+/* ---- POST action handlers (owner-verified before dispatch) -------------- */
+
+async function packageCreate(body, env) {
+    const catalogEntry = PACKAGE_CATALOG[body.type];
+    if (!catalogEntry || catalogEntry.scope !== "individual") {
+        return packageError(400, "Unknown package type.");
+    }
+    const email = typeof body.studentEmail === "string"
+        ? body.studentEmail.trim() : "";
+    if (!email || email.length > CONTACT_FIELD_LIMITS.email ||
+        !EMAIL_PATTERN.test(email)) {
+        return packageError(400, "A valid student email is required.");
+    }
+    let subSegment = PACKAGE_UNASSIGNED_SEGMENT;
+    if (body.studentSub !== undefined && body.studentSub !== null &&
+        body.studentSub !== "") {
+        if (!STUDENT_SUB_PATTERN.test(String(body.studentSub))) {
+            return packageError(400, "studentSub must be a numeric Google sub.");
+        }
+        subSegment = String(body.studentSub);
+    }
+    const now = new Date().toISOString();
+    const record = {
+        id: newPackageId(),
+        type: body.type,
+        label: catalogEntry.label,
+        scope: "individual",
+        status: "quoted",
+        hours: catalogEntry.hours,
+        priceUsd: catalogEntry.priceUsd,
+        wyzantHourlyUsd: catalogEntry.wyzantHourlyUsd,
+        studentEmail: email,
+        subSegment: subSegment,
+        minutesLogged: 0,
+        sessions: [],
+        createdAt: now,
+        updatedAt: now
+    };
+    await putPackageRecord(env, record);
+    return json(200, { ok: true, package: record });
+}
+
+async function packageSetStatus(body, env) {
+    const record = await getPackageRecord(env, String(body.sub || ""),
+        String(body.pkgId || ""));
+    if (!record) return packageError(404, "Package not found.");
+    const next = body.status;
+    const allowed = PACKAGE_STATUS_FLOW[record.status] || [];
+    if (!allowed.includes(next)) {
+        return packageError(400, "A " + record.status +
+            " package cannot move to " + String(next) + ".");
+    }
+    record.status = next;
+    if (next === "active") record.activatedAt = new Date().toISOString();
+    if (next === "completed") record.completedAt = new Date().toISOString();
+    await putPackageRecord(env, record);
+    return json(200, { ok: true, package: record });
+}
+
+async function packageLogSession(body, env) {
+    const record = await getPackageRecord(env, String(body.sub || ""),
+        String(body.pkgId || ""));
+    if (!record) return packageError(404, "Package not found.");
+    if (record.status !== "active") {
+        return packageError(400, "Sessions can only be logged on an active package.");
+    }
+    const minutes = Number(body.minutes);
+    if (!Number.isInteger(minutes) ||
+        minutes < PACKAGE_MIN_SESSION_MINUTES ||
+        minutes > PACKAGE_MAX_SESSION_MINUTES) {
+        return packageError(400, "minutes must be an integer between " +
+            PACKAGE_MIN_SESSION_MINUTES + " and " + PACKAGE_MAX_SESSION_MINUTES + ".");
+    }
+    if ((record.sessions || []).length >= PACKAGE_MAX_SESSIONS) {
+        return packageError(400, "This package has reached its session ledger cap.");
+    }
+    let date = new Date().toISOString().slice(0, 10);
+    if (body.date !== undefined && body.date !== null && body.date !== "") {
+        if (!PACKAGE_DATE_PATTERN.test(String(body.date))) {
+            return packageError(400, "date must be an ISO YYYY-MM-DD string.");
+        }
+        date = String(body.date);
+    }
+    const entry = { date: date, minutes: minutes, loggedAt: new Date().toISOString() };
+    if (typeof body.note === "string" && body.note.trim()) {
+        entry.note = body.note.trim().slice(0, PACKAGE_NOTE_MAX_LENGTH);
+    }
+    record.sessions = record.sessions || [];
+    record.sessions.push(entry);
+    record.minutesLogged = (Number(record.minutesLogged) || 0) + minutes;
+    await putPackageRecord(env, record);
+    return json(200, { ok: true, package: record });
+}
+
+async function packageLinkStudent(body, env) {
+    if (!STUDENT_SUB_PATTERN.test(String(body.studentSub || ""))) {
+        return packageError(400, "studentSub must be a numeric Google sub.");
+    }
+    const record = await getPackageRecord(env, PACKAGE_UNASSIGNED_SEGMENT,
+        String(body.pkgId || ""));
+    if (!record) return packageError(404, "Unassigned package not found.");
+    const oldKey = packageKey(record.subSegment, record.id);
+    record.subSegment = String(body.studentSub);
+    await putPackageRecord(env, record);
+    /* Delete only after the relocated record is durable, so a fault
+       between the two writes duplicates rather than loses the package. */
+    await env.ODE_PROGRESS_KV.delete(oldKey);
+    return json(200, { ok: true, package: record });
+}
+
+async function packageCreateGroup(body, env) {
+    const catalogEntry = PACKAGE_CATALOG["group-8"];
+    const title = typeof body.title === "string" ? body.title.trim() : "";
+    if (!title || title.length > PACKAGE_TITLE_MAX_LENGTH) {
+        return packageError(400, "A group session title is required.");
+    }
+    if (!Array.isArray(body.studentEmails) || body.studentEmails.length === 0) {
+        return packageError(400, "studentEmails must be a non-empty list.");
+    }
+    const roster = [];
+    const seen = new Set();
+    for (const raw of body.studentEmails) {
+        const email = typeof raw === "string" ? raw.trim() : "";
+        if (!email || email.length > CONTACT_FIELD_LIMITS.email ||
+            !EMAIL_PATTERN.test(email)) {
+            return packageError(400, "Every roster entry must be a valid email.");
+        }
+        if (!seen.has(email.toLowerCase())) {
+            seen.add(email.toLowerCase());
+            roster.push(email);
+        }
+    }
+    if (roster.length > PACKAGE_GROUP_MAX_STUDENTS) {
+        return packageError(400, "A Small Group Session holds at most " +
+            PACKAGE_GROUP_MAX_STUDENTS + " students.");
+    }
+    let scheduledFor = null;
+    if (body.scheduledFor !== undefined && body.scheduledFor !== null &&
+        body.scheduledFor !== "") {
+        if (!PACKAGE_DATE_PATTERN.test(String(body.scheduledFor))) {
+            return packageError(400, "scheduledFor must be an ISO YYYY-MM-DD string.");
+        }
+        scheduledFor = String(body.scheduledFor);
+    }
+    const now = new Date().toISOString();
+    const record = {
+        id: newPackageId(),
+        type: "group-8",
+        label: catalogEntry.label,
+        scope: "group",
+        status: "quoted",
+        title: title,
+        hours: catalogEntry.hours,
+        pricePerStudentUsd: catalogEntry.pricePerStudentUsd,
+        wyzantHourlyUsd: catalogEntry.wyzantHourlyUsd,
+        roster: roster,
+        scheduledFor: scheduledFor,
+        subSegment: PACKAGE_GROUP_SEGMENT,
+        minutesLogged: 0,
+        sessions: [],
+        createdAt: now,
+        updatedAt: now
+    };
+    await putPackageRecord(env, record);
+    return json(200, { ok: true, package: record });
+}
+
+async function handlePackages(request, env) {
+    if (request.method !== "GET" && request.method !== "POST") {
+        return new Response(null, { status: 405, headers: { Allow: "GET, POST" } });
+    }
+    if (!env.ODE_PROGRESS_KV || !env.GOOGLE_CLIENT_ID) {
+        return json(500, { error: "Package service is not configured." });
+    }
+    const retryAfterS = rateLimitRetryAfter("packages", request);
+    if (retryAfterS) return tooManyRequests(retryAfterS);
+
+    const authResult = await authenticateBearer(request, env);
+    if (authResult.error) return authResult.error;
+    const identity = authResult.identity;
+    const owner = isOwner(identity, env);
+
+    if (request.method === "GET") {
+        /* Edge role isolation: the student branch scans only the caller's
+           own sub namespace, so group rosters and other students' records
+           are unreachable by construction, not by filtering. The caller's
+           own sub is echoed back so the owner can read their id from the
+           profile card when configuring the OWNER_SUBS allowlist. */
+        const body = {
+            role: owner ? "owner" : "student",
+            sub: identity.sub,
+            catalog: PACKAGE_CATALOG,
+            packages: owner
+                ? await listPackages(env, PACKAGE_KV_PREFIX)
+                : await listPackages(env, PACKAGE_KV_PREFIX + identity.sub + ":")
+        };
+        if (authResult.mintedSession) body.session = authResult.mintedSession;
+        return json(200, body);
+    }
+
+    if (!owner) {
+        return json(403, { error: "This action requires the tutor account." });
+    }
+    if (!isJsonRequest(request)) {
+        return json(415, { error: "Body must be application/json." });
+    }
+    if (declaredLengthExceeds(request, PACKAGES_MAX_BODY_BYTES)) {
+        return json(413, { error: "Package payload too large." });
+    }
+    const bodyText = await request.text();
+    if (bodyText.length > PACKAGES_MAX_BODY_BYTES) {
+        return json(413, { error: "Package payload too large." });
+    }
+    let parsed;
+    try {
+        parsed = JSON.parse(bodyText);
+    } catch {
+        return json(400, { error: "Body must be valid JSON." });
+    }
+    if (!isPlainObject(parsed)) {
+        return json(400, { error: "Body must be a JSON object." });
+    }
+
+    switch (parsed.action) {
+        case "create": return packageCreate(parsed, env);
+        case "set-status": return packageSetStatus(parsed, env);
+        case "log-session": return packageLogSession(parsed, env);
+        case "link-student": return packageLinkStudent(parsed, env);
+        case "create-group": return packageCreateGroup(parsed, env);
+        default: return json(400, { error: "Unknown action." });
+    }
+}
+
 /* ---- Programmatic SEO: unit-targeted metadata for the ODE SPA ----------- *
  *
  * The roadmap SPA is one static document at /ode/, but its curriculum spans
@@ -891,7 +1307,7 @@ async function handleOdeSeo(request, env, url) {
         .transform(assetResponse);
 }
 
-/* Route matrix: /api/sync, /api/contact, and SEO support files. */
+/* Route matrix: /api/sync, /api/contact, /api/packages, and SEO support files. */
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
@@ -921,6 +1337,9 @@ export default {
         }
         if (url.pathname === "/api/contact") {
             return handleContact(request, env, ctx);
+        }
+        if (url.pathname === "/api/packages") {
+            return handlePackages(request, env);
         }
 
         // --- Static Asset Fallback ---

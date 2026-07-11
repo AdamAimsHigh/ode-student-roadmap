@@ -1,19 +1,26 @@
-/* Dual-mode progression logic per ARCHITECTURE.md Section 4.
+/* Learning-mode progression logic per ARCHITECTURE.md Section 4.
 
    Exploration Mode (default): every module and checkpoint is open. Checkpoints
    act as optional self-assessments.
 
    Guided Pathway: sequential Gateways. A module unlocks only after the
-   checkpoint of the previous module has been passed. */
+   checkpoint of the previous module has been passed.
+
+   Adaptive Pathway (Sprint Rec 3): the Guided gateway sequence plus
+   programmatic remediation detours. Locking is identical to Guided; the
+   difference lives in the unit detail view, which asks ODEAdaptive for a
+   remediation panel whenever prerequisite skills are weak or fading. */
 
 const ODEModes = (function () {
+
+    const MODES = ["exploration", "guided", "adaptive"];
 
     function getMode() {
         return ODEState.getLearningMode();
     }
 
     function setMode(mode) {
-        if (mode !== "exploration" && mode !== "guided") return;
+        if (MODES.indexOf(mode) === -1) return;
         ODEState.setLearningMode(mode);
         updateModeButtons(mode);
         if (typeof renderCurriculum === "function") {
@@ -37,40 +44,43 @@ const ODEModes = (function () {
         return true;
     }
 
-    function updateModeButtons(activeMode) {
-        const explorationBtn = document.getElementById("mode-exploration");
-        const guidedBtn = document.getElementById("mode-guided");
-        if (!explorationBtn || !guidedBtn) return;
+    function modeLabel(mode) {
+        if (mode === "guided") return "Guided Pathway";
+        if (mode === "adaptive") return "Adaptive Pathway";
+        return "Exploration Mode";
+    }
 
-        explorationBtn.classList.toggle("active", activeMode === "exploration");
-        guidedBtn.classList.toggle("active", activeMode === "guided");
+    function updateModeButtons(activeMode) {
+        MODES.forEach(function (mode) {
+            const btn = document.getElementById("mode-" + mode);
+            if (btn) btn.classList.toggle("active", mode === activeMode);
+        });
 
         // Reflect the active mode on the dropdown trigger so the closed menu
         // always shows which mode is currently selected.
         const label = document.getElementById("mode-dropdown-label");
         if (label) {
-            label.textContent = activeMode === "guided" ? "Guided Pathway" : "Exploration Mode";
+            label.textContent = modeLabel(activeMode);
         }
     }
 
     function initModeControls() {
-        const explorationBtn = document.getElementById("mode-exploration");
-        const guidedBtn = document.getElementById("mode-guided");
-
-        if (explorationBtn) {
-            explorationBtn.addEventListener("click", function () { setMode("exploration"); });
-        }
-        if (guidedBtn) {
-            guidedBtn.addEventListener("click", function () { setMode("guided"); });
-        }
+        MODES.forEach(function (mode) {
+            const btn = document.getElementById("mode-" + mode);
+            if (btn) {
+                btn.addEventListener("click", function () { setMode(mode); });
+            }
+        });
         updateModeButtons(getMode());
     }
 
     document.addEventListener("DOMContentLoaded", initModeControls);
 
     return {
+        MODES: MODES,
         getMode: getMode,
         setMode: setMode,
+        modeLabel: modeLabel,
         isModuleUnlocked: isModuleUnlocked
     };
 })();
