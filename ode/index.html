@@ -154,7 +154,14 @@
     <script src="js/checkpoints/widgets-unit16.js"></script>
     <script src="js/checkpoints/widgets-unit17.js"></script>
     <script src="js/checkpoints/widgets-unit18.js"></script>
-    <script src="js/quiz-data.js"></script>
+    <!-- Content Schema v2 (Sprint Rec 2): the monolithic quiz-data.js is
+         retired. readings-data.js is the tiny eager supplemental-readings
+         global; bank-loader.js owns the QUIZ_DATA / PRACTICE_DATA shells and
+         lazily injects one js/bank/bank-unit-NN.js chunk per unit on first
+         navigation (dynamic script injection stays file://-legal where
+         fetch is not). -->
+    <script src="js/readings-data.js"></script>
+    <script src="js/bank-loader.js"></script>
     <script src="js/quiz-engine.js"></script>
     <!-- View layer, decomposed from router.js. Order matters at load time:
          sandboxes.js defines the engine functions that views-interactives.js's

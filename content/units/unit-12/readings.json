@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 12,
+  "readings": [
+    {
+      "id": "rd_12_unit_12_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 12 Cheat Sheet",
+      "file": "Unit-12-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_12_unit_12_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 12 Practice Set",
+      "file": "Unit-12-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_12_unit_12_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 12 Reference Guide",
+      "file": "Unit-12-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_12_laplace_transform_table",
+      "kind": "topic-guide",
+      "title": "Laplace Transform Table",
+      "file": "Unit-12-Laplace-Table.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_12_partial_fractions_for_inverses",
+      "kind": "topic-guide",
+      "title": "Partial Fractions for Inverses",
+      "file": "Unit-12-Partial-Fractions.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_12_heaviside_and_dirac_delta",
+      "kind": "topic-guide",
+      "title": "Heaviside and Dirac Delta",
+      "file": "Unit-12-Heaviside-and-Delta.pdf",
+      "status": "planned"
+    }
+  ]
+}

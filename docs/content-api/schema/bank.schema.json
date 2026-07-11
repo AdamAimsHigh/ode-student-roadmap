@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stapleseducation.com/schemas/content/v2/bank.schema.json",
+  "title": "content/units/unit-NN/bank.json — Content Schema v2 question bank (adaptive pool: authored difficulties, skills, parametric templates)",
+  "description": "Optional per-unit growth surface for question volume beyond the curated quizzes.json banks. Items land in the lazily loaded QUIZ_DATA.pool[unitNumber] via ode/js/bank/bank-unit-NN.js chunks (dictionary-compressed at compile time; never loaded at boot). An item with params is a parametric template: the client instantiates it once per session by drawing each param uniformly from its integer range, evaluating derived expressions, and substituting {{name}} placeholders in every string field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "unitNumber", "items"],
+  "properties": {
+    "schemaVersion": { "type": "string", "pattern": "^2\\." },
+    "unitNumber": { "$ref": "common.defs.schema.json#/$defs/unitNumber" },
+    "skills": {
+      "type": "array",
+      "description": "Skill registry for the unit. Item skillIds must resolve here; skill ids seed the ode_skill_state Elo aggregates (telemetry.js).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^sk_[0-9]+_[a-z0-9_]+$" },
+          "title": { "type": "string", "minLength": 1 },
+          "modules": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+            "description": "Curriculum module ids this skill maps to (validator checks unit prefix)."
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "prompt", "answerOptions"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^bk_[0-9]+_[0-9]+$",
+            "description": "Globally unique, bk_<unitNumber>_<n>. Progress and telemetry key on this id; a parametric item keeps one id across instantiations."
+          },
+          "skillId": { "type": "string", "pattern": "^sk_[0-9]+_[a-z0-9_]+$" },
+          "difficulty": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 2400,
+            "description": "Authored two-sided Elo difficulty (telemetry.js DEFAULT_DIFFICULTY 1200 applies when absent)."
+          },
+          "params": {
+            "type": "object",
+            "description": "Presence makes the item a parametric template. Each param is an inclusive integer range; step defaults to 1.",
+            "propertyNames": { "pattern": "^[a-z][a-z0-9]*$" },
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["min", "max"],
+              "properties": {
+                "min": { "type": "integer" },
+                "max": { "type": "integer" },
+                "step": { "type": "integer", "minimum": 1 }
+              }
+            }
+          },
+          "derived": {
+            "type": "object",
+            "description": "Computed values available to placeholders. Arithmetic over params and earlier derived names: integers, + - * / ^, parentheses, unary minus. Evaluated by the bank loader's built-in evaluator (no Math.js dependency).",
+            "propertyNames": { "pattern": "^[a-z][a-z0-9]*$" },
+            "additionalProperties": { "type": "string", "pattern": "^[a-z0-9_+\\-*/^() ]+$" }
+          },
+          "prompt": { "type": "string", "minLength": 1 },
+          "hint": { "type": "string" },
+          "answerOptions": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text"],
+              "properties": {
+                "text": { "type": "string", "minLength": 1 },
+                "correct": { "const": true },
+                "rationale": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "retiredIds": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "description": "IDs burned by retired items, same contract as quizzes.json."
+    }
+  }
+}

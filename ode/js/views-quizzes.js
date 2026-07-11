@@ -54,6 +54,19 @@ function renderQuizzesIndex(container) {
 function renderUnitQuizzesDetail(container, unitIndex) {
     container.innerHTML = "";
 
+    /* This unit's quiz banks live in its lazy bank chunk (bank-loader.js).
+       Render the shell immediately; the chunk callback re-renders through
+       the router once the data lands, guarded so a slow chunk never
+       repaints a view the student has already left. */
+    const bankReady = typeof ODEBank !== "undefined" &&
+        ODEBank.ensureUnit(unitIndex, function () {
+            if (window.location.hash === "#quizzes-index-" + unitIndex) {
+                renderCurriculum();
+            }
+        });
+    const bankFailed = typeof ODEBank !== "undefined" &&
+        ODEBank.hasFailed(unitIndex);
+
     const unitData = SUBJECT_CONFIG.units[unitIndex];
 
     const nav = document.createElement("div");
@@ -84,6 +97,16 @@ function renderUnitQuizzesDetail(container, unitIndex) {
     intro.appendChild(heading);
     intro.appendChild(sub);
     container.appendChild(intro);
+
+    if (!bankReady) {
+        const note = document.createElement("p");
+        note.className = "static-page-placeholder";
+        note.textContent = bankFailed
+            ? "The quizzes for this unit could not be loaded. Refresh the page to try again."
+            : "Loading the quizzes for this unit.";
+        container.appendChild(note);
+        return;
+    }
 
     // One micro practice launch card per video that carries a quiz. Omitting
     // the inline flag gives the launch card surface, which opens the modal

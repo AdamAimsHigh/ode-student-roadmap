@@ -41,6 +41,17 @@ LEGACY_SPACING = re.compile(
 
 EM_DASH = "—"
 
+# Reserved by the compile_web.py dictionary compression: payload strings
+# reference dictionary entries via a U+00A4-sentinel code, so the character
+# may never appear in canonical content.
+DICT_SENTINEL = "¤"
+
+READING_KINDS = {"cheat-sheet", "practice-set", "reference-guide",
+                 "solutions", "topic-guide", "external"}
+PDFS_DIR = os.path.join(ROOT, "ode", "assets", "pdfs")
+DERIVED_EXPR = re.compile(r"^[a-z0-9_+\-*/^() ]+$")
+PLACEHOLDER = re.compile(r"\{\{([a-z][a-z0-9]*)\}\}")
+
 ERRORS: list[str] = []
 WARNINGS: list[str] = []
 
@@ -64,6 +75,8 @@ def strip_math(s: str) -> str:
 
 
 def check_string(where: str, s: str, strict_copy: bool, math_expr: bool = False):
+    if DICT_SENTINEL in s:
+        err(f"{where}: reserved dictionary sentinel U+00A4 in content")
     # Balance checks apply everywhere. \\[6pt]-style line-break spacing is not
     # a display-math opener, hence the lookbehinds.
     unescaped_dollars = len(re.findall(r"(?<!\\)\$", s))
@@ -192,6 +205,120 @@ def main() -> int:
         for k in ("subtitle", "intro", "takeaway"):
             if p.get(k):
                 walk(f"{slug}/practice.{k}", p[k], strict_copy=False)
+
+        # --- readings: supplemental readings registry (schema v2) -------------
+        rpath = os.path.join(d, "readings.json")
+        if not os.path.exists(rpath):
+            err(f"{slug}: readings.json missing (schema v2 requires it)")
+        else:
+            r = load(rpath)
+            if r.get("unitNumber") != n:
+                err(f"{slug}/readings: unitNumber mismatch")
+            kinds_present = set()
+            for rd in r.get("readings", []):
+                rid = rd.get("id", "?")
+                if not re.fullmatch(rf"rd_{n}_[a-z0-9_]+", rid):
+                    err(f"{slug}/readings: id {rid} malformed or wrong unit prefix")
+                if rid in seen_ids:
+                    err(f"{slug}/readings: duplicate id {rid}")
+                seen_ids.add(rid)
+                kind = rd.get("kind")
+                kinds_present.add(kind)
+                if kind not in READING_KINDS:
+                    err(f"{slug}/readings {rid}: unknown kind {kind}")
+                planned = rd.get("status") == "planned"
+                has_file, has_url = bool(rd.get("file")), bool(rd.get("url"))
+                if not planned and has_file == has_url:
+                    err(f"{slug}/readings {rid}: exactly one of file or url required")
+                if has_url and not rd["url"].startswith("https://"):
+                    err(f"{slug}/readings {rid}: url must be https")
+                if has_file and not planned and \
+                        not os.path.exists(os.path.join(PDFS_DIR, rd["file"])):
+                    err(f"{slug}/readings {rid}: file {rd['file']} not in "
+                        "ode/assets/pdfs (mark it planned or render it)")
+                check_string(f"{slug}/readings {rid} title", rd.get("title", ""),
+                             strict_copy=True)
+                if rd.get("description"):
+                    check_string(f"{slug}/readings {rid} description",
+                                 rd["description"], strict_copy=True)
+            for required_kind in ("cheat-sheet", "practice-set", "reference-guide"):
+                if required_kind not in kinds_present:
+                    warn(f"{slug}/readings: no {required_kind} entry")
+
+        # --- bank: schema v2 question bank (optional) --------------------------
+        bpath = os.path.join(d, "bank.json")
+        if os.path.exists(bpath):
+            b = load(bpath)
+            if b.get("unitNumber") != n:
+                err(f"{slug}/bank: unitNumber mismatch")
+            skill_ids = set()
+            for sk in b.get("skills", []):
+                sid = sk.get("id", "?")
+                if not re.fullmatch(rf"sk_{n}_[a-z0-9_]+", sid):
+                    err(f"{slug}/bank: skill id {sid} malformed or wrong unit prefix")
+                if sid in skill_ids:
+                    err(f"{slug}/bank: duplicate skill id {sid}")
+                skill_ids.add(sid)
+                for mid in sk.get("modules", []):
+                    if not mid.startswith(f"{n}."):
+                        err(f"{slug}/bank skill {sid}: module {mid} not in unit {n}")
+            retired_bank = set(b.get("retiredIds", []))
+            for it in b.get("items", []):
+                iid = it.get("id", "?")
+                if not re.fullmatch(rf"bk_{n}_[0-9]+", iid):
+                    err(f"{slug}/bank: item id {iid} malformed or wrong unit prefix")
+                if iid in seen_ids:
+                    err(f"{slug}/bank: duplicate item id {iid}")
+                seen_ids.add(iid)
+                if iid in retired_bank:
+                    err(f"{slug}/bank: item id {iid} reuses a retired id")
+                if it.get("skillId") and it["skillId"] not in skill_ids:
+                    err(f"{slug}/bank {iid}: skillId {it['skillId']} not declared "
+                        "in this bank's skills")
+                diff = it.get("difficulty")
+                if diff is not None and not (isinstance(diff, int) and 400 <= diff <= 2400):
+                    err(f"{slug}/bank {iid}: difficulty must be an integer in [400, 2400]")
+                n_correct = sum(1 for o in it.get("answerOptions", [])
+                                if o.get("correct") is True)
+                if n_correct != 1:
+                    err(f"{slug}/bank: item {iid} has {n_correct} correct options")
+                # Parametric template integrity: every {{name}} placeholder must
+                # resolve from params or derived; derived expressions stay inside
+                # the bank loader's evaluator grammar and reference known names.
+                names = set(it.get("params", {}) or {})
+                for pname, spec in (it.get("params") or {}).items():
+                    if not (isinstance(spec.get("min"), int) and
+                            isinstance(spec.get("max"), int) and
+                            spec["min"] <= spec["max"]):
+                        err(f"{slug}/bank {iid}: param {pname} needs integer "
+                            "min <= max")
+                    step = spec.get("step", 1)
+                    if not (isinstance(step, int) and step >= 1):
+                        err(f"{slug}/bank {iid}: param {pname} step must be a "
+                            "positive integer")
+                for dname, expr in (it.get("derived") or {}).items():
+                    if not DERIVED_EXPR.fullmatch(expr):
+                        err(f"{slug}/bank {iid}: derived {dname} has characters "
+                            "outside the evaluator grammar")
+                    for ref in re.findall(r"[a-z][a-z0-9]*", expr):
+                        if ref not in names:
+                            err(f"{slug}/bank {iid}: derived {dname} references "
+                                f"unknown name {ref}")
+                    names.add(dname)
+                if not it.get("params") and it.get("derived"):
+                    err(f"{slug}/bank {iid}: derived without params")
+                item_text = json.dumps(
+                    [it.get("prompt", ""), it.get("hint", ""), it.get("answerOptions", [])],
+                    ensure_ascii=False)
+                for ph in PLACEHOLDER.findall(item_text):
+                    if ph not in names:
+                        err(f"{slug}/bank {iid}: placeholder {{{{{ph}}}}} has no "
+                            "param or derived value")
+                if not it.get("params") and "{{" in item_text:
+                    err(f"{slug}/bank {iid}: placeholders present but no params")
+                walk(f"{slug}/bank {iid}", {k: v for k, v in it.items()
+                                            if k not in ("params", "derived")},
+                     strict_copy=True)
 
         # --- guide: print-first text, bare-math fields ------------------------
         gpath = os.path.join(d, "guide.json")

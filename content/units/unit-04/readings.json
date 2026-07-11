@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 4,
+  "readings": [
+    {
+      "id": "rd_4_unit_4_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 4 Cheat Sheet",
+      "file": "Unit-4-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_4_unit_4_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 4 Practice Set",
+      "file": "Unit-4-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_4_unit_4_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 4 Reference Guide",
+      "file": "Unit-4-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    }
+  ]
+}

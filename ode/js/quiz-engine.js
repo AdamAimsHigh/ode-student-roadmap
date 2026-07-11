@@ -254,10 +254,15 @@ const QuizEngine = (function () {
                     if (solved) return;
                     /* Every graded click is a telemetry attempt, wrong answers
                        included: the mastery model needs the misses that the
-                       correct-only persistence loop below never sees. */
+                       correct-only persistence loop below never sees. Schema
+                       v2 bank items carry their own skillId and authored Elo
+                       difficulty; curated quiz items fall back to the quiz id
+                       and the model's default difficulty. */
                     if (typeof ODETelemetry !== "undefined") {
-                        ODETelemetry.record("q", qid, option.correct === true,
-                            { skillId: config.id });
+                        ODETelemetry.record("q", qid, option.correct === true, {
+                            skillId: item.skillId || config.id,
+                            difficulty: item.difficulty
+                        });
                     }
                     if (option.correct) {
                         solved = true;

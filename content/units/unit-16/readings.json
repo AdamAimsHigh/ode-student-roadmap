@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 16,
+  "readings": [
+    {
+      "id": "rd_16_unit_16_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 16 Cheat Sheet",
+      "file": "Unit-16-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_16_unit_16_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 16 Practice Set",
+      "file": "Unit-16-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_16_unit_16_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 16 Reference Guide",
+      "file": "Unit-16-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_16_phase_plane_classification",
+      "kind": "topic-guide",
+      "title": "Phase Plane Classification",
+      "file": "Unit-16-Phase-Plane-Classification.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_16_linearization_and_the_jacobian",
+      "kind": "topic-guide",
+      "title": "Linearization and the Jacobian",
+      "file": "Unit-16-Linearization.pdf",
+      "status": "planned"
+    }
+  ]
+}

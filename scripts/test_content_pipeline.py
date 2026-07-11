@@ -100,8 +100,19 @@ def main() -> int:
         guide_status = entry["status"]["guide"]
         check(f"{slug} guide status matches file",
               (guide_status == "complete") == os.path.exists(os.path.join(d, "guide.json")))
+        # Schema v2: every unit carries a supplemental readings registry.
+        check(f"{slug} readings.json present",
+              os.path.exists(os.path.join(d, "readings.json")))
     check("193 practice problems", problems == 193, str(problems))
     check("1820 quiz items", quiz_items == 1820, str(quiz_items))
+
+    # Schema v2 lazy web layer: one bank chunk per manifest unit, no monolith.
+    import glob as _glob
+    chunks = _glob.glob(os.path.join(ROOT, "ode", "js", "bank", "bank-unit-*.js"))
+    check("one bank chunk per unit", len(chunks) == len(manifest["units"]),
+          str(len(chunks)))
+    check("quiz-data.js monolith retired",
+          not os.path.exists(os.path.join(ROOT, "ode", "js", "quiz-data.js")))
 
     # ---- 2. compiled web targets fresh ----------------------------------------
     r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "compile_web.py"),

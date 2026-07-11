@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 11,
+  "readings": [
+    {
+      "id": "rd_11_unit_11_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 11 Cheat Sheet",
+      "file": "Unit-11-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_11_unit_11_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 11 Practice Set",
+      "file": "Unit-11-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_11_unit_11_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 11 Reference Guide",
+      "file": "Unit-11-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_11_the_damping_discriminant",
+      "kind": "topic-guide",
+      "title": "The Damping Discriminant",
+      "file": "Unit-11-Damping-Discriminant.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_11_forced_vibrations_and_resonance",
+      "kind": "topic-guide",
+      "title": "Forced Vibrations and Resonance",
+      "file": "Unit-11-Forced-Vibrations.pdf",
+      "status": "planned"
+    }
+  ]
+}

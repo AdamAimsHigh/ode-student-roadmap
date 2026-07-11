@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 10,
+  "readings": [
+    {
+      "id": "rd_10_unit_10_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 10 Cheat Sheet",
+      "file": "Unit-10-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_10_unit_10_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 10 Practice Set",
+      "file": "Unit-10-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_10_unit_10_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 10 Reference Guide",
+      "file": "Unit-10-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_10_exponential_response_formula",
+      "kind": "topic-guide",
+      "title": "Exponential Response Formula",
+      "file": "Unit-10-Exponential-Response-Formula.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_10_variation_of_parameters",
+      "kind": "topic-guide",
+      "title": "Variation of Parameters",
+      "file": "Unit-10-Variation-of-Parameters.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_10_the_annihilator_method",
+      "kind": "topic-guide",
+      "title": "The Annihilator Method",
+      "file": "Unit-10-Annihilator-Method.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_10_undetermined_coefficients_guesses",
+      "kind": "topic-guide",
+      "title": "Undetermined Coefficients Guesses",
+      "file": "Unit-10-Undetermined-Coefficients.pdf",
+      "status": "planned"
+    }
+  ]
+}

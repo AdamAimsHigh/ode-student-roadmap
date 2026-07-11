@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 8,
+  "readings": [
+    {
+      "id": "rd_8_unit_8_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 8 Cheat Sheet",
+      "file": "Unit-8-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_8_unit_8_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 8 Practice Set",
+      "file": "Unit-8-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_8_unit_8_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 8 Reference Guide",
+      "file": "Unit-8-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    }
+  ]
+}

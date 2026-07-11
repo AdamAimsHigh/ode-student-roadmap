@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 14,
+  "readings": [
+    {
+      "id": "rd_14_unit_14_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 14 Cheat Sheet",
+      "file": "Unit-14-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_14_unit_14_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 14 Practice Set",
+      "file": "Unit-14-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_14_unit_14_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 14 Reference Guide",
+      "file": "Unit-14-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_14_eigenvalues_and_eigenvectors",
+      "kind": "topic-guide",
+      "title": "Eigenvalues and Eigenvectors",
+      "file": "Unit-14-Eigenvalues-and-Eigenvectors.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_14_the_determinant_and_change_of_basis",
+      "kind": "topic-guide",
+      "title": "The Determinant and Change of Basis",
+      "file": "Unit-14-Determinant-and-Change-of-Basis.pdf",
+      "status": "planned"
+    }
+  ]
+}

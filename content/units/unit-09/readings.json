@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 9,
+  "readings": [
+    {
+      "id": "rd_9_unit_9_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 9 Cheat Sheet",
+      "file": "Unit-9-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_9_unit_9_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 9 Practice Set",
+      "file": "Unit-9-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_9_unit_9_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 9 Reference Guide",
+      "file": "Unit-9-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_9_abel_s_identity",
+      "kind": "topic-guide",
+      "title": "Abel's Identity",
+      "file": "Unit-9-Abels-Identity.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_9_the_wronskian_and_independence",
+      "kind": "topic-guide",
+      "title": "The Wronskian and Independence",
+      "file": "Unit-9-Wronskian.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_9_reduction_of_order",
+      "kind": "topic-guide",
+      "title": "Reduction of Order",
+      "file": "Unit-9-Reduction-of-Order.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_9_the_cauchy_euler_equation",
+      "kind": "topic-guide",
+      "title": "The Cauchy-Euler Equation",
+      "file": "Unit-9-Cauchy-Euler.pdf",
+      "status": "planned"
+    }
+  ]
+}

@@ -1,0 +1,600 @@
+/* GENERATED from content/ by scripts/compile_web.py — do not hand-edit.
+   READINGS_DATA: supplemental readings per unit (Tectonic LaTeX PDFs under assets/pdfs/, or absolute https URLs). Entries flagged planned carry no file: the UI renders a text label, never a dead link.
+   Content API schemaVersion 1.0.0. Edit content/ and re-run the compiler. */
+
+const READINGS_DATA = {
+    "0": [
+        {
+            "id": "rd_0_unit_0_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 0 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-0-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_0_unit_0_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 0 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-0-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_0_unit_0_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 0 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-0-Reference-Guide.pdf"
+        }
+    ],
+    "1": [
+        {
+            "id": "rd_1_unit_1_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 1 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-1-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_1_unit_1_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 1 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-1-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_1_unit_1_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 1 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-1-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_1_unit_1_worked_solutions",
+            "kind": "solutions",
+            "title": "Unit 1 Worked Solutions",
+            "description": "Step by step solutions for the Unit 1 practice set.",
+            "file": "Unit-1-Solutions.pdf"
+        }
+    ],
+    "2": [
+        {
+            "id": "rd_2_unit_2_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 2 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-2-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_2_unit_2_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 2 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-2-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_2_unit_2_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 2 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-2-Reference-Guide.pdf"
+        }
+    ],
+    "3": [
+        {
+            "id": "rd_3_unit_3_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 3 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-3-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_3_unit_3_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 3 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-3-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_3_unit_3_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 3 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-3-Reference-Guide.pdf"
+        }
+    ],
+    "4": [
+        {
+            "id": "rd_4_unit_4_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 4 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-4-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_4_unit_4_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 4 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-4-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_4_unit_4_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 4 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-4-Reference-Guide.pdf"
+        }
+    ],
+    "5": [
+        {
+            "id": "rd_5_unit_5_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 5 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-5-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_5_unit_5_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 5 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-5-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_5_unit_5_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 5 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-5-Reference-Guide.pdf"
+        }
+    ],
+    "6": [
+        {
+            "id": "rd_6_unit_6_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 6 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-6-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_6_unit_6_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 6 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-6-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_6_unit_6_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 6 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-6-Reference-Guide.pdf"
+        }
+    ],
+    "7": [
+        {
+            "id": "rd_7_unit_7_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 7 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-7-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_7_unit_7_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 7 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-7-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_7_unit_7_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 7 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-7-Reference-Guide.pdf"
+        }
+    ],
+    "8": [
+        {
+            "id": "rd_8_unit_8_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 8 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-8-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_8_unit_8_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 8 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-8-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_8_unit_8_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 8 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-8-Reference-Guide.pdf"
+        }
+    ],
+    "9": [
+        {
+            "id": "rd_9_unit_9_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 9 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-9-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_9_unit_9_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 9 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-9-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_9_unit_9_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 9 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-9-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_9_abel_s_identity",
+            "kind": "topic-guide",
+            "title": "Abel's Identity",
+            "planned": true
+        },
+        {
+            "id": "rd_9_the_wronskian_and_independence",
+            "kind": "topic-guide",
+            "title": "The Wronskian and Independence",
+            "planned": true
+        },
+        {
+            "id": "rd_9_reduction_of_order",
+            "kind": "topic-guide",
+            "title": "Reduction of Order",
+            "planned": true
+        },
+        {
+            "id": "rd_9_the_cauchy_euler_equation",
+            "kind": "topic-guide",
+            "title": "The Cauchy-Euler Equation",
+            "planned": true
+        }
+    ],
+    "10": [
+        {
+            "id": "rd_10_unit_10_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 10 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-10-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_10_unit_10_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 10 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-10-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_10_unit_10_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 10 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-10-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_10_exponential_response_formula",
+            "kind": "topic-guide",
+            "title": "Exponential Response Formula",
+            "planned": true
+        },
+        {
+            "id": "rd_10_variation_of_parameters",
+            "kind": "topic-guide",
+            "title": "Variation of Parameters",
+            "planned": true
+        },
+        {
+            "id": "rd_10_the_annihilator_method",
+            "kind": "topic-guide",
+            "title": "The Annihilator Method",
+            "planned": true
+        },
+        {
+            "id": "rd_10_undetermined_coefficients_guesses",
+            "kind": "topic-guide",
+            "title": "Undetermined Coefficients Guesses",
+            "planned": true
+        }
+    ],
+    "11": [
+        {
+            "id": "rd_11_unit_11_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 11 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-11-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_11_unit_11_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 11 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-11-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_11_unit_11_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 11 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-11-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_11_the_damping_discriminant",
+            "kind": "topic-guide",
+            "title": "The Damping Discriminant",
+            "planned": true
+        },
+        {
+            "id": "rd_11_forced_vibrations_and_resonance",
+            "kind": "topic-guide",
+            "title": "Forced Vibrations and Resonance",
+            "planned": true
+        }
+    ],
+    "12": [
+        {
+            "id": "rd_12_unit_12_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 12 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-12-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_12_unit_12_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 12 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-12-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_12_unit_12_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 12 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-12-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_12_laplace_transform_table",
+            "kind": "topic-guide",
+            "title": "Laplace Transform Table",
+            "planned": true
+        },
+        {
+            "id": "rd_12_partial_fractions_for_inverses",
+            "kind": "topic-guide",
+            "title": "Partial Fractions for Inverses",
+            "planned": true
+        },
+        {
+            "id": "rd_12_heaviside_and_dirac_delta",
+            "kind": "topic-guide",
+            "title": "Heaviside and Dirac Delta",
+            "planned": true
+        }
+    ],
+    "13": [
+        {
+            "id": "rd_13_unit_13_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 13 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-13-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_13_unit_13_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 13 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-13-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_13_unit_13_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 13 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-13-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_13_the_frobenius_method",
+            "kind": "topic-guide",
+            "title": "The Frobenius Method",
+            "planned": true
+        },
+        {
+            "id": "rd_13_legendre_and_bessel_equations",
+            "kind": "topic-guide",
+            "title": "Legendre and Bessel Equations",
+            "planned": true
+        }
+    ],
+    "14": [
+        {
+            "id": "rd_14_unit_14_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 14 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-14-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_14_unit_14_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 14 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-14-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_14_unit_14_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 14 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-14-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_14_eigenvalues_and_eigenvectors",
+            "kind": "topic-guide",
+            "title": "Eigenvalues and Eigenvectors",
+            "planned": true
+        },
+        {
+            "id": "rd_14_the_determinant_and_change_of_basis",
+            "kind": "topic-guide",
+            "title": "The Determinant and Change of Basis",
+            "planned": true
+        }
+    ],
+    "15": [
+        {
+            "id": "rd_15_unit_15_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 15 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-15-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_15_unit_15_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 15 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-15-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_15_unit_15_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 15 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-15-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_15_the_matrix_exponential",
+            "kind": "topic-guide",
+            "title": "The Matrix Exponential",
+            "planned": true
+        },
+        {
+            "id": "rd_15_fundamental_matrices",
+            "kind": "topic-guide",
+            "title": "Fundamental Matrices",
+            "planned": true
+        }
+    ],
+    "16": [
+        {
+            "id": "rd_16_unit_16_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 16 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-16-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_16_unit_16_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 16 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-16-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_16_unit_16_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 16 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-16-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_16_phase_plane_classification",
+            "kind": "topic-guide",
+            "title": "Phase Plane Classification",
+            "planned": true
+        },
+        {
+            "id": "rd_16_linearization_and_the_jacobian",
+            "kind": "topic-guide",
+            "title": "Linearization and the Jacobian",
+            "planned": true
+        }
+    ],
+    "17": [
+        {
+            "id": "rd_17_unit_17_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 17 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-17-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_17_unit_17_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 17 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-17-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_17_unit_17_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 17 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-17-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_17_sturm_liouville_theory",
+            "kind": "topic-guide",
+            "title": "Sturm-Liouville Theory",
+            "planned": true
+        },
+        {
+            "id": "rd_17_orthogonal_functions",
+            "kind": "topic-guide",
+            "title": "Orthogonal Functions",
+            "planned": true
+        }
+    ],
+    "18": [
+        {
+            "id": "rd_18_unit_18_cheat_sheet",
+            "kind": "cheat-sheet",
+            "title": "Unit 18 Cheat Sheet",
+            "description": "The one-page formula and method summary for the unit.",
+            "file": "Unit-18-Cheat-Sheet.pdf"
+        },
+        {
+            "id": "rd_18_unit_18_practice_set",
+            "kind": "practice-set",
+            "title": "Unit 18 Practice Set",
+            "description": "The printable problem set that mirrors the web practice page.",
+            "file": "Unit-18-Practice-Set.pdf"
+        },
+        {
+            "id": "rd_18_unit_18_reference_guide",
+            "kind": "reference-guide",
+            "title": "Unit 18 Reference Guide",
+            "description": "The full unit document: cheat sheet, practice problems, and worked solutions.",
+            "file": "Unit-18-Reference-Guide.pdf"
+        },
+        {
+            "id": "rd_18_computing_fourier_series",
+            "kind": "topic-guide",
+            "title": "Computing Fourier Series",
+            "planned": true
+        },
+        {
+            "id": "rd_18_the_heat_and_wave_equations",
+            "kind": "topic-guide",
+            "title": "The Heat and Wave Equations",
+            "planned": true
+        }
+    ]
+};

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 18,
+  "readings": [
+    {
+      "id": "rd_18_unit_18_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 18 Cheat Sheet",
+      "file": "Unit-18-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_18_unit_18_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 18 Practice Set",
+      "file": "Unit-18-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_18_unit_18_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 18 Reference Guide",
+      "file": "Unit-18-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_18_computing_fourier_series",
+      "kind": "topic-guide",
+      "title": "Computing Fourier Series",
+      "file": "Unit-18-Computing-Fourier-Series.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_18_the_heat_and_wave_equations",
+      "kind": "topic-guide",
+      "title": "The Heat and Wave Equations",
+      "file": "Unit-18-Heat-and-Wave-Equations.pdf",
+      "status": "planned"
+    }
+  ]
+}

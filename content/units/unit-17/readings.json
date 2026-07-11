@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 17,
+  "readings": [
+    {
+      "id": "rd_17_unit_17_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 17 Cheat Sheet",
+      "file": "Unit-17-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_17_unit_17_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 17 Practice Set",
+      "file": "Unit-17-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_17_unit_17_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 17 Reference Guide",
+      "file": "Unit-17-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_17_sturm_liouville_theory",
+      "kind": "topic-guide",
+      "title": "Sturm-Liouville Theory",
+      "file": "Unit-17-Sturm-Liouville.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_17_orthogonal_functions",
+      "kind": "topic-guide",
+      "title": "Orthogonal Functions",
+      "file": "Unit-17-Orthogonal-Functions.pdf",
+      "status": "planned"
+    }
+  ]
+}

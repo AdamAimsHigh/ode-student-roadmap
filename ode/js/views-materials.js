@@ -10,67 +10,34 @@
    fetch -- the app keeps running unchanged from the file:// protocol.
    ============================================================================ */
 
-/* Downloadable curriculum materials, keyed by unit array index (0 through 18).
-   Every unit carries a primary cheat sheet "file" resolved under
-   ode/assets/pdfs/, and some units add an array of focused topic guides, each
-   with its own display title and file. The files are scaffolded targets, the
-   index lists them before the PDFs land. */
-const AVAILABLE_MATERIALS = {
-    0: { file: "Unit-0-Cheat-Sheet.pdf" },
-    1: { file: "Unit-1-Cheat-Sheet.pdf" },
-    2: { file: "Unit-2-Cheat-Sheet.pdf" },
-    3: { file: "Unit-3-Cheat-Sheet.pdf" },
-    4: { file: "Unit-4-Cheat-Sheet.pdf" },
-    5: { file: "Unit-5-Cheat-Sheet.pdf" },
-    6: { file: "Unit-6-Cheat-Sheet.pdf" },
-    7: { file: "Unit-7-Cheat-Sheet.pdf" },
-    8: { file: "Unit-8-Cheat-Sheet.pdf" },
-    9: { file: "Unit-9-Cheat-Sheet.pdf", subtopics: [
-        { title: "Abel's Identity", file: "Unit-9-Abels-Identity.pdf" },
-        { title: "The Wronskian and Independence", file: "Unit-9-Wronskian.pdf" },
-        { title: "Reduction of Order", file: "Unit-9-Reduction-of-Order.pdf" },
-        { title: "The Cauchy-Euler Equation", file: "Unit-9-Cauchy-Euler.pdf" }
-    ] },
-    10: { file: "Unit-10-Cheat-Sheet.pdf", subtopics: [
-        { title: "Exponential Response Formula", file: "Unit-10-Exponential-Response-Formula.pdf" },
-        { title: "Variation of Parameters", file: "Unit-10-Variation-of-Parameters.pdf" },
-        { title: "The Annihilator Method", file: "Unit-10-Annihilator-Method.pdf" },
-        { title: "Undetermined Coefficients Guesses", file: "Unit-10-Undetermined-Coefficients.pdf" }
-    ] },
-    11: { file: "Unit-11-Cheat-Sheet.pdf", subtopics: [
-        { title: "The Damping Discriminant", file: "Unit-11-Damping-Discriminant.pdf" },
-        { title: "Forced Vibrations and Resonance", file: "Unit-11-Forced-Vibrations.pdf" }
-    ] },
-    12: { file: "Unit-12-Cheat-Sheet.pdf", subtopics: [
-        { title: "Laplace Transform Table", file: "Unit-12-Laplace-Table.pdf" },
-        { title: "Partial Fractions for Inverses", file: "Unit-12-Partial-Fractions.pdf" },
-        { title: "Heaviside and Dirac Delta", file: "Unit-12-Heaviside-and-Delta.pdf" }
-    ] },
-    13: { file: "Unit-13-Cheat-Sheet.pdf", subtopics: [
-        { title: "The Frobenius Method", file: "Unit-13-Frobenius-Method.pdf" },
-        { title: "Legendre and Bessel Equations", file: "Unit-13-Legendre-and-Bessel.pdf" }
-    ] },
-    14: { file: "Unit-14-Cheat-Sheet.pdf", subtopics: [
-        { title: "Eigenvalues and Eigenvectors", file: "Unit-14-Eigenvalues-and-Eigenvectors.pdf" },
-        { title: "The Determinant and Change of Basis", file: "Unit-14-Determinant-and-Change-of-Basis.pdf" }
-    ] },
-    15: { file: "Unit-15-Cheat-Sheet.pdf", subtopics: [
-        { title: "The Matrix Exponential", file: "Unit-15-Matrix-Exponential.pdf" },
-        { title: "Fundamental Matrices", file: "Unit-15-Fundamental-Matrices.pdf" }
-    ] },
-    16: { file: "Unit-16-Cheat-Sheet.pdf", subtopics: [
-        { title: "Phase Plane Classification", file: "Unit-16-Phase-Plane-Classification.pdf" },
-        { title: "Linearization and the Jacobian", file: "Unit-16-Linearization.pdf" }
-    ] },
-    17: { file: "Unit-17-Cheat-Sheet.pdf", subtopics: [
-        { title: "Sturm-Liouville Theory", file: "Unit-17-Sturm-Liouville.pdf" },
-        { title: "Orthogonal Functions", file: "Unit-17-Orthogonal-Functions.pdf" }
-    ] },
-    18: { file: "Unit-18-Cheat-Sheet.pdf", subtopics: [
-        { title: "Computing Fourier Series", file: "Unit-18-Computing-Fourier-Series.pdf" },
-        { title: "The Heat and Wave Equations", file: "Unit-18-Heat-and-Wave-Equations.pdf" }
-    ] }
-};
+/* Downloadable curriculum materials, keyed by unit array index. Derived at
+   parse time from the generated READINGS_DATA global (readings-data.js,
+   compiled from content/units/unit-NN/readings.json) -- the hand-authored
+   catalog this file used to carry is retired. The cheat-sheet reading fills
+   the unit's primary "file"; topic-guide readings build the Topic guides
+   sublist. Planned readings (PDF not rendered yet) arrive without a file and
+   render as plain text labels, never dead links. */
+const AVAILABLE_MATERIALS = (function () {
+    const out = {};
+    if (typeof READINGS_DATA === "undefined") return out;
+    Object.keys(READINGS_DATA).forEach(function (key) {
+        const entry = {};
+        const subtopics = [];
+        READINGS_DATA[key].forEach(function (reading) {
+            if (reading.kind === "cheat-sheet" && reading.file) {
+                entry.file = reading.file;
+            } else if (reading.kind === "topic-guide") {
+                const sub = { title: reading.title };
+                if (reading.file) sub.file = reading.file;
+                if (reading.url) sub.url = reading.url;
+                subtopics.push(sub);
+            }
+        });
+        if (subtopics.length) entry.subtopics = subtopics;
+        out[Number(key)] = entry;
+    });
+    return out;
+})();
 
 /* Builds the back button and the intro header shared by the materials index
    pages, appends them to the container, and returns nothing. The grid that
@@ -153,10 +120,13 @@ function appendSubtopics(card, unitIndex, asLinks) {
 
     subtopics.forEach(function (sub) {
         const li = document.createElement("li");
-        if (asLinks && sub.file) {
+        if (asLinks && (sub.file || sub.url)) {
             const link = document.createElement("a");
             link.className = "pdf-download-link";
-            link.href = "assets/pdfs/" + sub.file;
+            // Local PDFs resolve under assets/pdfs/ (document-relative,
+            // file:// legal); url is the absolute https escape hatch for
+            // readings hosted off-repo (readings.schema.json).
+            link.href = sub.url ? sub.url : "assets/pdfs/" + sub.file;
             link.target = "_blank";
             link.rel = "noopener";
             link.textContent = sub.title;

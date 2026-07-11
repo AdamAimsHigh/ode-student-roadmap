@@ -351,6 +351,74 @@ with the model reviewing diffs and edge cases — not retyping content.
 
 ---
 
+## 12. Content Schema v2 Addendum (2026-07-10, Sprint Rec 2)
+
+Additive evolution — every v1 document is valid unchanged. Two new per-unit
+document types and a restructured web compilation target.
+
+### 12.1 `units/unit-NN/readings.json` — supplemental readings (required)
+
+The canonical registry of a unit's Tectonic LaTeX PDF supplemental readings
+(cheat sheet, practice set, reference guide, solutions, topic guides) plus an
+`https` absolute-URL escape hatch (`url` instead of `file`) for readings too
+large to commit (e.g. R2-hosted documents). Schema:
+`schema/readings.schema.json`. Key rules:
+
+- `id` is `rd_<unitNumber>_<slug>`, globally unique, same immutability contract as D6.
+- Exactly one of `file` (bare filename under `ode/assets/pdfs/`) or `url`,
+  unless `status: "planned"` — a scaffolded target whose PDF has not been
+  rendered yet. The web compiler strips `file`/`url` from planned entries so
+  the UI shows a text label, never a dead link (this retired the dead
+  topic-guide links previously hand-authored in `views-materials.js`).
+- A non-planned `file` must exist on disk (validator ERROR).
+- `title`/`description` are strict UI copy.
+
+`AVAILABLE_MATERIALS` in `views-materials.js` is now *derived at runtime* from
+the generated `READINGS_DATA` global — the hand-authored catalog is retired.
+
+### 12.2 `units/unit-NN/bank.json` — question bank v2 (optional)
+
+The growth surface for question volume beyond the curated `quizzes.json`
+banks: authored two-sided Elo `difficulty` (400–2400), `skillId` mapping into
+the telemetry skill registry, and **parametric templates**. Schema:
+`schema/bank.schema.json`. An item with `params` is a template: each param is
+an inclusive integer range (optional `step`), `derived` names are arithmetic
+expressions over params (integers, `+ - * / ^`, parentheses — evaluated by the
+bank loader's built-in ~40-line evaluator, no Math.js dependency), and
+`{{name}}` placeholders substitute into every string field. Instantiation
+happens client-side once per session; the item `id` stays stable across
+instantiations so progress and telemetry key consistently (D6 holds).
+
+Bank items compile into `QUIZ_DATA.pool[unitNumber]` — the adaptive session
+composer's feedstock (Sprint Rec 3). IDs are `bk_<unitNumber>_<n>`.
+
+### 12.3 Web target restructure: lazy per-unit bank chunks
+
+The §7.1 monolithic `ode/js/quiz-data.js` (2.5 MB parsed at boot) is retired.
+The compiler now emits:
+
+| Artifact | Content | Loading |
+|---|---|---|
+| `ode/js/bank/bank-unit-NN.js` × 19 | `ODEBank.registerUnit(N, {d, p})` — dictionary-compressed quiz + practice + pool payload | lazy, injected on first navigation to a unit route |
+| `ode/js/readings-data.js` | `const READINGS_DATA = {…}` | boot (tiny) |
+| `ode/data/readings.json` | mirror | — |
+| `ode/data/quizzes.json` | mirror (uncompressed legacy shape, unchanged) | — |
+
+**Dictionary compression:** per chunk, the compiler extracts frequent word
+n-grams into a dictionary array `d`; payload strings reference entries via a
+3-char code (`U+0011` sentinel + two-char base-62 index). `U+0011`/`U+0012`
+are forbidden in canonical strings (validator ERROR). Decoding is one regex
+pass in `ode/js/bank-loader.js`.
+
+**`file://` legality (D2 upheld):** chunks load by dynamic `<script>`
+injection — script elements execute from `file://` where `fetch()` is blocked,
+so the zero-dependency contract survives. `bank-loader.js` owns the
+`QUIZ_DATA`/`PRACTICE_DATA` global shells, the `ensureUnit(n, cb)` injection
+queue, template instantiation, and dictionary decoding; views render
+placeholders until a chunk lands, then re-render through the Pillar 2 router.
+
+---
+
 *Maintenance: this spec is part of the Living Blueprint contract — structural
 changes to `content/` shapes, ID formats, or the math profile are incomplete
 until this document and the schemas are updated in the same change

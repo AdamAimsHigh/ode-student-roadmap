@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 7,
+  "readings": [
+    {
+      "id": "rd_7_unit_7_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 7 Cheat Sheet",
+      "file": "Unit-7-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_7_unit_7_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 7 Practice Set",
+      "file": "Unit-7-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_7_unit_7_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 7 Reference Guide",
+      "file": "Unit-7-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    }
+  ]
+}

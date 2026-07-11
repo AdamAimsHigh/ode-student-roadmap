@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 6,
+  "readings": [
+    {
+      "id": "rd_6_unit_6_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 6 Cheat Sheet",
+      "file": "Unit-6-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_6_unit_6_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 6 Practice Set",
+      "file": "Unit-6-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_6_unit_6_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 6 Reference Guide",
+      "file": "Unit-6-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    }
+  ]
+}

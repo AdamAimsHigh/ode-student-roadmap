@@ -182,6 +182,19 @@ function buildUnitCard(unitData, index, watched) {
 function renderUnitDetail(container, unitIndex) {
     container.innerHTML = "";
 
+    /* Quiz and practice content lives in this unit's lazy bank chunk
+       (Pillar 1 lazy layer, bank-loader.js). First visit: the page renders
+       immediately with its videos and readings, then re-renders through the
+       router once the chunk lands and the quiz cards can mount. The hash
+       guard keeps a slow chunk from repainting a view already navigated
+       away from. */
+    const bankReady = typeof ODEBank !== "undefined" &&
+        ODEBank.ensureUnit(unitIndex, function () {
+            if (unitIndexFromHash() === unitIndex) renderCurriculum();
+        });
+    const bankFailed = typeof ODEBank !== "undefined" &&
+        ODEBank.hasFailed(unitIndex);
+
     const watched = ODEState.getWatchedVideos();
     const unitData = SUBJECT_CONFIG.units[unitIndex];
 
@@ -233,7 +246,8 @@ function renderUnitDetail(container, unitIndex) {
     // Unit Mastery quiz, thirty questions, anchored at the bottom of the
     // unit container after all of its modules. Mastery banks are keyed by
     // unit number (Content API v1 id-keyed lookup); the mount id keeps the
-    // unit title so saved quiz progress carries over.
+    // unit title so saved quiz progress carries over. Until the lazy bank
+    // chunk lands the bank is absent and a short status note holds its slot.
     const mastery = QUIZ_DATA.unit_mastery[unitIndex];
     if (mastery && mastery.length) {
         const masteryHost = document.createElement("div");
@@ -245,25 +259,71 @@ function renderUnitDetail(container, unitIndex) {
             items: mastery
         });
         unitSection.appendChild(masteryHost);
+    } else if (!bankReady) {
+        const note = document.createElement("p");
+        note.className = "static-page-placeholder";
+        note.textContent = bankFailed
+            ? "The quizzes for this unit could not be loaded. Refresh the page to try again."
+            : "Loading the quizzes for this unit.";
+        unitSection.appendChild(note);
     }
 
-    // Master reference guide, the closing action of every unit detail page. It
-    // opens the unit master reference guide PDF in a new tab, the single document
-    // that gathers the cheat sheet, the practice problems, and the worked solutions.
-    const materials = AVAILABLE_MATERIALS[unitIndex];
-    if (materials && materials.file) {
+    // Supplemental readings, the closing block of every unit detail page,
+    // driven by the generated READINGS_DATA global (Content Schema v2). The
+    // reference guide keeps its established primary button; every other
+    // linkable reading lists beneath it. Planned readings (no file yet) are
+    // omitted here, the Cheat Sheets index shows them as text labels.
+    const readings = (typeof READINGS_DATA !== "undefined" &&
+        READINGS_DATA[unitIndex]) || [];
+    const linkable = readings.filter(function (r) { return r.file || r.url; });
+    if (linkable.length) {
         const resourceRow = document.createElement("div");
         resourceRow.className = "unit-master-resource-row";
 
-        const guideLink = document.createElement("a");
-        guideLink.className = "pdf-download-btn";
-        guideLink.href = "assets/pdfs/" + SUBJECT_CONFIG.structureLabel +
-            "-" + unitIndex + "-Reference-Guide.pdf";
-        guideLink.target = "_blank";
-        guideLink.rel = "noopener";
-        guideLink.textContent = "View Full Unit Reference Guide (Cheat Sheet, Problems, and Solutions)";
+        function readingHref(reading) {
+            return reading.url ? reading.url : "assets/pdfs/" + reading.file;
+        }
 
-        resourceRow.appendChild(guideLink);
+        const guide = linkable.find(function (r) {
+            return r.kind === "reference-guide";
+        });
+        if (guide) {
+            const guideLink = document.createElement("a");
+            guideLink.className = "pdf-download-btn";
+            guideLink.href = readingHref(guide);
+            guideLink.target = "_blank";
+            guideLink.rel = "noopener";
+            guideLink.textContent = "View Full Unit Reference Guide (Cheat Sheet, Problems, and Solutions)";
+            resourceRow.appendChild(guideLink);
+        }
+
+        const others = linkable.filter(function (r) { return r !== guide; });
+        if (others.length) {
+            const wrap = document.createElement("div");
+            wrap.className = "materials-subtopics";
+
+            const label = document.createElement("p");
+            label.className = "materials-subtopics-label";
+            label.textContent = "Supplemental Readings";
+            wrap.appendChild(label);
+
+            const list = document.createElement("ul");
+            list.className = "materials-subtopics-list";
+            others.forEach(function (reading) {
+                const li = document.createElement("li");
+                const link = document.createElement("a");
+                link.className = "pdf-download-link";
+                link.href = readingHref(reading);
+                link.target = "_blank";
+                link.rel = "noopener";
+                link.textContent = reading.title;
+                li.appendChild(link);
+                list.appendChild(li);
+            });
+            wrap.appendChild(list);
+            resourceRow.appendChild(wrap);
+        }
+
         unitSection.appendChild(resourceRow);
     }
 

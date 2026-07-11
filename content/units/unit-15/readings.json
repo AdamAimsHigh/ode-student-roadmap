@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 15,
+  "readings": [
+    {
+      "id": "rd_15_unit_15_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 15 Cheat Sheet",
+      "file": "Unit-15-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_15_unit_15_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 15 Practice Set",
+      "file": "Unit-15-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_15_unit_15_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 15 Reference Guide",
+      "file": "Unit-15-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_15_the_matrix_exponential",
+      "kind": "topic-guide",
+      "title": "The Matrix Exponential",
+      "file": "Unit-15-Matrix-Exponential.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_15_fundamental_matrices",
+      "kind": "topic-guide",
+      "title": "Fundamental Matrices",
+      "file": "Unit-15-Fundamental-Matrices.pdf",
+      "status": "planned"
+    }
+  ]
+}

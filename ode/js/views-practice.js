@@ -38,9 +38,27 @@ function renderPracticeMath(el) {
 function renderPracticeSetDetail(container, unitIndex) {
     container.innerHTML = "";
 
+    /* This unit's practice problems live in its lazy bank chunk
+       (bank-loader.js). Render the shell immediately; the chunk callback
+       re-renders through the router once the data lands, guarded so a slow
+       chunk never repaints a view the student has already left. */
+    const bankReady = typeof ODEBank !== "undefined" &&
+        ODEBank.ensureUnit(unitIndex, function () {
+            if (window.location.hash === "#practice-sets-" + unitIndex) {
+                renderCurriculum();
+            }
+        });
+    const bankFailed = typeof ODEBank !== "undefined" &&
+        ODEBank.hasFailed(unitIndex);
+
     const unitData = SUBJECT_CONFIG.units[unitIndex];
     const practice = PRACTICE_DATA[unitIndex];
     const problems = (practice && practice.problems) || [];
+    const emptyNote = bankFailed
+        ? "The practice problems could not be loaded. Refresh the page to try again."
+        : bankReady
+            ? "Practice problems for this unit are coming soon."
+            : "Loading the practice problems.";
 
     // Back button to the Practice Sets index.
     const nav = document.createElement("div");
@@ -112,7 +130,7 @@ function renderPracticeSetDetail(container, unitIndex) {
     } else {
         const note = document.createElement("p");
         note.className = "static-page-placeholder";
-        note.textContent = "Practice problems for this unit are coming soon.";
+        note.textContent = emptyNote;
         problemsSection.appendChild(note);
     }
     container.appendChild(problemsSection);
@@ -150,7 +168,9 @@ function renderPracticeSetDetail(container, unitIndex) {
     } else {
         const note = document.createElement("p");
         note.className = "static-page-placeholder";
-        note.textContent = "Solutions for this unit are coming soon.";
+        note.textContent = bankReady
+            ? "Solutions for this unit are coming soon."
+            : emptyNote;
         solutionsBody.appendChild(note);
     }
 

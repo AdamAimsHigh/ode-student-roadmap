@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 13,
+  "readings": [
+    {
+      "id": "rd_13_unit_13_cheat_sheet",
+      "kind": "cheat-sheet",
+      "title": "Unit 13 Cheat Sheet",
+      "file": "Unit-13-Cheat-Sheet.pdf",
+      "description": "The one-page formula and method summary for the unit."
+    },
+    {
+      "id": "rd_13_unit_13_practice_set",
+      "kind": "practice-set",
+      "title": "Unit 13 Practice Set",
+      "file": "Unit-13-Practice-Set.pdf",
+      "description": "The printable problem set that mirrors the web practice page."
+    },
+    {
+      "id": "rd_13_unit_13_reference_guide",
+      "kind": "reference-guide",
+      "title": "Unit 13 Reference Guide",
+      "file": "Unit-13-Reference-Guide.pdf",
+      "description": "The full unit document: cheat sheet, practice problems, and worked solutions."
+    },
+    {
+      "id": "rd_13_the_frobenius_method",
+      "kind": "topic-guide",
+      "title": "The Frobenius Method",
+      "file": "Unit-13-Frobenius-Method.pdf",
+      "status": "planned"
+    },
+    {
+      "id": "rd_13_legendre_and_bessel_equations",
+      "kind": "topic-guide",
+      "title": "Legendre and Bessel Equations",
+      "file": "Unit-13-Legendre-and-Bessel.pdf",
+      "status": "planned"
+    }
+  ]
+}

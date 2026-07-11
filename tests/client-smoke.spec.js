@@ -17,6 +17,9 @@
  *   B ROUTE EXERCISE    -> "walks unit hash routes" (per viewport)
  *   C TAXONOMY          -> "renders SUBJECT_CONFIG.structureLabel dynamically"
  *   D SANDBOX MOUNT     -> "sandbox engine mounts a canvas and tears down"
+ *   E LAZY BANK         -> "lazy bank chunk hydrates quizzes, practice, and
+ *                          readings" (Content Schema v2: dynamic <script>
+ *                          chunk injection must work over file://)
  */
 
 const { test, expect } = require("@playwright/test");
@@ -166,6 +169,50 @@ test("renders SUBJECT_CONFIG.structureLabel dynamically (taxonomy abstraction)",
         SUBJECT_CONFIG.structureLabel = window.__origLabel;
         renderCurriculum();
     });
+    expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+});
+
+test("lazy bank chunk hydrates quizzes, practice, and readings on demand", async ({ page }) => {
+    const { errors } = await bootToToc(page, VIEWPORTS[0]);
+
+    // Spec E: at boot no bank chunk has loaded -- the shells must be empty.
+    const bootState = await page.evaluate(() => ({
+        micro: Object.keys(QUIZ_DATA.micro_practice).length,
+        mastery: Object.keys(QUIZ_DATA.unit_mastery).length
+    }));
+    expect(bootState.micro).toBe(0);
+    expect(bootState.mastery).toBe(0);
+
+    // Entering a unit route injects that unit's chunk via a dynamic <script>
+    // (file://-legal) and re-renders: the mastery card and the per-video
+    // micro practice hosts must appear without any manual reload.
+    await page.evaluate(() => { window.location.hash = "#unit-0"; });
+    await page.waitForSelector("#app-content .unit-mastery-host", { timeout: 10000 });
+    const microHosts = await page.evaluate(
+        () => document.querySelectorAll("#app-content .video-quiz-host").length);
+    expect(microHosts, "micro practice mounts beside the videos").toBeGreaterThan(0);
+
+    // Only the visited unit hydrates -- laziness is the whole point.
+    const hydrated = await page.evaluate(
+        () => Object.keys(QUIZ_DATA.unit_mastery));
+    expect(hydrated).toEqual(["0"]);
+
+    // The supplemental readings row (generated READINGS_DATA) closes the page.
+    const readingsRow = await page.evaluate(() => {
+        const row = document.querySelector("#app-content .unit-master-resource-row");
+        return row ? row.textContent : "";
+    });
+    expect(readingsRow).toMatch(/Reference Guide/);
+
+    // The practice set sub-route hydrates its problems from the same chunk
+    // pipeline (unit 2 also carries the schema v2 bank pool).
+    await page.evaluate(() => { window.location.hash = "#practice-sets-2"; });
+    await page.waitForSelector("#app-content .practice-problem-list li", { timeout: 10000 });
+    const poolReady = await page.evaluate(
+        () => (QUIZ_DATA.pool["2"] || []).length > 0 &&
+            !JSON.stringify(QUIZ_DATA.pool["2"]).includes("{{"));
+    expect(poolReady, "bank pool hydrates with templates expanded").toBeTruthy();
+
     expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
 });
 

@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "2.0.0",
+  "unitNumber": 2,
+  "skills": [
+    { "id": "sk_2_separation", "title": "Separation of Variables", "modules": ["2.1"] },
+    { "id": "sk_2_direct_integration", "title": "Direct Integration and Initial Conditions", "modules": ["2.1"] },
+    { "id": "sk_2_integrating_factor", "title": "The Integrating Factor Method", "modules": ["2.2"] },
+    { "id": "sk_2_exponential_models", "title": "Exponential Growth and Decay Models", "modules": ["2.3"] }
+  ],
+  "items": [
+    {
+      "id": "bk_2_1",
+      "skillId": "sk_2_separation",
+      "difficulty": 1150,
+      "params": { "a": { "min": 2, "max": 6 } },
+      "prompt": "Solve the differential equation $\\frac{dy}{dx} = {{a}}y$ by separation of variables.",
+      "hint": "Divide both sides by $y$, integrate, then exponentiate to undo the logarithm.",
+      "answerOptions": [
+        {
+          "text": "$y = Ce^{{{a}}x}$",
+          "correct": true,
+          "rationale": "Correct. $\\int \\frac{1}{y}\\,dy = \\int {{a}}\\,dx$ gives $\\ln|y| = {{a}}x + C$, and exponentiating yields $y = Ce^{{{a}}x}$."
+        },
+        {
+          "text": "$y = Ce^{x^{{{a}}}}$",
+          "rationale": "Check the right side. Integrating the constant {{a}} with respect to $x$ gives {{a}}$x$, not a power of $x$. What exponent does that place on $e$?"
+        },
+        {
+          "text": "$y = {{a}}x + C$",
+          "rationale": "That would solve $\\frac{dy}{dx} = {{a}}$. Here the rate is proportional to $y$ itself. What happens when you divide both sides by $y$ before integrating?"
+        },
+        {
+          "text": "$y = Cx^{{{a}}}$",
+          "rationale": "A power of $x$ comes from $\\frac{dy}{dx} = \\frac{{{a}}y}{x}$. Compare the two equations. Which one has the $x$ in the denominator?"
+        }
+      ]
+    },
+    {
+      "id": "bk_2_2",
+      "skillId": "sk_2_direct_integration",
+      "difficulty": 1100,
+      "params": { "a": { "min": 2, "max": 8, "step": 2 }, "b": { "min": 1, "max": 5 } },
+      "derived": { "h": "a/2" },
+      "prompt": "Solve the initial value problem $\\frac{dy}{dx} = {{a}}x$ with $y(0) = {{b}}$.",
+      "hint": "Integrate the right side, then use the initial condition to pin down the constant.",
+      "answerOptions": [
+        {
+          "text": "$y = {{h}}x^{2} + {{b}}$",
+          "correct": true,
+          "rationale": "Correct. $\\int {{a}}x\\,dx = {{h}}x^{2} + C$, and $y(0) = {{b}}$ forces $C = {{b}}$."
+        },
+        {
+          "text": "$y = {{a}}x^{2} + {{b}}$",
+          "rationale": "Check the power rule. What is $\\int x\\,dx$? Did the coefficient get divided by the new exponent?"
+        },
+        {
+          "text": "$y = {{h}}x^{2}$",
+          "rationale": "The general solution carries a constant $C$. What value must $C$ take so that $y(0) = {{b}}$?"
+        },
+        {
+          "text": "$y = {{a}}x + {{b}}$",
+          "rationale": "That keeps the right side as the solution itself. What operation turns $\\frac{dy}{dx}$ back into $y$?"
+        }
+      ]
+    },
+    {
+      "id": "bk_2_3",
+      "skillId": "sk_2_integrating_factor",
+      "difficulty": 1350,
+      "params": { "a": { "min": 2, "max": 5 } },
+      "derived": { "b": "a+1" },
+      "prompt": "What is the integrating factor for the linear equation $y' + \\frac{{{a}}}{x}\\,y = x^{2}$ on $x > 0$?",
+      "hint": "The integrating factor is $e^{\\int P(x)\\,dx}$ where $P(x)$ multiplies $y$. A logarithm appears inside the exponential.",
+      "answerOptions": [
+        {
+          "text": "$\\mu(x) = x^{{{a}}}$",
+          "correct": true,
+          "rationale": "Correct. $\\int \\frac{{{a}}}{x}\\,dx = {{a}}\\ln x$, so $\\mu = e^{{{a}}\\ln x} = x^{{{a}}}$."
+        },
+        {
+          "text": "$\\mu(x) = e^{{{a}}x}$",
+          "rationale": "That is the integrating factor when $P(x)$ is the constant {{a}}. Here $P(x) = \\frac{{{a}}}{x}$. What is $\\int \\frac{{{a}}}{x}\\,dx$?"
+        },
+        {
+          "text": "$\\mu(x) = {{a}}\\ln x$",
+          "rationale": "The logarithm is the integral, not the factor. One more step remains. What do you do with $\\int P\\,dx$ once you have it?"
+        },
+        {
+          "text": "$\\mu(x) = x^{{{b}}}$",
+          "rationale": "Close, but check the exponent. Does $e^{k\\ln x}$ give $x^{k}$ or $x^{k+1}$?"
+        }
+      ]
+    },
+    {
+      "id": "bk_2_4",
+      "skillId": "sk_2_exponential_models",
+      "difficulty": 1200,
+      "params": { "a": { "min": 2, "max": 5 }, "b": { "min": 3, "max": 9 } },
+      "prompt": "A quantity decays according to $\\frac{dy}{dt} = -{{a}}y$ with $y(0) = {{b}}$. Find $y(t)$.",
+      "hint": "This is the exponential decay equation. The initial value becomes the leading coefficient.",
+      "answerOptions": [
+        {
+          "text": "$y = {{b}}e^{-{{a}}t}$",
+          "correct": true,
+          "rationale": "Correct. The general solution is $y = Ce^{-{{a}}t}$, and $y(0) = {{b}}$ gives $C = {{b}}$."
+        },
+        {
+          "text": "$y = {{b}}e^{{{a}}t}$",
+          "rationale": "Watch the sign. The equation says $y$ shrinks at a rate proportional to itself. Should the exponent be positive or negative?"
+        },
+        {
+          "text": "$y = -{{a}}e^{{{b}}t}$",
+          "rationale": "The roles are swapped. Which number is the starting amount at $t = 0$, and which controls the decay rate?"
+        },
+        {
+          "text": "$y = {{b}} - {{a}}t$",
+          "rationale": "Linear decrease would come from $\\frac{dy}{dt} = -{{a}}$. Here the rate depends on $y$ itself. What family of functions has that property?"
+        }
+      ]
+    },
+    {
+      "id": "bk_2_5",
+      "skillId": "sk_2_integrating_factor",
+      "difficulty": 1250,
+      "prompt": "What is the integrating factor for $y' + 2y = e^{x}$?",
+      "hint": "Here $P(x)$ is a constant, so the integral in $e^{\\int P\\,dx}$ is immediate.",
+      "answerOptions": [
+        {
+          "text": "$\\mu(x) = e^{2x}$",
+          "correct": true,
+          "rationale": "Correct. $\\int 2\\,dx = 2x$, so $\\mu = e^{2x}$, and the left side becomes $(e^{2x}y)'$."
+        },
+        {
+          "text": "$\\mu(x) = e^{x}$",
+          "rationale": "The forcing term $e^{x}$ does not set the factor. Which coefficient in the equation drives $\\mu$?"
+        },
+        {
+          "text": "$\\mu(x) = 2e^{x}$",
+          "rationale": "The 2 belongs inside the exponent, not out front. What is $\\int 2\\,dx$?"
+        },
+        {
+          "text": "$\\mu(x) = e^{x^{2}}$",
+          "rationale": "An $x^{2}$ in the exponent would need $P(x) = 2x$. Here $P$ is the constant 2. What does its integral look like?"
+        }
+      ]
+    },
+    {
+      "id": "bk_2_6",
+      "skillId": "sk_2_separation",
+      "difficulty": 1300,
+      "prompt": "Which first order equation is separable but not linear?",
+      "hint": "Separable means $\\frac{dy}{dx} = f(x)g(y)$. Linear means $y$ and $y'$ appear only to the first power, never multiplied together.",
+      "answerOptions": [
+        {
+          "text": "$\\frac{dy}{dx} = x\\,y^{2}$",
+          "correct": true,
+          "rationale": "Correct. It factors as $f(x)g(y) = x \\cdot y^{2}$, and the $y^{2}$ breaks linearity."
+        },
+        {
+          "text": "$\\frac{dy}{dx} = x + y$",
+          "rationale": "Try to factor $x + y$ into a function of $x$ times a function of $y$. Can a sum ever split that way?"
+        },
+        {
+          "text": "$\\frac{dy}{dx} = 3y$",
+          "rationale": "This one is separable, but look again at the definition of linear. Does $y$ appear to any power other than the first?"
+        },
+        {
+          "text": "$\\frac{dy}{dx} = \\sin(xy)$",
+          "rationale": "Does $\\sin(xy)$ factor into a pure $x$ part times a pure $y$ part? Test it at a few points before assuming."
+        }
+      ]
+    }
+  ]
+}
