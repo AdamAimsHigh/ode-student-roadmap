@@ -22,7 +22,11 @@
  *                          chunk injection must work over file://)
  *   F CAPSTONE ROUTES   -> "#dashboard, #settings, and composed #session
  *                          routes render over file://" (Day 3: statistics
- *                          dashboard, profile split view, adaptive composer)
+ *                          dashboard, pedagogical spoke settings, adaptive
+ *                          composer)
+ *   G PORTAL HUB        -> "the /portal/ apex hub boots over file://"
+ *                          (Hub-and-Spoke: course library grid, shared
+ *                          theme tokens, GIS degrades silently)
  */
 
 const { test, expect } = require("@playwright/test");
@@ -31,6 +35,10 @@ const { pathToFileURL } = require("url");
 
 const ODE_INDEX = pathToFileURL(
     path.resolve(__dirname, "..", "ode", "index.html")
+).href;
+
+const PORTAL_INDEX = pathToFileURL(
+    path.resolve(__dirname, "..", "portal", "index.html")
 ).href;
 
 const VIEWPORTS = [
@@ -255,20 +263,24 @@ test("#dashboard, #settings, and composed #session routes render over file://", 
         () => document.querySelectorAll("#app-content .quiz-option").length);
     expect(sessionOptions, "composed session offers answer options").toBeGreaterThan(0);
 
-    // Spec F3: the settings split view. The student interface renders fully;
-    // under file:// the role probe never fires and the package section
-    // explains itself. Chart canvases from the dashboard must be gone (the
+    // Spec F3: the spoke settings view (Hub-and-Spoke split, 2026-07-11).
+    // Pedagogical-only: the three student cards render, no admin console or
+    // package elements exist in this spoke, and the hub link points across
+    // to /portal/. Chart canvases from the dashboard must be gone (the
     // self-terminating RAF contract, observed at the DOM).
     await page.evaluate(() => { window.location.hash = "#settings"; });
     await page.waitForSelector("#app-content .settings-grid", { timeout: 10000 });
     const settingsState = await page.evaluate(() => ({
         cards: document.querySelectorAll("#app-content .settings-card").length,
         canvases: document.querySelectorAll("#app-content canvas").length,
-        roleNote: (document.querySelector("#app-content .settings-role-slot") || {}).textContent || ""
+        adminElements: document.querySelectorAll(
+            "#app-content .admin-console, #app-content .pkg-row, #app-content .catalog-card").length,
+        portalLink: !!document.querySelector('#app-content a[href="../portal/"]')
     }));
     expect(settingsState.cards).toBeGreaterThanOrEqual(3);
     expect(settingsState.canvases, "dashboard canvases torn down on exit").toBe(0);
-    expect(settingsState.roleNote).toMatch(/online version/);
+    expect(settingsState.adminElements, "no business elements in the spoke").toBe(0);
+    expect(settingsState.portalLink, "spoke settings links to the hub").toBeTruthy();
 
     // The theme toggle inside settings flips the Pillar 4 root attribute.
     await page.evaluate(() => {
@@ -320,5 +332,41 @@ test("sandbox engine mounts a canvas and tears down cleanly on exit", async ({ p
         () => document.querySelectorAll("#app-content canvas").length);
     expect(afterExit, "every sandbox canvas must be torn down on exit").toBe(0);
 
+    expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
+});
+
+test("the /portal/ apex hub boots over file:// with the course library", async ({ page }) => {
+    await blockExternal(page);
+    const errors = collectFirstPartyErrors(page);
+    await page.setViewportSize(VIEWPORTS[0]);
+    await page.goto(PORTAL_INDEX, { waitUntil: "domcontentloaded" });
+
+    // Spec G: the course library grid renders with the active ODE classroom
+    // deep-linking into its spoke and the coming-soon streams locked.
+    await page.waitForSelector("#portal-content .course-grid", { timeout: 10000 });
+    const library = await page.evaluate(() => ({
+        active: document.querySelectorAll(".course-card.active").length,
+        locked: document.querySelectorAll(".course-card.locked").length,
+        odeHref: (document.querySelector(".course-card.active a") || {})
+            .getAttribute && document.querySelector(".course-card.active a")
+            .getAttribute("href")
+    }));
+    expect(library.active).toBe(1);
+    expect(library.locked).toBeGreaterThanOrEqual(2);
+    expect(library.odeHref, "ODE card deep-links its spoke").toBe("../ode/");
+
+    // Under file:// the role area explains itself instead of probing the API.
+    const roleNote = await page.textContent("#portal-content .portal-note");
+    expect(roleNote).toMatch(/online portal/);
+
+    // The shared theme engine flips the same Pillar 4 root attribute.
+    await page.evaluate(() => {
+        document.querySelector('.theme-btn[data-theme-choice="dark"]').click();
+    });
+    const theme = await page.evaluate(
+        () => document.documentElement.getAttribute("data-theme"));
+    expect(theme).toBe("dark");
+
+    await page.waitForTimeout(300);
     expect(errors, "first-party errors:\n" + errors.join("\n")).toHaveLength(0);
 });

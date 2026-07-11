@@ -25,6 +25,10 @@
 # fail to match the directory entry itself.)
 !/ode
 
+# 3b. Re-include the Student Portal apex hub, served under /portal/
+# (Hub-and-Spoke model, 2026-07-11). Same bare-path caveat as /ode above.
+!/portal
+
 # 4. Credential hard-deny (belt and suspenders). Later rules win in
 # gitignore syntax, so even if a future edit broadens the allowlist above,
 # these files can never reach a Cloudflare upload.

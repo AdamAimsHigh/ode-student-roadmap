@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Staples Education</title>
+    <meta name="description" content="The Staples Education student portal: your course library, your tutoring packages, and your account, all in one place.">
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+
+    <!-- Google Identity Services for the shared SSO loop. Loads async and
+         degrades silently on file:// or offline sessions, exactly like the
+         ODE spoke (WEBSITE_BLUEPRINT Pillar 5). This is the hub's ONLY
+         external reference: no KaTeX, no Math.js, no framework. -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Pre-paint theme stamp: applies the stored preference before first
+         layout so a dark-mode student never sees a light flash. app.js owns
+         the full adaptive engine (system preference listener included). -->
+    <script>
+        (function () {
+            try {
+                var pref = localStorage.getItem("ode_theme_preference");
+                var dark = pref === "dark" || (pref !== "light" &&
+                    pref === "system" &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches);
+                if (dark) document.documentElement.setAttribute("data-theme", "dark");
+            } catch (err) { /* storage unavailable: light default */ }
+        })();
+    </script>
+
+    <style>
+        /* The Pillar 4 token palette, inherited verbatim from the ODE
+           spoke's theme.css so the hub and every classroom render as one
+           campus. Light on :root, the same token names overridden under
+           [data-theme="dark"], switched by one root attribute. */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --text-secondary: #5a5a6e;
+            --panel-bg: #f4f4f4;
+            --panel-border: rgba(0, 0, 0, 0.08);
+            --accent-color: #6200ee;
+            --accent-soft: rgba(98, 0, 238, 0.10);
+            --accent-text: #6200ee;
+            --success-color: #1b7a43;
+            --error-color: #b3261e;
+            --locked-color: #9b9ba8;
+            --header-bg: #fafafa;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --text-secondary: #9aa0b0;
+            --panel-bg: #1e1e1e;
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #bb86fc;
+            --accent-soft: rgba(187, 134, 252, 0.12);
+            --accent-text: #c5a3ff;
+            --success-color: #38c172;
+            --error-color: #f2746b;
+            --locked-color: #5c5c6a;
+            --header-bg: #181818;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .portal-header {
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--panel-border);
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .portal-brand { min-width: 0; }
+
+        .portal-brand-name {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent-text);
+            text-decoration: none;
+        }
+
+        .portal-title {
+            margin: 0.15rem 0 0;
+            font-size: 1.35rem;
+        }
+
+        .portal-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-row { display: flex; gap: 0.4rem; }
+
+        .theme-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--panel-border);
+            border-radius: 999px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .theme-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        .auth-area {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .auth-status { display: flex; align-items: center; gap: 0.5rem; }
+        .auth-status[hidden] { display: none; }
+        #auth-signin-slot[hidden] { display: none !important; }
+
+        .auth-status-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            overflow-wrap: anywhere;
+        }
+
+        .auth-signout {
+            background: transparent;
+            border: 1px solid var(--panel-border);
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .portal-main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .portal-section { margin-bottom: 2.25rem; }
+
+        .portal-section-title {
+            margin: 0 0 0.35rem;
+            font-size: 1.25rem;
+        }
+
+        .portal-section-sub {
+            margin: 0 0 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .portal-note {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 0.9rem 1.1rem;
+        }
+
+        /* Course library grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .course-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 0;
+        }
+
+        .course-card.active { border-top: 4px solid var(--accent-color); }
+
+        .course-card.locked {
+            border-top: 4px solid var(--locked-color);
+            opacity: 0.75;
+        }
+
+        .course-card-title { margin: 0; font-size: 1.05rem; }
+
+        .course-card-desc {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+
+        .course-card-cta {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .course-card-cta:hover { box-shadow: 0 2px 10px var(--shadow-color); }
+
+        .course-card-badge {
+            display: inline-block;
+            align-self: flex-start;
+            border: 1px solid var(--locked-color);
+            color: var(--locked-color);
+            border-radius: 999px;
+            padding: 0.25rem 0.8rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* Shared card and console shells (ported from the spoke settings) */
+        .portal-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 1.1rem 1.25rem;
+        }
+
+        .portal-card-title { margin: 0 0 0.9rem; font-size: 1.05rem; }
+
+        .admin-console {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-top: 4px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .admin-console-title { margin: 0; font-size: 1.3rem; }
+
+        .admin-section {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--panel-border);
+        }
+
+        .admin-status {
+            margin: 0.5rem 0 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            min-height: 1.1em;
+        }
+
+        .admin-status.error { color: var(--error-color); }
+
+        .catalog-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .catalog-card {
+            background: var(--accent-soft);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+        }
+
+        .catalog-card-title { margin: 0 0 0.3rem; font-size: 0.92rem; }
+
+        .catalog-card-price {
+            margin: 0;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .portal-hint {
+            margin: 0 0 0.9rem;
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+        }
+
+        .admin-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            align-items: end;
+        }
+
+        .admin-field { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+
+        .admin-field-label { font-size: 0.78rem; color: var(--text-secondary); }
+
+        .admin-input {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 0.45rem 0.6rem;
+            font-size: 0.88rem;
+            max-width: 100%;
+        }
+
+        .admin-input:focus { outline: 2px solid var(--accent-color); outline-offset: 1px; }
+
+        .admin-input-minutes { width: 110px; }
+
+        .primary-btn {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            border: 1px solid var(--panel-border);
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .secondary-btn:hover { border-color: var(--accent-color); color: var(--accent-text); }
+
+        .pkg-row { border-top: 1px solid var(--panel-border); padding: 0.75rem 0; }
+
+        .pkg-row-title {
+            margin: 0 0 0.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pkg-row-meta {
+            margin: 0 0 0.5rem;
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            overflow-wrap: anywhere;
+        }
+
+        .pkg-row-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+
+        .pkg-status {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 0.1rem 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border: 1px solid currentColor;
+        }
+
+        .pkg-status-quoted { color: var(--accent-text); background: var(--accent-soft); }
+        .pkg-status-active { color: var(--success-color); }
+        .pkg-status-completed { color: var(--text-secondary); }
+
+        .session-log-list {
+            margin: 0;
+            padding-left: 1.25rem;
+            font-size: 0.87rem;
+        }
+
+        .session-log-item { padding: 0.2rem 0; }
+
+        .portal-footer {
+            border-top: 1px solid var(--panel-border);
+            padding: 1.25rem 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .course-grid,
+            .catalog-row,
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="portal-header">
+        <div class="portal-brand">
+            <a href="../" class="portal-brand-name">Staples Education</a>
+            <h1 class="portal-title">Student Portal</h1>
+        </div>
+        <div class="portal-controls">
+            <div class="theme-row" aria-label="Color theme">
+                <button type="button" class="theme-btn" data-theme-choice="light">Light</button>
+                <button type="button" class="theme-btn" data-theme-choice="dark">Dark</button>
+                <button type="button" class="theme-btn" data-theme-choice="system">System</button>
+            </div>
+            <div class="auth-area" aria-label="Account">
+                <div id="auth-signin-slot"></div>
+                <div id="auth-status" class="auth-status" hidden>
+                    <span id="auth-status-label" class="auth-status-label">Signed in</span>
+                    <button type="button" id="auth-signout" class="auth-signout">Sign out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="portal-content" class="portal-main">
+        <noscript>
+            <p>The student portal requires JavaScript. Please enable it to load your courses.</p>
+        </noscript>
+    </main>
+
+    <footer class="portal-footer">
+        <p>Staples Education, built for conceptual understanding and first-principles logic.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

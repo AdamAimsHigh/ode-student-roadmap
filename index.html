@@ -41,7 +41,7 @@
                          in style.css) so both CTAs work identically over file:// and https
                          with zero JavaScript. "Book" drops to the on-page booking steps;
                          "Learn More" drops to the Why section (#services). -->
-                    <a href="#booking" class="btn-primary">Book Your First Session</a>
+                    <a href="#booking" id="hero-primary-cta" class="btn-primary">Book Your First Session</a>
                     <a href="#services" class="btn-outline">Learn More</a>
                 </div>
             </div>
@@ -144,6 +144,33 @@
     <!-- Cloudflare Web Analytics beacon (public site token, cookie-free).
          Same rolling-release model as Turnstile: not SRI-pinnable. -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14c519923cd24565bcbd4b336c6bb429"}'></script>
+
+    <script>
+    /* Returning-student CTA swap (Hub-and-Spoke, 2026-07-11). The campus
+       apps cache their Worker-issued edge session under ode_cloud_session
+       in localStorage on this same origin. When a live session signature is
+       present, the visitor is a signed-in student, not a prospect: the
+       primary hero CTA re-targets from the booking funnel to the /portal/
+       apex hub. Read-only, fully guarded, and inert when storage is
+       unavailable or the session hint is expired — the default booking CTA
+       is always the fallback. */
+    (function () {
+        try {
+            var cta = document.getElementById("hero-primary-cta");
+            if (!cta) return;
+            var raw = localStorage.getItem("ode_cloud_session");
+            if (!raw) return;
+            var session = JSON.parse(raw);
+            if (!session || typeof session.token !== "string") return;
+            /* The local expiresAt is only a skip-a-doomed-visit hint; the
+               Worker remains the sole authority on session validity. */
+            if (session.expiresAt &&
+                Date.parse(session.expiresAt) < Date.now() + 60000) return;
+            cta.textContent = "Enter Student Portal";
+            cta.setAttribute("href", "portal/");
+        } catch (err) { /* storage unavailable or corrupt: keep booking CTA */ }
+    })();
+    </script>
 
     <script>
     /* Contact form wiring: POSTs the inquiry plus the Turnstile response

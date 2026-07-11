@@ -4,7 +4,9 @@
  * Turnstile-protected /api/contact lead-generation endpoint, and the
  * role-gated /api/packages tutoring entitlement ledger, and falls
  * through to the static asset pipeline (env.ASSETS) for every other
- * request: the landing page at /, the ODE roadmap SPA at /ode/.
+ * request: the landing page at /, the Student Portal apex hub at
+ * /portal/, the ODE roadmap SPA at /ode/. Since the Hub-and-Spoke split
+ * (2026-07-11), /api/packages is invoked only by the /portal/ hub.
  *
  * Abuse controls: every API route sits behind a lightweight in-isolate
  * fixed-window rate limiter keyed on CF-Connecting-IP (best-effort by

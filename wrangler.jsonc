@@ -1,10 +1,13 @@
 // Cloudflare Worker configuration — multi-app static assets + sync API.
 //
 // Layout (stapleseducation.com):
-//   /            → business landing shell (root index.html, reviews.html, style.css)
-//   /ode/        → the interactive ODE roadmap SPA (zero-dependency standalone shell)
-//   /api/sync    → serverless progress-sync endpoint (src/worker.js)
-//   /api/contact → Turnstile-gated lead-generation endpoint (src/worker.js)
+//   /             → business landing shell (root index.html, reviews.html, style.css)
+//   /portal/      → Student Portal apex hub: course library, SSO surface, and
+//                   the tutor admin console (Hub-and-Spoke model, 2026-07-11)
+//   /ode/         → the interactive ODE roadmap SPA (zero-dependency standalone shell)
+//   /api/sync     → serverless progress-sync endpoint (src/worker.js)
+//   /api/contact  → Turnstile-gated lead-generation endpoint (src/worker.js)
+//   /api/packages → role-gated tutoring package ledger, invoked only by /portal/
 //
 // Routing model: requests matching an uploaded asset are served directly;
 // everything else (i.e. /api/*) invokes the "main" Worker, which handles
@@ -70,9 +73,9 @@
 		// Tutor-owner allowlist for /api/packages (comma-separated Google sub
 		// claims). Not a secret: subs are opaque public identifiers, and the
 		// allowlist gates nothing without a cryptographically verified bearer
-		// for the same sub. To find your sub, sign in on the ODE app and open
-		// Settings — the profile card shows "Account id". Empty = no owner:
-		// the admin console stays locked for everyone until this is set.
+		// for the same sub. The tutor account's sub is shown in the /portal/
+		// admin console header once signed in. Empty = no owner: the admin
+		// console stays locked for everyone until this is set.
 		"OWNER_SUBS": "110757746726777221118"
 	}
 }
