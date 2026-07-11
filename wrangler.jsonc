@@ -73,6 +73,6 @@
 		// for the same sub. To find your sub, sign in on the ODE app and open
 		// Settings — the profile card shows "Account id". Empty = no owner:
 		// the admin console stays locked for everyone until this is set.
-		"OWNER_SUBS": ""
+		"OWNER_SUBS": "110757746726777221118"
 	}
 }
