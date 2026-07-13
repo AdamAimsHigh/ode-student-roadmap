@@ -507,5 +507,15 @@ const QuizEngine = (function () {
         renderMath(card);
     }
 
-    return { mount: mount };
+    /* Programmatic entry point for composed sessions (the adaptive engine
+       and the custom quiz factory): runs a prepared item array inline in
+       the host with no launch card in the way. Equivalent to mount with
+       the inline flag set; exists so composers hand their aggregated items
+       straight to the engine as one call. */
+    function startSession(container, config) {
+        if (!config || !config.items || !config.items.length) return;
+        mountInline(container, config);
+    }
+
+    return { mount: mount, startSession: startSession };
 })();

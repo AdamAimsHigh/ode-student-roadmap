@@ -8,6 +8,8 @@
      ODECharts.radar(canvas, spec)    normalized mastery polygon
      ODECharts.bars(canvas, spec)     horizontal labeled value bars
      ODECharts.heatmap(canvas, spec)  daily-activity calendar grid
+     ODECharts.donut(canvas, spec)    categorical share ring with legend
+     ODECharts.scatter(canvas, spec)  x/y point field over a value grid
 
    Rendering contract, shared with the sandbox engines:
    - Theme-token aware: every color is read live from the Pillar 4 custom
@@ -414,10 +416,178 @@ const ODECharts = (function () {
         });
     }
 
+    /* ---- Categorical donut -------------------------------------------------- *
+       spec: {
+           slices: [ { label, value, color? } ],
+           centerLabel?: line under the big center total
+       } Slices with value 0 are dropped. Colors resolve through the role
+       palette; past the four named roles the cycle repeats at reduced
+       alpha, so any category count renders distinctly in both themes. */
+    function donut(canvas, spec) {
+        const slices = (spec && spec.slices || []).filter(function (s) {
+            return s && typeof s.value === "number" && s.value > 0;
+        });
+        if (!slices.length) return;
+        const total = slices.reduce(function (sum, s) {
+            return sum + s.value;
+        }, 0);
+        const ROLE_CYCLE = ["accent", "success", "error", "secondary"];
+
+        mountLoop(canvas, function (ctx, w, h, palette, t) {
+            const legendW = w >= 300 ? Math.min(150, w * 0.42) : 0;
+            const cx = (w - legendW) / 2;
+            const cy = h / 2;
+            const outer = Math.min(w - legendW, h) / 2 - 8;
+            if (outer < 24) return;
+            const ring = Math.max(10, outer * 0.34);
+            const inner = outer - ring;
+
+            /* Slices sweep clockwise from twelve o'clock, eased together. */
+            let angle = -Math.PI / 2;
+            slices.forEach(function (s, i) {
+                const sweep = (Math.PI * 2 * s.value / total) * t;
+                const role = s.color || ROLE_CYCLE[i % ROLE_CYCLE.length];
+                ctx.fillStyle = roleColor(palette, role);
+                ctx.globalAlpha = i < ROLE_CYCLE.length ? 1 : 0.55;
+                ctx.beginPath();
+                ctx.arc(cx, cy, outer, angle, angle + sweep);
+                ctx.arc(cx, cy, inner, angle + sweep, angle, true);
+                ctx.closePath();
+                ctx.fill();
+                angle += sweep;
+            });
+            ctx.globalAlpha = 1;
+
+            /* Center total anchors the ring. */
+            ctx.fillStyle = palette.text;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            setFont(ctx, Math.min(20, inner * 0.7), "700");
+            ctx.fillText(String(total), cx, cy - (spec.centerLabel ? 6 : 0));
+            if (spec.centerLabel) {
+                setFont(ctx, 9);
+                ctx.fillStyle = palette.secondary;
+                ctx.fillText(fitLabel(ctx, spec.centerLabel, inner * 1.7),
+                    cx, cy + 11);
+            }
+
+            /* Legend column on the right when there is room for one. */
+            if (legendW > 0) {
+                const rowH = Math.min(22, (h - 12) / slices.length);
+                let y = cy - (rowH * slices.length) / 2 + rowH / 2;
+                const x = w - legendW + 6;
+                slices.forEach(function (s, i) {
+                    const role = s.color || ROLE_CYCLE[i % ROLE_CYCLE.length];
+                    ctx.fillStyle = roleColor(palette, role);
+                    ctx.globalAlpha = i < ROLE_CYCLE.length ? 1 : 0.55;
+                    ctx.fillRect(x, y - 4, 8, 8);
+                    ctx.globalAlpha = 1;
+                    setFont(ctx, 10);
+                    ctx.fillStyle = palette.secondary;
+                    ctx.textAlign = "left";
+                    ctx.textBaseline = "middle";
+                    const share = Math.round(100 * s.value / total);
+                    ctx.fillText(fitLabel(ctx, s.label + " " + share + "%",
+                        legendW - 20), x + 13, y);
+                    y += rowH;
+                });
+            }
+        });
+    }
+
+    /* ---- Scatter plot -------------------------------------------------------- *
+       spec: {
+           points:  [ { x, y, color? } ]   x and y in data units
+           yMin?, yMax?:  fixed y range, else padded data extent
+           xTicks?: [ { x, label } ]       sparse labels along the x axis
+       } Points fade and settle in draw order under the shared ease, so a
+       time-ordered series reads as its own animation. */
+    function scatter(canvas, spec) {
+        const points = (spec && spec.points || []).filter(function (p) {
+            return p && typeof p.x === "number" && typeof p.y === "number" &&
+                isFinite(p.x) && isFinite(p.y);
+        });
+        if (!points.length) return;
+        let xMin = Infinity, xMax = -Infinity;
+        let yLo = Infinity, yHi = -Infinity;
+        points.forEach(function (p) {
+            if (p.x < xMin) xMin = p.x;
+            if (p.x > xMax) xMax = p.x;
+            if (p.y < yLo) yLo = p.y;
+            if (p.y > yHi) yHi = p.y;
+        });
+        if (xMax === xMin) xMax = xMin + 1;
+        const yPad = Math.max(1, (yHi - yLo) * 0.12);
+        const yMin = typeof (spec && spec.yMin) === "number"
+            ? spec.yMin : yLo - yPad;
+        const yMax = typeof (spec && spec.yMax) === "number"
+            ? spec.yMax : yHi + yPad;
+        const xTicks = (spec && spec.xTicks) || [];
+
+        mountLoop(canvas, function (ctx, w, h, palette, t) {
+            const pad = { left: 42, right: 10, top: 12, bottom: 22 };
+            const plotW = w - pad.left - pad.right;
+            const plotH = h - pad.top - pad.bottom;
+            if (plotW < 20 || plotH < 20) return;
+
+            function px(x) {
+                return pad.left + plotW * (x - xMin) / (xMax - xMin);
+            }
+            function py(y) {
+                return pad.top + plotH -
+                    plotH * (y - yMin) / (yMax - yMin || 1);
+            }
+
+            /* Grid and y scale: four horizontal rules, like the line form. */
+            ctx.strokeStyle = palette.border;
+            ctx.fillStyle = palette.secondary;
+            ctx.lineWidth = 1;
+            setFont(ctx, 10);
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            for (let g = 0; g <= 4; g++) {
+                const value = yMin + (yMax - yMin) * g / 4;
+                const y = py(value);
+                ctx.beginPath();
+                ctx.moveTo(pad.left, y);
+                ctx.lineTo(pad.left + plotW, y);
+                ctx.stroke();
+                ctx.fillText(String(Math.round(value)), pad.left - 6, y);
+            }
+
+            /* Sparse x tick labels. */
+            ctx.textAlign = "center";
+            ctx.textBaseline = "top";
+            xTicks.forEach(function (tick) {
+                if (!tick || typeof tick.x !== "number" || !tick.label) return;
+                ctx.fillText(tick.label, px(tick.x), pad.top + plotH + 6);
+            });
+
+            /* Points settle in draw order: each point's own ease finishes
+               progressively later across the series, so a time-ordered
+               field sweeps in from the oldest attempt to the newest. */
+            const n = points.length;
+            points.forEach(function (p, i) {
+                const local = n > 1
+                    ? Math.max(0, Math.min(1, (t * (n + 8) - i) / 8))
+                    : t;
+                if (local <= 0) return;
+                ctx.globalAlpha = 0.75 * local;
+                ctx.fillStyle = roleColor(palette, p.color);
+                ctx.beginPath();
+                ctx.arc(px(p.x), py(p.y), 3 * local, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+        });
+    }
+
     return {
         line: line,
         radar: radar,
         bars: bars,
-        heatmap: heatmap
+        heatmap: heatmap,
+        donut: donut,
+        scatter: scatter
     };
 })();

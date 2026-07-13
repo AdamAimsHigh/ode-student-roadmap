@@ -84,6 +84,8 @@ function renderCurriculum() {
         } else {
             renderQuizzesIndex(container);
         }
+    } else if (hash === "#quiz-builder") {
+        renderQuizBuilder(container);
     } else if (hash === "#dashboard") {
         renderDashboard(container);
     } else if (hash === "#settings") {

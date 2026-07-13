@@ -60,6 +60,7 @@
                         <li role="none"><a role="menuitem" href="#practice-sets">Practice Sets</a></li>
                         <li role="none"><a role="menuitem" href="#cheat-sheets">Cheat Sheets (PDFs)</a></li>
                         <li role="none"><a role="menuitem" href="#quizzes-index">Quizzes Index</a></li>
+                        <li role="none"><a role="menuitem" href="#quiz-builder">Custom Quiz Builder</a></li>
                         <li role="none"><a role="menuitem" href="#interactives">Interactives</a></li>
                         <li role="none"><a role="menuitem" href="#dashboard">Statistics Dashboard</a></li>
                         <li role="none"><a role="menuitem" href="#settings">Profile and Settings</a></li>
@@ -98,10 +99,33 @@
                          the button into this slot and prompts One Tap only
                          for fully anonymous visitors. -->
                     <div id="auth-signin-slot"></div>
-                    <div id="auth-status" class="auth-status" hidden>
-                        <span class="auth-status-dot" aria-hidden="true"></span>
-                        <span id="auth-status-label" class="auth-status-label">Sync active</span>
-                        <button type="button" id="auth-signout" class="auth-signout">Sign out</button>
+                    <!-- Signed-in identity cluster: the circular Google
+                         avatar opens a compact account menu (name, email,
+                         sign out) through the shared CSS-only dropdown, and
+                         a gear icon links straight to the settings view.
+                         state.js populates the avatar, the initial-letter
+                         fallback, and the labels from the decoded ID token
+                         payload or the cached edge session profile. -->
+                    <div id="auth-status" class="auth-identity" hidden>
+                        <div class="nav-dropdown auth-dropdown">
+                            <button type="button" class="auth-avatar-btn" aria-haspopup="true" aria-label="Account menu">
+                                <img id="auth-avatar" class="auth-avatar" alt="" referrerpolicy="no-referrer" hidden>
+                                <span id="auth-avatar-fallback" class="auth-avatar-fallback" aria-hidden="true"></span>
+                            </button>
+                            <ul class="nav-dropdown-menu auth-menu" role="menu" aria-label="Account options">
+                                <li role="none" class="auth-menu-identity">
+                                    <span id="auth-status-label" class="auth-status-label">Sync active</span>
+                                    <span id="auth-status-email" class="auth-status-email" hidden></span>
+                                </li>
+                                <li role="none"><button type="button" id="auth-signout" class="auth-signout" role="menuitem">Sign out</button></li>
+                            </ul>
+                        </div>
+                        <a class="auth-gear" href="#settings" aria-label="Profile and settings">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="3.2"></circle>
+                                <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -183,6 +207,7 @@
     <script src="js/views-interactives.js"></script>
     <script src="js/views-practice.js"></script>
     <script src="js/views-quizzes.js"></script>
+    <script src="js/views-quiz-builder.js"></script>
     <script src="js/views-dashboard.js"></script>
     <script src="js/views-settings.js"></script>
     <script src="js/router.js"></script>

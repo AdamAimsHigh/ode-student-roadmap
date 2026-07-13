@@ -43,6 +43,10 @@ function renderDashboard(container) {
     const radarCard = buildRadarCard(assessed);
     if (radarCard) grid.appendChild(radarCard);
     grid.appendChild(buildTrendCard(daily));
+    const mixCard = buildSessionMixCard();
+    if (mixCard) grid.appendChild(mixCard);
+    const volatilityCard = buildVolatilityCard();
+    if (volatilityCard) grid.appendChild(volatilityCard);
     const barsCard = buildWeakSkillsCard(assessed);
     if (barsCard) grid.appendChild(barsCard);
     grid.appendChild(buildHeatmapCard(daily));
@@ -210,6 +214,77 @@ function buildWeakSkillsCard(assessed) {
     });
     const built = dashboardChartCard("Skills Needing Work", rows.length * 34 + 8);
     ODECharts.bars(built.canvas, { bars: rows });
+    return built.card;
+}
+
+/* Categorical donut of the practice mix: how the event log distributes
+   across the three session surfaces the telemetry layer records. */
+function buildSessionMixCard() {
+    if (typeof ODECharts === "undefined" ||
+        typeof ODETelemetry === "undefined") return null;
+    const events = ODETelemetry.getEvents();
+    if (!events.length) return null;
+    const counts = { q: 0, c: 0, v: 0 };
+    events.forEach(function (e) {
+        if (counts[e.kind] !== undefined) counts[e.kind]++;
+    });
+    const built = dashboardChartCard("Practice Mix", 180);
+    ODECharts.donut(built.canvas, {
+        slices: [
+            { label: "Quiz answers", value: counts.q, color: "accent" },
+            { label: "Checkpoints", value: counts.c, color: "success" },
+            { label: "Videos watched", value: counts.v, color: "secondary" }
+        ],
+        centerLabel: "events"
+    });
+    return built.card;
+}
+
+/* Elo volatility scatter: the attempt log replayed through the same rating
+   update the telemetry model runs per skill, but as one aggregate track, so
+   every assessed attempt lands as a dot on the rating trajectory. Correct
+   attempts draw in the success color, misses in the error color, and the
+   vertical spread of the field is the volatility itself. */
+function buildVolatilityCard() {
+    if (typeof ODECharts === "undefined" ||
+        typeof ODETelemetry === "undefined") return null;
+    const assessedEvents = ODETelemetry.getEvents().filter(function (e) {
+        return e.kind === "q" || e.kind === "c";
+    }).slice(-300);
+    if (assessedEvents.length < 2) return null;
+
+    /* Aggregate two-sided Elo replay, mirroring the telemetry constants:
+       seed 1200, default difficulty 1200, K decaying from 48 toward 8. */
+    let rating = 1200;
+    const points = assessedEvents.map(function (e, i) {
+        const K = Math.max(8, 48 / (1 + i / 8));
+        const expected = 1 / (1 + Math.pow(10, (1200 - rating) / 400));
+        rating = Math.round(Math.min(2400, Math.max(400,
+            rating + K * ((e.correct ? 1 : 0) - expected))));
+        return {
+            x: e.t,
+            y: rating,
+            color: e.correct ? "success" : "error"
+        };
+    });
+
+    function tickLabel(ms) {
+        const d = new Date(ms);
+        return (d.getMonth() + 1) + "/" + d.getDate();
+    }
+    const first = points[0];
+    const last = points[points.length - 1];
+    const mid = points[Math.floor(points.length / 2)];
+    const xTicks = [{ x: first.x, label: tickLabel(first.x) }];
+    if (mid.x !== first.x && mid.x !== last.x) {
+        xTicks.push({ x: mid.x, label: tickLabel(mid.x) });
+    }
+    if (last.x !== first.x) {
+        xTicks.push({ x: last.x, label: tickLabel(last.x) });
+    }
+
+    const built = dashboardChartCard("Elo Volatility Map", 200);
+    ODECharts.scatter(built.canvas, { points: points, xTicks: xTicks });
     return built.card;
 }
 

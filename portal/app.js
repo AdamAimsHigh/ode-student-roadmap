@@ -120,11 +120,25 @@ const ODEPortal = (function () {
         }
     }
 
+    /* Vanilla Base64URL decoder for JWT payload segments (mirrors state.js):
+       map the URL-safe alphabet back to classic Base64, restore padding,
+       atob, then rebuild multi-byte UTF-8 sequences via percent-escapes so
+       non-ASCII profile names decode correctly. */
+    function decodeBase64Url(segment) {
+        let base64 = segment.replace(/-/g, "+").replace(/_/g, "/");
+        while (base64.length % 4 !== 0) base64 += "=";
+        const bytes = atob(base64);
+        let escaped = "";
+        for (let i = 0; i < bytes.length; i++) {
+            const hex = bytes.charCodeAt(i).toString(16);
+            escaped += "%" + (hex.length < 2 ? "0" : "") + hex;
+        }
+        return decodeURIComponent(escaped);
+    }
+
     function decodeCredentialPayload(credential) {
         try {
-            const part = credential.split(".")[1]
-                .replace(/-/g, "+").replace(/_/g, "/");
-            return JSON.parse(atob(part));
+            return JSON.parse(decodeBase64Url(credential.split(".")[1]));
         } catch (err) {
             return null;
         }
@@ -170,10 +184,15 @@ const ODEPortal = (function () {
             : {};
         const previous = readJSON(SESSION_KEY, null) || {};
         try {
+            /* The display profile (name, picture) rides with the session so
+               the identity header still renders after the short-lived Google
+               credential expires and only the edge session remains. */
             localStorage.setItem(SESSION_KEY, JSON.stringify({
                 token: body.session.token,
                 expiresAt: body.session.expiresAt || null,
-                email: payload.email || previous.email || null
+                email: payload.email || previous.email || null,
+                name: payload.name || previous.name || null,
+                picture: payload.picture || previous.picture || null
             }));
         } catch (err) { /* storage unavailable */ }
     }
@@ -190,13 +209,23 @@ const ODEPortal = (function () {
         return Boolean(getStoredSession() || getStoredCredential());
     }
 
-    function signedInEmail() {
+    /* Display profile for the identity header, preferring the fresh Google
+       claims and falling back to the profile cached on the edge session. */
+    function signedInProfile() {
         const credential = getStoredCredential();
         const payload = credential
             ? decodeCredentialPayload(credential) || {}
             : {};
         const session = getStoredSession();
-        return payload.email || (session && session.email) || null;
+        return {
+            email: payload.email || (session && session.email) || null,
+            name: payload.name || (session && session.name) || null,
+            picture: payload.picture || (session && session.picture) || null
+        };
+    }
+
+    function signedInEmail() {
+        return signedInProfile().email;
     }
 
     /* Authenticated same-origin fetch with the standard lifecycle: session
@@ -233,16 +262,42 @@ const ODEPortal = (function () {
         return (window.google && google.accounts && google.accounts.id) || null;
     }
 
+    /* The signed-in header is a silent identity cluster: a circular Google
+       avatar (initial-letter fallback when no picture claim is present)
+       whose dropdown menu holds the name, the email, and sign out. */
     function setAuthUI() {
         const signedIn = isSignedIn();
+        const info = signedIn ? signedInProfile() : {};
         const slot = document.getElementById("auth-signin-slot");
         const status = document.getElementById("auth-status");
         const label = document.getElementById("auth-status-label");
+        const email = document.getElementById("auth-status-email");
+        const avatar = document.getElementById("auth-avatar");
+        const fallback = document.getElementById("auth-avatar-fallback");
         if (slot) slot.hidden = signedIn;
         if (status) status.hidden = !signedIn;
-        if (label) {
-            const email = signedInEmail();
-            label.textContent = email ? "Signed in as " + email : "Signed in";
+        const displayName = info.name || info.email || null;
+        if (label) label.textContent = displayName || "Signed in";
+        if (email) {
+            email.textContent = info.name && info.email ? info.email : "";
+            email.hidden = !email.textContent;
+        }
+        if (fallback) {
+            fallback.textContent = displayName
+                ? displayName.trim().charAt(0).toUpperCase() : "";
+        }
+        if (avatar) {
+            if (signedIn && info.picture) {
+                if (avatar.getAttribute("src") !== info.picture) {
+                    avatar.src = info.picture;
+                }
+                avatar.hidden = false;
+                if (fallback) fallback.hidden = true;
+            } else {
+                avatar.removeAttribute("src");
+                avatar.hidden = true;
+                if (fallback) fallback.hidden = false;
+            }
         }
     }
 
@@ -811,6 +866,9 @@ const ODEPortal = (function () {
 
         const roleSection = document.createElement("section");
         roleSection.className = "portal-section";
+        /* Anchor target for the header's gear icon (#settings): the account
+           section is the hub's settings surface. */
+        roleSection.id = "settings";
         const roleTitle = document.createElement("h2");
         roleTitle.className = "portal-section-title";
         roleTitle.textContent = "Your Account";
@@ -827,6 +885,16 @@ const ODEPortal = (function () {
         setAuthUI();
         const signout = document.getElementById("auth-signout");
         if (signout) signout.addEventListener("click", signOut);
+        /* A Google avatar URL that fails to load falls back silently to the
+           initial-letter badge. */
+        const avatar = document.getElementById("auth-avatar");
+        if (avatar) {
+            avatar.addEventListener("error", function () {
+                avatar.hidden = true;
+                const fallback = document.getElementById("auth-avatar-fallback");
+                if (fallback) fallback.hidden = false;
+            });
+        }
         renderPortal();
         /* Covers the edge where the GIS SDK finished loading before this
            module ran (onGoogleLibraryLoad would then never fire for us). */

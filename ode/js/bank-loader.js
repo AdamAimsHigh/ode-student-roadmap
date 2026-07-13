@@ -46,6 +46,11 @@ const ODEBank = (function () {
        would loop forever on a permanently missing chunk. A reload retries. */
     const status = {};
     const waiters = {};
+    /* Decoded per-unit pool payloads, kept after hydration so composed
+       surfaces (the custom quiz factory) can draw additional fresh
+       instantiations of the parametric templates beyond the one-per-session
+       expansion baked into QUIZ_DATA.pool. */
+    const rawPools = {};
 
     function decodeString(s, dict) {
         return s.replace(CODE_RE, function (match, code) {
@@ -226,6 +231,7 @@ const ODEBank = (function () {
             if (payload.mastery) QUIZ_DATA.unit_mastery[n] = payload.mastery;
             if (payload.practice) PRACTICE_DATA[n] = payload.practice;
             if (payload.pool) {
+                rawPools[n] = payload.pool;
                 QUIZ_DATA.pool[n] = payload.pool.map(instantiate)
                     .filter(function (item) { return item !== null; });
             }
@@ -283,10 +289,40 @@ const ODEBank = (function () {
     function isReady(n) { return status[Number(n)] === "ready"; }
     function hasFailed(n) { return status[Number(n)] === "failed"; }
 
+    /* Draws a fresh instantiation pass over unit n's raw pool. Static items
+       pass through unchanged (they never mutate), while each parametric
+       template is re-rolled with new parameter draws and its generated id
+       is salted per draw, so a composed session can hold several instances
+       of one template without progress or telemetry key collisions (the
+       stable skillId still aims every instance at the same Elo rating).
+       Only callable after the unit's chunk has hydrated; returns []. */
+    let freshDrawCount = 0;
+    function freshPoolItems(n) {
+        n = Number(n);
+        const raw = rawPools[n];
+        if (!raw || !raw.length) return [];
+        const salt = "d" + (++freshDrawCount).toString(36);
+        const out = [];
+        raw.forEach(function (template, i) {
+            const built = instantiate(template);
+            if (!built) return;
+            if (template && template.params) {
+                const copy = {};
+                Object.keys(built).forEach(function (k) { copy[k] = built[k]; });
+                copy.id = (built.id || "pool::" + n + "::" + i) + "::" + salt;
+                out.push(copy);
+            } else {
+                out.push(built);
+            }
+        });
+        return out;
+    }
+
     return {
         ensureUnit: ensureUnit,
         registerUnit: registerUnit,
         isReady: isReady,
-        hasFailed: hasFailed
+        hasFailed: hasFailed,
+        freshPoolItems: freshPoolItems
     };
 })();

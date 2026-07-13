@@ -89,38 +89,133 @@ body {
     display: none !important;
 }
 
-.auth-status {
+/* Signed-in identity cluster: circular avatar + gear icon. The avatar is a
+   nav-dropdown trigger, so hovering or focusing it opens the compact account
+   menu through the same CSS-only mechanics as the Browse menu. */
+.auth-identity {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.3rem 0.85rem;
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: 999px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    white-space: nowrap;
+    gap: 0.4rem;
 }
 
-.auth-status-dot {
-    width: 8px;
-    height: 8px;
+.auth-identity[hidden] {
+    display: none;
+}
+
+.auth-avatar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: var(--panel-bg);
+    border: 2px solid var(--panel-border);
     border-radius: 50%;
-    background: var(--success-color);
-    flex-shrink: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-dropdown:hover .auth-avatar-btn,
+.auth-dropdown:focus-within .auth-avatar-btn {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.auth-avatar-btn:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* The avatar image is masked to a circle by its clipping container above
+   and its own radius, so any square Google photo renders as a clean disc. */
+.auth-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.auth-avatar[hidden] {
+    display: none;
+}
+
+/* Initial-letter badge shown when no picture claim exists or the photo
+   fails to load. */
+.auth-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-soft);
+    color: var(--accent-text, var(--accent-color));
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.auth-avatar-fallback[hidden] {
+    display: none;
+}
+
+/* The account menu opens under the avatar, right-aligned so it never
+   overflows the viewport from the header's right edge. */
+.auth-menu {
+    left: auto;
+    right: 0;
+    min-width: 13rem;
+}
+
+.auth-menu-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--panel-border);
+    margin-bottom: 0.25rem;
+}
+
+.auth-status-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-color);
+    overflow-wrap: anywhere;
+}
+
+.auth-status-email {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
+}
+
+.auth-status-email[hidden] {
+    display: none;
 }
 
 .auth-signout {
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
     color: var(--accent-color);
-    cursor: pointer;
 }
 
-.auth-signout:hover {
-    text-decoration: underline;
+/* Minimalist gear, a quiet doorway to the settings view. */
+.auth-gear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+}
+
+.auth-gear:hover,
+.auth-gear:focus-visible {
+    color: var(--accent-color);
+    background: var(--accent-soft);
+    transform: rotate(30deg);
+    outline: none;
 }
 
 /* Mobile auth adjustments live in the unified 768px block at the end of this
@@ -252,6 +347,15 @@ body {
     background: var(--accent-soft);
     color: var(--accent-color);
     outline: none;
+}
+
+/* The rightmost header dropdown opens right-aligned: with the identity
+   cluster collapsing completely while signed out, the theme trigger can sit
+   flush against the header's right edge, and a left-aligned panel there
+   would widen the document past the viewport. */
+.theme-dropdown .nav-dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 /* The active learning mode option, marked so the open menu shows the selection. */
@@ -1800,15 +1904,15 @@ body.quiz-modal-open {
         max-width: calc(100vw - 2rem);
     }
 
-    /* The sign-in button and the sync status chip wrap as independent rows
-       rather than forcing one wide line; the chip's text breaks normally. */
+    /* The sign-in button and the identity cluster wrap as independent rows
+       rather than forcing one wide line; the account menu hugs the right
+       edge so it never overflows a narrow viewport. */
     .auth-controls {
         flex-wrap: wrap;
     }
 
-    .auth-status {
-        white-space: normal;
-        max-width: 100%;
+    .auth-menu {
+        max-width: calc(100vw - 2rem);
     }
 
     /* Progress banner: stacked metrics bounded to the viewport width. */
@@ -2152,4 +2256,122 @@ body.quiz-modal-open {
     .settings-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ---- Custom Quiz Factory (#quiz-builder) ---- */
+
+.quiz-builder-panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.quiz-builder-heading {
+    margin: 1.25rem 0 0.75rem;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.quiz-builder-heading:first-child {
+    margin-top: 0;
+}
+
+.builder-unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.6rem;
+}
+
+.builder-unit-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--bg-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.builder-unit-option:hover {
+    border-color: var(--accent-color);
+}
+
+.builder-unit-option.selected {
+    border-color: var(--accent-color);
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: 600;
+}
+
+.builder-unit-check {
+    accent-color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.builder-count-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.builder-count-btn {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.builder-count-btn:hover {
+    border-color: var(--accent-color);
+}
+
+.builder-count-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--bg-color);
+    font-weight: 600;
+}
+
+.builder-submit-btn {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.builder-submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px var(--shadow-color);
+}
+
+.builder-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.builder-status {
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-height: 1.1em;
+}
+
+.builder-status.error {
+    color: var(--error-color);
 }
