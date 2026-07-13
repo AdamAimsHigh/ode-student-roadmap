@@ -5,9 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staples Education - Reviews</title>
     <meta name="description" content="Read reviews from students who have reset their math confidence with Staples Education.">
-    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
-    <link rel="icon" type="image/png" href="/favicon.png" sizes="512x512">
+    <!-- Strict favicon declarations (Google SERP fix, 2026-07-12). -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
     <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Pre-paint theme stamp (system-default lighting engine, 2026-07-12):
+         a stored MANUAL campus theme choice is stamped as data-theme before
+         first layout; with no manual choice style.css follows the OS. -->
+    <script>
+        (function () {
+            try {
+                var pref = localStorage.getItem("ode_theme_preference");
+                if (pref === "light" || pref === "dark") {
+                    document.documentElement.setAttribute("data-theme", pref);
+                }
+            } catch (err) { /* storage unavailable: OS default */ }
+        })();
+    </script>
     <!-- Inter for main text, Noto Serif for the Math symbol — self-hosted
          mirror of the Google Fonts css2 stylesheet (see /fonts/). Serving
          from our own origin removes the fonts.googleapis.com third-party
@@ -18,16 +34,47 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="index.html" class="logo" style="text-decoration:none;">
-            <span class="sigma">&Sigma;</span>
-            <span class="brand-name">Staples Education</span>
-        </a>
-        <nav>
-            <a href="index.html#services">Services</a>
-            <a href="reviews.html">Reviews</a>
-            <a href="http://tinyurl.com/StaplesEducation" class="btn-secondary">Contact</a>
-            <a href="/ode/" class="btn-primary">ODE Roadmap</a>
-        </nav>
+        <!-- Campus bar (standardized header topography, 2026-07-12). -->
+        <div class="campus-left">
+            <a href="index.html" class="campus-brand" aria-label="StaplesEducation.com home">
+                <img src="favicon.png" alt="" class="campus-logo">
+                <span class="brand-name campus-brand-name">StaplesEducation.com</span>
+            </a>
+            <div class="explore-dropdown">
+                <button type="button" class="explore-trigger" aria-haspopup="true" aria-expanded="false">
+                    Explore
+                    <span class="explore-arrow" aria-hidden="true"></span>
+                </button>
+                <ul class="explore-menu" role="menu" aria-label="Courses">
+                    <li role="none"><a role="menuitem" class="explore-item explore-active" href="ode/">Ordinary Differential Equations</a></li>
+                    <li role="none"><span class="explore-item explore-locked">Linear Algebra<span class="explore-badge">Coming Soon</span></span></li>
+                    <li role="none"><span class="explore-item explore-locked">Calculus<span class="explore-badge">Coming Soon</span></span></li>
+                </ul>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html#services">Services</a>
+                <a href="reviews.html">Reviews</a>
+                <a href="index.html#contact" class="btn-secondary">Contact</a>
+            </nav>
+        </div>
+        <!-- Identity cluster, flipped by the inline campus-identity script
+             at the end of the body; logged out is the static default. -->
+        <div class="campus-right">
+            <a href="portal/" id="nav-login" class="btn-outline nav-login">Log in</a>
+            <div id="nav-identity" class="nav-identity" hidden>
+                <a class="auth-portal-link" href="portal/">Student Portal</a>
+                <span class="nav-avatar-wrap">
+                    <img id="nav-avatar" class="nav-avatar" alt="" referrerpolicy="no-referrer" hidden>
+                    <span id="nav-avatar-fallback" class="nav-avatar-fallback" aria-hidden="true"></span>
+                </span>
+                <a class="auth-gear" href="portal/#settings" aria-label="Your account and settings">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.2"></circle>
+                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -65,13 +112,34 @@
         </section>
     </main>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="logo">
-                <span class="sigma">&Sigma;</span>
-                <span class="brand-name">Staples Education</span>
+    <!-- Institutional footer (storefront refinement sprint, 2026-07-12):
+         3-column grid shared with index.html; Purple Stapler mark closes
+         the Brand Sandwich on every root page. -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="footer-brand-row" aria-label="StaplesEducation.com home">
+                    <img src="favicon.png" alt="" class="footer-logo">
+                    <span class="footer-brand-name">StaplesEducation.com</span>
+                </a>
+                <p class="footer-copyright">&copy; 2026 Staples Education. All rights reserved.</p>
             </div>
-            <p>&copy; 2026 Staples Education. All rights reserved.</p>
+            <nav class="footer-col" aria-label="Footer navigation">
+                <h4 class="footer-heading">Navigate</h4>
+                <ul class="footer-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="portal/">Student Portal</a></li>
+                    <li><a href="ode/">Ordinary Differential Equations</a></li>
+                </ul>
+            </nav>
+            <div class="footer-col">
+                <h4 class="footer-heading">Sessions and Policies</h4>
+                <ul class="footer-list">
+                    <li><a href="http://tinyurl.com/StaplesEducation" target="_blank" rel="noopener">Book on Wyzant</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <p class="footer-policy-note">Strict 6-hour cancellation policy applies to all sessions.</p>
+            </div>
         </div>
     </footer>
 
@@ -466,6 +534,86 @@
 
         // Initial render
         renderReviews();
+    </script>
+
+    <script>
+    /* Campus identity cluster (standardized header topography, 2026-07-12).
+       Mirrors the inline script on index.html: a live edge session hint or
+       a still-valid Google credential in localStorage flips the header from
+       the Log in link to the Student Portal link, avatar, and gear.
+       Read-only and fully guarded; logged out is the static default. */
+    (function () {
+        function decodeBase64Url(segment) {
+            var base64 = segment.replace(/-/g, "+").replace(/_/g, "/");
+            while (base64.length % 4 !== 0) base64 += "=";
+            var bytes = atob(base64);
+            var escaped = "";
+            for (var i = 0; i < bytes.length; i++) {
+                var hex = bytes.charCodeAt(i).toString(16);
+                escaped += "%" + (hex.length < 2 ? "0" : "") + hex;
+            }
+            return decodeURIComponent(escaped);
+        }
+
+        function credentialProfile() {
+            try {
+                var credential = localStorage.getItem("ode_google_credential");
+                if (!credential) return null;
+                var payload = JSON.parse(decodeBase64Url(credential.split(".")[1]));
+                if (!payload || !payload.exp ||
+                    payload.exp * 1000 < Date.now() + 15000) return null;
+                return payload;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function sessionProfile() {
+            try {
+                var raw = localStorage.getItem("ode_cloud_session");
+                if (!raw) return null;
+                var session = JSON.parse(raw);
+                if (!session || typeof session.token !== "string") return null;
+                if (session.expiresAt &&
+                    Date.parse(session.expiresAt) < Date.now() + 60000) return null;
+                return session;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        try {
+            var session = sessionProfile();
+            var claims = credentialProfile();
+            if (!session && !claims) return;
+            var login = document.getElementById("nav-login");
+            var cluster = document.getElementById("nav-identity");
+            if (!login || !cluster) return;
+            var name = (claims && claims.name) || (session && session.name) ||
+                (claims && claims.email) || (session && session.email) || "";
+            var picture = (claims && claims.picture) ||
+                (session && session.picture) || null;
+            var fallback = document.getElementById("nav-avatar-fallback");
+            if (fallback) {
+                fallback.textContent = name
+                    ? name.trim().charAt(0).toUpperCase() : "";
+            }
+            var avatar = document.getElementById("nav-avatar");
+            if (avatar) {
+                avatar.addEventListener("error", function () {
+                    avatar.hidden = true;
+                    if (fallback) fallback.hidden = false;
+                });
+                if (picture) {
+                    avatar.src = picture;
+                    avatar.hidden = false;
+                    if (fallback) fallback.hidden = true;
+                }
+            }
+            login.hidden = true;
+            cluster.hidden = false;
+        } catch (err) { /* storage unavailable or corrupt: logged-out header */ }
+    })();
     </script>
 </body>
 </html>

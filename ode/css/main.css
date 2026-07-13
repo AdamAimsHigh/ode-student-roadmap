@@ -31,25 +31,105 @@ body {
     flex-wrap: wrap;
 }
 
-/* The brand wordmark links back to the site root (stapleseducation.com).
-   Suppress default anchor styling so it reads as masthead branding, not a
-   body-copy hyperlink; the accent color comes from .brand-name itself. */
-.brand-home-link {
-    color: inherit;
+/* Campus bar (standardized header topography, 2026-07-12): the shared top
+   row of every shell. Brand and Explore on the left, the identity cluster
+   on the right, one flex row with space-between, wrap-ready so narrow
+   viewports stack the clusters instead of scrolling horizontally. */
+.campus-bar {
+    max-width: 1200px;
+    margin: 0 auto 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.campus-left {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-width: 0;
+}
+
+.campus-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     text-decoration: none;
+    color: inherit;
 }
 
-.brand-home-link:hover .brand-name,
-.brand-home-link:focus-visible .brand-name {
-    opacity: 0.8;
+.campus-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: block;
+    flex-shrink: 0;
 }
 
-.brand-name {
-    font-size: 0.8rem;
+.campus-brand-name {
+    font-size: 0.95rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent-color);
+    letter-spacing: -0.01em;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.campus-brand:hover .campus-brand-name,
+.campus-brand:focus-visible .campus-brand-name {
+    color: var(--accent-text);
+}
+
+/* Explore menu items: the active classroom links out; locked streams read
+   as muted labels wearing a Coming Soon badge, never as dead links. */
+.nav-dropdown-menu .explore-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    white-space: nowrap;
+}
+
+.explore-item.explore-active {
+    color: var(--accent-text);
+    font-weight: 600;
+}
+
+span.explore-item.explore-locked {
+    padding: 0.5rem 0.75rem;
+    color: var(--locked-color);
+    font-size: 0.85rem;
+    cursor: default;
+}
+
+.explore-badge {
+    border: 1px solid var(--locked-color);
+    color: var(--locked-color);
+    border-radius: 999px;
+    padding: 0.05rem 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* The signed-in cluster's doorway back to the apex hub. */
+.auth-portal-link {
+    color: var(--accent-text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.auth-portal-link:hover,
+.auth-portal-link:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
 }
 
 .app-title {
@@ -161,8 +241,10 @@ body {
 }
 
 /* The account menu opens under the avatar, right-aligned so it never
-   overflows the viewport from the header's right edge. */
-.auth-menu {
+   overflows the viewport from the header's right edge. Scoped through the
+   dropdown container so it outranks the base .nav-dropdown-menu left
+   anchor regardless of source order. */
+.auth-dropdown .nav-dropdown-menu {
     left: auto;
     right: 0;
     min-width: 13rem;
@@ -1899,20 +1981,41 @@ body.quiz-modal-open {
         gap: 0.75rem;
     }
 
-    /* An open menu panel never extends past the phone's right edge. */
+    /* Narrow-viewport dropdown sheets: every panel re-anchors from its
+       trigger to the header row itself. The dropdown container goes static,
+       so the absolutely positioned panel resolves against the positioned
+       row (.campus-bar / .header-controls) and spans it edge to edge,
+       which means no trigger position can ever push a panel, visible or
+       hidden, past the viewport and force a horizontal scrollbar. */
+    .campus-bar,
+    .header-controls {
+        position: relative;
+    }
+
+    .nav-dropdown {
+        position: static;
+    }
+
     .nav-dropdown-menu {
-        max-width: calc(100vw - 2rem);
+        left: 0;
+        right: 0;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .auth-dropdown .nav-dropdown-menu {
+        left: 0;
+        right: 0;
+    }
+
+    .nav-dropdown-menu .explore-item {
+        white-space: normal;
     }
 
     /* The sign-in button and the identity cluster wrap as independent rows
-       rather than forcing one wide line; the account menu hugs the right
-       edge so it never overflows a narrow viewport. */
+       rather than forcing one wide line. */
     .auth-controls {
         flex-wrap: wrap;
-    }
-
-    .auth-menu {
-        max-width: calc(100vw - 2rem);
     }
 
     /* Progress banner: stacked metrics bounded to the viewport width. */

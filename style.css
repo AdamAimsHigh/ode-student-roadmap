@@ -1,33 +1,84 @@
+/* System-default lighting engine (2026-07-12). The hardcoded dark default
+   is retired: :root now declares the light palette, the
+   prefers-color-scheme media block follows the operating system natively,
+   and a manual campus theme choice (the shared ode_theme_preference key,
+   stamped as data-theme on the root element by the pre-paint script in
+   each page head) overrides the OS base in both directions:
+   - no data-theme attribute: the OS decides via the media block;
+   - data-theme="light": the :not() guard keeps the media block away;
+   - data-theme="dark": the explicit block applies dark regardless of OS. */
 :root {
-    /* Color Palette */
-    --color-bg: #121212; /* Matte black / dark charcoal */
-    --color-surface: #1e1e1e;
-    --color-surface-hover: #2a2a2a;
+    /* Color Palette (light) */
+    --color-bg: #ffffff;
+    --color-surface: #f5f5f8;
+    --color-surface-hover: #ebebf1;
     --color-primary: #7a00e6; /* Deep vibrant royal purple */
-    --color-primary-hover: #9b30ff;
-    --color-text-main: #b0b8c1; /* Light slate gray */
-    --color-text-heading: #ffffff;
-    --color-border: #333333;
+    --color-primary-hover: #6300ba;
+    --color-text-main: #3d4451; /* Dark slate */
+    --color-text-heading: #14141a;
+    --color-border: #dfdfe6;
+    --color-nav-glass: rgba(255, 255, 255, 0.85);
+    --color-shadow-strong: rgba(20, 20, 40, 0.14);
 
     /* State feedback tokens (shared success/error language; mirrors the
        token-driven approach of the SPA's dual-theme framework) */
-    --color-success: #34c27b;
-    --color-success-soft: rgba(52, 194, 123, 0.12);
-    --color-error: #e05260;
-    --color-error-soft: rgba(224, 82, 96, 0.12);
-    
+    --color-success: #1b7a43;
+    --color-success-soft: rgba(27, 122, 67, 0.10);
+    --color-error: #b3261e;
+    --color-error-soft: rgba(179, 38, 30, 0.10);
+
     /* Typography */
     --font-sans: 'Inter', sans-serif;
     --font-math: 'Noto Serif', serif; /* Standard serif for Sigma symbol */
-    
+
     /* Spacing & Layout */
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 2rem;
     --spacing-xl: 2.5rem;
-    
+
     /* Transitions */
     --transition-fast: 0.2s ease;
+}
+
+/* System default: no manual choice stamped, so dark follows the OS. The
+   values are identical to the manual dark block below and MUST stay in
+   sync (no preprocessor in a zero-dependency tree). */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --color-bg: #121212; /* Matte black / dark charcoal */
+        --color-surface: #1e1e1e;
+        --color-surface-hover: #2a2a2a;
+        --color-primary: #7a00e6;
+        --color-primary-hover: #9b30ff;
+        --color-text-main: #b0b8c1; /* Light slate gray */
+        --color-text-heading: #ffffff;
+        --color-border: #333333;
+        --color-nav-glass: rgba(18, 18, 18, 0.85);
+        --color-shadow-strong: rgba(0, 0, 0, 0.5);
+        --color-success: #34c27b;
+        --color-success-soft: rgba(52, 194, 123, 0.12);
+        --color-error: #e05260;
+        --color-error-soft: rgba(224, 82, 96, 0.12);
+    }
+}
+
+/* Manual dark override from the campus theme toggle. */
+:root[data-theme="dark"] {
+    --color-bg: #121212;
+    --color-surface: #1e1e1e;
+    --color-surface-hover: #2a2a2a;
+    --color-primary: #7a00e6;
+    --color-primary-hover: #9b30ff;
+    --color-text-main: #b0b8c1;
+    --color-text-heading: #ffffff;
+    --color-border: #333333;
+    --color-nav-glass: rgba(18, 18, 18, 0.85);
+    --color-shadow-strong: rgba(0, 0, 0, 0.5);
+    --color-success: #34c27b;
+    --color-success-soft: rgba(52, 194, 123, 0.12);
+    --color-error: #e05260;
+    --color-error-soft: rgba(224, 82, 96, 0.12);
 }
 
 * {
@@ -46,12 +97,19 @@ body {
     color: var(--color-text-main);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4 {
     color: var(--color-text-heading);
     font-weight: 700;
     line-height: 1.2;
+}
+
+/* Premium "Breathe" metrics (storefront refinement sprint, 2026-07-12):
+   paragraphs open up to 1.7 leading site-wide for a calmer read. */
+p {
+    line-height: 1.7;
 }
 
 a {
@@ -96,7 +154,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-md) 5%;
-    background-color: rgba(18, 18, 18, 0.85);
+    background-color: var(--color-nav-glass);
     backdrop-filter: blur(12px);
     position: fixed;
     top: 0;
@@ -124,6 +182,272 @@ a {
     color: var(--color-text-heading);
 }
 
+/* Campus bar topography (2026-07-12): brand and Explore left, identity
+   cluster right, standardized with the portal and ode shells. */
+.campus-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.campus-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.campus-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.campus-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.campus-brand-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+    color: var(--color-text-heading);
+    white-space: nowrap;
+}
+
+.campus-brand:hover .campus-brand-name {
+    color: var(--color-primary-hover);
+}
+
+/* Zero-dependency Explore dropdown, CSS-only via :hover and :focus-within,
+   mirroring the ode shell's nav-dropdown component. */
+.explore-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.explore-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--color-surface);
+    color: var(--color-text-heading);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.explore-dropdown:hover .explore-trigger,
+.explore-dropdown:focus-within .explore-trigger {
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+}
+
+.explore-arrow {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    transition: transform var(--transition-fast);
+}
+
+.explore-dropdown:hover .explore-arrow,
+.explore-dropdown:focus-within .explore-arrow {
+    transform: rotate(180deg);
+}
+
+.explore-menu {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    z-index: 1100;
+    min-width: 15rem;
+    max-width: calc(100vw - 2rem);
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px var(--color-shadow-strong);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+
+/* Transparent hover bridge spanning the trigger-to-panel gap. */
+.explore-menu::before {
+    content: "";
+    position: absolute;
+    top: -0.4rem;
+    left: 0;
+    right: 0;
+    height: 0.4rem;
+}
+
+.explore-dropdown:hover .explore-menu,
+.explore-dropdown:focus-within .explore-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
+
+.explore-menu li {
+    margin: 0;
+}
+
+.explore-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+    white-space: nowrap;
+}
+
+a.explore-item:hover,
+a.explore-item:focus-visible {
+    background: var(--color-surface-hover);
+    color: var(--color-text-heading);
+    outline: none;
+}
+
+.explore-item.explore-active {
+    color: var(--color-primary-hover);
+    font-weight: 600;
+}
+
+.explore-item.explore-locked {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.explore-badge {
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    border-radius: 999px;
+    padding: 0.05rem 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Identity cluster: the Log in link is the static logged-out default; the
+   inline campus-identity script unhides the signed-in cluster. The hidden
+   guards must beat the display rules the components carry. */
+.nav-login {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+}
+
+.nav-login[hidden] {
+    display: none !important;
+}
+
+.nav-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-identity[hidden] {
+    display: none !important;
+}
+
+.auth-portal-link {
+    color: var(--color-primary-hover);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.auth-portal-link:hover,
+.auth-portal-link:focus-visible {
+    background: rgba(122, 0, 230, 0.1);
+}
+
+/* The avatar image is masked to a circle by its clipping wrapper and its
+   own radius, so any square Google photo renders as a clean disc. */
+.nav-avatar-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-surface);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.nav-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.nav-avatar[hidden] {
+    display: none;
+}
+
+.nav-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(122, 0, 230, 0.12);
+    color: var(--color-primary-hover);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.nav-avatar-fallback[hidden] {
+    display: none;
+}
+
+.auth-gear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--color-text-main);
+    transition: color var(--transition-fast), background-color var(--transition-fast), transform 0.3s ease;
+}
+
+.auth-gear:hover,
+.auth-gear:focus-visible {
+    color: var(--color-primary-hover);
+    background: rgba(122, 0, 230, 0.1);
+    transform: rotate(30deg);
+    outline: none;
+}
+
 /* Buttons */
 .btn-primary {
     display: inline-block;
@@ -137,11 +461,13 @@ a {
     box-shadow: 0 2px 10px rgba(122, 0, 230, 0.2);
 }
 
+/* Hover-lift micro-interaction: every primary CTA rises 2px on a soft
+   purple halo (storefront refinement sprint spec values). */
 .btn-primary:hover {
     background-color: var(--color-primary-hover);
     border-color: var(--color-primary-hover);
-    box-shadow: 0 6px 20px rgba(122, 0, 230, 0.5);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(128, 0, 128, 0.3);
     color: #ffffff;
 }
 
@@ -168,7 +494,7 @@ a {
 
 .btn-outline:hover {
     border-color: var(--color-text-main);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--color-surface-hover);
 }
 
 /* Hero Section */
@@ -176,7 +502,7 @@ a {
     min-height: 70vh;
     display: flex;
     align-items: center;
-    padding: var(--spacing-xl) 5%;
+    padding: 4rem 2rem;
     padding-top: 6rem; /* Account for fixed nav */
     position: relative;
 }
@@ -231,9 +557,10 @@ a {
     flex-wrap: wrap;
 }
 
-/* Features Section */
+/* Features Section — 4rem 2rem "breathe" padding shared by every body
+   section (storefront refinement sprint, 2026-07-12). */
 .features {
-    padding: var(--spacing-lg) 5%;
+    padding: 4rem 2rem;
     background-color: var(--color-surface);
     border-top: 1px solid var(--color-border);
 }
@@ -263,7 +590,7 @@ a {
 .card:hover {
     transform: translateY(-8px);
     border-color: var(--color-primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px var(--color-shadow-strong);
 }
 
 .card-icon {
@@ -289,7 +616,7 @@ a {
 /* Booking Section — reuses the Pillar-4-style token palette and the same
    surface/purple-halo language as .card / .card-icon above. */
 .booking {
-    padding: var(--spacing-xl) 5%;
+    padding: 4rem 2rem;
     background-color: var(--color-bg);
     border-top: 1px solid var(--color-border);
 }
@@ -329,7 +656,7 @@ a {
 .booking-step:hover {
     transform: translateY(-4px);
     border-color: var(--color-primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px var(--color-shadow-strong);
 }
 
 .booking-step-number {
@@ -358,7 +685,7 @@ a {
 
 /* Contact Section */
 .contact-section {
-    padding: var(--spacing-xl) 5%;
+    padding: 4rem 2rem;
     border-top: 1px solid var(--color-border);
 }
 
@@ -458,30 +785,162 @@ a {
     border-color: var(--color-error);
 }
 
-/* Footer */
+/* Institutional Footer (storefront refinement sprint, 2026-07-12): a
+   3-column CSS grid shared by every root page. Left is the Purple Stapler
+   brand block closing the "Brand Sandwich" (stapler in the header and
+   footer, Sigma anchoring the body center); middle is site navigation;
+   right is the business boundary column (Wyzant, Contact, cancellation
+   policy). Collapses to one centered column under 768px. */
 footer {
-    padding: var(--spacing-lg) 5%;
+    padding: 4rem 2rem;
     border-top: 1px solid var(--color-border);
     background-color: var(--color-bg);
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-xl) var(--spacing-lg);
     max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
 }
 
-.footer-content p {
+.footer-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.footer-brand-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.25px;
+    color: var(--color-text-heading);
+}
+
+.footer-brand-row:hover .footer-brand-name {
+    color: var(--color-primary-hover);
+}
+
+.footer-copyright {
     font-size: 0.875rem;
+}
+
+.footer-heading {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-main);
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.footer-list a {
+    font-size: 0.95rem;
+}
+
+.footer-list a:hover,
+.footer-list a:focus-visible {
+    color: var(--color-primary-hover);
+}
+
+.footer-policy-note {
+    margin-top: var(--spacing-md);
+    font-size: 0.8rem;
+    opacity: 0.65;
+}
+
+/* In-Place Authentication Overlay (index.html): the Log in control opens
+   this dialog in place of the old /portal/ redirect. GIS renders its
+   Sign in with Google button into the slot and One Tap prompts alongside;
+   Cancel, Escape, or a backdrop click dismisses it. */
+.auth-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    background: rgba(10, 8, 18, 0.55);
+    backdrop-filter: blur(4px);
+}
+
+.auth-overlay[hidden] {
+    display: none !important;
+}
+
+.auth-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 18px 48px var(--color-shadow-strong);
+    text-align: center;
+}
+
+.auth-modal-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+}
+
+.auth-modal h3 {
+    font-size: 1.3rem;
+}
+
+.auth-modal p {
+    font-size: 0.95rem;
+}
+
+.auth-gsi-slot {
+    min-height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-modal-fallback {
+    font-size: 0.85rem;
+}
+
+.auth-modal-fallback a {
+    color: var(--color-primary-hover);
+    font-weight: 600;
+}
+
+.auth-modal-close {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 /* Reviews Page Styles */
 .reviews-section {
-    padding: var(--spacing-xl) 5%;
+    padding: 4rem 2rem;
     padding-top: 8rem;
     max-width: 1000px;
     margin: 0 auto;
@@ -553,7 +1012,7 @@ footer {
 
 .review-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px var(--color-shadow-strong);
     border-color: var(--color-primary);
 }
 
@@ -594,7 +1053,7 @@ footer {
 
 .review-text {
     margin-bottom: var(--spacing-md);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .tutor-response {
@@ -622,7 +1081,9 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    /* Stack the fixed header: brand on top, nav links wrapping below */
+    /* Stack the fixed header: brand and Explore centered on top, the
+       identity cluster centered beneath, everything wrap-ready so the
+       dropdown panels can never force a horizontal scrollbar. */
     .navbar {
         flex-direction: column;
         align-items: center;
@@ -630,8 +1091,12 @@ footer {
         padding: var(--spacing-sm) var(--spacing-md);
     }
 
+    .campus-left {
+        justify-content: center;
+        gap: var(--spacing-sm) var(--spacing-md);
+    }
+
     .navbar nav {
-        width: 100%;
         flex-wrap: wrap;
         justify-content: center;
         gap: var(--spacing-sm) var(--spacing-md);
@@ -642,11 +1107,24 @@ footer {
         text-align: center;
     }
 
-    .navbar nav .btn-primary {
-        flex-basis: 100%;
-        max-width: 20rem;
-        margin: 0 auto;
-        padding: 0.75rem 1.5rem;
+    /* Narrow-viewport dropdown sheet: the Explore panel re-anchors from
+       its trigger to the fixed navbar itself (the nearest positioned
+       ancestor once the dropdown container goes static), spanning the bar
+       edge to edge so no trigger position can push it, visible or hidden,
+       past the viewport. */
+    .explore-dropdown {
+        position: static;
+    }
+
+    .explore-menu {
+        left: 0.75rem;
+        right: 0.75rem;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .explore-item {
+        white-space: normal;
     }
 
     .hero {
@@ -679,5 +1157,16 @@ footer {
 
     .sigma-large {
         font-size: 16rem;
+    }
+
+    /* Institutional footer collapse: the 3-column grid stacks into one
+       centered column on narrow viewports. */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand-row {
+        justify-content: center;
     }
 }

@@ -413,11 +413,16 @@ const ODEState = (function () {
         const slot = document.getElementById("auth-signin-slot");
         if (slot && !gisButtonRendered) {
             try {
+                /* The leanest label GIS offers ("Sign in"): the anonymous
+                   header shows one clean log-in control. A fully custom
+                   button is deliberately not used, since Google requires
+                   its own rendered button or One Tap for the ID token
+                   flow, and One Tap alone is cool-down throttled. */
                 api.renderButton(slot, {
                     type: "standard",
                     shape: "pill",
                     theme: "outline",
-                    text: "signin_with",
+                    text: "signin",
                     size: "medium"
                 });
                 gisButtonRendered = true;

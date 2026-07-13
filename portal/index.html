@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal | Staples Education</title>
     <meta name="description" content="The Staples Education student portal: your course library, your tutoring packages, and your account, all in one place.">
-    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+    <!-- Strict favicon declarations (Google SERP fix, 2026-07-12). -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
+    <link rel="apple-touch-icon" href="/favicon.png">
 
     <!-- Google Identity Services for the shared SSO loop. Loads async and
          degrades silently on file:// or offline sessions, exactly like the
@@ -13,26 +17,31 @@
          external reference: no KaTeX, no Math.js, no framework. -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Pre-paint theme stamp: applies the stored preference before first
-         layout so a dark-mode student never sees a light flash. app.js owns
-         the full adaptive engine (system preference listener included). -->
+    <!-- Pre-paint theme stamp (system-default lighting engine, 2026-07-12):
+         a stored MANUAL choice is stamped as data-theme before first layout
+         so it overrides the OS base with no flash in either direction. With
+         no manual choice the attribute stays absent and the
+         prefers-color-scheme block below follows the OS natively, so system
+         theming needs no JavaScript at all. -->
     <script>
         (function () {
             try {
                 var pref = localStorage.getItem("ode_theme_preference");
-                var dark = pref === "dark" || (pref !== "light" &&
-                    pref === "system" &&
-                    window.matchMedia("(prefers-color-scheme: dark)").matches);
-                if (dark) document.documentElement.setAttribute("data-theme", "dark");
-            } catch (err) { /* storage unavailable: light default */ }
+                if (pref === "light" || pref === "dark") {
+                    document.documentElement.setAttribute("data-theme", pref);
+                }
+            } catch (err) { /* storage unavailable: OS default */ }
         })();
     </script>
 
     <style>
         /* The Pillar 4 token palette, inherited verbatim from the ODE
            spoke's theme.css so the hub and every classroom render as one
-           campus. Light on :root, the same token names overridden under
-           [data-theme="dark"], switched by one root attribute. */
+           campus. Three-state contract on the root element (2026-07-12
+           system-default lighting engine): light on :root, dark following
+           the OS through the prefers-color-scheme block when no manual
+           choice is stamped, and the same token names under an explicit
+           [data-theme="dark"] for the manual override. */
         :root {
             --bg-color: #ffffff;
             --text-color: #1a1a1a;
@@ -49,7 +58,27 @@
             --shadow-color: rgba(0, 0, 0, 0.08);
         }
 
-        [data-theme="dark"] {
+        /* System default: no manual stamp, so dark follows the OS. Values
+           identical to the manual block below; keep them in sync. */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --text-secondary: #9aa0b0;
+                --panel-bg: #1e1e1e;
+                --panel-border: rgba(255, 255, 255, 0.08);
+                --accent-color: #bb86fc;
+                --accent-soft: rgba(187, 134, 252, 0.12);
+                --accent-text: #c5a3ff;
+                --success-color: #38c172;
+                --error-color: #f2746b;
+                --locked-color: #5c5c6a;
+                --header-bg: #181818;
+                --shadow-color: rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        :root[data-theme="dark"] {
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --text-secondary: #9aa0b0;
@@ -78,36 +107,194 @@
         .portal-header {
             background: var(--header-bg);
             border-bottom: 1px solid var(--panel-border);
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.5rem 0.9rem;
+        }
+
+        /* Campus bar (standardized header topography, 2026-07-12): one flex
+           row with space-between, brand and Explore left, theme and the
+           identity cluster right, wrap-ready on narrow viewports. */
+        .campus-bar {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            gap: 0.75rem 1rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid var(--panel-border);
+            margin-bottom: 0.85rem;
         }
 
-        .portal-brand { min-width: 0; }
+        .campus-left {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            min-width: 0;
+        }
 
-        .portal-brand-name {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent-text);
+        .campus-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             text-decoration: none;
+            color: inherit;
         }
 
-        .portal-title {
-            margin: 0.15rem 0 0;
-            font-size: 1.35rem;
+        .campus-logo {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            display: block;
+            flex-shrink: 0;
         }
 
-        .portal-controls {
+        .campus-brand-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        .campus-brand:hover .campus-brand-name,
+        .campus-brand:focus-visible .campus-brand-name {
+            color: var(--accent-text);
+        }
+
+        .campus-right {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 0.75rem;
+        }
+
+        /* Zero-dependency Explore dropdown, CSS-only via :hover and
+           :focus-within, mirroring the ODE shell's nav-dropdown pattern. */
+        .explore-dropdown { position: relative; display: inline-block; }
+
+        .explore-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--panel-bg);
+            color: var(--text-color);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.85rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .explore-dropdown:hover .explore-trigger,
+        .explore-dropdown:focus-within .explore-trigger {
+            background: var(--accent-soft);
+        }
+
+        .explore-arrow {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid currentColor;
+        }
+
+        .explore-menu {
+            position: absolute;
+            top: calc(100% + 0.4rem);
+            left: 0;
+            z-index: 1100;
+            min-width: 15rem;
+            margin: 0;
+            padding: 0.35rem;
+            list-style: none;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            opacity: 0;
+            transform: translateY(-6px);
+            pointer-events: none;
+            visibility: hidden;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+        }
+
+        .explore-menu::before {
+            content: "";
+            position: absolute;
+            top: -0.4rem;
+            left: 0;
+            right: 0;
+            height: 0.4rem;
+        }
+
+        .explore-dropdown:hover .explore-menu,
+        .explore-dropdown:focus-within .explore-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            visibility: visible;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+        }
+
+        .explore-menu li { margin: 0; }
+
+        .explore-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        a.explore-item:hover,
+        a.explore-item:focus-visible {
+            background: var(--accent-soft);
+            outline: none;
+        }
+
+        .explore-item.explore-active {
+            color: var(--accent-text);
+            font-weight: 600;
+        }
+
+        .explore-item.explore-locked {
+            color: var(--locked-color);
+            cursor: default;
+        }
+
+        .explore-badge {
+            border: 1px solid var(--locked-color);
+            color: var(--locked-color);
+            border-radius: 999px;
+            padding: 0.05rem 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .auth-portal-link {
+            color: var(--accent-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.35rem 0.6rem;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .auth-portal-link:hover,
+        .auth-portal-link:focus-visible {
+            background: var(--accent-soft);
+            outline: none;
+        }
+
+        .portal-title {
+            margin: 0;
+            font-size: 1.35rem;
         }
 
         .theme-row { display: flex; gap: 0.4rem; }
@@ -547,22 +734,55 @@
             .admin-form {
                 grid-template-columns: 1fr;
             }
+
+            /* Narrow-viewport dropdown sheets: panels re-anchor from their
+               trigger to the campus bar row, so no trigger position can
+               push a panel, visible or hidden, past the viewport. */
+            .campus-bar { position: relative; }
+
+            .explore-dropdown,
+            .auth-dropdown { position: static; }
+
+            .explore-menu,
+            .auth-menu {
+                left: 0;
+                right: 0;
+                min-width: 0;
+                max-width: none;
+            }
+
+            .explore-item { white-space: normal; }
         }
     </style>
 </head>
 <body>
     <header class="portal-header">
-        <div class="portal-brand">
-            <a href="../" class="portal-brand-name">Staples Education</a>
-            <h1 class="portal-title">Student Portal</h1>
-        </div>
-        <div class="portal-controls">
-            <div class="theme-row" aria-label="Color theme">
-                <button type="button" class="theme-btn" data-theme-choice="light">Light</button>
-                <button type="button" class="theme-btn" data-theme-choice="dark">Dark</button>
-                <button type="button" class="theme-btn" data-theme-choice="system">System</button>
+        <!-- Campus bar (standardized header topography, 2026-07-12). -->
+        <div class="campus-bar">
+            <div class="campus-left">
+                <a href="../" class="campus-brand" aria-label="StaplesEducation.com home">
+                    <img src="../favicon.png" alt="" class="campus-logo">
+                    <span class="campus-brand-name">StaplesEducation.com</span>
+                </a>
+                <nav class="explore-dropdown" aria-label="Explore courses">
+                    <button type="button" class="explore-trigger" aria-haspopup="true" aria-expanded="false">
+                        Explore
+                        <span class="explore-arrow" aria-hidden="true"></span>
+                    </button>
+                    <ul class="explore-menu" role="menu" aria-label="Courses">
+                        <li role="none"><a role="menuitem" class="explore-item explore-active" href="../ode/">Ordinary Differential Equations</a></li>
+                        <li role="none"><span class="explore-item explore-locked">Linear Algebra<span class="explore-badge">Coming Soon</span></span></li>
+                        <li role="none"><span class="explore-item explore-locked">Calculus<span class="explore-badge">Coming Soon</span></span></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="auth-area" aria-label="Account">
+            <div class="campus-right">
+                <div class="theme-row" aria-label="Color theme">
+                    <button type="button" class="theme-btn" data-theme-choice="light">Light</button>
+                    <button type="button" class="theme-btn" data-theme-choice="dark">Dark</button>
+                    <button type="button" class="theme-btn" data-theme-choice="system">System</button>
+                </div>
+                <div class="auth-area" aria-label="Account">
                 <div id="auth-signin-slot"></div>
                 <!-- Signed-in identity cluster: the circular Google avatar
                      opens a compact account menu (name, email, sign out),
@@ -570,6 +790,7 @@
                      populates the avatar and labels from the decoded ID
                      token payload or the cached edge session profile. -->
                 <div id="auth-status" class="auth-identity" hidden>
+                    <a class="auth-portal-link" href="./">Student Portal</a>
                     <div class="auth-dropdown">
                         <button type="button" class="auth-avatar-btn" aria-haspopup="true" aria-label="Account menu">
                             <img id="auth-avatar" class="auth-avatar" alt="" referrerpolicy="no-referrer" hidden>
@@ -590,8 +811,10 @@
                         </svg>
                     </a>
                 </div>
+                </div>
             </div>
         </div>
+        <h1 class="portal-title">Student Portal</h1>
     </header>
 
     <main id="portal-content" class="portal-main">

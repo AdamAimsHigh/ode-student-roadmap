@@ -62,20 +62,22 @@ const ODEPortal = (function () {
 
     /* ---- Theme engine (shared ode_theme_preference key) ------------------ */
 
-    const SYSTEM_MEDIA = window.matchMedia("(prefers-color-scheme: dark)");
-
+    /* System-default lighting engine (2026-07-12): "system" means NO
+       data-theme attribute, letting the prefers-color-scheme block in the
+       inline stylesheet follow the OS natively (live toggles included,
+       with zero JavaScript in the path). A manual choice stamps the
+       attribute explicitly and overrides the OS base in both directions. */
     function getStoredTheme() {
         try {
             const pref = localStorage.getItem(THEME_KEY);
             if (pref === "light" || pref === "dark" || pref === "system") return pref;
         } catch (err) { /* storage unavailable */ }
-        return "light";
+        return "system";
     }
 
     function applyTheme(pref) {
-        const dark = pref === "dark" || (pref === "system" && SYSTEM_MEDIA.matches);
-        if (dark) {
-            document.documentElement.setAttribute("data-theme", "dark");
+        if (pref === "light" || pref === "dark") {
+            document.documentElement.setAttribute("data-theme", pref);
         } else {
             document.documentElement.removeAttribute("data-theme");
         }
@@ -94,14 +96,6 @@ const ODEPortal = (function () {
                 applyTheme(choice);
             });
         });
-        const onSystemChange = function () {
-            if (getStoredTheme() === "system") applyTheme("system");
-        };
-        if (typeof SYSTEM_MEDIA.addEventListener === "function") {
-            SYSTEM_MEDIA.addEventListener("change", onSystemChange);
-        } else if (typeof SYSTEM_MEDIA.addListener === "function") {
-            SYSTEM_MEDIA.addListener(onSystemChange);
-        }
     }
 
     /* ---- Shared-credential SSO loop (mirrors ode/js/state.js) ------------- */
@@ -307,11 +301,13 @@ const ODEPortal = (function () {
         const slot = document.getElementById("auth-signin-slot");
         if (slot && !gisButtonRendered) {
             try {
+                /* The leanest label GIS offers ("Sign in"); mirrors the
+                   spoke's log-in control, see state.js. */
                 api.renderButton(slot, {
                     type: "standard",
                     shape: "pill",
                     theme: "outline",
-                    text: "signin_with",
+                    text: "signin",
                     size: "medium"
                 });
                 gisButtonRendered = true;

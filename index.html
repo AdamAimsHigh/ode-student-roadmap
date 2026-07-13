@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staples Education | The Math Confidence Reset Framework</title>
     <meta name="description" content="Master mathematics with the Math Confidence Reset framework. Personalized tutoring to bridge foundational gaps and build intuitive mastery in ODE, Calculus, and more.">
-    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
-    <link rel="icon" type="image/png" href="/favicon.png" sizes="512x512">
+    <!-- Strict favicon declarations (Google SERP fix, 2026-07-12): explicit
+         crawler-friendly sizes so Googlebot indexes the brand mark as the
+         search result avatar. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
     <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Google Identity Services for the in-place authentication flow
+         (storefront refinement sprint, 2026-07-12): the Log in control
+         opens the on-page Sign-In overlay instead of redirecting to
+         /portal/. Loads async and degrades silently on file:// or offline
+         opens, exactly like the portal hub (WEBSITE_BLUEPRINT Pillar 5). -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Pre-paint theme stamp (system-default lighting engine, 2026-07-12):
+         a stored MANUAL campus theme choice (the shared ode_theme_preference
+         key) is stamped as data-theme before first layout so it overrides
+         the OS base with no flash. With no manual choice the attribute stays
+         absent and style.css follows the OS natively. -->
+    <script>
+        (function () {
+            try {
+                var pref = localStorage.getItem("ode_theme_preference");
+                if (pref === "light" || pref === "dark") {
+                    document.documentElement.setAttribute("data-theme", pref);
+                }
+            } catch (err) { /* storage unavailable: OS default */ }
+        })();
+    </script>
     <!-- Inter for main text, Noto Serif for the Math symbol — self-hosted
          mirror of the Google Fonts css2 stylesheet (see /fonts/). Serving
          from our own origin removes the fonts.googleapis.com third-party
@@ -18,16 +45,52 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">
-            <span class="sigma">&Sigma;</span>
-            <span class="brand-name">Staples Education</span>
+        <!-- Campus bar (standardized header topography, 2026-07-12): brand
+             and Explore left, identity cluster right, one flex row with
+             space-between shared across the root, portal, and ode shells. -->
+        <div class="campus-left">
+            <a href="./" class="campus-brand" aria-label="StaplesEducation.com home">
+                <img src="favicon.png" alt="" class="campus-logo">
+                <span class="brand-name campus-brand-name">StaplesEducation.com</span>
+            </a>
+            <div class="explore-dropdown">
+                <button type="button" class="explore-trigger" aria-haspopup="true" aria-expanded="false">
+                    Explore
+                    <span class="explore-arrow" aria-hidden="true"></span>
+                </button>
+                <ul class="explore-menu" role="menu" aria-label="Courses">
+                    <li role="none"><a role="menuitem" class="explore-item explore-active" href="ode/">Ordinary Differential Equations</a></li>
+                    <li role="none"><span class="explore-item explore-locked">Linear Algebra<span class="explore-badge">Coming Soon</span></span></li>
+                    <li role="none"><span class="explore-item explore-locked">Calculus<span class="explore-badge">Coming Soon</span></span></li>
+                </ul>
+            </div>
+            <nav class="nav-links">
+                <a href="#services">Services</a>
+                <a href="reviews.html">Reviews</a>
+                <a href="#contact" class="btn-secondary">Contact</a>
+            </nav>
         </div>
-        <nav>
-            <a href="#services">Services</a>
-            <a href="reviews.html">Reviews</a>
-            <a href="#contact" class="btn-secondary">Contact</a>
-            <a href="/ode/" class="btn-primary">ODE Roadmap</a>
-        </nav>
+        <!-- Identity cluster: the inline campus-identity script at the end
+             of the body flips these two states from the cached edge session
+             or a still-valid Google credential. Logged out is the static
+             default, so the header degrades to the Log in link with zero
+             JavaScript. -->
+        <div class="campus-right">
+            <a href="portal/" id="nav-login" class="btn-outline nav-login">Log in</a>
+            <div id="nav-identity" class="nav-identity" hidden>
+                <a class="auth-portal-link" href="portal/">Student Portal</a>
+                <span class="nav-avatar-wrap">
+                    <img id="nav-avatar" class="nav-avatar" alt="" referrerpolicy="no-referrer" hidden>
+                    <span id="nav-avatar-fallback" class="nav-avatar-fallback" aria-hidden="true"></span>
+                </span>
+                <a class="auth-gear" href="portal/#settings" aria-label="Your account and settings">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.2"></circle>
+                        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -119,22 +182,58 @@
                 <!-- Turnstile widget (implicit render): the api.js script scans for
                      .cf-turnstile and injects a hidden cf-turnstile-response input
                      that the submit handler forwards to POST /api/contact. -->
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAADvT-1PlPvun0Xm_" data-theme="dark"></div>
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADvT-1PlPvun0Xm_" data-theme="auto"></div>
                 <button type="submit" id="contact-submit" class="btn-primary">Send Inquiry</button>
                 <p id="contact-status" class="form-status" role="status" aria-live="polite"></p>
             </form>
         </section>
     </main>
 
+    <!-- Institutional footer (storefront refinement sprint, 2026-07-12):
+         3-column grid. The Purple Stapler mark replaces the old Sigma here,
+         completing the Brand Sandwich: stapler in the header and footer,
+         Sigma anchoring the body center (the hero visual above). -->
     <footer>
-        <div class="footer-content">
-            <div class="logo">
-                <span class="sigma">&Sigma;</span>
-                <span class="brand-name">Staples Education</span>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="./" class="footer-brand-row" aria-label="StaplesEducation.com home">
+                    <img src="favicon.png" alt="" class="footer-logo">
+                    <span class="footer-brand-name">StaplesEducation.com</span>
+                </a>
+                <p class="footer-copyright">&copy; 2026 Staples Education. All rights reserved.</p>
             </div>
-            <p>&copy; 2026 Staples Education. All rights reserved.</p>
+            <nav class="footer-col" aria-label="Footer navigation">
+                <h4 class="footer-heading">Navigate</h4>
+                <ul class="footer-list">
+                    <li><a href="./">Home</a></li>
+                    <li><a href="portal/">Student Portal</a></li>
+                    <li><a href="ode/">Ordinary Differential Equations</a></li>
+                </ul>
+            </nav>
+            <div class="footer-col">
+                <h4 class="footer-heading">Sessions and Policies</h4>
+                <ul class="footer-list">
+                    <li><a href="http://tinyurl.com/StaplesEducation" target="_blank" rel="noopener">Book on Wyzant</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <p class="footer-policy-note">Strict 6-hour cancellation policy applies to all sessions.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- In-place authentication overlay: opened by the Log in control,
+         populated by the GIS-rendered Sign in with Google button. The
+         fallback link keeps a working path when GIS cannot render. -->
+    <div id="auth-overlay" class="auth-overlay" hidden>
+        <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+            <img src="favicon.png" alt="" class="auth-modal-logo">
+            <h3 id="auth-modal-title">Sign in to StaplesEducation.com</h3>
+            <p>Use your Google account to unlock the Student Portal and sync your progress across every classroom.</p>
+            <div id="auth-gsi-slot" class="auth-gsi-slot"></div>
+            <p class="auth-modal-fallback">Prefer a full page? <a href="portal/">Open the Student Portal</a>.</p>
+            <button type="button" id="auth-overlay-close" class="btn-outline auth-modal-close">Cancel</button>
+        </div>
+    </div>
 
     <!-- Cloudflare Turnstile (managed challenge widget for the contact form).
          Deliberately NOT SRI-pinned: api.js is a rolling-release endpoint
@@ -146,29 +245,235 @@
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "14c519923cd24565bcbd4b336c6bb429"}'></script>
 
     <script>
-    /* Returning-student CTA swap (Hub-and-Spoke, 2026-07-11). The campus
-       apps cache their Worker-issued edge session under ode_cloud_session
-       in localStorage on this same origin. When a live session signature is
-       present, the visitor is a signed-in student, not a prospect: the
-       primary hero CTA re-targets from the booking funnel to the /portal/
-       apex hub. Read-only, fully guarded, and inert when storage is
-       unavailable or the session hint is expired — the default booking CTA
-       is always the fallback. */
+    /* Campus identity and in-place authentication (storefront refinement
+       sprint, 2026-07-12). Two cooperating surfaces, both zero-dependency:
+
+       1. Boot swap (Hub-and-Spoke, 2026-07-11): a live Worker-issued edge
+          session hint (ode_cloud_session) or a still-valid Google
+          credential (ode_google_credential) in localStorage marks the
+          visitor as a signed-in student, and two things flip:
+          - the primary hero CTA re-targets from the booking funnel to
+            "Enter Student Portal";
+          - the header swaps the Log in control for the identity cluster
+            (Student Portal link, circular Google avatar with an
+            initial-letter fallback, settings gear).
+
+       2. In-place sign-in: the Log in control no longer redirects to
+          /portal/. It opens the on-page Google Sign-In overlay (a
+          GIS-rendered button plus the One Tap prompt) and, on a successful
+          credential, performs the same DOM swap asynchronously with no
+          page reload. The anchor keeps its portal/ href so a no-JS,
+          file://, or blocked-GIS visit degrades to the old redirect flow
+          untouched. Credential storage uses the shared campus SSO key, so
+          a sign-in here is a sign-in on the portal and every spoke. */
     (function () {
-        try {
+        var GIS_CLIENT_ID =
+            "422031597298-sa519hc2p023v4koialdum75crip6890.apps.googleusercontent.com";
+        var CREDENTIAL_KEY = "ode_google_credential";
+
+        /* Vanilla Base64URL decoder for JWT payload segments (mirrors
+           ode/js/state.js): URL-safe alphabet mapped back to classic
+           Base64, padding restored, atob, then a percent-escape pass that
+           rebuilds multi-byte UTF-8 so non-ASCII names decode correctly. */
+        function decodeBase64Url(segment) {
+            var base64 = segment.replace(/-/g, "+").replace(/_/g, "/");
+            while (base64.length % 4 !== 0) base64 += "=";
+            var bytes = atob(base64);
+            var escaped = "";
+            for (var i = 0; i < bytes.length; i++) {
+                var hex = bytes.charCodeAt(i).toString(16);
+                escaped += "%" + (hex.length < 2 ? "0" : "") + hex;
+            }
+            return decodeURIComponent(escaped);
+        }
+
+        function decodePayload(credential) {
+            try {
+                return JSON.parse(decodeBase64Url(credential.split(".")[1]));
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function credentialProfile() {
+            try {
+                var credential = localStorage.getItem(CREDENTIAL_KEY);
+                if (!credential) return null;
+                var payload = decodePayload(credential);
+                if (!payload || !payload.exp ||
+                    payload.exp * 1000 < Date.now() + 15000) return null;
+                return payload;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function sessionProfile() {
+            try {
+                var raw = localStorage.getItem("ode_cloud_session");
+                if (!raw) return null;
+                var session = JSON.parse(raw);
+                if (!session || typeof session.token !== "string") return null;
+                /* The local expiresAt is only a skip-a-doomed-visit hint;
+                   the Worker remains the sole authority on validity. */
+                if (session.expiresAt &&
+                    Date.parse(session.expiresAt) < Date.now() + 60000) return null;
+                return session;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function displayProfile() {
+            var claims = credentialProfile();
+            var session = sessionProfile();
+            if (!claims && !session) return null;
+            return {
+                name: (claims && claims.name) || (session && session.name) ||
+                    (claims && claims.email) || (session && session.email) || "",
+                picture: (claims && claims.picture) ||
+                    (session && session.picture) || null
+            };
+        }
+
+        /* The asynchronous DOM swap, shared by the boot path and the live
+           GIS callback: hero CTA re-target plus the Log in to
+           identity-cluster flip, no page reload. */
+        function applySignedInState(profile) {
             var cta = document.getElementById("hero-primary-cta");
-            if (!cta) return;
-            var raw = localStorage.getItem("ode_cloud_session");
-            if (!raw) return;
-            var session = JSON.parse(raw);
-            if (!session || typeof session.token !== "string") return;
-            /* The local expiresAt is only a skip-a-doomed-visit hint; the
-               Worker remains the sole authority on session validity. */
-            if (session.expiresAt &&
-                Date.parse(session.expiresAt) < Date.now() + 60000) return;
-            cta.textContent = "Enter Student Portal";
-            cta.setAttribute("href", "portal/");
-        } catch (err) { /* storage unavailable or corrupt: keep booking CTA */ }
+            if (cta) {
+                cta.textContent = "Enter Student Portal";
+                cta.setAttribute("href", "portal/");
+            }
+
+            var login = document.getElementById("nav-login");
+            var cluster = document.getElementById("nav-identity");
+            if (!login || !cluster) return;
+
+            var fallback = document.getElementById("nav-avatar-fallback");
+            if (fallback) {
+                fallback.textContent = profile.name
+                    ? profile.name.trim().charAt(0).toUpperCase() : "";
+            }
+            var avatar = document.getElementById("nav-avatar");
+            if (avatar) {
+                avatar.addEventListener("error", function () {
+                    avatar.hidden = true;
+                    if (fallback) fallback.hidden = false;
+                });
+                if (profile.picture) {
+                    avatar.src = profile.picture;
+                    avatar.hidden = false;
+                    if (fallback) fallback.hidden = true;
+                }
+            }
+            login.hidden = true;
+            cluster.hidden = false;
+        }
+
+        /* ---- Boot: returning student ---------------------------------- */
+        try {
+            var stored = displayProfile();
+            if (stored) applySignedInState(stored);
+        } catch (err) { /* storage unavailable: logged-out header stays */ }
+
+        /* ---- In-place sign-in overlay ---------------------------------- */
+        var overlay = document.getElementById("auth-overlay");
+        var gsiSlot = document.getElementById("auth-gsi-slot");
+        var loginControl = document.getElementById("nav-login");
+        var closeBtn = document.getElementById("auth-overlay-close");
+        var gisInitialized = false;
+        var gisButtonRendered = false;
+
+        function gisApi() {
+            return (window.google && google.accounts && google.accounts.id) || null;
+        }
+
+        function closeOverlay() {
+            if (overlay) overlay.hidden = true;
+        }
+
+        function handleCredential(response) {
+            if (!response || !response.credential) return;
+            try {
+                localStorage.setItem(CREDENTIAL_KEY, response.credential);
+            } catch (err) { /* storage unavailable: swap still proceeds */ }
+            var api = gisApi();
+            if (api && typeof api.cancel === "function") {
+                try { api.cancel(); } catch (err) { /* prompt already closed */ }
+            }
+            closeOverlay();
+            /* Decode straight from the fresh credential so the swap works
+               even when localStorage is unavailable. */
+            var payload = decodePayload(response.credential) || {};
+            applySignedInState({
+                name: payload.name || payload.email || "",
+                picture: payload.picture || null
+            });
+        }
+
+        function ensureGis() {
+            var api = gisApi();
+            if (!api) return null;
+            if (!gisInitialized) {
+                try {
+                    api.initialize({
+                        client_id: GIS_CLIENT_ID,
+                        callback: handleCredential,
+                        auto_select: true,
+                        itp_support: true,
+                        context: "signin"
+                    });
+                    gisInitialized = true;
+                } catch (err) {
+                    return null;
+                }
+            }
+            return api;
+        }
+
+        window.onGoogleLibraryLoad = function () { ensureGis(); };
+
+        function openOverlay(api) {
+            if (!overlay) return;
+            if (gsiSlot && !gisButtonRendered) {
+                try {
+                    api.renderButton(gsiSlot, {
+                        type: "standard",
+                        shape: "pill",
+                        theme: "outline",
+                        text: "signin_with",
+                        size: "large"
+                    });
+                    gisButtonRendered = true;
+                } catch (err) { /* fallback portal link remains usable */ }
+            }
+            overlay.hidden = false;
+            try {
+                api.prompt();
+            } catch (err) { /* One Tap cooldown: the rendered button remains */ }
+            if (closeBtn) closeBtn.focus();
+        }
+
+        if (loginControl && overlay) {
+            loginControl.addEventListener("click", function (event) {
+                var api = ensureGis();
+                /* GIS absent (file://, offline, blocked): let the anchor's
+                   default portal/ navigation proceed untouched. */
+                if (!api) return;
+                event.preventDefault();
+                openOverlay(api);
+            });
+        }
+        if (closeBtn) closeBtn.addEventListener("click", closeOverlay);
+        if (overlay) {
+            overlay.addEventListener("click", function (event) {
+                if (event.target === overlay) closeOverlay();
+            });
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && !overlay.hidden) closeOverlay();
+            });
+        }
     })();
     </script>
 

@@ -36,17 +36,99 @@
          async and degrades silently on file:// or offline sessions. -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
-    <link rel="icon" type="image/png" href="/favicon.png" sizes="512x512">
+    <!-- Strict favicon declarations (Google SERP fix, 2026-07-12): explicit
+         crawler-friendly sizes so Googlebot indexes the brand mark as the
+         search result avatar. Root-absolute like the asset itself. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="48x48">
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96">
     <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Pre-paint theme stamp (system-default lighting engine): a stored
+         MANUAL choice is stamped as data-theme before first layout so it
+         overrides the OS base with no flash. With no manual choice the
+         attribute stays absent and theme.css follows the OS natively. -->
+    <script>
+        (function () {
+            try {
+                var pref = localStorage.getItem("ode_theme_preference");
+                if (pref === "light" || pref === "dark") {
+                    document.documentElement.setAttribute("data-theme", pref);
+                }
+            } catch (err) { /* storage unavailable: OS default */ }
+        })();
+    </script>
+
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <header class="global-header">
+        <!-- Campus bar (standardized header topography, 2026-07-12): one
+             flex row, brand and Explore on the left, the identity cluster
+             on the right, shared across the root, portal, and ode shells. -->
+        <div class="campus-bar">
+            <div class="campus-left">
+                <a href="../" class="campus-brand" aria-label="StaplesEducation.com home">
+                    <img src="../favicon.png" alt="" class="campus-logo">
+                    <span class="campus-brand-name">StaplesEducation.com</span>
+                </a>
+                <nav class="nav-dropdown explore-dropdown" aria-label="Explore courses">
+                    <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span class="nav-dropdown-label">Explore</span>
+                        <span class="nav-dropdown-arrow" aria-hidden="true"></span>
+                    </button>
+                    <ul class="nav-dropdown-menu" role="menu" aria-label="Courses">
+                        <li role="none"><a role="menuitem" class="explore-item explore-active" href="./">Ordinary Differential Equations</a></li>
+                        <li role="none"><span class="explore-item explore-locked">Linear Algebra<span class="explore-badge">Coming Soon</span></span></li>
+                        <li role="none"><span class="explore-item explore-locked">Calculus<span class="explore-badge">Coming Soon</span></span></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="auth-controls" aria-label="Account sync">
+                <!-- Google Identity Services is initialized
+                     programmatically by state.js (initGoogleIdentity),
+                     never declaratively: a g_id_onload element would
+                     render the sign-in button and fire the One Tap
+                     prompt unconditionally as soon as the async SDK
+                     loads, re-showing sign-in chrome to students who
+                     already hold a valid local session. state.js renders
+                     the button into this slot and prompts One Tap only
+                     for fully anonymous visitors. -->
+                <div id="auth-signin-slot"></div>
+                <!-- Signed-in identity cluster: Student Portal link, the
+                     circular Google avatar opening a compact account menu
+                     (name, email, sign out) through the shared CSS-only
+                     dropdown, and a gear icon linking the settings view.
+                     state.js populates the avatar, the initial-letter
+                     fallback, and the labels from the decoded ID token
+                     payload or the cached edge session profile. -->
+                <div id="auth-status" class="auth-identity" hidden>
+                    <a class="auth-portal-link" href="../portal/">Student Portal</a>
+                    <div class="nav-dropdown auth-dropdown">
+                        <button type="button" class="auth-avatar-btn" aria-haspopup="true" aria-label="Account menu">
+                            <img id="auth-avatar" class="auth-avatar" alt="" referrerpolicy="no-referrer" hidden>
+                            <span id="auth-avatar-fallback" class="auth-avatar-fallback" aria-hidden="true"></span>
+                        </button>
+                        <ul class="nav-dropdown-menu auth-menu" role="menu" aria-label="Account options">
+                            <li role="none" class="auth-menu-identity">
+                                <span id="auth-status-label" class="auth-status-label">Sync active</span>
+                                <span id="auth-status-email" class="auth-status-email" hidden></span>
+                            </li>
+                            <li role="none"><button type="button" id="auth-signout" class="auth-signout" role="menuitem">Sign out</button></li>
+                        </ul>
+                    </div>
+                    <a class="auth-gear" href="#settings" aria-label="Profile and settings">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="3.2"></circle>
+                            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="header-inner">
             <div class="brand-block">
-                <a href="/" class="brand-home-link" aria-label="Staples Education home"><span class="brand-name">Staples Education</span></a>
                 <h1 class="app-title">Ordinary Differential Equations Roadmap</h1>
                 <p class="app-subtitle">A first-principles learning path built on the Math Confidence Reset method</p>
             </div>
@@ -79,54 +161,14 @@
                 </div>
                 <div class="nav-dropdown theme-dropdown" aria-label="Color theme">
                     <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-                        <span class="nav-dropdown-label" id="theme-dropdown-label">Light Mode</span>
+                        <span class="nav-dropdown-label" id="theme-dropdown-label">System Default</span>
                         <span class="nav-dropdown-arrow" aria-hidden="true"></span>
                     </button>
                     <ul class="nav-dropdown-menu" role="menu" aria-label="Color theme options">
-                        <li role="none"><button id="theme-light" type="button" role="menuitem" class="active" data-theme-choice="light">Light Mode</button></li>
+                        <li role="none"><button id="theme-light" type="button" role="menuitem" data-theme-choice="light">Light Mode</button></li>
                         <li role="none"><button id="theme-dark" type="button" role="menuitem" data-theme-choice="dark">Dark Mode</button></li>
-                        <li role="none"><button id="theme-system" type="button" role="menuitem" data-theme-choice="system">System Default</button></li>
+                        <li role="none"><button id="theme-system" type="button" role="menuitem" class="active" data-theme-choice="system">System Default</button></li>
                     </ul>
-                </div>
-                <div class="auth-controls" aria-label="Account sync">
-                    <!-- Google Identity Services is initialized
-                         programmatically by state.js (initGoogleIdentity),
-                         never declaratively: a g_id_onload element would
-                         render the sign-in button and fire the One Tap
-                         prompt unconditionally as soon as the async SDK
-                         loads, re-showing sign-in chrome to students who
-                         already hold a valid local session. state.js renders
-                         the button into this slot and prompts One Tap only
-                         for fully anonymous visitors. -->
-                    <div id="auth-signin-slot"></div>
-                    <!-- Signed-in identity cluster: the circular Google
-                         avatar opens a compact account menu (name, email,
-                         sign out) through the shared CSS-only dropdown, and
-                         a gear icon links straight to the settings view.
-                         state.js populates the avatar, the initial-letter
-                         fallback, and the labels from the decoded ID token
-                         payload or the cached edge session profile. -->
-                    <div id="auth-status" class="auth-identity" hidden>
-                        <div class="nav-dropdown auth-dropdown">
-                            <button type="button" class="auth-avatar-btn" aria-haspopup="true" aria-label="Account menu">
-                                <img id="auth-avatar" class="auth-avatar" alt="" referrerpolicy="no-referrer" hidden>
-                                <span id="auth-avatar-fallback" class="auth-avatar-fallback" aria-hidden="true"></span>
-                            </button>
-                            <ul class="nav-dropdown-menu auth-menu" role="menu" aria-label="Account options">
-                                <li role="none" class="auth-menu-identity">
-                                    <span id="auth-status-label" class="auth-status-label">Sync active</span>
-                                    <span id="auth-status-email" class="auth-status-email" hidden></span>
-                                </li>
-                                <li role="none"><button type="button" id="auth-signout" class="auth-signout" role="menuitem">Sign out</button></li>
-                            </ul>
-                        </div>
-                        <a class="auth-gear" href="#settings" aria-label="Profile and settings">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <circle cx="12" cy="12" r="3.2"></circle>
-                                <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"></path>
-                            </svg>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

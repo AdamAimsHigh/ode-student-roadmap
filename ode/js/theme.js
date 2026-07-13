@@ -1,35 +1,27 @@
-/* Light and dark theme management per ARCHITECTURE.md Section 2.
-   The control offers three explicit preferences: light, dark, and system.
-   The chosen preference persists across sessions via localStorage. Light is
-   the default. When the preference is "system", the effective theme follows
-   the operating system setting live through a matchMedia listener, so the
-   document switches the moment the OS preference changes. */
+/* Light and dark theme management per ARCHITECTURE.md Section 2, upgraded to
+   the system-default lighting engine (2026-07-12). The control offers three
+   explicit preferences: light, dark, and system. The chosen preference
+   persists across sessions via localStorage. System is the default: with no
+   stored choice the document carries no data-theme attribute and the
+   prefers-color-scheme media block in theme.css follows the OS natively,
+   with zero JavaScript in the path. A manual choice stamps data-theme
+   explicitly ("light" or "dark") and always overrides the OS base. */
 
-const SYSTEM_MEDIA = window.matchMedia("(prefers-color-scheme: dark)");
-
-/* Reads the stored preference, falling back to "light" for a missing or
-   unrecognized value so the default is always well defined. */
+/* Reads the stored preference, falling back to "system" for a missing or
+   unrecognized value so the OS setting is the well-defined default. */
 function getStoredThemePreference() {
     const pref = localStorage.getItem("ode_theme_preference");
     if (pref === "light" || pref === "dark" || pref === "system") return pref;
-    return "light";
+    return "system";
 }
 
-/* Resolves a preference to the concrete theme written onto the document. The
-   explicit choices map straight through, and "system" reads the live OS query. */
-function effectiveTheme(preference) {
-    if (preference === "system") {
-        return SYSTEM_MEDIA.matches ? "dark" : "light";
-    }
-    return preference;
-}
-
-/* Applies the effective theme by setting or removing the dark attribute on the
-   root element. Light is the absence of the attribute, matching theme.css. */
+/* Applies a preference through the three-state root attribute contract of
+   theme.css: an explicit choice is stamped as data-theme so it beats the
+   media query in both directions, and "system" removes the attribute so
+   the CSS lighting engine defers to the OS on its own. */
 function applyTheme(preference) {
-    const theme = effectiveTheme(preference);
-    if (theme === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
+    if (preference === "light" || preference === "dark") {
+        document.documentElement.setAttribute("data-theme", preference);
     } else {
         document.documentElement.removeAttribute("data-theme");
     }
@@ -79,19 +71,9 @@ function initTheme() {
         }
     });
 
-    // When the active preference follows the system, re-evaluate the effective
-    // theme on the fly each time the OS preference toggles.
-    const onSystemChange = function () {
-        if (getStoredThemePreference() === "system") {
-            applyTheme("system");
-        }
-    };
-    if (typeof SYSTEM_MEDIA.addEventListener === "function") {
-        SYSTEM_MEDIA.addEventListener("change", onSystemChange);
-    } else if (typeof SYSTEM_MEDIA.addListener === "function") {
-        // Older engines expose the deprecated addListener form only.
-        SYSTEM_MEDIA.addListener(onSystemChange);
-    }
+    /* No matchMedia listener needed anymore: under the system preference
+       the root carries no data-theme attribute, so the theme.css
+       prefers-color-scheme block follows a live OS toggle natively. */
 }
 
 document.addEventListener("DOMContentLoaded", initTheme);
